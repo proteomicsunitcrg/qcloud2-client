@@ -1,0 +1,72 @@
+    <!-- ASIDE show only for big screens-->
+    <div class="col s12 m2 l2 xl2 hide-on-med-and-down">
+        <ul class="collapsible z-depth-0" id="menu">
+            <li (click)="open('menu')">
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Users</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a routerLink="/application/management/users">Manage users</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Instruments</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>Mass spectometers</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Thresholds</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>Manage thresholds</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Controlled vocabulary</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>Categories</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Data processing</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>Workflows</li>
+                        <li>Queue</li>
+                        <li>Sample types</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Incidences</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>No conformities</li>
+                        <li>Errors</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col s12 m2 l2 xl2 hide-on-med-and-up">
+        <span><i class="material-icons">people</i><i class="material-icons">web</i></span>
+
+    </div>

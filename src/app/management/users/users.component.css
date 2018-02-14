@@ -1,0 +1,9 @@
+blockquote {
+  border-left: 5px solid #bcc94c;
+}
+.promoteLink {
+  cursor: pointer;
+}
+input:-webkit-autofill {
+  color: #2a2a2a !important;
+}

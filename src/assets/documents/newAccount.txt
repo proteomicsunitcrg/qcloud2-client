@@ -1,0 +1,4 @@
+<p>In order to complete your registration in our system you have to agree our <b>Terms of Use</b>.</p>
+<p>You can check it here:</p>
+<p><a>Term of Use</a></p>
+<p><a>Terms of Service</a></p>

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col l6 xl6 s12 m12 offset-l3 offset-xl3 z-depth-2" id="panell">
+      <h5 id="title">QCloud registration</h5>
+      <form (ngSubmit)="onSubmit()" #registrationForm="ngForm" ngNativeValidate class="col s12">
+        <div class="row">
+          <div class="section">
+            <h5>Node information</h5>
+            <div class="input-field col s12">
+              <input type="text" name="nodeName" class="validate" [(ngModel)]="node.name" id="nodeName" validate required>
+              <label for="nodeName">Node name</label>
+            </div>
+            <div class="input-field col s12">
+              <input type="text" name="country" class="validate" id="country" required>
+              <label for="country">Country-- select unavailable</label>
+            </div>
+          </div>
+          <div class="section">
+            <h5>User information</h5>
+            <blockquote>You will became the node manager. Once you've register and log in you can add new members and managers to your
+              node.
+            </blockquote>
+          </div>
+          <div class="input-field col s12">
+            <input type="text" name="firstName" class="validate" [(ngModel)]="node.users[0].firstname" id="firstName" required>
+            <label for="firstName">First name</label>
+          </div>
+          <div class="input-field col s12">
+            <input type="text" name="lastName" class="validate" id="lastName" [(ngModel)]="node.users[0].lastname" required>
+            <label for="lastName">Last name</label>
+          </div>
+          <div class="input-field col s12">
+            <input type="email" name="email" class="validate" id="email" [(ngModel)]="node.users[0].email" required>
+            <label for="email">Email</label>            
+          </div>
+          <div class="input-field col s12">              
+            <input type="{{ !showPassword ? 'password' : 'text' }}" name="password" class="validate" id="password" [(ngModel)]="node.users[0].password" required>
+            <label for="email">Password</label>
+            <span class="helper-text show-password" (click)="togglePassword()" >Show password</span>
+          </div>          
+          <button type="submit" class="right waves-effect waves-light btn" id="loginbtn" [disabled]="!registrationForm.form.valid">Register<i class="material-icons right">send</i></button>
+        </div>        
+      </form>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col s6 offset-s3 z-depth-0">
+      <a routerLink="/login" id="loginLink" class="left">Back to login</a>
+      <a id="recoverLink" class="right" (click)="openModal()">Password recovery</a>
+    </div>
+  </div>
+</div>
+<app-modal></app-modal>

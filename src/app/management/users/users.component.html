@@ -1,0 +1,70 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 blue-grey darken-1">
+    <div class="col s12 m12 l12 xl12">
+      <h4>User management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l4 xl4">
+      <form (ngSubmit)="onSubmit(); newLabMember.reset()" #newLabMember="ngForm" ngNativeValidate autocomplete="off">
+        <!-- New lab member form -->
+        <h5>Add lab member</h5>
+        <div class="input-field">
+          <input #firstnameBox type="text" name="firstName" [(ngModel)]="user.firstname" class="validate" id="firstName" minlength="4"
+            validate required>
+          <label for="firstName">First name</label>
+        </div>
+        <div class="input-field">
+          <input type="text" #lastnameBox name="lastName" [(ngModel)]="user.lastname" class="validate" id="lastName" minlength="4"
+            validate required>
+          <label for="firstName">Last name</label>
+        </div>
+        <div class="input-field">
+          <input type="text" #emailBox name="email" [(ngModel)]="user.email" class="validate" id="email" minlength="4" validate required>
+          <label for="email">Member email</label>
+        </div>
+        <blockquote>An email will be sent to the new user with a password and further instructions.
+        </blockquote>
+        <div class="input-field">
+          <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add new member</button>
+        </div>
+      </form>
+    </div>
+    <div class="col s12 m12 l8 xl8">
+      <h5>Lab members</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Change role</th>
+            <th>Remove from lab</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userList">
+            <td>{{user.firstname}} {{user.lastname}}</td>
+            <td>{{user.role}}</td>
+            <td>{{user.email}}</td>
+            <td>
+              <ng-container *ngIf="user.email!=loggedUser then promote else myself"></ng-container>
+                <ng-template #promote><td *ngIf="user.role=='User'">
+                    <a class="promoteLink" (click)="changeRole(user)">To manager</a>
+                  </td>
+                  <td *ngIf="user.role=='Manager'">
+                    <a class="promoteLink" (click)="changeRole(user)">To user</a>
+                  </td></ng-template>
+                <ng-template #myself>-</ng-template>
+            </td>
+            <td>
+              <span class="promoteLink">
+                <i *ngIf="user.email!=loggedUser" class="material-icons" (click)="deleteMember(user)">delete_forever</i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

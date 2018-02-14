@@ -1,0 +1,46 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 blue-grey darken-1">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Category management</h4>
+    </div>
+  </div>
+  <div class="col s12 m12 l12 xl12">
+    <h5>Current categories</h5>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>View instruments</th>
+          <th>Modify</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{category.name}}</td>
+          <td>View</td>
+          <td>Modify</td>
+          <td>Delete</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row z-depth-0">
+      <div class="col s12 m12 l12 xl12">
+        <!--  -->
+        <form (ngSubmit)="onSubmit(); newCategory.reset()" #newCategory="ngForm" ngNativeValidate autocomplete="off">
+          <h5>Add new category</h5>
+          <div class="input-field">
+            <input #categoryNameBox type="text" name="name" [(ngModel)]="category.name" class="validate" id="name" minlength="4" validate
+              required>
+            <label for="name">Name</label>
+          </div>
+          <div class="input-field">
+            <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add new category</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+</div>

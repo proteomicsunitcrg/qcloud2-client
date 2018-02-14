@@ -1,0 +1,43 @@
+#panell {
+  margin-top: 100px;
+  padding: 0px;
+}
+
+#loginbtn {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+#regbtn {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+#title {
+  background-color: #003b35;
+  color: white;
+  padding: 8px;
+  margin-top: 0px
+}
+
+form {
+  padding: 0px;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.field, .section {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#checkbox {
+  margin-left: 30px;
+}
+
+blockquote {
+  border-left: 5px solid #bcc94c;
+}
+.show-password {
+  cursor: pointer;
+}

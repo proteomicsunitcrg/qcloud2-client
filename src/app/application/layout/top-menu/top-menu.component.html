@@ -1,0 +1,87 @@
+<ul id="instruments" class="dropdown-content">
+  <li *ngFor="let instrument of instruments">
+    <a href="!#">{{instrument}}</a>
+  </li>
+</ul>
+<ul id="user_views" class="dropdown-content">
+  <li>
+    <a href="#!">All RTs</a>
+  </li>
+  <li>
+    <a href="#!">Fusion/Velos LVN intensities</a>
+  </li>
+</ul>
+<nav>
+  <div class="nav-wrapper blue-grey darken-3">
+    <a href="#" class="brand-logo">
+      <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud.png" />
+    </a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger hide-on-large-only">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li *ngIf="isAdmin">
+        <a routerLink="/application/administration">Administration          
+        </a>
+      </li>
+      <li *ngIf="isManager">
+          <a routerLink="/application/management">Management          
+          </a>
+        </li>
+      <li>
+        <a class="dropdown-trigger" id="instrumentMenu" (click)="open('instrumentMenu')" data-target="instruments">Instruments
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-trigger" id="viewsMenu" (click)="open('viewsMenu')" data-target="user_views">Views
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+
+      <li>
+        <a href="help.html">
+          <i class="material-icons">help_outline</i>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class="material-icons">account_circle</i>
+        </a>
+      </li>
+      <li>
+        <a href="alert.html">
+          <span class="new badge red" data-badge-caption="alert/s">4</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="sidenav" id="mobile-demo">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="instruments">Instruments
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="user_views">Views
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+
+      <li>
+        <a href="help.html">
+          <i class="material-icons">help_outline</i>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class="material-icons">account_circle</i>
+        </a>
+      </li>
+      <li>
+        <a href="alert.html">
+          <span class="new badge red" data-badge-caption="alert/s">4</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
