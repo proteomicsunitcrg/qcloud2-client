@@ -13,11 +13,11 @@ import { ApplicationRouterModule } from './application-router/application-router
 import { TopMenuComponent } from './layout/top-menu/top-menu.component';
 import { HolderComponent } from './layout/holder/holder.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
-    ApplicationRouterModule,
-  ],
+    ApplicationRouterModule],
   declarations: [MainWindowComponent, TopMenuComponent, HolderComponent],
   
 })

@@ -40,7 +40,6 @@ export class UsersComponent implements OnInit {
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
       this.formAction(action);
     });
-
     this.loggedUser = this.authService.getUsername();
   }
 

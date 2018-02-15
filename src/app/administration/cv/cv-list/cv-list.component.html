@@ -1,0 +1,34 @@
+<h5>Instruments</h5>
+<div class="input-field">
+  <input type="text" name="filterCv" name="filterCv" class="col s12 m12 l12 xl12" [(ngModel)]="filter.name">
+  <label for="filterCv">Search by name</label>  
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>CV ID</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>
+        <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="page=page-1">navigate_before</i>
+      </td>
+      <td>{{page}}</td>
+      <td>
+        <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="page=page+1">navigate_next</i>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
+      <td>{{cv.name}}</td>
+      <td>{{cv.cvid}}</td>
+      <td>
+        <i class="material-icons cursorIcon" [ngClass]="(cv.enabled)?'enabled':'disabled'" (click)="changeStatus(cv)">power_settings_new</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

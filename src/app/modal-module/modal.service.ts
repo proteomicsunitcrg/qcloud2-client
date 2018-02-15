@@ -16,7 +16,7 @@ export class ModalService {
 
   constructor() { }
 
-  openModal(modal: Modal): void {
+  openModal(modal: Modal): void {    
     this.modalSource.next(modal);
   }
 

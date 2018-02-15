@@ -1,0 +1,10 @@
+.cursorIcon {
+    cursor: pointer;
+}
+.enabled {
+    color: green;
+}
+.disabled {
+    color: red;
+}
+
