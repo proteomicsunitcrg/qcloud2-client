@@ -20,6 +20,8 @@ import { EntryPointModule } from './entry-point/entry-point.module';
 import { ApplicationModule } from './application/application.module';
 import { AdministrationModule} from './administration/administration.module';
 import { ManagementModule} from './management/management.module';
+import { ModalModuleModule } from './modal-module/modal-module.module';
+import { ModalService } from './common/modal.service';
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { ManagementModule} from './management/management.module';
     RoutingModule,
     AdministrationModule,
     ManagementModule,
+    ModalModuleModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -52,7 +55,8 @@ import { ManagementModule} from './management/management.module';
   },
   AuthGuardService,
   RoleGuardService,
-  UserService],
+  UserService,
+  ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
 import { Subscription } from 'rxjs/Subscription';
-import { ModalService} from '../../../modal-module/modal.service';
+import { ModalService} from '../../../common/modal.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
@@ -12,7 +12,7 @@ import { ModalResponse } from '../../../models/modalResponse';
   templateUrl: './cv-list.component.html',
   styleUrls: ['./cv-list.component.css']
 })
-export class CvListComponent implements OnInit {
+export class CvListComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
 
@@ -30,10 +30,10 @@ export class CvListComponent implements OnInit {
   filter: CV = new CV(null,'',null,'','',false);
 
   ngOnInit() {
-    this.getCvListFromServer();
-    this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
-      console.log(action);
+    this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {      
+      
     });
+    this.getCvListFromServer();
   }
 
   changeStatus(cv: CV) {
@@ -47,16 +47,16 @@ export class CvListComponent implements OnInit {
     );    
   }
 
+  private showAction(action) : void {
+    console.log(action);
+  }
+
   private showModalByError(error: HttpErrorResponse) {    
     let errorCode = error.error.status;
     switch (errorCode) {
       case 409:
-      this.modalService.openModal(new Modal("maldito",
-        "muy mucho maldito", 'Ok', '', 'changecvstatus',null));
-      /*  
-      this.modalService.openModal(new Modal(error.error.error,
-          error.error.message, 'Ok', '', 'addnewmember',null));
-      */
+      this.modalService.openModal(new Modal("Server error",
+        error.error.message, 'Ok', null, 'changecvstatus',null));
           break;
       default:
         this.modalService.openModal(new Modal('Server error',
@@ -65,9 +65,6 @@ export class CvListComponent implements OnInit {
     }
 
   }
-
-
-
   private getCvListFromServer() {
     this.cvs = [];
     this.cvService.getAllCV().subscribe(
@@ -82,6 +79,9 @@ export class CvListComponent implements OnInit {
       }
     )
 
+  }
+  ngOnDestroy() {
+    this.modalSubscription$.unsubscribe();
   }
 
 }

@@ -8,7 +8,6 @@ import { RegisterComponent} from './register/register.component';
 import { EntryPointRouterModule} from './entry-point-router/entry-point-router.module';
 import { RegistrationService } from '../services/registration.service';
 import { ModalModuleModule } from '../modal-module/modal-module.module';
-import { ModalComponent } from '../modal-module/modal/modal.component';
 import { ModalService } from '../common/modal.service';
 
 @NgModule({

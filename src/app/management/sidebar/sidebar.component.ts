@@ -14,8 +14,7 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  open(item) : void {
-    console.log(item);
+  open(item) : void {    
     var elem = document.getElementById(item);
     var instance = M.Collapsible.init(elem);
   }

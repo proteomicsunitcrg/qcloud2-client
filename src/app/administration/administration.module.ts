@@ -14,8 +14,6 @@ import { CvListComponent } from './cv/cv-list/cv-list.component';
 import { MainCvComponent } from './cv/main-cv/main-cv.component';
 import { CvService } from '../services/cv.service';
 import { CvFilterPipe} from '../common/cv-filter.pipe';
-import { ModalModuleModule } from '../modal-module/modal-module.module';
-import { ModalService } from '../modal-module/modal.service';
 
 @NgModule({
   imports: [
@@ -23,15 +21,14 @@ import { ModalService } from '../modal-module/modal.service';
     AdministrationRouterModule,
     RouterModule,
     FormsModule,
-    ModalModuleModule
   ],
-  providers: [ModalService,CategoryService,CvService],
+  providers: [CategoryService,CvService],
   declarations: [MainComponent, 
-    SidebarComponent, 
-    CategoryComponent, 
-    CategorySelectorComponent, 
-    CvFormComponent, 
-    CvListComponent, 
+    SidebarComponent,
+    CategoryComponent,
+    CategorySelectorComponent,
+    CvFormComponent,
+    CvListComponent,
     MainCvComponent,
     CvFilterPipe]
 })

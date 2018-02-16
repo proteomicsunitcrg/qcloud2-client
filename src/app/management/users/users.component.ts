@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
@@ -14,9 +14,10 @@ import { AuthService } from '../../auth.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
+  
   @ViewChild("firstnameBox") firstnameBox;
   @ViewChild("lastnameBox") lastnameBox;
   @ViewChild("emailBox") emailBox;
@@ -114,7 +115,6 @@ export class UsersComponent implements OnInit {
   }
 
   private showModalByError(error: HttpErrorResponse) {
-    console.log(error);
     let errorCode = error.error.status;
     switch (errorCode) {
       case 409:
@@ -122,7 +122,7 @@ export class UsersComponent implements OnInit {
           error.error.message, 'Ok', '', 'addnewmember',null));
         break;
       default:
-        this.modalService.openModal(new Modal('Server error',
+      this.modalService.openModal(new Modal('Server error',
           'There is a problem with the server. Try again later.', 'Ok', '', 'addnewmember',null));
         break;
     }
@@ -132,15 +132,13 @@ export class UsersComponent implements OnInit {
   private formAction(action: ModalResponse) : void {    
     switch(action.modalAction) {
       case 'addnewmember': 
-        if(action.userAction=== 'accept') {
-          console.log('caca');
-        }
+        
         break;
       case 'deleteMember':
         if(action.userAction==='accept') {
           this.deleteMemberFromDatabase(action.objectInstance);
         }else{
-          console.log('no borro');
+          
         }
         break;
       default:
@@ -149,5 +147,9 @@ export class UsersComponent implements OnInit {
     }
 
   }
+  ngOnDestroy() {
+    this.modalSubscription$.unsubscribe();
+  }
+
 
 }

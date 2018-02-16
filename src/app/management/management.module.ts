@@ -14,9 +14,7 @@ import { ModalModuleModule } from '../modal-module/modal-module.module';
     ManagementRouterModule,
     RouterModule,
     FormsModule,
-    ModalModuleModule
   ],
-  providers: [ModalService],
   declarations: [MainComponent, SidebarComponent, UsersComponent]
 })
 export class ManagementModule { }
