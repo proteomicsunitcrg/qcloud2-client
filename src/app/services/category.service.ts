@@ -3,6 +3,7 @@ import {HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
 import { Category } from '../models/category';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { Subject } from 'rxjs/Subject';
 /**
  * Service for instrument categories
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -12,7 +13,15 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  private categorySource = new Subject<Category>();
+
+  selectedCategory$ = this.categorySource.asObservable();
+
   categoryUrl = '/api/category';
+
+  public selectCategory(category: Category): void {
+    this.categorySource.next(category);
+  }
 
   public addNewCategory(category: Category): Observable<Category> {
     const json = JSON.stringify(category);

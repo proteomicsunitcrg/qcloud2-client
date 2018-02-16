@@ -1,9 +1,11 @@
 <h5>Select category</h5>
 <div class="col s12">
-  <select id="select_categories">
-      <option *ngFor="let category of categories" value="{{category.id}}">
-      {{category.name}}
-    </option>
-  </select>
-  <label>Category</label>
+  <form #categorySelectForm="ngForm">
+    <select id="select_categories" [(ngModel)]="selectedCategory" name="selectedCategory" (change)="changeSelection()">
+      <option *ngFor="let category of categories" [ngValue]="category">
+        {{category.name}}
+      </option>
+    </select>
+    <label>Category</label>
+  </form>
 </div>

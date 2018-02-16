@@ -6,6 +6,8 @@ import { ModalService} from '../../../common/modal.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-cv-list',
@@ -15,9 +17,11 @@ import { ModalResponse } from '../../../models/modalResponse';
 export class CvListComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
+  private categorySubscription$ : Subscription;
 
   constructor(private cvService: CvService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private categoryService: CategoryService) { }
 
   cvs = [];
 
@@ -33,7 +37,14 @@ export class CvListComponent implements OnInit, OnDestroy {
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {      
       
     });
-    this.getCvListFromServer();
+    this.categorySubscription$ = this.categoryService.selectedCategory$.subscribe(
+      (category)=> {
+        this.getCvListByCategoryFromServer(category);
+      },
+      (error)=> {
+
+      }
+    )    
   }
 
   changeStatus(cv: CV) {
@@ -65,9 +76,9 @@ export class CvListComponent implements OnInit, OnDestroy {
     }
 
   }
-  private getCvListFromServer() {
+  private getCvListByCategoryFromServer(category: Category) {
     this.cvs = [];
-    this.cvService.getAllCV().subscribe(
+    this.cvService.getCvByCategory(category).subscribe(
       (result)=> {
         this.maxPages = result.length/10;        
         result.forEach(cv=> {          

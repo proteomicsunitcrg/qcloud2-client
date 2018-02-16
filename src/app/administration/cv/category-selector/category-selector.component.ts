@@ -14,6 +14,8 @@ export class CategorySelectorComponent implements OnInit {
 
   categories: Category[] = [];
 
+  selectedCategory: Category;
+
   ngOnInit() {
     this.categoryService.getCategories().subscribe(
       (result)=> {        
@@ -23,6 +25,10 @@ export class CategorySelectorComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  private changeSelection() {
+    this.categoryService.selectCategory(this.selectedCategory);
   }
 
   private enableSelect() {
@@ -36,6 +42,8 @@ export class CategorySelectorComponent implements OnInit {
         this.categories.push(new Category(category.id,category.name));
       }
     );
+    this.selectedCategory = this.categories[0];
+    this.categoryService.selectCategory(this.selectedCategory);
     delay(100).then(()=> {
       this.enableSelect();
     });
