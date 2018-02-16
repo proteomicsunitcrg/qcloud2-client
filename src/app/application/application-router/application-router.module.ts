@@ -7,7 +7,7 @@ import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../../role-guard.service';
 const routes: Routes = [
   // { path: 'text', component: TextComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}}
-  { path: 'application', component: MainWindowComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
+  { path: '', component: MainWindowComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
   children: [
     {path:'', component: HolderComponent},
     {path:'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},

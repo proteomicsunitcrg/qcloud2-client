@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -17,9 +17,6 @@ import { AuthInterceptor } from './auth-interceptor';
 import { AuthGuardService } from './auth-guard.service';
 import { RoleGuardService } from './role-guard.service';
 import { EntryPointModule } from './entry-point/entry-point.module';
-import { ApplicationModule } from './application/application.module';
-import { AdministrationModule} from './administration/administration.module';
-import { ManagementModule} from './management/management.module';
 import { ModalModuleModule } from './modal-module/modal-module.module';
 import { ModalService } from './common/modal.service';
 
@@ -31,12 +28,9 @@ import { ModalService } from './common/modal.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
+    // FormsModule,
     EntryPointModule,
-    ApplicationModule,
     RoutingModule,
-    AdministrationModule,
-    ManagementModule,
     ModalModuleModule,
     JwtModule.forRoot({
       config: {

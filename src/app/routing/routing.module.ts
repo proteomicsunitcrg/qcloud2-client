@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from '../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../role-guard.service';
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full'},  
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'application', loadChildren: '../application/application.module#ApplicationModule'},
   { path: 'login', loadChildren: '../entry-point/entry-point.module#EntryPointModule'},  
   { path:'**', redirectTo: '/login', pathMatch: 'full'}  
 ];
