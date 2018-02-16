@@ -1,8 +1,9 @@
 <h5>Select category</h5>
-<div class="input-field col s12">
-    <select>      
-      <option value="1">Mass spectrometer</option>
-      <option value="2">Chromatrographer</option>
-    </select>
-    <label>Category</label>
-  </div>
+<div class="col s12">
+  <select id="select_categories">
+      <option *ngFor="let category of categories" value="{{category.id}}">
+      {{category.name}}
+    </option>
+  </select>
+  <label>Category</label>
+</div>
