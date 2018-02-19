@@ -27,7 +27,7 @@ export class CategorySelectorComponent implements OnInit {
     )
   }
 
-  private changeSelection() {
+  changeSelection() {
     this.categoryService.selectCategory(this.selectedCategory);
   }
 

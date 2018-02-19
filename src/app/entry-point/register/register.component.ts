@@ -4,8 +4,6 @@ import { User } from '../../models/user';
 import { RegistrationService} from '../../services/registration.service';
 import { Router } from '@angular/router';
 
-// import { ModalService } from '../../common/modal.service';
-
 import { Modal} from '../../models/modal';
 import { ModalResponse} from '../../models/modalResponse';
 import { Observable } from 'rxjs/Observable';
@@ -21,9 +19,9 @@ import { ModalService } from '../../common/modal.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  private user: User = new User('', '', '', '', '', '');
+  user: User = new User('', '', '', '', '', '');
 
-  private node: Node = new Node('', '', [this.user]);
+  node: Node = new Node('', '', [this.user]);
 
   showPassword = false;
 

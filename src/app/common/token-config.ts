@@ -1,0 +1,14 @@
+import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
+export function tokenGetter() {
+    return localStorage.getItem('id_toke');
+}
+
+const tokenConfiguration: JwtModuleOptions = {
+    config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:8080']
+    }
+  };
+
+export {tokenConfiguration};
+

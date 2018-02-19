@@ -11,9 +11,9 @@ import { CategoryService } from '../../services/category.service';
 export class CategoryComponent implements OnInit {
 
 
-  private category: Category = new Category(null,'');
+  category: Category = new Category(null,'');
 
-  private categories = [];
+  categories = [];
 
   @ViewChild("categoryNameBox") categoryNameBox;
   constructor(private categoryService: CategoryService) { }

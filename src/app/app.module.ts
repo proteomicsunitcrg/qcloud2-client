@@ -20,6 +20,7 @@ import { EntryPointModule } from './entry-point/entry-point.module';
 import { ModalModuleModule } from './modal-module/modal-module.module';
 import { ModalService } from './common/modal.service';
 
+import {tokenConfiguration} from './common/token-config';
 
 @NgModule({
   declarations: [
@@ -32,14 +33,7 @@ import { ModalService } from './common/modal.service';
     EntryPointModule,
     RoutingModule,
     ModalModuleModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('id_token');
-        },
-        whitelistedDomains: ['localhost:8080']
-      }
-    })
+    JwtModule.forRoot(tokenConfiguration)
   ],
   providers: [AuthService,
     {
