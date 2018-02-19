@@ -33,7 +33,7 @@ export class CategorySelectorComponent implements OnInit {
 
   private enableSelect() {
     const elem = document.getElementById('select_categories');
-    let instance = M.Select.init(elem, {});    
+    let instance = M.FormSelect.init(elem, {});    
   }
 
   private loadCategories(categories: Category[]) {
@@ -44,7 +44,7 @@ export class CategorySelectorComponent implements OnInit {
     );
     this.selectedCategory = this.categories[0];
     this.categoryService.selectCategory(this.selectedCategory);
-    delay(100).then(()=> {
+    delay(100).then(()=> {      
       this.enableSelect();
     });
   }
