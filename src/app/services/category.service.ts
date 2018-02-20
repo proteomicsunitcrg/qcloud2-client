@@ -4,20 +4,23 @@ import { Category } from '../models/category';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { Subject } from 'rxjs/Subject';
+import { environment } from '../../environments/environment';
 /**
  * Service for instrument categories
  * @author Daniel Mancera<daniel.mancera@crg.eu>
  */
 @Injectable()
 export class CategoryService {
-
+  
   constructor(private httpClient: HttpClient) { }
+
+  private apiPrefix = environment.apiPrefix;
 
   private categorySource = new Subject<Category>();
 
   selectedCategory$ = this.categorySource.asObservable();
 
-  categoryUrl = '/api/category';
+  categoryUrl = this.apiPrefix+'api/category';
 
   public selectCategory(category: Category): void {
     this.categorySource.next(category);

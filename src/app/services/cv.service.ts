@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
 import { Category } from '../models/category';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
@@ -11,7 +12,9 @@ export class CvService {
 
   constructor(private httpClient: HttpClient) { }
 
-  cvUrl= 'api/cv';
+  private apiPrefix = environment.apiPrefix;
+
+  cvUrl= this.apiPrefix+'api/cv';
 
   public getAllCV(): Observable<CV[]> {
     return this.httpClient.get<CV[]>(this.cvUrl);    

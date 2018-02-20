@@ -3,6 +3,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import * as moment from 'moment';
 import {Observable} from 'rxjs/Observable';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
 
 /**
  * Authorization service
@@ -17,8 +18,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
 
+  private apiPrefix = environment.apiPrefix;
+
   public login(email: string, password: string) {
-    return this.http.post<any>('/api/auth', {username: email, password: password}, {observe: 'response'});
+    return this.http.post<any>(this.apiPrefix+'api/auth', {username: email, password: password}, {observe: 'response'});
   }
 
 

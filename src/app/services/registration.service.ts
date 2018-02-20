@@ -5,6 +5,7 @@ import { Observable, } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { environment } from '../../environments/environment.prod';
 /**
  * Service for node registration
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -13,7 +14,9 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 @Injectable()
 export class RegistrationService {
 
-  nodeUrl = 'api/node';
+  private apiPrefix = environment.apiPrefix;
+
+  nodeUrl = this.apiPrefix+'api/node';
 
   constructor(private http: HttpClient) { }
 
