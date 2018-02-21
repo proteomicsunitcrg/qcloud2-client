@@ -11,13 +11,15 @@
                     </ul>
                 </div>
             </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
                     <span class="nav-headers">Instruments</span>
                 </a>
                 <div class="collapsible-body">
                     <ul>
-                        <li>Mass spectometers</li>
+                        <!-- <li>Mass spectometers</li> -->
+                        <!-- <li *ngFor="let category of categories"><a routerLink="/application/management/instruments">{{category.name}}</a></li> -->
+                        <li *ngFor="let category of categories"><a [routerLink]="['/application/management/instruments',category.name]">{{category.name}}</a></li>
                     </ul>
                 </div>
             </li>

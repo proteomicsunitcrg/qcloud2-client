@@ -17,8 +17,13 @@ export class CategoryService {
   private apiPrefix = environment.apiPrefix;
 
   private categorySource = new Subject<Category>();
-
   selectedCategory$ = this.categorySource.asObservable();
+
+  // Observable for cv list
+  
+
+  // Observable for instrument list
+
 
   categoryUrl = this.apiPrefix+'api/category';
 
@@ -34,8 +39,21 @@ export class CategoryService {
       .catch(this.errorHandler);
   }
 
+  public setCurrentCategory(category: Observable<Category>) {
+    category.subscribe(
+      (category) => {
+        this.categorySource.next(category);
+      }
+    )
+  }
+
   public getCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(this.categoryUrl);
+  }
+
+  public getCategoryByName(categoryName: string): Observable<Category> {
+    
+    return this.httpClient.get<Category>(this.categoryUrl+'/'+categoryName);
   }
 
 

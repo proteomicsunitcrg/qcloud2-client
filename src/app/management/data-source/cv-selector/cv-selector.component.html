@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <!-- New lab member form -->
+    <h5>Add new instrument</h5>
+  </div>
+</div>
+<div class="input-field col s12 m12 l12 xl12">
+  <input type="text" name="filterCv" name="filterCv" class="col s12 m12 l12 xl12" [(ngModel)]="filter.name">
+  <label for="filterCv">Search by name</label>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>CV ID</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td>
+            <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="page=page-1">navigate_before</i>
+          </td>
+          <td>{{page}}</td>
+          <td>
+            <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="page=page+1">navigate_next</i>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let cv of cvList | cvFilter: filter | slice:(page-1)*limit:page*limit">
+          <td>{{cv.name}}</td>
+          <td>{{cv.cvid}}</td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="addInstrument(cv)">add_circle</i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

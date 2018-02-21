@@ -8,6 +8,14 @@ import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../common/modal.service';
 import { ModalModuleModule } from '../modal-module/modal-module.module';
+import { CategoryService } from '../services/category.service';
+import { DataSourceComponent } from './data-source/data-source.component';
+import { CvSelectorComponent } from './data-source/cv-selector/cv-selector.component';
+import { DataSourceListComponent } from './data-source/data-source-list/data-source-list.component';
+import { CvService } from '../services/cv.service';
+import { CvFilterPipe} from '../common/cv-filter.pipe';
+
+import { DataSourceService } from '../services/data-source.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +23,15 @@ import { ModalModuleModule } from '../modal-module/modal-module.module';
     RouterModule,
     FormsModule,
   ],
-  declarations: [MainComponent, SidebarComponent, UsersComponent]
+  declarations: [MainComponent, 
+    SidebarComponent, 
+    UsersComponent, 
+    DataSourceComponent, 
+    CvSelectorComponent, 
+    DataSourceListComponent,
+    CvFilterPipe],
+  providers: [CategoryService,
+    CvService,
+    DataSourceService]
 })
 export class ManagementModule { }

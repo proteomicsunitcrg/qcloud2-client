@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +9,25 @@ import * as M from 'materialize-css/dist/js/materialize';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private categoryService: CategoryService) { }
+
+  categories = [];
 
   ngOnInit() {
+    // get the categories for the menu
+    this.getCategories();
+
+  }
+
+  private getCategories(): void {
+    this.categoryService.getCategories().subscribe(
+      (result) => {
+        result.forEach(category=> this.categories.push(category));
+      },
+      (error) => {
+
+      }
+    )
   }
 
 

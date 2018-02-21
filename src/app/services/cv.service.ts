@@ -20,6 +20,10 @@ export class CvService {
     return this.httpClient.get<CV[]>(this.cvUrl);    
   }
 
+  public getAllEnabledCVByCategory(category: Category): Observable<CV[]>{
+    return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id+'/enabled');
+  }
+
   public changeEnabled(cvId: number) : Observable<CV> {
     return this.httpClient.put<CV>(this.cvUrl+'/'+cvId,{},{});
   }

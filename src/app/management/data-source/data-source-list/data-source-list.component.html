@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <!-- New lab member form -->
+    <h5>Node instruments</h5>
+  </div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Edit</th>
+      <th>Instrument</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataSource of dataSources; let i = index">
+
+      <ng-container *ngIf="editingDataSourceName then edit else show"></ng-container>
+      <ng-template #show>
+        <td>{{dataSource.name}}</td>
+        <td>
+          <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
+        </td>
+      </ng-template>
+      <ng-template #edit>
+        <ng-container *ngIf="editRow==i then edit else show"></ng-container>
+        <ng-template #edit>
+          <td><input type="text" name="instrumentName" [(ngModel)]="dataSource.name" (keyup.enter)="saveDataSource(dataSource)"></td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="saveDataSource(dataSource)">save</i>
+            <i class="material-icons cursorIcon" (click)="cancelEditing(dataSource)">undo</i>
+          </td>
+        </ng-template>
+        <ng-template #show>
+          <td>{{dataSource.name}}</td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
+          </td>
+        </ng-template>
+      </ng-template>
+
+
+
+      <td>{{dataSource.cv.name}}</td>
+      <td>
+        <i class="material-icons cursorIcon" (click)="deleteDataSource(dataSource)">delete_forever</i>
+      </td>
+    </tr>
+  </tbody>
+</table>
