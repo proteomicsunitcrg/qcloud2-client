@@ -1,10 +1,16 @@
 <h5>Select context</h5>
 <div class="col s12">
-    <form #contextSelectForm="ngForm">
-      <select id="select_context" [(ngModel)]="selectedContext" name="selectedContext" (change)="changeSelection()">
-        <option *ngFor="let context of contextSourcesCategories" [ngValue]="context">
-          {{context.name}}
-        </option>
-      </select>
-      <label>Context</label>
-    </form>
+  <form #contextSelectForm="ngForm">
+    <select id="select_context" [(ngModel)]="selectedContext" name="selectedContext" (change)="changeSelection()">
+      <option *ngFor="let context of contextSourcesCategories" [ngValue]="context">
+        {{context.name}}
+      </option>
+    </select>    
+    <label>Context</label>
+    <p *ngFor="let sampleType of sampleTypes">
+      <label>
+        <input type="checkbox" />
+        <span>{{sampleType.name}}</span>
+      </label>
+    </p>
+  </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SampleTypeService } from '../../../services/sample-type.service';
 
 @Component({
   selector: 'app-main-context-source',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainContextSourceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sampleTypeService: SampleTypeService) { }
+
 
   ngOnInit() {
+    this.sampleTypeService.loadSamplesTypes();
   }
 
 }

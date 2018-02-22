@@ -20,6 +20,7 @@ import { ContextSourcePeptideFormComponent } from './context-source/context-sour
 import { ContextSourceListComponent } from './context-source/context-source-list/context-source-list.component';
 import { ContextSourceDetailComponent } from './context-source/context-source-detail/context-source-detail.component';
 import { PeptideService } from '../services/peptide.service';
+import { SampleTypeService } from '../services/sample-type.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { PeptideService } from '../services/peptide.service';
     RouterModule,
     FormsModule,
   ],
-  providers: [CategoryService,CvService,PeptideService],
+  providers: [CategoryService,CvService,PeptideService,SampleTypeService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,

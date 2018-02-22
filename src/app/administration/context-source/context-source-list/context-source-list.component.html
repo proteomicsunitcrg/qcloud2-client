@@ -1,3 +1,39 @@
-<p>
-  context-source-list works!
-</p>
+<h5>Context sources</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <ng-container *ngIf="currentContextCategory.code=='peptide' then peptide else instrument"></ng-container>
+      <ng-template #peptide>
+        <th>Sequence</th>
+        <th>Belongs to</th>
+      </ng-template>
+      <ng-template #instrument>
+        <th>Abbreviated name</th>
+      </ng-template>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contextSource of contextSources">
+      <td>{{contextSource.name}}</td>
+      <ng-container *ngIf="currentContextCategory.code=='peptide' then peptide else instrument"></ng-container>
+      <ng-template #peptide>
+        <td>{{contextSource.sequence}}</td>
+        <td>
+          <span *ngFor="let sampleType of contextSource.sample">{{sampleType.name}}</span>
+        </td>
+      </ng-template>
+      <ng-template #instrument>
+        <td>{{contextSource.abbreviatedName}}</td>
+      </ng-template>
+      <td>
+        <i class="material-icons cursorIcon" (click)="deleteContextSource(contextSource)">delete_forever</i>
+      </td>
+      <td>
+        <i class="material-icons cursorIcon" (click)="sendToDetail(contextSource)">mode_edit</i>
+      </td>
+    </tr>
+  </tbody>
+</table>
