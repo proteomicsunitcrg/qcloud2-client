@@ -16,9 +16,9 @@
       <label for="abbreviatedSequence">Abbreviated sequence</label>
     </div>
     <div class="input-field" *ngIf="currentContextSourceCategory.code=='peptide'">
-      <p *ngFor="let sampleType of sampleTypes">
+      <p *ngFor="let sampleType of sampleTypes; let i = index">
         <label>
-          <input type="checkbox" />
+          <input type="checkbox" name="sample_type_{{i}}"/>
           <span>{{sampleType.name}}</span>
         </label>
       </p>

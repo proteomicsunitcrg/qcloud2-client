@@ -1,0 +1,25 @@
+<h5>Peptides</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Abbreviated</th>
+      <th>Belongs to</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let peptide of peptides">
+      <td>{{peptide.name}}</td>
+      <td>
+          {{peptide.abbreviatedSequence}}
+      </td>
+      <td>
+        {{peptide.belongs}}
+      </td>
+      <td>
+          <i class="material-icons">pageview</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

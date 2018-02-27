@@ -12,19 +12,10 @@ export class SampleTypeService {
 
   private apiPrefix = environment.apiPrefix;
   
-  dataSourceUrl= this.apiPrefix+'api/sample';
+  sampleTypesUrl= this.apiPrefix+'api/sample';
 
-  samplesTypes: SampleType[] = [];
-
-  public loadSamplesTypes():void {
-    this.httpClient.get<SampleType[]>(this.dataSourceUrl).subscribe(
-      (samplesTypes)=> {
-        samplesTypes.forEach((sampleType)=> this.samplesTypes.push(sampleType));
-      });
-  }
-
-  public getSamplesTypes(): SampleType[] {
-    return this.samplesTypes;
+  public getSamplesTypes(): Observable<SampleType[]> {
+    return this.httpClient.get<SampleType[]>(this.sampleTypesUrl);
   }
 
 }

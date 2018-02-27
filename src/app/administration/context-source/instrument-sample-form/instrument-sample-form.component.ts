@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Peptide } from '../../../models/peptide';
-import { PeptideService } from '../../../services/peptide.service';
+import { ContextSourceService } from '../../../services/context-source.service';
 import { InstrumentSample } from '../../../models/instrumentSample';
 import { ContextSourceCategory } from '../../../models/contextSourceCategory';
 import { delay } from 'q';
@@ -10,25 +10,24 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 import { SampleType } from '../../../models/sampleType';
 
 @Component({
-  selector: 'app-context-source-peptide-form',
-  templateUrl: './context-source-peptide-form.component.html',
-  styleUrls: ['./context-source-peptide-form.component.css']
+  selector: 'app-instrument-sample-form',
+  templateUrl: './instrument-sample-form.component.html',
+  styleUrls: ['./instrument-sample-form.component.css']
 })
-export class ContextSourcePeptideFormComponent implements OnInit {
+export class InstrumentSampleFormComponent implements OnInit {
 
-  constructor(private peptideService: PeptideService,
+  constructor(private peptideService: ContextSourceService,
     private sampleTypeService: SampleTypeService) {
     
    }
 
-  peptide: Peptide = new Peptide(null,'','','',null);
+  peptide: Peptide = new Peptide(null,'','','');
   instrumentSample: InstrumentSample= new InstrumentSample(null,'','');
   
   contextSource: ContextSource = new ContextSource(null,'');
 
   currentContextSourceCategory: ContextSourceCategory;
 
-  sampleTypes = [];
   
   ngOnInit() {
     this.currentContextSourceCategory = this.peptideService.getCurrentContextSourceCategory();
@@ -39,8 +38,8 @@ export class ContextSourcePeptideFormComponent implements OnInit {
       (error) => {
         console.log(error);
       });
-    this.sampleTypes = this.sampleTypeService.getSamplesTypes();    
   }
+
   onSubmit(): void {
     // Check what kind of context source is and create the object properly
     let objectToSend: ContextSource;
@@ -56,7 +55,8 @@ export class ContextSourcePeptideFormComponent implements OnInit {
       default:
         console.log('submit error');
         break;
-    }
+    }    
+    
     this.peptideService.addContextSource(objectToSend,this.currentContextSourceCategory).subscribe(
       (result)=> {        
         // send to the list

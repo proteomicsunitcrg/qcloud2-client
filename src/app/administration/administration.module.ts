@@ -15,12 +15,16 @@ import { MainCvComponent } from './cv/main-cv/main-cv.component';
 import { CvService } from '../services/cv.service';
 import { CvFilterPipe} from '../common/cv-filter.pipe';
 import { MainContextSourceComponent } from './context-source/main-context-source/main-context-source.component';
-import { ContextSourceSelectorComponent } from './context-source/context-source-selector/context-source-selector.component';
-import { ContextSourcePeptideFormComponent } from './context-source/context-source-peptide-form/context-source-peptide-form.component';
-import { ContextSourceListComponent } from './context-source/context-source-list/context-source-list.component';
+import { InstrumentSampleFormComponent } from './context-source/instrument-sample-form/instrument-sample-form.component';
+import { InstrumentSampleListComponent } from './context-source/instrument-sample-list/instrument-sample-list.component';
 import { ContextSourceDetailComponent } from './context-source/context-source-detail/context-source-detail.component';
-import { PeptideService } from '../services/peptide.service';
+import { ContextSourceService } from '../services/context-source.service';
 import { SampleTypeService } from '../services/sample-type.service';
+import { SampleCompositionService } from '../services/sample-composition.service';
+import { InstrumentSampleService } from '../services/instrument-sample.service';
+import { PeptidesListComponent } from './context-source/peptides-list/peptides-list.component';
+import { PeptideService } from '../services/peptide.service';
+import { PeptideDetailFormComponent } from './context-source/peptide-detail-form/peptide-detail-form.component';
 
 @NgModule({
   imports: [
@@ -29,7 +33,13 @@ import { SampleTypeService } from '../services/sample-type.service';
     RouterModule,
     FormsModule,
   ],
-  providers: [CategoryService,CvService,PeptideService,SampleTypeService],
+  providers: [CategoryService,
+    CvService,
+    ContextSourceService,
+    SampleTypeService,
+    SampleCompositionService,
+    InstrumentSampleService,
+    PeptideService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,
@@ -39,9 +49,10 @@ import { SampleTypeService } from '../services/sample-type.service';
     MainCvComponent,
     CvFilterPipe,
     MainContextSourceComponent,
-    ContextSourceSelectorComponent,
-    ContextSourcePeptideFormComponent,
-    ContextSourceListComponent,
-    ContextSourceDetailComponent]
+    InstrumentSampleFormComponent,
+    InstrumentSampleListComponent,
+    ContextSourceDetailComponent,
+    PeptidesListComponent,
+    PeptideDetailFormComponent]
 })
 export class AdministrationModule { }

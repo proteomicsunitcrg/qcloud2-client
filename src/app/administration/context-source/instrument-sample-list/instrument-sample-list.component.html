@@ -1,0 +1,23 @@
+<h5>Context sources</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+        <th>Abbreviated name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let instrumentSample of instrumentSamples">
+      <td>{{instrumentSample.name}}</td>
+        <td>{{instrumentSample.abbreviatedName}}</td>
+      <td>
+        <i class="material-icons cursorIcon" (click)="deleteContextSource(contextSource)">delete_forever</i>
+      </td>
+      <td>
+        <i class="material-icons cursorIcon" (click)="sendToDetail(contextSource)">mode_edit</i>
+      </td>
+    </tr>
+  </tbody>
+</table>
