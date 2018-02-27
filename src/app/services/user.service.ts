@@ -8,7 +8,7 @@ import {HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 @Injectable()
 export class UserService {
 
