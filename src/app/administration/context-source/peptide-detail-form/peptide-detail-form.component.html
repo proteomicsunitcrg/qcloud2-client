@@ -13,7 +13,9 @@
       required>
     <label for="abbreviatedSequence">Abbreviated sequence</label>
   </div>
-  <div class="row" *ngFor="let sampleType of sampleTypes">
+  
+  
+  <!-- <div class="row" *ngFor="let sampleType of sampleTypes">
     <div class="col s2 m2 l2 xl2">
       <p>
         <label>
@@ -28,10 +30,11 @@
           [disabled]="!compositionInputs[sampleType.id]" />
         <label for="concentration{{sampleType.id}}">Concentration in {{sampleType.name}} </label>
       </div>
-    </div>  
+    </div>   -->
 
   <div class="input-field">
     <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add new peptide</button>
     <button type="button" (click)="show()">show</button>
+    <button type="button" (click)="grab()">grab</button>
   </div>
 </form>

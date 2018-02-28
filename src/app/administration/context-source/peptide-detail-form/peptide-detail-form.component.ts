@@ -3,6 +3,10 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
 import { SampleType } from '../../../models/sampleType';
+import { PeptideService } from '../../../services/peptide.service';
+import * as M from 'materialize-css/dist/js/materialize';
+import { delay } from 'q';
+import { SampleCompositionService } from '../../../services/sample-composition.service';
 
 @Component({
   selector: 'app-peptide-detail-form',
@@ -11,55 +15,62 @@ import { SampleType } from '../../../models/sampleType';
 })
 export class PeptideDetailFormComponent implements OnInit {
 
-  constructor(private sampleTypeService: SampleTypeService) { }
+  constructor(private sampleTypeService: SampleTypeService,
+    private peptideService: PeptideService,
+    private sampleCompositionService: SampleCompositionService) { }
 
   sampleTypes: SampleType[] = [];
 
-  
+
   formData = {
     currentPeptide: new Peptide(null, '', '', ''),
-    compositions : []
-    }
-
-
-  // compositions = [];
+  }
 
   compositionInputs = {};
 
   ngOnInit() {
-    this.loadSampleTypes();
+    this.peptideService.selectedPeptide$.subscribe(
+      (peptide) => {
+        // this.formData.currentPeptide = this.peptideService.findPeptide(peptide);
+        this.peptideService.findPeptide(peptide).subscribe(
+          (peptide) => {
+            this.formData.currentPeptide = peptide;
+          },
+          error => console.log(error)
+        )
+        delay(50).then(() => M.updateTextFields());
+      }
+    )
   }
 
-  show():void {
-    console.log(this.compositionInputs);    
+  grab(): void {
+    // send the peptide to the sample composition component
+    this.sampleCompositionService.sendPeptide(this.formData.currentPeptide);
+  }
+
+  show(): void {
+    console.log(this.compositionInputs);
     Object.keys(this.compositionInputs).forEach(
       (composition) => {
-        if(this.compositionInputs[composition]) {
-          let sampleComposition = new SampleComposition(this.formData.currentPeptide, this.formData.compositions[composition].sampleType,this.formData.compositions[composition].concentration);
-          
-          console.log(sampleComposition);
+        if (this.compositionInputs[composition]) {
+          // let sampleComposition = new SampleComposition(this.formData.currentPeptide, this.formData.compositions[composition].sampleType,this.formData.compositions[composition].concentration);
         }
       }
     )
   }
 
   onSubmit(): void {
-    console.log(this.formData);
-    
-  }
-
-  private loadSampleTypes(): void {
-    this.sampleTypeService.getSamplesTypes()
+    // Save the peptide
+    this.peptideService.savePeptide(this.formData.currentPeptide)
       .subscribe(
-        sampleTypes => {
-          sampleTypes.forEach(sampleType => {
-            this.sampleTypes.push(sampleType);
-            this.formData.compositions[sampleType.id] = new SampleComposition(null,sampleType,null);
-            this.compositionInputs[sampleType.id] = false;
-          });
+        (result) => {
+          this.peptideService.sendPeptideToList(result);
         },
         error => console.log(error)
       );
+
+    // Save the sample composition
+
   }
 
 }

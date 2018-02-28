@@ -13,9 +13,39 @@ export class PeptideService {
   private apiPrefix = environment.apiPrefix;
   private peptideUrl = this.apiPrefix + 'api/contextsource/peptide';
 
+  private peptideSelector = new Subject<Peptide>();
+
+  selectedPeptide$ = this.peptideSelector.asObservable();
+
+  /**
+   * This observable is used for communicate the list
+   * with the form.
+   */
+  private peptidePersist = new Subject<Peptide>();
+  peptideFromDb$ = this.peptidePersist.asObservable();
+
   constructor(private httpClient: HttpClient) { }
 
   public getAllPeptides(): Observable<Peptide[]> {
     return this.httpClient.get<Peptide[]>(this.peptideUrl);
+  }
+
+  public savePeptide(peptide: Peptide) : Observable<Peptide> {
+    const json = JSON.stringify(peptide);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<Peptide>(this.peptideUrl,params,{headers: headers});
+  }
+
+  public sendPeptide(peptide: Peptide) : void {
+    this.peptideSelector.next(peptide);
+  }
+
+  public sendPeptideToList(peptide: Peptide): void {
+    this.peptidePersist.next(peptide);
+  }
+
+  public findPeptide(peptide: Peptide): Observable<Peptide> {
+    return this.httpClient.get<Peptide>(this.peptideUrl+'/'+peptide.id);
   }
 }

@@ -25,6 +25,7 @@ import { InstrumentSampleService } from '../services/instrument-sample.service';
 import { PeptidesListComponent } from './context-source/peptides-list/peptides-list.component';
 import { PeptideService } from '../services/peptide.service';
 import { PeptideDetailFormComponent } from './context-source/peptide-detail-form/peptide-detail-form.component';
+import { SampleCompositionFormComponent } from './context-source/sample-composition-form/sample-composition-form.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { PeptideDetailFormComponent } from './context-source/peptide-detail-form
     InstrumentSampleListComponent,
     ContextSourceDetailComponent,
     PeptidesListComponent,
-    PeptideDetailFormComponent]
+    PeptideDetailFormComponent,
+    SampleCompositionFormComponent]
 })
 export class AdministrationModule { }

@@ -18,6 +18,29 @@ export class PeptidesListComponent implements OnInit {
 
   ngOnInit() {
     this.loadPeptides();
+    // Observing the incomming peptides from the form
+    this.peptideService.peptideFromDb$.subscribe(
+      (peptide)=> {
+        this.peptideToList(peptide);
+      }
+    )
+  }
+
+  private peptideToList(peptide: Peptide): void {
+    // check if is an update or a new addition
+    if(this.isPeptideInList(peptide)) {
+      console.log('existe');
+    }else {
+      console.log('no');
+    }
+  }
+
+  private isPeptideInList(peptide: Peptide): boolean {
+    // Loop and look for the peptide
+    if(this.peptides.find(p=>p.id == peptide.id )== undefined) {
+      return false;
+    }
+    return true;
   }
 
   private loadPeptides(): void {
@@ -43,7 +66,10 @@ export class PeptidesListComponent implements OnInit {
         this.peptides.push(peptide);
       },
       error => console.log(error));
-    
+  }
+
+  sendToDetail(peptide: Peptide): void {
+    this.peptideService.sendPeptide(peptide);
   }
 
 }
