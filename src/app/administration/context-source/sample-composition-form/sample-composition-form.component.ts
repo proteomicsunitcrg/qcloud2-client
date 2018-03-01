@@ -25,10 +25,40 @@ export class SampleCompositionFormComponent implements OnInit {
 
   ngOnInit() {
     this.loadSampleTypes();
+    /**
+     * This subscription is used to manage the add/edit peptides
+     */
     this.sampleCompositionService.currentPeptide$.subscribe(
       (peptide) => {
         // fill the sample composition array and send back
         this.createSampleComponentArray(peptide);
+      });
+    /**
+     * This subscription is used to manage the peptide edition,
+     * it will manage the sample composition form
+     */
+    this.sampleCompositionService.peptideSampleComposition$.subscribe(
+      (sampleCompositions) => {
+        this.resetSampleCompositionForm();
+        this.loadSampleComposition(sampleCompositions);
+      }
+    )
+  }
+
+  private resetSampleCompositionForm(): void {
+    this.sampleTypes.forEach((s) => {
+      this.compositionInputs[s.id]=false;
+      this.compositions[s.id].concentration = null;
+    });
+  }
+
+  private loadSampleComposition(sampleCompositions: SampleComposition[]): void {
+    sampleCompositions.forEach(
+      (sampleComposition) => {
+        if(this.compositions.filter(c => c.id== sampleComposition.sampleType.id)!=undefined) {
+          this.compositionInputs[sampleComposition.sampleType.id] = true;
+          this.compositions[sampleComposition.sampleType.id].concentration = sampleComposition.concentration;
+        }
       }
     )
   }

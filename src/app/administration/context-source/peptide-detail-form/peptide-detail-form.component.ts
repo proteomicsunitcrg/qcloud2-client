@@ -31,13 +31,7 @@ export class PeptideDetailFormComponent implements OnInit {
   ngOnInit() {
     this.peptideService.selectedPeptide$.subscribe(
       (peptide) => {
-        // this.formData.currentPeptide = this.peptideService.findPeptide(peptide);
-        this.peptideService.findPeptide(peptide).subscribe(
-          (peptide) => {
-            this.formData.currentPeptide = peptide;
-          },
-          error => console.log(error)
-        )
+        this.loadPeptideIntoForm(peptide);
         delay(50).then(() => M.updateTextFields());
       });
     // Sample compositions observer
@@ -48,7 +42,24 @@ export class PeptideDetailFormComponent implements OnInit {
     )
   }
 
-  private saveSampleCompositions(sampleCompositions: SampleComposition[]) : void {
+  private loadPeptideIntoForm(peptide: Peptide) {
+    this.peptideService.findPeptide(peptide).subscribe(
+      (peptide) => {
+        this.formData.currentPeptide = peptide;
+        // Load sample composition if any
+        this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
+          .subscribe(
+            (sampleCompositions) => {
+              this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions)
+            },
+            error => console.log(error)
+          )
+      },
+      error => console.log(error)
+    )
+  }
+
+  private saveSampleCompositions(sampleCompositions: SampleComposition[]): void {
     sampleCompositions.forEach((sampleComposition) => {
       this.sampleCompositionService.saveSampleComposition(sampleComposition)
         .subscribe((result) => {
@@ -71,9 +82,6 @@ export class PeptideDetailFormComponent implements OnInit {
         },
         error => console.log(error)
       );
-
-    // Save the sample composition
-
   }
 
 }

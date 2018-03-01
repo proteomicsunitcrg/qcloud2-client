@@ -20,12 +20,21 @@ export class SampleCompositionService {
   /**
    * One component will ask to another component to fill an array
    * with the sample compositions
+   * peptideSelector and sampleCompositionSelector belongs to the
+   * form process: add / edit peptide and its sample types
    */
   private peptideSelector = new Subject<Peptide>();
   currentPeptide$ = this.peptideSelector.asObservable();
 
   private sampleCompositionSelector = new Subject<SampleComposition[]>();
   currentSampleComposition$ = this.sampleCompositionSelector.asObservable();
+
+  /**
+   * This observables are for load the sample composition of a given
+   * peptide.
+   */
+  private peptideSampleComposition = new Subject<SampleComposition[]>();
+  peptideSampleComposition$ = this.peptideSampleComposition.asObservable();
 
   public sendSampleComposition(sampleComposition: SampleComposition[]): void {
     this.sampleCompositionSelector.next(sampleComposition);
@@ -41,6 +50,10 @@ export class SampleCompositionService {
 
   public getSampleCompositionByPeptide(peptide: Peptide) : Observable<SampleComposition[]> {
     return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl+'/peptide/'+peptide.id);
+  }
+
+  public sendPeptideSampleComposition(sampleCompositions : SampleComposition[]) : void {
+    this.peptideSampleComposition.next(sampleCompositions);
   }
 
   public saveSampleComposition(sampleComposition: SampleComposition): Observable<SampleComposition> {
