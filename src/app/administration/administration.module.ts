@@ -13,7 +13,6 @@ import { CvFormComponent } from './cv/cv-form/cv-form.component';
 import { CvListComponent } from './cv/cv-list/cv-list.component';
 import { MainCvComponent } from './cv/main-cv/main-cv.component';
 import { CvService } from '../services/cv.service';
-import { CvFilterPipe} from '../common/cv-filter.pipe';
 import { MainContextSourceComponent } from './context-source/main-context-source/main-context-source.component';
 import { InstrumentSampleFormComponent } from './context-source/instrument-sample-form/instrument-sample-form.component';
 import { InstrumentSampleListComponent } from './context-source/instrument-sample-list/instrument-sample-list.component';
@@ -26,6 +25,7 @@ import { PeptidesListComponent } from './context-source/peptides-list/peptides-l
 import { PeptideService } from '../services/peptide.service';
 import { PeptideDetailFormComponent } from './context-source/peptide-detail-form/peptide-detail-form.component';
 import { SampleCompositionFormComponent } from './context-source/sample-composition-form/sample-composition-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -33,6 +33,7 @@ import { SampleCompositionFormComponent } from './context-source/sample-composit
     AdministrationRouterModule,
     RouterModule,
     FormsModule,
+    SharedModule
   ],
   providers: [CategoryService,
     CvService,
@@ -48,7 +49,6 @@ import { SampleCompositionFormComponent } from './context-source/sample-composit
     CvFormComponent,
     CvListComponent,
     MainCvComponent,
-    CvFilterPipe,
     MainContextSourceComponent,
     InstrumentSampleFormComponent,
     InstrumentSampleListComponent,

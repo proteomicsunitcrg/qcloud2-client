@@ -24,7 +24,7 @@ import {tokenConfiguration} from './common/token-config';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

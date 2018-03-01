@@ -13,23 +13,24 @@ import { DataSourceComponent } from './data-source/data-source.component';
 import { CvSelectorComponent } from './data-source/cv-selector/cv-selector.component';
 import { DataSourceListComponent } from './data-source/data-source-list/data-source-list.component';
 import { CvService } from '../services/cv.service';
-import { CvFilterPipe} from '../common/cv-filter.pipe';
+// import { CvFilterPipe} from '../common/cv-filter.pipe';
 
 import { DataSourceService } from '../services/data-source.service';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
     ManagementRouterModule,
     RouterModule,
     FormsModule,
+    SharedModule
   ],
   declarations: [MainComponent, 
     SidebarComponent, 
     UsersComponent, 
     DataSourceComponent, 
     CvSelectorComponent, 
-    DataSourceListComponent,
-    CvFilterPipe],
+    DataSourceListComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService]
