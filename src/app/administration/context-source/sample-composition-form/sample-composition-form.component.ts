@@ -34,14 +34,15 @@ export class SampleCompositionFormComponent implements OnInit {
   }
 
   private createSampleComponentArray(peptide: Peptide): void {
+    let sampleCompositions: SampleComposition[] = [];
     Object.keys(this.compositionInputs).forEach(
       (composition) => {
         if(this.compositionInputs[composition]) {          
           let sampleComposition = new SampleComposition(peptide, this.compositions[composition].sampleType,this.compositions[composition].concentration);
-          console.log(sampleComposition);
+          sampleCompositions.push(sampleComposition);
         }
-      }
-    )
+      });
+      this.sampleCompositionService.sendSampleComposition(sampleCompositions);
   }
 
 

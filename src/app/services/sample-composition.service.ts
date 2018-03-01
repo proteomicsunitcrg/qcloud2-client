@@ -43,4 +43,11 @@ export class SampleCompositionService {
     return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl+'/peptide/'+peptide.id);
   }
 
+  public saveSampleComposition(sampleComposition: SampleComposition): Observable<SampleComposition> {
+    const json = JSON.stringify(sampleComposition);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl,params, {headers: headers});
+  }
+
 }

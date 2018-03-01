@@ -1,5 +1,6 @@
 <h5>Details</h5>
 <form (ngSubmit)="onSubmit(); peptideForm.reset()" #peptideForm="ngForm" ngNativeValidate autocomplete="off">
+  <div class="row">
   <div class="input-field">
     <input #peptideNameBox type="text" name="name" [(ngModel)]="formData.currentPeptide.name" class="validate" id="name" validate required>
     <label for="name">Peptide name</label>
@@ -13,28 +14,8 @@
       required>
     <label for="abbreviatedSequence">Abbreviated sequence</label>
   </div>
-  
-  
-  <!-- <div class="row" *ngFor="let sampleType of sampleTypes">
-    <div class="col s2 m2 l2 xl2">
-      <p>
-        <label>
-          <input type="checkbox" name="sampleType{{sampleType.id}}" [(ngModel)]="compositionInputs[sampleType.id]"/>
-          <span>{{sampleType.name}}</span>
-        </label>
-      </p>
-      </div>
-      <div class="col s10 m10 l10 xl10">
-        <input type="number" [(ngModel)]="formData.compositions[sampleType.id].concentration" 
-          name="concentration{{sampleType.id}}"
-          [disabled]="!compositionInputs[sampleType.id]" />
-        <label for="concentration{{sampleType.id}}">Concentration in {{sampleType.name}} </label>
-      </div>
-    </div>   -->
-
+</div>
   <div class="input-field">
     <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add new peptide</button>
-    <button type="button" (click)="show()">show</button>
-    <button type="button" (click)="grab()">grab</button>
   </div>
 </form>

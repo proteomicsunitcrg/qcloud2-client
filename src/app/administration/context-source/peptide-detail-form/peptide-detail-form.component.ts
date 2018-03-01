@@ -39,24 +39,25 @@ export class PeptideDetailFormComponent implements OnInit {
           error => console.log(error)
         )
         delay(50).then(() => M.updateTextFields());
-      }
+      });
+    // Sample compositions observer
+    this.sampleCompositionService.currentSampleComposition$.subscribe(
+      (sampleCompositions) => {
+        this.saveSampleCompositions(sampleCompositions);
+      }, error => console.log(error)
     )
   }
 
-  grab(): void {
-    // send the peptide to the sample composition component
-    this.sampleCompositionService.sendPeptide(this.formData.currentPeptide);
-  }
-
-  show(): void {
-    console.log(this.compositionInputs);
-    Object.keys(this.compositionInputs).forEach(
-      (composition) => {
-        if (this.compositionInputs[composition]) {
-          // let sampleComposition = new SampleComposition(this.formData.currentPeptide, this.formData.compositions[composition].sampleType,this.formData.compositions[composition].concentration);
-        }
-      }
-    )
+  private saveSampleCompositions(sampleCompositions: SampleComposition[]) : void {
+    sampleCompositions.forEach((sampleComposition) => {
+      this.sampleCompositionService.saveSampleComposition(sampleComposition)
+        .subscribe((result) => {
+          console.log(result);
+        },
+          (error) => {
+            console.log(error);
+          })
+    });
   }
 
   onSubmit(): void {
@@ -65,6 +66,8 @@ export class PeptideDetailFormComponent implements OnInit {
       .subscribe(
         (result) => {
           this.peptideService.sendPeptideToList(result);
+          // If is ok, then grab de sample composition and send to the server
+          this.sampleCompositionService.sendPeptide(result);
         },
         error => console.log(error)
       );
