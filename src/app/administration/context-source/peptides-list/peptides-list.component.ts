@@ -21,18 +21,9 @@ export class PeptidesListComponent implements OnInit {
     // Observing the incomming peptides from the form
     this.peptideService.peptideFromDb$.subscribe(
       (peptide)=> {
-        this.peptideToList(peptide);
-      }
-    )
-  }
-
-  private peptideToList(peptide: Peptide): void {
-    // check if is an update or a new addition
-    if(this.isPeptideInList(peptide)) {
-      console.log('existe');
-    }else {
-      console.log('no');
-    }
+        // this.peptideToList(peptide);
+        this.loadPeptides();
+      });
   }
 
   private isPeptideInList(peptide: Peptide): boolean {
@@ -44,6 +35,7 @@ export class PeptidesListComponent implements OnInit {
   }
 
   private loadPeptides(): void {
+    this.peptides = [];
     this.peptideService.getAllPeptides()
       .subscribe(
         peptides => peptides.forEach(peptide => {

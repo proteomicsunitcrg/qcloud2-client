@@ -21,6 +21,8 @@ export class PeptideDetailFormComponent implements OnInit {
 
   sampleTypes: SampleType[] = [];
 
+  previousSampleCompositions: SampleComposition[] = [];
+
 
   formData = {
     currentPeptide: new Peptide(null, '', '', ''),
@@ -38,7 +40,10 @@ export class PeptideDetailFormComponent implements OnInit {
     this.sampleCompositionService.currentSampleComposition$.subscribe(
       (sampleCompositions) => {
         this.saveSampleCompositions(sampleCompositions);
-      }, error => console.log(error)
+      }, error => console.log(error));
+
+    this.sampleTypeService.getSamplesTypes().subscribe(
+      (sampleTypes) => this.sampleTypes = sampleTypes
     )
   }
 
@@ -50,7 +55,8 @@ export class PeptideDetailFormComponent implements OnInit {
         this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
           .subscribe(
             (sampleCompositions) => {
-              this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions)
+              this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions);
+              this.previousSampleCompositions = sampleCompositions;
             },
             error => console.log(error)
           )
@@ -60,15 +66,41 @@ export class PeptideDetailFormComponent implements OnInit {
   }
 
   private saveSampleCompositions(sampleCompositions: SampleComposition[]): void {
+    // Compare with previous sample types
+    this.sampleTypes.forEach((sampleType) => {
+      this.checkSampleComposition(sampleType,sampleCompositions);
+      
+    });
+    
+    /*
     sampleCompositions.forEach((sampleComposition) => {
       this.sampleCompositionService.saveSampleComposition(sampleComposition)
         .subscribe((result) => {
-          console.log(result);
-        },
-          (error) => {
-            console.log(error);
-          })
-    });
+
+        });
+      });
+       */
+  }
+
+  private checkSampleComposition(sampleType: SampleType, sampleCompositions: SampleComposition[]): void {
+    let found = false;
+    sampleCompositions.forEach(
+      (sampleComposition) => {
+        if(sampleComposition.sampleType.id==sampleType.id) {
+          found = true;
+        }
+      }
+    )
+    if(found) {
+      console.log(sampleType.name + " guardal");
+    }else {
+      // check if it is in the previous array in order to delete
+
+    }
+  }
+
+  private checkInPreviousArray(sampleType: SampleType): void {
+    
   }
 
   onSubmit(): void {
@@ -83,6 +115,7 @@ export class PeptideDetailFormComponent implements OnInit {
         error => console.log(error)
       );
   }
+
 
 }
 

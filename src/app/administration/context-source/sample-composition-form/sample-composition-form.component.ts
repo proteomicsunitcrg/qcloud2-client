@@ -32,10 +32,11 @@ export class SampleCompositionFormComponent implements OnInit {
       (peptide) => {
         // fill the sample composition array and send back
         this.createSampleComponentArray(peptide);
+        this.resetSampleCompositionForm();
       });
     /**
      * This subscription is used to manage the peptide edition,
-     * it will manage the sample composition form
+     * it will manage the sample composition form fill
      */
     this.sampleCompositionService.peptideSampleComposition$.subscribe(
       (sampleCompositions) => {

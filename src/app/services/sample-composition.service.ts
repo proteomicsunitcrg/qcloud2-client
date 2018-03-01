@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { SampleComposition} from '../models/sampleComposition';
 import { Peptide } from '../models/peptide';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class SampleCompositionService {
@@ -62,5 +63,6 @@ export class SampleCompositionService {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl,params, {headers: headers});
   }
+
 
 }
