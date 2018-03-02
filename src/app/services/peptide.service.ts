@@ -27,7 +27,7 @@ export class PeptideService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllPeptides(): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.peptideUrl);
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => {return res});
   }
 
   public savePeptide(peptide: Peptide) : Observable<Peptide> {
@@ -46,7 +46,7 @@ export class PeptideService {
   }
 
   public findPeptide(peptide: Peptide): Observable<Peptide> {
-    return this.httpClient.get<Peptide>(this.peptideUrl+'/'+peptide.id);
+    return this.httpClient.get<Peptide>(this.peptideUrl+'/'+peptide.id).map(res=>{return res});
   }
 
   public updatePeptide(peptide: Peptide) : Observable<Peptide> {

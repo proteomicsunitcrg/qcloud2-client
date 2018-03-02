@@ -41,8 +41,8 @@ export class PeptideDetailFormComponent implements OnInit {
         this.loadPeptideIntoForm(peptide);
         this.formTitle = 'Edit peptide';
         this.formSubmitButton = 'Update peptide';
-        delay(50).then(() => M.updateTextFields());
-      });
+      },error => console.log(error));
+    
     // Sample compositions observer
     this.sampleCompositionService.currentSampleComposition$.subscribe(
       (sampleCompositions) => {
@@ -68,7 +68,10 @@ export class PeptideDetailFormComponent implements OnInit {
             error => console.log(error)
           )
       },
-      error => console.log(error)
+      error => console.log(error),
+      ()=> {
+        delay(50).then(() => M.updateTextFields());
+      }
     )
   }
 
@@ -76,7 +79,6 @@ export class PeptideDetailFormComponent implements OnInit {
     // Compare with previous sample types
     this.sampleTypes.forEach((sampleType) => {
       this.checkSampleComposition(sampleType, sampleCompositions);
-
     });
 
 
@@ -120,7 +122,7 @@ export class PeptideDetailFormComponent implements OnInit {
   deleteSampleComposition(sampleComposition: SampleComposition): void {
     this.sampleCompositionService.deleteSampleComposiion(sampleComposition).subscribe(
       (result) => {
-        console.log(result);
+        
       },
       (error) => {
         console.log(error);
@@ -159,7 +161,7 @@ export class PeptideDetailFormComponent implements OnInit {
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
-
+    this.formData.currentPeptide = new Peptide(null, '', '', '');
 
   }
 

@@ -20,7 +20,7 @@ export class PeptidesListComponent implements OnInit {
     this.loadPeptides();
     // Observing the incomming peptides from the form
     this.peptideService.peptideFromDb$.subscribe(
-      (peptide)=> {
+      (peptide) => {
         // this.peptideToList(peptide);
         this.peptides = [];
         this.loadPeptides();
@@ -29,7 +29,7 @@ export class PeptidesListComponent implements OnInit {
 
   private isPeptideInList(peptide: Peptide): boolean {
     // Loop and look for the peptide
-    if(this.peptides.find(p=>p.id == peptide.id )== undefined) {
+    if (this.peptides.find(p => p.id == peptide.id) == undefined) {
       return false;
     }
     return true;
@@ -38,27 +38,38 @@ export class PeptidesListComponent implements OnInit {
   private loadPeptides(): void {
     this.peptides = [];
     this.peptideService.getAllPeptides()
-      .subscribe(
-        peptides => peptides.forEach(peptide => {
+      .subscribe((peptides) => {
+        peptides.forEach(peptide => {
           // get the belongs
-          peptide['belongs'] = this.getSampleType(peptide);          
-        }),
-        error => console.log(error));
+          peptide['belongs'] = null;
+          peptide['belongs'] = this.getSampleType(peptide);
+        })
+      },
+        error => console.log(error),
+      ()=> console.log('end'));
   }
 
   private getSampleType(peptide: Peptide): void {
     let belongs = '';
     this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
-    .subscribe(
-      (sampleCompositions) => {
-        sampleCompositions.forEach(sampleComposition => {
-          // console.log(sampleComposition.sampleType.name);
-          belongs = belongs + sampleComposition.sampleType.name +', ';
-        });
-        peptide['belongs']= belongs.slice(0,-2);
-        this.peptides.push(peptide);
-      },
-      error => console.log(error));
+      .subscribe(
+        (sampleCompositions) => {
+          sampleCompositions.forEach(sampleComposition => {
+            belongs = belongs + sampleComposition.sampleType.name + ', ';
+          });
+          peptide['belongs'] = belongs.slice(0, -2);
+          this.peptides.push(peptide);
+          this.peptides.sort(this.compare);
+        },
+        error => console.log(error));
+  }
+
+  private compare(a: Peptide, b: Peptide): number {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
   }
 
   sendToDetail(peptide: Peptide): void {
