@@ -22,6 +22,7 @@ export class PeptidesListComponent implements OnInit {
     this.peptideService.peptideFromDb$.subscribe(
       (peptide)=> {
         // this.peptideToList(peptide);
+        this.peptides = [];
         this.loadPeptides();
       });
   }

@@ -1,4 +1,4 @@
-<h5>Details</h5>
+<h5>{{formTitle}}</h5>
 <form (ngSubmit)="onSubmit(); peptideForm.reset()" #peptideForm="ngForm" ngNativeValidate autocomplete="off">
   <div class="row">
   <div class="input-field">
@@ -16,6 +16,6 @@
   </div>
 </div>
   <div class="input-field">
-    <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add new peptide</button>
+    <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">{{formSubmitButton}}</button>
   </div>
 </form>

@@ -48,4 +48,11 @@ export class PeptideService {
   public findPeptide(peptide: Peptide): Observable<Peptide> {
     return this.httpClient.get<Peptide>(this.peptideUrl+'/'+peptide.id);
   }
+
+  public updatePeptide(peptide: Peptide) : Observable<Peptide> {
+    const json = JSON.stringify(peptide);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<Peptide>(this.peptideUrl+'/'+peptide.id,params,{headers: headers});
+  }
 }

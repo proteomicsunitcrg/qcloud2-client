@@ -64,5 +64,9 @@ export class SampleCompositionService {
     return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl,params, {headers: headers});
   }
 
+  public deleteSampleComposiion(sampleComposition: SampleComposition) : Observable<any> {
+    return this.httpClient.delete(this.sampleCompositionUrl+'/peptide/'+sampleComposition.peptide.id+'/sample/'+sampleComposition.sampleType.id);
+  }
+
 
 }
