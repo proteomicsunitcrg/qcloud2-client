@@ -29,7 +29,6 @@ import {tokenConfiguration} from './common/token-config';
   imports: [
     BrowserModule,
     HttpClientModule,
-    // FormsModule,
     EntryPointModule,
     RoutingModule,
     ModalModuleModule,
