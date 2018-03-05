@@ -18,8 +18,25 @@ export class InstrumentSampleService {
   private apiPrefix = environment.apiPrefix;
   private isUrl = this.apiPrefix + 'api/contextsource/instrumentsample';
 
+  private newInstrumentSample = new Subject<InstrumentSample>();
+  newInstrumentSample$ = this.newInstrumentSample.asObservable();
+
+
+
+
   public getAllInstrumentSample() : Observable<InstrumentSample[]> {
     return this.httpClient.get<InstrumentSample[]>(this.isUrl);
+  }
+
+  public addNewInstrumentSample(instrumentSample: ContextSource): Observable<InstrumentSample> {
+    const json = JSON.stringify(instrumentSample);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<InstrumentSample>(this.isUrl,params,{headers: headers});
+  }
+
+  public sendInstrumentSampleToList(instrumentSample: InstrumentSample): void {
+    this.newInstrumentSample.next(instrumentSample);
   }
 
 }

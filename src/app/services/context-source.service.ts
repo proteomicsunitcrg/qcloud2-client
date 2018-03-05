@@ -63,7 +63,6 @@ export class ContextSourceService {
   public addContextSource(contextSource: any, contextSourceCategory: ContextSourceCategory): Observable<any> {
     const json = JSON.stringify(contextSource);
     const params = json;
-    console.log(params);
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<any>(this.contextSourceUrls[contextSourceCategory.code], params, { headers: headers })
       .catch(this.errorHandler);

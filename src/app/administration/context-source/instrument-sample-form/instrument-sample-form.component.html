@@ -1,35 +1,17 @@
-<div *ngIf="currentContextSourceCategory!=undefined">
+<div>
   <h5>Add new</h5>
   <form (ngSubmit)="onSubmit(); newContext.reset()" #newContext="ngForm" ngNativeValidate autocomplete="off">
     <div class="input-field">
       <input #nameBox type="text" name="name" [(ngModel)]="contextSource.name" class="validate" id="name" validate required>
       <label for="name">Name</label>
     </div>
-    <div class="input-field" *ngIf="currentContextSourceCategory.code=='peptide'">
-      <input type="text" #sequenceBox name="sequence" [(ngModel)]="peptide.sequence" class="validate" id="sequence" minlength="3"
-        validate required>
-      <label for="sequence">Sequence</label>
-    </div>
-    <div class="input-field" *ngIf="currentContextSourceCategory.code=='peptide'">
-      <input type="text" #abbreviatedSequenceBox name="abbreviatedSequence" [(ngModel)]="peptide.abbreviatedSequence" class="validate"
-        id="abbreviatedSequence" minlength="3" validate required>
-      <label for="abbreviatedSequence">Abbreviated sequence</label>
-    </div>
-    <div class="input-field" *ngIf="currentContextSourceCategory.code=='peptide'">
-      <p *ngFor="let sampleType of sampleTypes; let i = index">
-        <label>
-          <input type="checkbox" name="sample_type_{{i}}"/>
-          <span>{{sampleType.name}}</span>
-        </label>
-      </p>
-    </div>
-    <div class="input-field" *ngIf="currentContextSourceCategory.code=='isample'">
-      <input type="text" #abbreviatedName name="abbreviatedName" class="validate" [(ngModel)]="instrumentSample.abbreviatedName" id="abbreviatedName" minlength="4" validate required>
-      <label for="abbreviatedName">Abbreviated name</label>
-    </div>    
     <div class="input-field">
-      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add {{currentContextSourceCategory.name}}</button>
+      <input type="text" #abbreviatedName name="abbreviatedName" class="validate" [(ngModel)]="instrumentSample.abbreviatedName"
+        id="abbreviatedName" minlength="4" validate required>
+      <label for="abbreviatedName">Abbreviated name</label>
+    </div>
+    <div class="input-field">
+      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
     </div>
   </form>
 </div>
-

@@ -21,6 +21,12 @@ export class InstrumentSampleListComponent implements OnInit {
 
   ngOnInit() {
     this.loadInstrumentSamples();
+    // Observe for new instrument samples
+    this.isService.newInstrumentSample$.subscribe(
+      (instrumentSample) => {
+        this.instrumentSamples.push(instrumentSample);
+      }
+    )
   }
 
   private loadInstrumentSamples() : void {

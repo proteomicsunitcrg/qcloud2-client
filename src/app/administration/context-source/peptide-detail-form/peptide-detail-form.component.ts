@@ -103,7 +103,7 @@ export class PeptideDetailFormComponent implements OnInit {
   private saveSampleComposition(sampleComposition: SampleComposition): void {
     this.sampleCompositionService.saveSampleComposition(sampleComposition).subscribe(
       (result) => {
-        // this.peptideService.sendPeptideToList(result.peptide);        
+        // this.peptideService.sendPeptideToList(result.peptide);
       },
       error => console.log(error)
     )
