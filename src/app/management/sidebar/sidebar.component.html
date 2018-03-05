@@ -17,13 +17,11 @@
                 </a>
                 <div class="collapsible-body">
                     <ul>
-                        <!-- <li>Mass spectometers</li> -->
-                        <!-- <li *ngFor="let category of categories"><a routerLink="/application/management/instruments">{{category.name}}</a></li> -->
                         <li *ngFor="let category of categories"><a [routerLink]="['/application/management/instruments',category.name]">{{category.name}}</a></li>
                     </ul>
                 </div>
             </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
                     <span class="nav-headers">Thresholds</span>
                 </a>
@@ -33,29 +31,17 @@
                     </ul>
                 </div>
             </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
-                    <span class="nav-headers">Controlled vocabulary</span>
+                    <span class="nav-headers">Views</span>
                 </a>
                 <div class="collapsible-body">
                     <ul>
-                        <li>Categories</li>
+                        <li>Manage views</li>
                     </ul>
                 </div>
             </li>
-            <li>
-                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
-                    <span class="nav-headers">Data processing</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li>Workflows</li>
-                        <li>Queue</li>
-                        <li>Sample types</li>
-                    </ul>
-                </div>
-            </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
                     <span class="nav-headers">Incidences</span>
                 </a>
