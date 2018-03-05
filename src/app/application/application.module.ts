@@ -12,13 +12,14 @@ import { MainWindowComponent } from './main-window/main-window.component';
 import { ApplicationRouterModule } from './application-router/application-router.module';
 import { TopMenuComponent } from './layout/top-menu/top-menu.component';
 import { HolderComponent } from './layout/holder/holder.component';
+import { InstrumentStatusComponent } from './layout/instrument-status/instrument-status.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ApplicationRouterModule],
-  declarations: [MainWindowComponent, TopMenuComponent, HolderComponent],
+  declarations: [MainWindowComponent, TopMenuComponent, HolderComponent, InstrumentStatusComponent],
   
 })
 export class ApplicationModule { }
