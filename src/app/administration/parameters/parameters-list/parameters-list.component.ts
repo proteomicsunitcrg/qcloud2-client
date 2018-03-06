@@ -1,0 +1,76 @@
+import { Component, OnInit } from '@angular/core';
+import { ParametersService } from '../../../services/parameters.service';
+import { Param } from '../../../models/param';
+
+@Component({
+  selector: 'app-parameters-list',
+  templateUrl: './parameters-list.component.html',
+  styleUrls: ['./parameters-list.component.css']
+})
+export class ParametersListComponent implements OnInit {
+
+  constructor(private paramService: ParametersService) { }
+  editingParameter = false;
+  editRow = -1;
+  parameterName = '';
+  parameters: Param[] = [];
+
+  ngOnInit() {
+    // Load list
+    this.loadParameters();
+    // Listen for new params
+    this.paramService.newParameter$
+      .subscribe(
+        newParam => this.parameters.push(newParam),
+        error => console.log(error)
+      )
+  }
+
+  editParameter(index: number): void {
+    this.editingParameter = true;
+    this.editRow = index;
+    // Storing the original name in case of cancel
+    this.parameterName = this.parameters[index].name;
+  }
+
+  cancelEditing(param: Param) {
+    param.name = this.parameterName;
+    this.stopEditing();
+  }
+
+  saveParameter(param: Param): void {
+    this.paramService.updateParameter(param).subscribe(
+      (result) => {
+        // TODO toast
+      },
+      (error) => {
+        /*
+        dataSource.name = this.dataSourceName;
+        this.modalService.openModal(new Modal(error.error.error,
+          error.error.message, 'Ok', '', 'updateError',null));
+          */
+      }
+    )
+    this.stopEditing();
+  }
+
+  private stopEditing() {
+    this.editingParameter = false;
+    this.editRow = -1;
+  }
+
+  private loadParameters(): void {
+    this.paramService.getAllParams()
+      .subscribe(
+        (parameters) => {
+          parameters.forEach(parameter => this.parameters.push(parameter))
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+  }
+
+
+
+}

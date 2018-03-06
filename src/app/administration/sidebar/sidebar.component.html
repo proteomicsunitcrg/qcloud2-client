@@ -32,7 +32,7 @@
                     </ul>
                 </div>
             </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
                     <span class="nav-headers">Controlled vocabulary</span>
                 </a>
@@ -42,7 +42,7 @@
                     </ul>
                 </div>
             </li>
-            <li>
+            <li (click)="open('menu')">
                 <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
                     <span class="nav-headers">Data processing</span>
                 </a>
@@ -50,7 +50,7 @@
                     <ul>
                         <li><a routerLink="/application/administration/context">Context sources</a></li>
                         <li>Sample types</li>
-                        <li>Workflows</li>
+                        <li><a routerLink="/application/administration/parameters">Parameters</a></li>
                         <li>Queue</li>
                     </ul>
                 </div>

@@ -26,6 +26,10 @@ import { PeptideService } from '../services/peptide.service';
 import { PeptideDetailFormComponent } from './context-source/peptide-detail-form/peptide-detail-form.component';
 import { SampleCompositionFormComponent } from './context-source/sample-composition-form/sample-composition-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { MainParametersComponent } from './parameters/main-parameters/main-parameters.component';
+import { ParametersListComponent } from './parameters/parameters-list/parameters-list.component';
+import { ParametersFormComponent } from './parameters/parameters-form/parameters-form.component';
+import { ParametersService } from '../services/parameters.service';
 
 @NgModule({
   imports: [
@@ -41,7 +45,8 @@ import { SharedModule } from '../shared/shared.module';
     SampleTypeService,
     SampleCompositionService,
     InstrumentSampleService,
-    PeptideService],
+    PeptideService,
+    ParametersService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,
@@ -55,6 +60,9 @@ import { SharedModule } from '../shared/shared.module';
     ContextSourceDetailComponent,
     PeptidesListComponent,
     PeptideDetailFormComponent,
-    SampleCompositionFormComponent]
+    SampleCompositionFormComponent,
+    MainParametersComponent,
+    ParametersListComponent,
+    ParametersFormComponent]
 })
 export class AdministrationModule { }

@@ -1,0 +1,44 @@
+<h5>Parameters</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Edit</th>
+      <th>View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let param of parameters; let i = index">
+      <ng-container *ngIf="editingParameter then edit else show"></ng-container>
+      <ng-template #show>
+        <td>{{param.name}}</td>
+        <td>
+          <i class="material-icons cursorIcon" (click)="editParameter(i)">edit</i>
+        </td>
+        <td>
+          <i class="material-icons cursorIcon">visibility</i>
+        </td>
+      </ng-template>
+      <ng-template #edit>
+        <ng-container *ngIf="editRow==i then edit else show"></ng-container>
+        <ng-template #edit>
+          <td>
+            <input type="text" name="parameterName" [(ngModel)]="param.name" (keyup.enter)="saveParameter(param)">
+          </td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="saveParameter(param)">save</i>
+            <i class="material-icons cursorIcon" (click)="cancelEditing(param)">undo</i>
+          </td>
+        </ng-template>
+        <ng-template #show>
+          <td>{{param.name}}</td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
+          </td>
+          <td>
+            <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
+          </td>
+        </ng-template>
+      </ng-template>
+    </tr>
+  </tbody>

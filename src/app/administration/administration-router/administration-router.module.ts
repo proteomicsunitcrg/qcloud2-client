@@ -7,6 +7,7 @@ import { MainComponent } from '../main/main.component';
 import { CategoryComponent } from '../category/category.component';
 import { MainCvComponent } from '../cv/main-cv/main-cv.component';
 import { MainContextSourceComponent } from '../context-source/main-context-source/main-context-source.component';
+import { MainParametersComponent } from '../parameters/main-parameters/main-parameters.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   children: [
     { path: 'category', component: CategoryComponent},
     { path: 'cvs', component: MainCvComponent},
-    { path: 'context', component: MainContextSourceComponent}
+    { path: 'context', component: MainContextSourceComponent},
+    { path: 'parameters', component: MainParametersComponent}
   ]},
 ];
 
