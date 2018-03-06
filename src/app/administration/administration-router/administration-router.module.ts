@@ -8,6 +8,7 @@ import { CategoryComponent } from '../category/category.component';
 import { MainCvComponent } from '../cv/main-cv/main-cv.component';
 import { MainContextSourceComponent } from '../context-source/main-context-source/main-context-source.component';
 import { MainParametersComponent } from '../parameters/main-parameters/main-parameters.component';
+import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sample-type.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'category', component: CategoryComponent},
     { path: 'cvs', component: MainCvComponent},
     { path: 'context', component: MainContextSourceComponent},
-    { path: 'parameters', component: MainParametersComponent}
+    { path: 'parameters', component: MainParametersComponent},
+    { path: 'sampletypes', component: MainSampleTypeComponent}
   ]},
 ];
 

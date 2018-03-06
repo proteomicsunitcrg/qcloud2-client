@@ -1,3 +1,15 @@
-<p>
-  sample-peptides-list works!
-</p>
+<h5>Sample peptides</h5>
+<table class="highlight">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let peptide of peptides">
+      <td>{{peptide.name}}</td>
+      <td>{{peptide.abbreviatedSequence}}</td>
+    </tr>
+  </tbody>
+</table>

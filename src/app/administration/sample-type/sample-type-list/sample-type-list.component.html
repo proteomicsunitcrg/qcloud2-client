@@ -1,3 +1,13 @@
-<p>
-  sample-type-list works!
-</p>
+<h5>Sample types</h5>
+<table class="highlight">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sampleType of sampleTypes">
+      <td (click)="sendSampleType(sampleType)">{{sampleType.name}}</td>
+    </tr>
+  </tbody>
+</table>
