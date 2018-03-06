@@ -30,6 +30,11 @@ import { MainParametersComponent } from './parameters/main-parameters/main-param
 import { ParametersListComponent } from './parameters/parameters-list/parameters-list.component';
 import { ParametersFormComponent } from './parameters/parameters-form/parameters-form.component';
 import { ParametersService } from '../services/parameters.service';
+import { MainSampleTypeComponent } from './sample-type/main-sample-type/main-sample-type.component';
+import { SampleTypeFormComponent } from './sample-type/sample-type-form/sample-type-form.component';
+import { SampleTypeListComponent } from './sample-type/sample-type-list/sample-type-list.component';
+import { SamplePeptidesListComponent } from './sample-type/sample-peptides-list/sample-peptides-list.component';
+import { AllPeptidesListComponent } from './sample-type/all-peptides-list/all-peptides-list.component';
 
 @NgModule({
   imports: [
@@ -63,6 +68,11 @@ import { ParametersService } from '../services/parameters.service';
     SampleCompositionFormComponent,
     MainParametersComponent,
     ParametersListComponent,
-    ParametersFormComponent]
+    ParametersFormComponent,
+    MainSampleTypeComponent,
+    SampleTypeFormComponent,
+    SampleTypeListComponent,
+    SamplePeptidesListComponent,
+    AllPeptidesListComponent]
 })
 export class AdministrationModule { }
