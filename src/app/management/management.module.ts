@@ -6,14 +6,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
-import { ModalService } from '../common/modal.service';
-import { ModalModuleModule } from '../modal-module/modal-module.module';
 import { CategoryService } from '../services/category.service';
 import { DataSourceComponent } from './data-source/data-source.component';
 import { CvSelectorComponent } from './data-source/cv-selector/cv-selector.component';
 import { DataSourceListComponent } from './data-source/data-source-list/data-source-list.component';
 import { CvService } from '../services/cv.service';
-// import { CvFilterPipe} from '../common/cv-filter.pipe';
 
 import { DataSourceService } from '../services/data-source.service';
 import { SharedModule } from '../shared/shared.module';
@@ -23,7 +20,7 @@ import { SharedModule } from '../shared/shared.module';
     ManagementRouterModule,
     RouterModule,
     FormsModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [MainComponent, 
     SidebarComponent, 
