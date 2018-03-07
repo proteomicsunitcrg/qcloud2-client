@@ -1,0 +1,37 @@
+<!-- Chart name -->
+<div class="row z-depth-0">
+  <div class="col s12 m12 l12 xl12">
+    <div class="input-field col s3">
+      <select id="select_categories" [(ngModel)]="selectedCategory" name="selectedCategory">
+        <option *ngFor="let category of categories" [ngValue]="category">
+          {{category.name}}
+        </option>
+      </select>
+      <label>Category</label>
+    </div>
+    <div class="input-field col s7">
+      <input id="chart_name" type="text" class="validate">
+      <label for="chart_name">Chart name</label>
+    </div>
+    <div class="input-field col s2">
+      <button type="button" class="btn">Save</button>
+    </div>
+  </div>
+</div>
+<!-- PARAMS SELECTOR -->
+<div class="row z-depth-0">
+  <div class="col s12 m12 l12 xl12">
+    <div class="col s3">
+      <app-chart-cvs></app-chart-cvs>
+    </div>
+    <div class="col s3">
+      <app-chart-sample-type></app-chart-sample-type>
+    </div>
+    <div class="col s3">
+      <app-chart-param></app-chart-param>
+    </div>
+    <div class="col s3">
+      <app-chart-context-source></app-chart-context-source>
+    </div>
+  </div>
+</div>

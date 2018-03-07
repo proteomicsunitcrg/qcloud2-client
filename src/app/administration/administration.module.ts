@@ -35,6 +35,13 @@ import { SampleTypeFormComponent } from './sample-type/sample-type-form/sample-t
 import { SampleTypeListComponent } from './sample-type/sample-type-list/sample-type-list.component';
 import { SamplePeptidesListComponent } from './sample-type/sample-peptides-list/sample-peptides-list.component';
 import { AllPeptidesListComponent } from './sample-type/all-peptides-list/all-peptides-list.component';
+import { MainChartComponent } from './charts/main-chart/main-chart.component';
+import { ChartFormComponent } from './charts/chart-form/chart-form.component';
+import { ChartListComponent } from './charts/chart-list/chart-list.component';
+import { ChartCvsComponent } from './charts/chart-cvs/chart-cvs.component';
+import { ChartSampleTypeComponent } from './charts/chart-sample-type/chart-sample-type.component';
+import { ChartParamComponent } from './charts/chart-param/chart-param.component';
+import { ChartContextSourceComponent } from './charts/chart-context-source/chart-context-source.component';
 
 @NgModule({
   imports: [
@@ -73,6 +80,13 @@ import { AllPeptidesListComponent } from './sample-type/all-peptides-list/all-pe
     SampleTypeFormComponent,
     SampleTypeListComponent,
     SamplePeptidesListComponent,
-    AllPeptidesListComponent]
+    AllPeptidesListComponent,
+    MainChartComponent,
+    ChartFormComponent,
+    ChartListComponent,
+    ChartCvsComponent,
+    ChartSampleTypeComponent,
+    ChartParamComponent,
+    ChartContextSourceComponent]
 })
 export class AdministrationModule { }

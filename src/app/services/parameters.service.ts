@@ -16,6 +16,13 @@ export class ParametersService {
 
   private newParameter = new Subject<Param>();
   newParameter$ = this.newParameter.asObservable();
+
+  /**
+   * This observable is for the chart management
+   * it will change the context source section
+   */
+  private selectedParameter = new Subject<Param>();
+  selectedParameter$ = this.selectedParameter.asObservable();
   
   constructor(private httpClient: HttpClient) { }
 
@@ -39,6 +46,14 @@ export class ParametersService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.put<Param>(this.parameterUrl,params,{headers: headers});
+  }
+
+  public getTypeList(): Observable<String[]> {
+    return this.httpClient.get<String[]>(this.parameterUrl+'/types');
+  }
+
+  public sendParamToContextSourceSelector(param: Param): void {
+    this.selectedParameter.next(param);
   }
 
 }

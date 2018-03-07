@@ -1,0 +1,23 @@
+<h5>Instrument</h5>
+<div class="input-field">
+  <input type="text" name="filterCv" name="filterCv" class="col s12 m12 l12 xl12" [(ngModel)]="filter.name">
+  <label for="filterCv">Search by name</label>
+  <div class="switch">
+    <label>
+      All
+      <input type="checkbox" id="switchEnabled" [(ngModel)]="showEnabledCvs" (change)="reloadList()">
+      <span class="lever"></span>
+      Only enabled
+    </label>
+  </div>
+</div>
+<table class="highlight">
+  <thead>
+    <th>Name</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
+      <td [ngClass]="{'blue-grey lighten-3': cv===selectedCv}" (click)="selectCV(cv)">{{cv.name}}</td>
+    </tr>
+  </tbody>
+</table>

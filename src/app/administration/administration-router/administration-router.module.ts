@@ -9,6 +9,7 @@ import { MainCvComponent } from '../cv/main-cv/main-cv.component';
 import { MainContextSourceComponent } from '../context-source/main-context-source/main-context-source.component';
 import { MainParametersComponent } from '../parameters/main-parameters/main-parameters.component';
 import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sample-type.component';
+import { MainChartComponent } from '../charts/main-chart/main-chart.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'cvs', component: MainCvComponent},
     { path: 'context', component: MainContextSourceComponent},
     { path: 'parameters', component: MainParametersComponent},
-    { path: 'sampletypes', component: MainSampleTypeComponent}
+    { path: 'sampletypes', component: MainSampleTypeComponent},
+    { path: 'charts', component: MainChartComponent}
   ]},
 ];
 

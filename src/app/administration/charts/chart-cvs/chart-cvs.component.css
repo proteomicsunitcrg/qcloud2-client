@@ -1,0 +1,6 @@
+.selected {
+    background-color: blue;
+}
+.enabled {
+    font-size: 0.6em;
+}

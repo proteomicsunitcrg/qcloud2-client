@@ -1,0 +1,11 @@
+<h5>Sample type</h5>
+<table class="highlight">
+  <thead>
+    <th>Sample type</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let sampleType of sampleTypes">
+      <td [ngClass]="{'blue-grey lighten-3': sampleType===selectedSampleType}" (click)="selectSampleType(sampleType)">{{sampleType.name}}</td>
+    </tr>
+  </tbody>
+</table>

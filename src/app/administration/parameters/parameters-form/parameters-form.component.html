@@ -4,7 +4,15 @@
     <div class="input-field">
       <input #nameBox type="text" name="name" [(ngModel)]="newParam.name" class="validate" id="name" validate required>
       <label for="name">Name</label>
-    </div>    
+    </div>
+    <div class="input-field">
+      <select id="selectFor" name="selectFor" [(ngModel)]="newParam.isFor">
+        <option *ngFor="let isFor of isFors" [ngValue]="isFor" >
+          {{isFor}}
+        </option>
+      </select>
+      <label>Is for</label>
+    </div>
     <div class="input-field">
       <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
     </div>

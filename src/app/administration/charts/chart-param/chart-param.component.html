@@ -1,0 +1,11 @@
+<h5>Parameter</h5>
+<table class="highlight">
+  <thead>
+    <th>Paramenter</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let parameter of parameters">
+      <td [ngClass]="{'blue-grey lighten-3': parameter===selectedParameter}" (click)="selectParameter(parameter)">{{parameter.name}}</td>
+    </tr>
+  </tbody>
+</table>

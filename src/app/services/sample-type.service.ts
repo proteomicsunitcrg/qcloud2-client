@@ -15,10 +15,17 @@ export class SampleTypeService {
   sampleTypesUrl= this.apiPrefix+'api/sample';
 
   /**
-   * THis observable is for add new sampletypes to the list
+   * This observable is for add new sampletypes to the list
    */
   private newSampleType = new Subject<SampleType>();
   newSampleType$ = this.newSampleType.asObservable();
+
+  /**
+   * This observable is for pass the current sample type
+   * in the chart creation to the peptide selector
+   */
+  private selectedSampleType = new Subject<SampleType>();
+  selectedSampleType$ = this.selectedSampleType.asObservable();
 
   public getSamplesTypes(): Observable<SampleType[]> {
     return this.httpClient.get<SampleType[]>(this.sampleTypesUrl);
@@ -33,6 +40,10 @@ export class SampleTypeService {
 
   public sendNewSampleTypeToList(sampleType: SampleType): void {
     this.newSampleType.next(sampleType);
+  }
+
+  public sendSampleTypeToContextSourceSelector(sampleType: SampleType): void {
+    this.selectedSampleType.next(sampleType);
   }
 
 }

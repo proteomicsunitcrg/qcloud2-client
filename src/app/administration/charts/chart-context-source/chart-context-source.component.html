@@ -1,0 +1,16 @@
+<h5>{{title}}</h5>
+<table class="highlight">
+  <thead>
+    <th>Name</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contextSource of contextSources" (click)="check()">
+      <td>
+        <label>
+          <input type="checkbox"/>
+          <span>{{contextSource.name}}</span>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
