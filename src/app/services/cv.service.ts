@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
 import { Category } from '../models/category';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs/Subject';
 
 
 @Injectable()
@@ -15,6 +16,14 @@ export class CvService {
   private apiPrefix = environment.apiPrefix;
 
   cvUrl= this.apiPrefix+'api/cv';
+
+  /**
+   * This observable is used for the new chart form
+   * it will send to the form the currently selected
+   * cv
+   */
+  private selectedChartCv = new Subject<CV>();
+  selectedChartCv$ = this.selectedChartCv.asObservable();
 
   public getAllCV(): Observable<CV[]> {
     return this.httpClient.get<CV[]>(this.cvUrl);    
@@ -30,6 +39,10 @@ export class CvService {
   public getCvByCategory(category: Category): Observable<CV[]> {
     return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id);   
 
+  }
+
+  public sendSelectedCvToChartForm(cv: CV): void {
+    this.selectedChartCv.next(cv);
   }
 
   errorHandler(error: HttpErrorResponse) {

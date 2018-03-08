@@ -42,6 +42,8 @@ import { ChartCvsComponent } from './charts/chart-cvs/chart-cvs.component';
 import { ChartSampleTypeComponent } from './charts/chart-sample-type/chart-sample-type.component';
 import { ChartParamComponent } from './charts/chart-param/chart-param.component';
 import { ChartContextSourceComponent } from './charts/chart-context-source/chart-context-source.component';
+import { ChartParamsService } from '../services/chart-params.service';
+import { ChartService } from '../services/chart.service';
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import { ChartContextSourceComponent } from './charts/chart-context-source/chart
     SampleCompositionService,
     InstrumentSampleService,
     PeptideService,
-    ParametersService],
+    ParametersService,
+    ChartParamsService,
+    ChartService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,

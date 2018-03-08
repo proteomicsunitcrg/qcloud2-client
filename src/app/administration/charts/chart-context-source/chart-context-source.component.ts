@@ -6,6 +6,9 @@ import { Param } from '../../../models/param';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ContextSource } from '../../../models/contextSource';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
+import { ChartParamsService } from '../../../services/chart-params.service';
+import { ChartParam } from '../../../models/chartParam';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-chart-context-source',
@@ -17,7 +20,8 @@ export class ChartContextSourceComponent implements OnInit {
   constructor(private paramService: ParametersService,
     private sampleTypeService: SampleTypeService,
     private sampleCompositionService: SampleCompositionService,
-    private instrumentSampleService: InstrumentSampleService) { }
+    private instrumentSampleService: InstrumentSampleService,
+    private chartParamsService: ChartParamsService) { }
 
   title: String = 'Sources';
 
@@ -26,7 +30,9 @@ export class ChartContextSourceComponent implements OnInit {
   currentParam: Param;
 
   contextSources: ContextSource[] = [];
+  selectedContextSources: ContextSource[] = [];
 
+  chartParamsArray: ChartParam[] = [] ;
 
   ngOnInit() {
     // Selector
@@ -44,10 +50,27 @@ export class ChartContextSourceComponent implements OnInit {
             if(this.currentParam!==undefined) {
               this.loadContextSources();
             }
-
           }
         )
+    this.linkChartParamsArray();
+    this.subscribeToReset();
   }
+  private subscribeToReset(): void {
+    this.chartParamsService.resetComponent$
+      .subscribe(
+        (reset) => {
+          // clean selected array
+          this.selectedContextSources = [];
+          this.contextSources.length = 0;
+        }
+      )
+  }
+
+  private linkChartParamsArray(): void {
+    this.chartParamsService.sendChartParamsArrayToFill(this.chartParamsArray);
+  }
+
+
   private loadContextSources(): void {
     this.contextSources = [];
     switch(this.currentParam.isFor) {
@@ -85,8 +108,36 @@ export class ChartContextSourceComponent implements OnInit {
     )
   }
 
-  check(): void {
-    console.log('hiho');
+  private fillChartParamsArray(): void {
+    /**
+     * This is for reset the array without losing the
+     * pointer.
+     * this.chartParamsArray = [] creates a new array
+     * losing the pointer to the original form array
+     */
+    this.chartParamsArray.length =0;
+    this.selectedContextSources.forEach(
+      (contextSource) => {
+        let chartParam = new ChartParam(null,this.currentParam,contextSource);
+        this.chartParamsArray.push(chartParam);
+      }
+    )
+  }
+
+  toggleEditable(event: any,contextSource: ContextSource) {
+    if(event.target.checked) {
+      this.addContextSource(contextSource);
+    }else {
+      this.removeContextSource(contextSource);
+    }
+    this.fillChartParamsArray();
+    
+  }
+  private addContextSource(contextSource: ContextSource): void {
+    this.selectedContextSources.push(contextSource);
+  }
+  private removeContextSource(contextSource: ContextSource) {
+    this.selectedContextSources = this.selectedContextSources.filter(cs => cs !==contextSource);
   }
 
 }

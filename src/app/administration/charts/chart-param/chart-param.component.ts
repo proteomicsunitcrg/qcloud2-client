@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
+import { ChartParamsService } from '../../../services/chart-params.service';
 
 @Component({
   selector: 'app-chart-param',
@@ -9,7 +10,8 @@ import { Param } from '../../../models/param';
 })
 export class ChartParamComponent implements OnInit {
 
-  constructor(private paramService: ParametersService) { }
+  constructor(private paramService: ParametersService,
+    private chartParamsService: ChartParamsService) { }
 
   parameters: Param[] = [];
 
@@ -18,6 +20,15 @@ export class ChartParamComponent implements OnInit {
   ngOnInit() {
     // Load paratemers
     this.loadParameters();
+    this.subscribeToReset();
+  }
+  private subscribeToReset(): void {
+    this.chartParamsService.resetComponent$
+      .subscribe(
+        (reset) => {
+          this.selectedParameter = null;
+        }
+      )
   }
 
   private loadParameters(): void {

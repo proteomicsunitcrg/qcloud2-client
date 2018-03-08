@@ -22,7 +22,8 @@ export class SampleTypeService {
 
   /**
    * This observable is for pass the current sample type
-   * in the chart creation to the peptide selector
+   * in the chart creation to the peptide selector and
+   * to the chart form
    */
   private selectedSampleType = new Subject<SampleType>();
   selectedSampleType$ = this.selectedSampleType.asObservable();
