@@ -14,6 +14,12 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "plotly.js": [
+        "../node_modules/plotly.js/lib/core.js",
+        "../node_modules/plotly.js/lib/scatter.js"
+      ]
+    }
   }
 }

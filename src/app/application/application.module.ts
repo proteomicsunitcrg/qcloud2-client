@@ -13,6 +13,7 @@ import { ApplicationRouterModule } from './application-router/application-router
 import { TopMenuComponent } from './layout/top-menu/top-menu.component';
 import { HolderComponent } from './layout/holder/holder.component';
 import { InstrumentStatusComponent } from './layout/instrument-status/instrument-status.component';
+import { DataService } from '../services/data.service';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { InstrumentStatusComponent } from './layout/instrument-status/instrument
     CommonModule,
     ApplicationRouterModule],
   declarations: [MainWindowComponent, TopMenuComponent, HolderComponent, InstrumentStatusComponent],
+  providers:[DataService]
   
 })
 export class ApplicationModule { }
