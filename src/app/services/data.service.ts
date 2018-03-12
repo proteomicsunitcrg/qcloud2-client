@@ -32,7 +32,6 @@ export class DataService {
               dataArray[row.fileCreationDate]['filename']= row.fileFilename;
             }
           });
-
           return dataArray;
         }
       );
