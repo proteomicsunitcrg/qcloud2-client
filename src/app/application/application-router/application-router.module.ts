@@ -5,11 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { HolderComponent } from '../layout/holder/holder.component';
 import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../../role-guard.service';
+import { DataVisualizationMainWindowComponent} from '../data-visualization/data-visualization-main-window/data-visualization-main-window.component';
 const routes: Routes = [
   // { path: 'text', component: TextComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}}
   { path: '', component: MainWindowComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
   children: [
-    {path:'', component: HolderComponent},
+    {path:'', component: DataVisualizationMainWindowComponent},
     {path:'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},
     {path:'management', loadChildren: '../../management/management.module#ManagementModule'},
   ]},
