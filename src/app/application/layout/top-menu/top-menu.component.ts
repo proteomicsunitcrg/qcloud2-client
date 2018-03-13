@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
 import { AuthService } from '../../../auth.service';
+import { DataSourceService } from '../../../services/data-source.service';
+import { DataSource } from '../../../models/dataSource';
 
 @Component({
   selector: 'app-top-menu',
@@ -11,7 +13,10 @@ export class TopMenuComponent implements OnInit {
 
   instruments = ['Velosin','Luminoide'];
 
-  constructor(private authService: AuthService) { }
+  dataSources: DataSource[] = [];
+
+  constructor(private authService: AuthService,
+    private dataSourceService: DataSourceService) { }
 
   isAdmin = false;
   isManager = false;
@@ -23,7 +28,22 @@ export class TopMenuComponent implements OnInit {
     if(this.authService.checkRole('ROLE_MANAGER')){
       this.isManager = true;
     }
+    this.loadNodeInstruments();
   }
+
+  private loadNodeInstruments(): void {
+    this.dataSourceService.getAllNodeDataSources()
+      .subscribe(
+        (dataSources)=> {
+          this.dataSources = dataSources;
+        }
+      )
+  }
+
+  viewInstrument(instrument: DataSource): void {
+    this.dataSourceService.selectDataSourceForDisplay(instrument);
+  }
+
 
   open(dropdown) : void {    
     const elem = document.getElementById(dropdown);    

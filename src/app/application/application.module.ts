@@ -16,6 +16,9 @@ import { InstrumentStatusComponent } from './layout/instrument-status/instrument
 import { DataService } from '../services/data.service';
 import { DataVisualizationMainWindowComponent } from './data-visualization/data-visualization-main-window/data-visualization-main-window.component';
 import { DataVisualizationSideMenuComponent } from './data-visualization/data-visualization-side-menu/data-visualization-side-menu.component';
+import { DataVisualizationDisplayComponent } from './data-visualization/data-visualization-display/data-visualization-display.component';
+import { ViewService } from '../services/view.service';
+import { DataSourceService } from '../services/data-source.service';
 
 
 @NgModule({
@@ -28,8 +31,11 @@ import { DataVisualizationSideMenuComponent } from './data-visualization/data-vi
     InstrumentStatusComponent, 
     DataVisualizationMainWindowComponent, 
     DataVisualizationSideMenuComponent,
+    DataVisualizationDisplayComponent,
   ],
-  providers:[DataService]
+  providers:[DataService,
+    ViewService,
+    DataSourceService]
   
 })
 export class ApplicationModule { }

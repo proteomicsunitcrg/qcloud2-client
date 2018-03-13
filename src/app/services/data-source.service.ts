@@ -18,6 +18,13 @@ export class DataSourceService {
   
   selectedCategory$ = this.categorySource.asObservable();
 
+  /**
+   * This observable is for show the default plots
+   * on the main page
+   */
+  private selectedDataSourceForDisplay = new Subject<DataSource>();
+  selectedDataSourceForDisplay$ = this.selectedDataSourceForDisplay.asObservable();
+
   private apiPrefix = environment.apiPrefix;
 
   dataSourceUrl= this.apiPrefix+'api/datasource';
@@ -51,6 +58,14 @@ export class DataSourceService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.put<DataSource>(this.dataSourceUrl,params,{headers: headers});
+  }
+
+  public getAllNodeDataSources(): Observable<DataSource[]> {
+    return this.httpClient.get<DataSource[]>(this.dataSourceUrl);
+  }
+
+  public selectDataSourceForDisplay(dataSource: DataSource): void {
+    this.selectedDataSourceForDisplay.next(dataSource);
   }
 
 

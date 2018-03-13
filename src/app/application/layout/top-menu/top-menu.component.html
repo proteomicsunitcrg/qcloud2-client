@@ -1,6 +1,6 @@
 <ul id="instruments" class="dropdown-content">
-  <li *ngFor="let instrument of instruments">
-    <a href="!#">{{instrument}}</a>
+  <li *ngFor="let instrument of dataSources">
+    <a (click)="viewInstrument(instrument)">{{instrument.name}}</a>
   </li>
 </ul>
 <ul id="user_views" class="dropdown-content">
