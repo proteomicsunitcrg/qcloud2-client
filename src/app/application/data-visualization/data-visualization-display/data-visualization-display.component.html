@@ -5,10 +5,12 @@
       <div class="col s12 m12 l12 xl12">
         single
       </div>
+      <app-plot></app-plot>
     </ng-template>
     <ng-template #double>
       <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
         <p>{{charts.chart.name}}</p>
+        <app-plot [chart]="charts.chart"></app-plot>
       </div>
     </ng-template>
 </div>

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MainWindowComponent } from './main-window/main-window.component';
 import { ApplicationRouterModule } from './application-router/application-router.module';
 import { TopMenuComponent } from './layout/top-menu/top-menu.component';
-import { HolderComponent } from './layout/holder/holder.component';
+// import { HolderComponent } from './layout/holder/holder.component';
 import { InstrumentStatusComponent } from './layout/instrument-status/instrument-status.component';
 import { DataService } from '../services/data.service';
 import { DataVisualizationMainWindowComponent } from './data-visualization/data-visualization-main-window/data-visualization-main-window.component';
@@ -19,20 +19,21 @@ import { DataVisualizationSideMenuComponent } from './data-visualization/data-vi
 import { DataVisualizationDisplayComponent } from './data-visualization/data-visualization-display/data-visualization-display.component';
 import { ViewService } from '../services/view.service';
 import { DataSourceService } from '../services/data-source.service';
-
+import { PlotsModule } from '../plots/plots.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    PlotsModule,
     ApplicationRouterModule],
   declarations: [MainWindowComponent, 
     TopMenuComponent, 
-    HolderComponent, 
+    // HolderComponent, 
     InstrumentStatusComponent, 
     DataVisualizationMainWindowComponent, 
     DataVisualizationSideMenuComponent,
-    DataVisualizationDisplayComponent,
-  ],
+    DataVisualizationDisplayComponent
+    ],
   providers:[DataService,
     ViewService,
     DataSourceService]
