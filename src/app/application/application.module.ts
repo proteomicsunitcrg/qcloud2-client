@@ -20,12 +20,15 @@ import { DataVisualizationDisplayComponent } from './data-visualization/data-vis
 import { ViewService } from '../services/view.service';
 import { DataSourceService } from '../services/data-source.service';
 import { PlotsModule } from '../plots/plots.module';
+import { FileService } from '../services/file.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     PlotsModule,
-    ApplicationRouterModule],
+    ApplicationRouterModule,
+    FormsModule],
   declarations: [MainWindowComponent, 
     TopMenuComponent, 
     // HolderComponent, 
@@ -36,7 +39,8 @@ import { PlotsModule } from '../plots/plots.module';
     ],
   providers:[DataService,
     ViewService,
-    DataSourceService]
+    DataSourceService,
+    FileService]
   
 })
 export class ApplicationModule { }

@@ -2,16 +2,15 @@
 <div class="row" *ngFor="let row of display.charts">
     <ng-container *ngIf="row.length==1 then single else double"></ng-container>
     <ng-template #single>
-      <div class="col s12 m12 l12 xl12">
-        single
-      </div>
-      <app-plot></app-plot>
+      <div class="col s12 m12 l12 xl12" *ngFor="let charts of row">
+        <p>{{charts.chart.name}}</p>        
+        <app-plot [chart]="charts.chart" [dataSource]="dataSource"></app-plot>
+      </div>      
     </ng-template>
     <ng-template #double>
       <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
         <p>{{charts.chart.name}}</p>
-        <app-plot [chart]="charts.chart"></app-plot>
+        <app-plot [chart]="charts.chart" [dataSource]="dataSource"></app-plot>
       </div>
     </ng-template>
 </div>
-<button type="button" (click)="calculate()">Hola</button>

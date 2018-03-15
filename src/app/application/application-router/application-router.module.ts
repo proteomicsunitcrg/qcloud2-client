@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainWindowComponent } from '../main-window/main-window.component';
 import { Routes, RouterModule } from '@angular/router';
-import { HolderComponent } from '../layout/holder/holder.component';
 import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../../role-guard.service';
 import { DataVisualizationMainWindowComponent} from '../data-visualization/data-visualization-main-window/data-visualization-main-window.component';
