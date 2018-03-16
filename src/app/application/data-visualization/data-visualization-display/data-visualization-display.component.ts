@@ -6,6 +6,9 @@ import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
 import { CV } from '../../../models/cv';
 import { FileService } from '../../../services/file.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-data-visualization-display',
@@ -16,7 +19,9 @@ export class DataVisualizationDisplayComponent implements OnInit {
 
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
-    private fileService: FileService) { }
+    private fileService: FileService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   display: Display = new Display(null);
 
@@ -24,9 +29,45 @@ export class DataVisualizationDisplayComponent implements OnInit {
 
   dataSource: DataSource;
 
+  type: string;
+  
+
+
   ngOnInit() {
-    this.subscribeToDataSourceForDisplay();
+    this.subscribeToDataSourceForDisplay();    
+    this.subscribeToRoute();
   }
+
+  private subscribeToRoute(): void {
+    this.route.params.subscribe(
+      (params) => {
+        this.loadView(params.type,params.id);
+      }
+    )
+  }
+  private loadView(type: string, dataSourceApikey: string): void {
+    switch(type) {
+      case 'instrument':
+        //load defaults
+        this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
+          .subscribe(
+            (dataSource) => {
+              this.dataSource = dataSource;
+              this.loadDefaultChartsByCV(dataSource.cv);
+              this.getDefaultViewNameByCV(dataSource.cv);
+            }
+          )
+        break;
+      case 'view':
+        //load view
+
+        break;
+      default:
+        console.log('invalid option');
+        break;
+    }
+  }
+
   /**
    * This subscription is for the default view
    * of the instruments

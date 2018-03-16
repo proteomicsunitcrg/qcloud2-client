@@ -22,6 +22,7 @@ import { DataSourceService } from '../services/data-source.service';
 import { PlotsModule } from '../plots/plots.module';
 import { FileService } from '../services/file.service';
 import { FormsModule } from '@angular/forms';
+import { WelcomeComponent } from './layout/welcome/welcome.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     InstrumentStatusComponent, 
     DataVisualizationMainWindowComponent, 
     DataVisualizationSideMenuComponent,
-    DataVisualizationDisplayComponent
+    DataVisualizationDisplayComponent,
+    WelcomeComponent
     ],
   providers:[DataService,
     ViewService,

@@ -37,6 +37,10 @@ export class DataSourceService {
       .catch(this.errorHandler);
   }
 
+  public getDataSourceByApikey(dataSourceApikey: string): Observable<DataSource> {
+    return this.httpClient.get<DataSource>(this.dataSourceUrl+'/'+dataSourceApikey);
+  }
+
   public getDataSourcesByCategory(category: Category): Observable<DataSource[]> {
     return this.httpClient.get<any>(this.dataSourceUrl+'/category/'+category.id);
   }

@@ -80,11 +80,10 @@ export class PlotComponent implements OnInit {
       title: this.chart.name,
       shapes: [],
       hovermode: 'closest',
-      //width: 600,
       xaxis: {
         nticks: 10,
       },
-      sampleType: 'bsa',
+      sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
     };
     Plotly.newPlot('plot'+this.chart.id, dataForPlot, layout);

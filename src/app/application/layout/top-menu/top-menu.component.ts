@@ -11,7 +11,7 @@ import { DataSource } from '../../../models/dataSource';
 })
 export class TopMenuComponent implements OnInit {
 
-  instruments = ['Velosin','Luminoide'];
+  //instruments = ['Velosin','Luminoide'];
 
   dataSources: DataSource[] = [];
 
