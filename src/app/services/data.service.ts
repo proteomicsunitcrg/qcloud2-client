@@ -33,6 +33,7 @@ export class DataService {
     return this.httpClient.get<MiniData[]>(this.dataUrl+'/'+this.currentDates[0]+'/'+this.currentDates[1]+'/'+chart.id+'/'+dataSource.id)
     .map(
       (data) => {
+        console.log(data);
         let dataArray = [];
         data.forEach((row) => {
           if (dataArray[row.fileCreationDate] == undefined) {

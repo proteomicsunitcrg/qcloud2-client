@@ -32,8 +32,8 @@ export class PlotComponent implements OnInit {
       .subscribe(
         (dataFromServer) => {
           Object.keys(dataFromServer).forEach(function (key) {
-            //datesArray.push(key);            
-            datesArray.push(moment(key,"x").format('YYYY-MM-DD HH:mm'));
+            datesArray.push(key);            
+            // datesArray.push(moment(key,"x").format('YYYY-MM-DD HH:mm'));
             Object.keys(dataFromServer[key]).forEach(
               (element) => {
                 if (dataArray[element] == undefined) {
