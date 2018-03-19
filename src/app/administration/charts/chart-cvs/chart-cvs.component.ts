@@ -4,6 +4,8 @@ import { Category } from '../../../models/category';
 import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
 import { ChartParamsService } from '../../../services/chart-params.service';
+import { ChartService } from '../../../services/chart.service';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-chart-cvs',
@@ -14,13 +16,14 @@ export class ChartCvsComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
     private cvService: CvService,
-    private chartParamsService: ChartParamsService) { }
+    private chartParamsService: ChartParamsService,
+    private chartService: ChartService) { }
 
   currentCategory: Category;
 
   cvs: CV[] = [];
 
-  selectedCv: CV;
+  selectedCv: CV = new CV(null,null,null,null,null,null);
 
   limit = 10;
 
@@ -41,7 +44,17 @@ export class ChartCvsComponent implements OnInit {
         this.getCvListByCategoryFromServer(this.currentCategory);
       }
     )
+    this.subscribeToChartEdition();
     this.subscribeToReset();
+  }
+
+  private subscribeToChartEdition(): void {
+    this.chartService.chartToEdit$
+      .subscribe(
+        (chart) => {
+          this.selectedCv=chart.cv;
+        }
+      )
   }
 
   private subscribeToReset(): void {

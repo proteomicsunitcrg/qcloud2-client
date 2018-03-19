@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SampleType } from '../../../models/sampleType';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
+import { ChartService } from '../../../services/chart.service';
 
 @Component({
   selector: 'app-chart-sample-type',
@@ -11,21 +12,32 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 export class ChartSampleTypeComponent implements OnInit {
 
   constructor(private sampleTypeService: SampleTypeService,
-    private chartParamsService: ChartParamsService) { }
+    private chartParamsService: ChartParamsService,
+    private chartService: ChartService) { }
 
-  selectedSampleType: SampleType;
+  selectedSampleType: SampleType = new SampleType(null,null);
 
   sampleTypes: SampleType[] = [];
 
   ngOnInit() {
     this.loadSampleTypes();
     this.subscribeToReset();
+    this.subscribeToChartEdition();
   }
   private subscribeToReset(): void {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           this.selectedSampleType = null;
+        }
+      )
+  }
+
+  private subscribeToChartEdition(): void {
+    this.chartService.chartToEdit$
+      .subscribe(
+        (chart) => {
+          this.selectedSampleType=chart.sampleType;
         }
       )
   }

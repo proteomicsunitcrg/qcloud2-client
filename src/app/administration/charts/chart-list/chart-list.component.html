@@ -1,3 +1,30 @@
-<p>
-  chart-list works!
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>
+        Name
+    </th>
+    <th>
+      For
+    </th>
+    <th>
+      Sample type
+    </th>
+    <th>
+      Actions
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let chart of charts">
+      <td>{{chart.name}}</td>
+      <td>{{chart.cv.name}}</td>
+      <td>{{chart.sampleType.name}}</td>
+      <td>
+          <!-- <i class="material-icons cursorIcon"><a [routerLink]="['edit', chart.id]"></a>edit</a></i> -->
+          <i class="material-icons cursorIcon" (click)="editChart(chart)">edit</i>
+          <i class="material-icons cursorIcon">delete_forever</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

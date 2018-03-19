@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs/Subject';
 import { Chart } from '../models/chart';
 import { ChartParam } from '../models/chartParam';
+import { CV } from '../models/cv';
 
 @Injectable()
 export class ChartService {
@@ -15,6 +16,19 @@ export class ChartService {
   private apiPrefix = environment.apiPrefix;
 
   chartUrl= this.apiPrefix+'api/chart';
+
+  /**
+   * This observable is for change the tab
+   * on the chart component
+   */
+  private currentTab = new Subject<string>();
+  selectedTab$ = this.currentTab.asObservable();
+
+  /**
+   * This subscription is for edit a chart
+   */
+  private chartToEdit = new Subject<Chart>();
+  chartToEdit$ = this.chartToEdit.asObservable();
 
   public addNewChart(chart: Chart): Observable<Chart> {
     const json = JSON.stringify(chart);
@@ -30,4 +44,19 @@ export class ChartService {
     return this.httpClient.post<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
   }
 
+  public getAllCharts(): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl);
+  }
+
+  public getChartsByCV(cv: CV): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id);
+  }
+
+  public selectTab(tab: string): void {
+    this.currentTab.next(tab);
+  }
+
+  public sendChartToEdit(chart: Chart): void {
+    this.chartToEdit.next(chart);
+  }
 }

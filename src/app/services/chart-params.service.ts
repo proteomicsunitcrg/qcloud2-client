@@ -6,11 +6,17 @@ import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import { ChartParam } from '../models/chartParam';
+import { Chart } from '../models/chart';
 
 @Injectable()
 export class ChartParamsService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  private apiPrefix = environment.apiPrefix;
+
+  chartUrl= this.apiPrefix+'api/chart/params';
+
 
   /**
    * This observable is used to transport the
@@ -30,6 +36,16 @@ export class ChartParamsService {
 
   public resetComponents(): void {
     this.resetComponent.next(true);
+  }
+
+  // Estas pasando el parameter pero aún no sabes ni quien lo va a pasar
+  // y mucho menos como se va a pasar....
+  // Prueba a poner un observable de param aquí a ver si suena la flauta
+
+
+
+  public getChartsParamsByChart(chart: Chart): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.chartUrl+'/'+chart.id);
   }
 
 }

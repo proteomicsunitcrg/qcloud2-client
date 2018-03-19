@@ -4,25 +4,49 @@
       <h4>Charts management</h4>
     </div>
   </div>
-  <div class="row">    
-    <app-chart-form></app-chart-form>
+  <div class="row z-depth-0 blue-grey darken-1">
+    <ul class="tabs" id="tabs">
+      <li class="tab col s6">
+        <a href="#chartList" class="active">Chart list</a>
+      </li>
+      <li class="tab col s6">
+        <a href="#newChart">New chart</a>
+      </li>
+    </ul>
   </div>
-  <!-- PARAMS SELECTOR -->
-  <div class="row z-depth-0">
-    <div class="col s12 m12 l12 xl12">
-      <div class="col s3">
-        <app-chart-cvs></app-chart-cvs>
-      </div>
-      <div class="col s3">
-        <app-chart-sample-type></app-chart-sample-type>
-      </div>
-      <div class="col s3">
-        <app-chart-param></app-chart-param>
-      </div>
-      <div class="col s3">
-        <app-chart-context-source></app-chart-context-source>
+  <div id="chartList" class="col s12">
+    <div class="row z-depth-0">
+      <div class="col s12 m12 l12 xl12">
+        <div class="col s3">
+          <app-chart-cvs></app-chart-cvs>
+        </div>
+        <div class="col s9">
+          <app-chart-list></app-chart-list>
+        </div>
       </div>
     </div>
   </div>
+  <div id="newChart" class="col s12">
 
+    <div class="row">
+      <app-chart-form></app-chart-form>
+    </div>
+    <!-- PARAMS SELECTOR -->
+    <div class="row z-depth-0">
+      <div class="col s12 m12 l12 xl12">
+        <div class="col s3">
+          <app-chart-cvs></app-chart-cvs>
+        </div>
+        <div class="col s3">
+          <app-chart-sample-type></app-chart-sample-type>
+        </div>
+        <div class="col s3">
+          <app-chart-param></app-chart-param>
+        </div>
+        <div class="col s3">
+          <app-chart-context-source></app-chart-context-source>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

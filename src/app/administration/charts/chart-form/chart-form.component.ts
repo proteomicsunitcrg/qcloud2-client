@@ -41,6 +41,33 @@ export class ChartFormComponent implements OnInit {
     this.subscribeToCV();
     this.subscribeToSampleType();
     this.subscribeToChartParams();
+    this.subscribeToChartEdition();
+  }
+
+  private subscribeToChartEdition(): void {
+    this.chartService.chartToEdit$
+      .subscribe(
+        (chart) => {
+          this.newChart = chart;
+          delay(1).then(()=> M.updateTextFields());
+          // load chart params
+          // this.loadChartParams(chart);
+        }
+      )
+  }
+
+  private loadChartParams(chart: Chart): void {
+    this.chartParamsService.getChartsParamsByChart(chart)
+      .subscribe(
+        (chartParams) => {
+          chartParams.forEach(
+            (chartParam) => {
+              this.chartParams.push(new ChartParam(this.newChart,chartParam.param,chartParam.contextSource));              
+            }            
+          )
+
+        }
+      )
   }
 
   private subscribeToChartParams(): void {

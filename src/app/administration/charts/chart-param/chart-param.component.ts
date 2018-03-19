@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
 import { ChartParamsService } from '../../../services/chart-params.service';
+import { ChartService } from '../../../services/chart.service';
 
 @Component({
   selector: 'app-chart-param',
@@ -11,7 +12,8 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 export class ChartParamComponent implements OnInit {
 
   constructor(private paramService: ParametersService,
-    private chartParamsService: ChartParamsService) { }
+    private chartParamsService: ChartParamsService,
+    private chartService: ChartService) { }
 
   parameters: Param[] = [];
 
@@ -21,6 +23,16 @@ export class ChartParamComponent implements OnInit {
     // Load paratemers
     this.loadParameters();
     this.subscribeToReset();
+    this.subscribeToChartEdition();
+  }
+
+  private subscribeToChartEdition(): void {
+    this.chartService.chartToEdit$
+      .subscribe(
+        (chart) => {
+          
+        }
+      )
   }
   private subscribeToReset(): void {
     this.chartParamsService.resetComponent$

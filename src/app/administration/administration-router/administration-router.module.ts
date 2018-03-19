@@ -11,7 +11,6 @@ import { MainParametersComponent } from '../parameters/main-parameters/main-para
 import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sample-type.component';
 import { MainChartComponent } from '../charts/main-chart/main-chart.component';
 
-
 const routes: Routes = [
   //{ path: 'administration', component: MainComponent},
   {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
@@ -21,7 +20,10 @@ const routes: Routes = [
     { path: 'context', component: MainContextSourceComponent},
     { path: 'parameters', component: MainParametersComponent},
     { path: 'sampletypes', component: MainSampleTypeComponent},
-    { path: 'charts', component: MainChartComponent}
+    { path: 'charts', component: MainChartComponent,
+      children: [
+        { path: 'edit', component: MainChartComponent}
+      ]},
   ]},
 ];
 

@@ -17,7 +17,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
-      <td [ngClass]="{'blue-grey lighten-3': cv===selectedCv}" (click)="selectCV(cv)">{{cv.name}}</td>
+      <td [ngClass]="{'blue-grey lighten-3': cv.id===selectedCv.id}" (click)="selectCV(cv)">{{cv.name}}</td>
     </tr>
   </tbody>
 </table>

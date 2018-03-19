@@ -1,5 +1,10 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
   <div class="row z-depth-0 blue-grey darken-1">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Context source management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0 blue-grey darken-1">
     <ul class="tabs" id="tabs">
       <li class="tab col s6">
         <a href="#peptide" class="active">Peptides</a>
@@ -8,14 +13,6 @@
         <a href="#isample">Instrument sample</a>
       </li>
     </ul>
-  </div>
-  <div id="isample" class="col s12">
-    <div class="col s12 m12 l4 xl4">
-      <app-instrument-sample-form></app-instrument-sample-form>
-    </div>
-    <div class="col s12 m12 l8 xl8">
-      <app-instrument-sample-list></app-instrument-sample-list>
-    </div>
   </div>
   <div id="peptide" class="col s12">
     <div class="col s12 m12 l4 xl4">
@@ -26,6 +23,14 @@
     </div>
     <div class="col s12 m12 l4 xl4">
       <app-sample-composition-form></app-sample-composition-form>
+    </div>
+  </div>
+  <div id="isample" class="col s12">
+    <div class="col s12 m12 l4 xl4">
+      <app-instrument-sample-form></app-instrument-sample-form>
+    </div>
+    <div class="col s12 m12 l8 xl8">
+      <app-instrument-sample-list></app-instrument-sample-list>
     </div>
   </div>
 </div>
