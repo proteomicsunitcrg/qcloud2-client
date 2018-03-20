@@ -61,7 +61,7 @@ export class ChartCvsComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedCv = null;
+          this.selectedCv = new CV(null,null,null,null,null,null);
         }
       )
   }

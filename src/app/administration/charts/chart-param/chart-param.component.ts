@@ -3,6 +3,8 @@ import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
+import { Chart } from '../../../models/chart';
+import { ChartParam } from '../../../models/chartParam';
 
 @Component({
   selector: 'app-chart-param',
@@ -17,7 +19,7 @@ export class ChartParamComponent implements OnInit {
 
   parameters: Param[] = [];
 
-  selectedParameter: Param;
+  selectedParameter: Param = new Param(null,null,null);
 
   ngOnInit() {
     // Load paratemers
@@ -30,7 +32,17 @@ export class ChartParamComponent implements OnInit {
     this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
-          
+          this.loadChartParams(chart);
+        }
+      )
+  }
+
+  private loadChartParams(chart: Chart): void {
+    this.chartParamsService.getChartsParamsByChart(chart)
+      .subscribe(
+        (chartParams: ChartParam[]) => {
+          //this.selectedParameter = chartParams[0].param;
+          this.selectParameter(chartParams[0].param);
         }
       )
   }
@@ -38,7 +50,7 @@ export class ChartParamComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedParameter = null;
+          this.selectedParameter = new Param(null,null,null);
         }
       )
   }

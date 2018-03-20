@@ -28,7 +28,7 @@ export class ChartSampleTypeComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedSampleType = null;
+          this.selectedSampleType = new SampleType(null,null);
         }
       )
   }
@@ -37,7 +37,7 @@ export class ChartSampleTypeComponent implements OnInit {
     this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
-          this.selectedSampleType=chart.sampleType;
+          this.selectSampleType(chart.sampleType);
         }
       )
   }

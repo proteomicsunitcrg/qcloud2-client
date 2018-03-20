@@ -37,6 +37,30 @@ export class ChartService {
     return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
   }
 
+  public chartToDatabase(chart: Chart, update: boolean): Observable<Chart> {
+    const json = JSON.stringify(chart);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    if(update) {
+      return this.httpClient.put<Chart>(this.chartUrl,params,{headers: headers});
+    }else {
+      return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
+    }
+  }
+  
+  public chartParamsToDatabase(chart: Chart, chartParams: ChartParam[], update: boolean): Observable<ChartParam[]> {
+    const json = JSON.stringify(chartParams);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    if(update) {      
+      return this.httpClient.put<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
+    }else {
+      return this.httpClient.post<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
+    }
+    
+    
+  }
+
   public addChartParamsToChart(chart: Chart, chartParams: ChartParam[]) : Observable<ChartParam[]> {
     const json = JSON.stringify(chartParams);
     const params = json;

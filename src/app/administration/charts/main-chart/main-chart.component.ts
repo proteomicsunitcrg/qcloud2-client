@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
 import { ChartService } from '../../../services/chart.service';
+import { ChartParamsService } from '../../../services/chart-params.service';
 @Component({
   selector: 'app-main-chart',
   templateUrl: './main-chart.component.html',
@@ -8,7 +9,8 @@ import { ChartService } from '../../../services/chart.service';
 })
 export class MainChartComponent implements OnInit {
 
-  constructor(private chartService: ChartService) { }
+  constructor(private chartService: ChartService,
+    private chartParamsService: ChartParamsService) { }
 
   instance: any;
 
@@ -18,8 +20,18 @@ export class MainChartComponent implements OnInit {
     this.instance = M.Tabs.init(elem);
     // subscribe to tab change
     this.subscribeToTabChange();
-    
+    this.subscribeToReset();
   }
+    
+  private subscribeToReset(): void {
+    this.chartParamsService.resetComponent$
+      .subscribe(
+        (reset) => {
+          
+        }
+      )
+  }  
+
   private subscribeToTabChange(): void {
     this.chartService.selectedTab$
     .subscribe(

@@ -35,6 +35,9 @@ export class ChartFormComponent implements OnInit {
 
   chartParams: ChartParam[] = [];
 
+  isEditing = false;
+
+
   categories: Category[] = [];
   ngOnInit() {
     this.loadCategories();
@@ -51,7 +54,9 @@ export class ChartFormComponent implements OnInit {
           this.newChart = chart;
           delay(1).then(()=> M.updateTextFields());
           // load chart params
-          // this.loadChartParams(chart);
+          this.loadChartParams(chart);
+          this.isEditing = true;
+          
         }
       )
   }
@@ -65,7 +70,7 @@ export class ChartFormComponent implements OnInit {
               this.chartParams.push(new ChartParam(this.newChart,chartParam.param,chartParam.contextSource));              
             }            
           )
-
+          this.chartParamsService.sendContextSourcesToEdit(this.chartParams);
         }
       )
   }
@@ -73,7 +78,10 @@ export class ChartFormComponent implements OnInit {
   private subscribeToChartParams(): void {
     this.chartParamsService.chartParamsToFill$
       .subscribe(
-        (chartParamsArray) => this.chartParams = chartParamsArray
+        (chartParamsArray) => {          
+          this.chartParams = chartParamsArray
+        }
+          
       )
   }
 
@@ -113,6 +121,7 @@ export class ChartFormComponent implements OnInit {
     const elem = document.getElementById('select_categories');
     let instance = M.FormSelect.init(elem, {});    
   }
+
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
@@ -128,7 +137,9 @@ export class ChartFormComponent implements OnInit {
 
   onSubmit(): void {
     // insert the chart first
-    this.chartService.addNewChart(this.newChart)
+    // Check if this is an update or new chart
+    console.log(this.chartParams);
+    this.chartService.chartToDatabase(this.newChart, this.isEditing)
       .subscribe(
         (chart) => {
           // then insert the chart params
@@ -142,18 +153,19 @@ export class ChartFormComponent implements OnInit {
   }
   private addChartToChartParams(chart: Chart): void {
     this.chartParams.forEach(
-      (chartParam) => {
+      (chartParam) => {        
         chartParam.chart = chart;
       }
     )
   }
 
   private insertChartParams(chart: Chart): void {
-    this.chartService.addChartParamsToChart(chart,this.chartParams)
+    this.chartService.chartParamsToDatabase(chart,this.chartParams,this.isEditing)
       .subscribe(
         (chartParams) => {
           // TODO: reset form and show some success (toast )
           this.chartParamsService.resetComponents();
+          M.toast({html: 'Chart saved!'});
         },
         (error) => {
           this.ModalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'newChartParams',null));

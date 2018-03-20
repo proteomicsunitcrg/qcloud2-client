@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import { ChartParam } from '../models/chartParam';
 import { Chart } from '../models/chart';
+import { ContextSource } from '../models/contextSource';
 
 @Injectable()
 export class ChartParamsService {
@@ -20,7 +21,8 @@ export class ChartParamsService {
 
   /**
    * This observable is used to transport the
-   * chart params between the components 
+   * chart params between the components when a new chart
+   * is beign entered
    */
   private chartParamsToFill = new Subject<ChartParam[]>();
   chartParamsToFill$ = this.chartParamsToFill.asObservable();
@@ -38,9 +40,20 @@ export class ChartParamsService {
     this.resetComponent.next(true);
   }
 
-  // Estas pasando el parameter pero aún no sabes ni quien lo va a pasar
-  // y mucho menos como se va a pasar....
-  // Prueba a poner un observable de param aquí a ver si suena la flauta
+  /**
+   * This observable is for send the context sources
+   * from the database to the edit chart form
+   */
+  private selectedContextSources = new Subject<ContextSource[]>();
+  selectedContextSources$ = this.selectedContextSources.asObservable();
+
+  public sendContextSourcesToEdit(chartParams: ChartParam[]): void {
+    let contextSources: ContextSource[] = [];
+    chartParams.forEach(
+      (chartParam) => contextSources.push(chartParam.contextSource)
+    )
+    this.selectedContextSources.next(contextSources);
+  }
 
 
 

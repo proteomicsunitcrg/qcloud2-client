@@ -7,7 +7,7 @@
     <tr *ngFor="let contextSource of contextSources; let i = index" >
       <td>
         <label>
-          <input type="checkbox" (change)="toggleEditable($event,contextSource)"/>
+          <input type="checkbox" [checked]="isChecked(contextSource)" (change)="toggleEditable($event,contextSource)"/>
           <span>{{contextSource.name}}</span>
         </label>
       </td>

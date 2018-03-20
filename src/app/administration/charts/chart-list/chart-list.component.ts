@@ -4,6 +4,7 @@ import { ChartService } from '../../../services/chart.service';
 import { CV } from '../../../models/cv';
 import { Chart } from '../../../models/chart';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ChartParamsService } from '../../../services/chart-params.service';
 
 @Component({
   selector: 'app-chart-list',
@@ -16,11 +17,22 @@ export class ChartListComponent implements OnInit {
   charts: Chart[];
 
   constructor(private cvService: CvService,
-    private chartService: ChartService) { }
+    private chartService: ChartService,
+    private chartParamsService: ChartParamsService) { }
 
   ngOnInit() {
     this.loadAllCharts();
     this.subscribeToCVChange();
+    this.subscribeToReset();
+  }
+
+  private subscribeToReset(): void {
+    this.chartParamsService.resetComponent$
+      .subscribe(
+        () => {
+          this.loadAllCharts();
+        }
+      )
   }
 
   private loadAllCharts(): void {
