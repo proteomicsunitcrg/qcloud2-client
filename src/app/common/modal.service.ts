@@ -25,10 +25,18 @@ export class ModalService {
 
   selectedBottomModal$ = this.bottomModalSource.asObservable();
 
+  private bottomModalAction = new Subject<ModalResponse>();
+
+  selectedBottomModalAction$ = this.bottomModalAction.asObservable();
+
   constructor() { }
 
   openBottomModal(modal: BottomModal): void {
     this.bottomModalSource.next(modal);
+  }
+
+  sendBottomModalAction(action: ModalResponse): void {
+    this.bottomModalAction.next(action);
   }
 
 
