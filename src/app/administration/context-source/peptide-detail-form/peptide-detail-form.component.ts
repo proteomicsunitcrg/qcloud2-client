@@ -4,12 +4,12 @@ import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
 import { SampleType } from '../../../models/sampleType';
 import { PeptideService } from '../../../services/peptide.service';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { delay } from 'q';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
-
+declare var M: any;
 @Component({
   selector: 'app-peptide-detail-form',
   templateUrl: './peptide-detail-form.component.html',

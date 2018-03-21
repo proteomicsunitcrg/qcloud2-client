@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../../../services/file.service';
 import * as moment from 'moment';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { DataService } from '../../../services/data.service';
-
+declare var M: any;
 @Component({
   selector: 'app-data-visualization-side-menu',
   templateUrl: './data-visualization-side-menu.component.html',

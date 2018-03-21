@@ -94,11 +94,11 @@ export class ChartCvsComponent implements OnInit {
     }
   }
 
-  private loadCvList(cvs: CV[]): void {
+  private loadCvList(cvs: CV[]): void {    
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {
       this.cvs.push(cv);
-    })
+    })    
   }
 
   reloadList(): void {

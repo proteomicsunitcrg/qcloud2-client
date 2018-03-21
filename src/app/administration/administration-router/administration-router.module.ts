@@ -10,6 +10,9 @@ import { MainContextSourceComponent } from '../context-source/main-context-sourc
 import { MainParametersComponent } from '../parameters/main-parameters/main-parameters.component';
 import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sample-type.component';
 import { MainChartComponent } from '../charts/main-chart/main-chart.component';
+import { MainDefaultViewComponent } from '../default-view/main-default-view/main-default-view.component';
+import { DefaultViewGeneratorComponent } from '../default-view/default-view-generator/default-view-generator.component';
+import * as M from 'materialize-css/dist/js/materialize';
 
 const routes: Routes = [
   //{ path: 'administration', component: MainComponent},
@@ -20,6 +23,8 @@ const routes: Routes = [
     { path: 'context', component: MainContextSourceComponent},
     { path: 'parameters', component: MainParametersComponent},
     { path: 'sampletypes', component: MainSampleTypeComponent},
+    { path: 'views', component: MainDefaultViewComponent},
+    { path: 'views/cv/:id', component: DefaultViewGeneratorComponent},
     { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}
@@ -27,12 +32,14 @@ const routes: Routes = [
   ]},
 ];
 
-
+//loadChildren: '../application/application.module#ApplicationModule'
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: []
+  declarations: [],
+  providers: []
+  
 })
 export class AdministrationRouterModule { }

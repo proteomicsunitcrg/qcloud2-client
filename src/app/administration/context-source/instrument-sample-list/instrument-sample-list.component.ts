@@ -3,9 +3,9 @@ import { ContextSourceService } from '../../../services/context-source.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ContextSourceCategory } from '../../../models/contextSourceCategory';
 import { ContextSource } from '../../../models/contextSource';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
-
+declare var M: any;
 @Component({
   selector: 'app-instrument-sample-list',
   templateUrl: './instrument-sample-list.component.html',

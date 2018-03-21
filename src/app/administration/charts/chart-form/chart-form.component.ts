@@ -5,14 +5,14 @@ import { Category } from '../../../models/category';
 import { Chart } from '../../../models/chart';
 import { ChartParam } from '../../../models/chartParam';
 import { CategoryService } from '../../../services/category.service';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { delay } from 'q';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
-
+declare var M: any;
 
 @Component({
   selector: 'app-chart-form',

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Modal } from '../models/modal';
+import { BottomModal } from '../models/bottomModal';
 import { ModalResponse } from '../models/modalResponse';
 import { Subject } from 'rxjs/Subject';
 
@@ -14,7 +15,22 @@ export class ModalService {
 
   selectedAction$ = this.modalAction.asObservable();
 
+  /**
+   * This is the observable for the bottom modal
+   * At this moment it will be used only at the
+   * view creation screen, asking the user how
+   * many columns want
+   */
+  private bottomModalSource = new Subject<BottomModal>();
+
+  selectedBottomModal$ = this.bottomModalSource.asObservable();
+
   constructor() { }
+
+  openBottomModal(modal: BottomModal): void {
+    this.bottomModalSource.next(modal);
+  }
+
 
   openModal(modal: Modal): void {    
     this.modalSource.next(modal);

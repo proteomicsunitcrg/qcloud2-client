@@ -44,6 +44,9 @@ import { ChartParamComponent } from './charts/chart-param/chart-param.component'
 import { ChartContextSourceComponent } from './charts/chart-context-source/chart-context-source.component';
 import { ChartParamsService } from '../services/chart-params.service';
 import { ChartService } from '../services/chart.service';
+import { ViewBuilderModule} from '../view-builder/view-builder.module';
+import { MainDefaultViewComponent } from './default-view/main-default-view/main-default-view.component';
+import { DefaultViewGeneratorComponent } from './default-view/default-view-generator/default-view-generator.component';
 
 @NgModule({
   imports: [
@@ -51,7 +54,8 @@ import { ChartService } from '../services/chart.service';
     AdministrationRouterModule,
     RouterModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ViewBuilderModule
   ],
   providers: [CategoryService,
     CvService,
@@ -91,6 +95,8 @@ import { ChartService } from '../services/chart.service';
     ChartCvsComponent,
     ChartSampleTypeComponent,
     ChartParamComponent,
-    ChartContextSourceComponent]
+    ChartContextSourceComponent,
+    MainDefaultViewComponent,
+    DefaultViewGeneratorComponent]
 })
 export class AdministrationModule { }

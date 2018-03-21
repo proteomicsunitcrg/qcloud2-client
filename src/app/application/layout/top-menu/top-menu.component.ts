@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { AuthService } from '../../../auth.service';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
-
+declare var M: any;
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',

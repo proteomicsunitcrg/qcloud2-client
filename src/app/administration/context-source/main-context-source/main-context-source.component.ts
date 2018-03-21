@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SampleTypeService } from '../../../services/sample-type.service';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
+declare var M: any;
 @Component({
   selector: 'app-main-context-source',
   templateUrl: './main-context-source.component.html',

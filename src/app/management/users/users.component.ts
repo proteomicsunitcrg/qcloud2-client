@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,7 +8,7 @@ import { Modal } from '../../models/modal';
 import { ModalResponse } from '../../models/modalResponse';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../auth.service';
-
+declare var M: any;
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',

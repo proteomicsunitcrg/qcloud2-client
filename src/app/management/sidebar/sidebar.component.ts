@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { CategoryService } from '../../services/category.service';
-
+declare var M: any;
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',

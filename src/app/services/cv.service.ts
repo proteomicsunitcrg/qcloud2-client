@@ -29,6 +29,9 @@ export class CvService {
     return this.httpClient.get<CV[]>(this.cvUrl);    
   }
 
+  public getCvByCvId(cvId: string): Observable<CV> {
+    return this.httpClient.get<CV>(this.cvUrl+'/'+cvId);
+  }
   public getAllEnabledCVByCategory(category: Category): Observable<CV[]>{
     return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id+'/enabled');
   }
@@ -38,7 +41,6 @@ export class CvService {
   }
   public getCvByCategory(category: Category): Observable<CV[]> {
     return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id);   
-
   }
 
   public sendSelectedCvToChartForm(cv: CV): void {
