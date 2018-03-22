@@ -8,6 +8,7 @@ import { Display } from '../models/display';
 import { Chart } from '../models/chart';
 import { CV } from '../models/cv';
 import { View } from '../models/view';
+import { LayoutInformation } from '../models/layoutInformation';
 
 @Injectable()
 export class ViewService {
@@ -28,6 +29,18 @@ export class ViewService {
   public sendCVToChartLayoutList(cv: CV): void {
     this.selectedCV.next(cv);
   }
+
+  /**
+   * This observable is for manage the deletion
+   * of rows in the view builder
+   */
+  private deletedRow = new Subject<LayoutInformation>();
+  deletedRow$ = this.deletedRow.asObservable();
+
+  public sendDeletedRowToList(deletedRow: LayoutInformation): void {
+    this.deletedRow.next(deletedRow);
+  }
+
 
   public getDefaultViewNameByCV(cv: CV): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id)

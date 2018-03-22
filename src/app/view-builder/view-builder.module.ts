@@ -6,10 +6,14 @@ import { ViewMainComponent } from './view-main/view-main.component';
 import { ViewService } from '../services/view.service';
 import { CvService } from '../services/cv.service';
 import { ChartService } from '../services/chart.service';
+import { DragulaModule } from 'ng2-dragula';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule
+    FormsModule,
+    CommonModule,
+    DragulaModule
   ],
   declarations: [ViewLayoutComponent, ViewListComponent, ViewMainComponent],
   exports: [ViewMainComponent],

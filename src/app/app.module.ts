@@ -22,6 +22,9 @@ import { ModalService } from './common/modal.service';
 
 import {tokenConfiguration} from './common/token-config';
 
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula/components/dragula.provider';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -32,6 +35,7 @@ import {tokenConfiguration} from './common/token-config';
     EntryPointModule,
     RoutingModule,
     ModalModuleModule,
+    DragulaModule,
     JwtModule.forRoot(tokenConfiguration)
   ],
   providers: [AuthService,
@@ -40,6 +44,7 @@ import {tokenConfiguration} from './common/token-config';
       useClass: AuthInterceptor,
       multi: true
   },
+  DragulaService,
   AuthGuardService,
   RoleGuardService,
   UserService,
