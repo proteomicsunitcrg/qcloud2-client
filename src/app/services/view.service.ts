@@ -19,18 +19,6 @@ export class ViewService {
   defaultViewsUrl= this.apiPrefix+'api/views/default';
 
   /**
-   * This observable is for pass a CV to the 
-   * chart list in order to create the layouts
-   * It is used in the viewBuilder module
-   */
-  private selectedCV = new Subject<CV>();
-  selectedCV$ = this.selectedCV.asObservable();
-
-  public sendCVToChartLayoutList(cv: CV): void {
-    this.selectedCV.next(cv);
-  }
-
-  /**
    * This observable is for manage the deletion
    * of rows in the view builder
    */

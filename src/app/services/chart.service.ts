@@ -72,7 +72,7 @@ export class ChartService {
     return this.httpClient.get<Chart[]>(this.chartUrl);
   }
 
-  public getChartsByCV(cv: CV): Observable<Chart[]> {
+  public getChartsByCV(cv: CV): Observable<Chart[]> {    
     return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id);
   }
 

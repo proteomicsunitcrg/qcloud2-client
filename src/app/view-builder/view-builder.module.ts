@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewLayoutComponent } from './view-layout/view-layout.component';
-import { ViewListComponent } from './view-list/view-list.component';
 import { ViewMainComponent } from './view-main/view-main.component';
 import { ViewService } from '../services/view.service';
 import { CvService } from '../services/cv.service';
@@ -15,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     DragulaModule
   ],
-  declarations: [ViewLayoutComponent, ViewListComponent, ViewMainComponent],
+  declarations: [ViewMainComponent],
   exports: [ViewMainComponent],
   providers: [ViewService,
     CvService,

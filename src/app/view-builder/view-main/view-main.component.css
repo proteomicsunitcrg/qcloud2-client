@@ -1,0 +1,13 @@
+.col.s12 > .btn {
+    width: 100%;
+ }
+ .col.s2 > .btn {
+    width: 100%;
+ }
+ .delete-row {
+     font-size: 0.6em;
+     cursor: pointer;
+ }
+ .chart-item {
+     
+ }
