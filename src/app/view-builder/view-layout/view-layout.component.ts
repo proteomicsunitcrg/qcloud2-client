@@ -8,6 +8,7 @@ import { ModalResponse } from '../../models/modalResponse';
 import { DragulaService } from 'ng2-dragula';
 import { ViewService } from '../../services/view.service';
 import { LayoutInformation } from '../../models/layoutInformation';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-view-layout',
@@ -23,17 +24,17 @@ export class ViewLayoutComponent implements OnInit {
   display = [];
   chartDisplay = [];
 
-
+  charts=[];
 
   ngOnInit() {
-    this.subscribeToBottomModal();    
+    this.subscribeToBottomModal();
     this.dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
     this.dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
     });
-    this.dragulaService.setOptions('first-bag', { revertOnSpill: true});
+    this.dragulaService.setOptions('first-bag', { revertOnSpill: true });
   }
 
   private onDrop(args) {
@@ -46,8 +47,8 @@ export class ViewLayoutComponent implements OnInit {
      * in the layout section. This is a way to 
      * know where the item is.
      */
-    
-    if(id!==null) {
+
+    if (id !== null) {
       // adding     
       adding = true;
     } else {
@@ -62,18 +63,18 @@ export class ViewLayoutComponent implements OnInit {
      * It have a boolean condition for ensure that
      * differenciate the chart pool of the layout
      */
-    if(currentElements>1 && adding) {
+    if (currentElements > 1 && adding) {
       this.dragulaService.find('first-bag').drake.cancel(true);
-    }else {
-      if(adding) {
+    } else {
+      if (adding) {
         let position = id.split(';');
-        this.addChartIntoDisplay(plotId,position);
+        this.addChartIntoDisplay(plotId, position);
       }
-      
+
     }
   }
   private addChartIntoDisplay(plotId: number, position: number[]): void {
-    this.chartDisplay[position[0]][position[1]]= plotId;
+    this.chartDisplay[position[0]][position[1]] = plotId;
   }
 
   private onDrag(args) {
@@ -97,8 +98,8 @@ export class ViewLayoutComponent implements OnInit {
         this.display[this.display.length] = [];
         this.chartDisplay[this.chartDisplay.length] = [];
         for (let i = 0; i < Number(action.userAction); i++) {
-          this.display[this.display.length-1].push(null);
-          this.chartDisplay[this.chartDisplay.length-1].push(null);
+          this.display[this.display.length - 1].push(null);
+          this.chartDisplay[this.chartDisplay.length - 1].push(null);
         }
         break;
       default:
@@ -109,11 +110,9 @@ export class ViewLayoutComponent implements OnInit {
 
   deleteRow(row: number): void {
     // send information for reestruct the list
-    console.log(this.display);
-    let layoutInformation = new LayoutInformation(this.chartDisplay.splice(row,1), this.chartDisplay);    
-    this.display.splice(row,1);
-    //this.viewService.sendDeletedRowToList(layoutInformation);
-    console.log(this.display);
+    this.display.splice(row, 1);
+    let layoutInformation = new LayoutInformation(this.chartDisplay.splice(row, 1), this.chartDisplay);    
+    this.viewService.sendDeletedRowToList(layoutInformation);
   }
 
   addRow(): void {
