@@ -119,10 +119,7 @@ export class ViewMainComponent implements OnInit {
         this.addChartIntoDisplay(plotId, position);
         this.removeChartFromArray(plotId);
       }else {
-        console.log(e);
-        
-        console.log(this.dragulaService);
-        
+        this.dragulaService.find('first-bag').drake.cancel(true);
       }
     }
     console.log(this.charts);
