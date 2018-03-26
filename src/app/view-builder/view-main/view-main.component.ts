@@ -9,7 +9,8 @@ import { ModalService } from '../../common/modal.service';
 import { DragulaService } from 'ng2-dragula';
 import { BottomModal } from '../../models/bottomModal';
 import { ModalResponse } from '../../models/modalResponse';
-import { LayoutInformation } from '../../models/layoutInformation';
+import { View } from '../../models/view';
+import { ViewDisplay } from '../../models/viewDisplay';
 
 @Component({
   selector: 'app-view-main',
@@ -27,12 +28,17 @@ export class ViewMainComponent implements OnInit {
 
   @Input() type: string;
 
+
+
   display = [];
   chartDisplay = [];
 
   charts: Chart[] = [];
-  originalCharts: Chart[] = [];
   cv: CV;
+
+  viewDisplay: ViewDisplay[][] = [];
+
+  view: View = new View(null, '', null, true);
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -42,7 +48,8 @@ export class ViewMainComponent implements OnInit {
     this.dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
     });
-    this.dragulaService.setOptions('first-bag', { revertOnSpill: true, copy: true });
+    // this.dragulaService.setOptions('first-bag', { revertOnSpill: true, copy: true });
+    this.dragulaService.setOptions('first-bag', { revertOnSpill: true, copy: false });
 
     if (this.type === 'defaults') {
       // load charts by cv and send to the list
@@ -58,6 +65,45 @@ export class ViewMainComponent implements OnInit {
     }
   }
 
+  onSubmit(): void {
+    // insert the view
+    // this.prepareViewDisplayArray(this.view);
+    
+    this.viewService.addDefaultView(this.view)
+      .subscribe(
+        (view) => {
+          this.prepareViewDisplayArray(view);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+  }
+
+  private prepareViewDisplayArray(view: View): void {
+    this.chartDisplay.forEach(
+      (row,index) => {
+        this.viewDisplay[index] = [];
+        row.forEach(
+          (cell,colIndex) => {
+            console.log(colIndex);
+            let chart = this.charts.filter(c => c.id == cell);
+            this.viewDisplay[index].push(new ViewDisplay(chart[0],view,index,colIndex));
+          }
+        )
+      }
+    )
+    this.saveViewDisplay();
+  }
+  private saveViewDisplay(): void {
+    this.viewService.addLayoutToDefaultView(this.viewDisplay)
+      .subscribe(
+        (display) => {
+          console.log(display);
+        }
+      )
+  }
+
   private loadChartsByCV(cv: CV): void {
     this.charts = [];
     this.chartService.getChartsByCV(cv)
@@ -65,7 +111,6 @@ export class ViewMainComponent implements OnInit {
         (charts) => {
           charts.forEach(c => {
             this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType));
-            this.originalCharts.push(new Chart(c.id, c.name, c.cv, c.sampleType));
           });
         }
       )
@@ -101,7 +146,7 @@ export class ViewMainComponent implements OnInit {
       adding = true;
     } else {
       // removing
-      adding = false;      
+      adding = false;
     }
     let currentElements = el.childElementCount;
     /**
@@ -117,12 +162,10 @@ export class ViewMainComponent implements OnInit {
       if (adding) {
         let position = id.split(';');
         this.addChartIntoDisplay(plotId, position);
-        this.removeChartFromArray(plotId);
-      }else {
+      } else {
         this.dragulaService.find('first-bag').drake.cancel(true);
       }
     }
-    console.log(this.charts);
   }
   private addChartIntoDisplay(plotId: number, position: number[]): void {
     this.chartDisplay[position[0]][position[1]] = plotId;
@@ -161,24 +204,17 @@ export class ViewMainComponent implements OnInit {
 
   deleteRow(row: number): void {
     // send information for reestruct the list
+    this.chartDisplay[row].forEach(
+      (charts, index) => {
+        let elem = document.getElementById(row + ';' + index);
+        let list = document.getElementById('charts-list');
+        list.appendChild(elem.firstElementChild);
+      }
+    )
     this.display.splice(row, 1);
-    let layoutInformation = new LayoutInformation(this.chartDisplay.splice(row, 1), this.chartDisplay);
-    this.reloadChartList(layoutInformation);
+    this.chartDisplay.splice(row, 1);
   }
 
-  private reloadChartList(deletedRow: LayoutInformation): void {
-    deletedRow.removed.forEach(
-      (charts) => {
-        charts.forEach(
-          (chartId) => {
-            this.removeChartFromArray(chartId);            
-            console.log(this.originalCharts);
-            let c = this.originalCharts.filter(oc => oc.id == chartId)[0];
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType));
-          })
-      });
-    // this.duplicateAndReasignChartArray();
-  }
   private removeChartFromArray(chartId): void {
     for (let i = 0; i < this.charts.length; i++) {
       if (this.charts[i].id == chartId) {
@@ -194,6 +230,5 @@ export class ViewMainComponent implements OnInit {
 
   show(): void {
     console.log(this.chartDisplay);
-    console.log(this.charts);
   }
 }

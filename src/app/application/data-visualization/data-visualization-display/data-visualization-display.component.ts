@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewService } from '../../../services/view.service';
 import { Display } from '../../../models/display';
 import { View } from '../../../models/view';
+import { ViewDisplay } from '../../../models/viewDisplay';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
 import { CV } from '../../../models/cv';
@@ -25,12 +26,11 @@ export class DataVisualizationDisplayComponent implements OnInit {
 
   display: Display = new Display(null);
 
-  view: View = new View(null, null, null);
+  view: View = new View(null, null, null,null);
 
   dataSource: DataSource;
 
   type: string;
-  
 
 
   ngOnInit() {

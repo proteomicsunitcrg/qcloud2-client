@@ -9,11 +9,11 @@
       <div class="row">
         <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate autocomplete="off">
           <div class="col s10 m10 l10 xl10">
-            <input type="text" name="defaultViewName" placeholder="Velos charts" />
+            <input type="text" name="defaultViewName" placeholder="Velos charts" [(ngModel)]="view.name" required />
             <label for="defaultViewName">View name</label>
           </div>
           <div class="col s2 m2 l2 xl2">
-            <button type="submit" class="btn waves-effect waves-light">Save</button>
+            <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">Save</button>
           </div>
         </form>
       </div>
@@ -55,7 +55,7 @@
       <button type="button" (click)="show()">What is going on</button>
     </div>
     <div class="col s2 m2 l2 xl2">
-      <ul class="collection" [dragula]='"first-bag"'>
+      <ul class="collection" [dragula]='"first-bag"' id="charts-list">
         <li class="collection-item avatar" *ngFor="let chart of charts">
           <img src="assets/images/tiny_plot.png" alt="" class="circle">
           <span class="title">{{chart.name}}</span>

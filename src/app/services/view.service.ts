@@ -8,7 +8,7 @@ import { Display } from '../models/display';
 import { Chart } from '../models/chart';
 import { CV } from '../models/cv';
 import { View } from '../models/view';
-import { LayoutInformation } from '../models/layoutInformation';
+import { ViewDisplay } from '../models/viewDisplay';
 
 @Injectable()
 export class ViewService {
@@ -18,23 +18,11 @@ export class ViewService {
   private apiPrefix = environment.apiPrefix;  
   defaultViewsUrl= this.apiPrefix+'api/views/default';
 
-  /**
-   * This observable is for manage the deletion
-   * of rows in the view builder
-   */
-  private deletedRow = new Subject<LayoutInformation>();
-  deletedRow$ = this.deletedRow.asObservable();
-
-  public sendDeletedRowToList(deletedRow: LayoutInformation): void {
-    this.deletedRow.next(deletedRow);
-  }
-
-
   public getDefaultViewNameByCV(cv: CV): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id)
       .map(
         (res) => {
-          let view: View = new View(res['viewId'],res['viewName'],null);
+          let view: View = new View(res['viewId'],res['viewName'],null,null);
           return view;
         }
       );
@@ -56,6 +44,31 @@ export class ViewService {
           return new Display(charts);
         }
       );
+  }
+
+  public addDefaultView(view: View): Observable<View> {
+    const json = JSON.stringify(view);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<View>(this.defaultViewsUrl,params, {headers: headers});
+  }
+
+  public addLayoutToDefaultView(viewDisplay: ViewDisplay[][]): Observable<ViewDisplay[]> {
+    let layout = [];
+    viewDisplay.forEach(
+      (row)=> {
+        row.forEach(
+          (col) => {
+            layout.push(col);
+          }
+        )
+      }
+    )
+    const json = JSON.stringify(layout);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<ViewDisplay[]>(this.defaultViewsUrl+'/layout',params, {headers: headers});
+    
   }
 
 }
