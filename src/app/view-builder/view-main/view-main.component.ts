@@ -38,7 +38,7 @@ export class ViewMainComponent implements OnInit {
 
   viewDisplay: ViewDisplay[][] = [];
 
-  view: View = new View(null, '', null, true);
+  view: View = new View(null, '', null,null, true);
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -68,7 +68,6 @@ export class ViewMainComponent implements OnInit {
   onSubmit(): void {
     // insert the view
     // this.prepareViewDisplayArray(this.view);
-    
     this.viewService.addDefaultView(this.view)
       .subscribe(
         (view) => {
@@ -123,6 +122,8 @@ export class ViewMainComponent implements OnInit {
         (cv) => {
           // send to list
           this.loadChartsByCV(cv);
+          // add to the view object
+          this.view.cv = cv;
         },
         (error) => {
           console.log(error)

@@ -26,7 +26,7 @@ export class DataVisualizationDisplayComponent implements OnInit {
 
   display: Display = new Display(null);
 
-  view: View = new View(null, null, null,null);
+  view: View = new View(null, null, null, null,null);
 
   dataSource: DataSource;
 
@@ -52,9 +52,9 @@ export class DataVisualizationDisplayComponent implements OnInit {
         this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
           .subscribe(
             (dataSource) => {
-              this.dataSource = dataSource;
-              this.loadDefaultChartsByCV(dataSource.cv);
+              this.dataSource = dataSource;              
               this.getDefaultViewNameByCV(dataSource.cv);
+              //this.loadDefaultChartsByCV(dataSource.cv);
             }
           )
         break;
@@ -75,21 +75,24 @@ export class DataVisualizationDisplayComponent implements OnInit {
   private subscribeToDataSourceForDisplay(): void {
     this.dataSourceService.selectedDataSourceForDisplay$
       .subscribe(
-        (dataSource) => {
-          this.getDefaultViewNameByCV(dataSource.cv);
-          this.loadDefaultChartsByCV(dataSource.cv);
+        (dataSource) => {          
+          //this.getDefaultViewNameByCV(dataSource.cv);
+          // this.loadDefaultChartsByCV(dataSource.cv);
           this.dataSource = dataSource;
         }
       )
   }
-  private loadDefaultChartsByCV(cv: CV): void {
-    this.viewService.getDefaultByCV(cv)
+  private loadDefaultChartsByCV(view: View): void {
+    console.log(this.view);
+    
+    this.viewService.getDefaultDisplayByView(view)
       .subscribe(
         (res) => {          
           this.display = res;
           console.log(this.display);
         }
       )
+    
   }
   /**
    * This functions gets the name of the current
@@ -98,7 +101,10 @@ export class DataVisualizationDisplayComponent implements OnInit {
    */
   private getDefaultViewNameByCV(cv: CV): void {
     this.viewService.getDefaultViewNameByCV(cv)
-      .subscribe(res => this.view = res)
+      .subscribe(res => {
+        this.view = res;
+        this.loadDefaultChartsByCV(this.view);
+      })
   }
 
 

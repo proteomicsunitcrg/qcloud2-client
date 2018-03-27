@@ -22,14 +22,13 @@ export class ViewService {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id)
       .map(
         (res) => {
-          let view: View = new View(res['viewId'],res['viewName'],null,null);
-          return view;
+          return res;
         }
       );
   }
 
-  public getDefaultByCV(cv: CV): Observable<Display> {
-    return this.httpClient.get<any>(this.defaultViewsUrl+'/view/'+cv.id)
+  public getDefaultDisplayByView(view: View): Observable<Display> {
+    return this.httpClient.get<any>(this.defaultViewsUrl+'/view/'+view.id)
       .map(
         (res) => {          
           let charts: Chart[][] = [];
