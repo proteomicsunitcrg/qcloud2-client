@@ -4,6 +4,10 @@ import { Category } from '../../../models/category';
 import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ViewService } from '../../../services/view.service';
+import { ModalService } from '../../../common/modal.service';
+import { Modal } from '../../../models/modal';
+import { View } from '../../../models/view';
 
 
 @Component({
@@ -16,7 +20,9 @@ export class MainDefaultViewComponent implements OnInit {
   constructor(private categoryService: CategoryService,
     private cvService: CvService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private viewService: ViewService,
+    private modalService: ModalService) { }
 
   categories: Category[] = [];
   selectedCategory: Category;
@@ -57,7 +63,22 @@ export class MainDefaultViewComponent implements OnInit {
   }
   
   goToDefaultChartEdit(): void {
-    this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid]);
+    // Check if a view already exists for this CV
+    this.viewService.getDefaultViewNameByCV(this.selectedCV)
+      .subscribe(
+        (res) => {
+          if(res===null) {
+            this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid]);
+          }else {
+            this.modalService.openModal(new Modal('Information',
+              'A default chart for that instrument already exists. Do you want to edit it?',
+              'Yes','No','newLayout',null));
+          }
+        
+        }
+      )
   }
+
+
 
 }

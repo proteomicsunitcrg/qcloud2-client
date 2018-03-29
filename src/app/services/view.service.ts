@@ -26,6 +26,14 @@ export class ViewService {
         }
       );
   }
+  public getDefaultViewNameByCVId(cvId: string) {
+    return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cvId)
+      .map(
+        (res) => {
+          return res;
+        }
+      );
+  }
 
   public getDefaultDisplayByView(view: View): Observable<Display> {
     return this.httpClient.get<any>(this.defaultViewsUrl+'/view/'+view.id)
@@ -68,6 +76,10 @@ export class ViewService {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<ViewDisplay[]>(this.defaultViewsUrl+'/layout',params, {headers: headers});
     
+  }
+
+  public getDefaultViews(): Observable<View[]> {
+    return this.httpClient.get<View[]>(this.defaultViewsUrl);
   }
 
 }

@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>CV</th>
+      <th>Edit/ delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let view of defaultViews">
+      <td>
+        {{view.name}}
+      </td>
+      <td>
+        {{view.cv.name}}
+      </td>
+      <td>
+          <i class="material-icons cursorIcon" (click)="editView(view)">edit</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -22,7 +22,9 @@ export class PlotComponent implements OnInit {
   ngOnInit() {    
     this.loadCurrentDates();
     this.subscribeToDateChanges();
-    this.loadData();
+    if(this.chart!=null) {
+      this.loadData();
+    }
   }
 
   private loadData(): void {

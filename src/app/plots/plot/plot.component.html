@@ -1,1 +1,11 @@
-<div id="plot{{chart.id}}"></div>
+<div>
+  <ng-container *ngIf="chart then load else placeholder"></ng-container>
+  <ng-template #load>
+    <div id="plot{{chart.id}}"></div>
+  </ng-template>
+  <ng-template #placeholder>
+    <div>
+      
+    </div>
+  </ng-template>
+</div>

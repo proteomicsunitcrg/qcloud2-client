@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ViewService } from '../../services/view.service';
 import { ActivatedRoute } from '@angular/router';
 import { CvService } from '../../services/cv.service';
@@ -11,6 +11,7 @@ import { BottomModal } from '../../models/bottomModal';
 import { ModalResponse } from '../../models/modalResponse';
 import { View } from '../../models/view';
 import { ViewDisplay } from '../../models/viewDisplay';
+import { Modal } from '../../models/modal';
 
 @Component({
   selector: 'app-view-main',
@@ -29,10 +30,17 @@ export class ViewMainComponent implements OnInit {
   @Input() type: string;
 
 
-
+  /**
+   * display array is for build the 
+   * layout rows and columns
+   */
   display = [];
+  /**
+   * chartDisplay array holds the information
+   * about the chart, (id, row and col)
+   */
   chartDisplay = [];
-
+ 
   charts: Chart[] = [];
   cv: CV;
 
@@ -42,6 +50,7 @@ export class ViewMainComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToBottomModal();
+    this.subscribeToModal();
     this.dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
@@ -55,6 +64,11 @@ export class ViewMainComponent implements OnInit {
       // load charts by cv and send to the list
       this.route.params.subscribe(
         (params) => {
+          // Check if default view exists
+          
+          // if exists... omg
+          
+          
           this.sendCVToList(params['id']);
         }
       )
@@ -66,17 +80,55 @@ export class ViewMainComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // insert the view
-    // this.prepareViewDisplayArray(this.view);
+    // Before insert check the layout
+    let viewName = this.view.name;
+    let formOk = true;
+    if(this.chartDisplay.length ==0) {
+      // show modal
+      this.modalService.openModal(new Modal('Error','You need at least one column','Ok',null,'noRows',viewName));
+      formOk = false;
+    }
+    if(this.checkDisplayForNulls()) {
+      this.modalService.openModal(new Modal('Error','You need to fill all the spots','Ok',null,'noRows',viewName));
+      formOk = false;
+    }
+
+    if(formOk) {
+      this.saveView();
+    }
+  }
+  /**
+   * With the current database you can not
+   * have any empty spot in the display.
+   * This function will return true if it 
+   * finds any null on the chart display
+   * @return true if a null is found, false otherwise
+   */
+  private checkDisplayForNulls(): boolean {
+    this.chartDisplay.forEach(
+      (row) => {
+        row.forEach(
+          (col) => {
+            if(col===null) {
+              return true;
+            }
+          }
+        )
+      }
+    )
+    return false;
+  }
+
+  private saveView(): void {
     this.viewService.addDefaultView(this.view)
-      .subscribe(
-        (view) => {
-          this.prepareViewDisplayArray(view);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+    .subscribe(
+      (view) => {
+        this.prepareViewDisplayArray(view);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   private prepareViewDisplayArray(view: View): void {
@@ -85,9 +137,8 @@ export class ViewMainComponent implements OnInit {
         this.viewDisplay[index] = [];
         row.forEach(
           (cell,colIndex) => {
-            console.log(colIndex);
             let chart = this.charts.filter(c => c.id == cell);
-            this.viewDisplay[index].push(new ViewDisplay(chart[0],view,index,colIndex));
+            this.viewDisplay[index].push(new ViewDisplay(null,chart[0],view,index,colIndex));
           }
         )
       }
@@ -98,6 +149,7 @@ export class ViewMainComponent implements OnInit {
     this.viewService.addLayoutToDefaultView(this.viewDisplay)
       .subscribe(
         (display) => {
+          // show ok toast
           console.log(display);
         }
       )
@@ -187,6 +239,15 @@ export class ViewMainComponent implements OnInit {
       )
   }
 
+  private subscribeToModal(): void {
+    this.modalService.selectedAction$
+      .subscribe(
+        (action) => {
+          this.doAction(action);
+        }
+      )
+  }
+
   private doAction(action: ModalResponse): void {
     switch (action.modalAction) {
       case 'addColumn':
@@ -197,6 +258,10 @@ export class ViewMainComponent implements OnInit {
           this.chartDisplay[this.chartDisplay.length - 1].push(null);
         }
         break;
+      case 'noRows': {
+        this.view.name = action.objectInstance;
+        break;
+      }
       default:
         console.log('error');
         break;
@@ -231,5 +296,9 @@ export class ViewMainComponent implements OnInit {
 
   show(): void {
     console.log(this.chartDisplay);
+  }
+
+  ngOnDestroy():void {
+    this.dragulaService.destroy('first-bag');
   }
 }

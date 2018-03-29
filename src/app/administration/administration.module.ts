@@ -47,6 +47,7 @@ import { ChartService } from '../services/chart.service';
 import { ViewBuilderModule} from '../view-builder/view-builder.module';
 import { MainDefaultViewComponent } from './default-view/main-default-view/main-default-view.component';
 import { DefaultViewGeneratorComponent } from './default-view/default-view-generator/default-view-generator.component';
+import { ViewListComponent } from './default-view/view-list/view-list.component';
 
 @NgModule({
   imports: [
@@ -97,6 +98,7 @@ import { DefaultViewGeneratorComponent } from './default-view/default-view-gener
     ChartParamComponent,
     ChartContextSourceComponent,
     MainDefaultViewComponent,
-    DefaultViewGeneratorComponent]
+    DefaultViewGeneratorComponent,
+    ViewListComponent]
 })
 export class AdministrationModule { }
