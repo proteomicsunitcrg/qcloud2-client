@@ -26,7 +26,7 @@ export class ViewService {
         }
       );
   }
-  public getDefaultViewNameByCVId(cvId: string) {
+  public getDefaultViewNameByCVId(cvId: string): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cvId)
       .map(
         (res) => {

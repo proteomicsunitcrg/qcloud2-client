@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, OnChanges, DoCheck, AfterContentInit } from '@angular/core';
 import { ViewService } from '../../services/view.service';
 import { ActivatedRoute } from '@angular/router';
 import { CvService } from '../../services/cv.service';
@@ -12,6 +12,8 @@ import { ModalResponse } from '../../models/modalResponse';
 import { View } from '../../models/view';
 import { ViewDisplay } from '../../models/viewDisplay';
 import { Modal } from '../../models/modal';
+import { Display } from '../../models/display';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-view-main',
@@ -30,6 +32,8 @@ export class ViewMainComponent implements OnInit {
   @Input() type: string;
 
 
+  loadedViewDisplay: any = null;
+
   /**
    * display array is for build the 
    * layout rows and columns
@@ -40,13 +44,13 @@ export class ViewMainComponent implements OnInit {
    * about the chart, (id, row and col)
    */
   chartDisplay = [];
- 
+
   charts: Chart[] = [];
   cv: CV;
 
   viewDisplay: ViewDisplay[][] = [];
 
-  view: View = new View(null, '', null,null, true);
+  view: View = new View(null, '', null, null, true);
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -57,43 +61,104 @@ export class ViewMainComponent implements OnInit {
     this.dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
     });
-    // this.dragulaService.setOptions('first-bag', { revertOnSpill: true, copy: true });
     this.dragulaService.setOptions('first-bag', { revertOnSpill: true, copy: false });
 
     if (this.type === 'defaults') {
       // load charts by cv and send to the list
       this.route.params.subscribe(
         (params) => {
-          // Check if default view exists
-          
-          // if exists... omg
-          
-          
-          this.sendCVToList(params['id']);
+          // Get and set the CV
+          this.cvService.getCvByCvId(params['id'])
+            .subscribe(
+              (cv) => {
+                this.view.cv = cv;
+                this.cv = cv;
+                this.sendCVToList(params['id']);
+                this.viewService.getDefaultViewNameByCV(this.cv)
+                  .subscribe(
+                    (view) => {
+                      if (view !== null) {
+                        // existing menu, organize the charts in the display
+                        this.view = view;
+                        // get the view display
+                        this.viewService.getDefaultDisplayByView(view)
+                          .subscribe(
+                            (viewDisplay) => {
+                              this.loadDefaultDisplayView(viewDisplay);
+                              delay(1).then(() => this.getElementByChartId());
+
+                            }
+                          );
+                      }
+                    }, (error) => {
+                      console.log(error);
+                    });
+              },
+              (error) => {
+                console.log(error)
+              }
+            )
         }
       )
-
-
     } else {
       // load datasources owned by the node
     }
+  }
+
+  /**
+   * We need to build the display as the view in the database
+   * So, it will create the rows and columns with the layout
+   * of the database.
+   * @param viewDisplay The display from the database
+   */
+  private loadDefaultDisplayView(viewDisplay: Display): void {
+    let charts = [];
+    viewDisplay.charts.forEach(
+      (row, index) => {
+        this.display[index] = [];
+        this.chartDisplay[index] = [];
+        row.forEach(
+          (col) => {
+            this.display[index].push(col['chart'].id);
+            this.chartDisplay[index].push(col['chart'].id);
+            charts.push(col);
+          }
+        )
+      }
+    )
+
+    this.loadedViewDisplay = charts;
+
+  }
+  private getElementByChartId(): void {
+    this.loadedViewDisplay.forEach(
+      (chart) => {
+        // get chart from list        
+        let listedChart = document.getElementById('plotId-' + chart.chart.id);
+        // append to its corresponding spot
+        let slot = document.getElementById(chart.row + ';' + chart.col);
+        slot.appendChild(listedChart);
+
+
+      }
+    )
   }
 
   onSubmit(): void {
     // Before insert check the layout
     let viewName = this.view.name;
     let formOk = true;
-    if(this.chartDisplay.length ==0) {
+    if (this.chartDisplay.length == 0) {
       // show modal
-      this.modalService.openModal(new Modal('Error','You need at least one column','Ok',null,'noRows',viewName));
+      this.modalService.openModal(new Modal('Error', 'You need at least one column', 'Ok', null, 'noRows', viewName));
       formOk = false;
     }
-    if(this.checkDisplayForNulls()) {
-      this.modalService.openModal(new Modal('Error','You need to fill all the spots','Ok',null,'noRows',viewName));
+    if (this.checkDisplayForNulls()) {
+      this.modalService.openModal(new Modal('Error', 'You need to fill all the spots', 'Ok', null, 'noRows', viewName));
       formOk = false;
     }
 
-    if(formOk) {
+    if (formOk) {
       this.saveView();
     }
   }
@@ -109,7 +174,7 @@ export class ViewMainComponent implements OnInit {
       (row) => {
         row.forEach(
           (col) => {
-            if(col===null) {
+            if (col === null) {
               return true;
             }
           }
@@ -121,24 +186,24 @@ export class ViewMainComponent implements OnInit {
 
   private saveView(): void {
     this.viewService.addDefaultView(this.view)
-    .subscribe(
-      (view) => {
-        this.prepareViewDisplayArray(view);
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+      .subscribe(
+        (view) => {
+          this.prepareViewDisplayArray(view);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
   }
 
   private prepareViewDisplayArray(view: View): void {
     this.chartDisplay.forEach(
-      (row,index) => {
+      (row, index) => {
         this.viewDisplay[index] = [];
         row.forEach(
-          (cell,colIndex) => {
+          (cell, colIndex) => {
             let chart = this.charts.filter(c => c.id == cell);
-            this.viewDisplay[index].push(new ViewDisplay(null,chart[0],view,index,colIndex));
+            this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
           }
         )
       }
@@ -166,6 +231,7 @@ export class ViewMainComponent implements OnInit {
         }
       )
   }
+
 
   private sendCVToList(cvId: string): void {
     //get the cv from server    
@@ -202,6 +268,7 @@ export class ViewMainComponent implements OnInit {
       adding = false;
     }
     let currentElements = el.childElementCount;
+
     /**
      * If the user tries to add an item in a 
      * bag having a previous item it will cancel
@@ -209,17 +276,42 @@ export class ViewMainComponent implements OnInit {
      * It have a boolean condition for ensure that
      * differenciate the chart pool of the layout
      */
-    if (currentElements > 1 && adding) {
+    if (currentElements > 1 && adding && el.getAttribute('id') != 'charts-list') {
       this.dragulaService.find('first-bag').drake.cancel(true);
     } else {
       if (adding) {
-        let position = id.split(';');
-        this.addChartIntoDisplay(plotId, position);
+        if (el.getAttribute('id') != 'charts-list') {
+          // delete from previous position if it was any
+          this.removeChartFromDisplay(plotId);
+          let position = id.split(';');
+          this.addChartIntoDisplay(plotId, position);
+        } else {
+          //remove
+          this.removeChartFromDisplay(plotId);
+        }
+
       } else {
         this.dragulaService.find('first-bag').drake.cancel(true);
       }
     }
   }
+
+  private removeChartFromDisplay(plotId: number): void {
+    this.chartDisplay.forEach(
+      (row,r) => {
+        row.forEach(
+          (col,c) => {
+            if(col==plotId) {
+              this.chartDisplay[r][c] = null;
+            }
+          }
+        )
+      }
+    )
+  }
+
+
+
   private addChartIntoDisplay(plotId: number, position: number[]): void {
     this.chartDisplay[position[0]][position[1]] = plotId;
   }
@@ -295,10 +387,11 @@ export class ViewMainComponent implements OnInit {
   }
 
   show(): void {
+    console.log(this.display);
     console.log(this.chartDisplay);
   }
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.dragulaService.destroy('first-bag');
   }
 }

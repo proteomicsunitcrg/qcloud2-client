@@ -56,7 +56,7 @@
     </div>
     <div class="col s2 m2 l2 xl2">
       <ul class="collection" [dragula]='"first-bag"' id="charts-list">
-        <li class="collection-item avatar" *ngFor="let chart of charts">
+        <li class="collection-item avatar" id="plotId-{{chart.id}}" *ngFor="let chart of charts">
           <img src="assets/images/tiny_plot.png" alt="" class="circle">
           <span class="title">{{chart.name}}</span>
           <span style="visibility: hidden;" class="plotId">{{chart.id}}</span>
