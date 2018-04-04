@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
+declare var M: any;
 
 @Component({
   selector: 'app-parameters-list',
@@ -41,14 +42,10 @@ export class ParametersListComponent implements OnInit {
   saveParameter(param: Param): void {
     this.paramService.updateParameter(param).subscribe(
       (result) => {
-        // TODO toast
+        M.toast({html: 'Parameter saved!'});
       },
       (error) => {
-        /*
-        dataSource.name = this.dataSourceName;
-        this.modalService.openModal(new Modal(error.error.error,
-          error.error.message, 'Ok', '', 'updateError',null));
-          */
+        
       }
     )
     this.stopEditing();

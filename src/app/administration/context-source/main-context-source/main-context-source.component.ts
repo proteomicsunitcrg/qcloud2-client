@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SampleTypeService } from '../../../services/sample-type.service';
-//import * as M from 'materialize-css/dist/js/materialize';
 declare var M: any;
+/**
+ * Main component of the context source form
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-main-context-source',
   templateUrl: './main-context-source.component.html',
@@ -11,13 +14,9 @@ export class MainContextSourceComponent implements OnInit {
 
   constructor(private sampleTypeService: SampleTypeService) { }
 
-
   ngOnInit() {    
-    // this.sampleTypeService.loadSamplesTypes();
     const elem = document.getElementById('tabs');
     let instance = M.Tabs.init(elem);
-    
-    
   }
 
 }

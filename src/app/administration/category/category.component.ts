@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { Category} from '../../models/category';
 import { CategoryService } from '../../services/category.service';
+/**
+ * Category component for the controlled vocabulary
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 
 @Component({
   selector: 'app-category',
@@ -14,7 +17,7 @@ export class CategoryComponent implements OnInit {
   category: Category = new Category(null,'');
 
   categories = [];
-
+  
   @ViewChild("categoryNameBox") categoryNameBox;
   constructor(private categoryService: CategoryService) { }
 
@@ -24,8 +27,6 @@ export class CategoryComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.category);
-    
     this.categoryService.addNewCategory(this.category).subscribe(
       (result)=> {
         this.categoryNameBox.nativeElement.classList.remove("valid");

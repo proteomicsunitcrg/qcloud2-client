@@ -4,6 +4,10 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 
+/**
+ * Sample type selector component
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-sample-type',
   templateUrl: './chart-sample-type.component.html',

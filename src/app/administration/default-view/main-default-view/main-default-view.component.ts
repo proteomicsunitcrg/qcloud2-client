@@ -9,7 +9,10 @@ import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { View } from '../../../models/view';
 
-
+/**
+ * Default view component
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-main-default-view',
   templateUrl: './main-default-view.component.html',
@@ -32,6 +35,7 @@ export class MainDefaultViewComponent implements OnInit {
   ngOnInit() {
     this.loadCategories();
     this.subscribeToCV();
+    this.subscribeToModalAction();
   }
 
   private subscribeToCV(): void {
@@ -61,7 +65,11 @@ export class MainDefaultViewComponent implements OnInit {
     this.selectedCategory = this.categories[0];
     this.categoryService.selectCategory(this.selectedCategory);    
   }
-  
+  /**
+   * Handle the creation of a new default chart
+   * Before that it checks if there is a previous
+   * default chart for that CV
+   */
   goToDefaultChartEdit(): void {
     // Check if a view already exists for this CV
     this.viewService.getDefaultViewNameByCV(this.selectedCV)
@@ -75,6 +83,26 @@ export class MainDefaultViewComponent implements OnInit {
               'Yes','No','newLayout',null));
           }
         
+        }
+      )
+  }
+  /**
+   * Handle the modal responses
+   */
+  private subscribeToModalAction(): void {
+    this.modalService.selectedAction$
+      .subscribe(
+        (action) => {
+          switch(action.modalAction) {
+            case 'newLayout':
+              if(action.userAction==='accept') {
+                this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid]);
+              }
+              break;
+            default:
+              console.log('not defined action');
+              break;
+          }
         }
       )
   }

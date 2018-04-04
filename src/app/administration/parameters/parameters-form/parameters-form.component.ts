@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Param } from '../../../models/param';
 import { ParametersService } from '../../../services/parameters.service';
-import * as M from 'materialize-css/dist/js/materialize';
+declare var M: any;
 import { delay } from 'q';
 @Component({
   selector: 'app-parameters-form',
@@ -20,6 +20,10 @@ export class ParametersFormComponent implements OnInit {
     this.getTypes();
   }
 
+  /**
+   * Get the types for the params. Those types are the extended
+   * classes of the context_source class in the backend.
+   */
   private getTypes(): void {
     this.parameterService.getTypeList()
       .subscribe(
@@ -41,6 +45,7 @@ export class ParametersFormComponent implements OnInit {
       .subscribe(
         (result) => {
           // Send to list
+          M.toast({html: 'Parameter saved!'});
           this.parameterService.sendParamToList(result);
         },
         (error) => {

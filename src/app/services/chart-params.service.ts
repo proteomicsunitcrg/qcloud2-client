@@ -46,7 +46,13 @@ export class ChartParamsService {
    */
   private selectedContextSources = new Subject<ContextSource[]>();
   selectedContextSources$ = this.selectedContextSources.asObservable();
-
+  
+  /**
+   * Get the context sources from the chart params arrived by
+   * function parameter and send it to the context source
+   * component in order to edit a chart
+   * @param chartParams the chart params from the server
+   */
   public sendContextSourcesToEdit(chartParams: ChartParam[]): void {
     let contextSources: ContextSource[] = [];
     chartParams.forEach(

@@ -51,8 +51,11 @@ export class CategoryService {
     return this.httpClient.get<Category[]>(this.categoryUrl);
   }
 
+  /**
+   * Find the category object into the database
+   * @param categoryName the name of the category
+   */
   public getCategoryByName(categoryName: string): Observable<Category> {
-    
     return this.httpClient.get<Category>(this.categoryUrl+'/'+categoryName);
   }
 

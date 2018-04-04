@@ -7,6 +7,10 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { delay } from 'q';
 
+/**
+ * Controled vocabulary selector component.
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-cvs',
   templateUrl: './chart-cvs.component.html',
@@ -48,6 +52,11 @@ export class ChartCvsComponent implements OnInit {
     this.subscribeToReset();
   }
 
+  /**
+   * It listens to any request for edit an 
+   * existing chart.
+   * Please note that chart is not the same chartParam
+   */
   private subscribeToChartEdition(): void {
     this.chartService.chartToEdit$
       .subscribe(
@@ -56,7 +65,10 @@ export class ChartCvsComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * It listen to the reset signal in order
+   * to clean its selectors.
+   */
   private subscribeToReset(): void {
     this.chartParamsService.resetComponent$
       .subscribe(
@@ -65,12 +77,21 @@ export class ChartCvsComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * When the user clicks on any cv of the list
+   * it will send it to the chart form
+   * @param cv the cv to send, it comes from the html
+   */
   selectCV(cv: CV): void {
     this.selectedCv = cv;
     this.cvService.sendSelectedCvToChartForm(cv);
   }
-
+  
+  /**
+   * It gets the current CVs (only enable or all cvs)
+   * from the database
+   * @param category the category of the CVs to look for
+   */
   private getCvListByCategoryFromServer(category: Category) {
     this.cvs = [];
     if(!this.showEnabledCvs) {
@@ -93,7 +114,11 @@ export class ChartCvsComponent implements OnInit {
       )
     }
   }
-
+  /**
+   * Get the cvs by param and prepare the
+   * filter and the pagination
+   * @param cvs an array with the cvs to show
+   */
   private loadCvList(cvs: CV[]): void {    
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {

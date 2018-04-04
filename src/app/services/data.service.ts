@@ -28,7 +28,11 @@ export class DataService {
   private selectedDates = new Subject<string[]>();
   selectedDates$ = this.selectedDates.asObservable();
 
-
+  /**
+   * Retrieve data from the server
+   * @param chart the chart you want to display
+   * @param dataSource the instrument to display
+   */
   public getPlotData(chart: Chart, dataSource: DataSource): Observable<MiniData[]> {
     return this.httpClient.get<MiniData[]>(this.dataUrl+'/'+this.currentDates[0]+'/'+this.currentDates[1]+'/'+chart.id+'/'+dataSource.id+'/'+chart.sampleType.id)
     .map(
@@ -48,27 +52,6 @@ export class DataService {
         return dataArray;
       }
     );
-  }
-
-  public getTestData(): Observable<any[]> {
-    return this.httpClient.get<MiniData[]>(this.dataUrl + '/2018-01-01/2018-01-05/58')
-      .map(
-        (data) => {
-          let dataArray = [];
-          data.forEach((row) => {
-            if (dataArray[row.fileCreationDate] == undefined) {
-              dataArray[row.fileCreationDate] = {}
-            }
-            if(dataArray[row.fileCreationDate][row.contextSourceName]==undefined) {
-              dataArray[row.fileCreationDate][row.contextSourceName] = row.value
-            }
-            if(dataArray[row.fileCreationDate]['filename']==undefined) {
-              dataArray[row.fileCreationDate]['filename']= row.fileFilename;
-            }
-          });
-          return dataArray;
-        }
-      );
   }
 
   public selectDates(datesArray: string[]): void {

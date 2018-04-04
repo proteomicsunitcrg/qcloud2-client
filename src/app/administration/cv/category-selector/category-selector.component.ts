@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
 import { delay } from 'q';
 declare var M: any;
+
+/**
+ * Category selector component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-category-selector',
   templateUrl: './category-selector.component.html',

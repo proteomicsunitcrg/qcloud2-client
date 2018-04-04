@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
+declare var M: any;
 
 @Component({
   selector: 'app-sidebar',

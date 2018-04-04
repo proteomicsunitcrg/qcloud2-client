@@ -17,9 +17,9 @@ export class CvFilterPipe implements PipeTransform {
   /**
    * Perform the filtering.
    * 
-   * @param {CV} cv The book to compare to the filter.
+   * @param {CV} cv The cv to compare to the filter.
    * @param {CV} filter The filter to apply.
-   * @return {boolean} True if book satisfies filters, false if not.
+   * @return {boolean} True if cv satisfies filters, false if not.
    */
   applyFilter(cv: CV, filter: CV): boolean {
     for (let field in filter) {

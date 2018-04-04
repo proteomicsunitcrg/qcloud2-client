@@ -15,7 +15,6 @@ import { DefaultViewGeneratorComponent } from '../default-view/default-view-gene
 import * as M from 'materialize-css/dist/js/materialize';
 
 const routes: Routes = [
-  //{ path: 'administration', component: MainComponent},
   {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
   children: [
     { path: 'category', component: CategoryComponent},
@@ -32,7 +31,6 @@ const routes: Routes = [
   ]},
 ];
 
-//loadChildren: '../application/application.module#ApplicationModule'
 @NgModule({
   imports: [
     CommonModule,

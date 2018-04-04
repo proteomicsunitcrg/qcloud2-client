@@ -36,7 +36,11 @@ export class ChartService {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
   }
-
+  /**
+   * Save or update a chart into the database
+   * @param chart the chart to save/update
+   * @param update true if it is an update, false if is a new one
+   */
   public chartToDatabase(chart: Chart, update: boolean): Observable<Chart> {
     const json = JSON.stringify(chart);
     const params = json;
@@ -47,7 +51,12 @@ export class ChartService {
       return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
     }
   }
-  
+  /**
+   * Add the chart params of a chart into the database
+   * @param chart the chart
+   * @param chartParams the params
+   * @param update true if it is an update, false if is a new one
+   */
   public chartParamsToDatabase(chart: Chart, chartParams: ChartParam[], update: boolean): Observable<ChartParam[]> {
     const json = JSON.stringify(chartParams);
     const params = json;
@@ -60,26 +69,31 @@ export class ChartService {
     
     
   }
-
-  public addChartParamsToChart(chart: Chart, chartParams: ChartParam[]) : Observable<ChartParam[]> {
-    const json = JSON.stringify(chartParams);
-    const params = json;
-    const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
-  }
-
+  /**
+   * Get all charts
+   */
   public getAllCharts(): Observable<Chart[]> {
     return this.httpClient.get<Chart[]>(this.chartUrl);
   }
-
+  /**
+   * Get all the charts by cv
+   * @param cv cv of the charts to retrieve
+   */
   public getChartsByCV(cv: CV): Observable<Chart[]> {    
     return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id);
   }
 
+  /**
+   * Used for switch between tabs
+   * @param tab the tab
+   */
   public selectTab(tab: string): void {
     this.currentTab.next(tab);
   }
-
+  /**
+   * Send a chart
+   * @param chart 
+   */
   public sendChartToEdit(chart: Chart): void {
     this.chartToEdit.next(chart);
   }

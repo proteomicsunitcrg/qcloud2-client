@@ -11,7 +11,10 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../../common/modal.service';
 
-
+/**
+ * Register component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

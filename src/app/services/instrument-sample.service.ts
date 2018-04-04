@@ -21,9 +21,6 @@ export class InstrumentSampleService {
   private newInstrumentSample = new Subject<InstrumentSample>();
   newInstrumentSample$ = this.newInstrumentSample.asObservable();
 
-
-
-
   public getAllInstrumentSample() : Observable<InstrumentSample[]> {
     return this.httpClient.get<InstrumentSample[]>(this.isUrl);
   }

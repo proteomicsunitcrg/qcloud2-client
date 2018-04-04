@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
 import { ChartService } from '../../../services/chart.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
+declare var M: any;
+/**
+ * This main component for the chart management
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-main-chart',
   templateUrl: './main-chart.component.html',
@@ -36,6 +40,7 @@ export class MainChartComponent implements OnInit {
     this.chartService.selectedTab$
     .subscribe(
       (tab) => {
+        console.log('wut');
         this.instance.select(tab);
       }
     )

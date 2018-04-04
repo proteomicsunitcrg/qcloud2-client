@@ -5,7 +5,6 @@ import { Category } from '../../../models/category';
 import { Chart } from '../../../models/chart';
 import { ChartParam } from '../../../models/chartParam';
 import { CategoryService } from '../../../services/category.service';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { delay } from 'q';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
@@ -14,6 +13,11 @@ import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 declare var M: any;
 
+/**
+ * The chart form. When the form correctly submits
+ * it grabs all the chart params from the other components
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-form',
   templateUrl: './chart-form.component.html',
@@ -46,7 +50,13 @@ export class ChartFormComponent implements OnInit {
     this.subscribeToChartParams();
     this.subscribeToChartEdition();
   }
-
+  /**
+   * This function listens to a chart edit call.
+   * There is a delay because I couldnt find another
+   * way to enable the text fiedls.
+   * It calls the text fields before angular has rendered the
+   * DOM
+   */
   private subscribeToChartEdition(): void {
     this.chartService.chartToEdit$
       .subscribe(
@@ -60,7 +70,12 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * This function gets a chart and then load the params
+   * from the database, sending it to the service for send
+   * the context sources to the context source compoment
+   * @param chart the chart to look for its params
+   */
   private loadChartParams(chart: Chart): void {
     this.chartParamsService.getChartsParamsByChart(chart)
       .subscribe(
@@ -74,19 +89,23 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * Listen to the chart params of the context source component
+   */
   private subscribeToChartParams(): void {
     this.chartParamsService.chartParamsToFill$
       .subscribe(
         (chartParamsArray) => {          
           this.chartParams = chartParamsArray
         }
-          
       )
   }
 
 
-
+  /**
+   * Listen to any change of the sample type in the
+   * sample type selector compoment
+   */
   private subscribeToSampleType(): void {
     this.sampleTypeService.selectedSampleType$
       .subscribe(
@@ -95,7 +114,9 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * Subscribe to any change of the CV
+   */
   private subscribeToCV(): void {
     this.cvService.selectedChartCv$
       .subscribe(
@@ -104,8 +125,11 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
-
-
+  /**
+   * Get the categories for the list of category
+   * in the form. The category is setted in the 
+   * category service.
+   */
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe(
       (result)=> {        
@@ -116,12 +140,19 @@ export class ChartFormComponent implements OnInit {
       }
     )
   }
-
+  /**
+   * Materialize function to enable selects
+   */
   private enableSelect() {
     const elem = document.getElementById('select_categories');
     let instance = M.FormSelect.init(elem, {});    
   }
 
+  /**
+   * Load the categories from the function parameter into
+   * the list.
+   * @param categories an array with the categories to list
+   */
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
@@ -135,10 +166,12 @@ export class ChartFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Function called when the form is correctly filled
+   */
   onSubmit(): void {
     // insert the chart first
     // Check if this is an update or new chart
-    console.log(this.chartParams);
     this.chartService.chartToDatabase(this.newChart, this.isEditing)
       .subscribe(
         (chart) => {
@@ -151,6 +184,12 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
+  /**
+   * Add the chart returned from the server into 
+   * each chartParam (check chartParam model to see)
+   * @param chart the returned chart(with id) from the server
+   * after insert/update
+   */
   private addChartToChartParams(chart: Chart): void {
     this.chartParams.forEach(
       (chartParam) => {        
@@ -158,12 +197,15 @@ export class ChartFormComponent implements OnInit {
       }
     )
   }
-
+  /**
+   * Save the chart params into the database
+   * @param chart the chart from the server, it is required
+   * for get it's id.
+   */
   private insertChartParams(chart: Chart): void {
     this.chartService.chartParamsToDatabase(chart,this.chartParams,this.isEditing)
       .subscribe(
         (chartParams) => {
-          // TODO: reset form and show some success (toast )
           this.chartParamsService.resetComponents();
           M.toast({html: 'Chart saved!'});
         },
@@ -172,8 +214,5 @@ export class ChartFormComponent implements OnInit {
         }
       )
   }
-
-  
-
 }
 

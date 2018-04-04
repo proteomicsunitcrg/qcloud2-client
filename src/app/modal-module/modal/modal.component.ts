@@ -5,6 +5,13 @@ import { Modal} from '../../models/modal';
 import { ModalResponse} from '../../models/modalResponse';
 import { ModalService } from '../../common/modal.service';
 declare var M: any;
+
+/**
+ * Regular modal component
+ * It is used in the root of the application and all the components
+ * using this modal must load the modalService and operate through it. 
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -22,6 +29,11 @@ export class ModalComponent implements OnInit {
     this.subscribeToModal();
     
   }
+  /**
+   * THis subscription is used to show the modal.
+   * The modal content is set with a modal object instance
+   * passed as a parameter.
+   */
   private subscribeToModal(): void {
     this.modalService.selectedModal$.subscribe((modal) => {
       this.modal = modal;
@@ -30,6 +42,11 @@ export class ModalComponent implements OnInit {
       instance.open();
     });
   }
+
+  /**
+   * Both formAction and formCancel dismiss the modal and send
+   * a modalResponse object with some data of the user response.
+   */
 
   formCancel(): void {
     this.modalService.sendAction(new ModalResponse(this.modal.modalAction, 'cancel',this.modal.objectInstance));

@@ -3,6 +3,11 @@ import { ModalService } from '../../common/modal.service';
 import { ModalResponse } from '../../models/modalResponse';
 declare var M: any;
 
+/**
+ * Bottom modal component. It is used in the generation
+ * of views situation.
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-bottom-modal',
   templateUrl: './bottom-modal.component.html',

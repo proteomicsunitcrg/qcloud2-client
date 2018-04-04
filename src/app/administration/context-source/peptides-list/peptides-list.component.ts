@@ -4,6 +4,10 @@ import { SampleCompositionService } from '../../../services/sample-composition.s
 import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
 
+/**
+ * Peptide list component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-peptides-list',
   templateUrl: './peptides-list.component.html',
@@ -21,12 +25,15 @@ export class PeptidesListComponent implements OnInit {
     // Observing the incomming peptides from the form
     this.peptideService.peptideFromDb$.subscribe(
       (peptide) => {
-        // this.peptideToList(peptide);
         this.peptides = [];
         this.loadPeptides();
       });
   }
 
+  /**
+   * @deprecated check if it is not used anymore
+   * @param peptide 
+   */
   private isPeptideInList(peptide: Peptide): boolean {
     // Loop and look for the peptide
     if (this.peptides.find(p => p.id == peptide.id) == undefined) {
@@ -35,6 +42,10 @@ export class PeptidesListComponent implements OnInit {
     return true;
   }
 
+  /**
+   * Get all peptides from the database and
+   * where they are comming from
+   */
   private loadPeptides(): void {
     this.peptides = [];
     this.peptideService.getAllPeptides()
@@ -42,13 +53,16 @@ export class PeptidesListComponent implements OnInit {
         peptides.forEach(peptide => {
           // get the belongs
           peptide['belongs'] = null;
-          peptide['belongs'] = this.getSampleType(peptide);
+          this.getSampleType(peptide);
         })
       },
         error => console.log(error),
       ()=> console.log('end'));
   }
-
+  /**
+   * Set the peptide sample type
+   * @param peptide the peptide to fill its belongs
+   */
   private getSampleType(peptide: Peptide): void {
     let belongs = '';
     this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
@@ -72,6 +86,10 @@ export class PeptidesListComponent implements OnInit {
     return 0;
   }
 
+  /**
+   * Sends the selected peptide to edit
+   * @param peptide the peptide to edit(comming by the DOM)
+   */
   sendToDetail(peptide: Peptide): void {
     this.peptideService.sendPeptide(peptide);
   }

@@ -4,7 +4,10 @@ import { AuthService } from '../../auth.service';
 import * as decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
-
+/**
+ * Login component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',

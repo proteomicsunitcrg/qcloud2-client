@@ -6,6 +6,10 @@ import { ChartService } from '../../../services/chart.service';
 import { Chart } from '../../../models/chart';
 import { ChartParam } from '../../../models/chartParam';
 
+/**
+ * This component for manage the chart params
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-param',
   templateUrl: './chart-param.component.html',
@@ -28,6 +32,10 @@ export class ChartParamComponent implements OnInit {
     this.subscribeToChartEdition();
   }
 
+  /**
+   * If there is a request for edit an existing chart it will load 
+   * its chart params into the list
+   */
   private subscribeToChartEdition(): void {
     this.chartService.chartToEdit$
       .subscribe(
@@ -36,16 +44,22 @@ export class ChartParamComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * Load the chart params by chart
+   * @param chart the chart beign edited
+   */
   private loadChartParams(chart: Chart): void {
     this.chartParamsService.getChartsParamsByChart(chart)
       .subscribe(
         (chartParams: ChartParam[]) => {
-          //this.selectedParameter = chartParams[0].param;
           this.selectParameter(chartParams[0].param);
         }
       )
   }
+  /**
+   * Where there is a reset request, ussualy when the form 
+   * is submited, it will reset the selected parameter
+   */
   private subscribeToReset(): void {
     this.chartParamsService.resetComponent$
       .subscribe(
@@ -55,6 +69,9 @@ export class ChartParamComponent implements OnInit {
       )
   }
 
+  /**
+   * Get the parameters from the database
+   */
   private loadParameters(): void {
     this.paramService.getAllParams()
       .subscribe(
@@ -63,6 +80,11 @@ export class ChartParamComponent implements OnInit {
         });
   }
 
+  /**
+   * Set the selected parameter after the user clicks on 
+   * any parameter at the DOM
+   * @param param the parameter to select
+   */
   selectParameter(param: Param): void {
     this.selectedParameter = param;
     this.paramService.sendParamToContextSourceSelector(this.selectedParameter);

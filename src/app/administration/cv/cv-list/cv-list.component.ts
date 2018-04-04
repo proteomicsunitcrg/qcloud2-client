@@ -8,7 +8,10 @@ import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
-
+/**
+ * List of CVs component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-cv-list',
   templateUrl: './cv-list.component.html',
@@ -37,6 +40,7 @@ export class CvListComponent implements OnInit, OnDestroy {
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {      
       
     });
+    // Subscription to category change
     this.categorySubscription$ = this.categoryService.selectedCategory$.subscribe(
       (category)=> {
         this.getCvListByCategoryFromServer(category);
@@ -46,7 +50,10 @@ export class CvListComponent implements OnInit, OnDestroy {
       }
     )    
   }
-
+  /**
+   * Toggle the selected cv on/off
+   * @param cv 
+   */
   changeStatus(cv: CV) {
     this.cvService.changeEnabled(cv.id).subscribe(
       (result)=> {
@@ -76,6 +83,10 @@ export class CvListComponent implements OnInit, OnDestroy {
     }
 
   }
+  /**
+   * Get the list of CVs by category and prepares the pagination
+   * @param category the category to look for its cvs
+   */
   private getCvListByCategoryFromServer(category: Category) {
     this.cvs = [];
     this.cvService.getCvByCategory(category).subscribe(

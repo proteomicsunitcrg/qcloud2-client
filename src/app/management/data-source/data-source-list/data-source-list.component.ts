@@ -9,7 +9,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
 
-
+/**
+ * Data source list component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-data-source-list',
   templateUrl: './data-source-list.component.html',
@@ -41,8 +44,9 @@ export class DataSourceListComponent implements OnInit {
       }
     );    
     // Subscription to a change in the router url for category change
+    // it comes by the ngInit of the dataSourceCompoment
     this.categoryService.selectedCategory$.subscribe(
-      (category) => {
+      (category) => {        
         this.loadDataSourcesByCategory(category);
       },
       (error) => {

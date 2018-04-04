@@ -10,6 +10,14 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartParam } from '../../../models/chartParam';
 import { delay } from 'q';
 
+/**
+ * Context source selector component.
+ * It get the sample type by subcription and updates
+ * its list accordingly with the requested context source
+ * At this moment (april,2018) there are only
+ * peptides and instrument sample
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-context-source',
   templateUrl: './chart-context-source.component.html',
@@ -45,17 +53,19 @@ export class ChartContextSourceComponent implements OnInit {
   isChecked(contextSource: ContextSource): boolean {    
     return this.selectedContextSources.find(c => c.id == contextSource.id)!==undefined;
   }
-
+  
   private subscribeToChartParamsToEdit(): void {
     this.chartParamsService.selectedContextSources$
       .subscribe(
         (contextSources) => {
-          console.log(contextSources);
           this.addContextSourcesToArray(contextSources);
         },error => console.log(error)
       )
   }
-
+  /**
+   * Load a new context sources array into the list   
+   * @param contextSources an array with the context sources
+   */
   private addContextSourcesToArray(contextSources: ContextSource[]): void {
     this.selectedContextSources = [];
     contextSources.forEach(

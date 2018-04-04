@@ -4,12 +4,15 @@ import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
 import { SampleType } from '../../../models/sampleType';
 import { PeptideService } from '../../../services/peptide.service';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { delay } from 'q';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 declare var M: any;
+/**
+ * Peptide form component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-peptide-detail-form',
   templateUrl: './peptide-detail-form.component.html',
@@ -54,6 +57,10 @@ export class PeptideDetailFormComponent implements OnInit {
     )
   }
 
+  /**
+   * Load a selected peptide
+   * @param peptide the peptide to load
+   */
   private loadPeptideIntoForm(peptide: Peptide) {
     this.peptideService.findPeptide(peptide).subscribe(
       (peptide) => {
@@ -80,8 +87,6 @@ export class PeptideDetailFormComponent implements OnInit {
     this.sampleTypes.forEach((sampleType) => {
       this.checkSampleComposition(sampleType, sampleCompositions);
     });
-
-
   }
 
   private checkSampleComposition(sampleType: SampleType, sampleCompositions: SampleComposition[]): void {
@@ -162,9 +167,6 @@ export class PeptideDetailFormComponent implements OnInit {
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
     this.formData.currentPeptide = new Peptide(null, '', '', '');
-
   }
-
-
 }
 

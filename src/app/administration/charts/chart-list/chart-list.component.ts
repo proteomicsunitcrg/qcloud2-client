@@ -6,6 +6,10 @@ import { Chart } from '../../../models/chart';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChartParamsService } from '../../../services/chart-params.service';
 
+/**
+ * This component list the existing charts
+ * @author Daniel Mancera<daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-chart-list',
   templateUrl: './chart-list.component.html',
@@ -13,7 +17,7 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 })
 export class ChartListComponent implements OnInit {
 
-  @Input() chartId: number;
+  // @Input() chartId: number;
   charts: Chart[];
 
   constructor(private cvService: CvService,
@@ -34,7 +38,9 @@ export class ChartListComponent implements OnInit {
         }
       )
   }
-
+  /**
+   * Get all charts from the database
+   */
   private loadAllCharts(): void {
     this.chartService.getAllCharts()
       .subscribe(
@@ -43,6 +49,10 @@ export class ChartListComponent implements OnInit {
         }
       )
   }
+  /**
+   * Load the charts by cv
+   * @param cv the cv to look for its charts
+   */
   private loadChartsByCV(cv: CV): void {
     this.chartService.getChartsByCV(cv)
       .subscribe(
@@ -52,6 +62,10 @@ export class ChartListComponent implements OnInit {
       )
   }
 
+  /**
+   * Listen to any CV change at the
+   * cv component selector and reload the list
+   */
   private subscribeToCVChange(): void {
     this.cvService.selectedChartCv$
       .subscribe(
@@ -66,13 +80,14 @@ export class ChartListComponent implements OnInit {
     this.charts = charts;
   }
 
+  /**
+   * Send a chart to edit and changes the tab
+   * @param chart the chart to edit(comming from the DOM)
+   */
   editChart(chart: Chart): void {
     // send chart to service
     this.chartService.sendChartToEdit(chart);
-
     // change tab
     this.chartService.selectTab('newChart');
   }
-
-
 }

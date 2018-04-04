@@ -9,6 +9,10 @@ import { ModalResponse } from '../../models/modalResponse';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../auth.service';
 declare var M: any;
+/**
+ * User management component
+ * @author Daniel Mancera <daniel.mancera@crg.eu>
+ */
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -18,6 +22,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
   
+  /**
+   * This is for restore pristine after the form submit
+   */
   @ViewChild("firstnameBox") firstnameBox;
   @ViewChild("lastnameBox") lastnameBox;
   @ViewChild("emailBox") emailBox;
