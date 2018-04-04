@@ -13,7 +13,7 @@
             <label for="defaultViewName">View name</label>
           </div>
           <div class="col s2 m2 l2 xl2">
-            <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">Save</button>
+            <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
           </div>
         </form>
       </div>
@@ -52,7 +52,6 @@
           <button type="button" class="btn waves-effect btn-large" (click)="addRow()">Add row</button>
         </div>
       </div>
-      <button type="button" (click)="show()">What is going on</button>
     </div>
     <div class="col s2 m2 l2 xl2">
       <ul class="collection" [dragula]='"first-bag"' id="charts-list">

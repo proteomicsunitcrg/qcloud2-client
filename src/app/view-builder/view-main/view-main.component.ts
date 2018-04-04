@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnDestroy, AfterViewInit, OnChanges, DoCheck, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ViewService } from '../../services/view.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CvService } from '../../services/cv.service';
 import { ChartService } from '../../services/chart.service';
 import { Chart } from '../../models/chart';
@@ -14,6 +14,7 @@ import { ViewDisplay } from '../../models/viewDisplay';
 import { Modal } from '../../models/modal';
 import { Display } from '../../models/display';
 import { delay } from 'q';
+declare var M: any;
 
 @Component({
   selector: 'app-view-main',
@@ -24,12 +25,15 @@ export class ViewMainComponent implements OnInit {
 
   constructor(private viewService: ViewService,
     private route: ActivatedRoute,
+    private router: Router,
     private cvService: CvService,
     private chartService: ChartService,
     private modalService: ModalService,
     private dragulaService: DragulaService) { }
 
   @Input() type: string;
+
+  submitButtonText: string;
 
 
   loadedViewDisplay: any = null;
@@ -78,7 +82,8 @@ export class ViewMainComponent implements OnInit {
                   .subscribe(
                     (view) => {
                       if (view !== null) {
-                        // existing menu, organize the charts in the display
+                        // existing view, organize the charts in the display
+                        this.submitButtonText = 'Update';
                         this.view = view;
                         // get the view display
                         this.viewService.getDefaultDisplayByView(view)
@@ -89,6 +94,9 @@ export class ViewMainComponent implements OnInit {
 
                             }
                           );
+                      }else {
+                        // new default view
+                        this.submitButtonText = 'Save';
                       }
                     }, (error) => {
                       console.log(error);
@@ -119,9 +127,13 @@ export class ViewMainComponent implements OnInit {
         this.chartDisplay[index] = [];
         row.forEach(
           (col) => {
-            this.display[index].push(col['chart'].id);
-            this.chartDisplay[index].push(col['chart'].id);
-            charts.push(col);
+            this.display[index].push(null);
+            if(col['chart']===null) {
+              this.chartDisplay[index].push(null);  
+            }else {
+              this.chartDisplay[index].push(col['chart'].id);
+              charts.push(col);
+            }
           }
         )
       }
@@ -153,45 +165,19 @@ export class ViewMainComponent implements OnInit {
       this.modalService.openModal(new Modal('Error', 'You need at least one column', 'Ok', null, 'noRows', viewName));
       formOk = false;
     }
-    if (this.checkDisplayForNulls()) {
-      this.modalService.openModal(new Modal('Error', 'You need to fill all the spots', 'Ok', null, 'noRows', viewName));
-      formOk = false;
-    }
 
     if (formOk) {
-      this.saveView();
+      this.saveDefaultView();
     }
   }
-  /**
-   * With the current database you can not
-   * have any empty spot in the display.
-   * This function will return true if it 
-   * finds any null on the chart display
-   * @return true if a null is found, false otherwise
-   */
-  private checkDisplayForNulls(): boolean {
-    this.chartDisplay.forEach(
-      (row) => {
-        row.forEach(
-          (col) => {
-            if (col === null) {
-              return true;
-            }
-          }
-        )
-      }
-    )
-    return false;
-  }
-
-  private saveView(): void {
+  private saveDefaultView(): void {
     this.viewService.addDefaultView(this.view)
       .subscribe(
         (view) => {
           this.prepareViewDisplayArray(view);
         },
         (error) => {
-          console.log(error);
+          this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'saveDefaultView',null));
         }
       )
   }
@@ -208,16 +194,39 @@ export class ViewMainComponent implements OnInit {
         )
       }
     )
-    this.saveViewDisplay();
+    if(this.submitButtonText==='Save') {
+      this.saveViewDisplay();
+    }else {
+      this.updateViewDisplay();
+    }
   }
-  private saveViewDisplay(): void {
-    this.viewService.addLayoutToDefaultView(this.viewDisplay)
+  private updateViewDisplay(): void {
+    this.viewService.updateLayoutToDefaultView(this.viewDisplay,this.view.id)
       .subscribe(
         (display) => {
-          // show ok toast
-          console.log(display);
+          this.navigateBack('Chart updated!');
+        },
+        (error) =>{
+          this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'updateViewDisplay',null));
         }
       )
+  }
+
+  private saveViewDisplay(): void {
+    this.viewService.addLayoutToDefaultView(this.viewDisplay)
+    .subscribe(
+      (display) => {
+        this.navigateBack('Chart saved!');
+      },
+      (error) =>{
+        this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'saveViewDisplay',null));
+      }
+    )
+  }
+
+  private navigateBack(action: string): void {
+    M.toast({html: action});
+    this.router.navigate(['/application/administration/views']);
   }
 
   private loadChartsByCV(cv: CV): void {
@@ -364,9 +373,11 @@ export class ViewMainComponent implements OnInit {
     // send information for reestruct the list
     this.chartDisplay[row].forEach(
       (charts, index) => {
-        let elem = document.getElementById(row + ';' + index);
-        let list = document.getElementById('charts-list');
-        list.appendChild(elem.firstElementChild);
+        if(charts!==null) {
+          let elem = document.getElementById(row + ';' + index);
+          let list = document.getElementById('charts-list');
+          list.appendChild(elem.firstElementChild);
+        }
       }
     )
     this.display.splice(row, 1);
@@ -384,11 +395,6 @@ export class ViewMainComponent implements OnInit {
 
   addRow(): void {
     this.modalService.openBottomModal(new BottomModal('Add row', 'How many columns do you want', '1', '2', 'newRow', null));
-  }
-
-  show(): void {
-    console.log(this.display);
-    console.log(this.chartDisplay);
   }
 
   ngOnDestroy(): void {

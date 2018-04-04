@@ -60,6 +60,23 @@ export class ViewService {
     return this.httpClient.post<View>(this.defaultViewsUrl,params, {headers: headers});
   }
 
+  public updateLayoutToDefaultView(viewDisplay: ViewDisplay[][], viewId: number): Observable<ViewDisplay[]> {
+    let layout = [];
+    viewDisplay.forEach(
+      (row)=> {
+        row.forEach(
+          (col) => {
+            layout.push(col);
+          }
+        )
+      }
+    )
+    const json = JSON.stringify(layout);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<ViewDisplay[]>(this.defaultViewsUrl+'/layout/'+viewId,params, {headers: headers});
+  }
+
   public addLayoutToDefaultView(viewDisplay: ViewDisplay[][]): Observable<ViewDisplay[]> {
     let layout = [];
     viewDisplay.forEach(
@@ -75,7 +92,6 @@ export class ViewService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<ViewDisplay[]>(this.defaultViewsUrl+'/layout',params, {headers: headers});
-    
   }
 
   public getDefaultViews(): Observable<View[]> {
