@@ -54,7 +54,6 @@ export class DataVisualizationDisplayComponent implements OnInit {
             (dataSource) => {
               this.dataSource = dataSource;              
               this.getDefaultViewNameByCV(dataSource.cv);
-              //this.loadDefaultChartsByCV(dataSource.cv);
             }
           )
         break;
@@ -76,20 +75,15 @@ export class DataVisualizationDisplayComponent implements OnInit {
     this.dataSourceService.selectedDataSourceForDisplay$
       .subscribe(
         (dataSource) => {          
-          //this.getDefaultViewNameByCV(dataSource.cv);
-          // this.loadDefaultChartsByCV(dataSource.cv);
           this.dataSource = dataSource;
         }
       )
   }
   private loadDefaultChartsByCV(view: View): void {
-    console.log(this.view);
-    
     this.viewService.getDefaultDisplayByView(view)
       .subscribe(
         (res) => {          
           this.display = res;
-          console.log(this.display);
         }
       )
     
