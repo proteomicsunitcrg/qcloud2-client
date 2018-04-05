@@ -23,7 +23,7 @@ export class ChartParamComponent implements OnInit {
 
   parameters: Param[] = [];
 
-  selectedParameter: Param = new Param(null,null,null);
+  selectedParameter: Param = new Param(null,null,null,null);
 
   ngOnInit() {
     // Load paratemers
@@ -64,7 +64,7 @@ export class ChartParamComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedParameter = new Param(null,null,null);
+          this.selectedParameter = new Param(null,null,null,null);
         }
       )
   }

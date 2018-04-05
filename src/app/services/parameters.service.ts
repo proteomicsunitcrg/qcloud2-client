@@ -56,4 +56,8 @@ export class ParametersService {
     this.selectedParameter.next(param);
   }
 
+  public getProcessors(): Observable<String[]> {
+    return this.httpClient.get<String[]>(this.parameterUrl+'/processors');
+  }
+
 }

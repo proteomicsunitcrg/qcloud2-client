@@ -12,12 +12,15 @@ export class ParametersFormComponent implements OnInit {
 
   constructor(private parameterService: ParametersService) { }
 
-  newParam: Param = new Param(null,'','');
+  newParam: Param = new Param(null,'','','');
 
   isFors: String[] = [];
 
+  processors: String[] = ['-- No processor'];
+
   ngOnInit() {
     this.getTypes();
+    this.getProcessors();
   }
 
   /**
@@ -35,9 +38,24 @@ export class ParametersFormComponent implements OnInit {
         }
       )
   }
+
+  private getProcessors(): void {
+    this.parameterService.getProcessors()
+      .subscribe(
+        (processors) => {
+          processors.forEach(processor => this.processors.push(processor));
+        }
+      )
+      delay(100).then(()=> this.enableSelect());
+  }
+
+
+
   private enableSelect() {
-    const elem = document.getElementById('selectFor');
-    let instance = M.FormSelect.init(elem, {});    
+    let elem = document.getElementById('selectFor');
+    let instance = M.FormSelect.init(elem, {});
+    elem = document.getElementById('selectProcessor');
+    instance = M.FormSelect.init(elem, {});
   }
 
   onSubmit(): void {

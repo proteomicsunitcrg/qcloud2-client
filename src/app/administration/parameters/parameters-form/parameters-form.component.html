@@ -14,6 +14,14 @@
       <label>Is for</label>
     </div>
     <div class="input-field">
+      <select id="selectProcessor" name="selectProcessor" [(ngModel)]="newParam.processor">
+        <option *ngFor="let processor of processors" [ngValue]="processor">
+          {{processor}}
+        </option>
+      </select>
+      <label>Data processor</label>
+    </div>
+    <div class="input-field">
       <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
     </div>
   </form>
