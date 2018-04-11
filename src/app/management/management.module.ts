@@ -11,9 +11,11 @@ import { DataSourceComponent } from './data-source/data-source.component';
 import { CvSelectorComponent } from './data-source/cv-selector/cv-selector.component';
 import { DataSourceListComponent } from './data-source/data-source-list/data-source-list.component';
 import { CvService } from '../services/cv.service';
-
 import { DataSourceService } from '../services/data-source.service';
 import { SharedModule } from '../shared/shared.module';
+import { MainGuideSetComponent } from './guide-set/main-guide-set/main-guide-set.component';
+import { SharedModulesModule } from '../shared-modules/shared-modules.module';
+import { DataSourceGuideSetListComponent } from './guide-set/data-source-guide-set-list/data-source-guide-set-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,13 +23,14 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     FormsModule,
     SharedModule,
+    SharedModulesModule
   ],
   declarations: [MainComponent, 
     SidebarComponent, 
     UsersComponent, 
     DataSourceComponent, 
     CvSelectorComponent, 
-    DataSourceListComponent],
+    DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService]

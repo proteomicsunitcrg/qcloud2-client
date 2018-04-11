@@ -9,6 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Edit</th>
+      <th>Guide set</th>
       <th>Instrument</th>
       <th>Remove</th>
     </tr>
@@ -22,26 +23,50 @@
         <td>
           <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
         </td>
+        <td *ngIf="dataSource.guideSet; else noGuideSet">
+          {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
+
+        </td>
+        <ng-template #noGuideSet>
+          <td>
+            No guide set, click to add one.
+          </td>
+        </ng-template>
       </ng-template>
       <ng-template #edit>
         <ng-container *ngIf="editRow==i then edit else show"></ng-container>
         <ng-template #edit>
-          <td><input type="text" name="instrumentName" [(ngModel)]="dataSource.name" (keyup.enter)="saveDataSource(dataSource)"></td>
+          <td>
+            <input type="text" name="instrumentName" [(ngModel)]="dataSource.name" (keyup.enter)="saveDataSource(dataSource)">
+          </td>
           <td>
             <i class="material-icons cursorIcon" (click)="saveDataSource(dataSource)">save</i>
             <i class="material-icons cursorIcon" (click)="cancelEditing(dataSource)">undo</i>
           </td>
+          <td *ngIf="dataSource.guideSet; else noGuideSet">
+            {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
+          </td>
+          <ng-template #noGuideSet>
+            <td>
+              No guide set, click to add one.
+            </td>
+          </ng-template>
         </ng-template>
         <ng-template #show>
           <td>{{dataSource.name}}</td>
           <td>
             <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
           </td>
+          <td *ngIf="dataSource.guideSet; else noGuideSet">
+              {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
+            </td>
+            <ng-template #noGuideSet>
+              <td>
+                No guide set, click to add one.
+              </td>
+            </ng-template>
         </ng-template>
       </ng-template>
-
-
-
       <td>{{dataSource.cv.name}}</td>
       <td>
         <i class="material-icons cursorIcon" (click)="deleteDataSource(dataSource)">delete_forever</i>

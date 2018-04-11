@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>Node instruments</h5>
+  </div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Instrument</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Set guide set</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataSource of dataSources">
+      <td>{{dataSource.name}}</td>
+      <td>{{dataSource.cv.name}}</td>
+      <td>
+        <input type="text" name="startDate{{dataSource.id}}" class="datepicker{{dataSource.id}}" [(ngModel)]="dataSource.guideSet.startDate"/>
+      </td>
+      <td>
+        <input type="text" name="endDate{{dataSource.id}}" class="datepicker{{dataSource.id}}" [(ngModel)]="dataSource.guideSet.endDate"/>
+      </td>
+      <td>
+        <button type="button" class="waves-effect waves-light btn" (click)="set(dataSource)">Set</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

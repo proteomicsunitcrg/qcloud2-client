@@ -16,7 +16,7 @@ export class ParametersFormComponent implements OnInit {
 
   isFors: String[] = [];
 
-  processors: String[] = ['-- No processor'];
+  processors: String[] = ['No processor'];
 
   ngOnInit() {
     this.getTypes();

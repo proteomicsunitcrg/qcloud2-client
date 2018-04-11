@@ -59,7 +59,8 @@ export class PlotComponent implements OnInit {
       
       dataArray[key].forEach(
         (element, index) => {
-          values.push(Math.log2(element));
+          // values.push(Math.log2(element));
+          values.push(element);
         }
       );
 
@@ -101,7 +102,6 @@ export class PlotComponent implements OnInit {
         (dates) => {
           this.currentDates = dates;
           // reload the plot...
-          console.log(this.currentDates);
           this.loadData();
         }
       )

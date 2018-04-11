@@ -6,10 +6,12 @@ import { RoleGuardService as RoleGuard } from '../../role-guard.service';
 import { MainComponent } from '../main/main.component';
 import { UsersComponent } from '../users/users.component';
 import { DataSourceComponent } from '../data-source/data-source.component';
+import { MainGuideSetComponent } from '../guide-set/main-guide-set/main-guide-set.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}, children: [
     { path:'users',component: UsersComponent},
+    { path:'guidesets',component: MainGuideSetComponent},
     { path:'instruments/:name', component: DataSourceComponent}
   ]},
 ];

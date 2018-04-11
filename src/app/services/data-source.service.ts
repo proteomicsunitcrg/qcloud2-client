@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Category } from '../models/category';
+import { GuideSet } from '../models/guideSet';
 @Injectable()
 export class DataSourceService {
 
@@ -40,7 +41,12 @@ export class DataSourceService {
   public getDataSourceByApikey(dataSourceApikey: string): Observable<DataSource> {
     return this.httpClient.get<DataSource>(this.dataSourceUrl+'/'+dataSourceApikey);
   }
-
+  /**
+   * Get the list of data sources by the current node user.
+   * There is no need of node identification because it is getted
+   * by the token at the server
+   * @param category The category to look for
+   */
   public getDataSourcesByCategory(category: Category): Observable<DataSource[]> {
     return this.httpClient.get<any>(this.dataSourceUrl+'/category/'+category.id);
   }
@@ -70,6 +76,13 @@ export class DataSourceService {
 
   public selectDataSourceForDisplay(dataSource: DataSource): void {
     this.selectedDataSourceForDisplay.next(dataSource);
+  }
+
+  public saveGuideSet(dataSource: DataSource, guideSet: GuideSet): Observable<DataSource> {
+    const json = JSON.stringify(guideSet);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<DataSource>(this.dataSourceUrl+'/guideset/'+dataSource.apiKey,params,{headers: headers});
   }
 
 

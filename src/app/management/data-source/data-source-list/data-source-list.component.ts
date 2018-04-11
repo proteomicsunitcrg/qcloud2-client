@@ -8,7 +8,10 @@ import { ModalService } from '../../../common/modal.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
+import { delay } from 'q';
+import { GuideSet } from '../../../models/guideSet';
 
+declare var M: any;
 /**
  * Data source list component
  * @author Daniel Mancera <daniel.mancera@crg.eu>
@@ -27,6 +30,7 @@ export class DataSourceListComponent implements OnInit {
     private modalService: ModalService) { }
 
   dataSources = [];
+  
 
   editingDataSourceName = false;
   editRow = -1;
@@ -36,7 +40,7 @@ export class DataSourceListComponent implements OnInit {
     // get the datasource
     // Subscription to new added instruments
     this.dataSourceService.dataSources$.subscribe(      
-      (dataSources) => {        
+      (dataSources) => {
         this.loadDataSourcesArray(dataSources);
       },
       (error) => {
@@ -84,9 +88,20 @@ export class DataSourceListComponent implements OnInit {
     this.editRow = index;
     // Storing the original name in case of cancel
     this.dataSourceName = this.dataSources[index].name;
+    // enable date pickers
+    delay(100).then(
+      () => {
+        this.loadDatePickers(index);
+      }
+    )
+    
+  }
+  private loadDatePickers(index: number): void {
+
   }
 
   saveDataSource(dataSource: DataSource): void {
+    
     this.dataSourceService.updateDataSource(dataSource).subscribe(
       (result) => {
         // TODO toast
@@ -129,7 +144,6 @@ export class DataSourceListComponent implements OnInit {
   private formAction(action: ModalResponse) : void {    
     switch(action.modalAction) {
       case 'deleteInstrument': 
-        console.log(action);
         if(action.userAction=='accept') {
           this.deleteDataSourceFromServer(action.objectInstance);
         }

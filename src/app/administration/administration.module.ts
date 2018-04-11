@@ -8,7 +8,7 @@ import { CategoryComponent } from './category/category.component';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 
-import { CategorySelectorComponent } from './cv/category-selector/category-selector.component';
+// import { CategorySelectorComponent } from './cv/category-selector/category-selector.component';
 import { CvFormComponent } from './cv/cv-form/cv-form.component';
 import { CvListComponent } from './cv/cv-list/cv-list.component';
 import { MainCvComponent } from './cv/main-cv/main-cv.component';
@@ -48,6 +48,8 @@ import { ViewBuilderModule} from '../view-builder/view-builder.module';
 import { MainDefaultViewComponent } from './default-view/main-default-view/main-default-view.component';
 import { DefaultViewGeneratorComponent } from './default-view/default-view-generator/default-view-generator.component';
 import { ViewListComponent } from './default-view/view-list/view-list.component';
+import { SharedModulesModule } from '../shared-modules/shared-modules.module';
+
 
 @NgModule({
   imports: [
@@ -56,7 +58,8 @@ import { ViewListComponent } from './default-view/view-list/view-list.component'
     RouterModule,
     FormsModule,
     SharedModule,
-    ViewBuilderModule
+    ViewBuilderModule,
+    SharedModulesModule
   ],
   providers: [CategoryService,
     CvService,
@@ -71,7 +74,7 @@ import { ViewListComponent } from './default-view/view-list/view-list.component'
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,
-    CategorySelectorComponent,
+    //CategorySelectorComponent,
     CvFormComponent,
     CvListComponent,
     MainCvComponent,

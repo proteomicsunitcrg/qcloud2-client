@@ -30,7 +30,6 @@ export class ViewListComponent implements OnInit {
   }
 
   editView(view: View): void {
-    console.log(view);
     this.router.navigate(['/application/administration/views/cv',view.cv.cvid]);
   }
 
