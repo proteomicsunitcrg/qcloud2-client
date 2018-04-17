@@ -16,7 +16,7 @@ export class ParametersFormComponent implements OnInit {
 
   isFors: String[] = [];
 
-  processors: String[] = ['No processor'];
+  processors: String[] = [];
 
   ngOnInit() {
     this.getTypes();
@@ -58,7 +58,8 @@ export class ParametersFormComponent implements OnInit {
     instance = M.FormSelect.init(elem, {});
   }
 
-  onSubmit(): void {
+  onSubmit(): void {    
+    
     this.parameterService.addNewParam(this.newParam)
       .subscribe(
         (result) => {
@@ -70,6 +71,7 @@ export class ParametersFormComponent implements OnInit {
           console.log(error);
         }
       )
+    
   }
 
 
