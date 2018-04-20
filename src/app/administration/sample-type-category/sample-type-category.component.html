@@ -1,0 +1,38 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 blue-grey darken-1">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Sample type categories management</h4>
+    </div>
+  </div>
+  <div class="row">
+    <!--FORM-->
+    <div class="col s4 m4 l4 xl4">
+      <h5>Add sample type category</h5>
+      <form (ngSubmit)="onSubmit(); newSampleTypeCategory.reset()" #newSampleTypeCategory="ngForm" ngNativeValidate autocomplete="off">
+        <div class="input-field">
+          <input #nameBox type="text" name="name" [(ngModel)]="sampleTypeCategory.name" class="validate" id="name" validate required>
+          <label for="name">Name</label>
+        </div>
+        <div class="input-field">
+          <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
+        </div>
+      </form>
+    </div>
+    <!--LIST-->
+    <div class="col s4 m4 l4 xl4">
+      <h5>Current sample type categories</h5>
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Name</th>            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sampleTypeCategory of sampleTypeCategories">
+            <td>{{sampleTypeCategory.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

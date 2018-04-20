@@ -3,11 +3,13 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Category</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let sampleType of sampleTypes">
       <td (click)="sendSampleType(sampleType)">{{sampleType.name}}</td>
+      <td>{{sampleType.sampleTypeCategory.name}}</td>
     </tr>
   </tbody>
 </table>

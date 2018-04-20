@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SampleType } from '../../../models/sampleType';
 import { SampleTypeService } from '../../../services/sample-type.service';
+import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
+import { SampleTypeCategoryService } from '../../../services/sample-type-category.service';
+import { delay } from 'q';
+import { ModalService } from '../../../common/modal.service';
+import { Modal } from '../../../models/modal';
+declare var M: any;
 
 @Component({
   selector: 'app-sample-type-form',
@@ -9,21 +15,47 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 })
 export class SampleTypeFormComponent implements OnInit {
 
-  constructor(private sampleTypeService: SampleTypeService) { }
+  constructor(private sampleTypeService: SampleTypeService,
+    private sampleTypeCategoryService: SampleTypeCategoryService,
+    private modalService: ModalService) { }
 
-  sampleType: SampleType = new SampleType(null,'');
+  sampleType: SampleType = new SampleType(null,'',null);
+
+  sampleTypeCategories: SampleTypeCategory[] = [];
 
   ngOnInit() {
+    this.loadSampleTypeCategories();
+  }
+  
+
+  private loadSampleTypeCategories(): void {
+    this.sampleTypeCategoryService.findAll()
+      .subscribe((res)=> {
+        this.sampleTypeCategories = [];
+        res.forEach(c=> this.sampleTypeCategories.push(c));
+      },error=>console.log(error),
+      ()=> {
+        delay(1).then(()=> this.enableSelect())
+      });
   }
 
+
   onSubmit(): void {
+    console.log(this.sampleType);    
     this.sampleTypeService.addSampleType(this.sampleType)
       .subscribe(
         (sampleType) => {
           this.sampleTypeService.sendNewSampleTypeToList(sampleType)
         },
-        error => console.log(error)
-      )
+        error => {
+          this.modalService.openModal(new Modal('Error',error.error.message, 'Ok',null,null,null))
+        }
+      )      
+  }
+
+  private enableSelect() {
+    let elem = document.getElementById('select_categories');
+    let instance = M.FormSelect.init(elem, {});    
   }
 
 }

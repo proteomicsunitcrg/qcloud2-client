@@ -49,6 +49,8 @@ import { MainDefaultViewComponent } from './default-view/main-default-view/main-
 import { DefaultViewGeneratorComponent } from './default-view/default-view-generator/default-view-generator.component';
 import { ViewListComponent } from './default-view/view-list/view-list.component';
 import { SharedModulesModule } from '../shared-modules/shared-modules.module';
+import { SampleTypeCategoryComponent } from './sample-type-category/sample-type-category.component';
+import { SampleTypeCategoryService } from '../services/sample-type-category.service';
 
 
 @NgModule({
@@ -70,7 +72,8 @@ import { SharedModulesModule } from '../shared-modules/shared-modules.module';
     PeptideService,
     ParametersService,
     ChartParamsService,
-    ChartService],
+    ChartService,
+    SampleTypeCategoryService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,
@@ -102,6 +105,7 @@ import { SharedModulesModule } from '../shared-modules/shared-modules.module';
     ChartContextSourceComponent,
     MainDefaultViewComponent,
     DefaultViewGeneratorComponent,
-    ViewListComponent]
+    ViewListComponent,
+    SampleTypeCategoryComponent]
 })
 export class AdministrationModule { }

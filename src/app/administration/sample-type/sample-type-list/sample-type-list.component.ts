@@ -19,7 +19,7 @@ export class SampleTypeListComponent implements OnInit {
     // load sample types
     this.loadSampleTypes();
     this.sampleTypeService.newSampleType$
-      .subscribe(sampleType => this.addNewSampleTypeToList(sampleType));
+      .subscribe(sampleType => this.loadSampleTypes());
   }
 
   private addNewSampleTypeToList(sampleType: SampleType): void {
@@ -31,6 +31,7 @@ export class SampleTypeListComponent implements OnInit {
     this.sampleTypes = [];
     this.sampleTypeService.getSamplesTypes()
       .subscribe((sampleTypes) => {
+        console.log(sampleTypes);
         sampleTypes.forEach(sampleType=> this.sampleTypes.push(sampleType))
       },
       (error)=> console.log(error))
