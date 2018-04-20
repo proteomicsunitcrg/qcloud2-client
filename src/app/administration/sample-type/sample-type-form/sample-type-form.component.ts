@@ -26,8 +26,8 @@ export class SampleTypeFormComponent implements OnInit {
   ngOnInit() {
     this.loadSampleTypeCategories();
   }
-  
 
+  
   private loadSampleTypeCategories(): void {
     this.sampleTypeCategoryService.findAll()
       .subscribe((res)=> {
