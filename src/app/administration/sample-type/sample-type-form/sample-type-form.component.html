@@ -1,12 +1,12 @@
 <div>
-    <h5>Add sample type</h5>
-    <form (ngSubmit)="onSubmit(); newSampleType.reset()" #newSampleType="ngForm" ngNativeValidate autocomplete="off">
-      <div class="input-field">
-        <input #nameBox type="text" name="name" [(ngModel)]="sampleType.name" class="validate" id="name" validate required>
-        <label for="name">Name</label>
-      </div>      
-      <div class="input-field">
-        <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
-      </div>
-    </form>
-  </div>
+  <h5>Add sample type</h5>
+  <form (ngSubmit)="onSubmit(); newSampleType.reset()" #newSampleType="ngForm" ngNativeValidate autocomplete="off">
+    <div class="input-field">
+      <input #nameBox type="text" name="name" [(ngModel)]="sampleType.name" class="validate" id="name" validate required>
+      <label for="name">Name</label>
+    </div>
+    <div class="input-field">
+      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
+    </div>
+  </form>
+</div>
