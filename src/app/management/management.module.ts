@@ -16,6 +16,9 @@ import { SharedModule } from '../shared/shared.module';
 import { MainGuideSetComponent } from './guide-set/main-guide-set/main-guide-set.component';
 import { SharedModulesModule } from '../shared-modules/shared-modules.module';
 import { DataSourceGuideSetListComponent } from './guide-set/data-source-guide-set-list/data-source-guide-set-list.component';
+import { MainSystemComponent } from './system/main-system/main-system.component';
+import { SystemListComponent } from './system/system-list/system-list.component';
+import { SystemBuilderComponent } from './system/system-builder/system-builder.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +33,7 @@ import { DataSourceGuideSetListComponent } from './guide-set/data-source-guide-s
     UsersComponent, 
     DataSourceComponent, 
     CvSelectorComponent, 
-    DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent],
+    DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent, MainSystemComponent, SystemListComponent, SystemBuilderComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService]

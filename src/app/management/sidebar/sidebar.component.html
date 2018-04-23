@@ -19,6 +19,7 @@
                     <ul>
                         <li *ngFor="let category of categories"><a [routerLink]="['/application/management/instruments',category.name]">{{category.name}}</a></li>
                         <li><a routerLink="/application/management/guidesets">Instrument guide sets</a></li>
+                        <li><a routerLink="/application/management/systems">Lab systems</a></li>
                     </ul>
                 </div>
             </li>

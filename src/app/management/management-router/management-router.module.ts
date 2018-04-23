@@ -7,12 +7,14 @@ import { MainComponent } from '../main/main.component';
 import { UsersComponent } from '../users/users.component';
 import { DataSourceComponent } from '../data-source/data-source.component';
 import { MainGuideSetComponent } from '../guide-set/main-guide-set/main-guide-set.component';
+import { MainSystemComponent } from '../system/main-system/main-system.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}, children: [
     { path:'users',component: UsersComponent},
     { path:'guidesets',component: MainGuideSetComponent},
-    { path:'instruments/:name', component: DataSourceComponent}
+    { path:'instruments/:name', component: DataSourceComponent},
+    { path:'systems',component: MainSystemComponent}
   ]},
 ];
 
