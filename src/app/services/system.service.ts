@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { System } from '../models/system';
 import { Subject } from 'rxjs/Subject';
 import { DataSource } from '../models/dataSource';
+import { GuideSet } from '../models/guideSet';
 
 @Injectable()
 export class SystemService {
@@ -48,6 +49,13 @@ export class SystemService {
     const params = json;    
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<System>(this.systemUrl+'/datasources/'+system.id,params, {headers: headers});
+  }
+
+  public saveGuideSet(system: System, guideSet: GuideSet): Observable<DataSource> {
+    const json = JSON.stringify(guideSet);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<DataSource>(this.systemUrl+'/guideset/'+system.id,params,{headers: headers});
   }
 
 

@@ -6,25 +6,32 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Instrument</th>
+      <th>System Name</th>
+      <th>Instruments</th>
       <th>Start date</th>
       <th>End date</th>
       <th>Set guide set</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataSource of dataSources">
-      <td>{{dataSource.name}}</td>
-      <td>{{dataSource.cv.name}}</td>
+    <tr *ngFor="let system of systems">
+      <td>{{system.name}}</td>
       <td>
-        <input type="text" name="startDate{{dataSource.id}}" class="datepicker{{dataSource.id}}" [(ngModel)]="dataSource.guideSet.startDate"/>
+        <ul>
+          <li *ngFor="let cv of system.dataSources">
+            {{cv.name}}
+          </li>
+        </ul>
+
       </td>
       <td>
-        <input type="text" name="endDate{{dataSource.id}}" class="datepicker{{dataSource.id}}" [(ngModel)]="dataSource.guideSet.endDate"/>
+        <input type="text" name="startDate{{system.id}}" class="datepicker{{system.id}}" [(ngModel)]="system.guideSet.startDate"/>
       </td>
       <td>
-        <button type="button" class="waves-effect waves-light btn" (click)="set(dataSource)">Set</button>
+        <input type="text" name="endDate{{system.id}}" class="datepicker{{system.id}}" [(ngModel)]="system.guideSet.endDate"/>
+      </td>
+      <td>
+        <button type="button" class="waves-effect waves-light btn" (click)="set(system)">Set</button>
       </td>
     </tr>
   </tbody>

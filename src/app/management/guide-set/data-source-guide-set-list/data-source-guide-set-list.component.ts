@@ -7,6 +7,8 @@ import { GuideSet } from '../../../models/guideSet';
 import { delay } from 'q';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
+import { SystemService } from '../../../services/system.service';
+import { System } from '../../../models/system';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
@@ -16,47 +18,49 @@ declare var M: any;
 export class DataSourceGuideSetListComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
-    private dataSourceService: DataSourceService,
+    //private dataSourceService: DataSourceService,
+    private systemService: SystemService,
     private modalService: ModalService) { }
 
-  dataSources: DataSource[] = [];
+  systems: System[] = [];
 
   datePickers: any = [];
 
   ngOnInit() {
-    this.subscribeToCategoryChange();
+    this.loadSystems();
     this.subscribeToModal();
   }
 
-  private subscribeToCategoryChange(): void {
-    this.categoryService.selectedCategory$
+  private loadSystems(): void {
+    this.systemService.getSystems()
       .subscribe(
-        (category) => {
-          this.loadCvsByCategory(category);
-        }
-      )
-  }
-  private loadCvsByCategory(category: Category): void {
-    this.dataSourceService.getDataSourcesByCategory(category)
-      .subscribe(
-        (dataSources) => {
-          this.dataSources = [];
-          dataSources.forEach((dataSource) => {
-            if (dataSource.guideSet == null) {
-              dataSource.guideSet = new GuideSet(null, null, null);
+        (systems) => {
+          systems.forEach(
+            (system) => {              
+              if(system.guideSet==null){
+                system.guideSet =new GuideSet(null,null,null);
+              }
+              this.systems.push(system);
+              
             }
-            this.dataSources.push(dataSource);
-          });
-          delay(1).then(() => this.initializeDatePickers());
+          )
+        },err => console.log(err),
+        ()=> {
+          delay(1).then(
+            () => {
+              this.initializeDatePickers();
+            }
+          )
         }
       )
   }
 
+  
   private initializeDatePickers(): void {
-    this.dataSources.forEach(
-      (dataSource) => {
-        let datePickers = document.getElementsByClassName('datepicker' + dataSource.id);
-        this.datePickers[dataSource.id] = [];
+    this.systems.forEach(
+      (system) => {
+        let datePickers = document.getElementsByClassName('datepicker' + system.id);
+        this.datePickers[system.id] = [];
         for (var i = 0; i < datePickers.length; i++) {
           let options = {
             format: 'yyyy-mm-dd',
@@ -64,7 +68,7 @@ export class DataSourceGuideSetListComponent implements OnInit {
             setDefaultDate: true
           }
           let instance = M.Datepicker.init(datePickers[i], options);
-          this.datePickers[dataSource.id].push(instance);
+          this.datePickers[system.id].push(instance);
         }
       }
     )
@@ -82,32 +86,32 @@ export class DataSourceGuideSetListComponent implements OnInit {
    * Set the selected guide set into the datasource
    * @param ds the datasource to set the dates
    */
-  set(ds: DataSource): void {
+  set(system: System): void {
     /**
      * All this mess is because at this time the ngModel binding
      * was not working properly and the solution was to set
      * the values manually getting from the DOM
      * 2018-04-10
      */    
-    let start = this.datePickers[ds.id][0].toString();
-    let end = this.datePickers[ds.id][1].toString();
+    let start = this.datePickers[system.id][0].toString();
+    let end = this.datePickers[system.id][1].toString();
     if (start == '' || end == '') {
       // this.modalService.openModal(new Modal('Information', 'Please, fill both date fields for set the guide set', 'Ok', 'Cancel', 'setGuideSetMissingData', null));
       alert('Fill both start date and end date');
     } else {
-      if (this.datePickers[ds.id][0] > this.datePickers[ds.id][1]) {
+      if (this.datePickers[system.id][0] > this.datePickers[system.id][1]) {
         // this.modalService.openModal(new Modal('Information', 'End date must be greater than start date', 'Ok', null, 'setGuideSetWrongDates', null));
         alert('End date must be greater than start date');
       } else {
-        ds.guideSet.startDate = this.datePickers[ds.id][0].toString();
-        ds.guideSet.endDate = this.datePickers[ds.id][1].toString();
-        this.updateDataSource(ds);
+        system.guideSet.startDate = this.datePickers[system.id][0].toString();
+        system.guideSet.endDate = this.datePickers[system.id][1].toString();
+        this.updateDataSource(system);
       }
     }
   }
 
-  private updateDataSource(dataSource: DataSource): void {
-    this.dataSourceService.saveGuideSet(dataSource,dataSource.guideSet)
+  private updateDataSource(system: System): void {
+    this.systemService.saveGuideSet(system,system.guideSet)
       .subscribe(
         (result)=> {
           M.toast({html: 'Guide set saved!'});

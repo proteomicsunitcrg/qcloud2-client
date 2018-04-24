@@ -57,7 +57,7 @@ export class CvSelectorComponent implements OnInit {
   }
   addInstrument(cv: CV): void {
     // Create datasource
-    let dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null,'',null);
+    let dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null,'');
 
     this.dataSourceService.addNewDataSource(dataSource).subscribe(
       (result) => {
