@@ -63,6 +63,10 @@ export class CategoryService {
     return this.httpClient.put(this.categoryUrl+'/makemain/'+category.id,{});
   }
 
+  public getMainCategory(): Observable<Category> {
+    return this.httpClient.get<Category>(this.categoryUrl+'/main');
+  }
+
 
 
 

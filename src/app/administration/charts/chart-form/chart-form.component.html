@@ -2,16 +2,16 @@
 <div class="col s12 m12 l12 xl12">
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
-      <div class="input-field col s3">
+      <!-- <div class="input-field col s3">
         <select id="select_categories" [(ngModel)]="selectedCategory" name="selectedCategory">
           <option *ngFor="let category of categories" [ngValue]="category">
             {{category.name}}
           </option>
         </select>
         <label>Category</label>
-      </div>
+      </div> -->
       <form (ngSubmit)="onSubmit(); chartForm.reset()" #chartForm="ngForm" ngNativeValidate autocomplete="off">
-        <div class="input-field col s7">
+        <div class="input-field col s10">
           <input id="chart_name" type="text" name="chart_name" [(ngModel)]="newChart.name" class="validate" required>
           <label for="chart_name">Chart name</label>
         </div>

@@ -44,7 +44,6 @@ export class ChartFormComponent implements OnInit {
 
   categories: Category[] = [];
   ngOnInit() {
-    this.loadCategories();
     this.subscribeToCV();
     this.subscribeToSampleType();
     this.subscribeToChartParams();

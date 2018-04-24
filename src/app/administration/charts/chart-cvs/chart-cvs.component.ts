@@ -27,7 +27,7 @@ export class ChartCvsComponent implements OnInit {
 
   cvs: CV[] = [];
 
-  selectedCv: CV = new CV(null,null,null,null,null,null);
+  selectedCv: CV = new CV(null, null, null, null, null, null);
 
   limit = 10;
 
@@ -39,19 +39,22 @@ export class ChartCvsComponent implements OnInit {
 
   showEnabledCvs: boolean = true;
 
-  ngOnInit() {
-    // Listen to category changes
-    this.categoryService.selectedCategory$.subscribe(
-      (category) => {
-        // Load cvs by category
-        this.currentCategory = category;
-        this.getCvListByCategoryFromServer(this.currentCategory);
-      }
-    )
+  ngOnInit() {    
+    this.loadMainCVs();
     this.subscribeToChartEdition();
     this.subscribeToReset();
   }
 
+  private loadMainCVs(): void {
+    // get the main category
+    this.categoryService.getMainCategory()
+      .subscribe(
+        (mainCategory)=> {
+          this.currentCategory = mainCategory;
+          this.getCvListByCategoryFromServer(this.currentCategory);
+        }
+      )
+  }
   /**
    * It listens to any request for edit an 
    * existing chart.
@@ -61,7 +64,7 @@ export class ChartCvsComponent implements OnInit {
     this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
-          this.selectedCv=chart.cv;
+          this.selectedCv = chart.cv;
         }
       )
   }
@@ -73,7 +76,7 @@ export class ChartCvsComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedCv = new CV(null,null,null,null,null,null);
+          this.selectedCv = new CV(null, null, null, null, null, null);
         }
       )
   }
@@ -86,7 +89,7 @@ export class ChartCvsComponent implements OnInit {
     this.selectedCv = cv;
     this.cvService.sendSelectedCvToChartForm(cv);
   }
-  
+
   /**
    * It gets the current CVs (only enable or all cvs)
    * from the database
@@ -94,7 +97,7 @@ export class ChartCvsComponent implements OnInit {
    */
   private getCvListByCategoryFromServer(category: Category) {
     this.cvs = [];
-    if(!this.showEnabledCvs) {
+    if (!this.showEnabledCvs) {
       this.cvService.getCvByCategory(category).subscribe(
         (result) => {
           this.loadCvList(result);
@@ -103,7 +106,7 @@ export class ChartCvsComponent implements OnInit {
           console.log(error);
         }
       )
-    }else {
+    } else {
       this.cvService.getAllEnabledCVByCategory(category).subscribe(
         (result) => {
           this.loadCvList(result);
@@ -119,11 +122,11 @@ export class ChartCvsComponent implements OnInit {
    * filter and the pagination
    * @param cvs an array with the cvs to show
    */
-  private loadCvList(cvs: CV[]): void {    
+  private loadCvList(cvs: CV[]): void {
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {
       this.cvs.push(cv);
-    })    
+    })
   }
 
   reloadList(): void {
