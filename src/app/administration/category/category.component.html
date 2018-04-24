@@ -13,6 +13,7 @@
           <th>View instruments</th>
           <th>Modify</th>
           <th>Delete</th>
+          <th>Main?</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,16 @@
           <td>View</td>
           <td>Modify</td>
           <td>Delete</td>
+          <td>
+            <ng-container *ngIf="category.mainDataSource==true then isMain else doMain"></ng-container>
+            <ng-template #isMain>
+              I am the master category
+            </ng-template>
+            <ng-template #doMain>
+              <a (click)="doMainCategory(category)">Make me the master category</a>
+            </ng-template>
+
+          </td>
         </tr>
       </tbody>
     </table>

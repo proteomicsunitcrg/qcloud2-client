@@ -14,7 +14,7 @@ import { CategoryService } from '../../services/category.service';
 export class CategoryComponent implements OnInit {
 
 
-  category: Category = new Category(null,'');
+  category: Category = new Category(null,'',false);
 
   categories = [];
   
@@ -50,6 +50,15 @@ export class CategoryComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  doMainCategory(category: Category): void {
+    this.categoryService.categoryToMainCategory(category)
+      .subscribe(
+        (res) => {
+          this.getCategoriesFromServer();
+        }
+      );
   }
 
 }
