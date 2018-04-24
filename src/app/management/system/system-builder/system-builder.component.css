@@ -1,0 +1,9 @@
+#submitButton, .addButton {
+    width: 100%;
+}
+#updateButton, #cancelButton {
+    width: 50%;
+}
+blockquote {
+    border-left: 5px solid #78909c;
+  }

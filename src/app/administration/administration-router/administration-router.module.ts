@@ -12,7 +12,7 @@ import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sa
 import { MainChartComponent } from '../charts/main-chart/main-chart.component';
 import { MainDefaultViewComponent } from '../default-view/main-default-view/main-default-view.component';
 import { DefaultViewGeneratorComponent } from '../default-view/default-view-generator/default-view-generator.component';
-import * as M from 'materialize-css/dist/js/materialize';
+//import * as M from 'materialize-css/dist/js/materialize';
 import { SampleTypeCategoryComponent } from '../sample-type-category/sample-type-category.component';
 
 const routes: Routes = [

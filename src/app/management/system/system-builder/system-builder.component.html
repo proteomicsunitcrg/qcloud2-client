@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>System builder</h5>
+  </div>
+</div>
+<form>
+  <div class="row">
+    <div class="input-field col s{{materializeColumns}} m{{materializeColumns}} l{{materializeColumns}} xl{{materializeColumns}}">
+      <label for="systemName">System Name</label>
+      <input placeholder="Fusion 2" id="systemName" type="text" [(ngModel)]="system.name" name="systemName" required>
+    </div>
+    <div class="input-field col s{{materializeColumns}} m{{materializeColumns}} l{{materializeColumns}} xl{{materializeColumns}}"
+      *ngFor="let category of categories">
+      <select [(ngModel)]="selectedDataSources[category.id]" name="{{category.name}}">
+        <option *ngFor="let dataSource of nodeDataSources[category.id]" [ngValue]="dataSource">
+          {{dataSource.name}}
+        </option>
+      </select>
+      <label>{{category.name}}</label>
+      <button type="button" class="btn-flat addButton" (click)="addDataSourceFromCategory(category)" *ngIf="!updating">Add</button>
+    </div>
+  </div>
+  <div class="row">
+    <ng-container *ngIf="updating then edit else new"></ng-container>
+    <ng-template #new>
+      <div class="col s12 m12 l12 xl12">
+        <button type="button" class="btn waves-effect waves-light" id="submitButton" (click)="doSave()">Save</button>
+      </div>
+    </ng-template>
+    <ng-template #edit>
+      <div class="col s12 m12 l12 xl12">
+        <button type="button" class="btn waves-effect waves-light left teal darken-1" id="updateButton" (click)="doSave()">Update</button>
+        <button type="button" class="btn waves-effect waves-light right orange lighten-1" id="cancelButton" (click)="doCancel()">Cancel</button>
+      </div>
+    </ng-template>
+
+  </div>
+</form>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <blockquote>
+      <strong>Caution:</strong><br/>
+      Once you have set your system you will not be able to modify its components. You could change the name, but not the parts.
+    </blockquote>
+  </div>
+</div>
+
+<!--SYSTEM PREVIEW-->
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>System preview</h5>
+  </div>
+  <div class="col s{{materializeColumns}} m{{materializeColumns}} l{{materializeColumns}} xl{{materializeColumns}}">
+    <ul class="collection with-header">
+      <li class="collection-header">
+        <h6>Name</h6>
+      </li>
+      <li class="collection-item">{{system.name}}</li>
+    </ul>
+  </div>
+  <div class="col s{{materializeColumns}} m{{materializeColumns}} l{{materializeColumns}} xl{{materializeColumns}}" *ngFor="let category of categories">
+    <ul class="collection with-header">
+      <li class="collection-header">
+        <h6>{{category.name}}</h6>
+      </li>
+      <li class="collection-item" *ngFor="let dataSource of systemDataSources[category.id]">
+        <div>{{dataSource.name}}
+          <a (click)="removeDataSourceFromSystem(dataSource,category)" class="secondary-content" *ngIf="!updating">
+            <i class="material-icons">close</i>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

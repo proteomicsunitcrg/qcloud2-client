@@ -19,6 +19,7 @@ import { DataSourceGuideSetListComponent } from './guide-set/data-source-guide-s
 import { MainSystemComponent } from './system/main-system/main-system.component';
 import { SystemListComponent } from './system/system-list/system-list.component';
 import { SystemBuilderComponent } from './system/system-builder/system-builder.component';
+import { SystemService } from '../services/system.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,6 +37,7 @@ import { SystemBuilderComponent } from './system/system-builder/system-builder.c
     DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent, MainSystemComponent, SystemListComponent, SystemBuilderComponent],
   providers: [CategoryService,
     CvService,
-    DataSourceService]
+    DataSourceService,
+    SystemService]
 })
 export class ManagementModule { }

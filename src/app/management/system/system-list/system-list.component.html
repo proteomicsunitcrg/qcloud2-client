@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>Current systems</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <table>
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>View</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        <tr *ngFor="let system of nodeSystems">
+          <td>{{system.name}}</td>
+          <td><i class="material-icons" (click)="onGoView(system)">remove_red_eye</i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
