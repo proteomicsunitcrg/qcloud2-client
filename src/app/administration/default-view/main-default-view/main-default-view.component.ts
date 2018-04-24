@@ -59,7 +59,7 @@ export class MainDefaultViewComponent implements OnInit {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name));        
+        this.categories.push(new Category(category.id,category.name,category.isMain));        
       }
     );
     this.selectedCategory = this.categories[0];

@@ -21,7 +21,7 @@ export class SystemBuilderComponent implements OnInit {
     private systemService: SystemService,
     private modalService: ModalService) { }
 
-  system: System = new System(null, null, null,null);
+  system: System = new System(null, null, null,null,null);
 
   categories: Category[];
 
@@ -220,7 +220,7 @@ export class SystemBuilderComponent implements OnInit {
               this.loadNodeDataSources();
               this.system.dataSources = ds;
               this.systemService.passNewSystemToList(this.system);
-              this.system = new System(null,null,null,null);
+              this.system = new System(null,null,null,null,null);
               this.updating= false;
             },
             (err) => console.log(err)
@@ -231,7 +231,7 @@ export class SystemBuilderComponent implements OnInit {
 
   doCancel(): void {
     this.resetDataSources();
-    this.system = new System(null,null,null,null);
+    this.system = new System(null,null,null,null,null);
     this.updating= false;
 
   }

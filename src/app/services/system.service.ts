@@ -48,14 +48,14 @@ export class SystemService {
     const json = JSON.stringify(dataSources);
     const params = json;    
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl+'/datasources/'+system.id,params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl+'/datasources/'+system.apiKey,params, {headers: headers});
   }
 
   public saveGuideSet(system: System, guideSet: GuideSet): Observable<DataSource> {
     const json = JSON.stringify(guideSet);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<DataSource>(this.systemUrl+'/guideset/'+system.id,params,{headers: headers});
+    return this.httpClient.post<DataSource>(this.systemUrl+'/guideset/'+system.apiKey,params,{headers: headers});
   }
 
 

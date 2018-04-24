@@ -23,6 +23,7 @@ import { PlotsModule } from '../plots/plots.module';
 import { FileService } from '../services/file.service';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from './layout/welcome/welcome.component';
+import { SystemService } from '../services/system.service';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { WelcomeComponent } from './layout/welcome/welcome.component';
   providers:[DataService,
     ViewService,
     DataSourceService,
-    FileService]
+    FileService,
+    SystemService]
   
 })
 export class ApplicationModule { }

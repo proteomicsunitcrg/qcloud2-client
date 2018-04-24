@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
+import { SystemService } from '../../../services/system.service';
+import { System } from '../../../models/system';
 declare var M: any;
 @Component({
   selector: 'app-top-menu',
@@ -13,10 +15,10 @@ export class TopMenuComponent implements OnInit {
 
   //instruments = ['Velosin','Luminoide'];
 
-  dataSources: DataSource[] = [];
+  systems: System[] = [];
 
   constructor(private authService: AuthService,
-    private dataSourceService: DataSourceService) { }
+    private systemService: SystemService) { }
 
   isAdmin = false;
   isManager = false;
@@ -28,21 +30,23 @@ export class TopMenuComponent implements OnInit {
     if(this.authService.checkRole('ROLE_MANAGER')){
       this.isManager = true;
     }
-    this.loadNodeInstruments();
+    this.loadNodeSystems();
   }
 
-  private loadNodeInstruments(): void {
-    this.dataSourceService.getAllNodeDataSources()
+  private loadNodeSystems(): void {
+    this.systemService.getSystems()
       .subscribe(
-        (dataSources)=> {
-          this.dataSources = dataSources;
+        (systems) => {
+          this.systems = systems;
         }
-      )
+      )    
   }
 
+  /*
   viewInstrument(instrument: DataSource): void {
     this.dataSourceService.selectDataSourceForDisplay(instrument);
   }
+  */
 
 
   open(dropdown) : void {    
