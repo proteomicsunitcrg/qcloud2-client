@@ -31,7 +31,6 @@ export class SampleTypeListComponent implements OnInit {
     this.sampleTypes = [];
     this.sampleTypeService.getSamplesTypes()
       .subscribe((sampleTypes) => {
-        console.log(sampleTypes);
         sampleTypes.forEach(sampleType=> this.sampleTypes.push(sampleType))
       },
       (error)=> console.log(error))
