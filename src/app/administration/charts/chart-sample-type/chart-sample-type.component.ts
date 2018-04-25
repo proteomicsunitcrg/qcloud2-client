@@ -19,7 +19,7 @@ export class ChartSampleTypeComponent implements OnInit {
     private chartParamsService: ChartParamsService,
     private chartService: ChartService) { }
 
-  selectedSampleType: SampleType = new SampleType(null,null,null);
+  selectedSampleType: SampleType = new SampleType(null,null,null,null);
 
   sampleTypes: SampleType[] = [];
 
@@ -32,7 +32,7 @@ export class ChartSampleTypeComponent implements OnInit {
     this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedSampleType = new SampleType(null,null,null);
+          this.selectedSampleType = new SampleType(null,null,null,null);
         }
       )
   }
