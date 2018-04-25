@@ -47,4 +47,9 @@ export class SampleTypeService {
     this.selectedSampleType.next(sampleType);
   }
 
+  public makeMainSampleType(sampleTypeCategoryId: number, sampleTypeId:number): Observable<any> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put(this.sampleTypesUrl+'/makemain/'+sampleTypeCategoryId+'/'+sampleTypeId,null,{headers:headers});
+  }
+
 }

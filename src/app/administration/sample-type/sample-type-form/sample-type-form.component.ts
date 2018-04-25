@@ -19,7 +19,7 @@ export class SampleTypeFormComponent implements OnInit {
     private sampleTypeCategoryService: SampleTypeCategoryService,
     private modalService: ModalService) { }
 
-  sampleType: SampleType = new SampleType(null,'',null);
+  sampleType: SampleType = new SampleType(null,'',null,null);
 
   sampleTypeCategories: SampleTypeCategory[] = [];
 

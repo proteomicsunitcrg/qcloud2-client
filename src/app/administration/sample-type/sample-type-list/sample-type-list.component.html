@@ -1,4 +1,45 @@
 <h5>Sample types</h5>
+<table *ngFor="let sampleTypeCategory of sampleTypeCategories" class="centered">
+  <caption class="blue-grey lighten-5">
+    <h6>{{sampleTypeCategory.name}}</h6>
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Default?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sampleType of sampleTypeCategory.sampleTypes">
+      <td (click)="sendSampleType(sampleType)">{{sampleType.name}}</td>
+      <td>
+        <ng-container *ngIf="sampleType.mainSampleType==true then main else doMain"></ng-container>
+        <ng-template #main>
+          <label>
+            <input type="checkbox" disabled checked/>
+            <span></span>
+          </label>
+        </ng-template>
+        <ng-template #doMain>
+          <span (click)="doMakeDefault(sampleTypeCategory,sampleType)">Make default</span>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h5>Sample types</h5>
 <table class="highlight">
   <thead>
     <tr>
@@ -12,4 +53,4 @@
       <td>{{sampleType.sampleTypeCategory.name}}</td>
     </tr>
   </tbody>
-</table>
+</table> -->
