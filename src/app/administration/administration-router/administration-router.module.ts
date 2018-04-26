@@ -26,6 +26,7 @@ const routes: Routes = [
     { path: 'sampletypes', component: MainSampleTypeComponent},
     { path: 'views', component: MainDefaultViewComponent},
     { path: 'views/cv/:id', component: DefaultViewGeneratorComponent},
+    { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent},
     { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}

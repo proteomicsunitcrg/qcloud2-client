@@ -8,6 +8,8 @@ import { ViewService } from '../../../services/view.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { View } from '../../../models/view';
+import { SampleTypeCategoryService } from '../../../services/sample-type-category.service';
+import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
 
 /**
  * Default view component
@@ -25,15 +27,21 @@ export class MainDefaultViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private viewService: ViewService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private sampleTypeCategoryService: SampleTypeCategoryService) { }
 
   categories: Category[] = [];
   selectedCategory: Category;
+
+  sampleTypeCategories: SampleTypeCategory[]= [];
+
+  selectedSampleTypeCategory: SampleTypeCategory;
 
   selectedCV: CV;
 
   ngOnInit() {
     this.loadCategories();
+    this.loadSampleTypeCategories();
     this.subscribeToCV();
     this.subscribeToModalAction();
   }
@@ -72,11 +80,11 @@ export class MainDefaultViewComponent implements OnInit {
    */
   goToDefaultChartEdit(): void {
     // Check if a view already exists for this CV
-    this.viewService.getDefaultViewNameByCV(this.selectedCV)
+    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV,this.selectedSampleTypeCategory)
       .subscribe(
         (res) => {
           if(res===null) {
-            this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid]);
+            this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid,this.selectedSampleTypeCategory.id]);
           }else {
             this.modalService.openModal(new Modal('Information',
               'A default chart for that instrument already exists. Do you want to edit it?',
@@ -86,6 +94,18 @@ export class MainDefaultViewComponent implements OnInit {
         }
       )
   }
+
+  private loadSampleTypeCategories(): void {
+    this.sampleTypeCategoryService.findAll()
+      .subscribe(
+        (categories) => {
+          this.sampleTypeCategories = categories;
+        }
+      )
+  }
+
+
+
   /**
    * Handle the modal responses
    */

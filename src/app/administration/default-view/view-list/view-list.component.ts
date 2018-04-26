@@ -30,7 +30,7 @@ export class ViewListComponent implements OnInit {
   }
 
   editView(view: View): void {
-    this.router.navigate(['/application/administration/views/cv',view.cv.cvid]);
+    this.router.navigate(['/application/administration/views/cv',view.cv.cvid,view.sampleTypeCategory.id]);
   }
 
 }

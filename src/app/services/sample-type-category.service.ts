@@ -29,7 +29,10 @@ export class SampleTypeCategoryService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<SampleTypeCategory>(this.sampleTypeCategoryUrl,params, {headers: headers, observe: 'response'});
+  }
 
+  public getSampleTypeCategoryById(sampleTypeCategoryId: number) : Observable<SampleTypeCategory> {
+    return this.httpClient.get<SampleTypeCategory>(this.sampleTypeCategoryUrl+'/'+sampleTypeCategoryId);
   }
 
 

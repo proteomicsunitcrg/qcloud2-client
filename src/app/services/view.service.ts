@@ -9,6 +9,7 @@ import { Chart } from '../models/chart';
 import { CV } from '../models/cv';
 import { View } from '../models/view';
 import { ViewDisplay } from '../models/viewDisplay';
+import { SampleTypeCategory } from '../models/sampleTypeCategory';
 
 @Injectable()
 export class ViewService {
@@ -20,6 +21,14 @@ export class ViewService {
 
   public getDefaultViewNameByCV(cv: CV): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id)
+      .map(
+        (res) => {
+          return res;
+        }
+      );
+  }
+  public getDefaultViewNameByCVAndSampleTypeCategory(cv: CV,sampleTypeCategory: SampleTypeCategory): Observable<View> {
+    return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id+'/'+sampleTypeCategory.id)
       .map(
         (res) => {
           return res;

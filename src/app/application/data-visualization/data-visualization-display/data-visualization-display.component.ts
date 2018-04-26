@@ -26,7 +26,7 @@ export class DataVisualizationDisplayComponent implements OnInit {
 
   display: Display = new Display(null);
 
-  view: View = new View(null, null, null, null,null);
+  view: View = new View(null, null, null, null,null,null);
 
   dataSource: DataSource;
 

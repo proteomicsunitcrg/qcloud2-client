@@ -83,6 +83,12 @@ export class ChartService {
     return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id);
   }
 
+  public getChartsByCVAndSampleTypeCategoryId(cv: CV, sampleTypeCategoryId: number): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id+'/category/'+sampleTypeCategoryId);
+  }
+
+
+
   /**
    * Used for switch between tabs
    * @param tab the tab

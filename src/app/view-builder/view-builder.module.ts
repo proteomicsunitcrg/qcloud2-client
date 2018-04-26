@@ -6,6 +6,7 @@ import { CvService } from '../services/cv.service';
 import { ChartService } from '../services/chart.service';
 import { DragulaModule } from 'ng2-dragula';
 import { FormsModule } from '@angular/forms';
+import { SampleTypeCategoryService } from '../services/sample-type-category.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
   exports: [ViewMainComponent],
   providers: [ViewService,
     CvService,
-    ChartService]
+    ChartService,
+    SampleTypeCategoryService]
 })
 export class ViewBuilderModule { }

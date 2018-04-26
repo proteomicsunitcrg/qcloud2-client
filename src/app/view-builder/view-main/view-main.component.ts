@@ -14,6 +14,8 @@ import { ViewDisplay } from '../../models/viewDisplay';
 import { Modal } from '../../models/modal';
 import { Display } from '../../models/display';
 import { delay } from 'q';
+import { SampleTypeCategory } from '../../models/sampleTypeCategory';
+import { SampleTypeCategoryService } from '../../services/sample-type-category.service';
 declare var M: any;
 
 @Component({
@@ -29,12 +31,14 @@ export class ViewMainComponent implements OnInit {
     private cvService: CvService,
     private chartService: ChartService,
     private modalService: ModalService,
-    private dragulaService: DragulaService) { }
+    private dragulaService: DragulaService,
+    private sampleTypeCategoryService: SampleTypeCategoryService) { }
 
   @Input() type: string;
 
   submitButtonText: string;
 
+  selectedSampleTypeCategory: SampleTypeCategory;
 
   loadedViewDisplay: any = null;
 
@@ -54,7 +58,7 @@ export class ViewMainComponent implements OnInit {
 
   viewDisplay: ViewDisplay[][] = [];
 
-  view: View = new View(null, '', null, null, true);
+  view: View = new View(null, '', null, null, true,null);
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -77,7 +81,8 @@ export class ViewMainComponent implements OnInit {
               (cv) => {
                 this.view.cv = cv;
                 this.cv = cv;
-                this.sendCVToList(params['id']);
+                this.loadSampleTypeCategory(params['qc']);
+                this.sendCVToList(cv,params['qc']);
                 this.viewService.getDefaultViewNameByCV(this.cv)
                   .subscribe(
                     (view) => {
@@ -111,6 +116,15 @@ export class ViewMainComponent implements OnInit {
     } else {
       // load datasources owned by the node
     }
+  }
+
+  private loadSampleTypeCategory(qcId: number): void  {
+    this.sampleTypeCategoryService.getSampleTypeCategoryById(qcId)
+      .subscribe(
+        (sampleTypeCategory) => {
+          this.selectedSampleTypeCategory = sampleTypeCategory;
+        }
+      )
   }
 
   /**
@@ -160,6 +174,7 @@ export class ViewMainComponent implements OnInit {
     // Before insert check the layout
     let viewName = this.view.name;
     let formOk = true;
+    this.view.sampleTypeCategory = this.selectedSampleTypeCategory;
     if (this.chartDisplay.length == 0) {
       // show modal
       this.modalService.openModal(new Modal('Error', 'You need at least one column', 'Ok', null, 'noRows', viewName));
@@ -171,6 +186,7 @@ export class ViewMainComponent implements OnInit {
     }
   }
   private saveDefaultView(): void {
+    
     this.viewService.addDefaultView(this.view)
       .subscribe(
         (view) => {
@@ -240,22 +256,27 @@ export class ViewMainComponent implements OnInit {
         }
       )
   }
-
-
-  private sendCVToList(cvId: string): void {
-    //get the cv from server    
-    this.cvService.getCvByCvId(cvId)
+  private loadChartsByCVAndSampleTypeCategoryId(cv: CV,sampleTypeCategoryId: number): void {
+    this.charts = [];
+    //this.chartService.getChartsByCV(cv)
+    this.chartService.getChartsByCVAndSampleTypeCategoryId(cv,sampleTypeCategoryId)
       .subscribe(
-        (cv) => {
-          // send to list
-          this.loadChartsByCV(cv);
-          // add to the view object
-          this.view.cv = cv;
-        },
-        (error) => {
-          console.log(error)
+        (charts) => {
+          charts.forEach(c => {
+            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType));
+          });
         }
       )
+  }
+
+
+  private sendCVToList(cv: CV, sampleTypeCategoryId: number): void {
+    //get the cv from server
+    //this.loadChartsByCV(cv);
+    this.loadChartsByCVAndSampleTypeCategoryId(cv,sampleTypeCategoryId);
+
+    // add to the view object
+    this.view.cv = cv;
   }
 
   private onDrop(args) {
