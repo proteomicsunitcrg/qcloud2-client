@@ -1,17 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from '../../models/chart';
 import { DataSource } from '../../models/dataSource';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js';
 import * as moment from 'moment';
 import { System } from '../../models/system';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-plot',
   templateUrl: './plot.component.html',
   styleUrls: ['./plot.component.css']
 })
-export class PlotComponent implements OnInit {
+export class PlotComponent implements OnInit,OnDestroy {
 
   constructor(private dataService: DataService) { }
 
@@ -20,6 +21,7 @@ export class PlotComponent implements OnInit {
   @Input() system: System;
 
   currentDates: string[];
+  dateChangesSubscription$: Subscription;
 
   ngOnInit() {    
     this.loadCurrentDates();
@@ -27,6 +29,10 @@ export class PlotComponent implements OnInit {
     if(this.chart!=null) {
       this.loadData();
     }
+  }
+
+  ngOnDestroy() {
+    this.dateChangesSubscription$.unsubscribe();
   }
 
   private loadData(): void {
@@ -90,7 +96,8 @@ export class PlotComponent implements OnInit {
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
     };
-    Plotly.newPlot('plot'+this.chart.id, dataForPlot, layout);
+    //Plotly.newPlot('plot'+this.chart.id, dataForPlot, layout);
+    Plotly.react('plot'+this.chart.id, dataForPlot, layout);
   }
 
 
@@ -99,7 +106,7 @@ export class PlotComponent implements OnInit {
   }
 
   private subscribeToDateChanges(): void {
-    this.dataService.selectedDates$
+    this.dateChangesSubscription$ = this.dataService.selectedDates$
       .subscribe(
         (dates) => {
           this.currentDates = dates;
