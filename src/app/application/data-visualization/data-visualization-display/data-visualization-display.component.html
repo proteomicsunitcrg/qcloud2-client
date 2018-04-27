@@ -1,16 +1,42 @@
-<h4 *ngIf="view">{{view.name}}</h4>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs" id="chartstabs">
+      <li class="tab col s6" *ngFor="let view of views">
+        <a href="#tab{{view.id}}" (click)="loadTab(view)">{{view.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <div id="tab{{view.id}}" class="col s12" *ngFor="let view of views">
+    <div *ngIf="viewLoaded[view.id] | async">
+      <div class="row valign-wrapper" *ngFor="let row of displays['a'+view.id].charts">
+        <ng-container *ngIf="row.length==1 then single else double"></ng-container>
+        <ng-template #single>
+          <div class="col s12 m12 l12 xl12" *ngFor="let charts of row">
+            <app-plot [chart]="charts.chart" [system]="system"></app-plot>
+          </div>
+        </ng-template>
+        <ng-template #double>
+          <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
+            <app-plot [chart]="charts.chart" [system]="system"></app-plot>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- <h4 *ngIf="view">{{view.name}}</h4>
 <div class="row valign-wrapper" *ngFor="let row of display.charts">
     <ng-container *ngIf="row.length==1 then single else double"></ng-container>
     <ng-template #single>
       <div class="col s12 m12 l12 xl12" *ngFor="let charts of row">
-        <!-- <p>{{charts.chart.name}}</p>         -->
-        <app-plot [chart]="charts.chart" [dataSource]="dataSource"></app-plot>
+        <app-plot [chart]="charts.chart" [system]="system"></app-plot>
       </div>      
     </ng-template>
     <ng-template #double>
       <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
-        <!-- <p>{{charts.chart.name}}</p> -->
-        <app-plot [chart]="charts.chart" [dataSource]="dataSource"></app-plot>
+        <app-plot [chart]="charts.chart" [system]="system"></app-plot>
       </div>
     </ng-template>
-</div>
+</div> -->

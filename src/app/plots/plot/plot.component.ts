@@ -4,6 +4,7 @@ import { DataSource } from '../../models/dataSource';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js';
 import * as moment from 'moment';
+import { System } from '../../models/system';
 
 @Component({
   selector: 'app-plot',
@@ -15,7 +16,8 @@ export class PlotComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   @Input() chart: Chart;
-  @Input() dataSource: DataSource;
+  //@Input() dataSource: DataSource;
+  @Input() system: System;
 
   currentDates: string[];
 
@@ -30,7 +32,7 @@ export class PlotComponent implements OnInit {
   private loadData(): void {
     let datesArray = [];
     let dataArray = [];
-    this.dataService.getPlotData(this.chart,this.dataSource)
+    this.dataService.getPlotData(this.chart,this.system)
       .subscribe(
         (dataFromServer) => {
           Object.keys(dataFromServer).forEach(function (key) {

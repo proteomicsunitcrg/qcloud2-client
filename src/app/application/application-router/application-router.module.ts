@@ -10,7 +10,7 @@ const routes: Routes = [
   // { path: 'text', component: TextComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}}
   { path: '', component: MainWindowComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
   children: [
-    {path:'view/:type/:id', component: DataVisualizationMainWindowComponent},
+    {path:'view/:type/:apiKey', component: DataVisualizationMainWindowComponent},
     {path:'', component: WelcomeComponent},
     {path:'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},
     {path:'management', loadChildren: '../../management/management.module#ManagementModule'},

@@ -8,6 +8,7 @@ import { MiniData } from '../models/miniData';
 import 'rxjs/add/operator/map'
 import { Chart } from '../models/chart';
 import { DataSource } from '../models/dataSource';
+import { System } from '../models/system';
 
 @Injectable()
 export class DataService {
@@ -31,10 +32,10 @@ export class DataService {
   /**
    * Retrieve data from the server
    * @param chart the chart you want to display
-   * @param dataSource the instrument to display
+   * @param system the lab system to display
    */
-  public getPlotData(chart: Chart, dataSource: DataSource): Observable<MiniData[]> {
-    return this.httpClient.get<MiniData[]>(this.dataUrl+'/'+this.currentDates[0]+'/'+this.currentDates[1]+'/'+chart.id+'/'+dataSource.id+'/'+chart.sampleType.id)
+  public getPlotData(chart: Chart, system: System): Observable<MiniData[]> {
+    return this.httpClient.get<MiniData[]>(this.dataUrl+'/'+this.currentDates[0]+'/'+this.currentDates[1]+'/'+chart.id+'/'+system.id+'/'+chart.sampleType.id)
     .map(
       (data) => {
         let dataArray = [];

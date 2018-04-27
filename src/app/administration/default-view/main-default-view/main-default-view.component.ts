@@ -67,7 +67,7 @@ export class MainDefaultViewComponent implements OnInit {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name,category.isMain));        
+        this.categories.push(new Category(category.id,category.name,category.mainDataSource));        
       }
     );
     this.selectedCategory = this.categories[0];
@@ -80,7 +80,7 @@ export class MainDefaultViewComponent implements OnInit {
    */
   goToDefaultChartEdit(): void {
     // Check if a view already exists for this CV
-    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV,this.selectedSampleTypeCategory)
+    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV,this.selectedSampleTypeCategory.id)
       .subscribe(
         (res) => {
           if(res===null) {

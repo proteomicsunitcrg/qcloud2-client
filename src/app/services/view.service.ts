@@ -27,14 +27,15 @@ export class ViewService {
         }
       );
   }
-  public getDefaultViewNameByCVAndSampleTypeCategory(cv: CV,sampleTypeCategory: SampleTypeCategory): Observable<View> {
-    return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id+'/'+sampleTypeCategory.id)
+  public getDefaultViewNameByCVAndSampleTypeCategory(cv: CV,sampleTypeCategoryId: number): Observable<View> {    
+    return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cv.id+'/'+sampleTypeCategoryId)
       .map(
         (res) => {
           return res;
         }
       );
   }
+  /*
   public getDefaultViewNameByCVId(cvId: string): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl+'/'+cvId)
       .map(
@@ -42,6 +43,10 @@ export class ViewService {
           return res;
         }
       );
+  }
+  */
+  public getDefaultViewsByCVId(cvId: string): Observable<View[]> {
+    return this.httpClient.get<View[]>(this.defaultViewsUrl+'/'+cvId);
   }
 
   public getDefaultDisplayByView(view: View): Observable<Display> {

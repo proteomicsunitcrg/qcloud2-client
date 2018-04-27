@@ -10,6 +10,11 @@ import { FileService } from '../../../services/file.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
+import { System } from '../../../models/system';
+import { SystemService } from '../../../services/system.service';
+import { Category } from '../../../models/category';
+import { delay } from 'q';
+declare var M: any;
 
 @Component({
   selector: 'app-data-visualization-display',
@@ -22,17 +27,27 @@ export class DataVisualizationDisplayComponent implements OnInit {
     private dataSourceService: DataSourceService,
     private fileService: FileService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private systemService: SystemService) { }
 
   display: Display = new Display(null);
 
-  view: View = new View(null, null, null, null,null,null);
+  displays: Display[] = [];
 
   dataSource: DataSource;
 
+  system: System;
+
   type: string;
 
+  views: View[] = [];
 
+  count: number = 0;
+
+  viewLoaded: Promise<boolean>[] = [];
+
+  loadedViews: number[] = [];
+  
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();    
     this.subscribeToRoute();
@@ -41,21 +56,39 @@ export class DataVisualizationDisplayComponent implements OnInit {
   private subscribeToRoute(): void {
     this.route.params.subscribe(
       (params) => {
-        this.loadView(params.type,params.id);
+        this.loadView(params.type,params.apiKey);
       }
     )
   }
-  private loadView(type: string, dataSourceApikey: string): void {
+  private loadView(type: string, systemApiKey: string): void {
     switch(type) {
       case 'instrument':
         //load defaults
-        this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
+        //this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
+        // get master cv of that system
+        this.systemService.getSystemByApikey(systemApiKey)
           .subscribe(
-            (dataSource) => {
-              this.dataSource = dataSource;              
-              this.getDefaultViewNameByCV(dataSource.cv);
-            }
-          )
+            (res) => {
+              this.system = res;
+              res.dataSources.forEach(
+                (ds) => {
+                  if(ds.cv.category.mainDataSource==true) {                    
+                    // get views by cv id
+                    this.viewService.getDefaultViewsByCVId(ds.cv.cvid)
+                      .subscribe(
+                        (views) => {                          
+                          this.views = views;
+                          this.loadInitialView();
+                          delay(100).then(
+                            () => {
+                              this.enableTabs();
+                            }
+                          )
+                        });
+                  }
+                });
+            });
+        
         break;
       case 'view':
         //load view
@@ -65,6 +98,17 @@ export class DataVisualizationDisplayComponent implements OnInit {
         console.log('invalid option');
         break;
     }
+  }
+
+  private loadInitialView(): void {    
+    this.loadDefaultChartsByView(this.views[0]);
+  }
+
+
+  private enableTabs(): void {
+    const elem = document.getElementById('chartstabs');    
+    var instance = M.Tabs.init(elem);
+    
   }
 
   /**
@@ -79,27 +123,28 @@ export class DataVisualizationDisplayComponent implements OnInit {
         }
       )
   }
-  private loadDefaultChartsByCV(view: View): void {
+
+  private loadDefaultChartsByView(view: View): void {
     this.viewService.getDefaultDisplayByView(view)
       .subscribe(
         (res) => {          
-          this.display = res;
+          // this.display = res;
+          this.displays['a'+view.id] = res;
+        },err=> console.log(err),()=> {
+          this.count++;
+          this.viewLoaded[view.id] = Promise.resolve(true);
+          this.loadedViews.push(view.id);
         }
       )
-    
   }
   /**
-   * This functions gets the name of the current
-   * default view selected by CV
-   * @param cv the CV for this current view
+   * Load the content of a sample type category if
+   * it has not been loaded yet
+   * @param view 
    */
-  private getDefaultViewNameByCV(cv: CV): void {
-    this.viewService.getDefaultViewNameByCV(cv)
-      .subscribe(res => {
-        this.view = res;
-        this.loadDefaultChartsByCV(this.view);
-      })
+  loadTab(view: View): void {
+    if(this.loadedViews.find(viewId=> viewId == view.id)==undefined){
+      this.loadDefaultChartsByView(view);
+    }
   }
-
-
 }

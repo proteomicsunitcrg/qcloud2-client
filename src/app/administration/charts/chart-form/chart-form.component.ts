@@ -155,7 +155,7 @@ export class ChartFormComponent implements OnInit {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name,category.isMain));
+        this.categories.push(new Category(category.id,category.name,category.mainDataSource));
       }
     );
     this.selectedCategory = this.categories[0];

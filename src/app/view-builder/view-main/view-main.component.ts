@@ -83,7 +83,7 @@ export class ViewMainComponent implements OnInit {
                 this.cv = cv;
                 this.loadSampleTypeCategory(params['qc']);
                 this.sendCVToList(cv,params['qc']);
-                this.viewService.getDefaultViewNameByCV(this.cv)
+                this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.cv,params['qc'])
                   .subscribe(
                     (view) => {
                       if (view !== null) {

@@ -51,11 +51,15 @@ export class SystemService {
     return this.httpClient.post<System>(this.systemUrl+'/datasources/'+system.apiKey,params, {headers: headers});
   }
 
-  public saveGuideSet(system: System, guideSet: GuideSet): Observable<DataSource> {
+  public saveGuideSet(system: System, guideSet: GuideSet): Observable<any> {
     const json = JSON.stringify(guideSet);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<DataSource>(this.systemUrl+'/guideset/'+system.apiKey,params,{headers: headers});
+    return this.httpClient.post<any>(this.systemUrl+'/guideset/'+system.apiKey,params,{headers: headers});
+  }
+
+  public getSystemByApikey(systemApikey: string): Observable<System> {
+    return this.httpClient.get<System>(this.systemUrl+'/'+systemApikey);
   }
 
 
