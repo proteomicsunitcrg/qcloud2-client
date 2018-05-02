@@ -15,14 +15,14 @@ declare var M: any;
   templateUrl: './system-builder.component.html',
   styleUrls: ['./system-builder.component.css']
 })
-export class SystemBuilderComponent implements OnInit,OnDestroy {
+export class SystemBuilderComponent implements OnInit, OnDestroy {
 
   constructor(private categoryService: CategoryService,
     private dataSourceService: DataSourceService,
     private systemService: SystemService,
     private modalService: ModalService) { }
 
-  system: System = new System(null, null, null,null,null);
+  system: System = new System(null, null, null, null, null);
 
   categories: Category[];
 
@@ -61,7 +61,7 @@ export class SystemBuilderComponent implements OnInit,OnDestroy {
   }
 
   private subscribeToSelectedSystem(): void {
-    this.selectedSystem$ =this.systemService.selectedSystem$
+    this.selectedSystem$ = this.systemService.selectedSystem$
       .subscribe((system) => {
         this.loadSystem(system);
       })
@@ -69,10 +69,11 @@ export class SystemBuilderComponent implements OnInit,OnDestroy {
 
   private loadSystem(system: System): void {
     // clean the arrays
-    this.resetDataSources();    
+    this.resetDataSources();
     // get the datasources of the system    
     this.system.name = system.name;
     this.system.id = system.id;
+    this.system.apiKey = system.apiKey;
     this.updating = true;
     system.dataSources.forEach(
       (dataSource) => {
@@ -106,7 +107,7 @@ export class SystemBuilderComponent implements OnInit,OnDestroy {
       )
   }
 
-  private loadNodeDataSources(): void {    
+  private loadNodeDataSources(): void {
     this.categories.forEach(
       (category) => {
         this.nodeDataSources[category.id] = [];
@@ -179,23 +180,38 @@ export class SystemBuilderComponent implements OnInit,OnDestroy {
     // check if there is a name, and at least one data source of each category
     let formOk = true;
     let categoriesText = '';
-    if(this.system.name =='' || this.system.name == null ) {
+    if (this.system.name == '' || this.system.name == null) {
       formOk = false;
     }
 
     this.categories.forEach(
-      (category)=> {
-        categoriesText+= category.name+' and a ';
-        if(this.systemDataSources[category.id].length==0) {
+      (category) => {
+        categoriesText += category.name + ' and a ';
+        if (this.systemDataSources[category.id].length == 0) {
           formOk = false;
         }
       });
-    categoriesText = categoriesText.slice(0,-7);
-    if(!formOk) {
-      this.modalService.openModal(new Modal('Missing values','In order to save a system you need at least a system name and a '+categoriesText,'Ok',null,null,null));
-    }else {
+    categoriesText = categoriesText.slice(0, -7);
+    if (!formOk) {
+      this.modalService.openModal(new Modal('Missing values', 'In order to save a system you need at least a system name and a ' + categoriesText, 'Ok', null, null, null));
+    } else {
       this.saveSystem();
     }
+  }
+
+  doUpdate(): void {
+    this.systemService.updateSystem(this.system)
+      .subscribe(
+        (res) => {
+          this.systemService.reloadList();
+          this.loadNodeDataSources();
+          this.doCancel();
+          M.toast({html: 'System updated!'});
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
   }
 
   private saveSystem(): void {
@@ -208,37 +224,38 @@ export class SystemBuilderComponent implements OnInit,OnDestroy {
            * it is specified in the backend documentation.
            * Check the related classes and take a look at the system repository
           */
-         let ds = [];
-         this.systemDataSources.forEach(
-           (dataSourcesCategory)=>{            
-            if(dataSourcesCategory.length>0){
-              dataSourcesCategory.forEach(
-                (dataSources) =>{
-                  ds.push(dataSources);
-                });
-            }
-           });
-         this.systemService.saveSystemDataSources(system,ds)
-          .subscribe(
-            ()=> {
-              // toast and reset form
-              M.toast({html: 'System saved'});
-              this.loadNodeDataSources();
-              this.system.dataSources = ds;
-              this.systemService.passNewSystemToList(this.system);
-              this.system = new System(null,null,null,null,null);
-              this.updating= false;
-            },
-            (err) => console.log(err)
-          )
+          let ds = [];
+          this.systemDataSources.forEach(
+            (dataSourcesCategory) => {
+              if (dataSourcesCategory.length > 0) {
+                dataSourcesCategory.forEach(
+                  (dataSources) => {
+                    ds.push(dataSources);
+                  });
+              }
+            });
+          this.systemService.saveSystemDataSources(system, ds)
+            .subscribe(
+              () => {
+                // toast and reset form
+                M.toast({ html: 'System saved' });
+                this.loadNodeDataSources();
+                this.system.dataSources = ds;                
+                this.systemService.reloadList();
+                this.system = new System(null, null, null, null, null);
+                this.updating = false;
+              },
+              (err) => console.log(err)
+            )
         }
       )
   }
 
   doCancel(): void {
     this.resetDataSources();
-    this.system = new System(null,null,null,null,null);
-    this.updating= false;
+    this.loadNodeDataSources();
+    this.system = new System(null, null, null, null, null);
+    this.updating = false;
 
   }
 
