@@ -21,23 +21,25 @@ declare var M: any;
   templateUrl: './data-source-list.component.html',
   styleUrls: ['./data-source-list.component.css']
 })
-export class DataSourceListComponent implements OnInit,OnDestroy {
+export class DataSourceListComponent implements OnInit, OnDestroy {
 
-  
+
   constructor(private dataSourceService: DataSourceService,
     private categoryService: CategoryService,
     private modalService: ModalService) { }
-    
-    dataSources = [];
-    
-    
-    editingDataSourceName = false;
-    editRow = -1;
-    dataSourceName = '';
-    
+
+  dataSources = [];
+
+
+  editingDataSourceName = false;
+  editRow = -1;
+  dataSourceName = '';
+
   modalSubscription$: Subscription;
   dataSources$: Subscription;
   selectedCategory$: Subscription;
+
+  currentCategory: Category;
 
   ngOnDestroy() {
     this.modalSubscription$.unsubscribe();
@@ -48,20 +50,21 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
   ngOnInit() {
     // get the datasource
     // Subscription to new added instruments
-    this.dataSources$ = this.dataSourceService.dataSources$
-      .subscribe(      
-        (dataSources) => {
-          this.loadDataSourcesArray(dataSources);
+    this.dataSources$ = this.dataSourceService.reloaderDataSourceList$
+      .subscribe(
+        () => {          
+          this.loadDataSourcesByCategory(this.currentCategory);
         },
         (error) => {
           console.log(error);
         }
-      );    
+      );
     // Subscription to a change in the router url for category change
     // it comes by the ngInit of the dataSourceCompoment
     this.selectedCategory$ = this.categoryService.selectedCategory$
       .subscribe(
-        (category) => {        
+        (category) => {
+          this.currentCategory = category;
           this.loadDataSourcesByCategory(category);
         },
         (error) => {
@@ -80,7 +83,7 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
 
   private loadDataSourcesByCategory(category): void {
     this.dataSourceService.getDataSourcesByCategory(category).subscribe(
-      (result) =>  {
+      (result) => {
         this.loadDataSourcesArray(result);
       },
       (error) => {
@@ -89,7 +92,7 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
     )
   }
 
-  private loadDataSourcesArray(dataSources : DataSource[]) {
+  private loadDataSourcesArray(dataSources: DataSource[]) {
     this.dataSources = [];
     dataSources.forEach(dataSource => this.dataSources.push(dataSource));
   }
@@ -105,14 +108,14 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
         this.loadDatePickers(index);
       }
     )
-    
+
   }
   private loadDatePickers(index: number): void {
 
   }
 
   saveDataSource(dataSource: DataSource): void {
-    
+
     this.dataSourceService.updateDataSource(dataSource).subscribe(
       (result) => {
         // TODO toast
@@ -120,7 +123,7 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
       (error) => {
         dataSource.name = this.dataSourceName;
         this.modalService.openModal(new Modal(error.error.error,
-          error.error.message, 'Ok', '', 'updateError',null));
+          error.error.message, 'Ok', '', 'updateError', null));
       }
     )
     this.stopEditing();
@@ -136,26 +139,26 @@ export class DataSourceListComponent implements OnInit,OnDestroy {
     this.editRow = -1;
   }
 
-  deleteDataSource(dataSource: DataSource) {    
+  deleteDataSource(dataSource: DataSource) {
     this.modalService.openModal(new Modal("Delete instrument",
-        'This will cause the loss of all your data. Are you sure?', 'Yes', 'No', 'deleteInstrument',dataSource));
+      'This will cause the loss of all your data. Are you sure?', 'Yes', 'No', 'deleteInstrument', dataSource));
   }
   private deleteDataSourceFromServer(dataSource: DataSource) {
     this.dataSourceService.deleteDataSource(dataSource).subscribe(
       (result) => {
         this.loadDataSourcesArray(result);
       },
-      (error) => {        
+      (error) => {
         this.modalService.openModal(new Modal(error.error.error,
-          error.error.message, 'Ok', '', 'deleteError',null));
+          error.error.message, 'Ok', '', 'deleteError', null));
       }
     )
   }
 
-  private formAction(action: ModalResponse) : void {    
-    switch(action.modalAction) {
-      case 'deleteInstrument': 
-        if(action.userAction=='accept') {
+  private formAction(action: ModalResponse): void {
+    switch (action.modalAction) {
+      case 'deleteInstrument':
+        if (action.userAction == 'accept') {
           this.deleteDataSourceFromServer(action.objectInstance);
         }
         break;

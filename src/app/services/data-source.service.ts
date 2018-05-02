@@ -19,6 +19,13 @@ export class DataSourceService {
   
   selectedCategory$ = this.categorySource.asObservable();
 
+  private reloaderDataSourceList = new Subject<boolean>();
+  reloaderDataSourceList$ = this.reloaderDataSourceList.asObservable();
+
+  public reloadDataSourceList(): void {
+    this.reloaderDataSourceList.next(true);
+  }
+
   /**
    * This observable is for show the default plots
    * on the main page

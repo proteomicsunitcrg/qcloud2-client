@@ -65,7 +65,7 @@ export class CvSelectorComponent implements OnInit,OnDestroy {
 
     this.dataSourceService.addNewDataSource(dataSource).subscribe(
       (result) => {
-        this.dataSourceService.addDataSourceToArray(result['body']);
+        this.dataSourceService.reloadDataSourceList();
       },
       (error) => {
         console.log(error);
