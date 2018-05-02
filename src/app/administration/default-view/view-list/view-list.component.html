@@ -1,3 +1,8 @@
+<h5>Default views list</h5>
+<div class="chip" *ngIf="showFilter">
+  {{cvFilter}}
+  <i class="close material-icons" (click)="removeFilter()">close</i>
+</div>
 <table>
   <thead>
     <tr>
@@ -15,7 +20,7 @@
         {{view.cv.name}}
       </td>
       <td>
-          <i class="material-icons cursorIcon" (click)="editView(view)">edit</i>
+        <i class="material-icons cursorIcon" (click)="editView(view)">edit</i>
       </td>
     </tr>
   </tbody>
