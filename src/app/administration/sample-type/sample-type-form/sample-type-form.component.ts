@@ -41,7 +41,6 @@ export class SampleTypeFormComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.sampleType);    
     this.sampleTypeService.addSampleType(this.sampleType)
       .subscribe(
         (sampleType) => {

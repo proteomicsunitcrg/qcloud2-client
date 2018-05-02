@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { ChartService } from '../../../services/chart.service';
 import { CV } from '../../../models/cv';
 import { Chart } from '../../../models/chart';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChartParamsService } from '../../../services/chart-params.service';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component list the existing charts
@@ -15,7 +16,7 @@ import { ChartParamsService } from '../../../services/chart-params.service';
   templateUrl: './chart-list.component.html',
   styleUrls: ['./chart-list.component.css']
 })
-export class ChartListComponent implements OnInit {
+export class ChartListComponent implements OnInit, OnDestroy {
 
   // @Input() chartId: number;
   charts: Chart[];
@@ -24,14 +25,22 @@ export class ChartListComponent implements OnInit {
     private chartService: ChartService,
     private chartParamsService: ChartParamsService) { }
 
+    resetComponent$: Subscription;
+    selectedChartCv$: Subscription;
+
   ngOnInit() {
     this.loadAllCharts();
     this.subscribeToCVChange();
     this.subscribeToReset();
   }
 
+  ngOnDestroy() {
+    this.resetComponent$.unsubscribe();
+    this.selectedChartCv$.unsubscribe();
+  }
+
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         () => {
           this.loadAllCharts();
@@ -67,7 +76,7 @@ export class ChartListComponent implements OnInit {
    * cv component selector and reload the list
    */
   private subscribeToCVChange(): void {
-    this.cvService.selectedChartCv$
+    this.selectedChartCv$ = this.cvService.selectedChartCv$
       .subscribe(
         (cv)=> {
           // show only charts by cv

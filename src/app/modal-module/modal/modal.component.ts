@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 //import * as M from 'materialize-css/dist/js/materialize';
 
 import { Modal} from '../../models/modal';
 import { ModalResponse} from '../../models/modalResponse';
 import { ModalService } from '../../common/modal.service';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 /**
@@ -17,9 +18,11 @@ declare var M: any;
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit,OnDestroy {
 
   modal = new Modal('', '', '', '', '',null);
+
+  selectedModal$: Subscription;
 
   constructor(private modalService: ModalService) {
     
@@ -27,7 +30,9 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToModal();
-    
+  }
+  ngOnDestroy() {
+    this.selectedModal$.unsubscribe();
   }
   /**
    * THis subscription is used to show the modal.
@@ -35,7 +40,7 @@ export class ModalComponent implements OnInit {
    * passed as a parameter.
    */
   private subscribeToModal(): void {
-    this.modalService.selectedModal$.subscribe((modal) => {
+    this.selectedModal$ = this.modalService.selectedModal$.subscribe((modal) => {
       this.modal = modal;
       const elem = document.querySelector('.modal');
       const instance = M.Modal.init(elem, {opacity: 0});

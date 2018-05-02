@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
 import { Category } from '../../../models/category';
@@ -11,6 +11,7 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 /**
@@ -23,7 +24,7 @@ declare var M: any;
   templateUrl: './chart-form.component.html',
   styleUrls: ['./chart-form.component.css']
 })
-export class ChartFormComponent implements OnInit {
+export class ChartFormComponent implements OnInit, OnDestroy {
 
   constructor(private cvService: CvService,
     private categoryService: CategoryService,
@@ -43,11 +44,24 @@ export class ChartFormComponent implements OnInit {
 
 
   categories: Category[] = [];
+
+  chartToEdit$: Subscription;
+  chartParamsToFill$: Subscription;
+  selectedSampleType$: Subscription;
+  selectedChartCv$: Subscription;
+
   ngOnInit() {
     this.subscribeToCV();
     this.subscribeToSampleType();
     this.subscribeToChartParams();
     this.subscribeToChartEdition();
+  }
+
+  ngOnDestroy() {
+    this.chartToEdit$.unsubscribe();
+    this.chartParamsToFill$.unsubscribe();
+    this.selectedSampleType$.unsubscribe();
+    this.selectedChartCv$.unsubscribe();
   }
   /**
    * This function listens to a chart edit call.
@@ -57,7 +71,7 @@ export class ChartFormComponent implements OnInit {
    * DOM
    */
   private subscribeToChartEdition(): void {
-    this.chartService.chartToEdit$
+    this.chartToEdit$ = this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
           this.newChart = chart;
@@ -92,7 +106,7 @@ export class ChartFormComponent implements OnInit {
    * Listen to the chart params of the context source component
    */
   private subscribeToChartParams(): void {
-    this.chartParamsService.chartParamsToFill$
+    this.chartParamsToFill$ = this.chartParamsService.chartParamsToFill$
       .subscribe(
         (chartParamsArray) => {          
           this.chartParams = chartParamsArray
@@ -106,7 +120,7 @@ export class ChartFormComponent implements OnInit {
    * sample type selector compoment
    */
   private subscribeToSampleType(): void {
-    this.sampleTypeService.selectedSampleType$
+    this.selectedSampleType$ = this.sampleTypeService.selectedSampleType$
       .subscribe(
         (sampleType) => {
           this.newChart.sampleType = sampleType
@@ -117,7 +131,7 @@ export class ChartFormComponent implements OnInit {
    * Subscribe to any change of the CV
    */
   private subscribeToCV(): void {
-    this.cvService.selectedChartCv$
+    this.selectedChartCv$ = this.cvService.selectedChartCv$
       .subscribe(
         (cv) => {
           this.newChart.cv = cv;

@@ -41,13 +41,14 @@ export class CvListComponent implements OnInit, OnDestroy {
       
     });
     // Subscription to category change
-    this.categorySubscription$ = this.categoryService.selectedCategory$.subscribe(
-      (category)=> {
-        this.getCvListByCategoryFromServer(category);
-      },
-      (error)=> {
+    this.categorySubscription$ = this.categoryService.selectedCategory$
+      .subscribe(
+        (category)=> {
+          this.getCvListByCategoryFromServer(category);
+        },
+        (error)=> {
 
-      }
+        }
     )    
   }
   /**
@@ -104,6 +105,7 @@ export class CvListComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.modalSubscription$.unsubscribe();
+    this.categorySubscription$.unsubscribe();
   }
 
 }

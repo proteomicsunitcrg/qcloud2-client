@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { SampleType } from '../../../models/sampleType';
 import { SampleComposition } from '../../../models/sampleComposition';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { Peptide } from '../../../models/peptide';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-sample-composition-form',
@@ -14,7 +15,7 @@ import { Peptide } from '../../../models/peptide';
  * This form is linked to the peptide-detail-form component
  * @author Daniel Mancera<daniel.mancera@crg.eu>
  */
-export class SampleCompositionFormComponent implements OnInit {
+export class SampleCompositionFormComponent implements OnInit, OnDestroy{
 
   constructor(private sampleTypeService: SampleTypeService,
     private sampleCompositionService: SampleCompositionService) { }
@@ -23,27 +24,37 @@ export class SampleCompositionFormComponent implements OnInit {
   compositionInputs = {};
   compositions = [];
 
+  currentPeptide$: Subscription;
+  peptideSampleComposition$: Subscription;
+
   ngOnInit() {
     this.loadSampleTypes();
     /**
      * This subscription is used to manage the add/edit peptides
      */
-    this.sampleCompositionService.currentPeptide$.subscribe(
-      (peptide) => {
-        // fill the sample composition array and send back
-        this.createSampleComponentArray(peptide);
-        this.resetSampleCompositionForm();
-      });
+    this. currentPeptide$ = this.sampleCompositionService.currentPeptide$
+      .subscribe(
+        (peptide) => {
+          // fill the sample composition array and send back
+          this.createSampleComponentArray(peptide);
+          this.resetSampleCompositionForm();
+        });
     /**
      * This subscription is used to manage the peptide edition,
      * it will manage the sample composition form fill
      */
-    this.sampleCompositionService.peptideSampleComposition$.subscribe(
-      (sampleCompositions) => {
-        this.resetSampleCompositionForm();
-        this.loadSampleComposition(sampleCompositions);
-      }
+    this.peptideSampleComposition$ = this.sampleCompositionService.peptideSampleComposition$
+      .subscribe(
+        (sampleCompositions) => {
+          this.resetSampleCompositionForm();
+          this.loadSampleComposition(sampleCompositions);
+        }
     )
+  }
+
+  ngOnDestroy() {
+    this.peptideSampleComposition$.unsubscribe();
+    this.currentPeptide$.unsubscribe();
   }
 
   private resetSampleCompositionForm(): void {

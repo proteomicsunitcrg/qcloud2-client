@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
 import { DataSourceService } from '../../../services/data-source.service';
@@ -9,13 +9,14 @@ import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
   templateUrl: './data-source-guide-set-list.component.html',
   styleUrls: ['./data-source-guide-set-list.component.css']
 })
-export class DataSourceGuideSetListComponent implements OnInit {
+export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
 
   constructor(private categoryService: CategoryService,
     //private dataSourceService: DataSourceService,
@@ -26,9 +27,14 @@ export class DataSourceGuideSetListComponent implements OnInit {
 
   datePickers: any = [];
 
+  selectedAction$: Subscription;
+
   ngOnInit() {
     this.loadSystems();
     this.subscribeToModal();
+  }
+  ngOnDestroy() {
+    this.selectedAction$.unsubscribe();
   }
 
   private loadSystems(): void {
@@ -75,7 +81,7 @@ export class DataSourceGuideSetListComponent implements OnInit {
   }
 
   private subscribeToModal(): void {
-    this.modalService.selectedAction$
+    this.selectedAction$ = this.modalService.selectedAction$
       .subscribe(
         (response) => {
           console.log(response);

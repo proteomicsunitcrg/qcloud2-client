@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { Category } from '../../../models/category';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +14,7 @@ import { CategoryService } from '../../../services/category.service';
   templateUrl: './cv-selector.component.html',
   styleUrls: ['./cv-selector.component.css']
 })
-export class CvSelectorComponent implements OnInit {
+export class CvSelectorComponent implements OnInit,OnDestroy {
 
   constructor(private cvService: CvService,
     private categoryService: CategoryService,
@@ -32,15 +32,19 @@ export class CvSelectorComponent implements OnInit {
 
   filter: CV = new CV(null, '', null, '', '', false);
 
-  // currentCategory: Category = new Category(8, 'Mass spectrometer');
+  selectedCategory$: Subscription;
 
   ngOnInit() {
     // get all enabled cvs
-    this.categoryService.selectedCategory$.subscribe(
-      (category) => {
-        this.getEnabledCvsByCategory(category);
-      }
-    )
+    this.selectedCategory$ = this.categoryService.selectedCategory$
+      .subscribe(
+        (category) => {
+          this.getEnabledCvsByCategory(category);
+        }
+      )
+  }
+  ngOnDestroy() {
+    this.selectedCategory$.unsubscribe();
   }
 
   private getEnabledCvsByCategory(category: Category): void {

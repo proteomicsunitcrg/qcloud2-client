@@ -16,6 +16,7 @@ import { Display } from '../../models/display';
 import { delay } from 'q';
 import { SampleTypeCategory } from '../../models/sampleTypeCategory';
 import { SampleTypeCategoryService } from '../../services/sample-type-category.service';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 @Component({
@@ -23,7 +24,7 @@ declare var M: any;
   templateUrl: './view-main.component.html',
   styleUrls: ['./view-main.component.css']
 })
-export class ViewMainComponent implements OnInit {
+export class ViewMainComponent implements OnInit, OnDestroy {
 
   constructor(private viewService: ViewService,
     private route: ActivatedRoute,
@@ -59,6 +60,11 @@ export class ViewMainComponent implements OnInit {
   viewDisplay: ViewDisplay[][] = [];
 
   view: View = new View(null, '', null, null, true,null);
+
+  selectedBottomModalAction$: Subscription;
+  selectedAction$: Subscription;
+
+  
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -353,7 +359,7 @@ export class ViewMainComponent implements OnInit {
   }
 
   private subscribeToBottomModal(): void {
-    this.modalService.selectedBottomModalAction$
+    this.selectedBottomModalAction$ = this.modalService.selectedBottomModalAction$
       .subscribe(
         (action) => {
           this.doAction(action);
@@ -362,7 +368,7 @@ export class ViewMainComponent implements OnInit {
   }
 
   private subscribeToModal(): void {
-    this.modalService.selectedAction$
+    this.selectedAction$ = this.modalService.selectedAction$
       .subscribe(
         (action) => {
           this.doAction(action);
@@ -420,5 +426,7 @@ export class ViewMainComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.dragulaService.destroy('first-bag');
+    this.selectedAction$.unsubscribe();
+    this.selectedBottomModalAction$.unsubscribe();
   }
 }

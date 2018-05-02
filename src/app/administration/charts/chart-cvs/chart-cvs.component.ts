@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
 import { CvService } from '../../../services/cv.service';
@@ -6,6 +6,7 @@ import { CV } from '../../../models/cv';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { delay } from 'q';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Controled vocabulary selector component.
@@ -16,7 +17,7 @@ import { delay } from 'q';
   templateUrl: './chart-cvs.component.html',
   styleUrls: ['./chart-cvs.component.css']
 })
-export class ChartCvsComponent implements OnInit {
+export class ChartCvsComponent implements OnInit,OnDestroy {
 
   constructor(private categoryService: CategoryService,
     private cvService: CvService,
@@ -39,10 +40,18 @@ export class ChartCvsComponent implements OnInit {
 
   showEnabledCvs: boolean = true;
 
+  chartToEdit$: Subscription;
+  resetComponent$: Subscription;
+
   ngOnInit() {    
     this.loadMainCVs();
     this.subscribeToChartEdition();
     this.subscribeToReset();
+  }
+
+  ngOnDestroy() {
+    this.chartToEdit$.unsubscribe();
+    this.resetComponent$.unsubscribe();
   }
 
   private loadMainCVs(): void {
@@ -61,7 +70,7 @@ export class ChartCvsComponent implements OnInit {
    * Please note that chart is not the same chartParam
    */
   private subscribeToChartEdition(): void {
-    this.chartService.chartToEdit$
+    this.chartToEdit$ = this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
           this.selectedCv = chart.cv;
@@ -73,7 +82,7 @@ export class ChartCvsComponent implements OnInit {
    * to clean its selectors.
    */
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ =this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           this.selectedCv = new CV(null, null, null, null, null, null);

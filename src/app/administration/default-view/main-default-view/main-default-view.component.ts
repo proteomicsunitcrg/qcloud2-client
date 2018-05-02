@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
 import { CvService } from '../../../services/cv.service';
@@ -10,6 +10,7 @@ import { Modal } from '../../../models/modal';
 import { View } from '../../../models/view';
 import { SampleTypeCategoryService } from '../../../services/sample-type-category.service';
 import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Default view component
@@ -20,7 +21,7 @@ import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
   templateUrl: './main-default-view.component.html',
   styleUrls: ['./main-default-view.component.css']
 })
-export class MainDefaultViewComponent implements OnInit {
+export class MainDefaultViewComponent implements OnInit, OnDestroy {
 
   constructor(private categoryService: CategoryService,
     private cvService: CvService,
@@ -39,6 +40,9 @@ export class MainDefaultViewComponent implements OnInit {
 
   selectedCV: CV;
 
+  selectedChartCv$: Subscription;
+  selectedAction$: Subscription;
+
   ngOnInit() {
     this.loadCategories();
     this.loadSampleTypeCategories();
@@ -46,8 +50,13 @@ export class MainDefaultViewComponent implements OnInit {
     this.subscribeToModalAction();
   }
 
+  ngOnDestroy() {
+    this.selectedAction$.unsubscribe();
+    this.selectedChartCv$.unsubscribe();
+  }
+
   private subscribeToCV(): void {
-    this.cvService.selectedChartCv$
+    this.selectedChartCv$ = this.cvService.selectedChartCv$
       .subscribe(
         (cv) => {
           this.selectedCV = cv;
@@ -110,7 +119,7 @@ export class MainDefaultViewComponent implements OnInit {
    * Handle the modal responses
    */
   private subscribeToModalAction(): void {
-    this.modalService.selectedAction$
+    this.selectedAction$ = this.modalService.selectedAction$
       .subscribe(
         (action) => {
           switch(action.modalAction) {
@@ -126,7 +135,4 @@ export class MainDefaultViewComponent implements OnInit {
         }
       )
   }
-
-
-
 }

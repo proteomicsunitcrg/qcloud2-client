@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartService } from '../../../services/chart.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 /**
  * This main component for the chart management
@@ -11,13 +12,15 @@ declare var M: any;
   templateUrl: './main-chart.component.html',
   styleUrls: ['./main-chart.component.css']
 })
-export class MainChartComponent implements OnInit {
+export class MainChartComponent implements OnInit, OnDestroy {
 
   constructor(private chartService: ChartService,
     private chartParamsService: ChartParamsService) { }
 
   instance: any;
 
+  resetComponent$: Subscription;
+  selectedTab$: Subscription;
 
   ngOnInit() {
     const elem = document.getElementById('tabs');
@@ -26,9 +29,14 @@ export class MainChartComponent implements OnInit {
     this.subscribeToTabChange();
     this.subscribeToReset();
   }
+
+  ngOnDestroy() {
+    this.resetComponent$.unsubscribe();
+    this.selectedTab$.unsubscribe();
+  }
     
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           
@@ -37,10 +45,9 @@ export class MainChartComponent implements OnInit {
   }  
 
   private subscribeToTabChange(): void {
-    this.chartService.selectedTab$
+    this.selectedTab$ = this.chartService.selectedTab$
     .subscribe(
       (tab) => {
-        console.log('wut');
         this.instance.select(tab);
       }
     )

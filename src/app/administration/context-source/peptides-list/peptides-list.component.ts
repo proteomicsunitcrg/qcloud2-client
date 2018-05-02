@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PeptideService } from '../../../services/peptide.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Peptide list component
@@ -13,21 +14,28 @@ import { SampleComposition } from '../../../models/sampleComposition';
   templateUrl: './peptides-list.component.html',
   styleUrls: ['./peptides-list.component.css']
 })
-export class PeptidesListComponent implements OnInit {
+export class PeptidesListComponent implements OnInit, OnDestroy {
 
   constructor(private peptideService: PeptideService,
     private sampleCompositionService: SampleCompositionService) { }
 
   peptides = [];
 
+  peptideFromDb$: Subscription;
+
   ngOnInit() {
     this.loadPeptides();
     // Observing the incomming peptides from the form
-    this.peptideService.peptideFromDb$.subscribe(
-      (peptide) => {
-        this.peptides = [];
-        this.loadPeptides();
-      });
+    this. peptideFromDb$ = this.peptideService.peptideFromDb$
+      .subscribe(
+        (peptide) => {
+          this.peptides = [];
+          this.loadPeptides();
+        });
+  }
+
+  ngOnDestroy() {
+    this.peptideFromDb$.unsubscribe();
   }
 
   /**

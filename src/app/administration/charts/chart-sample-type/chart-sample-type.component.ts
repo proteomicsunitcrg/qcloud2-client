@@ -3,6 +3,7 @@ import { SampleType } from '../../../models/sampleType';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Sample type selector component
@@ -23,13 +24,16 @@ export class ChartSampleTypeComponent implements OnInit {
 
   sampleTypes: SampleType[] = [];
 
+  resetComponent$: Subscription;
+  chartToEdit$: Subscription;
+
   ngOnInit() {
     this.loadSampleTypes();
     this.subscribeToReset();
     this.subscribeToChartEdition();
   }
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           this.selectedSampleType = new SampleType(null,null,null,null);
@@ -38,7 +42,7 @@ export class ChartSampleTypeComponent implements OnInit {
   }
 
   private subscribeToChartEdition(): void {
-    this.chartService.chartToEdit$
+    this.chartToEdit$ = this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
           this.selectSampleType(chart.sampleType);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ViewService } from '../../../services/view.service';
 import { Display } from '../../../models/display';
 import { View } from '../../../models/view';
@@ -14,6 +14,7 @@ import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
 import { Category } from '../../../models/category';
 import { delay } from 'q';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 @Component({
@@ -21,7 +22,7 @@ declare var M: any;
   templateUrl: './data-visualization-display.component.html',
   styleUrls: ['./data-visualization-display.component.css']
 })
-export class DataVisualizationDisplayComponent implements OnInit {
+export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
 
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
@@ -47,10 +48,15 @@ export class DataVisualizationDisplayComponent implements OnInit {
   viewLoaded: Promise<boolean>[] = [];
 
   loadedViews: number[] = [];
+
+  selectedDataSourceForDisplay$: Subscription;
   
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();    
     this.subscribeToRoute();
+  }
+  ngOnDestroy() {
+    this.selectedDataSourceForDisplay$.unsubscribe();
   }
 
   private subscribeToRoute(): void {
@@ -116,7 +122,7 @@ export class DataVisualizationDisplayComponent implements OnInit {
    * of the instruments
    */
   private subscribeToDataSourceForDisplay(): void {
-    this.dataSourceService.selectedDataSourceForDisplay$
+    this.selectedDataSourceForDisplay$ = this.dataSourceService.selectedDataSourceForDisplay$
       .subscribe(
         (dataSource) => {          
           this.dataSource = dataSource;

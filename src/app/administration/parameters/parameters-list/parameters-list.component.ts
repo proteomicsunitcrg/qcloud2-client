@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 @Component({
@@ -8,7 +9,7 @@ declare var M: any;
   templateUrl: './parameters-list.component.html',
   styleUrls: ['./parameters-list.component.css']
 })
-export class ParametersListComponent implements OnInit {
+export class ParametersListComponent implements OnInit, OnDestroy {
 
   constructor(private paramService: ParametersService) { }
   editingParameter = false;
@@ -16,15 +17,21 @@ export class ParametersListComponent implements OnInit {
   parameterName = '';
   parameters: Param[] = [];
 
+  newParameter$: Subscription;
+
   ngOnInit() {
     // Load list
     this.loadParameters();
     // Listen for new params
-    this.paramService.newParameter$
+    this.newParameter$ = this.paramService.newParameter$
       .subscribe(
         newParam => this.parameters.push(newParam),
         error => console.log(error)
       )
+  }
+
+  ngOnDestroy() {
+    this.newParameter$.unsubscribe();
   }
 
   editParameter(index: number): void {

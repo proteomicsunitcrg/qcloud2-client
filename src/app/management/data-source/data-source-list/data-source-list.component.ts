@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { Category } from '../../../models/category';
 import { DataSourceService } from '../../../services/data-source.service';
@@ -21,41 +21,52 @@ declare var M: any;
   templateUrl: './data-source-list.component.html',
   styleUrls: ['./data-source-list.component.css']
 })
-export class DataSourceListComponent implements OnInit {
+export class DataSourceListComponent implements OnInit,OnDestroy {
 
-  private modalSubscription$: Subscription;
-
+  
   constructor(private dataSourceService: DataSourceService,
     private categoryService: CategoryService,
     private modalService: ModalService) { }
+    
+    dataSources = [];
+    
+    
+    editingDataSourceName = false;
+    editRow = -1;
+    dataSourceName = '';
+    
+  modalSubscription$: Subscription;
+  dataSources$: Subscription;
+  selectedCategory$: Subscription;
 
-  dataSources = [];
-  
-
-  editingDataSourceName = false;
-  editRow = -1;
-  dataSourceName = '';
+  ngOnDestroy() {
+    this.modalSubscription$.unsubscribe();
+    this.dataSources$.unsubscribe();
+    this.selectedCategory$.unsubscribe();
+  }
 
   ngOnInit() {
     // get the datasource
     // Subscription to new added instruments
-    this.dataSourceService.dataSources$.subscribe(      
-      (dataSources) => {
-        this.loadDataSourcesArray(dataSources);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );    
+    this.dataSources$ = this.dataSourceService.dataSources$
+      .subscribe(      
+        (dataSources) => {
+          this.loadDataSourcesArray(dataSources);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );    
     // Subscription to a change in the router url for category change
     // it comes by the ngInit of the dataSourceCompoment
-    this.categoryService.selectedCategory$.subscribe(
-      (category) => {        
-        this.loadDataSourcesByCategory(category);
-      },
-      (error) => {
-        console.log(error);
-      });
+    this.selectedCategory$ = this.categoryService.selectedCategory$
+      .subscribe(
+        (category) => {        
+          this.loadDataSourcesByCategory(category);
+        },
+        (error) => {
+          console.log(error);
+        });
     // Subscription for modal
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe(
       (action) => {

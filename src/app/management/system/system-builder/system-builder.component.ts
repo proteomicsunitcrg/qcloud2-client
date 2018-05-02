@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { System } from '../../../models/system';
 import { DataSource } from '../../../models/dataSource';
 import { CategoryService } from '../../../services/category.service';
@@ -8,13 +8,14 @@ import { DataSourceService } from '../../../services/data-source.service';
 import { SystemService } from '../../../services/system.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 @Component({
   selector: 'app-system-builder',
   templateUrl: './system-builder.component.html',
   styleUrls: ['./system-builder.component.css']
 })
-export class SystemBuilderComponent implements OnInit {
+export class SystemBuilderComponent implements OnInit,OnDestroy {
 
   constructor(private categoryService: CategoryService,
     private dataSourceService: DataSourceService,
@@ -48,14 +49,19 @@ export class SystemBuilderComponent implements OnInit {
    */
   selectedDataSources: any[] = [];
 
+  selectedSystem$: Subscription;
+
   ngOnInit() {
     this.loadCategories();
     M.updateTextFields();
     this.subscribeToSelectedSystem();
   }
+  ngOnDestroy() {
+    this.selectedSystem$.unsubscribe();
+  }
 
   private subscribeToSelectedSystem(): void {
-    this.systemService.selectedSystem$
+    this.selectedSystem$ =this.systemService.selectedSystem$
       .subscribe((system) => {
         this.loadSystem(system);
       })

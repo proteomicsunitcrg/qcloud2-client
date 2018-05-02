@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { SampleType } from '../../../models/sampleType';
 import { SampleTypeService } from '../../../services/sample-type.service';
@@ -9,6 +9,7 @@ import { InstrumentSampleService } from '../../../services/instrument-sample.ser
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartParam } from '../../../models/chartParam';
 import { delay } from 'q';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Context source selector component.
@@ -23,7 +24,7 @@ import { delay } from 'q';
   templateUrl: './chart-context-source.component.html',
   styleUrls: ['./chart-context-source.component.css']
 })
-export class ChartContextSourceComponent implements OnInit {
+export class ChartContextSourceComponent implements OnInit, OnDestroy {
 
   constructor(private paramService: ParametersService,
     private sampleTypeService: SampleTypeService,
@@ -42,6 +43,11 @@ export class ChartContextSourceComponent implements OnInit {
 
   chartParamsArray: ChartParam[] = [] ;
 
+  selectedContextSources$: Subscription;
+  selectedParameter$: Subscription;
+  selectedSampleType$: Subscription;
+  resetComponent$: Subscription;
+
   ngOnInit() {
     this.subscribeToChartParamsToEdit();
     this.subscribeToSelectedParameter();
@@ -50,12 +56,19 @@ export class ChartContextSourceComponent implements OnInit {
     this.subscribeToReset();
   }
 
+  ngOnDestroy() {
+    this.selectedContextSources$.unsubscribe();
+    this.selectedParameter$.unsubscribe();
+    this.selectedSampleType$.unsubscribe();
+    this.resetComponent$.unsubscribe();
+  }
+
   isChecked(contextSource: ContextSource): boolean {    
     return this.selectedContextSources.find(c => c.id == contextSource.id)!==undefined;
   }
   
   private subscribeToChartParamsToEdit(): void {
-    this.chartParamsService.selectedContextSources$
+    this.selectedContextSources$ = this.chartParamsService.selectedContextSources$
       .subscribe(
         (contextSources) => {
           this.addContextSourcesToArray(contextSources);
@@ -76,7 +89,7 @@ export class ChartContextSourceComponent implements OnInit {
   
 
   private subscribeToSelectedParameter(): void{
-    this.paramService.selectedParameter$
+    this.selectedParameter$ = this.paramService.selectedParameter$
     .subscribe(
       (param) => {
         this.currentParam = param;
@@ -86,7 +99,7 @@ export class ChartContextSourceComponent implements OnInit {
 
 
   private subscribeToSelectedSampleType(): void {
-    this.sampleTypeService.selectedSampleType$
+    this.selectedSampleType$ = this.sampleTypeService.selectedSampleType$
     .subscribe(
       (sampleType) => {
         this.sampleType = sampleType;
@@ -97,7 +110,7 @@ export class ChartContextSourceComponent implements OnInit {
   }
 
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ =this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           // clean selected array

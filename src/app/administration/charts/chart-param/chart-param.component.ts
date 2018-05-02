@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { Chart } from '../../../models/chart';
 import { ChartParam } from '../../../models/chartParam';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component for manage the chart params
@@ -15,7 +16,7 @@ import { ChartParam } from '../../../models/chartParam';
   templateUrl: './chart-param.component.html',
   styleUrls: ['./chart-param.component.css']
 })
-export class ChartParamComponent implements OnInit {
+export class ChartParamComponent implements OnInit, OnDestroy {
 
   constructor(private paramService: ParametersService,
     private chartParamsService: ChartParamsService,
@@ -25,6 +26,9 @@ export class ChartParamComponent implements OnInit {
 
   selectedParameter: Param = new Param(null,null,null,null);
 
+  chartToEdit$: Subscription;
+  resetComponent$: Subscription;
+
   ngOnInit() {
     // Load paratemers
     this.loadParameters();
@@ -32,12 +36,17 @@ export class ChartParamComponent implements OnInit {
     this.subscribeToChartEdition();
   }
 
+  ngOnDestroy() {
+    this.chartToEdit$.unsubscribe();
+    this.resetComponent$.unsubscribe();
+  }
+
   /**
    * If there is a request for edit an existing chart it will load 
    * its chart params into the list
    */
   private subscribeToChartEdition(): void {
-    this.chartService.chartToEdit$
+    this.chartToEdit$ = this.chartService.chartToEdit$
       .subscribe(
         (chart) => {
           this.loadChartParams(chart);
@@ -61,7 +70,7 @@ export class ChartParamComponent implements OnInit {
    * is submited, it will reset the selected parameter
    */
   private subscribeToReset(): void {
-    this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           this.selectedParameter = new Param(null,null,null,null);

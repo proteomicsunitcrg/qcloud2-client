@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal.service';
 import { ModalResponse } from '../../models/modalResponse';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 
 /**
@@ -13,18 +14,23 @@ declare var M: any;
   templateUrl: './bottom-modal.component.html',
   styleUrls: ['./bottom-modal.component.css']
 })
-export class BottomModalComponent implements OnInit {
+export class BottomModalComponent implements OnInit,OnDestroy {
 
   constructor(private modalService: ModalService) { }
 
   instance = null;
 
+  selectedBottomModal$: Subscription;
+
   ngOnInit() {
     this.subscribeToBottomModal();
   }
+  ngOnDestroy() {
+    this.selectedBottomModal$.unsubscribe();
+  }
 
   private subscribeToBottomModal(): void {
-    this.modalService.selectedBottomModal$
+    this.selectedBottomModal$ = this.modalService.selectedBottomModal$
       .subscribe(
         (modal) => {          
           const elem = document.getElementById('modal2');

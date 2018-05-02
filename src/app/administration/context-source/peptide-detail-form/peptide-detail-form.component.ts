@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { Peptide } from '../../../models/peptide';
 import { SampleComposition } from '../../../models/sampleComposition';
@@ -8,6 +8,7 @@ import { delay } from 'q';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
+import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
 /**
  * Peptide form component
@@ -18,7 +19,7 @@ declare var M: any;
   templateUrl: './peptide-detail-form.component.html',
   styleUrls: ['./peptide-detail-form.component.css']
 })
-export class PeptideDetailFormComponent implements OnInit {
+export class PeptideDetailFormComponent implements OnInit, OnDestroy {
 
   constructor(private sampleTypeService: SampleTypeService,
     private peptideService: PeptideService,
@@ -32,6 +33,9 @@ export class PeptideDetailFormComponent implements OnInit {
   formTitle = 'New peptide';
   formSubmitButton = 'Add new peptide';
 
+  selectedPeptide$: Subscription;
+  currentSampleComposition$: Subscription;
+
   formData = {
     currentPeptide: new Peptide(null, '', '', ''),
   }
@@ -39,22 +43,30 @@ export class PeptideDetailFormComponent implements OnInit {
   compositionInputs = {};
 
   ngOnInit() {
-    this.peptideService.selectedPeptide$.subscribe(
-      (peptide) => {
-        this.loadPeptideIntoForm(peptide);
-        this.formTitle = 'Edit peptide';
-        this.formSubmitButton = 'Update peptide';
-      },error => console.log(error));
+    this.selectedPeptide$ = this.peptideService.selectedPeptide$
+      .subscribe(
+        (peptide) => {
+          this.loadPeptideIntoForm(peptide);
+          this.formTitle = 'Edit peptide';
+          this.formSubmitButton = 'Update peptide';
+        },error => console.log(error));
     
     // Sample compositions observer
-    this.sampleCompositionService.currentSampleComposition$.subscribe(
-      (sampleCompositions) => {
-        this.saveSampleCompositions(sampleCompositions);
-      }, error => console.log(error));
+    this.currentSampleComposition$ = this.sampleCompositionService.currentSampleComposition$
+      .subscribe(
+        (sampleCompositions) => {
+          this.saveSampleCompositions(sampleCompositions);
+        }, error => console.log(error));
 
-    this.sampleTypeService.getSamplesTypes().subscribe(
-      (sampleTypes) => this.sampleTypes = sampleTypes
+    this.sampleTypeService.getSamplesTypes()
+      .subscribe(
+        (sampleTypes) => this.sampleTypes = sampleTypes
     )
+  }
+
+  ngOnDestroy() {
+    this.selectedPeptide$.unsubscribe();
+    this.currentSampleComposition$.unsubscribe();
   }
 
   /**
