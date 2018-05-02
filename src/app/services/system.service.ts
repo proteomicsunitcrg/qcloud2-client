@@ -25,12 +25,17 @@ export class SystemService {
   public selectSystem(system: System): void {
     this.selectedSystem.next(system);
   }
-
-  private addedSystem = new Subject<System>();
-  addedSystem$ = this.addedSystem.asObservable();
-
-  public passNewSystemToList(system: System): void {
-    this.addedSystem.next(system);
+  
+  /**
+   * This observable is for reload the system list
+   * when there is a new system or the user has updated
+   * one
+   */
+  private reloadSystemList = new Subject<boolean>();
+  reloadSystemList$ = this.reloadSystemList.asObservable();
+  
+  public reloadList(): void {
+    this.reloadSystemList.next(true);
   }
 
   public getSystems(): Observable<System[]> {
@@ -61,6 +66,14 @@ export class SystemService {
   public getSystemByApikey(systemApikey: string): Observable<System> {
     return this.httpClient.get<System>(this.systemUrl+'/'+systemApikey);
   }
+
+  public updateSystem(system: System): Observable<any> {
+    const json = JSON.stringify(system);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<System>(this.systemUrl+'/'+system.apiKey,params,{headers: headers});
+  }
+
 
 
 

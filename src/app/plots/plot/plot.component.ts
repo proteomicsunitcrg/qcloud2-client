@@ -23,7 +23,13 @@ export class PlotComponent implements OnInit,OnDestroy {
   currentDates: string[];
   dateChangesSubscription$: Subscription;
 
+  loading: boolean;
+  errorMessage: string;
+  error: boolean;
+
   ngOnInit() {    
+    this.loading = true;
+    this.error = false;
     this.loadCurrentDates();
     this.subscribeToDateChanges();
     if(this.chart!=null) {
@@ -36,6 +42,7 @@ export class PlotComponent implements OnInit,OnDestroy {
   }
 
   private loadData(): void {
+    this.loading=false;
     let datesArray = [];
     let dataArray = [];
     this.dataService.getPlotData(this.chart,this.system)
@@ -52,12 +59,21 @@ export class PlotComponent implements OnInit,OnDestroy {
               }
             )
           });
-        }, (e) => console.log(e),
+        }, (e) => {
+          this.loadErrorPlot(e);
+        },
         () => this.loadPlot(datesArray, dataArray)
       )
   }
 
-  private loadPlot(datesArray, dataArray): void {
+  private loadErrorPlot(error: any): void {
+    this.loading=false;
+    this.error = true;
+    this.errorMessage = error.error.message;
+    
+  }
+
+  private loadPlot(datesArray, dataArray): void {    
     let dataForPlot = [];
     for (let key in dataArray) {      
       if(key ==='filename') {
