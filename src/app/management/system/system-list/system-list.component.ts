@@ -14,20 +14,25 @@ export class SystemListComponent implements OnInit,OnDestroy {
 
   nodeSystems: System[] = [];
 
-  addedSystem$: Subscription;
+  realoadSystemList$: Subscription;
 
   ngOnInit() {
     this.loadSystems();
-    this.subscribeToNewSystems();
+    // this.subscribeToNewSystems();
+    this.subscribeToReloadList();
   }
   
   ngOnDestroy() {
-    this.addedSystem$.unsubscribe();
+    this.realoadSystemList$.unsubscribe();
   }
-
-  private subscribeToNewSystems(): void {
-    this.addedSystem$ = this.systemService.addedSystem$
-      .subscribe((system)=> this.loadSystems())
+  
+  private subscribeToReloadList(): void {
+    this.realoadSystemList$ = this.systemService.reloadSystemList$
+      .subscribe(
+        () => {
+          this.loadSystems();
+        }
+      )
   }
 
   private loadSystems(): void {
