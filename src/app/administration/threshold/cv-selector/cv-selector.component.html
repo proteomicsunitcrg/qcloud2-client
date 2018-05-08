@@ -1,0 +1,44 @@
+<h5>Instrument</h5>
+<div class="input-field">
+  <input type="text" name="filterCv" name="filterCv" class="col s12 m12 l12 xl12" [(ngModel)]="filter.name">
+  <label for="filterCv">Search by name</label>
+  <div class="switch">
+    <label>
+      All
+      <input type="checkbox" id="switchEnabled" [(ngModel)]="showEnabledCvs" (change)="reloadList()">
+      <span class="lever"></span>
+      Only enabled
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot *ngIf="maxPages>1">
+        <tr>
+          <td>
+            <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="page=page-1">navigate_before</i>
+          </td>
+          <td>{{page}}</td>
+          <td>
+            <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="page=page+1">navigate_next</i>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
+          <td colspan="3" [ngClass]="{'blue-grey lighten-3': cv.id===selectedCv.id}" (click)="selectCV(cv)">{{cv.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn waves-effect waves-light" (click)="doAccept()">Accept</button>
+    <button type="button" class="btn amber darken-1 waves-effect waves-light">Back</button>
+  </div>
+</div>

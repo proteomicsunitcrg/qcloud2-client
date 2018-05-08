@@ -1,0 +1,18 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 blue-grey darken-1">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Threshold management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <app-threshold-list (openThreshold)="open()"></app-threshold-list>
+    </div>
+  </div>
+  <div class="row z-depth-0" *ngIf="newThreshold">
+    <div class="col s12 m12 l12 xl12">
+      <app-cv-selector *ngIf="!isCVSelected" (selectCVEvent)="openBuilder($event)"></app-cv-selector>
+      <app-threshold-builder [selectedCV]="selectedCV" *ngIf="isCVSelected"></app-threshold-builder>
+    </div>
+  </div>
+</div>

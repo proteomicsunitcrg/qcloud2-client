@@ -1,0 +1,75 @@
+<form  (ngSubmit)="onSubmit()" #thresholdForm="ngForm">
+  <h6>New threshold for:
+    <strong>{{selectedCV.name}}</strong>
+  </h6>
+  <button type="submit" class="waves-effect waves-teal btn-flat" [disabled]="!thresholdForm.form.valid || threshold.contextSources.length==0">Save threshold</button>
+  <div class="row">
+    <div class="col s12 m3 l3 xl3">
+      <!--sample type -->
+      <div class="input-field col s12">
+        <select [(ngModel)]="threshold.sampleType" (ngModelChange)="onSampleTypeChange($event)" name="sampleType" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let sampleType of sampleTypes" [ngValue]="sampleType">{{sampleType.name}}</option>
+        </select>
+        <label>Sample type</label>
+      </div>
+      <!-- Param -->
+      <div class="input-field col s12" [hidden]="threshold.sampleType==null">
+        <select [(ngModel)]="threshold.param" (ngModelChange)="onParamChange($event)" name="param" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
+        </select>
+        <label>Parameter</label>
+      </div>
+    </div>
+    <div class="col s12 m3 l3 xl3">
+      <table class="highlight">
+        <thead>
+          <th>Name</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contextSource of contextSources; let i = index">
+            <td>
+              <label>
+                <input type="checkbox" (change)="toggleEditable($event,contextSource)" />
+                <span>{{contextSource.name}}</span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col s12 m3 l3 xl3">
+      <div class="input-field col s12">
+        <select [(ngModel)]="threshold.type" name="type" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
+        </select>
+        <label>Threshold type</label>
+      </div>
+      <div class="input-field col s12">
+        <select [(ngModel)]="threshold.direction" name="direction" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let thresholdDirection of thresholdDirections" [ngValue]="thresholdDirection">{{thresholdDirection}}</option>
+        </select>
+        <label>Threshold direction</label>
+      </div>
+    </div>
+    <div class="col s12 m3 l3 xl3">
+      <!-- threshold params-->
+      <div class="input-field col s12">
+        <input placeholder="Initial value" id="initialValue" name="initialValue" type="number" class="validate" [(ngModel)]="threshold.initialValue" required>
+        <label for="initialValue">Initial value</label>
+      </div>
+      <div class="input-field col s12">
+        <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" required>
+        <label for="steps">Steps</label>
+      </div>
+      <div class="input-field col s12">
+        <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue" [(ngModel)]="threshold.stepValue" required>
+        <label for="stepValue">Step value</label>
+      </div>
+    </div>
+  </div>
+</form>
+<button type="button" (click)="show()">Show</button>

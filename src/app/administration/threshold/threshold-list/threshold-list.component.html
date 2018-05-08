@@ -1,0 +1,40 @@
+<h5>Default threshold list
+  <a class="btn-floating waves-effect waves-light right" (click)="openForm($event)">
+    <i class="material-icons">add</i>
+  </a>
+</h5>
+<table>
+  <thead>
+    <tr>
+      <th>CV</th>
+      <th>Sample type</th>
+      <th>Parameter</th>
+      <th>Context source/s</th>
+      <th>Direction</th>
+      <th>Initial value</th>
+      <th>Steps</th>
+      <th>Step value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let threshold of thresholds">
+      <td>{{threshold.cv.name}}</td>
+      <td>{{threshold.sampleType.name}}</td>
+      <td>{{threshold.param.name}}</td>
+      <td>
+        <ul>
+          <li *ngFor="let contextSource of threshold.contextSources">
+            {{contextSource.name}}
+          </li>
+        </ul>
+      </td>
+      <td>{{threshold.direction}}</td>
+      <td>{{threshold.initialValue}}</td>
+      <td>{{threshold.steps}}</td>
+      <td>{{threshold.stepValue}}</td>
+    </tr>
+    <tr *ngIf="showForm">
+      <td>{{selectedCV.name}}</td>
+    </tr>
+  </tbody>
+</table>

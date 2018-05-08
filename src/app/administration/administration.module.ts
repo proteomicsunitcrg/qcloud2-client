@@ -51,6 +51,11 @@ import { ViewListComponent } from './default-view/view-list/view-list.component'
 import { SharedModulesModule } from '../shared-modules/shared-modules.module';
 import { SampleTypeCategoryComponent } from './sample-type-category/sample-type-category.component';
 import { SampleTypeCategoryService } from '../services/sample-type-category.service';
+import { MainThresholdComponent } from './threshold/main-threshold/main-threshold.component';
+import { ThresholdListComponent } from './threshold/threshold-list/threshold-list.component';
+import { CvSelectorComponent } from './threshold/cv-selector/cv-selector.component';
+import { ThresholdService } from '../services/threshold.service';
+import { ThresholdBuilderComponent } from './threshold/threshold-builder/threshold-builder.component';
 
 
 @NgModule({
@@ -73,7 +78,8 @@ import { SampleTypeCategoryService } from '../services/sample-type-category.serv
     ParametersService,
     ChartParamsService,
     ChartService,
-    SampleTypeCategoryService],
+    SampleTypeCategoryService,
+    ThresholdService],
   declarations: [MainComponent, 
     SidebarComponent,
     CategoryComponent,
@@ -106,6 +112,10 @@ import { SampleTypeCategoryService } from '../services/sample-type-category.serv
     MainDefaultViewComponent,
     DefaultViewGeneratorComponent,
     ViewListComponent,
-    SampleTypeCategoryComponent]
+    SampleTypeCategoryComponent,
+    MainThresholdComponent,
+    ThresholdListComponent,
+    CvSelectorComponent,
+    ThresholdBuilderComponent]
 })
 export class AdministrationModule { }
