@@ -1,8 +1,15 @@
-<form  (ngSubmit)="onSubmit()" #thresholdForm="ngForm">
-  <h6>New threshold for:
-    <strong>{{selectedCV.name}}</strong>
-  </h6>
-  <button type="submit" class="waves-effect waves-teal btn-flat" [disabled]="!thresholdForm.form.valid || threshold.contextSources.length==0">Save threshold</button>
+<h6>New threshold for:
+  <strong>{{selectedCV.name}}</strong>
+</h6>
+<div class="input-field col s12">
+  <select [(ngModel)]="threshold.thresholdType" (ngModelChange)="onThresholdTypeChange($event)" name="type" required>
+    <option value="" disabled selected>Choose your option</option>
+    <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
+  </select>
+  <label>Threshold type</label>
+</div>
+<form (ngSubmit)="onSubmit()" #thresholdForm="ngForm" *ngIf="threshold.thresholdType!=undefined">
+  <button type="submit" class="waves-effect waves-teal btn-flat" [disabled]="!thresholdForm.form.valid || selectedThresholdParams.length==0">Save threshold</button>
   <div class="row">
     <div class="col s12 m3 l3 xl3">
       <!--sample type -->
@@ -26,27 +33,38 @@
       <table class="highlight">
         <thead>
           <th>Name</th>
+          <th>Initial value</th>
+          <th>Step value</th>
         </thead>
         <tbody>
-          <tr *ngFor="let contextSource of contextSources; let i = index">
+          <tr *ngFor="let thresholdParam of thresholdParams; let i = index">
             <td>
               <label>
-                <input type="checkbox" (change)="toggleEditable($event,contextSource)" />
-                <span>{{contextSource.name}}</span>
+                <input type="checkbox" (change)="toggleEditable($event,thresholdParam)" />
+                <span>{{thresholdParam.contextSource.name}}</span>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input placeholder="1" id="initialValue{{i}}" type="number" class="validate" name="initialValue{{i}}" [(ngModel)]="thresholdParam.initialValue"
+                  required [attr.disabled]="!thresholdConstraint.initialValueEditable?'':null">
+                <label for="initialValue{{i}}">Initial value</label>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue" [(ngModel)]="thresholdParam.stepValue"
+          [attr.disabled]="!thresholdConstraint.stepValueEditable?'':null">
+                <label for="initialValue{{i}}">Step value</label>
               </label>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <div class="col s12 m3 l3 xl3">
-      <div class="input-field col s12">
-        <select [(ngModel)]="threshold.type" name="type" required>
-          <option value="" disabled selected>Choose your option</option>
-          <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
-        </select>
-        <label>Threshold type</label>
-      </div>
+
       <div class="input-field col s12">
         <select [(ngModel)]="threshold.direction" name="direction" required>
           <option value="" disabled selected>Choose your option</option>
@@ -55,21 +73,14 @@
         <label>Threshold direction</label>
       </div>
     </div>
-    <div class="col s12 m3 l3 xl3">
+    <div class="col s12 m3 l3 xl3" *ngIf="thresholdConstraint!=undefined">
       <!-- threshold params-->
       <div class="input-field col s12">
-        <input placeholder="Initial value" id="initialValue" name="initialValue" type="number" class="validate" [(ngModel)]="threshold.initialValue" required>
-        <label for="initialValue">Initial value</label>
-      </div>
-      <div class="input-field col s12">
-        <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" required>
+        <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
         <label for="steps">Steps</label>
-      </div>
-      <div class="input-field col s12">
-        <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue" [(ngModel)]="threshold.stepValue" required>
-        <label for="stepValue">Step value</label>
-      </div>
+      </div>      
     </div>
+
   </div>
 </form>
 <button type="button" (click)="show()">Show</button>

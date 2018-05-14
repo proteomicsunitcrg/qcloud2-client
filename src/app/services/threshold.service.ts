@@ -3,6 +3,8 @@ import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { Threshold } from '../models/threshold';
 import { Observable } from 'rxjs/Observable';
+import { ThresholdParam } from '../models/thresholdParams';
+import { ThresholdConstraint } from '../models/thresholdConstraint';
 
 @Injectable()
 export class ThresholdService {
@@ -28,7 +30,18 @@ export class ThresholdService {
     const json = JSON.stringify(threshold);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Threshold>(this.thresholdUrl,params,{headers:headers});
+    return this.httpClient.post<Threshold>(this.thresholdUrl+'/'+threshold.thresholdType,params,{headers:headers});
+  }
+
+  public saveThresholdParams(thresholdParams: ThresholdParam[]): Observable<any> {
+    const json = JSON.stringify(thresholdParams);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl+'/params',params,{headers:headers});
+  }
+
+  public getThresholdConstraints(thresholdType: string): Observable<ThresholdConstraint> {
+    return this.httpClient.get<ThresholdConstraint>(this.thresholdUrl+'/constraints/admin/'+thresholdType);
   }
 
 }

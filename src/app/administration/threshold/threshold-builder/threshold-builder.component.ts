@@ -11,6 +11,8 @@ import { ContextSource } from '../../../models/contextSource';
 import { PeptideService } from '../../../services/peptide.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ThresholdService } from '../../../services/threshold.service';
+import { ThresholdParam } from '../../../models/thresholdParams';
+import { ThresholdConstraint } from '../../../models/thresholdConstraint';
 declare var M: any;
 @Component({
   selector: 'app-threshold-builder',
@@ -28,13 +30,17 @@ export class ThresholdBuilderComponent implements OnInit {
   sampleTypes: SampleType[] = [];
   params: Param[] = [];
 
-  contextSources: ContextSource[] = [];
+  thresholdParams: ThresholdParam[] = [];
 
-  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, [], null,null);
+  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null);
 
   thresholdTypes: string[] = [];
 
   thresholdDirections: string[] = [];
+
+  selectedThresholdParams: ThresholdParam[] = [];
+
+  thresholdConstraint: ThresholdConstraint;
 
   @Input() selectedCV: CV;
 
@@ -89,7 +95,7 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   show(): void {
-    console.log(this.threshold.contextSources);
+    console.log(this.selectedThresholdParams);
   }
 
   onParamChange(event: Param) {
@@ -99,7 +105,10 @@ export class ThresholdBuilderComponent implements OnInit {
         this.sampleCompositionService.getAllPeptidesBySampleType(this.threshold.sampleType)
           .subscribe(
             (peptides) => {
-              this.contextSources = peptides;
+              this.thresholdParams = [];
+              peptides.forEach(
+                (p) => this.thresholdParams.push(new ThresholdParam(null,p,0,0))
+              )
             }
           )
         break;
@@ -107,7 +116,10 @@ export class ThresholdBuilderComponent implements OnInit {
         this.instrumentSampleService.getAllInstrumentSample()
           .subscribe(
             (instrumentSamples) => {
-              this.contextSources = instrumentSamples;
+              this.thresholdParams = [];
+              instrumentSamples.forEach(
+                (p) => this.thresholdParams.push(new ThresholdParam(null,p,0,0))
+              )
             },err => console.log(err)
           )
         break;
@@ -115,20 +127,21 @@ export class ThresholdBuilderComponent implements OnInit {
         console.log(event.isFor);
     }
   }
-
-  toggleEditable(event: any,contextSource: ContextSource) {
+  
+  toggleEditable(event: any,thresholdParam: ThresholdParam) {
     if(event.target.checked) {
-      this.addContextSource(contextSource);
+      this.addThresholdParam(thresholdParam);
     }else {
-      this.removeContextSource(contextSource);
+      this.removeThresholdParam(thresholdParam);
     }
   }
 
-  private addContextSource(contextSource: ContextSource): void {    
-    this.threshold.contextSources.push(contextSource);
+  private addThresholdParam(thresholdParam: ThresholdParam): void {
+    this.selectedThresholdParams.push(thresholdParam);
   }
-  private removeContextSource(contextSource: ContextSource) {
-    this.threshold.contextSources = this.threshold.contextSources.filter(cs => cs.id !==contextSource.id);
+
+  private removeThresholdParam(thresholdParam: ThresholdParam): void {
+    this.selectedThresholdParams = this.selectedThresholdParams.filter(tp => tp.contextSource.id!== thresholdParam.contextSource.id);
   }
 
   onSampleTypeChange(sampleType: SampleType): void {
@@ -140,13 +153,46 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.threshold);
     this.thresholdService.saveThreshold(this.threshold)
+      .subscribe(
+        (threshold) => {
+          // save the threshold params
+          this.saveThresholdParams(threshold);
+        },
+        (error)=> {
+          console.log(error);
+        }
+      )
+  }
+
+  private saveThresholdParams(threshold: Threshold): void {
+    this.selectedThresholdParams.forEach(
+      (thresholdParam) => {
+        thresholdParam.threshold = threshold;
+      }
+    )
+    this.thresholdService.saveThresholdParams(this.selectedThresholdParams)
       .subscribe(
         (result) => {
           console.log(result);
         },
-        (error)=> {
-          console.log(error);
+        (err) => console.log(err)
+      )
+    
+  }
+
+  onThresholdTypeChange(thresholdType: string): void {
+    this.thresholdService.getThresholdConstraints(thresholdType)
+      .subscribe(
+        (constraint) => {
+          console.log(constraint);
+          this.thresholdConstraint = constraint;
+          delay(1).then(() => {
+            M.updateTextFields();
+            M.AutoInit();
+          
+          })
         }
       )
   }
