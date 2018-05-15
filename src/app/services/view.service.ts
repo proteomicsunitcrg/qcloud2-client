@@ -52,7 +52,7 @@ export class ViewService {
   public getDefaultDisplayByView(view: View): Observable<Display> {
     return this.httpClient.get<any>(this.defaultViewsUrl+'/view/'+view.id)
       .map(
-        (res) => {          
+        (res) => {
           let charts: Chart[][] = [];
           res.forEach(
             (chart) => {

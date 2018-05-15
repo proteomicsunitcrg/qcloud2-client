@@ -4,9 +4,12 @@ export class ThresholdConstraint {
 	
 	stepValueEditable: boolean;
 	
-	stepsEditable: boolean;
+    stepsEditable: boolean;
+    
+    singleContextSource: boolean;
 
-    constructor(initialValueEditable: boolean,stepValueEditable: boolean,stepsEditable: boolean) {
+    constructor(singleContextSource: boolean, initialValueEditable: boolean,stepValueEditable: boolean,stepsEditable: boolean) {
+        this.singleContextSource = singleContextSource;
         this.initialValueEditable = initialValueEditable;
         this.stepValueEditable = stepValueEditable;
         this.stepsEditable = stepsEditable

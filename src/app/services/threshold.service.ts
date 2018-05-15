@@ -5,6 +5,9 @@ import { Threshold } from '../models/threshold';
 import { Observable } from 'rxjs/Observable';
 import { ThresholdParam } from '../models/thresholdParams';
 import { ThresholdConstraint } from '../models/thresholdConstraint';
+import { PlotThreshold } from '../models/plotThreshold';
+import { System } from '../models/system';
+import { Chart } from '../models/chart';
 
 @Injectable()
 export class ThresholdService {
@@ -42,6 +45,11 @@ export class ThresholdService {
 
   public getThresholdConstraints(thresholdType: string): Observable<ThresholdConstraint> {
     return this.httpClient.get<ThresholdConstraint>(this.thresholdUrl+'/constraints/admin/'+thresholdType);
+  }
+
+  public getPlotThreshold(chart: Chart, system: System): Observable<PlotThreshold> {
+    ///api/threshold/plot/{chartId}/{labSystemId}"    
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl+'/plot/'+chart.id+'/'+system.id);
   }
 
 }

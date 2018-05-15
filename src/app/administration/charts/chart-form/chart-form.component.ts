@@ -36,7 +36,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   selectedCategory: Category;
   cvs: CV[] = [];
 
-  newChart: Chart = new Chart(null,'',null,null);
+  newChart: Chart = new Chart(null,'',null,null,false);
 
   chartParams: ChartParam[] = [];
 
