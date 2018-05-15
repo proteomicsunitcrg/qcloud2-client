@@ -13,6 +13,8 @@ import { SampleCompositionService } from '../../../services/sample-composition.s
 import { ThresholdService } from '../../../services/threshold.service';
 import { ThresholdParam } from '../../../models/thresholdParams';
 import { ThresholdConstraint } from '../../../models/thresholdConstraint';
+import { ModalService } from '../../../common/modal.service';
+import { Modal } from '../../../models/modal';
 declare var M: any;
 @Component({
   selector: 'app-threshold-builder',
@@ -25,7 +27,8 @@ export class ThresholdBuilderComponent implements OnInit {
     private paramService: ParametersService,
     private instrumentSampleService: InstrumentSampleService,
     private sampleCompositionService: SampleCompositionService,
-    private thresholdService: ThresholdService) { }
+    private thresholdService: ThresholdService,
+    private modalService: ModalService) { }
 
   sampleTypes: SampleType[] = [];
   params: Param[] = [];
@@ -161,7 +164,7 @@ export class ThresholdBuilderComponent implements OnInit {
           this.saveThresholdParams(threshold);
         },
         (error)=> {
-          console.log(error);
+          this.modalService.openModal(new Modal('Error',error.error.message,'Ok',null,'newThreshold',null));
         }
       )
   }
