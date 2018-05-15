@@ -38,12 +38,23 @@
         </thead>
         <tbody>
           <tr *ngFor="let thresholdParam of thresholdParams; let i = index">
-            <td>
-              <label>
-                <input type="checkbox" (change)="toggleEditable($event,thresholdParam)" />
-                <span>{{thresholdParam.contextSource.name}}</span>
-              </label>
-            </td>
+            <ng-container *ngIf="thresholdConstraint.singleContextSource==true then radio else checkbox"></ng-container>
+            <ng-template #checkbox>
+              <td>
+                <label>
+                  <input type="checkbox" (change)="toggleEditable($event,thresholdParam)" />
+                  <span>{{thresholdParam.contextSource.name}}</span>
+                </label>
+              </td>
+            </ng-template>
+            <ng-template #radio>
+              <td>
+                <label>
+                  <input type="radio" (change)="toggleEditable($event,thresholdParam)" name="radio-contextsource" />
+                  <span>{{thresholdParam.contextSource.name}}</span>
+                </label>
+              </td>
+            </ng-template>
             <td>
               <label>
                 <input placeholder="1" id="initialValue{{i}}" type="number" class="validate" name="initialValue{{i}}" [(ngModel)]="thresholdParam.initialValue"
@@ -54,7 +65,7 @@
             <td>
               <label>
                 <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue" [(ngModel)]="thresholdParam.stepValue"
-          [attr.disabled]="!thresholdConstraint.stepValueEditable?'':null">
+                  [attr.disabled]="!thresholdConstraint.stepValueEditable?'':null">
                 <label for="initialValue{{i}}">Step value</label>
               </label>
             </td>
@@ -78,7 +89,7 @@
       <div class="input-field col s12">
         <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
         <label for="steps">Steps</label>
-      </div>      
+      </div>
     </div>
 
   </div>
