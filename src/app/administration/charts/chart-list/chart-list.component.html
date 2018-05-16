@@ -13,6 +13,9 @@
     <th>
       Actions
     </th>
+    <th>
+      Threshold
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -21,9 +24,18 @@
       <td>{{chart.cv.name}}</td>
       <td>{{chart.sampleType.name}}</td>
       <td>
-          <!-- <i class="material-icons cursorIcon"><a [routerLink]="['edit', chart.id]"></a>edit</a></i> -->
           <i class="material-icons cursorIcon" (click)="editChart(chart)">edit</i>
           <i class="material-icons cursorIcon">delete_forever</i>
+      </td>
+      <td>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" [(ngModel)]="chart.isThresholdEnabled" (change)="onIsThresholdChange(chart)">
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
       </td>
     </tr>
   </tbody>

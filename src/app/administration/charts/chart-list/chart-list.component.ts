@@ -6,6 +6,7 @@ import { Chart } from '../../../models/chart';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { Subscription } from 'rxjs/Subscription';
+declare var M: any;
 
 /**
  * This component list the existing charts
@@ -18,7 +19,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ChartListComponent implements OnInit, OnDestroy {
 
-  // @Input() chartId: number;
   charts: Chart[];
 
   constructor(private cvService: CvService,
@@ -98,5 +98,18 @@ export class ChartListComponent implements OnInit, OnDestroy {
     this.chartService.sendChartToEdit(chart);
     // change tab
     this.chartService.selectTab('newChart');
+  }
+
+  onIsThresholdChange(chart: Chart): void {
+    // update chart
+    this.chartService.chartToDatabase(chart,true)
+      .subscribe(
+        (res) => {
+          M.toast({
+            html: 'Chart updated!'
+          });
+        },
+        err => console.log(err)
+      )
   }
 }
