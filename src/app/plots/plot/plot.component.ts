@@ -33,7 +33,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layout: any;
 
-  thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
+  // thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
+  thresholdColors = ['#a9dbed','#60c3e8','#056487'];
   layoutShapes = [];
   // dataForPlot = [];
 
@@ -197,13 +198,29 @@ export class PlotComponent implements OnInit, OnDestroy {
       if(thresholdParam.length>0) {
         switch(this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
-          if(value<this.layoutShapes[this.layoutShapes.length-1].y1) {
-            return 'red';
-          }else if (value >this.layoutShapes[this.layoutShapes.length-1].y1 && value <this.layoutShapes[this.layoutShapes.length-2].y1){
-            return 'yellow';
-          }else {
-            return 'blue';
-          }
+            // taking care if the steps is 1
+            if(this.layoutShapes.length>1) {
+              if(value<this.layoutShapes[this.layoutShapes.length-1].y1) {
+                return 'red';
+              }else if (value >this.layoutShapes[this.layoutShapes.length-1].y1 && value <this.layoutShapes[this.layoutShapes.length-2].y1){
+                return 'yellow';
+              }else {
+                return traceColor.colorRange[traceIndex];
+              }
+            }else {
+              if(value<this.layoutShapes[this.layoutShapes.length-1].y1) { 
+                return 'red';
+              }else {
+                return traceColor.colorRange[traceIndex];
+              }
+            }
+          case 'UPDOWN':
+            if(value>this.layoutShapes[this.layoutShapes.length-1].y0 ||value<this.layoutShapes[this.layoutShapes.length-1].y1 ) {
+              return 'red';
+            }else {
+              return traceColor.colorRange[traceIndex];
+            }
+
           default:
             return null;
         }
