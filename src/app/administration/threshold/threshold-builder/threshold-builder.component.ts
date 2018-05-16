@@ -156,7 +156,6 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.threshold);
     this.thresholdService.saveThreshold(this.threshold)
       .subscribe(
         (threshold) => {
@@ -198,5 +197,20 @@ export class ThresholdBuilderComponent implements OnInit {
           })
         }
       )
+  }
+  onGlobalInitialValueChange(value: number): void {
+    this.thresholdParams.forEach(
+      (tp) => {
+        tp.initialValue = value;
+      }
+    )
+  }
+  
+  onGlobalStepValueChange(value: number): void {
+    this.thresholdParams.forEach(
+      (tp) => {
+        tp.stepValue = value;
+      }
+    )
   }
 }
