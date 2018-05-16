@@ -28,6 +28,23 @@
         </select>
         <label>Parameter</label>
       </div>
+      <!-- globals-->
+      <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
+        <input placeholder="0" id="globalInitialValue" type="number" class="validate" name="globalInitialValue"
+          required [attr.disabled]="!thresholdConstraint.globalInitialValue?'':null" 
+          (input)="onGlobalInitialValueChange($event.target.value)">
+        <label for="globalInitialValue">Global initial value</label>
+      </div>
+      <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
+        <input placeholder="0" id="globalSteplValue" type="number" class="validate" name="globalSteplValue"
+          required [attr.disabled]="!thresholdConstraint.globalStepValue?'':null"
+          (input)="onGlobalStepValueChange($event.target.value)">
+        <label for="globalSteplValue">Global step value</label>
+      </div>
+      <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
+        <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
+        <label for="steps">Steps</label>
+      </div>
     </div>
     <div class="col s12 m3 l3 xl3">
       <table class="highlight">
@@ -86,10 +103,7 @@
     </div>
     <div class="col s12 m3 l3 xl3" *ngIf="thresholdConstraint!=undefined">
       <!-- threshold params-->
-      <div class="input-field col s12">
-        <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
-        <label for="steps">Steps</label>
-      </div>
+      
     </div>
 
   </div>
