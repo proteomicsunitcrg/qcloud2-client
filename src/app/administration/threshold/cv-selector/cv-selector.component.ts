@@ -33,6 +33,7 @@ export class CvSelectorComponent implements OnInit {
   showEnabledCvs: boolean = true;
 
   @Output() selectCVEvent: EventEmitter<CV> = new EventEmitter<CV>();
+  @Output() closeThreshold: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   ngOnInit() {
     this.loadEnabledMainCV();
@@ -93,6 +94,7 @@ export class CvSelectorComponent implements OnInit {
 
   selectCV(cv: CV): void {
     this.selectedCv = cv;
+    this.doAccept();
   }
 
   doAccept(): void {
@@ -101,6 +103,10 @@ export class CvSelectorComponent implements OnInit {
     }else {
       this.selectCVEvent.emit(this.selectedCv);
     }
+  }
+
+  doBack(): void {
+    this.closeThreshold.emit(true);
   }
 
 }

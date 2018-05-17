@@ -37,9 +37,8 @@ export class ThresholdListComponent implements OnInit {
     this.thresholds = [];
     this.thresholdService.getAllThresholds()
       .subscribe(
-        (thresholds) => {
+        (thresholds) => {          
           this.thresholds = thresholds;
-          console.log(thresholds);
         }
       )
   }

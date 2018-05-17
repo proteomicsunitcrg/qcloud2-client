@@ -12,24 +12,22 @@
       <th>Context source/s</th>
       <th>Direction</th>
       <th>Steps</th>
-      <th>Step value</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let threshold of thresholds">
-      <td>{{threshold.cv.name}}</td>
+      <td>{{threshold.cv.name}} {{threshold.cv.cvid}}</td>
       <td>{{threshold.sampleType.name}}</td>
       <td>{{threshold.param.name}}</td>
       <td>
         <ul>
-          <li *ngFor="let contextSource of threshold.contextSources">
-            {{contextSource.name}}
+          <li *ngFor="let contextSource of threshold.thresholdParams">
+            {{contextSource.contextSource.name}}
           </li>
         </ul>
       </td>
-      <td>{{threshold.direction}}</td>
+      <td>{{threshold.nonConformityDirection}}</td>
       <td>{{threshold.steps}}</td>
-      <td>{{threshold.stepValue}}</td>
     </tr>
     <tr *ngIf="showForm">
       <td>{{selectedCV.name}}</td>

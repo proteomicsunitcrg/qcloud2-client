@@ -9,9 +9,13 @@
   <label>Threshold type</label>
 </div>
 <form (ngSubmit)="onSubmit()" #thresholdForm="ngForm" *ngIf="threshold.thresholdType!=undefined">
-  <button type="submit" class="waves-effect waves-teal btn-flat" [disabled]="!thresholdForm.form.valid || selectedThresholdParams.length==0">Save threshold</button>
   <div class="row">
-    <div class="col s12 m3 l3 xl3">
+    <div class="col s12 m12 l12 xl12">
+      <button type="submit" class="waves-effect waves-teal btn" [disabled]="!thresholdForm.form.valid || selectedThresholdParams.length==0">Save threshold</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6 l6 xl6">
       <!--sample type -->
       <div class="input-field col s12">
         <select [(ngModel)]="threshold.sampleType" (ngModelChange)="onSampleTypeChange($event)" name="sampleType" required>
@@ -30,14 +34,12 @@
       </div>
       <!-- globals-->
       <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
-        <input placeholder="0" id="globalInitialValue" type="number" class="validate" name="globalInitialValue"
-          required [attr.disabled]="!thresholdConstraint.globalInitialValue?'':null" 
+        <input placeholder="0" id="globalInitialValue" type="number" class="validate" name="globalInitialValue" required [attr.disabled]="!thresholdConstraint.globalInitialValue?'':null"
           (input)="onGlobalInitialValueChange($event.target.value)">
         <label for="globalInitialValue">Global initial value</label>
       </div>
       <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
-        <input placeholder="0" id="globalSteplValue" type="number" class="validate" name="globalSteplValue"
-          required [attr.disabled]="!thresholdConstraint.globalStepValue?'':null"
+        <input placeholder="0" id="globalSteplValue" type="number" class="validate" name="globalSteplValue" required [attr.disabled]="!thresholdConstraint.globalStepValue?'':null"
           (input)="onGlobalStepValueChange($event.target.value)">
         <label for="globalSteplValue">Global step value</label>
       </div>
@@ -45,8 +47,15 @@
         <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="threshold.steps" [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
         <label for="steps">Steps</label>
       </div>
+      <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
+        <select [(ngModel)]="threshold.direction" name="direction" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let thresholdDirection of thresholdDirections" [ngValue]="thresholdDirection">{{thresholdDirection}}</option>
+        </select>
+        <label>Threshold direction</label>
+      </div>
     </div>
-    <div class="col s12 m3 l3 xl3">
+    <div class="col s12 m6 l6 xl6">
       <table class="highlight">
         <thead>
           <th>Name</th>
@@ -90,22 +99,5 @@
         </tbody>
       </table>
     </div>
-
-    <div class="col s12 m3 l3 xl3">
-
-      <div class="input-field col s12">
-        <select [(ngModel)]="threshold.direction" name="direction" required>
-          <option value="" disabled selected>Choose your option</option>
-          <option *ngFor="let thresholdDirection of thresholdDirections" [ngValue]="thresholdDirection">{{thresholdDirection}}</option>
-        </select>
-        <label>Threshold direction</label>
-      </div>
-    </div>
-    <div class="col s12 m3 l3 xl3" *ngIf="thresholdConstraint!=undefined">
-      <!-- threshold params-->
-      
-    </div>
-
   </div>
 </form>
-<button type="button" (click)="show()">Show</button>

@@ -1,0 +1,9 @@
+.breadcrumb:before {
+    color: #757575;
+}
+.breadcrumb, .breadcrumb:last-child {
+    color: #757575;
+ }
+.breadcrumb {
+    cursor: pointer;
+}

@@ -4,14 +4,27 @@
       <h4>Threshold management</h4>
     </div>
   </div>
+  <div class="row">
+    <div class="col s12 m12 l12 xl12">
+        <nav class="white">
+            <div class="nav-wrapper">
+              <div class="col s12">
+                <a class="breadcrumb" (click)="closeThreshold(true)" >Threshold</a>
+                <a class="breadcrumb" (click)="doBreadClick(i)" *ngFor="let item of thresholdNav; let i = index">{{item.name}}</a>
+                
+              </div>
+            </div>
+          </nav>
+    </div>
+  </div>
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
-      <app-threshold-list (openThreshold)="open()"></app-threshold-list>
+      <app-threshold-list (openThreshold)="open()" *ngIf="!newThreshold"></app-threshold-list>
     </div>
   </div>
   <div class="row z-depth-0" *ngIf="newThreshold">
-    <div class="col s12 m12 l12 xl12">
-      <app-cv-selector *ngIf="!isCVSelected" (selectCVEvent)="openBuilder($event)"></app-cv-selector>
+    <div class="col s12 m12 l12 xl12">      
+      <app-cv-selector *ngIf="!isCVSelected" (closeThreshold)="closeThreshold($event)" (selectCVEvent)="openBuilder($event)"></app-cv-selector>
       <app-threshold-builder [selectedCV]="selectedCV" *ngIf="isCVSelected"></app-threshold-builder>
     </div>
   </div>
