@@ -1,8 +1,13 @@
-  <ul class="tabs tabs-fixed-width" id="chartstabs">
-    <li class="tab" *ngFor="let view of views">
-      <a href="#tab{{view.id}}" (click)="loadTab(view)">{{view.name}}</a>
-    </li>
-  </ul>
+  <div class="row">
+    <div class="col s12 m12 l12 xl12">
+        <ul class="tabs tabs-fixed-width" id="chartstabs">
+            <li class="tab" *ngFor="let view of views">
+              <a href="#tab{{view.id}}" (click)="loadTab(view)">{{view.name}}</a>
+            </li>
+          </ul>
+    </div>
+  </div>
+  
 <div id="tab{{view.id}}" class="col s12 m12 l12 xl12" *ngFor="let view of views">
   <div *ngIf="viewLoaded[view.id] | async">
     <div class="row valign-wrapper" *ngFor="let row of displays['a'+view.id].charts">
