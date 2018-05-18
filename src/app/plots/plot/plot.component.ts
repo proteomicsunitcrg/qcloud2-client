@@ -101,7 +101,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   private drawThreshold(threshold: PlotThreshold): void {
     threshold.thresholdParams.forEach(
       (thresholdParam) => {
-        for (let i = 0; i < threshold.steps; i++) {
+        for (let i = 0; i < threshold.steps; i++) {          
           let value = thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue);
           let shape = {
             type: 'rect',
@@ -117,8 +117,8 @@ export class PlotComponent implements OnInit, OnDestroy {
               width: 0
             },
             layer: 'below'
-          };
-          this.layoutShapes.push(shape);
+          };          
+          this.layoutShapes.push(shape);          
         }
       }
     )
@@ -133,6 +133,9 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadPlot(datesArray, dataArray): void {
+    let minValues = [];
+    let maxValues = [];
+
     let dataForPlot = [];
     let traceIndex = 0;
     for (let key in dataArray) {
@@ -145,10 +148,12 @@ export class PlotComponent implements OnInit, OnDestroy {
 
       dataArray[key].forEach(
         (element, index) => {
-          values.push(element);
+          values.push(element);          
           colorsForLine[index]=this.calculatePointColor(key, element, traceIndex);
         }
       );
+      minValues.push(Math.min.apply(null,values.filter((n) => {return !isNaN(n)})));
+      maxValues.push(Math.max.apply(null,values.filter((n)=> { return !isNaN(n)})));
 
       var trace = {
         x: datesArray,
@@ -172,6 +177,10 @@ export class PlotComponent implements OnInit, OnDestroy {
       dataForPlot.push(trace);
       traceIndex++;
     }
+
+    const MINVALUEFORPLOT = Math.min.apply(null,minValues) - Math.abs((Math.min.apply(null,minValues)*0.1));
+    const MAXVALUEFORPLOT = Math.max.apply(null,maxValues)+(Math.max.apply(null,maxValues)*0.1);
+
     this.layout = {
       title: this.chart.name,
       shapes: [],
@@ -181,13 +190,13 @@ export class PlotComponent implements OnInit, OnDestroy {
         nticks: 10,
       },
       yaxis: {
-        type: 'linear'
+        type: 'linear',
+        range: [MINVALUEFORPLOT,MAXVALUEFORPLOT]
       },
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
     };
     this.layout.shapes = this.layoutShapes;
-
     Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
   }
 
