@@ -20,6 +20,10 @@ import { MainSystemComponent } from './system/main-system/main-system.component'
 import { SystemListComponent } from './system/system-list/system-list.component';
 import { SystemBuilderComponent } from './system/system-builder/system-builder.component';
 import { SystemService } from '../services/system.service';
+import { MainThresholdComponent } from './threshold/main-threshold/main-threshold.component';
+import { ThresholdListComponent } from './threshold/threshold-list/threshold-list.component';
+import { ParametersService } from '../services/parameters.service';
+import { ChartService } from '../services/chart.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,10 +38,12 @@ import { SystemService } from '../services/system.service';
     UsersComponent, 
     DataSourceComponent, 
     CvSelectorComponent, 
-    DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent, MainSystemComponent, SystemListComponent, SystemBuilderComponent],
+    DataSourceListComponent, MainGuideSetComponent, DataSourceGuideSetListComponent, MainSystemComponent, SystemListComponent, SystemBuilderComponent, MainThresholdComponent, ThresholdListComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService,
-    SystemService]
+    SystemService,
+    ParametersService,
+    ChartService]
 })
 export class ManagementModule { }
