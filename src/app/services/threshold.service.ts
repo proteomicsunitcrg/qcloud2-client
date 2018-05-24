@@ -48,8 +48,15 @@ export class ThresholdService {
   }
 
   public getPlotThreshold(chart: Chart, system: System): Observable<PlotThreshold> {
-    ///api/threshold/plot/{chartId}/{labSystemId}"    
     return this.httpClient.get<PlotThreshold>(this.thresholdUrl+'/plot/'+chart.id+'/'+system.id);
+  }
+
+  public getUserThresholds(): Observable<Threshold[]> {
+    return this.httpClient.get<Threshold[]>(this.thresholdUrl+'/node');
+  }
+
+  public getAllThresholdsBySystem(labSystem: System): Observable<Threshold[]> {
+    return this.httpClient.get<Threshold[]>(this.thresholdUrl+'/node/'+labSystem.apiKey);
   }
 
 }
