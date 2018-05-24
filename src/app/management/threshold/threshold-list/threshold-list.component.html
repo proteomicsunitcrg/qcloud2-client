@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>List</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <table>
+      <tbody *ngFor="let labSystemThreshold of labSystemThresholds">
+        <tr>
+          <td colspan="6">{{labSystemThreshold.labSystem.name}}</td>
+        </tr>
+        <tr>
+          <th>Param</th>
+          <th>Context sources</th>
+          <th>Initial value</th>
+          <th>Step value</th>
+          <th>Steps</th>
+          <th>Monitor</th>
+        </tr>
+        <tr *ngFor="let threshold of labSystemThreshold.thresholds">
+          <td>{{threshold.param.name}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let contextSource of threshold.thresholdParams">
+                {{contextSource.contextSource.name}}
+              </li>
+            </ul>
+          </td>
+          <td>
+              <ul>
+                  <li *ngFor="let contextSource of threshold.thresholdParams">
+                    {{contextSource.initialValue}}
+                  </li>
+                </ul>
+          </td>
+          <td>
+              <ul>
+                  <li *ngFor="let contextSource of threshold.thresholdParams">
+                    {{contextSource.stepValue}}
+                  </li>
+                </ul>
+          </td>
+          <td>
+            {{threshold.steps}}
+          </td>
+          <td>
+              <!-- <i class="material-icons cursorIcon" [ngClass]="(cv.enabled)?'enabled':'disabled'" (click)="changeStatus(cv)">power_settings_new</i> -->
+              <i class="material-icons cursorIcon" [ngClass]="disabled">power_settings_new</i>
+          </td>
+        </tr>
+
+
+      </tbody>
+    </table>    
+
+  </div>
+</div>
