@@ -6,6 +6,7 @@ import { System } from '../models/system';
 import { Subject } from 'rxjs/Subject';
 import { DataSource } from '../models/dataSource';
 import { GuideSet } from '../models/guideSet';
+import { CV } from '../models/cv';
 
 @Injectable()
 export class SystemService {
@@ -37,7 +38,9 @@ export class SystemService {
   public reloadList(): void {
     this.reloadSystemList.next(true);
   }
-
+  /**
+   * Get all the systems of the current node
+   */
   public getSystems(): Observable<System[]> {
     return this.httpClient.get<System[]>(this.systemUrl);
   }
@@ -72,6 +75,22 @@ export class SystemService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.put<System>(this.systemUrl+'/'+system.apiKey,params,{headers: headers});
+  }
+
+  /**
+   * Return the main cv of a system
+   * @param system the system to look into
+   */
+  public getMainCV(system: System): CV {
+    let cv: CV;
+    system.dataSources.forEach(
+      (ds) => {        
+        if(ds.cv.category.mainDataSource===true) {          
+          cv = ds.cv;          
+        }
+      }
+    )
+    return cv;
   }
 
 
