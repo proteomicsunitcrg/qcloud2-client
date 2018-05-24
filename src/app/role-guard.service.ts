@@ -23,6 +23,12 @@ export class RoleGuardService implements CanActivate {
       return false;
     }
     const tokenPayload = decode(token);
+
+    if(tokenPayload.exp> Date.now()) {
+      console.log('Token expired');
+      this.router.navigate(['login']);
+      return false;
+    }
     
     if (
       
