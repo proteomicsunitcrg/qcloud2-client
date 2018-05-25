@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './system-list.component.html',
   styleUrls: ['./system-list.component.css']
 })
-export class SystemListComponent implements OnInit,OnDestroy {
+export class SystemListComponent implements OnInit, OnDestroy {
 
   constructor(private systemService: SystemService) { }
 
@@ -21,25 +21,25 @@ export class SystemListComponent implements OnInit,OnDestroy {
     // this.subscribeToNewSystems();
     this.subscribeToReloadList();
   }
-  
+
   ngOnDestroy() {
     this.realoadSystemList$.unsubscribe();
   }
-  
+
   private subscribeToReloadList(): void {
     this.realoadSystemList$ = this.systemService.reloadSystemList$
       .subscribe(
         () => {
           this.loadSystems();
         }
-      )
+      );
   }
 
   private loadSystems(): void {
     this.nodeSystems = [];
     this.systemService.getSystems()
       .subscribe(
-        (systems)=> {
+        (systems) => {
           systems.forEach(
             (system) => {
               this.nodeSystems.push(system);

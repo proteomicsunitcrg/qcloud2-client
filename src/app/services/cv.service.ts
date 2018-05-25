@@ -15,7 +15,7 @@ export class CvService {
 
   private apiPrefix = environment.apiPrefix;
 
-  cvUrl= this.apiPrefix+'api/cv';
+  cvUrl = this.apiPrefix + 'api/cv';
 
   /**
    * This observable is used for the new chart form
@@ -26,21 +26,21 @@ export class CvService {
   selectedChartCv$ = this.selectedChartCv.asObservable();
 
   public getAllCV(): Observable<CV[]> {
-    return this.httpClient.get<CV[]>(this.cvUrl);    
+    return this.httpClient.get<CV[]>(this.cvUrl);
   }
 
   public getCvByCvId(cvId: string): Observable<CV> {
-    return this.httpClient.get<CV>(this.cvUrl+'/'+cvId);
+    return this.httpClient.get<CV>(this.cvUrl + '/' + cvId);
   }
-  public getAllEnabledCVByCategory(category: Category): Observable<CV[]>{
-    return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id+'/enabled');
+  public getAllEnabledCVByCategory(category: Category): Observable<CV[]> {
+    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.id + '/enabled');
   }
 
-  public changeEnabled(cvId: number) : Observable<CV> {
-    return this.httpClient.put<CV>(this.cvUrl+'/'+cvId,{},{});
+  public changeEnabled(cvId: number): Observable<CV> {
+    return this.httpClient.put<CV>(this.cvUrl + '/' + cvId, {}, {});
   }
   public getCvByCategory(category: Category): Observable<CV[]> {
-    return this.httpClient.get<CV[]>(this.cvUrl+'/category/'+category.id);   
+    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.id);
   }
 
   public sendSelectedCvToChartForm(cv: CV): void {
@@ -48,7 +48,6 @@ export class CvService {
   }
 
   errorHandler(error: HttpErrorResponse) {
-    // console.log(error);
     return Observable.throw(error || 'Server Error');
   }
 }

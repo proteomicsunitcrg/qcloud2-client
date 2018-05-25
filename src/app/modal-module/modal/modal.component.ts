@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-//import * as M from 'materialize-css/dist/js/materialize';
-
 import { Modal} from '../../models/modal';
 import { ModalResponse} from '../../models/modalResponse';
 import { ModalService } from '../../common/modal.service';
@@ -10,7 +8,7 @@ declare var M: any;
 /**
  * Regular modal component
  * It is used in the root of the application and all the components
- * using this modal must load the modalService and operate through it. 
+ * using this modal must load the modalService and operate through it.
  * @author Daniel Mancera <daniel.mancera@crg.eu>
  */
 @Component({
@@ -18,14 +16,13 @@ declare var M: any;
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit,OnDestroy {
+export class ModalComponent implements OnInit, OnDestroy {
 
-  modal = new Modal('', '', '', '', '',null);
+  modal = new Modal('', '', '', '', '', null);
 
   selectedModal$: Subscription;
 
   constructor(private modalService: ModalService) {
-    
   }
 
   ngOnInit() {
@@ -54,9 +51,9 @@ export class ModalComponent implements OnInit,OnDestroy {
    */
 
   formCancel(): void {
-    this.modalService.sendAction(new ModalResponse(this.modal.modalAction, 'cancel',this.modal.objectInstance));
+    this.modalService.sendAction(new ModalResponse(this.modal.modalAction, 'cancel', this.modal.objectInstance));
   }
   formAction(): void {
-    this.modalService.sendAction(new ModalResponse(this.modal.modalAction, 'accept',this.modal.objectInstance));
+    this.modalService.sendAction(new ModalResponse(this.modal.modalAction, 'accept', this.modal.objectInstance));
   }
 }

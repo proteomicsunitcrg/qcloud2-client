@@ -19,7 +19,7 @@ export class SampleTypeFormComponent implements OnInit {
     private sampleTypeCategoryService: SampleTypeCategoryService,
     private modalService: ModalService) { }
 
-  sampleType: SampleType = new SampleType(null,'',null,null);
+  sampleType: SampleType = new SampleType(null, '', null, null);
 
   sampleTypeCategories: SampleTypeCategory[] = [];
 
@@ -27,15 +27,14 @@ export class SampleTypeFormComponent implements OnInit {
     this.loadSampleTypeCategories();
   }
 
-  
   private loadSampleTypeCategories(): void {
     this.sampleTypeCategoryService.findAll()
-      .subscribe((res)=> {
+      .subscribe((res) => {
         this.sampleTypeCategories = [];
-        res.forEach(c=> this.sampleTypeCategories.push(c));
-      },error=>console.log(error),
-      ()=> {
-        delay(1).then(()=> this.enableSelect())
+        res.forEach(c => this.sampleTypeCategories.push(c));
+      }, error => console.log(error),
+      () => {
+        delay(1).then(() => this.enableSelect());
       });
   }
 
@@ -44,17 +43,17 @@ export class SampleTypeFormComponent implements OnInit {
     this.sampleTypeService.addSampleType(this.sampleType)
       .subscribe(
         (sampleType) => {
-          this.sampleTypeService.sendNewSampleTypeToList(sampleType)
+          this.sampleTypeService.sendNewSampleTypeToList(sampleType);
         },
         error => {
-          this.modalService.openModal(new Modal('Error',error.error.message, 'Ok',null,null,null))
+          this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, null, null));
         }
-      )      
+      );
   }
 
   private enableSelect() {
-    let elem = document.getElementById('select_categories');
-    let instance = M.FormSelect.init(elem, {});    
+    const elem = document.getElementById('select_categories');
+    const instance = M.FormSelect.init(elem, {});
   }
 
 }

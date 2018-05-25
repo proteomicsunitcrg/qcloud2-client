@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class FileService {
@@ -17,7 +17,7 @@ export class FileService {
   constructor(private httpClient: HttpClient) { }
 
   public getDates(): Observable<any> {
-    return this.httpClient.get(this.fileUrl+'/1/58');
+    return this.httpClient.get(this.fileUrl + '/1/58');
   }
 
 }

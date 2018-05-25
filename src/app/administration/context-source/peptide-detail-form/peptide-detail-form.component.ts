@@ -38,7 +38,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
 
   formData = {
     currentPeptide: new Peptide(null, '', '', ''),
-  }
+  };
 
   compositionInputs = {};
 
@@ -49,8 +49,8 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
           this.loadPeptideIntoForm(peptide);
           this.formTitle = 'Edit peptide';
           this.formSubmitButton = 'Update peptide';
-        },error => console.log(error));
-    
+        }, error => console.log(error));
+
     // Sample compositions observer
     this.currentSampleComposition$ = this.sampleCompositionService.currentSampleComposition$
       .subscribe(
@@ -61,7 +61,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     this.sampleTypeService.getSamplesTypes()
       .subscribe(
         (sampleTypes) => this.sampleTypes = sampleTypes
-    )
+    );
   }
 
   ngOnDestroy() {
@@ -75,23 +75,23 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
    */
   private loadPeptideIntoForm(peptide: Peptide) {
     this.peptideService.findPeptide(peptide).subscribe(
-      (peptide) => {
-        this.formData.currentPeptide = peptide;
+      (foundPeptide) => {
+        this.formData.currentPeptide = foundPeptide;
         // Load sample composition if any
-        this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
+        this.sampleCompositionService.getSampleCompositionByPeptide(foundPeptide)
           .subscribe(
             (sampleCompositions) => {
               this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions);
               this.previousSampleCompositions = sampleCompositions;
             },
             error => console.log(error)
-          )
+          );
       },
       error => console.log(error),
-      ()=> {
+      () => {
         delay(50).then(() => M.updateTextFields());
       }
-    )
+    );
   }
 
   private saveSampleCompositions(sampleCompositions: SampleComposition[]): void {
@@ -105,12 +105,12 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     let found = false;
     sampleCompositions.forEach(
       (sampleComposition) => {
-        if (sampleComposition.sampleType.id == sampleType.id) {
+        if (sampleComposition.sampleType.id === sampleType.id) {
           found = true;
           this.saveSampleComposition(sampleComposition);
         }
       }
-    )
+    );
     if (!found) {
       // check if it is in the previous array in order to delete
       this.checkInPreviousArray(sampleType);
@@ -123,23 +123,23 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
         // this.peptideService.sendPeptideToList(result.peptide);
       },
       error => console.log(error)
-    )
+    );
   }
 
   private checkInPreviousArray(sampleType: SampleType): void {
     this.previousSampleCompositions.forEach(
       (sc) => {
-        if (sc.sampleType.id == sampleType.id) {
+        if (sc.sampleType.id === sampleType.id) {
           this.deleteSampleComposition(sc);
         }
       }
-    )
+    );
   }
 
   deleteSampleComposition(sampleComposition: SampleComposition): void {
     this.sampleCompositionService.deleteSampleComposiion(sampleComposition).subscribe(
       (result) => {
-        
+
       },
       (error) => {
         console.log(error);
@@ -174,7 +174,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
             this.modalService.openModal(new Modal(error.error.error,
               error.error.message, 'Ok', '', 'updatePeptide', null));
           }
-        )
+        );
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';

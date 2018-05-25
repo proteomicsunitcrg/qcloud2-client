@@ -14,11 +14,11 @@ import { CategoryService } from '../../services/category.service';
 export class CategoryComponent implements OnInit {
 
 
-  category: Category = new Category(null,'',false);
+  category: Category = new Category(null, '', false);
 
   categories = [];
-  
-  @ViewChild("categoryNameBox") categoryNameBox;
+
+  @ViewChild('categoryNameBox') categoryNameBox;
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
@@ -28,20 +28,20 @@ export class CategoryComponent implements OnInit {
 
   onSubmit(): void {
     this.categoryService.addNewCategory(this.category).subscribe(
-      (result)=> {
-        this.categoryNameBox.nativeElement.classList.remove("valid");
-        this.getCategoriesFromServer();        
+      (result) => {
+        this.categoryNameBox.nativeElement.classList.remove('valid');
+        this.getCategoriesFromServer();
       },
-      (error)=> {
+      (error) => {
         console.log(error);
       }
-    )    
+    );
   }
 
   private getCategoriesFromServer() {
     this.categories = [];
     this.categoryService.getCategories().subscribe(
-      (result)=> {
+      (result) => {
         result.forEach(element => {
           this.categories.push(element);
         });
@@ -49,7 +49,7 @@ export class CategoryComponent implements OnInit {
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   doMainCategory(category: Category): void {

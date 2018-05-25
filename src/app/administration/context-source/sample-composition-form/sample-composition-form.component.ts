@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
  * This form is linked to the peptide-detail-form component
  * @author Daniel Mancera<daniel.mancera@crg.eu>
  */
-export class SampleCompositionFormComponent implements OnInit, OnDestroy{
+export class SampleCompositionFormComponent implements OnInit, OnDestroy {
 
   constructor(private sampleTypeService: SampleTypeService,
     private sampleCompositionService: SampleCompositionService) { }
@@ -49,7 +49,7 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy{
           this.resetSampleCompositionForm();
           this.loadSampleComposition(sampleCompositions);
         }
-    )
+    );
   }
 
   ngOnDestroy() {
@@ -59,7 +59,7 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy{
 
   private resetSampleCompositionForm(): void {
     this.sampleTypes.forEach((s) => {
-      this.compositionInputs[s.id]=false;
+      this.compositionInputs[s.id] = false;
       this.compositions[s.id].concentration = null;
     });
   }
@@ -67,20 +67,23 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy{
   private loadSampleComposition(sampleCompositions: SampleComposition[]): void {
     sampleCompositions.forEach(
       (sampleComposition) => {
-        if(this.compositions.filter(c => c.id== sampleComposition.sampleType.id)!=undefined) {
+        if (this.compositions.filter(c => c.id === sampleComposition.sampleType.id) !== undefined) {
           this.compositionInputs[sampleComposition.sampleType.id] = true;
           this.compositions[sampleComposition.sampleType.id].concentration = sampleComposition.concentration;
         }
       }
-    )
+    );
   }
 
   private createSampleComponentArray(peptide: Peptide): void {
-    let sampleCompositions: SampleComposition[] = [];
+    const sampleCompositions: SampleComposition[] = [];
     Object.keys(this.compositionInputs).forEach(
       (composition) => {
-        if(this.compositionInputs[composition]) {          
-          let sampleComposition = new SampleComposition(peptide, this.compositions[composition].sampleType,this.compositions[composition].concentration);
+        if (this.compositionInputs[composition]) {
+          const sampleComposition = new SampleComposition(peptide,
+            this.compositions[composition].sampleType,
+            this.compositions[composition].concentration);
+
           sampleCompositions.push(sampleComposition);
         }
       });
@@ -94,8 +97,8 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy{
         sampleTypes => {
           sampleTypes.forEach(sampleType => {
             this.sampleTypes.push(sampleType);
-            this.compositions[sampleType.id] = new SampleComposition(null,sampleType,null);
-            this.compositionInputs[sampleType.id] = false;          
+            this.compositions[sampleType.id] = new SampleComposition(null, sampleType, null);
+            this.compositionInputs[sampleType.id] = false;
           });
         },
         error => console.log(error)

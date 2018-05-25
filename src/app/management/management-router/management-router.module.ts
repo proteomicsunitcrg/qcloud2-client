@@ -11,12 +11,12 @@ import { MainSystemComponent } from '../system/main-system/main-system.component
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
 
 const routes: Routes = [
-  {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}, children: [
-    { path:'users',component: UsersComponent},
-    { path:'guidesets',component: MainGuideSetComponent},
-    { path:'instruments/:name', component: DataSourceComponent},
-    { path:'systems',component: MainSystemComponent},
-    { path:'thresholds',component: MainThresholdComponent}
+  {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}, children: [
+    { path: 'users', component: UsersComponent},
+    { path: 'guidesets', component: MainGuideSetComponent},
+    { path: 'instruments/:name', component: DataSourceComponent},
+    { path: 'systems', component: MainSystemComponent},
+    { path: 'thresholds', component: MainThresholdComponent}
   ]},
 ];
 

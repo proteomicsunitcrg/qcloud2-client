@@ -1,7 +1,7 @@
-import { Param } from "./param";
-import { CV } from "./cv";
-import { ContextSource } from "./contextSource";
-import { SampleType } from "./sampleType";
+import { Param } from './param';
+import { CV } from './cv';
+import { ContextSource } from './contextSource';
+import { SampleType } from './sampleType';
 
 export class Threshold {
     id: number;
@@ -13,11 +13,11 @@ export class Threshold {
     sampleType: SampleType;
     thresholdType: string;
     isMonitored: boolean;
-    
+
     constructor(id: number,
-        name:string,
+        name: string,
         direction: string,
-        steps: number,        
+        steps: number,
         param: Param,
         cv: CV,
         sampleType: SampleType,

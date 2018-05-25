@@ -34,7 +34,7 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   selectedCategory: Category;
 
-  sampleTypeCategories: SampleTypeCategory[]= [];
+  sampleTypeCategories: SampleTypeCategory[] = [];
 
   selectedSampleTypeCategory: SampleTypeCategory;
 
@@ -61,26 +61,26 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
         (cv) => {
           this.selectedCV = cv;
         }
-      )
+      );
   }
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe(
-      (result)=> {        
+      (result) => {
         this.loadCategoriesIntoList(result);
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name,category.mainDataSource));        
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
       }
     );
     this.selectedCategory = this.categories[0];
-    this.categoryService.selectCategory(this.selectedCategory);    
+    this.categoryService.selectCategory(this.selectedCategory);
   }
   /**
    * Handle the creation of a new default chart
@@ -89,19 +89,18 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
    */
   goToDefaultChartEdit(): void {
     // Check if a view already exists for this CV
-    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV,this.selectedSampleTypeCategory.id)
+    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV, this.selectedSampleTypeCategory.id)
       .subscribe(
         (res) => {
-          if(res===null) {
-            this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid,this.selectedSampleTypeCategory.id]);
-          }else {
+          if (res === null) {
+            this.router.navigate(['/application/administration/views/cv', this.selectedCV.cvid, this.selectedSampleTypeCategory.id]);
+          } else {
             this.modalService.openModal(new Modal('Information',
               'A default chart for that instrument already exists. Do you want to edit it?',
-              'Yes','No','newLayout',null));
+              'Yes', 'No', 'newLayout', null));
           }
-        
         }
-      )
+      );
   }
 
   private loadSampleTypeCategories(): void {
@@ -110,10 +109,8 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
         (categories) => {
           this.sampleTypeCategories = categories;
         }
-      )
+      );
   }
-
-
 
   /**
    * Handle the modal responses
@@ -122,10 +119,10 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
     this.selectedAction$ = this.modalService.selectedAction$
       .subscribe(
         (action) => {
-          switch(action.modalAction) {
+          switch (action.modalAction) {
             case 'newLayout':
-              if(action.userAction==='accept') {
-                this.router.navigate(['/application/administration/views/cv',this.selectedCV.cvid]);
+              if (action.userAction === 'accept') {
+                this.router.navigate(['/application/administration/views/cv', this.selectedCV.cvid]);
               }
               break;
             default:
@@ -133,6 +130,6 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
               break;
           }
         }
-      )
+      );
   }
 }

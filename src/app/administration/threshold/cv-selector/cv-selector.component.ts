@@ -30,7 +30,7 @@ export class CvSelectorComponent implements OnInit {
 
   filter: CV = new CV(null, '', null, '', '', false);
 
-  showEnabledCvs: boolean = true;
+  showEnabledCvs = true;
 
   @Output() selectCVEvent: EventEmitter<CV> = new EventEmitter<CV>();
   @Output() closeThreshold: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -46,7 +46,7 @@ export class CvSelectorComponent implements OnInit {
           this.currentCategory = mainCategory;
           this.getCvListByCategoryFromServer(this.currentCategory);
         }
-      )
+      );
   }
 
   /**
@@ -64,7 +64,7 @@ export class CvSelectorComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-      )
+      );
     } else {
       this.cvService.getAllEnabledCVByCategory(category).subscribe(
         (result) => {
@@ -73,7 +73,7 @@ export class CvSelectorComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-      )
+      );
     }
   }
     /**
@@ -85,7 +85,7 @@ export class CvSelectorComponent implements OnInit {
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {
       this.cvs.push(cv);
-    })
+    });
   }
 
   reloadList(): void {
@@ -98,9 +98,9 @@ export class CvSelectorComponent implements OnInit {
   }
 
   doAccept(): void {
-    if(this.selectedCv.id==null) {
-      this.modalService.openModal(new Modal('Error','Please select a CV in order to continue','Ok',null,'selectCV',null));      
-    }else {
+    if (this.selectedCv.id === null) {
+      this.modalService.openModal(new Modal('Error', 'Please select a CV in order to continue', 'Ok', null, 'selectCV', null));
+    } else {
       this.selectCVEvent.emit(this.selectedCv);
     }
   }

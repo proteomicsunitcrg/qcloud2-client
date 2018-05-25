@@ -16,10 +16,9 @@ declare var M: any;
   templateUrl: './data-source-guide-set-list.component.html',
   styleUrls: ['./data-source-guide-set-list.component.css']
 })
-export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
+export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
 
   constructor(private categoryService: CategoryService,
-    //private dataSourceService: DataSourceService,
     private systemService: SystemService,
     private modalService: ModalService) { }
 
@@ -42,42 +41,40 @@ export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
       .subscribe(
         (systems) => {
           systems.forEach(
-            (system) => {              
-              if(system.guideSet==null){
-                system.guideSet =new GuideSet(null,null,null);
+            (system) => {
+              if (system.guideSet === null) {
+                system.guideSet = new GuideSet(null, null, null);
               }
               this.systems.push(system);
-              
             }
-          )
-        },err => console.log(err),
-        ()=> {
+          );
+        }, err => console.log(err),
+        () => {
           delay(1).then(
             () => {
               this.initializeDatePickers();
             }
-          )
+          );
         }
-      )
+      );
   }
 
-  
   private initializeDatePickers(): void {
     this.systems.forEach(
       (system) => {
-        let datePickers = document.getElementsByClassName('datepicker' + system.id);
+        const datePickers = document.getElementsByClassName('datepicker' + system.id);
         this.datePickers[system.id] = [];
-        for (var i = 0; i < datePickers.length; i++) {
-          let options = {
+        for (let i = 0; i < datePickers.length; i++) {
+          const options = {
             format: 'yyyy-mm-dd',
             firstDay: 1,
             setDefaultDate: true
-          }
-          let instance = M.Datepicker.init(datePickers[i], options);
+          };
+          const instance = M.Datepicker.init(datePickers[i], options);
           this.datePickers[system.id].push(instance);
         }
       }
-    )
+    );
   }
 
   private subscribeToModal(): void {
@@ -86,7 +83,7 @@ export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
         (response) => {
           console.log(response);
         }
-      )
+      );
   }
   /**
    * Set the selected guide set into the datasource
@@ -98,15 +95,13 @@ export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
      * was not working properly and the solution was to set
      * the values manually getting from the DOM
      * 2018-04-10
-     */    
-    let start = this.datePickers[system.id][0].toString();
-    let end = this.datePickers[system.id][1].toString();
-    if (start == '' || end == '') {
-      // this.modalService.openModal(new Modal('Information', 'Please, fill both date fields for set the guide set', 'Ok', 'Cancel', 'setGuideSetMissingData', null));
+     */
+    const start = this.datePickers[system.id][0].toString();
+    const end = this.datePickers[system.id][1].toString();
+    if (start === '' || end === '') {
       alert('Fill both start date and end date');
     } else {
       if (this.datePickers[system.id][0] > this.datePickers[system.id][1]) {
-        // this.modalService.openModal(new Modal('Information', 'End date must be greater than start date', 'Ok', null, 'setGuideSetWrongDates', null));
         alert('End date must be greater than start date');
       } else {
         system.guideSet.startDate = this.datePickers[system.id][0].toString();
@@ -117,15 +112,14 @@ export class DataSourceGuideSetListComponent implements OnInit,OnDestroy {
   }
 
   private updateDataSource(system: System): void {
-    this.systemService.saveGuideSet(system,system.guideSet)
+    this.systemService.saveGuideSet(system, system.guideSet)
       .subscribe(
-        (result)=> {
+        (result) => {
           M.toast({html: 'Guide set saved!'});
         },
         (error) => {
           console.log(error);
         }
-      )
-
-  }  
+      );
+  }
 }

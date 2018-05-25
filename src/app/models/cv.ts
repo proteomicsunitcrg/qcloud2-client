@@ -9,7 +9,7 @@ export class CV {
     enabled: boolean;
 
 
-    constructor(id: number,name:string, category: Category, definition: string, cv_id: string, enabled: boolean) {
+    constructor(id: number, name: string, category: Category, definition: string, cv_id: string, enabled: boolean) {
         this.id = id;
         this.name = name;
         this.category = category;

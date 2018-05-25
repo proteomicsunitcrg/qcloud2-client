@@ -22,18 +22,17 @@ export class SampleTypeCategoryService {
 
   /**
    * Save the provided sample type category into the database
-   * @param sampleTypeCategory 
+   * @param sampleTypeCategory
    */
   public saveSampleTypeCategory(sampleTypeCategory: SampleTypeCategory): Observable<HttpResponse<any>> {
     const json = JSON.stringify(sampleTypeCategory);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleTypeCategory>(this.sampleTypeCategoryUrl,params, {headers: headers, observe: 'response'});
+    return this.httpClient.post<SampleTypeCategory>(this.sampleTypeCategoryUrl, params, {headers: headers, observe: 'response'});
   }
 
-  public getSampleTypeCategoryById(sampleTypeCategoryId: number) : Observable<SampleTypeCategory> {
-    return this.httpClient.get<SampleTypeCategory>(this.sampleTypeCategoryUrl+'/'+sampleTypeCategoryId);
+  public getSampleTypeCategoryById(sampleTypeCategoryId: number): Observable<SampleTypeCategory> {
+    return this.httpClient.get<SampleTypeCategory>(this.sampleTypeCategoryUrl + '/' + sampleTypeCategoryId);
   }
-
 
 }

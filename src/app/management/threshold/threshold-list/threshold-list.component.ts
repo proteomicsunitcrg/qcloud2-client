@@ -27,7 +27,7 @@ export class ThresholdListComponent implements OnInit {
         (labSystems) => {
           this.loadThresholds(labSystems);
         }, err => console.log(err)
-      )
+      );
   }
 
   private loadThresholds(labSystems: System[]): void {
@@ -36,7 +36,7 @@ export class ThresholdListComponent implements OnInit {
         this.thresholdService.getAllThresholdsBySystem(labSystem)
           .subscribe(
             (thresholds) => {
-              let thresholdList: Threshold[] = [];
+              const thresholdList: Threshold[] = [];
               thresholds.forEach(
                 (threshold) => {
                   /**
@@ -48,32 +48,31 @@ export class ThresholdListComponent implements OnInit {
                    * Adding global values in case of global
                    * step value and global initial value
                    * I am picking the first value of the params array
-                   * because it should be the same in every param as it 
+                   * because it should be the same in every param as it
                    * is configured as global values
                    */
-                  if(threshold['managerThresholdConstraint'].globalInitialValue) {
+                  if (threshold['managerThresholdConstraint'].globalInitialValue) {
                     threshold['globalInitialValue'] = threshold['thresholdParams'][0].initialValue;
                   }
-                  if(threshold['managerThresholdConstraint'].globalStepValue) {
+                  if (threshold['managerThresholdConstraint'].globalStepValue) {
                     threshold['globalStepValue'] = threshold['thresholdParams'][0].stepValue;
                   }
                   thresholdList.push(threshold);
                 }
-              )              
+              );
               this.labSystemThresholds.push({
                 labSystem: labSystem,
                 thresholds: thresholdList
-              })
-              
+              });
             }, err => console.log(err),
             () => console.log(this.labSystemThresholds)
-          )
+          );
       }
-    )
+    );
   }
   /**
    * Toggle the selected threshold monitoring on/off
-   * @param cv 
+   * @param cv
    */
   changeStatus(threshold: Threshold) {
     this.thresholdService.changeEnabled(threshold.id)
@@ -84,15 +83,15 @@ export class ThresholdListComponent implements OnInit {
         },
         (err) => {
           // show modal
-          this.modalService.openModal(new Modal('Error',err.error.message,
-        'Ok',null,'switchMonitoring',null));
+          this.modalService.openModal(new Modal('Error', err.error.message,
+        'Ok', null, 'switchMonitoring', null));
         }
-      )
+      );
   }
 
   editThreshold(threshold: Threshold): void {
     threshold['edditing'] = !threshold['edditing'];
-    delay(1).then(()=>M.updateTextFields());
+    delay(1).then(() => M.updateTextFields());
   }
 
   saveThresholdParams(threshold: Threshold): void {
@@ -101,17 +100,14 @@ export class ThresholdListComponent implements OnInit {
         param['initialValue'] = threshold['globalInitialValue'];
         param['stepValue'] = threshold['globalStepValue'];
       }
-    )
+    );
     threshold['edditing'] = !threshold['edditing'];
     console.log(threshold);
-    this.thresholdService.updateThresholdParams(threshold.id,threshold['thresholdParams'])
+    this.thresholdService.updateThresholdParams(threshold.id, threshold['thresholdParams'])
       .subscribe(
-        (res)=> console.log(res),
-        (err)=> console.log(err)
-      )
-    
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
   }
-
-
 
 }

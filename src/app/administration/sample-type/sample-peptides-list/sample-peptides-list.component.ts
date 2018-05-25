@@ -10,11 +10,11 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './sample-peptides-list.component.html',
   styleUrls: ['./sample-peptides-list.component.css']
 })
-export class SamplePeptidesListComponent implements OnInit,OnDestroy {
+export class SamplePeptidesListComponent implements OnInit, OnDestroy {
 
   constructor(private sampleCompositionService: SampleCompositionService) { }
 
-  peptides: Peptide[]=[];
+  peptides: Peptide[] = [];
 
   currentSampleType$: Subscription;
 
@@ -32,12 +32,12 @@ export class SamplePeptidesListComponent implements OnInit,OnDestroy {
   private changeListBySampleType(sampleType: SampleType): void {
     this.sampleCompositionService.getAllPeptidesBySampleType(sampleType).subscribe(
       (peptides) => this.loadPeptidesList(peptides)
-    )
+    );
   }
 
   private loadPeptidesList(peptides: Peptide[]): void {
     this.peptides = [];
-    peptides.forEach(peptide=> this.peptides.push(peptide));
+    peptides.forEach(peptide => this.peptides.push(peptide));
   }
 
 

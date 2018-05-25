@@ -21,7 +21,7 @@ export class AuthService {
   private apiPrefix = environment.apiPrefix;
 
   public login(email: string, password: string) {
-    return this.http.post<any>(this.apiPrefix+'api/auth', {username: email, password: password}, {observe: 'response'});
+    return this.http.post<any>(this.apiPrefix + 'api/auth', {username: email, password: password}, {observe: 'response'});
   }
 
 
@@ -53,22 +53,22 @@ export class AuthService {
     return moment(parseInt(expiresAt, 10));
   }
 
-  public testCredentials() {    
+  public testCredentials() {
     return this.http.get<any>('/api/nodes');
   }
 
   public checkRole(role: string): boolean {
-    const authorities = this.jwtHelper.decodeToken(localStorage.getItem('id_token'))['authorities'];    
+    const authorities = this.jwtHelper.decodeToken(localStorage.getItem('id_token'))['authorities'];
     let hasRole = false;
     authorities.forEach(element => {
-      if(element.authority===role) {        
+      if (element.authority === role) {
         hasRole = true;
       }
-    });    
+    });
     return hasRole;
   }
 
-  public getUsername() : string {
+  public getUsername(): string {
     const username = this.jwtHelper.decodeToken(localStorage.getItem('id_token'))['sub'];
     return username;
   }
@@ -77,10 +77,10 @@ export class AuthService {
     const authorities = this.jwtHelper.decodeToken(localStorage.getItem('id_token'))['authorities'];
     let admin = false;
     authorities.forEach(element => {
-      if(element.authority==='ROLE_ADMIN') {        
+      if (element.authority === 'ROLE_ADMIN') {
         admin = true;
       }
-    });    
+    });
     return admin;
   }
 }

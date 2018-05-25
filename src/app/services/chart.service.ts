@@ -15,7 +15,7 @@ export class ChartService {
 
   private apiPrefix = environment.apiPrefix;
 
-  chartUrl= this.apiPrefix+'api/chart';
+  chartUrl = this.apiPrefix + 'api/chart';
 
   /**
    * This observable is for change the tab
@@ -34,7 +34,7 @@ export class ChartService {
     const json = JSON.stringify(chart);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
+    return this.httpClient.post<Chart>(this.chartUrl, params, {headers: headers});
   }
   /**
    * Save or update a chart into the database
@@ -45,10 +45,10 @@ export class ChartService {
     const json = JSON.stringify(chart);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    if(update) {
-      return this.httpClient.put<Chart>(this.chartUrl,params,{headers: headers});
-    }else {
-      return this.httpClient.post<Chart>(this.chartUrl,params,{headers: headers});
+    if (update) {
+      return this.httpClient.put<Chart>(this.chartUrl, params, {headers: headers});
+    } else {
+      return this.httpClient.post<Chart>(this.chartUrl, params, {headers: headers});
     }
   }
   /**
@@ -61,14 +61,13 @@ export class ChartService {
     const json = JSON.stringify(chartParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    if(update) {      
-      return this.httpClient.put<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
-    }else {
-      return this.httpClient.post<ChartParam[]>(this.chartUrl+'/'+chart.id,params,{headers: headers});
+    if (update) {
+      return this.httpClient.put<ChartParam[]>(this.chartUrl + '/' + chart.id, params, { headers: headers});
+    } else {
+      return this.httpClient.post<ChartParam[]>(this.chartUrl + '/' + chart.id, params, { headers: headers});
     }
-    
-    
   }
+
   /**
    * Get all charts
    */
@@ -79,15 +78,13 @@ export class ChartService {
    * Get all the charts by cv
    * @param cv cv of the charts to retrieve
    */
-  public getChartsByCV(cv: CV): Observable<Chart[]> {    
-    return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id);
+  public getChartsByCV(cv: CV): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.id);
   }
 
   public getChartsByCVAndSampleTypeCategoryId(cv: CV, sampleTypeCategoryId: number): Observable<Chart[]> {
-    return this.httpClient.get<Chart[]>(this.chartUrl+'/cv/'+cv.id+'/category/'+sampleTypeCategoryId);
+    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.id + '/category/' + sampleTypeCategoryId);
   }
-
-
 
   /**
    * Used for switch between tabs
@@ -98,7 +95,7 @@ export class ChartService {
   }
   /**
    * Send a chart
-   * @param chart 
+   * @param chart
    */
   public sendChartToEdit(chart: Chart): void {
     this.chartToEdit.next(chart);

@@ -4,18 +4,17 @@ import { MainWindowComponent } from '../main-window/main-window.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../../role-guard.service';
+// tslint:disable-next-line:max-line-length
 import { DataVisualizationMainWindowComponent} from '../data-visualization/data-visualization-main-window/data-visualization-main-window.component';
 import { WelcomeComponent } from '../layout/welcome/welcome.component';
 const routes: Routes = [
-  // { path: 'text', component: TextComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}}
-  { path: '', component: MainWindowComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
+  { path: '', component: MainWindowComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
   children: [
-    {path:'view/:type/:apiKey', component: DataVisualizationMainWindowComponent},
-    {path:'', component: WelcomeComponent},
-    {path:'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},
-    {path:'management', loadChildren: '../../management/management.module#ManagementModule'},
+    {path: 'view/:type/:apiKey', component: DataVisualizationMainWindowComponent},
+    {path: '', component: WelcomeComponent},
+    {path: 'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},
+    {path: 'management', loadChildren: '../../management/management.module#ManagementModule'},
   ]},
-  
 ];
 
 @NgModule({

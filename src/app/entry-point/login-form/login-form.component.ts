@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(this.username, this.password)
       .subscribe(
       (res) => {
-        this.authService.setSession(res);        
+        this.authService.setSession(res);
         this.router.navigate(['application']);
       },
       (error) => {

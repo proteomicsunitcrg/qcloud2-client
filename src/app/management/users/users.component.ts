@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -21,18 +20,17 @@ declare var M: any;
 export class UsersComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
-  
   /**
    * This is for restore pristine after the form submit
    */
-  @ViewChild("firstnameBox") firstnameBox;
-  @ViewChild("lastnameBox") lastnameBox;
-  @ViewChild("emailBox") emailBox;
+  @ViewChild('firstnameBox') firstnameBox;
+  @ViewChild('lastnameBox') lastnameBox;
+  @ViewChild('emailBox') emailBox;
 
   constructor(private userService: UserService,
     private modalService: ModalService,
     private authService: AuthService) { }
-    
+
   userList = [];
 
   private loggedUser;
@@ -40,7 +38,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   user: User = new User('', '', '', '', '', '');
 
   ngOnInit() {
-    var inputs = Array.from(document.querySelectorAll('select'));
+    const inputs = Array.from(document.querySelectorAll('select'));
     inputs.forEach(function (select) {
       M.Select.init(select);
     });
@@ -70,12 +68,12 @@ export class UsersComponent implements OnInit, OnDestroy {
       (error) => {
         this.showModalByError(error);
       }
-    )
+    );
   }
 
   deleteMember(user: User) {
     this.modalService.openModal(new Modal('Delete user',
-      'Are you sure?', 'Yes', 'No', 'deleteMember',user));
+      'Are you sure?', 'Yes', 'No', 'deleteMember', user));
   }
 
   private deleteMemberFromDatabase(user: User) {
@@ -86,23 +84,23 @@ export class UsersComponent implements OnInit, OnDestroy {
       (error) => {
         this.showModalByError(error);
       }
-    )
+    );
   }
 
   onSubmit(): void {
     this.user.username = this.user.email;
-    this.firstnameBox.nativeElement.classList.remove("valid");
-    this.lastnameBox.nativeElement.classList.remove("valid");
-    this.emailBox.nativeElement.classList.remove("valid");
+    this.firstnameBox.nativeElement.classList.remove('valid');
+    this.lastnameBox.nativeElement.classList.remove('valid');
+    this.emailBox.nativeElement.classList.remove('valid');
     this.userService.addLabMemberToNode(this.user).subscribe(
-      (result) => {        
-        this.parseUsersFromDb(result['body']);        
+      (result) => {
+        this.parseUsersFromDb(result['body']);
       },
       (error) => {
         this.showModalByError(error);
 
       }
-    )
+    );
   }
   private parseUsersFromDb(userArray: User[]) {
     this.userList = [];
@@ -114,38 +112,38 @@ export class UsersComponent implements OnInit, OnDestroy {
             role = 'Manager';
           }
         }
-      )
+      );
       user.role = role;
-      this.userList.push(user)
+      this.userList.push(user);
     }
     );
   }
 
   private showModalByError(error: HttpErrorResponse) {
-    let errorCode = error.error.status;
+    const errorCode = error.error.status;
     switch (errorCode) {
       case 409:
         this.modalService.openModal(new Modal(error.error.error,
-          error.error.message, 'Ok', '', 'addnewmember',null));
+          error.error.message, 'Ok', '', 'addnewmember', null));
         break;
       default:
       this.modalService.openModal(new Modal('Server error',
-          'There is a problem with the server. Try again later.', 'Ok', '', 'addnewmember',null));
+          'There is a problem with the server. Try again later.', 'Ok', '', 'addnewmember', null));
         break;
     }
 
   }
 
-  private formAction(action: ModalResponse) : void {    
-    switch(action.modalAction) {
-      case 'addnewmember': 
-        
+  private formAction(action: ModalResponse): void {
+    switch (action.modalAction) {
+      case 'addnewmember':
+
         break;
       case 'deleteMember':
-        if(action.userAction==='accept') {
+        if (action.userAction === 'accept') {
           this.deleteMemberFromDatabase(action.objectInstance);
-        }else{
-          
+        } else {
+
         }
         break;
       default:

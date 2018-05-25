@@ -11,8 +11,8 @@ export class SampleTypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private apiPrefix = environment.apiPrefix;  
-  sampleTypesUrl= this.apiPrefix+'api/sample';
+  private apiPrefix = environment.apiPrefix;
+  sampleTypesUrl = this.apiPrefix + 'api/sample';
 
   /**
    * This observable is for add new sampletypes to the list
@@ -34,9 +34,9 @@ export class SampleTypeService {
 
   public addSampleType(sampleType: SampleType): Observable<SampleType> {
     const json = JSON.stringify(sampleType);
-    const params = json;    
+    const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleType>(this.sampleTypesUrl+'/'+sampleType.sampleTypeCategory.id,params, {headers: headers});
+    return this.httpClient.post<SampleType>(this.sampleTypesUrl + '/' + sampleType.sampleTypeCategory.id, params, {headers: headers});
   }
 
   public sendNewSampleTypeToList(sampleType: SampleType): void {
@@ -47,9 +47,9 @@ export class SampleTypeService {
     this.selectedSampleType.next(sampleType);
   }
 
-  public makeMainSampleType(sampleTypeCategoryId: number, sampleTypeId:number): Observable<any> {
+  public makeMainSampleType(sampleTypeCategoryId: number, sampleTypeId: number): Observable<any> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put(this.sampleTypesUrl+'/makemain/'+sampleTypeCategoryId+'/'+sampleTypeId,null,{headers:headers});
+    return this.httpClient.put(this.sampleTypesUrl + '/makemain/' + sampleTypeCategoryId + '/' + sampleTypeId, null, {headers: headers});
   }
 
 }

@@ -23,14 +23,14 @@ export class ParametersService {
    */
   private selectedParameter = new Subject<Param>();
   selectedParameter$ = this.selectedParameter.asObservable();
-  
+
   constructor(private httpClient: HttpClient) { }
 
   public addNewParam(param: Param): Observable<Param> {
     const json = JSON.stringify(param);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Param>(this.parameterUrl,params,{headers: headers});
+    return this.httpClient.post<Param>(this.parameterUrl, params, {headers: headers});
   }
 
   public getAllParams(): Observable<Param[]> {
@@ -41,15 +41,15 @@ export class ParametersService {
     this.newParameter.next(param);
   }
 
-  public updateParameter(param: Param) : Observable<Param> {
+  public updateParameter(param: Param): Observable<Param> {
     const json = JSON.stringify(param);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Param>(this.parameterUrl,params,{headers: headers});
+    return this.httpClient.put<Param>(this.parameterUrl, params, {headers: headers});
   }
 
   public getTypeList(): Observable<String[]> {
-    return this.httpClient.get<String[]>(this.parameterUrl+'/types');
+    return this.httpClient.get<String[]>(this.parameterUrl + '/types');
   }
 
   public sendParamToContextSourceSelector(param: Param): void {
@@ -57,7 +57,7 @@ export class ParametersService {
   }
 
   public getProcessors(): Observable<String[]> {
-    return this.httpClient.get<String[]>(this.parameterUrl+'/processors');
+    return this.httpClient.get<String[]>(this.parameterUrl + '/processors');
   }
 
 }

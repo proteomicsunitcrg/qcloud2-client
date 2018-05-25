@@ -14,9 +14,9 @@ export class DataVisualizationSideMenuComponent implements OnInit {
     private dataService: DataService) { }
 
   datesArray: string[] = [];
-  cosa: string = 'cosa';
+  cosa = 'cosa';
 
-  datePickers: any[]=[];
+  datePickers: any[] = [];
 
   ngOnInit() {
     this.loadDatesArray();
@@ -25,16 +25,16 @@ export class DataVisualizationSideMenuComponent implements OnInit {
   }
 
   private enableDatePickers(): void {
-    let datePickers = document.getElementsByClassName('datepicker');
+    const datePickers = document.getElementsByClassName('datepicker');
 
-    for (var i = 0; i < datePickers.length; i++) {
-      let options = {
+    for ( let i = 0; i < datePickers.length; i++) {
+      const options = {
         format: 'yyyy-mm-dd',
         firstDay: 1,
         defaultDate: new Date(this.datesArray[i]),
         setDefaultDate: true
-      }
-      let instance = M.Datepicker.init(datePickers[i], options);
+      };
+      const instance = M.Datepicker.init(datePickers[i], options);
       this.datePickers.push(instance);
     }
 
@@ -42,8 +42,8 @@ export class DataVisualizationSideMenuComponent implements OnInit {
   }
 
   private loadDatesArray(): void {
-    var today = moment().format('YYYY-MM-DD');
-    var monthAgo = moment().subtract(8, 'week').format('YYYY-MM-DD');
+    const today = moment().format('YYYY-MM-DD');
+    const monthAgo = moment().subtract(8, 'week').format('YYYY-MM-DD');
     this.datesArray[0] = monthAgo;
     this.datesArray[1] = today;
     this.sendDates(this.datesArray);
@@ -53,10 +53,9 @@ export class DataVisualizationSideMenuComponent implements OnInit {
   }
 
   search(): void {
-    let startDate = this.datePickers[0].toString();
-    let endDate = this.datePickers[1].toString();
-    
-    this.dataService.selectDates([startDate,endDate]);
+    const startDate = this.datePickers[0].toString();
+    const endDate = this.datePickers[1].toString();
+    this.dataService.selectDates([startDate, endDate]);
   }
 
 }

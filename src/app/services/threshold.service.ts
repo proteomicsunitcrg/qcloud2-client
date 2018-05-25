@@ -22,52 +22,52 @@ export class ThresholdService {
   }
 
   public getAllThresholdTypes(): Observable<string[]> {
-    return this.httpClient.get<string[]>(this.thresholdUrl+'/types');
+    return this.httpClient.get<string[]>(this.thresholdUrl + '/types');
   }
 
   public getAllThresholdDirections(): Observable<string[]> {
-    return this.httpClient.get<string[]>(this.thresholdUrl+'/directions');
+    return this.httpClient.get<string[]>(this.thresholdUrl + '/directions');
   }
 
   public saveThreshold(threshold: Threshold): Observable<any> {
     const json = JSON.stringify(threshold);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Threshold>(this.thresholdUrl+'/'+threshold.thresholdType,params,{headers:headers});
+    return this.httpClient.post<Threshold>(this.thresholdUrl + '/' + threshold.thresholdType, params, {headers: headers});
   }
 
   public saveThresholdParams(thresholdParams: ThresholdParam[]): Observable<any> {
     const json = JSON.stringify(thresholdParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl+'/params',params,{headers:headers});
+    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl + '/params', params, {headers: headers});
   }
 
   public getThresholdConstraints(thresholdType: string): Observable<ThresholdConstraint> {
-    return this.httpClient.get<ThresholdConstraint>(this.thresholdUrl+'/constraints/admin/'+thresholdType);
+    return this.httpClient.get<ThresholdConstraint>(this.thresholdUrl + '/constraints/admin/' + thresholdType);
   }
 
   public getPlotThreshold(chart: Chart, system: System): Observable<PlotThreshold> {
-    return this.httpClient.get<PlotThreshold>(this.thresholdUrl+'/plot/'+chart.id+'/'+system.id);
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/plot/' + chart.id + '/' + system.id);
   }
 
   public getUserThresholds(): Observable<Threshold[]> {
-    return this.httpClient.get<Threshold[]>(this.thresholdUrl+'/node');
+    return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node');
   }
 
   public getAllThresholdsBySystem(labSystem: System): Observable<Threshold[]> {
-    return this.httpClient.get<Threshold[]>(this.thresholdUrl+'/node/'+labSystem.apiKey);
+    return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node/' + labSystem.apiKey);
   }
 
   public changeEnabled(thresholdId: number): Observable<any> {
-    return this.httpClient.put<number>(this.thresholdUrl+'/switchmonitor/'+thresholdId,{},{observe:'response'});
+    return this.httpClient.put<number>(this.thresholdUrl + '/switchmonitor/' + thresholdId, {}, { observe: 'response'});
   }
 
-  public updateThresholdParams(thresholdId:number, thresholdParams: ThresholdParam[]): Observable<any> {
+  public updateThresholdParams(thresholdId: number, thresholdParams: ThresholdParam[]): Observable<any> {
     const json = JSON.stringify(thresholdParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<number>(this.thresholdUrl+'/'+thresholdId,params,{headers:headers,observe:'response'});
+    return this.httpClient.put<number>(this.thresholdUrl + '/' + thresholdId, params, {headers: headers, observe: 'response'});
   }
 
 }

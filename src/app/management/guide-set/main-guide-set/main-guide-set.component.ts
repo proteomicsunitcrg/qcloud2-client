@@ -12,7 +12,7 @@ export class MainGuideSetComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }

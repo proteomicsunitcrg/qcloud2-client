@@ -13,7 +13,7 @@ import { ModalModuleModule } from './modal-module/modal-module.module';
 import { ModalService } from './common/modal.service';
 
 /**
- * This are for the authentication with 
+ * This are for the authentication with
  * JWT.
  */
 import { AuthService } from './auth.service';

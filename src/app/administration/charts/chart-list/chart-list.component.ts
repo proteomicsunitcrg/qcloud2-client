@@ -45,7 +45,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
         () => {
           this.loadAllCharts();
         }
-      )
+      );
   }
   /**
    * Get all charts from the database
@@ -56,7 +56,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
         (charts) => {
           this.loadChartsIntoList(charts);
         }
-      )
+      );
   }
   /**
    * Load the charts by cv
@@ -68,7 +68,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
         (charts) => {
           this.loadChartsIntoList(charts);
         }
-      )
+      );
   }
 
   /**
@@ -78,11 +78,11 @@ export class ChartListComponent implements OnInit, OnDestroy {
   private subscribeToCVChange(): void {
     this.selectedChartCv$ = this.cvService.selectedChartCv$
       .subscribe(
-        (cv)=> {
+        (cv) => {
           // show only charts by cv
           this.loadChartsByCV(cv);
         }
-      )
+      );
   }
 
   private loadChartsIntoList(charts: Chart[]): void {
@@ -102,7 +102,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
 
   onIsThresholdChange(chart: Chart): void {
     // update chart
-    this.chartService.chartToDatabase(chart,true)
+    this.chartService.chartToDatabase(chart, true)
       .subscribe(
         (res) => {
           M.toast({
@@ -110,6 +110,6 @@ export class ChartListComponent implements OnInit, OnDestroy {
           });
         },
         err => console.log(err)
-      )
+      );
   }
 }

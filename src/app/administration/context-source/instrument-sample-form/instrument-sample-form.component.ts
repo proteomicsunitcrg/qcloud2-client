@@ -29,7 +29,7 @@ export class InstrumentSampleFormComponent implements OnInit {
 
 
 
-  ngOnInit() {    
+  ngOnInit() {
 
   }
 
@@ -44,9 +44,6 @@ export class InstrumentSampleFormComponent implements OnInit {
         this.instrumentSampleService.sendInstrumentSampleToList(result);
       },
       (error) => console.log(error)
-    )
-
-    
-
+    );
   }
 }

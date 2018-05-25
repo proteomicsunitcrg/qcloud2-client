@@ -8,7 +8,7 @@ export class ViewDisplay {
     row: number;
     col: number;
 
-    constructor(id:number,chart: Chart, view: View, row: number, col: number) {
+    constructor(id: number, chart: Chart, view: View, row: number, col: number) {
         this.id = id;
         this.chart = chart;
         this.view = view;

@@ -40,7 +40,7 @@ export class ModalService {
   }
 
 
-  openModal(modal: Modal): void {    
+  openModal(modal: Modal): void {
     this.modalSource.next(modal);
   }
 

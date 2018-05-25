@@ -28,14 +28,13 @@ export class SampleTypeListComponent implements OnInit {
   private loadSampleTypeCategories(): void {
     this.sampleTypeCategoryService.findAll()
       .subscribe(
-        (categories)=> {
+        (categories) => {
           this.sampleTypeCategories = categories;
         }
-      )
+      );
   }
 
   private addNewSampleTypeToList(sampleType: SampleType): void {
-    
     this.sampleTypes.push(sampleType);
   }
 
@@ -43,15 +42,14 @@ export class SampleTypeListComponent implements OnInit {
     this.sampleCompositionService.sendSampleTypeToList(sampleType);
   }
 
-  doMakeDefault(sampleTypeCategory: SampleTypeCategory,sampleType: SampleType): void {
-    this.sampleTypeService.makeMainSampleType(sampleTypeCategory.id,sampleType.id)
+  doMakeDefault(sampleTypeCategory: SampleTypeCategory, sampleType: SampleType): void {
+    this.sampleTypeService.makeMainSampleType(sampleTypeCategory.id, sampleType.id)
       .subscribe(
         () => {
           this.loadSampleTypeCategories();
         },
         err => console.log(err)
-      )
-    
+      );
   }
 
 }

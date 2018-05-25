@@ -33,10 +33,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layout: any;
 
-  // thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
-  thresholdColors = ['#a9dbed','#60c3e8','#056487'];
+  thresholdColors = ['#a9dbed', '#60c3e8', '#056487'];
   layoutShapes = [];
-  // dataForPlot = [];
 
   plotThreshold: PlotThreshold;
 
@@ -60,8 +58,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private loadData(): void {
     this.loading = false;
-    let datesArray = [];
-    let dataArray = [];
+    const datesArray = [];
+    const dataArray = [];
     this.dataService.getPlotData(this.chart, this.system)
       .subscribe(
         (dataFromServer) => {
@@ -69,12 +67,12 @@ export class PlotComponent implements OnInit, OnDestroy {
             datesArray.push(key);
             Object.keys(dataFromServer[key]).forEach(
               (element) => {
-                if (dataArray[element] == undefined) {
+                if (dataArray[element] === undefined) {
                   dataArray[element] = [];
                 }
                 dataArray[element].push(dataFromServer[key][element]);
               }
-            )
+            );
           });
         }, (e) => {
           this.loadErrorPlot(e);
@@ -82,32 +80,32 @@ export class PlotComponent implements OnInit, OnDestroy {
         () => {
           this.loadPlot(datesArray, dataArray);
         }
-      )
+      );
   }
 
   private loadThreshold(): void {
     this.thresholdService.getPlotThreshold(this.chart, this.system)
       .subscribe((threshold) => {
-        if (threshold != null) {          
-          if(threshold.monitored) {
+        if (threshold != null) {
+          if (threshold.monitored) {
             this.drawThreshold(threshold);
             this.plotThreshold = threshold;
-          }else {
+          } else {
             this.loadData();
           }
         } else {
           this.loadData();
         }
       },
-        err => console.log(err))
+        err => console.log(err));
   }
 
   private drawThreshold(threshold: PlotThreshold): void {
     threshold.thresholdParams.forEach(
       (thresholdParam) => {
-        for (let i = 0; i < threshold.steps; i++) {          
-          let value = thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue);
-          let shape = {
+        for (let i = 0; i < threshold.steps; i++) {
+          const value = thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue);
+          const shape = {
             type: 'rect',
             x0: 0,
             x1: 1,
@@ -121,11 +119,11 @@ export class PlotComponent implements OnInit, OnDestroy {
               width: 0
             },
             layer: 'below'
-          };          
-          this.layoutShapes.push(shape);          
+          };
+          this.layoutShapes.push(shape);
         }
       }
-    )
+    );
     this.loadData();
   }
 
@@ -137,29 +135,29 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadPlot(datesArray, dataArray): void {
-    let minValues = [];
-    let maxValues = [];
+    const minValues = [];
+    const maxValues = [];
 
-    let dataForPlot = [];
+    const dataForPlot = [];
     let traceIndex = 0;
-    for (let key in dataArray) {
+    for (const key in dataArray) {
       if (key === 'filename') {
         continue;
       }
-      let values = [];
+      const values = [];
 
-      let colorsForLine = [];
+      const colorsForLine = [];
 
       dataArray[key].forEach(
         (element, index) => {
-          values.push(element);          
-          colorsForLine[index]=this.calculatePointColor(key, element, traceIndex);
+          values.push(element);
+          colorsForLine[index] = this.calculatePointColor(key, element, traceIndex);
         }
       );
-      minValues.push(Math.min.apply(null,values.filter((n) => {return !isNaN(n)})));
-      maxValues.push(Math.max.apply(null,values.filter((n) => {return !isNaN(n)})));
+      minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
+      maxValues.push(Math.max.apply(null, values.filter((n) => !isNaN(n))));
 
-      var trace = {
+      const trace = {
         x: datesArray,
         y: values,
         type: 'scatter',
@@ -169,7 +167,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           size: 5
         },
         line: {
-          //color: colorsForLine,          
+          // color: colorsForLine,
         },
         connectgaps: false,
         name: key,
@@ -177,13 +175,13 @@ export class PlotComponent implements OnInit, OnDestroy {
         filenames: dataArray['filename'],
         hoverinfo: 'y+x+text',
         hovertext: dataArray['filename']
-      }
+      };
       dataForPlot.push(trace);
       traceIndex++;
     }
 
-    const MINVALUEFORPLOT = Math.min.apply(null,minValues) - Math.abs((Math.min.apply(null,minValues)*0.1));
-    const MAXVALUEFORPLOT = Math.max.apply(null,maxValues)+(Math.max.apply(null,maxValues)*0.1);
+    const MINVALUEFORPLOT = Math.min.apply(null, minValues) - Math.abs((Math.min.apply(null, minValues) * 0.1));
+    const MAXVALUEFORPLOT = Math.max.apply(null, maxValues) + (Math.max.apply(null, maxValues) * 0.1);
 
     this.layout = {
       title: this.chart.name,
@@ -195,7 +193,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       },
       yaxis: {
         type: 'linear',
-        range: [MINVALUEFORPLOT,MAXVALUEFORPLOT]
+        range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
       },
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
@@ -206,31 +204,32 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private calculatePointColor(key: string, value: number, traceIndex: number): string {
     // check if threshold exists
-    if (this.plotThreshold != undefined) {
-      let thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th=> th.contextSource.name == key);
-      if(thresholdParam.length>0) {
-        switch(this.plotThreshold.nonConformityDirection) {
+    if (this.plotThreshold !== undefined) {
+      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.name === key);
+      if (thresholdParam.length > 0) {
+        switch (this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
             // taking care if the steps is 1
-            if(this.layoutShapes.length>1) {
-              if(value<this.layoutShapes[this.layoutShapes.length-1].y1) {
+            if (this.layoutShapes.length > 1) {
+              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
                 return 'red';
-              }else if (value >this.layoutShapes[this.layoutShapes.length-1].y1 && value <this.layoutShapes[this.layoutShapes.length-2].y1){
+              } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
+                && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
                 return 'yellow';
-              }else {
+              } else {
                 return traceColor.colorRange[traceIndex];
               }
-            }else {
-              if(value<this.layoutShapes[this.layoutShapes.length-1].y1) { 
+            } else {
+              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
                 return 'red';
-              }else {
+              } else {
                 return traceColor.colorRange[traceIndex];
               }
             }
           case 'UPDOWN':
-            if(value>this.layoutShapes[this.layoutShapes.length-1].y0 ||value<this.layoutShapes[this.layoutShapes.length-1].y1 ) {
+            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1 ) {
               return 'red';
-            }else {
+            } else {
               return traceColor.colorRange[traceIndex];
             }
 
@@ -240,7 +239,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       }
     } else {
       return traceColor.colorRange[traceIndex];
-      
     }
   }
 
@@ -256,9 +254,9 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.currentDates = dates;
           // reload the plot...
           this.loadData();
-          //this.loadThreshold();
+          // this.loadThreshold();
         }
-      )
+      );
   }
 
 }

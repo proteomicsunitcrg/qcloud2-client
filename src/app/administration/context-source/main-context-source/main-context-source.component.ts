@@ -14,9 +14,8 @@ export class MainContextSourceComponent implements OnInit {
 
   constructor(private sampleTypeService: SampleTypeService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     const elem = document.getElementById('tabs');
-    let instance = M.Tabs.init(elem);
+    const instance = M.Tabs.init(elem);
   }
-
 }

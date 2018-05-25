@@ -27,8 +27,8 @@ export class MainThresholdComponent implements OnInit {
     {
       name: 'builder',
     }
-  ]
-  
+  ];
+
   ngOnInit() {
     this.newThreshold = false;
     this.isCVSelected = false;
@@ -43,21 +43,20 @@ export class MainThresholdComponent implements OnInit {
   openBuilder(cv: CV): void {
     this.selectedCV = cv;
     this.isCVSelected = true;
-    //this.thresholdNav.push('builder');
     this.thresholdNav.push(this.cosa[1]);
   }
 
-  closeThreshold(condition : boolean): void {
+  closeThreshold(condition: boolean): void {
     this.newThreshold = false;
     this.isCVSelected = false;
     this.thresholdNav = [];
   }
 
   doBreadClick(nav: number): void {
-    if(nav+1 !== this.thresholdNav.length) {
+    if (nav + 1 !== this.thresholdNav.length) {
       this.thresholdNav.pop();
       this.isCVSelected = false;
-      this.selectedCV = null;      
+      this.selectedCV = null;
     }
   }
 

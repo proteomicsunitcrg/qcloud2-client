@@ -12,12 +12,11 @@ import { MainSampleTypeComponent } from '../sample-type/main-sample-type/main-sa
 import { MainChartComponent } from '../charts/main-chart/main-chart.component';
 import { MainDefaultViewComponent } from '../default-view/main-default-view/main-default-view.component';
 import { DefaultViewGeneratorComponent } from '../default-view/default-view-generator/default-view-generator.component';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { SampleTypeCategoryComponent } from '../sample-type-category/sample-type-category.component';
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
 
 const routes: Routes = [
-  {path: '', component: MainComponent,canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
+  {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
   children: [
     { path: 'category', component: CategoryComponent},
     { path: 'cvs', component: MainCvComponent},
@@ -29,7 +28,7 @@ const routes: Routes = [
     { path: 'views/cv/:id', component: DefaultViewGeneratorComponent},
     { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent},
     { path: 'threshold', component: MainThresholdComponent},
-    { path: 'charts', component: MainChartComponent,    
+    { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}
       ]},
@@ -43,6 +42,5 @@ const routes: Routes = [
   ],
   declarations: [],
   providers: []
-  
 })
 export class AdministrationRouterModule { }

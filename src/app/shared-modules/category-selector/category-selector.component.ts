@@ -23,13 +23,13 @@ export class CategorySelectorComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(
-      (result)=> {        
+      (result) => {
         this.loadCategories(result);
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   changeSelection() {
@@ -38,18 +38,18 @@ export class CategorySelectorComponent implements OnInit {
 
   private enableSelect() {
     const elem = document.getElementById('select_categories');
-    let instance = M.FormSelect.init(elem, {});    
+    const instance = M.FormSelect.init(elem, {});
   }
 
   private loadCategories(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name,category.mainDataSource));
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
       }
     );
     this.selectedCategory = this.categories[0];
     this.categoryService.selectCategory(this.selectedCategory);
-    delay(100).then(()=> {      
+    delay(100).then(() => {
       this.enableSelect();
     });
   }

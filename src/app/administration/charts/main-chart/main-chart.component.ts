@@ -34,23 +34,23 @@ export class MainChartComponent implements OnInit, OnDestroy {
     this.resetComponent$.unsubscribe();
     this.selectedTab$.unsubscribe();
   }
-    
+
   private subscribeToReset(): void {
     this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          
+
         }
-      )
-  }  
+      );
+  }
 
   private subscribeToTabChange(): void {
     this.selectedTab$ = this.chartService.selectedTab$
-    .subscribe(
-      (tab) => {
-        this.instance.select(tab);
-      }
-    )
+      .subscribe(
+        (tab) => {
+          this.instance.select(tab);
+        }
+      );
   }
 
 }

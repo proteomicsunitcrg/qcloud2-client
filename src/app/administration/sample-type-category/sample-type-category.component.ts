@@ -16,7 +16,7 @@ export class SampleTypeCategoryComponent implements OnInit {
 
   sampleTypeCategories: SampleTypeCategory[] = [];
 
-  sampleTypeCategory: SampleTypeCategory = new SampleTypeCategory(null,null,null);
+  sampleTypeCategory: SampleTypeCategory = new SampleTypeCategory(null, null, null);
 
   ngOnInit() {
     this.loadSampleTypeCategories();
@@ -24,19 +24,19 @@ export class SampleTypeCategoryComponent implements OnInit {
 
   private loadSampleTypeCategories(): void {
     this.sampleTypeCategoryService.findAll()
-      .subscribe((res)=> {
+      .subscribe((res) => {
         this.sampleTypeCategories = [];
-        res.forEach(c=> this.sampleTypeCategories.push(c))
-      })
+        res.forEach(c => this.sampleTypeCategories.push(c));
+      });
   }
 
   onSubmit(): void {
     this.sampleTypeCategoryService.saveSampleTypeCategory(this.sampleTypeCategory)
-      .subscribe((res)=> { 
+      .subscribe((res) => {
         this.loadSampleTypeCategories();
       },
-      (error)=> {
-        this.modalService.openModal(new Modal('Error',error.error.message,'Ok',null,null,null));
+      (error) => {
+        this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, null, null));
       });
     }
 }

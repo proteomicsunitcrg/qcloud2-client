@@ -27,7 +27,7 @@ export class ParametersListComponent implements OnInit, OnDestroy {
       .subscribe(
         newParam => this.parameters.push(newParam),
         error => console.log(error)
-      )
+      );
   }
 
   ngOnDestroy() {
@@ -52,9 +52,9 @@ export class ParametersListComponent implements OnInit, OnDestroy {
         M.toast({html: 'Parameter saved!'});
       },
       (error) => {
-        
+        M.toast({html: 'There was an error!'});
       }
-    )
+    );
     this.stopEditing();
   }
 
@@ -67,12 +67,12 @@ export class ParametersListComponent implements OnInit, OnDestroy {
     this.paramService.getAllParams()
       .subscribe(
         (parameters) => {
-          parameters.forEach(parameter => this.parameters.push(parameter))
+          parameters.forEach(parameter => this.parameters.push(parameter));
         },
         (error) => {
           console.log(error);
         }
-      )
+      );
   }
 
 

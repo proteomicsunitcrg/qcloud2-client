@@ -28,7 +28,6 @@ export class ThresholdListComponent implements OnInit {
   @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit() {
-    
     this.getAllThresholds();
     this.showForm = false;
   }
@@ -37,15 +36,13 @@ export class ThresholdListComponent implements OnInit {
     this.thresholds = [];
     this.thresholdService.getAllThresholds()
       .subscribe(
-        (thresholds) => {          
+        (thresholds) => {
           this.thresholds = thresholds;
         }
-      )
+      );
   }
 
   openForm(event): void {
     this.openThreshold.emit('fale');
   }
-
-  
 }

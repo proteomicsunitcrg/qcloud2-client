@@ -5,7 +5,7 @@ export class Modal {
     modalNo: string;
     modalAction: string;
     objectInstance: any;
-    constructor(modalHeader: string, modalText: string, modalYes: string, modalNo: string, modalAction: string,objectInstance: any) {
+    constructor(modalHeader: string, modalText: string, modalYes: string, modalNo: string, modalAction: string, objectInstance: any) {
         this.modalHeader = modalHeader;
         this.modalText = modalText;
         this.modalYes = modalYes;

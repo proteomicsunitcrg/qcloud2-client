@@ -22,7 +22,7 @@ export class ViewListComponent implements OnInit, OnDestroy {
   cvFilter: string;
   showFilter: boolean;
 
-  selectedChartCv$: Subscription;  
+  selectedChartCv$: Subscription;
 
   ngOnInit() {
     // load views
@@ -38,11 +38,11 @@ export class ViewListComponent implements OnInit, OnDestroy {
     this.selectedChartCv$ = this.cvService.selectedChartCv$
       .subscribe(
         (cv) => {
-          this.showFilter= true;
+          this.showFilter = true;
           this.cvFilter = cv.name;
           this.loadDefaultViewsByCV(cv);
         }
-      )
+      );
   }
 
   private loadDefaultViewsByCV(cv: CV): void {
@@ -51,26 +51,25 @@ export class ViewListComponent implements OnInit, OnDestroy {
         (defaultViews) => {
           this.defaultViews = defaultViews;
         }
-      )
+      );
   }
 
   private loadDefaultViews(): void {
     this.viewService.getDefaultViews()
       .subscribe(
-        (defaultViews)=> {
+        (defaultViews) => {
           this.defaultViews = defaultViews;
         }
-      )
+      );
   }
 
   editView(view: View): void {
-    this.router.navigate(['/application/administration/views/cv',view.cv.cvid,view.sampleTypeCategory.id]);
+    this.router.navigate(['/application/administration/views/cv', view.cv.cvid, view.sampleTypeCategory.id]);
   }
 
   removeFilter(): void {
     this.showFilter = false;
     this.loadDefaultViews();
-    
   }
 
 }

@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './chart-cvs.component.html',
   styleUrls: ['./chart-cvs.component.css']
 })
-export class ChartCvsComponent implements OnInit,OnDestroy {
+export class ChartCvsComponent implements OnInit, OnDestroy {
 
   constructor(private categoryService: CategoryService,
     private cvService: CvService,
@@ -38,12 +38,12 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
 
   filter: CV = new CV(null, '', null, '', '', false);
 
-  showEnabledCvs: boolean = true;
+  showEnabledCvs = true;
 
   chartToEdit$: Subscription;
   resetComponent$: Subscription;
 
-  ngOnInit() {    
+  ngOnInit() {
     this.loadMainCVs();
     this.subscribeToChartEdition();
     this.subscribeToReset();
@@ -58,14 +58,14 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
     // get the main category
     this.categoryService.getMainCategory()
       .subscribe(
-        (mainCategory)=> {
+        (mainCategory) => {
           this.currentCategory = mainCategory;
           this.getCvListByCategoryFromServer(this.currentCategory);
         }
-      )
+      );
   }
   /**
-   * It listens to any request for edit an 
+   * It listens to any request for edit an
    * existing chart.
    * Please note that chart is not the same chartParam
    */
@@ -75,19 +75,19 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
         (chart) => {
           this.selectedCv = chart.cv;
         }
-      )
+      );
   }
   /**
    * It listen to the reset signal in order
    * to clean its selectors.
    */
   private subscribeToReset(): void {
-    this.resetComponent$ =this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           this.selectedCv = new CV(null, null, null, null, null, null);
         }
-      )
+      );
   }
   /**
    * When the user clicks on any cv of the list
@@ -114,7 +114,7 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
         (error) => {
           console.log(error);
         }
-      )
+      );
     } else {
       this.cvService.getAllEnabledCVByCategory(category).subscribe(
         (result) => {
@@ -123,7 +123,7 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
         (error) => {
           console.log(error);
         }
-      )
+      );
     }
   }
   /**
@@ -135,7 +135,7 @@ export class ChartCvsComponent implements OnInit,OnDestroy {
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {
       this.cvs.push(cv);
-    })
+    });
   }
 
   reloadList(): void {

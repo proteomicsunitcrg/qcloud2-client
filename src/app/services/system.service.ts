@@ -13,9 +13,18 @@ export class SystemService {
 
   private apiPrefix = environment.apiPrefix;
 
-  systemUrl= this.apiPrefix+'api/system';
+  systemUrl = this.apiPrefix + 'api/system';
 
   constructor(private httpClient: HttpClient) { }
+
+  /**
+   * This observable is for reload the system list
+   * when there is a new system or the user has updated
+   * one
+   */
+  private reloadSystemList = new Subject<boolean>();
+  reloadSystemList$ = this.reloadSystemList.asObservable();
+
   /**
    * This observable is used to pass an existing system
    * to the system builder in order to edit it
@@ -26,15 +35,7 @@ export class SystemService {
   public selectSystem(system: System): void {
     this.selectedSystem.next(system);
   }
-  
-  /**
-   * This observable is for reload the system list
-   * when there is a new system or the user has updated
-   * one
-   */
-  private reloadSystemList = new Subject<boolean>();
-  reloadSystemList$ = this.reloadSystemList.asObservable();
-  
+
   public reloadList(): void {
     this.reloadSystemList.next(true);
   }
@@ -47,34 +48,34 @@ export class SystemService {
 
   public saveSystem(system: System): Observable<System> {
     const json = JSON.stringify(system);
-    const params = json;    
+    const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl,params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl, params, {headers: headers});
   }
 
   public saveSystemDataSources(system: System, dataSources: DataSource[]): Observable<any> {
     const json = JSON.stringify(dataSources);
-    const params = json;    
+    const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl+'/datasources/'+system.apiKey,params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl + '/datasources/' + system.apiKey, params, {headers: headers});
   }
 
   public saveGuideSet(system: System, guideSet: GuideSet): Observable<any> {
     const json = JSON.stringify(guideSet);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<any>(this.systemUrl+'/guideset/'+system.apiKey,params,{headers: headers});
+    return this.httpClient.post<any>(this.systemUrl + '/guideset/' + system.apiKey, params, {headers: headers});
   }
 
   public getSystemByApikey(systemApikey: string): Observable<System> {
-    return this.httpClient.get<System>(this.systemUrl+'/'+systemApikey);
+    return this.httpClient.get<System>(this.systemUrl + '/' + systemApikey);
   }
 
   public updateSystem(system: System): Observable<any> {
     const json = JSON.stringify(system);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<System>(this.systemUrl+'/'+system.apiKey,params,{headers: headers});
+    return this.httpClient.put<System>(this.systemUrl + '/' + system.apiKey, params, {headers: headers});
   }
 
   /**
@@ -84,16 +85,13 @@ export class SystemService {
   public getMainCV(system: System): CV {
     let cv: CV;
     system.dataSources.forEach(
-      (ds) => {        
-        if(ds.cv.category.mainDataSource===true) {          
-          cv = ds.cv;          
+      (ds) => {
+        if (ds.cv.category.mainDataSource === true) {
+          cv = ds.cv;
         }
       }
-    )
+    );
     return cv;
   }
-
-
-
 
 }

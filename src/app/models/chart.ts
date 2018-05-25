@@ -7,7 +7,7 @@ export class Chart {
     sampleType: SampleType;
     isThresholdEnabled: boolean;
 
-    constructor(id: number,name:string, cv: CV, sampleType: SampleType,isThresholdEnabled: boolean) {
+    constructor(id: number, name: string, cv: CV, sampleType: SampleType, isThresholdEnabled: boolean) {
         this.id = id;
         this.name = name;
         this.cv = cv;

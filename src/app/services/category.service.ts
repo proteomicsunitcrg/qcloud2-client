@@ -11,7 +11,6 @@ import { environment } from '../../environments/environment';
  */
 @Injectable()
 export class CategoryService {
-  
   constructor(private httpClient: HttpClient) { }
 
   private apiPrefix = environment.apiPrefix;
@@ -19,13 +18,7 @@ export class CategoryService {
   private categorySource = new Subject<Category>();
   selectedCategory$ = this.categorySource.asObservable();
 
-  // Observable for cv list
-  
-
-  // Observable for instrument list
-
-
-  categoryUrl = this.apiPrefix+'api/category';
+  categoryUrl = this.apiPrefix + 'api/category';
 
   public selectCategory(category: Category): void {
     this.categorySource.next(category);
@@ -38,13 +31,16 @@ export class CategoryService {
     return this.httpClient.post<any>(this.categoryUrl, params, {headers: headers, observe: 'response'})
       .catch(this.errorHandler);
   }
-
-  public setCurrentCategory(category: Observable<Category>) {
-    category.subscribe(
+  /**
+   *
+   * @param category$
+   */
+  public setCurrentCategory(category$: Observable<Category>) {
+    category$.subscribe(
       (category) => {
         this.categorySource.next(category);
       }
-    )
+    );
   }
 
   public getCategories(): Observable<Category[]> {
@@ -56,19 +52,16 @@ export class CategoryService {
    * @param categoryName the name of the category
    */
   public getCategoryByName(categoryName: string): Observable<Category> {
-    return this.httpClient.get<Category>(this.categoryUrl+'/'+categoryName);
+    return this.httpClient.get<Category>(this.categoryUrl + '/' + categoryName);
   }
 
   public categoryToMainCategory(category: Category): Observable<any> {
-    return this.httpClient.put(this.categoryUrl+'/makemain/'+category.id,{});
+    return this.httpClient.put(this.categoryUrl + '/makemain/' + category.id, {});
   }
 
   public getMainCategory(): Observable<Category> {
-    return this.httpClient.get<Category>(this.categoryUrl+'/main');
+    return this.httpClient.get<Category>(this.categoryUrl + '/main');
   }
-
-
-
 
   errorHandler(error: HttpErrorResponse) {
     // console.log(error);

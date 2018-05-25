@@ -16,8 +16,8 @@ export class RegistrationService {
 
   private apiPrefix = environment.apiPrefix;
 
-  nodeUrl = this.apiPrefix+'api/node';
-  
+  nodeUrl = this.apiPrefix + 'api/node';
+
   constructor(private http: HttpClient) { }
 
   public registerNode(node: Node): Observable<Node> {

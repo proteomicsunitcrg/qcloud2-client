@@ -24,7 +24,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
 
   parameters: Param[] = [];
 
-  selectedParameter: Param = new Param(null,null,null,null);
+  selectedParameter: Param = new Param(null, null, null, null);
 
   chartToEdit$: Subscription;
   resetComponent$: Subscription;
@@ -42,7 +42,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * If there is a request for edit an existing chart it will load 
+   * If there is a request for edit an existing chart it will load
    * its chart params into the list
    */
   private subscribeToChartEdition(): void {
@@ -51,7 +51,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
         (chart) => {
           this.loadChartParams(chart);
         }
-      )
+      );
   }
   /**
    * Load the chart params by chart
@@ -63,19 +63,19 @@ export class ChartParamComponent implements OnInit, OnDestroy {
         (chartParams: ChartParam[]) => {
           this.selectParameter(chartParams[0].param);
         }
-      )
+      );
   }
   /**
-   * Where there is a reset request, ussualy when the form 
+   * Where there is a reset request, ussualy when the form
    * is submited, it will reset the selected parameter
    */
   private subscribeToReset(): void {
     this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedParameter = new Param(null,null,null,null);
+          this.selectedParameter = new Param(null, null, null, null);
         }
-      )
+      );
   }
 
   /**
@@ -85,12 +85,12 @@ export class ChartParamComponent implements OnInit, OnDestroy {
     this.paramService.getAllParams()
       .subscribe(
         (parameters) => {
-          parameters.forEach(parameter => this.parameters.push(parameter))
+          parameters.forEach(parameter => this.parameters.push(parameter));
         });
   }
 
   /**
-   * Set the selected parameter after the user clicks on 
+   * Set the selected parameter after the user clicks on
    * any parameter at the DOM
    * @param param the parameter to select
    */
@@ -98,6 +98,4 @@ export class ChartParamComponent implements OnInit, OnDestroy {
     this.selectedParameter = param;
     this.paramService.sendParamToContextSourceSelector(this.selectedParameter);
   }
-
-
 }

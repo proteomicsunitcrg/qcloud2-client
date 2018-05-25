@@ -35,7 +35,7 @@ export class ThresholdBuilderComponent implements OnInit {
 
   thresholdParams: ThresholdParam[] = [];
 
-  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null,null);
+  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, null);
 
   thresholdTypes: string[] = [];
 
@@ -63,16 +63,16 @@ export class ThresholdBuilderComponent implements OnInit {
       .subscribe(
         (directions) => this.thresholdDirections = directions,
         err => console.log(err),
-        ()=> delay(1).then(()=>M.AutoInit())
-      )
+        () => delay(1).then(() => M.AutoInit())
+      );
   }
 
   private loadThresholdTypes(): void {
     this.thresholdService.getAllThresholdTypes()
       .subscribe(
         (types) => this.thresholdTypes = types
-      ),err=> console.log(err),
-      ()=> delay(1).then(()=> M.AutoInit())
+      , err => console.log(err),
+      () => delay(1).then(() => M.AutoInit()));
   }
 
   private loadParameters(): void {
@@ -82,7 +82,7 @@ export class ThresholdBuilderComponent implements OnInit {
           this.params = params;
         }, error => console.log(error),
         () => delay(1).then(() => M.AutoInit())
-      )
+      );
   }
 
   private loadSampleTypes(): void {
@@ -92,9 +92,9 @@ export class ThresholdBuilderComponent implements OnInit {
           this.sampleTypes = sampleTypes;
         }, error => console.log(error),
         () => {
-          delay(1).then(() => M.AutoInit())
+          delay(1).then(() => M.AutoInit());
         }
-      )
+      );
   }
 
   show(): void {
@@ -110,10 +110,10 @@ export class ThresholdBuilderComponent implements OnInit {
             (peptides) => {
               this.thresholdParams = [];
               peptides.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null,p,0,0))
-              )
+                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0))
+              );
             }
-          )
+          );
         break;
       case 'InstrumentSample':
         this.instrumentSampleService.getAllInstrumentSample()
@@ -121,20 +121,20 @@ export class ThresholdBuilderComponent implements OnInit {
             (instrumentSamples) => {
               this.thresholdParams = [];
               instrumentSamples.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null,p,0,0))
-              )
-            },err => console.log(err)
-          )
+                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0))
+              );
+            }, err => console.log(err)
+          );
         break;
       default:
         console.log(event.isFor);
     }
   }
-  
-  toggleEditable(event: any,thresholdParam: ThresholdParam) {
-    if(event.target.checked) {
+
+  toggleEditable(event: any, thresholdParam: ThresholdParam) {
+    if (event.target.checked) {
       this.addThresholdParam(thresholdParam);
-    }else {
+    } else {
       this.removeThresholdParam(thresholdParam);
     }
   }
@@ -144,12 +144,12 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   private removeThresholdParam(thresholdParam: ThresholdParam): void {
-    this.selectedThresholdParams = this.selectedThresholdParams.filter(tp => tp.contextSource.id!== thresholdParam.contextSource.id);
+    this.selectedThresholdParams = this.selectedThresholdParams.filter(tp => tp.contextSource.id !== thresholdParam.contextSource.id);
   }
 
   onSampleTypeChange(sampleType: SampleType): void {
-    if(this.threshold.param!=null) {
-      if(this.threshold.param.isFor=='Peptide') {
+    if (this.threshold.param !== null) {
+      if (this.threshold.param.isFor === 'Peptide') {
         this.onParamChange(this.threshold.param);
       }
     }
@@ -162,10 +162,10 @@ export class ThresholdBuilderComponent implements OnInit {
           // save the threshold params
           this.saveThresholdParams(threshold);
         },
-        (error)=> {
-          this.modalService.openModal(new Modal('Error',error.error.message,'Ok',null,'newThreshold',null));
+        (error) => {
+          this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, 'newThreshold', null));
         }
-      )
+      );
   }
 
   private saveThresholdParams(threshold: Threshold): void {
@@ -173,15 +173,14 @@ export class ThresholdBuilderComponent implements OnInit {
       (thresholdParam) => {
         thresholdParam.threshold = threshold;
       }
-    )
+    );
     this.thresholdService.saveThresholdParams(this.selectedThresholdParams)
       .subscribe(
         (result) => {
           console.log(result);
         },
         (err) => console.log(err)
-      )
-    
+      );
   }
 
   onThresholdTypeChange(thresholdType: string): void {
@@ -193,24 +192,23 @@ export class ThresholdBuilderComponent implements OnInit {
           delay(1).then(() => {
             M.updateTextFields();
             M.AutoInit();
-          
-          })
+          });
         }
-      )
+      );
   }
   onGlobalInitialValueChange(value: number): void {
     this.thresholdParams.forEach(
       (tp) => {
         tp.initialValue = value;
       }
-    )
+    );
   }
-  
+
   onGlobalStepValueChange(value: number): void {
     this.thresholdParams.forEach(
       (tp) => {
         tp.stepValue = value;
       }
-    )
+    );
   }
 }

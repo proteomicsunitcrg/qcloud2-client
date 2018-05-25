@@ -28,7 +28,7 @@ export class ContextSourceService {
   private selectedContextSource = new Subject<ContextSource>();
 
   selectedContextSource$ = this.selectedContextSource.asObservable();
-  
+
   private apiPrefix = environment.apiPrefix;
   /**
    * As the categories of context sources are extensions from contextsource class
@@ -40,7 +40,7 @@ export class ContextSourceService {
     new ContextSourceCategory('peptide', 'Peptide'),
     new ContextSourceCategory('isample', 'Instrument sample')
   ];
-  
+
   private contextSourceUrls = {
     'peptide': this.apiPrefix + 'api/contextsource/peptide',
     'isample': this.apiPrefix + 'api/contextsource/instrumentsample'
@@ -52,7 +52,7 @@ export class ContextSourceService {
   instrumentSampleUrl = this.apiPrefix + 'api/contextsource/instrumentsample';
 
 
-  public getContextSourcesByCategory(contextSourceCategory : ContextSourceCategory): Observable<any> {
+  public getContextSourcesByCategory(contextSourceCategory: ContextSourceCategory): Observable<any> {
     return this.httpClient.get(this.contextSourceUrls[contextSourceCategory.code]);
   }
 

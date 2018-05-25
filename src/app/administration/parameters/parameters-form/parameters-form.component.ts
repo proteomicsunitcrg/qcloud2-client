@@ -12,7 +12,7 @@ export class ParametersFormComponent implements OnInit {
 
   constructor(private parameterService: ParametersService) { }
 
-  newParam: Param = new Param(null,'','','');
+  newParam: Param = new Param(null, '', '', '');
 
   isFors: String[] = [];
 
@@ -34,9 +34,9 @@ export class ParametersFormComponent implements OnInit {
           types.forEach(type => {
             this.isFors.push(type);
           });
-          delay(100).then(()=> this.enableSelect());
+          delay(100).then(() => this.enableSelect());
         }
-      )
+      );
   }
 
   private getProcessors(): void {
@@ -45,8 +45,8 @@ export class ParametersFormComponent implements OnInit {
         (processors) => {
           processors.forEach(processor => this.processors.push(processor));
         }
-      )
-      delay(100).then(()=> this.enableSelect());
+      );
+      delay(100).then(() => this.enableSelect());
   }
 
 
@@ -58,8 +58,7 @@ export class ParametersFormComponent implements OnInit {
     instance = M.FormSelect.init(elem, {});
   }
 
-  onSubmit(): void {    
-    
+  onSubmit(): void {
     this.parameterService.addNewParam(this.newParam)
       .subscribe(
         (result) => {
@@ -70,10 +69,7 @@ export class ParametersFormComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-      )
-    
+      );
   }
-
-
 
 }

@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.node.users[0].username = this.node.users[0].email;
     this.registrationService.getToS().subscribe((text) => {
-      this.modalService.openModal(new Modal('Terms of Use', text, 'Accept', 'Reject', 'terms',null));
+      this.modalService.openModal(new Modal('Terms of Use', text, 'Accept', 'Reject', 'terms', null));
     });
   }
 
@@ -59,11 +59,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.registrationService.registerNode(this.node).subscribe(
             (resp) => {
               this.modalService.openModal(new Modal('Successful',
-                'You have been registered. We have sent you an email with further instructions.', 'Ok', '', 'welcome',null));
+                'You have been registered. We have sent you an email with further instructions.', 'Ok', '', 'welcome', null));
             },
             (error) => {
               this.modalService.openModal(new Modal('Error',
-                'Node name or email already in use.', 'Ok', '', 'error',null));
+                'Node name or email already in use.', 'Ok', '', 'error', null));
             }
           );
         } else {
@@ -85,7 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   openModal(): void {
     this.registrationService.getToS().subscribe((text) => {
-      this.modalService.openModal(new Modal('QCloud 2.0', text, 'Accept', 'Reject', 'terms',null));
+      this.modalService.openModal(new Modal('QCloud 2.0', text, 'Accept', 'Reject', 'terms', null));
     });
   }
 

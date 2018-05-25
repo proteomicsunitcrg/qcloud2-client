@@ -8,7 +8,7 @@ import { BottomModalComponent } from './bottom-modal/bottom-modal.component';
     CommonModule
   ],
   declarations: [ModalComponent, BottomModalComponent],
-  exports: [ModalComponent,BottomModalComponent],
-  providers:[]
+  exports: [ModalComponent, BottomModalComponent],
+  providers: []
 })
 export class ModalModuleModule { }

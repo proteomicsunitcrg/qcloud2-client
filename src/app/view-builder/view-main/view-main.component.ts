@@ -44,7 +44,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
   loadedViewDisplay: any = null;
 
   /**
-   * display array is for build the 
+   * display array is for build the
    * layout rows and columns
    */
   display = [];
@@ -59,12 +59,10 @@ export class ViewMainComponent implements OnInit, OnDestroy {
 
   viewDisplay: ViewDisplay[][] = [];
 
-  view: View = new View(null, '', null, null, true,null);
+  view: View = new View(null, '', null, null, true, null);
 
   selectedBottomModalAction$: Subscription;
   selectedAction$: Subscription;
-
-  
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -88,8 +86,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
                 this.view.cv = cv;
                 this.cv = cv;
                 this.loadSampleTypeCategory(params['qc']);
-                this.sendCVToList(cv,params['qc']);
-                this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.cv,params['qc'])
+                this.sendCVToList(cv, params['qc']);
+                this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.cv, params['qc'])
                   .subscribe(
                     (view) => {
                       if (view !== null) {
@@ -105,7 +103,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
 
                             }
                           );
-                      }else {
+                      } else {
                         // new default view
                         this.submitButtonText = 'Save';
                       }
@@ -114,11 +112,11 @@ export class ViewMainComponent implements OnInit, OnDestroy {
                     });
               },
               (error) => {
-                console.log(error)
+                console.log(error);
               }
-            )
+            );
         }
-      )
+      );
     } else {
       // load datasources owned by the node
     }
@@ -130,7 +128,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         (sampleTypeCategory) => {
           this.selectedSampleTypeCategory = sampleTypeCategory;
         }
-      )
+      );
   }
 
   /**
@@ -140,7 +138,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
    * @param viewDisplay The display from the database
    */
   private loadDefaultDisplayView(viewDisplay: Display): void {
-    let charts = [];
+    const charts = [];
     viewDisplay.charts.forEach(
       (row, index) => {
         this.display[index] = [];
@@ -148,16 +146,16 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         row.forEach(
           (col) => {
             this.display[index].push(null);
-            if(col['chart']===null) {
-              this.chartDisplay[index].push(null);  
-            }else {
+            if (col['chart'] === null) {
+              this.chartDisplay[index].push(null);
+            } else {
               this.chartDisplay[index].push(col['chart'].id);
               charts.push(col);
             }
           }
-        )
+        );
       }
-    )
+    );
 
     this.loadedViewDisplay = charts;
 
@@ -165,23 +163,21 @@ export class ViewMainComponent implements OnInit, OnDestroy {
   private getElementByChartId(): void {
     this.loadedViewDisplay.forEach(
       (chart) => {
-        // get chart from list        
-        let listedChart = document.getElementById('plotId-' + chart.chart.id);
+        // get chart from list
+        const listedChart = document.getElementById('plotId-' + chart.chart.id);
         // append to its corresponding spot
-        let slot = document.getElementById(chart.row + ';' + chart.col);
+        const slot = document.getElementById(chart.row + ';' + chart.col);
         slot.appendChild(listedChart);
-
-
       }
-    )
+    );
   }
 
   onSubmit(): void {
     // Before insert check the layout
-    let viewName = this.view.name;
+    const viewName = this.view.name;
     let formOk = true;
     this.view.sampleTypeCategory = this.selectedSampleTypeCategory;
-    if (this.chartDisplay.length == 0) {
+    if (this.chartDisplay.length === 0) {
       // show modal
       this.modalService.openModal(new Modal('Error', 'You need at least one column', 'Ok', null, 'noRows', viewName));
       formOk = false;
@@ -192,16 +188,15 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     }
   }
   private saveDefaultView(): void {
-    
     this.viewService.addDefaultView(this.view)
       .subscribe(
         (view) => {
           this.prepareViewDisplayArray(view);
         },
         (error) => {
-          this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'saveDefaultView',null));
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveDefaultView', null));
         }
-      )
+      );
   }
 
   private prepareViewDisplayArray(view: View): void {
@@ -210,28 +205,28 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         this.viewDisplay[index] = [];
         row.forEach(
           (cell, colIndex) => {
-            let chart = this.charts.filter(c => c.id == cell);
+            const chart = this.charts.filter(c => c.id === cell);
             this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
           }
-        )
+        );
       }
-    )
-    if(this.submitButtonText==='Save') {
+    );
+    if (this.submitButtonText === 'Save') {
       this.saveViewDisplay();
-    }else {
+    } else {
       this.updateViewDisplay();
     }
   }
   private updateViewDisplay(): void {
-    this.viewService.updateLayoutToDefaultView(this.viewDisplay,this.view.id)
+    this.viewService.updateLayoutToDefaultView(this.viewDisplay, this.view.id)
       .subscribe(
         (display) => {
           this.navigateBack('Chart updated!');
         },
-        (error) =>{
-          this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'updateViewDisplay',null));
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'updateViewDisplay', null));
         }
-      )
+      );
   }
 
   private saveViewDisplay(): void {
@@ -240,10 +235,10 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       (display) => {
         this.navigateBack('Chart saved!');
       },
-      (error) =>{
-        this.modalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'saveViewDisplay',null));
+      (error) => {
+        this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveViewDisplay', null));
       }
-    )
+    );
   }
 
   private navigateBack(action: string): void {
@@ -257,72 +252,70 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType,c.isThresholdEnabled));
+            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled));
           });
         }
-      )
+      );
   }
-  private loadChartsByCVAndSampleTypeCategoryId(cv: CV,sampleTypeCategoryId: number): void {
+  private loadChartsByCVAndSampleTypeCategoryId(cv: CV, sampleTypeCategoryId: number): void {
     this.charts = [];
-    //this.chartService.getChartsByCV(cv)
-    this.chartService.getChartsByCVAndSampleTypeCategoryId(cv,sampleTypeCategoryId)
+    this.chartService.getChartsByCVAndSampleTypeCategoryId(cv, sampleTypeCategoryId)
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType,c.isThresholdEnabled));
+            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled));
           });
         }
-      )
+      );
   }
 
 
   private sendCVToList(cv: CV, sampleTypeCategoryId: number): void {
-    //get the cv from server
-    //this.loadChartsByCV(cv);
-    this.loadChartsByCVAndSampleTypeCategoryId(cv,sampleTypeCategoryId);
+    // get the cv from server
+    this.loadChartsByCVAndSampleTypeCategoryId(cv, sampleTypeCategoryId);
 
     // add to the view object
     this.view.cv = cv;
   }
 
   private onDrop(args) {
-    let [e, el] = args;
-    let plotId = e.getElementsByClassName('plotId')[0].innerHTML;
-    let id = el.getAttribute('id');
+    const [e, el] = args;
+    const plotId = e.getElementsByClassName('plotId')[0].innerHTML;
+    const id = el.getAttribute('id');
     let adding = true;
     /**
      * It will have an id if it is placed
-     * in the layout section. This is a way to 
+     * in the layout section. This is a way to
      * know where the item is.
      */
 
     if (id !== null) {
-      // adding     
+      // adding
       adding = true;
     } else {
       // removing
       adding = false;
     }
-    let currentElements = el.childElementCount;
+    const currentElements = el.childElementCount;
 
     /**
-     * If the user tries to add an item in a 
+     * If the user tries to add an item in a
      * bag having a previous item it will cancel
      * the drag.
      * It have a boolean condition for ensure that
      * differenciate the chart pool of the layout
      */
-    if (currentElements > 1 && adding && el.getAttribute('id') != 'charts-list') {
+    if (currentElements > 1 && adding && el.getAttribute('id') !== 'charts-list') {
       this.dragulaService.find('first-bag').drake.cancel(true);
     } else {
       if (adding) {
-        if (el.getAttribute('id') != 'charts-list') {
+        if (el.getAttribute('id') !== 'charts-list') {
           // delete from previous position if it was any
           this.removeChartFromDisplay(plotId);
-          let position = id.split(';');
+          const position = id.split(';');
           this.addChartIntoDisplay(plotId, position);
         } else {
-          //remove
+          // remove
           this.removeChartFromDisplay(plotId);
         }
 
@@ -334,27 +327,25 @@ export class ViewMainComponent implements OnInit, OnDestroy {
 
   private removeChartFromDisplay(plotId: number): void {
     this.chartDisplay.forEach(
-      (row,r) => {
+      (row, r) => {
         row.forEach(
-          (col,c) => {
-            if(col==plotId) {
+          (col, c) => {
+            if (col === plotId) {
               this.chartDisplay[r][c] = null;
             }
           }
-        )
+        );
       }
-    )
+    );
   }
-
-
 
   private addChartIntoDisplay(plotId: number, position: number[]): void {
     this.chartDisplay[position[0]][position[1]] = plotId;
   }
 
   private onDrag(args) {
-    let [e, el] = args;
-    // do something 
+    const [e, el] = args;
+    // do something
     // console.log(el.getAttribute('id'));
   }
 
@@ -364,7 +355,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         (action) => {
           this.doAction(action);
         }
-      )
+      );
   }
 
   private subscribeToModal(): void {
@@ -373,7 +364,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         (action) => {
           this.doAction(action);
         }
-      )
+      );
   }
 
   private doAction(action: ModalResponse): void {
@@ -400,20 +391,20 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     // send information for reestruct the list
     this.chartDisplay[row].forEach(
       (charts, index) => {
-        if(charts!==null) {
-          let elem = document.getElementById(row + ';' + index);
-          let list = document.getElementById('charts-list');
+        if (charts !== null) {
+          const elem = document.getElementById(row + ';' + index);
+          const list = document.getElementById('charts-list');
           list.appendChild(elem.firstElementChild);
         }
       }
-    )
+    );
     this.display.splice(row, 1);
     this.chartDisplay.splice(row, 1);
   }
 
   private removeChartFromArray(chartId): void {
     for (let i = 0; i < this.charts.length; i++) {
-      if (this.charts[i].id == chartId) {
+      if (this.charts[i].id === chartId) {
         this.charts.splice(i, 1);
         break;
       }

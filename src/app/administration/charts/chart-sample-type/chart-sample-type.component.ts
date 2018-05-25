@@ -20,7 +20,7 @@ export class ChartSampleTypeComponent implements OnInit {
     private chartParamsService: ChartParamsService,
     private chartService: ChartService) { }
 
-  selectedSampleType: SampleType = new SampleType(null,null,null,null);
+  selectedSampleType: SampleType = new SampleType(null, null, null, null);
 
   sampleTypes: SampleType[] = [];
 
@@ -36,9 +36,9 @@ export class ChartSampleTypeComponent implements OnInit {
     this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedSampleType = new SampleType(null,null,null,null);
+          this.selectedSampleType = new SampleType(null, null, null, null);
         }
-      )
+      );
   }
 
   private subscribeToChartEdition(): void {
@@ -47,17 +47,17 @@ export class ChartSampleTypeComponent implements OnInit {
         (chart) => {
           this.selectSampleType(chart.sampleType);
         }
-      )
+      );
   }
 
-  private loadSampleTypes():void {
+  private loadSampleTypes(): void {
     this.sampleTypes = [];
     this.sampleTypeService.getSamplesTypes()
       .subscribe(
         (sampleTypes) => {
-          sampleTypes.forEach(sampleType => this.sampleTypes.push(sampleType))
+          sampleTypes.forEach(sampleType => this.sampleTypes.push(sampleType));
         }
-      )
+      );
   }
   selectSampleType(sampleType: SampleType): void {
     this.selectedSampleType = sampleType;

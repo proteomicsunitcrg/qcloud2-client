@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { ChartParam } from '../models/chartParam';
 import { Chart } from '../models/chart';
 import { ContextSource } from '../models/contextSource';
@@ -15,9 +15,20 @@ export class ChartParamsService {
   constructor(private httpClient: HttpClient) { }
 
   private apiPrefix = environment.apiPrefix;
+  chartUrl = this.apiPrefix + 'api/chart/params';
 
-  chartUrl= this.apiPrefix+'api/chart/params';
+  /**
+   * This observable is for reset the components
+   */
+  private resetComponent = new Subject<boolean>();
+  resetComponent$ = this.resetComponent.asObservable();
 
+  /**
+   * This observable is for send the context sources
+   * from the database to the edit chart form
+   */
+  private selectedContextSources = new Subject<ContextSource[]>();
+  selectedContextSources$ = this.selectedContextSources.asObservable();
 
   /**
    * This observable is used to transport the
@@ -30,23 +41,11 @@ export class ChartParamsService {
   public sendChartParamsArrayToFill(chartParamsArray: ChartParam[]): void {
     this.chartParamsToFill.next(chartParamsArray);
   }
-    /**
-   * This observable is for reset the components
-   */
-  private resetComponent = new Subject<boolean>();
-  resetComponent$ = this.resetComponent.asObservable();
 
   public resetComponents(): void {
     this.resetComponent.next(true);
   }
 
-  /**
-   * This observable is for send the context sources
-   * from the database to the edit chart form
-   */
-  private selectedContextSources = new Subject<ContextSource[]>();
-  selectedContextSources$ = this.selectedContextSources.asObservable();
-  
   /**
    * Get the context sources from the chart params arrived by
    * function parameter and send it to the context source
@@ -54,17 +53,15 @@ export class ChartParamsService {
    * @param chartParams the chart params from the server
    */
   public sendContextSourcesToEdit(chartParams: ChartParam[]): void {
-    let contextSources: ContextSource[] = [];
+    const contextSources: ContextSource[] = [];
     chartParams.forEach(
       (chartParam) => contextSources.push(chartParam.contextSource)
-    )
+    );
     this.selectedContextSources.next(contextSources);
   }
 
-
-
   public getChartsParamsByChart(chart: Chart): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.chartUrl+'/'+chart.id);
+    return this.httpClient.get<any[]>(this.chartUrl + '/' + chart.id);
   }
 
 }

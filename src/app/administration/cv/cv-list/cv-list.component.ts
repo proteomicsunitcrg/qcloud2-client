@@ -20,7 +20,7 @@ import { Category } from '../../../models/category';
 export class CvListComponent implements OnInit, OnDestroy {
 
   private modalSubscription$: Subscription;
-  private categorySubscription$ : Subscription;
+  private categorySubscription$: Subscription;
 
   constructor(private cvService: CvService,
     private modalService: ModalService,
@@ -34,52 +34,52 @@ export class CvListComponent implements OnInit, OnDestroy {
 
   maxPages: number;
 
-  filter: CV = new CV(null,'',null,'','',false);
+  filter: CV = new CV(null, '', null, '', '', false);
 
   ngOnInit() {
-    this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {      
-      
+    this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
+
     });
     // Subscription to category change
     this.categorySubscription$ = this.categoryService.selectedCategory$
       .subscribe(
-        (category)=> {
+        (category) => {
           this.getCvListByCategoryFromServer(category);
         },
-        (error)=> {
-
+        (error) => {
+          this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, 'getCategory', null));
         }
-    )    
+    );
   }
   /**
    * Toggle the selected cv on/off
-   * @param cv 
+   * @param cv
    */
   changeStatus(cv: CV) {
     this.cvService.changeEnabled(cv.id).subscribe(
-      (result)=> {
+      (result) => {
         cv.enabled = result.enabled;
       },
-      (error)=> {
+      (error) => {
         this.showModalByError(error);
       }
-    );    
+    );
   }
 
-  private showAction(action) : void {
+  private showAction(action): void {
     console.log(action);
   }
 
-  private showModalByError(error: HttpErrorResponse) {    
-    let errorCode = error.error.status;
+  private showModalByError(error: HttpErrorResponse) {
+    const errorCode = error.error.status;
     switch (errorCode) {
       case 409:
-      this.modalService.openModal(new Modal("Server error",
-        error.error.message, 'Ok', null, 'changecvstatus',null));
+      this.modalService.openModal(new Modal('Server error',
+        error.error.message, 'Ok', null, 'changecvstatus', null));
           break;
       default:
         this.modalService.openModal(new Modal('Server error',
-          'There is a problem with the server. Try again later.', 'Ok', '', 'changecvstatus',null));
+          'There is a problem with the server. Try again later.', 'Ok', '', 'changecvstatus', null));
         break;
     }
 
@@ -91,16 +91,16 @@ export class CvListComponent implements OnInit, OnDestroy {
   private getCvListByCategoryFromServer(category: Category) {
     this.cvs = [];
     this.cvService.getCvByCategory(category).subscribe(
-      (result)=> {
-        this.maxPages = result.length/10;        
-        result.forEach(cv=> {          
+      (result) => {
+        this.maxPages = result.length / 10;
+        result.forEach(cv => {
           this.cvs.push(cv);
-        })
+        });
       },
-      (error)=> {
+      (error) => {
         console.log(error);
       }
-    )
+    );
 
   }
   ngOnDestroy() {

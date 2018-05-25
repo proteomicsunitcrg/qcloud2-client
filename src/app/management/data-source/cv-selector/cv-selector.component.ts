@@ -14,7 +14,7 @@ import { CategoryService } from '../../../services/category.service';
   templateUrl: './cv-selector.component.html',
   styleUrls: ['./cv-selector.component.css']
 })
-export class CvSelectorComponent implements OnInit,OnDestroy {
+export class CvSelectorComponent implements OnInit, OnDestroy {
 
   constructor(private cvService: CvService,
     private categoryService: CategoryService,
@@ -41,7 +41,7 @@ export class CvSelectorComponent implements OnInit,OnDestroy {
         (category) => {
           this.getEnabledCvsByCategory(category);
         }
-      )
+      );
   }
   ngOnDestroy() {
     this.selectedCategory$.unsubscribe();
@@ -61,7 +61,7 @@ export class CvSelectorComponent implements OnInit,OnDestroy {
   }
   addInstrument(cv: CV): void {
     // Create datasource
-    let dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null,'',true);
+    const dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null, '', true);
 
     this.dataSourceService.addNewDataSource(dataSource).subscribe(
       (result) => {

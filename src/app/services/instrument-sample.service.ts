@@ -21,7 +21,7 @@ export class InstrumentSampleService {
   private newInstrumentSample = new Subject<InstrumentSample>();
   newInstrumentSample$ = this.newInstrumentSample.asObservable();
 
-  public getAllInstrumentSample() : Observable<InstrumentSample[]> {
+  public getAllInstrumentSample(): Observable<InstrumentSample[]> {
     return this.httpClient.get<InstrumentSample[]>(this.isUrl);
   }
 
@@ -29,7 +29,7 @@ export class InstrumentSampleService {
     const json = JSON.stringify(instrumentSample);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<InstrumentSample>(this.isUrl,params,{headers: headers});
+    return this.httpClient.post<InstrumentSample>(this.isUrl, params, {headers: headers});
   }
 
   public sendInstrumentSampleToList(instrumentSample: InstrumentSample): void {

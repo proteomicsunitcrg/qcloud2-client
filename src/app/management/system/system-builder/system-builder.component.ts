@@ -26,7 +26,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
 
   categories: Category[];
 
-  updating: boolean = false;
+  updating = false;
 
   /**
    * This var is used for calculate the numbers of materialize
@@ -64,13 +64,13 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     this.selectedSystem$ = this.systemService.selectedSystem$
       .subscribe((system) => {
         this.loadSystem(system);
-      })
+      });
   }
 
   private loadSystem(system: System): void {
     // clean the arrays
     this.resetDataSources();
-    // get the datasources of the system    
+    // get the datasources of the system
     this.system.name = system.name;
     this.system.id = system.id;
     this.system.apiKey = system.apiKey;
@@ -79,7 +79,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
       (dataSource) => {
         this.addDataSource(dataSource);
       }
-    )
+    );
   }
 
   private loadCategories(): void {
@@ -104,7 +104,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
           this.materializeColumns = 12 / (this.categories.length + 1);
 
         }
-      )
+      );
   }
 
   private loadNodeDataSources(): void {
@@ -120,18 +120,18 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
                 (dataSource) => {
                   this.nodeDataSources[category.id].push(dataSource);
                 }
-              )
+              );
             }, (error) => {
               console.log(error);
             },
             () => {
               delay(100).then(
                 () => M.AutoInit()
-              )
+              );
             }
-          )
+          );
       }
-    )
+    );
   }
   /**
    * Adds a datasource into the selected data sources from the via ngModel
@@ -139,61 +139,64 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
    * takes the value of the for loop.
    */
   addDataSourceFromCategory(category: Category): void {
-    if (this.selectedDataSources[category.id].length != 0) {
+    if (this.selectedDataSources[category.id].length !== 0) {
       this.systemDataSources[category.id].push(this.selectedDataSources[category.id]);
       // remove element from array
       const dataSourceIndex = this.nodeDataSources[category.id].findIndex((dataSource) => {
-        return dataSource.id == this.selectedDataSources[category.id].id;
+        return dataSource.id === this.selectedDataSources[category.id].id;
       });
       this.nodeDataSources[category.id].splice(dataSourceIndex, 1);
       delay(1).then(
         () => M.AutoInit()
-      )
+      );
     }
   }
   /**
    * Add a datasource into the selected system data sources.
-   * @param dataSource 
+   * @param dataSource
    */
   private addDataSource(dataSource: DataSource): void {
     this.systemDataSources[dataSource.cv.category.id].push(dataSource);
     const dataSourceIndex = this.nodeDataSources[dataSource.cv.category.id].findIndex((ds) => {
-      return ds.id == dataSource.id;
+      return ds.id === dataSource.id;
     });
     this.nodeDataSources[dataSource.cv.category.id].splice(dataSourceIndex, 1);
     delay(1).then(
       () => M.AutoInit()
-    )
+    );
   }
 
   removeDataSourceFromSystem(dataSource: DataSource, category: Category): void {
     const dataSourceIndex = this.systemDataSources[category.id].findIndex((ds) => {
-      return dataSource.id == ds.id;
-    })
+      return dataSource.id === ds.id;
+    });
     this.nodeDataSources[category.id].push(this.systemDataSources[category.id].splice(dataSourceIndex, 1)[0]);
     delay(100).then(
       () => M.AutoInit()
-    )
+    );
   }
 
   doSave(): void {
     // check if there is a name, and at least one data source of each category
     let formOk = true;
     let categoriesText = '';
-    if (this.system.name == '' || this.system.name == null) {
+    if (this.system.name === '' || this.system.name == null) {
       formOk = false;
     }
 
     this.categories.forEach(
       (category) => {
         categoriesText += category.name + ' and a ';
-        if (this.systemDataSources[category.id].length == 0) {
+        if (this.systemDataSources[category.id].length === 0) {
           formOk = false;
         }
       });
     categoriesText = categoriesText.slice(0, -7);
     if (!formOk) {
-      this.modalService.openModal(new Modal('Missing values', 'In order to save a system you need at least a system name and a ' + categoriesText, 'Ok', null, null, null));
+      this.modalService.openModal(new Modal(
+        'Missing values',
+        'In order to save a system you need at least a system name and a ' + categoriesText,
+        'Ok', null, null, null));
     } else {
       this.saveSystem();
     }
@@ -211,7 +214,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
         (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
   private saveSystem(): void {
@@ -224,7 +227,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
            * it is specified in the backend documentation.
            * Check the related classes and take a look at the system repository
           */
-          let ds = [];
+          const ds = [];
           this.systemDataSources.forEach(
             (dataSourcesCategory) => {
               if (dataSourcesCategory.length > 0) {
@@ -240,15 +243,15 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
                 // toast and reset form
                 M.toast({ html: 'System saved' });
                 this.loadNodeDataSources();
-                this.system.dataSources = ds;                
+                this.system.dataSources = ds;
                 this.systemService.reloadList();
                 this.system = new System(null, null, null, null, null);
                 this.updating = false;
               },
               (err) => console.log(err)
-            )
+            );
         }
-      )
+      );
   }
 
   doCancel(): void {
@@ -265,7 +268,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
         this.systemDataSources[category.id] = [];
         this.selectedDataSources[category.id] = [];
       }
-    )
+    );
   }
 
 }

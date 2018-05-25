@@ -13,9 +13,9 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(item) : void {
-    var elem = document.getElementById(item);
-    var instance = M.Collapsible.init(elem);
+  open(item): void {
+    const elem = document.getElementById(item);
+    const instance = M.Collapsible.init(elem);
   }
 
 }

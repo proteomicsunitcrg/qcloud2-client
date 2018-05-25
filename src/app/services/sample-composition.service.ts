@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { SampleComposition} from '../models/sampleComposition';
 import { Peptide } from '../models/peptide';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { SampleType } from '../models/sampleType';
 
 @Injectable()
@@ -51,15 +51,15 @@ export class SampleCompositionService {
     this.peptideSelector.next(peptide);
   }
 
-  public getAllSampleComposition() : Observable<SampleComposition[]> {
+  public getAllSampleComposition(): Observable<SampleComposition[]> {
     return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl);
   }
 
-  public getSampleCompositionByPeptide(peptide: Peptide) : Observable<SampleComposition[]> {
-    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl+'/peptide/'+peptide.id);
+  public getSampleCompositionByPeptide(peptide: Peptide): Observable<SampleComposition[]> {
+    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/peptide/' + peptide.id);
   }
 
-  public sendPeptideSampleComposition(sampleCompositions : SampleComposition[]) : void {
+  public sendPeptideSampleComposition(sampleCompositions: SampleComposition[]): void {
     this.peptideSampleComposition.next(sampleCompositions);
   }
 
@@ -67,18 +67,19 @@ export class SampleCompositionService {
     const json = JSON.stringify(sampleComposition);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl,params, {headers: headers});
+    return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl, params, {headers: headers});
   }
 
-  public deleteSampleComposiion(sampleComposition: SampleComposition) : Observable<any> {
-    return this.httpClient.delete(this.sampleCompositionUrl+'/peptide/'+sampleComposition.peptide.id+'/sample/'+sampleComposition.sampleType.id);
+  public deleteSampleComposiion(sampleComposition: SampleComposition): Observable<any> {
+    return this.httpClient.delete(this.sampleCompositionUrl + '/peptide/' +
+      sampleComposition.peptide.id + '/sample/' + sampleComposition.sampleType.id);
   }
 
   public getAllPeptidesBySampleType(sampleType: SampleType): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.sampleCompositionUrl+'/sample/'+sampleType.name)
+    return this.httpClient.get<Peptide[]>(this.sampleCompositionUrl + '/sample/' + sampleType.name)
       .map((peptides) => {
-        let peptideList = [];
-        peptides.forEach(peptide => peptideList.push(peptide['peptide']))
+        const peptideList = [];
+        peptides.forEach(peptide => peptideList.push(peptide['peptide']));
         return peptideList;
       });
   }

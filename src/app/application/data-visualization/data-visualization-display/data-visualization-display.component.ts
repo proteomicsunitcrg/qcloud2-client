@@ -22,7 +22,7 @@ declare var M: any;
   templateUrl: './data-visualization-display.component.html',
   styleUrls: ['./data-visualization-display.component.css']
 })
-export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
+export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
 
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
@@ -43,16 +43,16 @@ export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
 
   views: View[] = [];
 
-  count: number = 0;
+  count = 0;
 
   viewLoaded: Promise<boolean>[] = [];
 
   loadedViews: number[] = [];
 
   selectedDataSourceForDisplay$: Subscription;
-  
+
   ngOnInit() {
-    this.subscribeToDataSourceForDisplay();    
+    this.subscribeToDataSourceForDisplay();
     this.subscribeToRoute();
   }
   ngOnDestroy() {
@@ -62,15 +62,15 @@ export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
   private subscribeToRoute(): void {
     this.route.params.subscribe(
       (params) => {
-        this.loadView(params.type,params.apiKey);
+        this.loadView(params.type, params.apiKey);
       }
-    )
+    );
   }
   private loadView(type: string, systemApiKey: string): void {
-    switch(type) {
+    switch (type) {
       case 'instrument':
-        //load defaults
-        //this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
+        // load defaults
+        // this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
         // get master cv of that system
         this.systemService.getSystemByApikey(systemApiKey)
           .subscribe(
@@ -78,26 +78,25 @@ export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
               this.system = res;
               res.dataSources.forEach(
                 (ds) => {
-                  if(ds.cv.category.mainDataSource==true) {                    
+                  if (ds.cv.category.mainDataSource === true) {
                     // get views by cv id
                     this.viewService.getDefaultViewsByCVId(ds.cv.cvid)
                       .subscribe(
-                        (views) => {                          
+                        (views) => {
                           this.views = views;
                           this.loadInitialView();
                           delay(100).then(
                             () => {
                               this.enableTabs();
                             }
-                          )
+                          );
                         });
                   }
                 });
             });
-        
         break;
       case 'view':
-        //load view
+        // load view
 
         break;
       default:
@@ -106,15 +105,14 @@ export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
     }
   }
 
-  private loadInitialView(): void {    
+  private loadInitialView(): void {
     this.loadDefaultChartsByView(this.views[0]);
   }
 
 
   private enableTabs(): void {
-    const elem = document.getElementById('chartstabs');    
-    var instance = M.Tabs.init(elem);
-    
+    const elem = document.getElementById('chartstabs');
+    const instance = M.Tabs.init(elem);
   }
 
   /**
@@ -124,32 +122,32 @@ export class DataVisualizationDisplayComponent implements OnInit,OnDestroy {
   private subscribeToDataSourceForDisplay(): void {
     this.selectedDataSourceForDisplay$ = this.dataSourceService.selectedDataSourceForDisplay$
       .subscribe(
-        (dataSource) => {          
+        (dataSource) => {
           this.dataSource = dataSource;
         }
-      )
+      );
   }
 
   private loadDefaultChartsByView(view: View): void {
     this.viewService.getDefaultDisplayByView(view)
       .subscribe(
-        (res) => {          
+        (res) => {
           // this.display = res;
-          this.displays['a'+view.id] = res;
-        },err=> console.log(err),()=> {
+          this.displays['a' + view.id] = res;
+        }, err => console.log(err), () => {
           this.count++;
           this.viewLoaded[view.id] = Promise.resolve(true);
           this.loadedViews.push(view.id);
         }
-      )
+      );
   }
   /**
    * Load the content of a sample type category if
    * it has not been loaded yet
-   * @param view 
+   * @param view
    */
   loadTab(view: View): void {
-    if(this.loadedViews.find(viewId=> viewId == view.id)==undefined){
+    if (this.loadedViews.find(viewId => viewId === view.id) === undefined) {
       this.loadDefaultChartsByView(view);
     }
   }

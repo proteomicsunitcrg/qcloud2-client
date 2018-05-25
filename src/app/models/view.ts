@@ -7,9 +7,9 @@ export class View {
     user: User;
     cv: CV;
     isDefault: boolean;
-    sampleTypeCategory: SampleTypeCategory;    
+    sampleTypeCategory: SampleTypeCategory;
 
-    constructor(id: number,name:string, user: User,cv:CV, isDefault: boolean,sampleTypeCategory: SampleTypeCategory) {
+    constructor(id: number, name: string, user: User, cv: CV, isDefault: boolean, sampleTypeCategory: SampleTypeCategory) {
         this.id = id;
         this.name = name;
         this.user = user;

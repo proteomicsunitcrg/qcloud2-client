@@ -40,11 +40,11 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
 
   /**
    * @deprecated check if it is not used anymore
-   * @param peptide 
+   * @param peptide
    */
   private isPeptideInList(peptide: Peptide): boolean {
     // Loop and look for the peptide
-    if (this.peptides.find(p => p.id == peptide.id) == undefined) {
+    if (this.peptides.find(p => p.id === peptide.id) === undefined) {
       return false;
     }
     return true;
@@ -62,10 +62,10 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
           // get the belongs
           peptide['belongs'] = null;
           this.getSampleType(peptide);
-        })
+        });
       },
         error => console.log(error),
-      ()=> console.log('end'));
+      () => console.log('end'));
   }
   /**
    * Set the peptide sample type
@@ -87,10 +87,12 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
   }
 
   private compare(a: Peptide, b: Peptide): number {
-    if (a.name < b.name)
+    if (a.name < b.name) {
       return -1;
-    if (a.name > b.name)
+    }
+    if (a.name > b.name) {
       return 1;
+    }
     return 0;
   }
 

@@ -52,7 +52,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
     // Subscription to new added instruments
     this.dataSources$ = this.dataSourceService.reloaderDataSourceList$
       .subscribe(
-        () => {          
+        () => {
           this.loadDataSourcesByCategory(this.currentCategory);
         },
         (error) => {
@@ -78,7 +78,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   private loadDataSourcesByCategory(category): void {
@@ -89,7 +89,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
       (error) => {
 
       }
-    )
+    );
   }
 
   private loadDataSourcesArray(dataSources: DataSource[]) {
@@ -107,7 +107,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
       () => {
         this.loadDatePickers(index);
       }
-    )
+    );
 
   }
   private loadDatePickers(index: number): void {
@@ -125,7 +125,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
         this.modalService.openModal(new Modal(error.error.error,
           error.error.message, 'Ok', '', 'updateError', null));
       }
-    )
+    );
     this.stopEditing();
   }
 
@@ -140,7 +140,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
   }
 
   deleteDataSource(dataSource: DataSource) {
-    this.modalService.openModal(new Modal("Delete instrument",
+    this.modalService.openModal(new Modal('Delete instrument',
       'This will cause the loss of all your data. Are you sure?', 'Yes', 'No', 'deleteInstrument', dataSource));
   }
   private deleteDataSourceFromServer(dataSource: DataSource) {
@@ -152,13 +152,13 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
         this.modalService.openModal(new Modal(error.error.error,
           error.error.message, 'Ok', '', 'deleteError', null));
       }
-    )
+    );
   }
 
   private formAction(action: ModalResponse): void {
     switch (action.modalAction) {
       case 'deleteInstrument':
-        if (action.userAction == 'accept') {
+        if (action.userAction === 'accept') {
           this.deleteDataSourceFromServer(action.objectInstance);
         }
         break;

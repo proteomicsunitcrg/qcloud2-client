@@ -31,12 +31,12 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     private sampleTypeService: SampleTypeService,
     private chartParamsService: ChartParamsService,
     private chartService: ChartService,
-    private ModalService: ModalService) { }
+    private modalService: ModalService) { }
 
   selectedCategory: Category;
   cvs: CV[] = [];
 
-  newChart: Chart = new Chart(null,'',null,null,false);
+  newChart: Chart = new Chart(null, '', null, null, false);
 
   chartParams: ChartParam[] = [];
 
@@ -75,13 +75,12 @@ export class ChartFormComponent implements OnInit, OnDestroy {
       .subscribe(
         (chart) => {
           this.newChart = chart;
-          delay(1).then(()=> M.updateTextFields());
+          delay(1).then(() => M.updateTextFields());
           // load chart params
           this.loadChartParams(chart);
           this.isEditing = true;
-          
         }
-      )
+      );
   }
   /**
    * This function gets a chart and then load the params
@@ -95,12 +94,11 @@ export class ChartFormComponent implements OnInit, OnDestroy {
         (chartParams) => {
           chartParams.forEach(
             (chartParam) => {
-              this.chartParams.push(new ChartParam(this.newChart,chartParam.param,chartParam.contextSource));              
-            }            
-          )
+              this.chartParams.push(new ChartParam(this.newChart, chartParam.param, chartParam.contextSource));
+            });
           this.chartParamsService.sendContextSourcesToEdit(this.chartParams);
         }
-      )
+      );
   }
   /**
    * Listen to the chart params of the context source component
@@ -108,10 +106,10 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   private subscribeToChartParams(): void {
     this.chartParamsToFill$ = this.chartParamsService.chartParamsToFill$
       .subscribe(
-        (chartParamsArray) => {          
-          this.chartParams = chartParamsArray
+        (chartParamsArray) => {
+          this.chartParams = chartParamsArray;
         }
-      )
+      );
   }
 
 
@@ -123,9 +121,9 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     this.selectedSampleType$ = this.sampleTypeService.selectedSampleType$
       .subscribe(
         (sampleType) => {
-          this.newChart.sampleType = sampleType
+          this.newChart.sampleType = sampleType;
         }
-      )
+      );
   }
   /**
    * Subscribe to any change of the CV
@@ -136,29 +134,29 @@ export class ChartFormComponent implements OnInit, OnDestroy {
         (cv) => {
           this.newChart.cv = cv;
         }
-      )
+      );
   }
   /**
    * Get the categories for the list of category
-   * in the form. The category is setted in the 
+   * in the form. The category is setted in the
    * category service.
    */
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe(
-      (result)=> {        
+      (result) => {
         this.loadCategoriesIntoList(result);
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
   /**
    * Materialize function to enable selects
    */
   private enableSelect() {
     const elem = document.getElementById('select_categories');
-    let instance = M.FormSelect.init(elem, {});    
+    const instance = M.FormSelect.init(elem, {});
   }
 
   /**
@@ -169,12 +167,12 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id,category.name,category.mainDataSource));
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
       }
     );
     this.selectedCategory = this.categories[0];
     this.categoryService.selectCategory(this.selectedCategory);
-    delay(100).then(()=> {      
+    delay(100).then(() => {
       this.enableSelect();
     });
   }
@@ -192,23 +190,23 @@ export class ChartFormComponent implements OnInit, OnDestroy {
           this.addChartToChartParams(chart);
           this.insertChartParams(chart);
         },
-        (error)=> {
-          this.ModalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'newChart',null));
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'newChart', null));
         }
-      )
+      );
   }
   /**
-   * Add the chart returned from the server into 
+   * Add the chart returned from the server into
    * each chartParam (check chartParam model to see)
    * @param chart the returned chart(with id) from the server
    * after insert/update
    */
   private addChartToChartParams(chart: Chart): void {
     this.chartParams.forEach(
-      (chartParam) => {        
+      (chartParam) => {
         chartParam.chart = chart;
       }
-    )
+    );
   }
   /**
    * Save the chart params into the database
@@ -216,16 +214,16 @@ export class ChartFormComponent implements OnInit, OnDestroy {
    * for get it's id.
    */
   private insertChartParams(chart: Chart): void {
-    this.chartService.chartParamsToDatabase(chart,this.chartParams,this.isEditing)
+    this.chartService.chartParamsToDatabase(chart, this.chartParams, this.isEditing)
       .subscribe(
         (chartParams) => {
           this.chartParamsService.resetComponents();
           M.toast({html: 'Chart saved!'});
         },
         (error) => {
-          this.ModalService.openModal(new Modal(error.error.error,"Database error",'Ok',null,'newChartParams',null));
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'newChartParams', null));
         }
-      )
+      );
   }
 }
 

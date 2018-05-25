@@ -27,17 +27,17 @@ export class PeptideService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllPeptides(): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => {return res});
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
   }
 
-  public savePeptide(peptide: Peptide) : Observable<Peptide> {
+  public savePeptide(peptide: Peptide): Observable<Peptide> {
     const json = JSON.stringify(peptide);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Peptide>(this.peptideUrl,params,{headers: headers});
+    return this.httpClient.post<Peptide>(this.peptideUrl, params, {headers: headers});
   }
 
-  public sendPeptide(peptide: Peptide) : void {
+  public sendPeptide(peptide: Peptide): void {
     this.peptideSelector.next(peptide);
   }
 
@@ -46,13 +46,13 @@ export class PeptideService {
   }
 
   public findPeptide(peptide: Peptide): Observable<Peptide> {
-    return this.httpClient.get<Peptide>(this.peptideUrl+'/'+peptide.id).map(res=>{return res});
+    return this.httpClient.get<Peptide>(this.peptideUrl + '/' + peptide.id).map(res => res);
   }
 
-  public updatePeptide(peptide: Peptide) : Observable<Peptide> {
+  public updatePeptide(peptide: Peptide): Observable<Peptide> {
     const json = JSON.stringify(peptide);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Peptide>(this.peptideUrl+'/'+peptide.id,params,{headers: headers});
+    return this.httpClient.put<Peptide>(this.peptideUrl + '/' + peptide.id, params, {headers: headers});
   }
 }

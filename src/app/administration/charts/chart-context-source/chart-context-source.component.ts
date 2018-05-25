@@ -63,37 +63,37 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
     this.resetComponent$.unsubscribe();
   }
 
-  isChecked(contextSource: ContextSource): boolean {    
-    return this.selectedContextSources.find(c => c.id == contextSource.id)!==undefined;
+  isChecked(contextSource: ContextSource): boolean {
+    return this.selectedContextSources.find(c => c.id === contextSource.id) !== undefined;
   }
-  
+
   private subscribeToChartParamsToEdit(): void {
     this.selectedContextSources$ = this.chartParamsService.selectedContextSources$
       .subscribe(
         (contextSources) => {
           this.addContextSourcesToArray(contextSources);
-        },error => console.log(error)
-      )
+        }, error => console.log(error)
+      );
   }
   /**
-   * Load a new context sources array into the list   
+   * Load a new context sources array into the list
    * @param contextSources an array with the context sources
    */
   private addContextSourcesToArray(contextSources: ContextSource[]): void {
     this.selectedContextSources = [];
     contextSources.forEach(
       (contextSource) => this.selectedContextSources.push(contextSource)
-    )
+    );
     this.fillChartParamsArray();
   }
-  
 
-  private subscribeToSelectedParameter(): void{
+
+  private subscribeToSelectedParameter(): void {
     this.selectedParameter$ = this.paramService.selectedParameter$
     .subscribe(
       (param) => {
         this.currentParam = param;
-        this.loadContextSources();        
+        this.loadContextSources();
       });
   }
 
@@ -103,14 +103,14 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
     .subscribe(
       (sampleType) => {
         this.sampleType = sampleType;
-        if(this.currentParam!==undefined) {
+        if (this.currentParam !== undefined) {
           this.loadContextSources();
         }
       });
   }
 
   private subscribeToReset(): void {
-    this.resetComponent$ =this.chartParamsService.resetComponent$
+    this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
           // clean selected array
@@ -118,7 +118,7 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
           this.contextSources.length = 0;
           this.title = 'Sources';
         }
-      )
+      );
   }
 
   private linkChartParamsArray(): void {
@@ -128,18 +128,18 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
 
   private loadContextSources(): void {
     this.contextSources = [];
-    switch(this.currentParam.isFor) {
+    switch (this.currentParam.isFor) {
       case 'Peptide':
-        if(this.sampleType===undefined) {
+        if (this.sampleType === undefined) {
           // Show message
-        }else {
+        } else {
           this.title = 'Peptides';
           this.sampleCompositionService.getAllPeptidesBySampleType(this.sampleType)
             .subscribe(
               (peptides) => {
                 this.loadContextSourcesList(peptides);
               }
-            )
+            );
         }
         break;
       case 'InstrumentSample':
@@ -149,7 +149,7 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
             (instrumentSamples) => {
               this.loadContextSourcesList(instrumentSamples);
             }
-          )
+          );
         break;
     }
   }
@@ -159,7 +159,7 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
       (contextSource) => {
         this.contextSources.push(contextSource);
       }
-    )
+    );
   }
 
   private fillChartParamsArray(): void {
@@ -169,29 +169,29 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
      * this.chartParamsArray = [] creates a new array
      * losing the pointer to the original form array
      */
-    this.chartParamsArray.length =0;
+    this.chartParamsArray.length = 0;
     this.selectedContextSources.forEach(
       (contextSource) => {
-        let chartParam = new ChartParam(null,this.currentParam,contextSource);
+        const chartParam = new ChartParam(null, this.currentParam, contextSource);
         this.chartParamsArray.push(chartParam);
       }
-    )
+    );
   }
 
-  toggleEditable(event: any,contextSource: ContextSource) {
-    if(event.target.checked) {
+  toggleEditable(event: any, contextSource: ContextSource) {
+    if (event.target.checked) {
       this.addContextSource(contextSource);
-    }else {
+    } else {
       this.removeContextSource(contextSource);
     }
     this.fillChartParamsArray();
-    
+
   }
   private addContextSource(contextSource: ContextSource): void {
     this.selectedContextSources.push(contextSource);
   }
   private removeContextSource(contextSource: ContextSource) {
-    this.selectedContextSources = this.selectedContextSources.filter(cs => cs.id !==contextSource.id);
+    this.selectedContextSources = this.selectedContextSources.filter(cs => cs.id !== contextSource.id);
   }
 
 }

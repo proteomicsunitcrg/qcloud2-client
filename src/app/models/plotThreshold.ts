@@ -1,8 +1,8 @@
-import { Param } from "./param";
-import { CV } from "./cv";
-import { ContextSource } from "./contextSource";
-import { SampleType } from "./sampleType";
-import { ThresholdParam } from "./thresholdParams";
+import { Param } from './param';
+import { CV } from './cv';
+import { ContextSource } from './contextSource';
+import { SampleType } from './sampleType';
+import { ThresholdParam } from './thresholdParams';
 
 export class PlotThreshold {
     direction: string;

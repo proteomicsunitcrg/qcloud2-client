@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import * as M from 'materialize-css/dist/js/materialize';
 import { AuthService } from '../../../auth.service';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
@@ -13,8 +12,6 @@ declare var M: any;
 })
 export class TopMenuComponent implements OnInit {
 
-  //instruments = ['Velosin','Luminoide'];
-
   systems: System[] = [];
 
   constructor(private authService: AuthService,
@@ -24,10 +21,10 @@ export class TopMenuComponent implements OnInit {
   isManager = false;
 
   ngOnInit() {
-    if(this.authService.checkIfAdmin()) {
+    if (this.authService.checkIfAdmin()) {
       this.isAdmin = true;
     }
-    if(this.authService.checkRole('ROLE_MANAGER')){
+    if (this.authService.checkRole('ROLE_MANAGER')) {
       this.isManager = true;
     }
     this.loadNodeSystems();
@@ -39,18 +36,11 @@ export class TopMenuComponent implements OnInit {
         (systems) => {
           this.systems = systems;
         }
-      )    
+      );
   }
 
-  /*
-  viewInstrument(instrument: DataSource): void {
-    this.dataSourceService.selectDataSourceForDisplay(instrument);
-  }
-  */
-
-
-  open(dropdown) : void {    
-    const elem = document.getElementById(dropdown);    
+  open(dropdown): void {
+    const elem = document.getElementById(dropdown);
     const instance = M.Dropdown.init(elem, {constrainWidth: false});
     instance.open();
   }

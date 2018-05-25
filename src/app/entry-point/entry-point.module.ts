@@ -1,4 +1,3 @@
-//import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes, Router } from '@angular/router';
@@ -23,8 +22,7 @@ import { ModalService } from '../common/modal.service';
   providers: [
     RegistrationService,
     ModalService
-    
   ],
-  bootstrap:[]
+  bootstrap: []
 })
 export class EntryPointModule { }
