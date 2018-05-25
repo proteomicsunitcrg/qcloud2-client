@@ -25,7 +25,6 @@ export class RoleGuardService implements CanActivate {
     const tokenPayload = decode(token);
 
     if(tokenPayload.exp> Date.now()) {
-      console.log('Token expired');
       this.router.navigate(['login']);
       return false;
     }
