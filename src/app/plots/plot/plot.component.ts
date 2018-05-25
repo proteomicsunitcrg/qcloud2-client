@@ -88,9 +88,13 @@ export class PlotComponent implements OnInit, OnDestroy {
   private loadThreshold(): void {
     this.thresholdService.getPlotThreshold(this.chart, this.system)
       .subscribe((threshold) => {
-        if (threshold != null) {
-          this.drawThreshold(threshold);
-          this.plotThreshold = threshold;
+        if (threshold != null) {          
+          if(threshold.monitored) {
+            this.drawThreshold(threshold);
+            this.plotThreshold = threshold;
+          }else {
+            this.loadData();
+          }
         } else {
           this.loadData();
         }
@@ -153,7 +157,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       );
       minValues.push(Math.min.apply(null,values.filter((n) => {return !isNaN(n)})));
-      maxValues.push(Math.max.apply(null,values.filter((n)=> { return !isNaN(n)})));
+      maxValues.push(Math.max.apply(null,values.filter((n) => {return !isNaN(n)})));
 
       var trace = {
         x: datesArray,

@@ -12,6 +12,7 @@ export class Threshold {
     cv: CV;
     sampleType: SampleType;
     thresholdType: string;
+    isMonitored: boolean;
     
     constructor(id: number,
         name:string,
@@ -20,7 +21,8 @@ export class Threshold {
         param: Param,
         cv: CV,
         sampleType: SampleType,
-        thresholdType: string) {
+        thresholdType: string,
+        isMonitored: boolean) {
             this.id = id;
             this.name = name;
             this.direction = direction;
@@ -29,5 +31,6 @@ export class Threshold {
             this.cv = cv;
             this.sampleType = sampleType;
             this.thresholdType = thresholdType;
+            this.isMonitored = isMonitored;
     }
 }

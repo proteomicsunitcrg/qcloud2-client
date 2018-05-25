@@ -1,14 +1,10 @@
 <div class="row">
   <div class="col s12 m12 l12 xl12">
-    <h5>List</h5>
-  </div>
-</div>
-<div class="row">
-  <div class="col s12 m12 l12 xl12">
     <table>
       <tbody *ngFor="let labSystemThreshold of labSystemThresholds">
         <tr>
-          <td colspan="6">{{labSystemThreshold.labSystem.name}}</td>
+          <td colspan="6" class="blue-grey lighten-4">
+            <strong>Lab system:</strong> {{labSystemThreshold.labSystem.name}}</td>
         </tr>
         <tr>
           <th>Param</th>
@@ -19,7 +15,12 @@
           <th>Monitor</th>
         </tr>
         <tr *ngFor="let threshold of labSystemThreshold.thresholds">
-          <td>{{threshold.param.name}}</td>
+          <td>
+            {{threshold.param.name}}
+            <i class="material-icons cursorIcon" *ngIf="threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue"
+              (click)="editThreshold(threshold)">create</i>
+            <i class="material-icons cursorIcon" *ngIf="threshold['edditing']" (click)="saveThresholdParams(threshold)">save</i>
+          </td>
           <td>
             <ul>
               <li *ngFor="let contextSource of threshold.thresholdParams">
@@ -27,32 +28,49 @@
               </li>
             </ul>
           </td>
+          <!-- INITIAL VALUE-->
           <td>
+            <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>
+            <ng-template #show>
               <ul>
-                  <li *ngFor="let contextSource of threshold.thresholdParams">
-                    {{contextSource.initialValue}}
-                  </li>
-                </ul>
+                <li *ngFor="let contextSource of threshold.thresholdParams">
+                  {{contextSource.initialValue}}
+                </li>
+              </ul>
+            </ng-template>
+            <ng-template #edit>
+              <div class="input-field col s3">
+                <input id="initialValue" name="initialValue" [(ngModel)]="threshold.globalInitialValue" type="number" class="validate">
+                <label for="initialValue">Initial value</label>
+              </div>
+            </ng-template>
           </td>
+          <!-- STEP VALUE-->
           <td>
+            <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>
+            <ng-template #showSV>
               <ul>
-                  <li *ngFor="let contextSource of threshold.thresholdParams">
-                    {{contextSource.stepValue}}
-                  </li>
-                </ul>
+                <li *ngFor="let contextSource of threshold.thresholdParams">
+                  {{contextSource.stepValue}}
+                </li>
+              </ul>
+            </ng-template>
+            <ng-template #editSV>
+              <div class="input-field col s3">
+                <input id="stepValue" name="stepValue" [(ngModel)]="threshold.globalStepValue" type="number" class="validate">
+                <label for="stepValue">Step value</label>
+              </div>
+            </ng-template>
+
           </td>
           <td>
             {{threshold.steps}}
           </td>
           <td>
-              <!-- <i class="material-icons cursorIcon" [ngClass]="(cv.enabled)?'enabled':'disabled'" (click)="changeStatus(cv)">power_settings_new</i> -->
-              <i class="material-icons cursorIcon" [ngClass]="disabled">power_settings_new</i>
+            <i class="material-icons cursorIcon" [ngClass]="(threshold.isMonitored)?'enabled':'disabled'" (click)="changeStatus(threshold)">power_settings_new</i>
           </td>
         </tr>
-
-
       </tbody>
-    </table>    
-
+    </table>
   </div>
 </div>

@@ -10,16 +10,19 @@ export class PlotThreshold {
     thresholdType: string;
     thresholdParams: ThresholdParam[];
     nonConformityDirection: string;
+    monitored: boolean;
 
     constructor(direction: string,
     steps: number,
     thresholdType: string,
     thresholdParam: ThresholdParam[],
-    nonConformityDirection: string) {
+    nonConformityDirection: string,
+    monitored: boolean) {
         this.direction = direction;
         this.steps = steps;
         this.thresholdType = thresholdType;
         this.thresholdParams = thresholdParam;
         this.nonConformityDirection = nonConformityDirection;
+        this.monitored = monitored;
     }
 }
