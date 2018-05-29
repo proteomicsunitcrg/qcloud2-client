@@ -1,6 +1,5 @@
 <ul id="instruments" class="dropdown-content">
   <li *ngFor="let system of systems">
-    <!-- <a (click)="viewInstrument(instrument)">{{instrument.name}}</a> -->
     <a routerLink="view/instrument/{{system.apiKey}}">{{system.name}}</a>
   </li>
 </ul>
@@ -17,7 +16,7 @@
     <a href="#" class="brand-logo">
       <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud.png" />
     </a>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger hide-on-large-only">
+    <a (click)="openMobile()" data-target="mobile-demo" class="sidenav-trigger hide-on-large-only">
       <i class="material-icons">menu</i>
     </a>
     <ul class="right hide-on-med-and-down">

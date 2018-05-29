@@ -45,4 +45,9 @@ export class TopMenuComponent implements OnInit {
     instance.open();
   }
 
+  openMobile(): void {
+    const elems = document.getElementById('mobile-demo');
+    const instances = M.Sidenav.init(elems, {});
+  }
+
 }
