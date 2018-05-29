@@ -1,8 +1,30 @@
-<div class="row">
-  <div class="col s12 m12 l12 xl12 blue-grey lighten-1">
-    <div id="instrumentStatus">
-      
-      <span class="right">Velosin: <i class="material-icons" id="warning">fiber_manual_record</i> Global status: <i class="material-icons" id="ok">fiber_manual_record</i></span>
-    </div>
+<ul id="content" class="dropdown-content">
+  <ng-container *ngIf="currentStatus!=null then status else nostatus"></ng-container>
+  <ng-template #status>
+    <li *ngFor="let status of currentStatus">
+      <a>{{status.param.name}} {{status.contextSource.name}}
+        <span [class]="status.status">{{status.status}}</span>
+      </a>
+    </li>
+  </ng-template>
+  <ng-template #nostatus>
+    <li>
+      <a>No status available.</a>
+    </li>
+  </ng-template>
+</ul>
+<div class="col s12 m12 l12 xl12 blue-grey lighten-1">
+  <div id="instrumentStatus">
+    <span class="right" *ngFor="let labSystem of nodeLabSystems; let i = index">
+      <a class="btn btn-flat dropdown-trigger" data-target="content" id="{{labSystem.system.name}}" (click)="open(labSystem.system.name,i)">{{labSystem.system.name}}</a>
+      <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>
+      <ng-template #alerts>
+        <span class="dot" [class.red]="labSystem.alerts.severity=='DANGER'" [class.orange]="labSystem.alerts.severity=='WARNING'"></span>
+      </ng-template>
+      <ng-template #clean>
+        <span class="dot" [class.green]="labSystem.alerts.severity=='OK'"></span>
+      </ng-template>
+
+    </span>
   </div>
 </div>

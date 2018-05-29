@@ -8,6 +8,7 @@ import { ThresholdConstraint } from '../models/thresholdConstraint';
 import { PlotThreshold } from '../models/plotThreshold';
 import { System } from '../models/system';
 import { Chart } from '../models/chart';
+import { LabSystemStatus } from '../models/labsystemstatus';
 
 @Injectable()
 export class ThresholdService {
@@ -68,6 +69,10 @@ export class ThresholdService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.put<number>(this.thresholdUrl + '/' + thresholdId, params, {headers: headers, observe: 'response'});
+  }
+
+  public getLabSystemStatus(labSystem: System): Observable<LabSystemStatus[]> {
+    return this.httpClient.get<LabSystemStatus[]>(this.thresholdUrl + '/status/' + labSystem.apiKey);
   }
 
 }
