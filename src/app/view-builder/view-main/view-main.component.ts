@@ -205,7 +205,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         this.viewDisplay[index] = [];
         row.forEach(
           (cell, colIndex) => {
-            const chart = this.charts.filter(c => c.id === cell);
+            const chart = this.charts.filter(c => c.id === Number(cell));
             this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
           }
         );
