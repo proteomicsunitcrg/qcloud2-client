@@ -17,7 +17,11 @@ export class SampleTypeCategoryService {
    * Get all the sample type categories from the database
    */
   public findAll(): Observable<SampleTypeCategory[]> {
-    return this.httpClient.get<SampleTypeCategory[]>(this.sampleTypeCategoryUrl);
+    return this.httpClient.get<any[]>(this.sampleTypeCategoryUrl);
+  }
+
+  public findComplexities(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.sampleTypeCategoryUrl + '/complexities');
   }
 
   /**
@@ -28,7 +32,7 @@ export class SampleTypeCategoryService {
     const json = JSON.stringify(sampleTypeCategory);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleTypeCategory>(this.sampleTypeCategoryUrl, params, {headers: headers, observe: 'response'});
+    return this.httpClient.post<SampleTypeCategory>(this.sampleTypeCategoryUrl, params, { headers: headers, observe: 'response' });
   }
 
   public getSampleTypeCategoryById(sampleTypeCategoryId: number): Observable<SampleTypeCategory> {

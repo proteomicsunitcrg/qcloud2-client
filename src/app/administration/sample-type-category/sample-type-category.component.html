@@ -14,6 +14,14 @@
           <label for="name">Name</label>
         </div>
         <div class="input-field">
+          <select id="select_complexity" [(ngModel)]="sampleTypeCategory.sampleTypeComplexity" name="selectedComplexity">
+            <option *ngFor="let sampleComplexity of sampleComplexities" [ngValue]="sampleComplexity">
+              {{sampleComplexity}}
+            </option>
+          </select>
+          <label>Complexity</label>
+        </div>
+        <div class="input-field">
           <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
         </div>
       </form>
@@ -24,12 +32,14 @@
       <table class="highlight">
         <thead>
           <tr>
-            <th>Name</th>            
+            <th>Name</th>
+            <th>Complexity</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let sampleTypeCategory of sampleTypeCategories">
             <td>{{sampleTypeCategory.name}}</td>
+            <td>{{sampleTypeCategory.sampleTypeComplexity}}</td>
           </tr>
         </tbody>
       </table>
