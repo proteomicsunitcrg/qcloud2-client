@@ -7,8 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
-
-// import { CategorySelectorComponent } from './cv/category-selector/category-selector.component';
 import { CvFormComponent } from './cv/cv-form/cv-form.component';
 import { CvListComponent } from './cv/cv-list/cv-list.component';
 import { MainCvComponent } from './cv/main-cv/main-cv.component';
@@ -56,6 +54,14 @@ import { ThresholdListComponent } from './threshold/threshold-list/threshold-lis
 import { CvSelectorComponent } from './threshold/cv-selector/cv-selector.component';
 import { ThresholdService } from '../services/threshold.service';
 import { ThresholdBuilderComponent } from './threshold/threshold-builder/threshold-builder.component';
+import { MainIsotopologueComponent } from './isotopologue/main-isotopologue/main-isotopologue.component';
+import { PeptideFormComponent } from './isotopologue/peptide-form/peptide-form.component';
+// tslint:disable-next-line:max-line-length
+import { IsotopologueCategorySelectorComponent } from './isotopologue/isotopologue-category-selector/isotopologue-category-selector.component';
+import { IsotopologuePeptideListComponent } from './isotopologue/isotopologue-peptide-list/isotopologue-peptide-list.component';
+import { NewPeptideFormComponent } from './isotopologue/new-peptide-form/new-peptide-form.component';
+import { IsotopologueBuilderComponent } from './isotopologue/isotopologue-builder/isotopologue-builder.component';
+import { IsotopologueService } from '../services/isotopologue.service';
 
 
 @NgModule({
@@ -79,7 +85,8 @@ import { ThresholdBuilderComponent } from './threshold/threshold-builder/thresho
     ChartParamsService,
     ChartService,
     SampleTypeCategoryService,
-    ThresholdService],
+    ThresholdService,
+    IsotopologueService],
   declarations: [MainComponent,
     SidebarComponent,
     CategoryComponent,
@@ -115,6 +122,12 @@ import { ThresholdBuilderComponent } from './threshold/threshold-builder/thresho
     MainThresholdComponent,
     ThresholdListComponent,
     CvSelectorComponent,
-    ThresholdBuilderComponent]
+    ThresholdBuilderComponent,
+    MainIsotopologueComponent,
+    PeptideFormComponent,
+    IsotopologueCategorySelectorComponent,
+    IsotopologuePeptideListComponent,
+    NewPeptideFormComponent,
+    IsotopologueBuilderComponent]
 })
 export class AdministrationModule { }
