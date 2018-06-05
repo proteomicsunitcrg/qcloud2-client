@@ -1,0 +1,8 @@
+<div class="input-field">
+  <select id="select_sample_types" name="selectedCategory" [(ngModel)]="isoSampleType" (change)="onChange()">
+    <option *ngFor="let sampleType of isotopologueSampleType" [ngValue]="sampleType">
+      {{sampleType.name}}
+    </option>
+  </select>
+  <label>Isotopologue sample type</label>
+</div>

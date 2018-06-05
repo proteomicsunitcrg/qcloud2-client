@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <h5>Peptides</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <app-isotopologue-category-selector (selectedSampleType)="selectSampleType($event)"></app-isotopologue-category-selector>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <app-isotopologue-peptide-list [isoSampleType]="selectedIsoSampleType"></app-isotopologue-peptide-list>
+  </div>
+</div>
+
