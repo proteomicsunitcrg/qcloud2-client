@@ -10,6 +10,10 @@ import { SampleComposition } from '../../../models/sampleComposition';
   templateUrl: './new-peptide-form.component.html',
   styleUrls: ['./new-peptide-form.component.css']
 })
+/**
+ * This class holds the new peptide form creation.
+ * @author Daniel Mancera
+ */
 export class NewPeptideFormComponent implements OnInit {
 
   constructor(private peptideService: PeptideService,

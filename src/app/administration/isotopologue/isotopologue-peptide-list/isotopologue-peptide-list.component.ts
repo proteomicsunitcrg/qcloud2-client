@@ -10,6 +10,11 @@ import { IsotopologueService } from '../../../services/isotopologue.service';
   templateUrl: './isotopologue-peptide-list.component.html',
   styleUrls: ['./isotopologue-peptide-list.component.css']
 })
+/**
+ * This class holds the peptide selector and the peptide form
+ * creation via new-peptide-form component.
+ * @author Daniel Mancera
+ */
 export class IsotopologuePeptideListComponent implements OnInit, OnChanges {
 
   constructor(private sampleCompositionService: SampleCompositionService,

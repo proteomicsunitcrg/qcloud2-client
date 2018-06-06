@@ -8,6 +8,10 @@ import { Peptide } from '../../../models/peptide';
   templateUrl: './isotopologue-builder.component.html',
   styleUrls: ['./isotopologue-builder.component.css']
 })
+/**
+ * Main class for generate new isotopologues of a given peptide
+ * @author Daniel Mancera
+ */
 export class IsotopologueBuilderComponent implements OnInit, OnDestroy {
 
   constructor(private isotopologueService: IsotopologueService) { }

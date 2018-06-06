@@ -7,6 +7,11 @@ import { Peptide } from '../../../models/peptide';
   templateUrl: './peptide-form.component.html',
   styleUrls: ['./peptide-form.component.css']
 })
+/**
+ * This class holds the sample type selector and the
+ * peptide management
+ * @author Daniel Mancera
+ */
 export class PeptideFormComponent implements OnInit {
 
   constructor() { }
