@@ -8,3 +8,42 @@
     <p *ngIf="peptide!==undefined">Manage the isotopologues of <strong>{{peptide.name}}</strong> in the form below.</p>
   </div>
 </div>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <!-- Table for add the peptides -->
+    <table>
+      <thead>
+        <tr>
+          <th>Sequence</th>
+          <th>Mz</th>
+          <th>Charge</th>
+          <th>Concentration</th>
+          <th>Options</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ASDASD(Heavy)</td>
+          <td>895.7</td>
+          <td>22</td>
+          <td>0.1</td>
+          <td colspan="2"><i class="material-icons">edit</i></td>
+        </tr>
+        <tr>
+          <td>A(Heavy)SDASD(Heavy)</td>
+          <td>885.5</td>
+          <td>22</td>
+          <td>0.01</td>
+          <td colspan="2"><i class="material-icons">edit</i></td>
+        </tr>
+        <tr>
+          <td colspan="5" class="center"><i class="material-icons">add</i></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="col s12 m12 l12 xl12">
+    <!-- holder for not isotopologues yet -->
+  </div>
+</div>
