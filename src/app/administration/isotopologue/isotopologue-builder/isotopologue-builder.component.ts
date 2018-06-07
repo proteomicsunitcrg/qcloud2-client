@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IsotopologueService } from '../../../services/isotopologue.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Peptide } from '../../../models/peptide';
+import { Isotopologue } from '../../../models/isotopologue';
 
 @Component({
   selector: 'app-isotopologue-builder',
@@ -20,6 +21,12 @@ export class IsotopologueBuilderComponent implements OnInit, OnDestroy {
 
   peptide: Peptide;
 
+  newIsotopologue = false;
+
+  isotopologues: Isotopologue[];
+
+  isotopologue: Isotopologue = new Isotopologue(null, null, null, null, null, null, null, null);
+
   ngOnInit() {
     this.subscribeToPeptide();
   }
@@ -28,9 +35,22 @@ export class IsotopologueBuilderComponent implements OnInit, OnDestroy {
     this.selectedPeptide$ = this.isotopologueService.selectedPeptide$
       .subscribe(
         (peptide) => {
+          this.newIsotopologue = false;
           this.peptide = peptide;
+          // load isotopologues
+          this.isotopologueService.getIsotopologuesByMainPeptide(peptide)
+            .subscribe(
+              (isotopologues) => {
+                this.isotopologues = isotopologues;
+              }
+            );
         }
       );
+  }
+
+  addIsotopologue(): void {
+    this.newIsotopologue = true;
+    this.isotopologue = new Isotopologue(null, null, null, null, null, null, null, null);
   }
 
 

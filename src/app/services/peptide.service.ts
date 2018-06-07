@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Subject } from 'rxjs/Subject';
 import { Peptide} from '../models/peptide';
+import { SampleTypeComplexity } from '../models/sampleTypeComplexity';
 
 @Injectable()
 export class PeptideService {
@@ -27,6 +28,15 @@ export class PeptideService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllPeptides(): Observable<Peptide[]> {
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
+  }
+
+  /**
+   * Get all peptides excluding the given sample type
+   * complexity
+   * @param complexity the complexity to not get
+   */
+  public getAllNonComplexityPeptides(complexity: SampleTypeComplexity): Observable<Peptide[]> {
     return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
   }
 

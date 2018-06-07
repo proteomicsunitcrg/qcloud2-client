@@ -5,11 +5,12 @@
 </div>
 <div class="row">
   <div class="col s12 m12 l12 xl12">
-    <p *ngIf="peptide!==undefined">Manage the isotopologues of <strong>{{peptide.name}}</strong> in the form below.</p>
+    <p *ngIf="peptide!==undefined">Manage the isotopologues of
+      <strong>{{peptide.name}}</strong> in the form below.</p>
   </div>
 </div>
 <div class="row">
-  <div class="col s12 m12 l12 xl12">
+  <div class="col s12 m12 l12 xl12" *ngIf="peptide">
     <!-- Table for add the peptides -->
     <table>
       <thead>
@@ -18,32 +19,61 @@
           <th>Mz</th>
           <th>Charge</th>
           <th>Concentration</th>
-          <th>Options</th>          
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>ASDASD(Heavy)</td>
-          <td>895.7</td>
-          <td>22</td>
-          <td>0.1</td>
-          <td colspan="2"><i class="material-icons">edit</i></td>
+        <tr *ngFor="let iso of isotopologues">
+          <td>{{iso.sequence}}</td>
+          <td>{{iso.mz}}</td>
+          <td>{{iso.charge}}</td>
+          <td>{{iso.concentration}}</td>
+          <td colspan="2">
+            <i class="material-icons">edit</i>
+          </td>
+        </tr>
+        <tr *ngIf="newIsotopologue">
+          <td>
+            <div class="input-field">
+              <input type="text" name="sequence" class="validate" id="sequence" validate required [(ngModel)]="isotopologue.sequence">
+              <label for="name">Isotopolgue sequence</label>
+            </div>
+          </td>
+          <td>
+            <div class="input-field">
+              <input type="number" name="mz" step=".001" class="validate" id="mz" validate required [(ngModel)]="isotopologue.mz">
+              <label for="name">Isotopolgue M/Z</label>
+            </div>
+          </td>
+          <td>
+            <div class="input-field">
+              <input type="number" name="charge" class="validate" id="charge" validate required [(ngModel)]="isotopologue.charge">
+              <label for="name">Isotopolgue charge</label>
+            </div>
+          </td>
+          <td>
+            <div class="input-field">
+              <input type="number" name="concentration" step=".001" class="validate" id="concentration" validate required [(ngModel)]="isotopologue.concentration">
+              <label for="name">Isotopolgue concentration</label>
+            </div>
+          </td>
+          <td class="pointer">
+            <button type="button" class="btn">
+              <i class="material-icons">save</i>
+            </button>
+          </td>
         </tr>
         <tr>
-          <td>A(Heavy)SDASD(Heavy)</td>
-          <td>885.5</td>
-          <td>22</td>
-          <td>0.01</td>
-          <td colspan="2"><i class="material-icons">edit</i></td>
-        </tr>
-        <tr>
-          <td colspan="5" class="center"><i class="material-icons">add</i></td>
+          <td colspan="5" class="center pointer" (click)="addIsotopologue()">
+            <i class="material-icons">add</i>
+          </td>
         </tr>
       </tbody>
     </table>
 
   </div>
-  <div class="col s12 m12 l12 xl12">
+  <div class="col s12 m12 l12 xl12" *ngIf="!peptide">
     <!-- holder for not isotopologues yet -->
+    <h3 class="center">Select a peptide to continue</h3>
   </div>
 </div>
