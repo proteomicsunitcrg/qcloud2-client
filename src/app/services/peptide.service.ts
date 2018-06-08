@@ -27,6 +27,9 @@ export class PeptideService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /**
+   * Get all peptides from the database
+   */
   public getAllPeptides(): Observable<Peptide[]> {
     return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
   }
