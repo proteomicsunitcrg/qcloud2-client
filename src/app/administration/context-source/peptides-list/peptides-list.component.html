@@ -1,4 +1,11 @@
 <h5>Peptides</h5>
+<div class="input-field col s12">
+  <select name="sampleTypeSelector" id="sampleTypeSelector" (change)="doFilter($event.target.value)">
+    <option value="All" selected>All</option>
+    <option *ngFor="let sampleType of sampleTypes">{{sampleType.name}}</option>
+  </select>
+  <label>Filter by sample type</label>
+</div>
 <table>
   <thead>
     <tr>
