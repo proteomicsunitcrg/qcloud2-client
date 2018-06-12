@@ -12,7 +12,7 @@ export class ParametersFormComponent implements OnInit {
 
   constructor(private parameterService: ParametersService) { }
 
-  newParam: Param = new Param(null, '', '', '');
+  newParam: Param = new Param(null, '', '', '', '');
 
   isFors: String[] = [];
 

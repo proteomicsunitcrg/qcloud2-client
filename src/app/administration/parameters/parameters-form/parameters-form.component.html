@@ -6,8 +6,12 @@
       <label for="name">Name</label>
     </div>
     <div class="input-field">
+      <input #qccvBox type="text" name="qccv" [(ngModel)]="newParam.qCCV" class="validate" id="qccv" validate required>
+      <label for="qccv">QC controlled vocabulary</label>
+    </div>
+    <div class="input-field">
       <select id="selectFor" name="selectFor" [(ngModel)]="newParam.isFor">
-        <option *ngFor="let isFor of isFors" [ngValue]="isFor" >
+        <option *ngFor="let isFor of isFors" [ngValue]="isFor">
           {{isFor}}
         </option>
       </select>

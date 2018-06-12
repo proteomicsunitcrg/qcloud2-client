@@ -13,7 +13,7 @@
       <ng-container *ngIf="editingParameter then edit else show"></ng-container>
       <ng-template #show>
         <td>{{param.name}}</td>
-        <td>Pending....</td>
+        <td>{{param.qCCV}}</td>
         <td>
           <i class="material-icons cursorIcon" (click)="editParameter(i)">edit</i>
         </td>
