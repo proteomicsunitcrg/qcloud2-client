@@ -33,6 +33,7 @@ export class InstrumentSampleListComponent implements OnInit {
     this.isService.getAllInstrumentSample().subscribe(
       (instrumentSamples) => {
         instrumentSamples.forEach(instrumentSample => this.instrumentSamples.push(instrumentSample));
+        console.log(this.instrumentSamples);
       }
     );
   }

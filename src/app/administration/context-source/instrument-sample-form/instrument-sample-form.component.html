@@ -11,6 +11,11 @@
       <label for="abbreviatedName">Abbreviated name</label>
     </div>
     <div class="input-field">
+      <input type="text" #qccv name="qccv" class="validate" [(ngModel)]="instrumentSample.qCCV"
+        id="qccv" minlength="4" validate required>
+      <label for="qccv">QC Controlled vocabulary</label>
+    </div>
+    <div class="input-field">
       <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
     </div>
   </form>

@@ -23,7 +23,7 @@ export class InstrumentSampleFormComponent implements OnInit {
   }
 
   peptide: Peptide = new Peptide(null, '', '', null, null, null);
-  instrumentSample: InstrumentSample = new InstrumentSample(null, '', '');
+  instrumentSample: InstrumentSample = new InstrumentSample(null, '', '', null);
 
   contextSource: ContextSource = new ContextSource(null, '', '');
 

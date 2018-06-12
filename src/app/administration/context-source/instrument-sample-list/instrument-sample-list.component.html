@@ -4,6 +4,7 @@
     <tr>
       <th>Name</th>
       <th>Abbreviated name</th>
+      <th>CV</th>
       <th></th>
     </tr>
   </thead>
@@ -11,6 +12,7 @@
     <tr *ngFor="let instrumentSample of instrumentSamples">
       <td>{{instrumentSample.name}}</td>
       <td>{{instrumentSample.abbreviated}}</td>
+      <td>{{instrumentSample.qCCV}}</td>
       <td>
         <i class="material-icons cursorIcon" (click)="deleteContextSource(contextSource)">delete_forever</i>
         <i class="material-icons cursorIcon" (click)="sendToDetail(contextSource)">mode_edit</i>
