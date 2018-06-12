@@ -24,7 +24,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
 
   parameters: Param[] = [];
 
-  selectedParameter: Param = new Param(null, null, null, null);
+  selectedParameter: Param = new Param(null, null, null, null, null);
 
   chartToEdit$: Subscription;
   resetComponent$: Subscription;
@@ -73,7 +73,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
     this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedParameter = new Param(null, null, null, null);
+          this.selectedParameter = new Param(null, null, null, null, null);
         }
       );
   }
