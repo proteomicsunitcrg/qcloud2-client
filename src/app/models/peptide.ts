@@ -1,14 +1,12 @@
 import { ContextSource} from './contextSource';
 export class Peptide extends ContextSource {
     sequence: string;
-    abbreviatedSequence: string;
     mz: number;
     charge: number;
 
-    constructor(id: number, name: string, sequence: string, abbreviatedSequence: string, mz: number, charge: number) {
-        super(id, name);
+    constructor(id: number, name: string, sequence: string, abbreviated: string, mz: number, charge: number) {
+        super(id, name, abbreviated);
         this.sequence = sequence;
-        this.abbreviatedSequence = abbreviatedSequence;
         this.mz = mz;
         this.charge = charge;
     }

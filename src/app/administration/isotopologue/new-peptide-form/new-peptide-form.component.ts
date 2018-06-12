@@ -28,7 +28,7 @@ export class NewPeptideFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.peptide.abbreviatedSequence = this.peptide.sequence.substr(0, 3);
+    this.peptide.abbreviated = this.peptide.sequence.substr(0, 3);
     this.peptideService.savePeptide(this.peptide)
       .subscribe(
         (p) => {

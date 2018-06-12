@@ -10,7 +10,7 @@
   <tbody>
     <tr *ngFor="let instrumentSample of instrumentSamples">
       <td>{{instrumentSample.name}}</td>
-      <td>{{instrumentSample.abbreviatedName}}</td>
+      <td>{{instrumentSample.abbreviated}}</td>
       <td>
         <i class="material-icons cursorIcon" (click)="deleteContextSource(contextSource)">delete_forever</i>
         <i class="material-icons cursorIcon" (click)="sendToDetail(contextSource)">mode_edit</i>
