@@ -33,6 +33,10 @@ export class SampleTypeService {
     return this.httpClient.get<SampleType[]>(this.sampleTypesUrl);
   }
 
+  public getLowAndHighComplexitySampleTypes(): Observable<SampleType[]> {
+    return this.httpClient.get<SampleType[]>(this.sampleTypesUrl + '/noiso');
+  }
+
   public addSampleType(sampleType: SampleType): Observable<SampleType> {
     const json = JSON.stringify(sampleType);
     const params = json;
