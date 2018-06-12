@@ -5,11 +5,13 @@ export class SampleType {
     name: string;
     sampleTypeCategory: SampleTypeCategory;
     isMainSampleType: boolean;
+    qCCV: string;
 
-    constructor(id: number, name: string, sampleTypeCategory: SampleTypeCategory, isMainSampleType: boolean) {
+    constructor(id: number, name: string, sampleTypeCategory: SampleTypeCategory, isMainSampleType: boolean, qCCV: string) {
         this.id = id;
         this.name = name;
         this.sampleTypeCategory = sampleTypeCategory;
         this.isMainSampleType = isMainSampleType;
+        this.qCCV = qCCV;
     }
 }

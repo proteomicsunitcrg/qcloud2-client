@@ -6,6 +6,10 @@
       <label for="name">Name</label>
     </div>
     <div class="input-field">
+      <input #qccvBox type="text" name="qccv" [(ngModel)]="sampleType.qCCV" class="validate" id="qccv" validate required>
+      <label for="qccv">QC Controlled vocabulary</label>
+    </div>
+    <div class="input-field">
       <select id="select_categories" [(ngModel)]="sampleType.sampleTypeCategory" name="selectedCategory">
         <option *ngFor="let sampleTypeCategory of sampleTypeCategories" [ngValue]="sampleTypeCategory">
           {{sampleTypeCategory.name}}
@@ -14,7 +18,7 @@
       <label>Sample type category</label>
     </div>
     <div class="input-field">
-      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>      
+      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
     </div>
   </form>
 </div>
