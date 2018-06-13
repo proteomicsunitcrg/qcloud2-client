@@ -10,12 +10,15 @@ import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
+import { HtmlPlotComponent} from '../helper/html-plot.component';
 
 @Component({
   selector: 'app-plot',
   templateUrl: './plot.component.html',
   styleUrls: ['./plot.component.css']
 })
+
+
 export class PlotComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService,
@@ -200,6 +203,21 @@ export class PlotComponent implements OnInit, OnDestroy {
     };
     this.layout.shapes = this.layoutShapes;
     Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
+
+    /*
+    class HtmlPlotComponent extends HTMLElement {
+      constructor() {
+        super();
+      }
+      on(event_type, cb) {
+      }
+    }
+    */
+    const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
+    plot.on('plotly_click', (data) => {
+      console.log(data);
+    });
+
   }
 
   private calculatePointColor(key: string, value: number, traceIndex: number): string {
@@ -227,7 +245,7 @@ export class PlotComponent implements OnInit, OnDestroy {
               }
             }
           case 'UPDOWN':
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1 ) {
+            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
               return 'red';
             } else {
               return traceColor.colorRange[traceIndex];
