@@ -204,15 +204,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.layout.shapes = this.layoutShapes;
     Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
 
-    /*
-    class HtmlPlotComponent extends HTMLElement {
-      constructor() {
-        super();
-      }
-      on(event_type, cb) {
-      }
-    }
-    */
     const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
     plot.on('plotly_click', (data) => {
       console.log(data);
