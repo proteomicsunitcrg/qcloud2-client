@@ -25,6 +25,9 @@ import { FileService } from '../services/file.service';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from './layout/welcome/welcome.component';
 import { SystemService } from '../services/system.service';
+import { FileInformationComponent } from './data-visualization/file-information/file-information.component';
+import { IsotopologueInformationComponent } from './data-visualization/isotopologue-information/isotopologue-information.component';
+import { SampleTypeService } from '../services/sample-type.service';
 
 @NgModule({
   imports: [
@@ -38,12 +41,15 @@ import { SystemService } from '../services/system.service';
     DataVisualizationMainWindowComponent,
     DataVisualizationSideMenuComponent,
     DataVisualizationDisplayComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    FileInformationComponent,
+    IsotopologueInformationComponent
     ],
   providers: [DataService,
     ViewService,
     DataSourceService,
     FileService,
-    SystemService]
+    SystemService,
+    SampleTypeService]
 })
 export class ApplicationModule { }
