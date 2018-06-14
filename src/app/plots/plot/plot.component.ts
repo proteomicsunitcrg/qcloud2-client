@@ -11,6 +11,7 @@ import { PlotThreshold } from '../../models/plotThreshold';
 import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent} from '../helper/html-plot.component';
+import { PlotService } from '../../services/plot.service';
 
 @Component({
   selector: 'app-plot',
@@ -22,7 +23,8 @@ import { HtmlPlotComponent} from '../helper/html-plot.component';
 export class PlotComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService,
-    private thresholdService: ThresholdService) { }
+    private thresholdService: ThresholdService,
+    private plotService: PlotService) { }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -206,7 +208,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
     plot.on('plotly_click', (data) => {
-      console.log(data);
+      this.plotService.sendClick(data, this.chart, this.system);
     });
 
   }

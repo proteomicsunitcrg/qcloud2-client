@@ -26,4 +26,8 @@ export class FileService {
     return this.httpClient.get<File>(this.fileUrl + '/' + sampleType.qCCV + '/' + labSystemApiKey);
   }
 
+  public getFileByFilename(filename: string): Observable<File> {
+    return this.httpClient.get<File>(this.fileUrl + '/name/' + filename);
+  }
+
 }
