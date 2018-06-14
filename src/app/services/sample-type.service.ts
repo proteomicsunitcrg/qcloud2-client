@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { SampleType } from '../models/sampleType';
 import { Subject } from 'rxjs/Subject';
 import { SampleTypeComplexity } from '../models/sampleTypeComplexity';
+import { SampleTypeCategory } from '../models/sampleTypeCategory';
 
 @Injectable()
 export class SampleTypeService {
@@ -60,6 +61,14 @@ export class SampleTypeService {
   public getIsotopologueSampleTypes(): Observable<SampleType[]> {
     return this.httpClient.get<SampleType[]>(this.sampleTypesUrl + '/type/' +
       SampleTypeComplexity[SampleTypeComplexity.HIGHWITHISOTOPOLOGUES]);
+  }
+
+  /**
+   * Get the default sample type per sample type category
+   * @param sampleTypeCategory the sample type category
+   */
+  public getDefaultSampleTypeBySampleTypeCategory(sampleTypeCategory: SampleTypeCategory): Observable<SampleType> {
+    return this.httpClient.get<SampleType>(this.sampleTypesUrl + '/main/' + sampleTypeCategory.id);
   }
 
 }
