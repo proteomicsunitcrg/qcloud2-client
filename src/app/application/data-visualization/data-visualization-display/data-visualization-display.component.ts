@@ -2,17 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ViewService } from '../../../services/view.service';
 import { Display } from '../../../models/display';
 import { View } from '../../../models/view';
-import { ViewDisplay } from '../../../models/viewDisplay';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
-import { CV } from '../../../models/cv';
-import { FileService } from '../../../services/file.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
 import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
-import { Category } from '../../../models/category';
 import { delay } from 'q';
 import { Subscription } from 'rxjs/Subscription';
 declare var M: any;
@@ -26,9 +21,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
 
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
-    private fileService: FileService,
     private route: ActivatedRoute,
-    private router: Router,
     private systemService: SystemService) { }
 
   display: Display = new Display(null);
