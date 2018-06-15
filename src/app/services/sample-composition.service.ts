@@ -88,5 +88,9 @@ export class SampleCompositionService {
     this.sampleTypeSelector.next(sampleType);
   }
 
+  public getAllPeptidesBySampleTypeQQCV(sampleType: SampleType): Observable<SampleComposition[]> {
+    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/qqcv/' + sampleType.qCCV);
+  }
+
 
 }

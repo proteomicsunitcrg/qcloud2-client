@@ -25,5 +25,4 @@ export class IsotopologueService {
     return this.httpClient.get<Isotopologue[]>(this.isotopologueUrl + '/main/' + mainPeptide.id);
   }
 
-
 }

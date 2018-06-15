@@ -6,6 +6,7 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 import { FileService } from '../../../services/file.service';
 import { PlotService } from '../../../services/plot.service';
 import { Subscription } from 'rxjs/Subscription';
+import { File } from '../../../models/file';
 
 @Component({
   selector: 'app-file-information',

@@ -1,3 +1,22 @@
-<p>
-  isotopologue-information works!
-</p>
+<div class="row">
+  <div class="col s12 m12 l12 xl12">
+    <ul class="collapsible" id="iso-collapsible">
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">grain</i>Isotopologues</div>
+        <div class="collapsible-body">
+          <div class="row" *ngFor="let row of plots">
+            <div class="col s{{colsXRow}} m{{colsXRow}} l{{colsXRow}} xl{{colsXRow}}" *ngFor="let col of row">
+              <app-isotopologue-plot [abbreviatedIsotopologueName]="col.abbr" 
+              [cleanedSequence]="col.cleaned" 
+              [file]="file"
+              *ngIf="isCollapsibleOpen"></app-isotopologue-plot>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+</div>

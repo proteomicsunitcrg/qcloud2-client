@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import { Chart } from '../models/chart';
 import { DataSource } from '../models/dataSource';
 import { System } from '../models/system';
+import { File } from '../models/file';
 
 @Injectable()
 export class DataService {
@@ -56,6 +57,32 @@ export class DataService {
         return dataArray;
       }
     );
+  }
+
+  /**
+   * Get the data for the isotopolgue plot for a given file
+   * @param file the file to look for
+   * @param abbreviated the abbreviated sequence of the isotpologue
+   */
+  public getIsotopologuePlotData(file: File, abbreviated: string): Observable<MiniData[]> {
+    return this.httpClient.get<MiniData[]>(this.dataUrl + '/iso/' + file.checksum + '/' + abbreviated)
+      .map(
+        (data) => {
+          const dataArray = [];
+          data.forEach((row) => {
+            if (dataArray[row.fileCreationDate] === undefined) {
+              dataArray[row.fileCreationDate] = {};
+            }
+            if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
+              dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
+            }
+            if (dataArray[row.fileCreationDate]['filename'] === undefined) {
+              dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
+            }
+          });
+          return dataArray;
+        }
+      );
   }
 
   public selectDates(datesArray: string[]): void {

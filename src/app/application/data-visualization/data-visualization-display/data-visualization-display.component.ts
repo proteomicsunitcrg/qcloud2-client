@@ -8,8 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
-import { delay } from 'q';
+import { delay, isPending } from 'q';
 import { Subscription } from 'rxjs/Subscription';
+import { PlotService } from '../../../services/plot.service';
 declare var M: any;
 
 @Component({
@@ -22,7 +23,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
     private route: ActivatedRoute,
-    private systemService: SystemService) { }
+    private systemService: SystemService,
+    private plotService: PlotService) { }
 
   display: Display = new Display(null);
 

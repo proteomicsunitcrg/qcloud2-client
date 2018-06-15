@@ -29,6 +29,7 @@ import { FileInformationComponent } from './data-visualization/file-information/
 import { IsotopologueInformationComponent } from './data-visualization/isotopologue-information/isotopologue-information.component';
 import { SampleTypeService } from '../services/sample-type.service';
 import { PlotService } from '../services/plot.service';
+import { SampleCompositionService } from '../services/sample-composition.service';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { PlotService } from '../services/plot.service';
     FileService,
     SystemService,
     SampleTypeService,
-    PlotService]
+    PlotService,
+    SampleCompositionService]
 })
 export class ApplicationModule { }

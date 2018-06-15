@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import { SampleType } from '../models/sampleType';
 import { System } from '../models/system';
+import { File } from '../models/file';
 
 @Injectable()
 export class FileService {
