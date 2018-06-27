@@ -56,7 +56,7 @@ export class CategoryService {
   }
 
   public categoryToMainCategory(category: Category): Observable<any> {
-    return this.httpClient.put(this.categoryUrl + '/makemain/' + category.id, {});
+    return this.httpClient.put(this.categoryUrl + '/makemain/' + category.apiKey, {});
   }
 
   public getMainCategory(): Observable<Category> {

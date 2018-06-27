@@ -56,7 +56,7 @@ export class CvListComponent implements OnInit, OnDestroy {
    * @param cv
    */
   changeStatus(cv: CV) {
-    this.cvService.changeEnabled(cv.id).subscribe(
+    this.cvService.changeEnabled(cv.cvid).subscribe(
       (result) => {
         cv.enabled = result.enabled;
       },
@@ -64,10 +64,6 @@ export class CvListComponent implements OnInit, OnDestroy {
         this.showModalByError(error);
       }
     );
-  }
-
-  private showAction(action): void {
-    console.log(action);
   }
 
   private showModalByError(error: HttpErrorResponse) {

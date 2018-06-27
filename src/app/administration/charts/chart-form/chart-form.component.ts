@@ -36,7 +36,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   selectedCategory: Category;
   cvs: CV[] = [];
 
-  newChart: Chart = new Chart(null, '', null, null, false);
+  newChart: Chart = new Chart(null, '', null, null, false, null);
 
   chartParams: ChartParam[] = [];
 
@@ -167,7 +167,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource, category.apiKey));
       }
     );
     this.selectedCategory = this.categories[0];
@@ -216,7 +216,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   private insertChartParams(chart: Chart): void {
     this.chartService.chartParamsToDatabase(chart, this.chartParams, this.isEditing)
       .subscribe(
-        (chartParams) => {
+        () => {
           this.chartParamsService.resetComponents();
           M.toast({html: 'Chart saved!'});
         },

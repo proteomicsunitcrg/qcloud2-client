@@ -18,7 +18,7 @@ export class SampleTypeCategoryComponent implements OnInit {
 
   sampleTypeCategories: SampleTypeCategory[] = [];
 
-  sampleTypeCategory: SampleTypeCategory = new SampleTypeCategory(null, null, null, null);
+  sampleTypeCategory: SampleTypeCategory = new SampleTypeCategory(null, null, null, null, null);
 
   sampleComplexities: string[] = [];
 

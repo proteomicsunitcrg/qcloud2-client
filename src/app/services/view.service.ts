@@ -36,6 +36,15 @@ export class ViewService {
       );
   }
 
+  public getDefaultViewNameByCVAndSampleTypeCategoryApiKey(cv: CV, sampleTypeCategoryApiKey: string): Observable<View> {
+    return this.httpClient.get<View>(this.defaultViewsUrl + '/' + cv.id + '/' + sampleTypeCategoryApiKey)
+      .map(
+        (res) => {
+          return res;
+        }
+      );
+  }
+
   public getDefaultViewsByCVId(cvId: string): Observable<View[]> {
     return this.httpClient.get<View[]>(this.defaultViewsUrl + '/' + cvId);
   }

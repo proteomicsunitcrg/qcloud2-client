@@ -252,27 +252,27 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled));
+            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey));
           });
         }
       );
   }
-  private loadChartsByCVAndSampleTypeCategoryId(cv: CV, sampleTypeCategoryId: number): void {
+  private loadChartsByCVAndSampleTypeCategoryApiKey(cv: CV, sampleTypeCategoryApiKey: string): void {
     this.charts = [];
-    this.chartService.getChartsByCVAndSampleTypeCategoryId(cv, sampleTypeCategoryId)
+    this.chartService.getChartsByCVAndSampleTypeCategoryApiKey(cv, sampleTypeCategoryApiKey)
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled));
+            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey));
           });
         }
       );
   }
 
 
-  private sendCVToList(cv: CV, sampleTypeCategoryId: number): void {
+  private sendCVToList(cv: CV, sampleTypeCategoryApiKey: string): void {
     // get the cv from server
-    this.loadChartsByCVAndSampleTypeCategoryId(cv, sampleTypeCategoryId);
+    this.loadChartsByCVAndSampleTypeCategoryApiKey(cv, sampleTypeCategoryApiKey);
 
     // add to the view object
     this.view.cv = cv;

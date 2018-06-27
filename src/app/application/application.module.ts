@@ -5,7 +5,6 @@
  * @author Daniel Mancera<daniel.mancera@crg.eu>
  *
  */
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainWindowComponent } from './main-window/main-window.component';

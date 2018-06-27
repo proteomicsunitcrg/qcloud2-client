@@ -44,7 +44,7 @@ export class CategorySelectorComponent implements OnInit {
   private loadCategories(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource, category.apiKey));
       }
     );
     this.selectedCategory = this.categories[0];

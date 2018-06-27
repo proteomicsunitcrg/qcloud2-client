@@ -61,7 +61,7 @@ export class ChartParamsService {
   }
 
   public getChartsParamsByChart(chart: Chart): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.chartUrl + '/' + chart.id);
+    return this.httpClient.get<any[]>(this.chartUrl + '/' + chart.apiKey);
   }
 
 }

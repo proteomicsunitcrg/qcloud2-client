@@ -76,7 +76,7 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
   private loadCategoriesIntoList(categories: Category[]) {
     categories.forEach(
       (category) => {
-        this.categories.push(new Category(category.id, category.name, category.mainDataSource));
+        this.categories.push(new Category(category.id, category.name, category.mainDataSource, category.apiKey));
       }
     );
     this.selectedCategory = this.categories[0];
@@ -89,11 +89,11 @@ export class MainDefaultViewComponent implements OnInit, OnDestroy {
    */
   goToDefaultChartEdit(): void {
     // Check if a view already exists for this CV
-    this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.selectedCV, this.selectedSampleTypeCategory.id)
+    this.viewService.getDefaultViewNameByCVAndSampleTypeCategoryApiKey(this.selectedCV, this.selectedSampleTypeCategory.apiKey)
       .subscribe(
         (res) => {
           if (res === null) {
-            this.router.navigate(['/application/administration/views/cv', this.selectedCV.cvid, this.selectedSampleTypeCategory.id]);
+            this.router.navigate(['/application/administration/views/cv', this.selectedCV.cvid, this.selectedSampleTypeCategory.apiKey]);
           } else {
             this.modalService.openModal(new Modal('Information',
               'A default chart for that instrument already exists. Do you want to edit it?',

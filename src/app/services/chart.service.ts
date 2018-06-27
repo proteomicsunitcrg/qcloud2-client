@@ -62,9 +62,9 @@ export class ChartService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     if (update) {
-      return this.httpClient.put<ChartParam[]>(this.chartUrl + '/' + chart.id, params, { headers: headers});
+      return this.httpClient.put<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers});
     } else {
-      return this.httpClient.post<ChartParam[]>(this.chartUrl + '/' + chart.id, params, { headers: headers});
+      return this.httpClient.post<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers});
     }
   }
 
@@ -79,11 +79,11 @@ export class ChartService {
    * @param cv cv of the charts to retrieve
    */
   public getChartsByCV(cv: CV): Observable<Chart[]> {
-    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.id);
+    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.cvid);
   }
 
-  public getChartsByCVAndSampleTypeCategoryId(cv: CV, sampleTypeCategoryId: number): Observable<Chart[]> {
-    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.id + '/category/' + sampleTypeCategoryId);
+  public getChartsByCVAndSampleTypeCategoryApiKey(cv: CV, sampleTypeCategoryApiKey: string): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.id + '/category/' + sampleTypeCategoryApiKey);
   }
 
   /**
