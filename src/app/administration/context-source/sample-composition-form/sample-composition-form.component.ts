@@ -59,17 +59,19 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy {
 
   private resetSampleCompositionForm(): void {
     this.sampleTypes.forEach((s) => {
-      this.compositionInputs[s.id] = false;
-      this.compositions[s.id].concentration = null;
+      this.compositionInputs[s.qualityControlControlledVocabulary] = false;
+      this.compositions[s.qualityControlControlledVocabulary].concentration = null;
     });
   }
 
   private loadSampleComposition(sampleCompositions: SampleComposition[]): void {
     sampleCompositions.forEach(
       (sampleComposition) => {
-        if (this.compositions.filter(c => c.id === sampleComposition.sampleType.id) !== undefined) {
-          this.compositionInputs[sampleComposition.sampleType.id] = true;
-          this.compositions[sampleComposition.sampleType.id].concentration = sampleComposition.concentration;
+        if (this.compositions.filter(
+          c => c.qualityControlControlledVocabulary === sampleComposition.sampleType.qualityControlControlledVocabulary) !== undefined) {
+          this.compositionInputs[sampleComposition.sampleType.qualityControlControlledVocabulary] = true;
+          // tslint:disable-next-line:max-line-length
+          this.compositions[sampleComposition.sampleType.qualityControlControlledVocabulary].concentration = sampleComposition.concentration;
         }
       }
     );
@@ -97,8 +99,8 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy {
         sampleTypes => {
           sampleTypes.forEach(sampleType => {
             this.sampleTypes.push(sampleType);
-            this.compositions[sampleType.id] = new SampleComposition(null, sampleType, null);
-            this.compositionInputs[sampleType.id] = false;
+            this.compositions[sampleType.qualityControlControlledVocabulary] = new SampleComposition(null, sampleType, null);
+            this.compositionInputs[sampleType.qualityControlControlledVocabulary] = false;
           });
         },
         error => console.log(error)

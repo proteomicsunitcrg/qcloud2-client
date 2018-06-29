@@ -105,7 +105,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     let found = false;
     sampleCompositions.forEach(
       (sampleComposition) => {
-        if (sampleComposition.sampleType.id === sampleType.id) {
+        if (sampleComposition.sampleType.qualityControlControlledVocabulary === sampleType.qualityControlControlledVocabulary) {
           found = true;
           this.saveSampleComposition(sampleComposition);
         }
@@ -129,7 +129,8 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   private checkInPreviousArray(sampleType: SampleType): void {
     this.previousSampleCompositions.forEach(
       (sc) => {
-        if (sc.sampleType.id === sampleType.id) {
+        console.log(sc);
+        if (sc.sampleType.qualityControlControlledVocabulary === sampleType.qualityControlControlledVocabulary) {
           this.deleteSampleComposition(sc);
         }
       }
@@ -163,6 +164,9 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
           }
         );
     } else {
+      this.peptideService.sendPeptideToList(this.formData.currentPeptide);
+      this.sampleCompositionService.sendPeptide(this.formData.currentPeptide);
+      /*
       this.peptideService.updatePeptide(this.formData.currentPeptide)
         .subscribe(
           (result) => {
@@ -175,6 +179,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
               error.error.message, 'Ok', '', 'updatePeptide', null));
           }
         );
+        */
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';

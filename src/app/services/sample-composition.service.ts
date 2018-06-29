@@ -56,7 +56,7 @@ export class SampleCompositionService {
   }
 
   public getSampleCompositionByPeptide(peptide: Peptide): Observable<SampleComposition[]> {
-    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/peptide/' + peptide.id);
+    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/peptide/' + peptide.sequence);
   }
 
   public sendPeptideSampleComposition(sampleCompositions: SampleComposition[]): void {
@@ -72,7 +72,7 @@ export class SampleCompositionService {
 
   public deleteSampleComposiion(sampleComposition: SampleComposition): Observable<any> {
     return this.httpClient.delete(this.sampleCompositionUrl + '/peptide/' +
-      sampleComposition.peptide.id + '/sample/' + sampleComposition.sampleType.id);
+      sampleComposition.peptide.sequence + '/sample/' + sampleComposition.sampleType.qualityControlControlledVocabulary);
   }
 
   public getAllPeptidesBySampleType(sampleType: SampleType): Observable<Peptide[]> {
@@ -89,7 +89,7 @@ export class SampleCompositionService {
   }
 
   public getAllPeptidesBySampleTypeQQCV(sampleType: SampleType): Observable<SampleComposition[]> {
-    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/qqcv/' + sampleType.qCCV);
+    return this.httpClient.get<SampleComposition[]>(this.sampleCompositionUrl + '/qqcv/' + sampleType.qualityControlControlledVocabulary);
   }
 
 

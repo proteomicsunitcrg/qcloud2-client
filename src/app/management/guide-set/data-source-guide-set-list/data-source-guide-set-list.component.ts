@@ -1,12 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CategoryService } from '../../../services/category.service';
-import { Category } from '../../../models/category';
-import { DataSourceService } from '../../../services/data-source.service';
-import { DataSource } from '../../../models/dataSource';
 import { GuideSet } from '../../../models/guideSet';
 import { delay } from 'q';
 import { ModalService } from '../../../common/modal.service';
-import { Modal } from '../../../models/modal';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,8 +13,7 @@ declare var M: any;
 })
 export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
 
-  constructor(private categoryService: CategoryService,
-    private systemService: SystemService,
+  constructor(private systemService: SystemService,
     private modalService: ModalService) { }
 
   systems: System[] = [];
@@ -62,8 +56,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
   private initializeDatePickers(): void {
     this.systems.forEach(
       (system) => {
-        const datePickers = document.getElementsByClassName('datepicker' + system.id);
-        this.datePickers[system.id] = [];
+        const datePickers = document.getElementsByClassName('datepicker' + system.apiKey);
+        this.datePickers[system.apiKey] = [];
         for (let i = 0; i < datePickers.length; i++) {
           const options = {
             format: 'yyyy-mm-dd',
@@ -71,7 +65,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
             setDefaultDate: true
           };
           const instance = M.Datepicker.init(datePickers[i], options);
-          this.datePickers[system.id].push(instance);
+          this.datePickers[system.apiKey].push(instance);
         }
       }
     );
@@ -96,16 +90,16 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
      * the values manually getting from the DOM
      * 2018-04-10
      */
-    const start = this.datePickers[system.id][0].toString();
-    const end = this.datePickers[system.id][1].toString();
+    const start = this.datePickers[system.apiKey][0].toString();
+    const end = this.datePickers[system.apiKey][1].toString();
     if (start === '' || end === '') {
       alert('Fill both start date and end date');
     } else {
-      if (this.datePickers[system.id][0] > this.datePickers[system.id][1]) {
+      if (this.datePickers[system.apiKey][0] > this.datePickers[system.apiKey][1]) {
         alert('End date must be greater than start date');
       } else {
-        system.guideSet.startDate = this.datePickers[system.id][0].toString();
-        system.guideSet.endDate = this.datePickers[system.id][1].toString();
+        system.guideSet.startDate = this.datePickers[system.apiKey][0].toString();
+        system.guideSet.endDate = this.datePickers[system.apiKey][1].toString();
         this.updateDataSource(system);
       }
     }

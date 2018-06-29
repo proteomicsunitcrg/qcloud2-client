@@ -33,14 +33,14 @@ export class CvService {
     return this.httpClient.get<CV>(this.cvUrl + '/' + cvId);
   }
   public getAllEnabledCVByCategory(category: Category): Observable<CV[]> {
-    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.id + '/enabled');
+    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.apiKey + '/enabled');
   }
 
   public changeEnabled(cvId: string): Observable<CV> {
     return this.httpClient.put<CV>(this.cvUrl + '/' + cvId, {}, {});
   }
   public getCvByCategory(category: Category): Observable<CV[]> {
-    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.id);
+    return this.httpClient.get<CV[]>(this.cvUrl + '/category/' + category.apiKey);
   }
 
   public sendSelectedCvToChartForm(cv: CV): void {

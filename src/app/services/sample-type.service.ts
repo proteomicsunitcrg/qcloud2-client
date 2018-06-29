@@ -42,7 +42,7 @@ export class SampleTypeService {
     const json = JSON.stringify(sampleType);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleType>(this.sampleTypesUrl + '/' + sampleType.sampleTypeCategory.id, params, {headers: headers});
+    return this.httpClient.post<SampleType>(this.sampleTypesUrl + '/' + sampleType.sampleTypeCategory.apiKey, params, {headers: headers});
   }
 
   public sendNewSampleTypeToList(sampleType: SampleType): void {
@@ -53,9 +53,10 @@ export class SampleTypeService {
     this.selectedSampleType.next(sampleType);
   }
 
-  public makeMainSampleType(sampleTypeCategoryId: number, sampleTypeId: number): Observable<any> {
+  public makeMainSampleType(sampleTypeCategoryApiKey: string, sampleTypeQCCV: string): Observable<any> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put(this.sampleTypesUrl + '/makemain/' + sampleTypeCategoryId + '/' + sampleTypeId, null, {headers: headers});
+    return this.httpClient.put(this.sampleTypesUrl + '/makemain/' + sampleTypeCategoryApiKey + '/' + sampleTypeQCCV,
+      null, {headers: headers});
   }
 
   public getIsotopologueSampleTypes(): Observable<SampleType[]> {

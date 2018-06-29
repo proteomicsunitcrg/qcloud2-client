@@ -91,9 +91,11 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
             (category) => {
               // Initialize the arrays with the categories
               this.categories.push(category);
-              this.nodeDataSources[category.id] = [];
-              this.systemDataSources[category.id] = [];
-              this.selectedDataSources[category.id] = [];
+              /*
+              this.nodeDataSources[category.apiKey] = [];
+              this.systemDataSources[category.apiKey] = [];
+              this.selectedDataSources[category.apiKey] = [];
+              */
             });
         },
         (error) => {
@@ -110,15 +112,15 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
   private loadNodeDataSources(): void {
     this.categories.forEach(
       (category) => {
-        this.nodeDataSources[category.id] = [];
-        this.systemDataSources[category.id] = [];
-        this.selectedDataSources[category.id] = [];
+        this.nodeDataSources[category.apiKey] = [];
+        this.systemDataSources[category.apiKey] = [];
+        this.selectedDataSources[category.apiKey] = [];
         this.dataSourceService.getDataSourcesByCategory(category)
           .subscribe(
             (dataSources) => {
               dataSources.forEach(
                 (dataSource) => {
-                  this.nodeDataSources[category.id].push(dataSource);
+                  this.nodeDataSources[category.apiKey].push(dataSource);
                 }
               );
             }, (error) => {
@@ -139,13 +141,13 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
    * takes the value of the for loop.
    */
   addDataSourceFromCategory(category: Category): void {
-    if (this.selectedDataSources[category.id].length !== 0) {
-      this.systemDataSources[category.id].push(this.selectedDataSources[category.id]);
+    if (this.selectedDataSources[category.apiKey].length !== 0) {
+      this.systemDataSources[category.apiKey].push(this.selectedDataSources[category.apiKey]);
       // remove element from array
-      const dataSourceIndex = this.nodeDataSources[category.id].findIndex((dataSource) => {
-        return dataSource.id === this.selectedDataSources[category.id].id;
+      const dataSourceIndex = this.nodeDataSources[category.apiKey].findIndex((dataSource) => {
+        return dataSource.id === this.selectedDataSources[category.apiKey].id;
       });
-      this.nodeDataSources[category.id].splice(dataSourceIndex, 1);
+      this.nodeDataSources[category.apiKey].splice(dataSourceIndex, 1);
       delay(1).then(
         () => M.AutoInit()
       );
@@ -156,21 +158,21 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
    * @param dataSource
    */
   private addDataSource(dataSource: DataSource): void {
-    this.systemDataSources[dataSource.cv.category.id].push(dataSource);
-    const dataSourceIndex = this.nodeDataSources[dataSource.cv.category.id].findIndex((ds) => {
+    this.systemDataSources[dataSource.cv.category.apiKey].push(dataSource);
+    const dataSourceIndex = this.nodeDataSources[dataSource.cv.category.apiKey].findIndex((ds) => {
       return ds.id === dataSource.id;
     });
-    this.nodeDataSources[dataSource.cv.category.id].splice(dataSourceIndex, 1);
+    this.nodeDataSources[dataSource.cv.category.apiKey].splice(dataSourceIndex, 1);
     delay(1).then(
       () => M.AutoInit()
     );
   }
 
   removeDataSourceFromSystem(dataSource: DataSource, category: Category): void {
-    const dataSourceIndex = this.systemDataSources[category.id].findIndex((ds) => {
+    const dataSourceIndex = this.systemDataSources[category.apiKey].findIndex((ds) => {
       return dataSource.id === ds.id;
     });
-    this.nodeDataSources[category.id].push(this.systemDataSources[category.id].splice(dataSourceIndex, 1)[0]);
+    this.nodeDataSources[category.apiKey].push(this.systemDataSources[category.apiKey].splice(dataSourceIndex, 1)[0]);
     delay(100).then(
       () => M.AutoInit()
     );
@@ -187,7 +189,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     this.categories.forEach(
       (category) => {
         categoriesText += category.name + ' and a ';
-        if (this.systemDataSources[category.id].length === 0) {
+        if (this.systemDataSources[category.apiKey].length === 0) {
           formOk = false;
         }
       });
@@ -223,20 +225,20 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
         (system) => {
           /**
            * when the system is save is time to save the datasources
-           * the only to recover node systems is via system data sources as
+           * the only way to recover node systems is via system data sources as
            * it is specified in the backend documentation.
            * Check the related classes and take a look at the system repository
           */
           const ds = [];
-          this.systemDataSources.forEach(
-            (dataSourcesCategory) => {
-              if (dataSourcesCategory.length > 0) {
-                dataSourcesCategory.forEach(
-                  (dataSources) => {
-                    ds.push(dataSources);
-                  });
-              }
-            });
+          for (const key in this.systemDataSources) {
+            if (this.systemDataSources[key].length > 0) {
+              this.systemDataSources[key].forEach(
+                (dataSources) => {
+                  ds.push(dataSources);
+                });
+            }
+          }
+
           this.systemService.saveSystemDataSources(system, ds)
             .subscribe(
               () => {
@@ -265,8 +267,8 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
   resetDataSources(): void {
     this.categories.forEach(
       (category) => {
-        this.systemDataSources[category.id] = [];
-        this.selectedDataSources[category.id] = [];
+        this.systemDataSources[category.apiKey] = [];
+        this.selectedDataSources[category.apiKey] = [];
       }
     );
   }

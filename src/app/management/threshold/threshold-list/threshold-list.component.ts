@@ -26,6 +26,7 @@ export class ThresholdListComponent implements OnInit {
       .subscribe(
         (labSystems) => {
           this.loadThresholds(labSystems);
+          console.log(labSystems);
         }, err => console.log(err)
       );
   }
@@ -64,8 +65,7 @@ export class ThresholdListComponent implements OnInit {
                 labSystem: labSystem,
                 thresholds: thresholdList
               });
-            }, err => console.log(err),
-            () => console.log(this.labSystemThresholds)
+            }, err => console.log(err)
           );
       }
     );

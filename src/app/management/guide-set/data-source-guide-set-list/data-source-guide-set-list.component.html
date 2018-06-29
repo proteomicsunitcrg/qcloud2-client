@@ -25,10 +25,10 @@
 
       </td>
       <td>
-        <input type="text" name="startDate{{system.id}}" class="datepicker{{system.id}}" [(ngModel)]="system.guideSet.startDate"/>
+        <input type="text" name="startDate{{system.apiKey}}" class="datepicker{{system.apiKey}}" [(ngModel)]="system.guideSet.startDate"/>
       </td>
       <td>
-        <input type="text" name="endDate{{system.id}}" class="datepicker{{system.id}}" [(ngModel)]="system.guideSet.endDate"/>
+        <input type="text" name="endDate{{system.apiKey}}" class="datepicker{{system.apiKey}}" [(ngModel)]="system.guideSet.endDate"/>
       </td>
       <td>
         <button type="button" class="waves-effect waves-light btn" (click)="set(system)">Set</button>

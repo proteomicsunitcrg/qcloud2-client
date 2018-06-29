@@ -59,13 +59,13 @@ export class PeptideService {
   }
 
   public findPeptide(peptide: Peptide): Observable<Peptide> {
-    return this.httpClient.get<Peptide>(this.peptideUrl + '/' + peptide.id).map(res => res);
+    return this.httpClient.get<Peptide>(this.peptideUrl + '/' + peptide.sequence).map(res => res);
   }
 
   public updatePeptide(peptide: Peptide): Observable<Peptide> {
     const json = JSON.stringify(peptide);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Peptide>(this.peptideUrl + '/' + peptide.id, params, {headers: headers});
+    return this.httpClient.put<Peptide>(this.peptideUrl + '/' + peptide.sequence, params, {headers: headers});
   }
 }

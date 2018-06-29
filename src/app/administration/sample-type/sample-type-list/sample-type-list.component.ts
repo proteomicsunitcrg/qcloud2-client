@@ -34,16 +34,12 @@ export class SampleTypeListComponent implements OnInit {
       );
   }
 
-  private addNewSampleTypeToList(sampleType: SampleType): void {
-    this.sampleTypes.push(sampleType);
-  }
-
   sendSampleType(sampleType: SampleType) {
     this.sampleCompositionService.sendSampleTypeToList(sampleType);
   }
 
   doMakeDefault(sampleTypeCategory: SampleTypeCategory, sampleType: SampleType): void {
-    this.sampleTypeService.makeMainSampleType(sampleTypeCategory.id, sampleType.id)
+    this.sampleTypeService.makeMainSampleType(sampleTypeCategory.apiKey, sampleType.qualityControlControlledVocabulary)
       .subscribe(
         () => {
           this.loadSampleTypeCategories();

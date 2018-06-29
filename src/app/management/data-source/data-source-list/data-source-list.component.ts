@@ -81,7 +81,7 @@ export class DataSourceListComponent implements OnInit, OnDestroy {
     );
   }
 
-  private loadDataSourcesByCategory(category): void {
+  private loadDataSourcesByCategory(category: Category): void {
     this.dataSourceService.getDataSourcesByCategory(category).subscribe(
       (result) => {
         this.loadDataSourcesArray(result);

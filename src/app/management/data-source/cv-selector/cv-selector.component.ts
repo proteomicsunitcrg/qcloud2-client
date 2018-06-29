@@ -18,9 +18,7 @@ export class CvSelectorComponent implements OnInit, OnDestroy {
 
   constructor(private cvService: CvService,
     private categoryService: CategoryService,
-    private dataSourceService: DataSourceService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private dataSourceService: DataSourceService) { }
 
   cvList = [];
 

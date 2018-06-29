@@ -10,9 +10,10 @@
   
 <div id="tab{{view.id}}" class="col s12 m12 l12 xl12" *ngFor="let view of views">
   <div *ngIf="viewLoaded[view.id] | async">
-    <app-file-information [sampleTypeCategory]="view.sampleTypeCategory"></app-file-information>
-    <app-isotopologue-information [sampleTypeCategory]="view.sampleTypeCategory" 
-      *ngIf="view.sampleTypeCategory.sampleTypeComplexity=='HIGHWITHISOTOPOLOGUES'"></app-isotopologue-information>
+    <!-- 28/6/18 this part is commented while i am working on the refactor -->
+    <!-- <app-file-information [sampleTypeCategory]="view.sampleTypeCategory"></app-file-information>
+    <app-isotopologue-information [sampleTypeCategory]="view.sampleTypeCategory"
+      *ngIf="view.sampleTypeCategory.sampleTypeComplexity=='HIGHWITHISOTOPOLOGUES'"></app-isotopologue-information> -->
     <div class="row valign-wrapper" *ngFor="let row of displays['a'+view.id].charts">
       <ng-container *ngIf="row.length==1 then single else double"></ng-container>
       <ng-template #single>

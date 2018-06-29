@@ -55,7 +55,7 @@ export class DataSourceService {
    * @param category The category to look for
    */
   public getDataSourcesByCategory(category: Category): Observable<DataSource[]> {
-    return this.httpClient.get<any>(this.dataSourceUrl + '/category/' + category.id);
+    return this.httpClient.get<any>(this.dataSourceUrl + '/category/' + category.apiKey);
   }
 
   public addDataSourceToArray(dataSource: DataSource[]) {

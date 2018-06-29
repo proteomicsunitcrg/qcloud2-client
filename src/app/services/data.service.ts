@@ -39,7 +39,7 @@ export class DataService {
     return this.httpClient.get<MiniData[]>(this.dataUrl + '/' +
     this.currentDates[0] + '/' +
     this.currentDates[1] + '/' +
-    chart.id + '/' + system.id + '/' + chart.sampleType.id)
+    chart.apiKey + '/' + system.apiKey + '/' + chart.sampleType.qualityControlControlledVocabulary)
     .map(
       (data) => {
         const dataArray = [];
