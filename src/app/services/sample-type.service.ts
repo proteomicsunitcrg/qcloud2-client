@@ -69,7 +69,7 @@ export class SampleTypeService {
    * @param sampleTypeCategory the sample type category
    */
   public getDefaultSampleTypeBySampleTypeCategory(sampleTypeCategory: SampleTypeCategory): Observable<SampleType> {
-    return this.httpClient.get<SampleType>(this.sampleTypesUrl + '/main/' + sampleTypeCategory.id);
+    return this.httpClient.get<SampleType>(this.sampleTypesUrl + '/main/' + sampleTypeCategory.apiKey);
   }
 
 }

@@ -64,6 +64,7 @@ export class FileInformationComponent implements OnInit, OnDestroy {
 
 
   private loadLastFile(apikey: string): void {
+    console.log('stc', this.sampleTypeCategory);
     this.sampleTypeService.getDefaultSampleTypeBySampleTypeCategory(this.sampleTypeCategory)
       .subscribe(
         (sampleType) => {
