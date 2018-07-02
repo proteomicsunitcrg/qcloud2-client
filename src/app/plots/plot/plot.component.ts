@@ -216,7 +216,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   private calculatePointColor(key: string, value: number, traceIndex: number): string {
     // check if threshold exists
     if (this.plotThreshold !== undefined) {
-      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.name === key);
+      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.abbreviated === key);
       if (thresholdParam.length > 0) {
         switch (this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
@@ -247,6 +247,8 @@ export class PlotComponent implements OnInit, OnDestroy {
           default:
             return null;
         }
+      } else {
+        return traceColor.colorRange[traceIndex];
       }
     } else {
       return traceColor.colorRange[traceIndex];

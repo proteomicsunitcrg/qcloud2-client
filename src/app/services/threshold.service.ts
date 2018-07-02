@@ -49,7 +49,7 @@ export class ThresholdService {
   }
 
   public getPlotThreshold(chart: Chart, system: System): Observable<PlotThreshold> {
-    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/plot/' + chart.id + '/' + system.id);
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/plot/' + chart.apiKey + '/' + system.apiKey);
   }
 
   public getUserThresholds(): Observable<Threshold[]> {
