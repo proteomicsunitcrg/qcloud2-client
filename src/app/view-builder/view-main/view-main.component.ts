@@ -193,7 +193,6 @@ export class ViewMainComponent implements OnInit, OnDestroy {
             } else {
               this.chartDisplay[index].push(col['chart'].id);
               charts.push(col);
-              console.log(col);
             }
           }
         );
