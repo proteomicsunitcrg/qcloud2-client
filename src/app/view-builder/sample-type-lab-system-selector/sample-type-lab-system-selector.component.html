@@ -1,0 +1,18 @@
+<div class="input-field">
+  <select id="labSystemSelect" name="labSystemSelect" class="chart_select" (change)="sendLabSystem($event.target.value)">
+    <option disabled selected>Select a lab system</option>
+    <option *ngFor="let labSystem of labSystems" [value]="labSystem.apiKey">
+      {{labSystem.name}}
+    </option>
+  </select>
+  <label>Lab system</label>
+</div>
+<div class="input-field">
+    <select id="sampleTypeSelect" name="sampleTypeSelect" class="chart_select" (change)="sendSampleType($event.target.value)">
+      <option disabled>Select a sample type</option>
+      <option *ngFor="let sampleType of sampleTypes" [value]="sampleType.qualityControlControlledVocabulary">
+        {{sampleType.name}}
+      </option>
+    </select>
+    <label>Sample type</label>
+  </div>

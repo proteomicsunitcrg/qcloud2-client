@@ -8,13 +8,15 @@ export class View {
     cv: CV;
     isDefault: boolean;
     sampleTypeCategory: SampleTypeCategory;
+    apiKey: string;
 
-    constructor(id: number, name: string, user: User, cv: CV, isDefault: boolean, sampleTypeCategory: SampleTypeCategory) {
+    constructor(id: number, name: string, user: User, cv: CV, isDefault: boolean, sampleTypeCategory: SampleTypeCategory, apiKey: string) {
         this.id = id;
         this.name = name;
         this.user = user;
         this.cv = cv;
         this.isDefault = isDefault;
         this.sampleTypeCategory = sampleTypeCategory;
+        this.apiKey = apiKey;
     }
 }

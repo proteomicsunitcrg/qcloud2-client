@@ -4,37 +4,51 @@
       <h4>View generator</h4>
     </div>
   </div>
+  <ng-container *ngIf="type=='defaults' then default else user"></ng-container>
   <div class="row">
     <div class="col s10 m10 l10 xl10">
       <div class="row">
-        <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate autocomplete="off">
-          <div class="col s10 m10 l10 xl10">
-            <input type="text" name="defaultViewName" placeholder="Velos charts" [(ngModel)]="view.name" required />
-            <label for="defaultViewName">View name</label>
-          </div>
-          <div class="col s2 m2 l2 xl2">
-            <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
-          </div>
-        </form>
+        <ng-template #default>
+          <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate autocomplete="off">
+            <div class="col s10 m10 l10 xl10">
+              <input type="text" name="defaultViewName" placeholder="Velos charts" [(ngModel)]="view.name" required />
+              <label for="defaultViewName">View name</label>
+            </div>
+            <div class="col s2 m2 l2 xl2">
+              <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
+            </div>
+          </form>
+        </ng-template>
+        <ng-template #user>
+          <form (ngSubmit)="onSubmitUser(); newUserView.reset()" #newUserView="ngForm" ngNativeValidate autocomplete="off">
+            <div class="col s10 m10 l10 xl10">
+              <input type="text" name="userViewName" placeholder="All retention times" [(ngModel)]="view.name" required />
+              <label for="userViewName">View name</label>
+            </div>
+            <div class="col s2 m2 l2 xl2">
+              <button type="submit" [disabled]="!newUserView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
+            </div>
+          </form>
+        </ng-template>
       </div>
-      
+
       <div class="row" *ngFor="let row of display; let r = index">
         <ng-container *ngIf="row.length==1 then single else double"></ng-container>
         <ng-template #single>
           <div class="col s12 m12 l12 xl12" *ngFor="let charts of row; let c = index">
             <ul class="collection">
               <li class="collection-item" [dragula]='"first-bag"' id="{{r}};{{c}}">
-      
+
               </li>
             </ul>
           </div>
-      
+
         </ng-template>
         <ng-template #double>
           <div class="col s12 m6 l6 xl6" *ngFor="let charts of row; let c = index">
             <ul class="collection">
               <li class="collection-item" [dragula]='"first-bag"' id="{{r}};{{c}}">
-      
+
               </li>
             </ul>
           </div>
@@ -42,7 +56,7 @@
         <div class="row">
           <div class="container">
             <div class="col s12 m12 l12 xl12 center">
-              <span class="delete-row" (click)="deleteRow(r)" >Delete row</span>
+              <span class="delete-row" (click)="deleteRow(r)">Delete row</span>
             </div>
           </div>
         </div>
@@ -53,13 +67,19 @@
         </div>
       </div>
     </div>
-    <div class="col s2 m2 l2 xl2">      
+    <div class="col s2 m2 l2 xl2">
+      <!-- List labsystems and sample types when user view-->
+      <div *ngIf="type=='user'">
+        <app-sample-type-lab-system-selector (selectedLabSystem)="selectLabSystem($event)" (selectedSampleType)="selectSampleType($event)"></app-sample-type-lab-system-selector>
+      </div>
+      
+      
       <ul class="collection" [dragula]='"first-bag"' id="charts-list">
         <li class="collection-item avatar" id="plotId-{{chart.id}}" *ngFor="let chart of charts">
           <img src="assets/images/tiny_plot.png" alt="" class="circle">
           <span class="title">{{chart.name}}</span>
           <span style="visibility: hidden;" class="plotId">{{chart.id}}</span>
-        </li>  
+        </li>
       </ul>
     </div>
   </div>

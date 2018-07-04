@@ -13,6 +13,7 @@ const routes: Routes = [
     {path: '', component: WelcomeComponent},
     {path: 'administration', loadChildren: '../../administration/administration.module#AdministrationModule'},
     {path: 'management', loadChildren: '../../management/management.module#ManagementModule'},
+    {path: 'configuration', loadChildren: '../../configuration/configuration.module#ConfigurationModule' }
   ]},
 ];
 

@@ -17,6 +17,10 @@ import { delay } from 'q';
 import { SampleTypeCategory } from '../../models/sampleTypeCategory';
 import { SampleTypeCategoryService } from '../../services/sample-type-category.service';
 import { Subscription } from 'rxjs/Subscription';
+import { SampleType } from '../../models/sampleType';
+import { System } from '../../models/system';
+import { UserChart } from '../../models/userChart';
+import { UserView } from '../../models/userView';
 declare var M: any;
 
 @Component({
@@ -44,6 +48,16 @@ export class ViewMainComponent implements OnInit, OnDestroy {
   loadedViewDisplay: any = null;
 
   /**
+   * Holds the sample type on the users view builder
+   */
+  selectedSampleType: SampleType;
+
+  /**
+   * Holds the lab system on the users view builder
+   */
+  selectedLabSystem: System;
+
+  /**
    * display array is for build the
    * layout rows and columns
    */
@@ -54,15 +68,17 @@ export class ViewMainComponent implements OnInit, OnDestroy {
    */
   chartDisplay = [];
 
-  charts: Chart[] = [];
+  charts: UserChart[] = [];
   cv: CV;
 
   viewDisplay: ViewDisplay[][] = [];
 
-  view: View = new View(null, '', null, null, true, null);
+  view: View = new View(null, '', null, null, true, null, null);
 
   selectedBottomModalAction$: Subscription;
   selectedAction$: Subscription;
+
+
 
   ngOnInit() {
     this.subscribeToBottomModal();
@@ -119,10 +135,36 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       );
     } else {
       // load datasources owned by the node
+      this.submitButtonText = 'Save';
+      this.route.params.subscribe(
+        (params) => {
+          if (params['apiKey'] !== undefined) {
+            this.viewService.getUserViewByApiKey(params['apiKey'])
+              .subscribe(
+                (view) => {
+                  if (view !== null) {
+                    this.submitButtonText = 'Update';
+                    this.view = view;
+                    // get the view display
+                    this.viewService.getUserDisplayByView(view)
+                      .subscribe(
+                        (viewDisplay) => {
+                          console.log(viewDisplay);
+                          this.loadDefaultDisplayView(viewDisplay);
+                          delay(1).then(() => this.getElementByChartId());
+                        }
+                      );
+                  } else {
+                    console.log('mal');
+                  }
+                }
+              );
+          }
+        });
     }
   }
 
-  private loadSampleTypeCategory(qcId: number): void  {
+  private loadSampleTypeCategory(qcId: number): void {
     this.sampleTypeCategoryService.getSampleTypeCategoryById(qcId)
       .subscribe(
         (sampleTypeCategory) => {
@@ -151,6 +193,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
             } else {
               this.chartDisplay[index].push(col['chart'].id);
               charts.push(col);
+              console.log(col);
             }
           }
         );
@@ -187,6 +230,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       this.saveDefaultView();
     }
   }
+
   private saveDefaultView(): void {
     this.viewService.addDefaultView(this.view)
       .subscribe(
@@ -206,13 +250,21 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         row.forEach(
           (cell, colIndex) => {
             const chart = this.charts.filter(c => c.id === Number(cell));
-            this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
+            if (this.type === 'defaults') {
+              this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
+            } else {
+              this.viewDisplay[index].push(new UserView(null, chart[0], view, index, colIndex, chart[0].labSystem));
+            }
           }
         );
       }
     );
     if (this.submitButtonText === 'Save') {
-      this.saveViewDisplay();
+      if (this.type === 'defaults') {
+        this.saveDefaultViewDisplay();
+      } else {
+        this.saveUserViewDisplay();
+      }
     } else {
       this.updateViewDisplay();
     }
@@ -229,41 +281,42 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       );
   }
 
-  private saveViewDisplay(): void {
+  private saveDefaultViewDisplay(): void {
     this.viewService.addLayoutToDefaultView(this.viewDisplay)
-    .subscribe(
-      (display) => {
-        this.navigateBack('Chart saved!');
-      },
-      (error) => {
-        this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveViewDisplay', null));
-      }
-    );
-  }
-
-  private navigateBack(action: string): void {
-    M.toast({html: action});
-    this.router.navigate(['/application/administration/views']);
-  }
-
-  private loadChartsByCV(cv: CV): void {
-    this.charts = [];
-    this.chartService.getChartsByCV(cv)
       .subscribe(
-        (charts) => {
-          charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey));
-          });
+        (display) => {
+          this.navigateBack('Chart saved!');
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveViewDisplay', null));
         }
       );
   }
+
+  private saveUserViewDisplay(): void {
+    this.viewService.addLayoutToUserView(this.viewDisplay)
+      .subscribe(
+        (display) => {
+          // this.navigateBack('Chart saved!');
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveViewDisplay', null));
+        }
+      );
+  }
+
+  private navigateBack(action: string): void {
+    M.toast({ html: action });
+    this.router.navigate(['/application/administration/views']);
+  }
+
   private loadChartsByCVAndSampleTypeCategoryApiKey(cv: CV, sampleTypeCategoryApiKey: string): void {
     this.charts = [];
     this.chartService.getChartsByCVAndSampleTypeCategoryApiKey(cv, sampleTypeCategoryApiKey)
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new Chart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey));
+            this.charts.push(new UserChart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey, null));
           });
         }
       );
@@ -402,15 +455,6 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     this.chartDisplay.splice(row, 1);
   }
 
-  private removeChartFromArray(chartId): void {
-    for (let i = 0; i < this.charts.length; i++) {
-      if (this.charts[i].id === chartId) {
-        this.charts.splice(i, 1);
-        break;
-      }
-    }
-  }
-
   addRow(): void {
     this.modalService.openBottomModal(new BottomModal('Add row', 'How many columns do you want', '1', '2', 'newRow', null));
   }
@@ -420,4 +464,63 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     this.selectedAction$.unsubscribe();
     this.selectedBottomModalAction$.unsubscribe();
   }
+
+  selectSampleType(sampleType: SampleType): void {
+    this.selectedSampleType = sampleType;
+    this.loadCharts();
+
+  }
+
+  selectLabSystem(labSystem: System): void {
+    this.selectedLabSystem = labSystem;
+    this.loadCharts();
+  }
+
+  private loadCharts(): void {
+    if (this.selectedLabSystem !== undefined && this.selectedSampleType !== undefined) {
+      const mainCV = this.selectedLabSystem.dataSources.find(ds => ds.cv.category.mainDataSource === true);
+      this.chartService.getChartsByCVAndSampleType(mainCV.cv, this.selectedSampleType)
+        .subscribe(
+          (charts) => {
+            charts.forEach(c => {
+              this.charts.push(new UserChart(c.id,
+                c.name,
+                c.cv,
+                c.sampleType,
+                c.isThresholdEnabled,
+                c.apiKey,
+                this.selectedLabSystem));
+            });
+          }, err => console.log(err)
+        );
+    }
+  }
+  onSubmitUser(): void {
+    // Before insert check the layout
+    const viewName = this.view.name;
+    let formOk = true;
+
+    if (this.chartDisplay.length === 0) {
+      // show modal
+      this.modalService.openModal(new Modal('Error', 'You need at least one column', 'Ok', null, 'noRows', viewName));
+      formOk = false;
+    }
+
+    if (formOk) {
+      this.saveUserView();
+    }
+  }
+
+  private saveUserView(): void {
+    this.viewService.addUserView(this.view)
+      .subscribe(
+        (view) => {
+          this.prepareViewDisplayArray(view);
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveDefaultView', null));
+        }
+      );
+  }
+
 }

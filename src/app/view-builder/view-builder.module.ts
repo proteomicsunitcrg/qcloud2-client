@@ -7,6 +7,7 @@ import { ChartService } from '../services/chart.service';
 import { DragulaModule } from 'ng2-dragula';
 import { FormsModule } from '@angular/forms';
 import { SampleTypeCategoryService } from '../services/sample-type-category.service';
+import { SampleTypeLabSystemSelectorComponent } from './sample-type-lab-system-selector/sample-type-lab-system-selector.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { SampleTypeCategoryService } from '../services/sample-type-category.serv
     CommonModule,
     DragulaModule
   ],
-  declarations: [ViewMainComponent],
+  declarations: [ViewMainComponent, SampleTypeLabSystemSelectorComponent],
   exports: [ViewMainComponent],
   providers: [ViewService,
     CvService,

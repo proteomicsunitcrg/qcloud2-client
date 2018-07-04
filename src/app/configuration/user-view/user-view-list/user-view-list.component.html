@@ -1,0 +1,23 @@
+<h5>Your views
+  <a class="btn-floating waves-effect waves-light right" (click)="goUserViewBuilder()">
+    <i class="material-icons">add</i>
+  </a>
+</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>      
+      <th>Edit/ delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let view of userViews">
+      <td>
+        {{view.name}}
+      </td>
+      <td>
+        <i class="material-icons cursorIcon" (click)="editView(view)">edit</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

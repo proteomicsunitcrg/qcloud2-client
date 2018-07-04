@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { Chart } from '../models/chart';
 import { ChartParam } from '../models/chartParam';
 import { CV } from '../models/cv';
+import { SampleType } from '../models/sampleType';
 
 @Injectable()
 export class ChartService {
@@ -99,5 +100,9 @@ export class ChartService {
    */
   public sendChartToEdit(chart: Chart): void {
     this.chartToEdit.next(chart);
+  }
+
+  public getChartsByCVAndSampleType(cv: CV, sampleType: SampleType): Observable<Chart[]> {
+    return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.cvid + '/' + sampleType.qualityControlControlledVocabulary);
   }
 }
