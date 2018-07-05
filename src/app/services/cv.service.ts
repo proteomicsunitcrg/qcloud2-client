@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
 import { Category } from '../models/category';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs/Subject';
 
 
 @Injectable()

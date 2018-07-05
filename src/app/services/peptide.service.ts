@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { Subject } from 'rxjs/Subject';
 import { Peptide} from '../models/peptide';
 import { SampleTypeComplexity } from '../models/sampleTypeComplexity';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PeptideService {
@@ -30,7 +28,7 @@ export class PeptideService {
    * Get all peptides from the database
    */
   public getAllPeptides(): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).pipe(map(res => res));
   }
 
   /**
@@ -39,7 +37,7 @@ export class PeptideService {
    * @param complexity the complexity to not get
    */
   public getAllNonComplexityPeptides(complexity: SampleTypeComplexity): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.peptideUrl).map(res => res);
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).pipe(map(res => res));
   }
 
   public savePeptide(peptide: Peptide): Observable<Peptide> {
@@ -58,7 +56,7 @@ export class PeptideService {
   }
 
   public findPeptide(peptide: Peptide): Observable<Peptide> {
-    return this.httpClient.get<Peptide>(this.peptideUrl + '/' + peptide.sequence).map(res => res);
+    return this.httpClient.get<Peptide>(this.peptideUrl + '/' + peptide.sequence).pipe(map(res => res));
   }
 
   public updatePeptide(peptide: Peptide): Observable<Peptide> {

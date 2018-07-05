@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Category } from '../models/category';
-import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
-import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
+import { Observable, Subject} from 'rxjs';
+import { catchError } from 'rxjs/operators';
 /**
  * Service for instrument categories
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -28,8 +28,9 @@ export class CategoryService {
     const json = JSON.stringify(category);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<any>(this.categoryUrl, params, {headers: headers, observe: 'response'})
-      .catch(this.errorHandler);
+    return this.httpClient.post<Category>(this.categoryUrl, params, {headers: headers})
+      .pipe(
+        catchError(this.errorHandler));
   }
   /**
    *

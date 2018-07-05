@@ -5,11 +5,10 @@ import { View } from '../../../models/view';
 import { DataSourceService } from '../../../services/data-source.service';
 import { DataSource } from '../../../models/dataSource';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
-import { delay, isPending } from 'q';
-import { Subscription } from 'rxjs/Subscription';
+import { delay } from 'q';
+import { Subscription } from 'rxjs';
 import { PlotService } from '../../../services/plot.service';
 declare var M: any;
 

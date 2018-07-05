@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Node } from '../models/node';
-import { Observable, } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs';
+import { catchError} from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 /**
@@ -25,7 +24,9 @@ export class RegistrationService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.http.post<any>(this.nodeUrl, params, {headers: headers})
-      .catch(this.errorHandler);
+      .pipe(
+        catchError(this.errorHandler)
+      );
   }
 
   public getToS(): Observable<any> {

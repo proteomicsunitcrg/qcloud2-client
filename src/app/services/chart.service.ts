@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs/Subject';
 import { Chart } from '../models/chart';
 import { ChartParam } from '../models/chartParam';
 import { CV } from '../models/cv';

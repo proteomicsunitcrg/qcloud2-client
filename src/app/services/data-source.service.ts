@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DataSource } from '../models/dataSource';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Category } from '../models/category';
 import { GuideSet } from '../models/guideSet';
+import { map, catchError } from 'rxjs/operators';
+
 @Injectable()
 export class DataSourceService {
 
@@ -41,8 +42,13 @@ export class DataSourceService {
     const json = JSON.stringify(dataSource);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<any>(this.dataSourceUrl, params, {headers: headers, observe: 'response'})
-      .catch(this.errorHandler);
+    return this.httpClient.post<any>(this.dataSourceUrl, params, { headers: headers, observe: 'response' })
+      .pipe(
+        map(res => {
+          return res.body;
+        }),
+        catchError(this.errorHandler)
+      );
   }
 
   public getDataSourceByApikey(dataSourceApikey: string): Observable<DataSource> {
@@ -74,7 +80,7 @@ export class DataSourceService {
     const json = JSON.stringify(dataSource);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<DataSource>(this.dataSourceUrl, params, { headers: headers});
+    return this.httpClient.put<DataSource>(this.dataSourceUrl, params, { headers: headers });
   }
 
   public getAllNodeDataSources(): Observable<DataSource[]> {
@@ -89,7 +95,7 @@ export class DataSourceService {
     const json = JSON.stringify(guideSet);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<DataSource>(this.dataSourceUrl + '/guideset/' + dataSource.apiKey, params, {headers: headers});
+    return this.httpClient.post<DataSource>(this.dataSourceUrl + '/guideset/' + dataSource.apiKey, params, { headers: headers });
   }
 
   errorHandler(error: HttpErrorResponse) {

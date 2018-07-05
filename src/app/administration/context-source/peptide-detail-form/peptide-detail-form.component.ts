@@ -8,7 +8,7 @@ import { delay } from 'q';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 /**
  * Peptide form component

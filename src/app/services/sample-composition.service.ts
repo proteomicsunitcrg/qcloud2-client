@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { SampleComposition} from '../models/sampleComposition';
+import { SampleComposition } from '../models/sampleComposition';
 import { Peptide } from '../models/peptide';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 import { SampleType } from '../models/sampleType';
 
 @Injectable()
@@ -66,7 +65,7 @@ export class SampleCompositionService {
     const json = JSON.stringify(sampleComposition);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl, params, {headers: headers});
+    return this.httpClient.post<SampleComposition>(this.sampleCompositionUrl, params, { headers: headers });
   }
 
   public deleteSampleComposiion(sampleComposition: SampleComposition): Observable<any> {
@@ -76,11 +75,13 @@ export class SampleCompositionService {
 
   public getAllPeptidesBySampleType(sampleType: SampleType): Observable<Peptide[]> {
     return this.httpClient.get<Peptide[]>(this.sampleCompositionUrl + '/sample/' + sampleType.name)
-      .map((peptides) => {
-        const peptideList = [];
-        peptides.forEach(peptide => peptideList.push(peptide['peptide']));
-        return peptideList;
-      });
+      .pipe(
+        map((peptides) => {
+          const peptideList = [];
+          peptides.forEach(peptide => peptideList.push(peptide['peptide']));
+          return peptideList;
+        })
+      );
   }
 
   public sendSampleTypeToList(sampleType: SampleType): void {

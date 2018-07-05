@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Modal } from '../models/modal';
 import { BottomModal } from '../models/bottomModal';
 import { ModalResponse } from '../models/modalResponse';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ModalService {

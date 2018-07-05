@@ -4,9 +4,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 @Injectable()
@@ -26,8 +27,10 @@ export class UserService {
     const json = JSON.stringify(member);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<any>(this.nodeUrl + '/newmember', params, {headers: headers, observe: 'response'})
-      .catch(this.errorHandler);
+    return this.httpClient.post<any>(this.nodeUrl + '/newmember', params, { headers: headers, observe: 'response' })
+      .pipe(map(res => {
+        return res.body;
+      }));
   }
 
   public changeMemberRole(member: User): Observable<User> {

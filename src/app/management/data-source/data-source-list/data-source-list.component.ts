@@ -1,15 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CvService } from '../../../services/cv.service';
 import { Category } from '../../../models/category';
 import { DataSourceService } from '../../../services/data-source.service';
 import { CategoryService } from '../../../services/category.service';
 import { DataSource } from '../../../models/dataSource';
 import { ModalService } from '../../../common/modal.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Modal } from '../../../models/modal';
 import { ModalResponse } from '../../../models/modalResponse';
 import { delay } from 'q';
-import { GuideSet } from '../../../models/guideSet';
 
 declare var M: any;
 /**

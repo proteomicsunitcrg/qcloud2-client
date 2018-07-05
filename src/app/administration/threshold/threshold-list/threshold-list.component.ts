@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { ThresholdService } from '../../../services/threshold.service';
 import { Threshold } from '../../../models/threshold';
 import { CV } from '../../../models/cv';

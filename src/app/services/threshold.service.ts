@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Threshold } from '../models/threshold';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ThresholdParam } from '../models/thresholdParams';
 import { ThresholdConstraint } from '../models/thresholdConstraint';
 import { PlotThreshold } from '../models/plotThreshold';

@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 import { Peptide } from '../models/peptide';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { Subject } from 'rxjs/Subject';
 import { ContextSource } from '../models/contextSource';
 import { ContextSourceCategory } from '../models/contextSourceCategory';
+import { catchError} from 'rxjs/operators';
 
 
 @Injectable()
@@ -64,7 +62,7 @@ export class ContextSourceService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<any>(this.contextSourceUrls[contextSourceCategory.code], params, { headers: headers })
-      .catch(this.errorHandler);
+      .pipe(catchError(this.errorHandler));
   }
 
   public getPeptides(): Observable<Peptide[]> {
@@ -87,8 +85,6 @@ export class ContextSourceService {
   public selectContextSource(contextSource: ContextSource): void {
     this.selectedContextSource.next(contextSource);
   }
-
-
 
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message || 'Server Error');

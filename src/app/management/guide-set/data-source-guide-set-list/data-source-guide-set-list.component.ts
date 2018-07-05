@@ -4,7 +4,7 @@ import { delay } from 'q';
 import { ModalService } from '../../../common/modal.service';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',

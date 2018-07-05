@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalService } from '../../common/modal.service';
 import { ModalResponse } from '../../models/modalResponse';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 
 /**

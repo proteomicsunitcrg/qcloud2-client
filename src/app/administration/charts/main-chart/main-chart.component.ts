@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartService } from '../../../services/chart.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 /**
  * This main component for the chart management

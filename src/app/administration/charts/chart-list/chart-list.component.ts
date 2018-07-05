@@ -3,9 +3,8 @@ import { CvService } from '../../../services/cv.service';
 import { ChartService } from '../../../services/chart.service';
 import { CV } from '../../../models/cv';
 import { Chart } from '../../../models/chart';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ChartParamsService } from '../../../services/chart-params.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 
 /**

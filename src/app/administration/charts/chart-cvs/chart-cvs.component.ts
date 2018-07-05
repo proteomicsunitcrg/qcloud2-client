@@ -5,8 +5,7 @@ import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
-import { delay } from 'q';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 /**
  * Controled vocabulary selector component.

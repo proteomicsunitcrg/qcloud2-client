@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { Category } from '../../../models/category';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { CV } from '../../../models/cv';
 import { DataSource } from '../../../models/dataSource';
 import { DataSourceService } from '../../../services/data-source.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 import { CategoryService } from '../../../services/category.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Chart } from '../models/chart';
 import { System } from '../models/system';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class PlotService {

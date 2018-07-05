@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+import { switchMap} from 'rxjs/operators';
 import { CategoryService } from '../../services/category.service';
 
 
@@ -16,9 +16,8 @@ export class DataSourceComponent implements OnInit {
   private router: Router) { }
 
   ngOnInit() {
-    this.categoryService.setCurrentCategory(this.route.paramMap
-      .switchMap((params: ParamMap) =>
-        this.categoryService.getCategoryByName(params.get('name'))));
+    this.categoryService.setCurrentCategory(this.route.paramMap.pipe(switchMap((params: ParamMap) =>
+        this.categoryService.getCategoryByName(params.get('name')))));
   }
 
 }

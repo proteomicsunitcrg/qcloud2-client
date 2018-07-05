@@ -5,7 +5,7 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { Chart } from '../../../models/chart';
 import { ChartParam } from '../../../models/chartParam';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 /**
  * This component for manage the chart params

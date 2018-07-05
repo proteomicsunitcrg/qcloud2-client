@@ -8,8 +8,7 @@ import { ContextSource } from '../../../models/contextSource';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartParam } from '../../../models/chartParam';
-import { delay } from 'q';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 /**
  * Context source selector component.

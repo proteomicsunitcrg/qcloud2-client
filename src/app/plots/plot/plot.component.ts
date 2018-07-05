@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from '../../models/chart';
-import { DataSource } from '../../models/dataSource';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js';
-import * as moment from 'moment';
 import { System } from '../../models/system';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import * as traceColor from './traceColors';

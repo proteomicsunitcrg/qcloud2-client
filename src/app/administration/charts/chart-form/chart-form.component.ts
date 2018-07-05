@@ -11,7 +11,7 @@ import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartService } from '../../../services/chart.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 declare var M: any;
 
 /**

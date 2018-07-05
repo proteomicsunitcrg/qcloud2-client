@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PlotService } from '../../services/plot.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { File } from '../../models/file';
 import { FileService } from '../../services/file.service';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js';
-import { delay } from 'q';
 
 @Component({
   selector: 'app-isotopologue-plot',

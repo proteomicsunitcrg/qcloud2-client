@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable } from 'rxjs';
 import { Peptide } from '../models/peptide';
-import { Observable } from 'rxjs/Observable';
 import { Isotopologue } from '../models/isotopologue';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';

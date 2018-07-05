@@ -10,7 +10,7 @@ import { Modal } from '../../../models/modal';
 import { View } from '../../../models/view';
 import { SampleTypeCategoryService } from '../../../services/sample-type-category.service';
 import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 /**
  * Default view component

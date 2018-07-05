@@ -3,12 +3,10 @@ import { Node } from '../../models/node';
 import { User } from '../../models/user';
 import { RegistrationService} from '../../services/registration.service';
 import { Router } from '@angular/router';
-
 import { Modal} from '../../models/modal';
 import { ModalResponse} from '../../models/modalResponse';
-import { Observable } from 'rxjs/Observable';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ModalService } from '../../common/modal.service';
 
 /**

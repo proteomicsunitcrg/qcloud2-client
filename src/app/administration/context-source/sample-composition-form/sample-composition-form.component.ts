@@ -4,7 +4,7 @@ import { SampleType } from '../../../models/sampleType';
 import { SampleComposition } from '../../../models/sampleComposition';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { Peptide } from '../../../models/peptide';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sample-composition-form',

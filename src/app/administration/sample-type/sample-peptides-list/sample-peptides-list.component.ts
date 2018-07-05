@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Peptide } from '../../../models/peptide';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { SampleType } from '../../../models/sampleType';
-import { SampleTypeService } from '../../../services/sample-type.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sample-peptides-list',

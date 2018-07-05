@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject } from 'rxjs';
 import { System } from '../models/system';
-import { Subject } from 'rxjs/Subject';
 import { DataSource } from '../models/dataSource';
 import { GuideSet } from '../models/guideSet';
 import { CV } from '../models/cv';

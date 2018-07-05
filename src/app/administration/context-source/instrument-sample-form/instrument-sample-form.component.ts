@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Peptide } from '../../../models/peptide';
-import { ContextSourceService } from '../../../services/context-source.service';
 import { InstrumentSample } from '../../../models/instrumentSample';
-import { ContextSourceCategory } from '../../../models/contextSourceCategory';
-import { delay } from 'q';
 import { ContextSource } from '../../../models/contextSource';
-import { Subscription } from 'rxjs/Subscription';
 import { SampleTypeService } from '../../../services/sample-type.service';
-import { SampleType } from '../../../models/sampleType';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
 
 @Component({

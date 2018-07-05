@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ModalService} from '../../../common/modal.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Modal } from '../../../models/modal';
-import { ModalResponse } from '../../../models/modalResponse';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
 /**

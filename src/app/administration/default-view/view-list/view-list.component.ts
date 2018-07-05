@@ -3,7 +3,7 @@ import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 import { Router } from '@angular/router';
 import { CvService } from '../../../services/cv.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { CV } from '../../../models/cv';
 
 @Component({
