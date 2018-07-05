@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Node } from '../models/node';
 import { Observable, } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataSource } from '../models/dataSource';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Category } from '../models/category';
 import { GuideSet } from '../models/guideSet';

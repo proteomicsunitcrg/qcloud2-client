@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs/Subject';
 import { MiniData } from '../models/miniData';
 import 'rxjs/add/operator/map';
 import { Chart } from '../models/chart';
-import { DataSource } from '../models/dataSource';
 import { System } from '../models/system';
 import { File } from '../models/file';
 
