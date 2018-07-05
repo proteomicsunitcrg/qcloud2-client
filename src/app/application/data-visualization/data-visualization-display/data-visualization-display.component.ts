@@ -57,6 +57,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   private subscribeToRoute(): void {
     this.route.params.subscribe(
       (params) => {
+        this.type = params.type;
         this.loadView(params.type, params.apiKey);
       }
     );
@@ -65,7 +66,6 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     switch (type) {
       case 'instrument':
         // load defaults
-        // this.dataSourceService.getDataSourceByApikey(dataSourceApikey)
         // get master cv of that system
         this.systemService.getSystemByApikey(systemApiKey)
           .subscribe(
@@ -90,8 +90,22 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
                 });
             });
         break;
-      case 'view':
+      case 'user':
         // load view
+        this.viewService.getUserViewByApiKey(systemApiKey)
+            .subscribe(
+              (view) => {
+                this.viewService.getUserDisplayByView(view)
+                  .subscribe(
+                    (userDisplay) => {
+                      this.display = userDisplay;
+                      console.log(userDisplay);
+                    }, err => console.log(err),
+                  () => {
+                    console.log();
+                  });
+              });
+
 
         break;
       default:

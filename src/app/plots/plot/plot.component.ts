@@ -28,6 +28,12 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   @Input() chart: Chart;
   @Input() system: System;
+  /**
+   * If it is true it means that this plot is in a user view.
+   * In that case we need to add to the chart name the
+   * labsystem name and the sample type name.
+   */
+  @Input() shownames: boolean;
 
   currentDates: string[];
   dateChangesSubscription$: Subscription;
@@ -189,7 +195,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     const MAXVALUEFORPLOT = Math.max.apply(null, maxValues) + (Math.max.apply(null, maxValues) * 0.1);
 
     this.layout = {
-      title: this.chart.name,
+      // title: this.chart.name,
+      title: this.getChartName(),
       shapes: [],
       colorway: traceColor.colorRange,
       hovermode: 'closest',
@@ -211,6 +218,14 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.plotService.sendClick(data, this.chart, this.system);
     });
 
+  }
+
+  private getChartName(): string {
+    if (this.shownames) {
+      return this.system.name + ' ' + this.chart.name + ' ' + this.chart.sampleType.name;
+    } else {
+      return this.chart.name;
+    }
   }
 
   private calculatePointColor(key: string, value: number, traceIndex: number): string {
