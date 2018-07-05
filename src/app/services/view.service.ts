@@ -187,6 +187,10 @@ export class ViewService {
     return this.httpClient.get<View[]>(this.defaultViewsUrl);
   }
 
+  /**
+   * Find all the user views
+   * @return an observable with a list of views
+   */
   public getUserViews(): Observable<View[]> {
     return this.httpClient.get<View[]>(this.userViewsUrl);
   }

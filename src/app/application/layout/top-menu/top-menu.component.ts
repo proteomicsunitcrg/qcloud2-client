@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth.service';
-import { DataSourceService } from '../../../services/data-source.service';
-import { DataSource } from '../../../models/dataSource';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
+import { View } from '../../../models/view';
+import { ViewService } from '../../../services/view.service';
 declare var M: any;
 @Component({
   selector: 'app-top-menu',
@@ -14,8 +14,11 @@ export class TopMenuComponent implements OnInit {
 
   systems: System[] = [];
 
+  userViews: View[] = [];
+
   constructor(private authService: AuthService,
-    private systemService: SystemService) { }
+    private systemService: SystemService,
+    private viewService: ViewService) { }
 
   isAdmin = false;
   isManager = false;
@@ -28,6 +31,16 @@ export class TopMenuComponent implements OnInit {
       this.isManager = true;
     }
     this.loadNodeSystems();
+    this.loadUserViews();
+  }
+
+  private loadUserViews(): void {
+    this.viewService.getUserViews()
+      .subscribe(
+        (views) => {
+          this.userViews = views;
+        }
+      );
   }
 
   private loadNodeSystems(): void {
