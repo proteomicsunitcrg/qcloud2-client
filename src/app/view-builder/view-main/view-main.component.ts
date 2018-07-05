@@ -21,6 +21,7 @@ import { SampleType } from '../../models/sampleType';
 import { System } from '../../models/system';
 import { UserChart } from '../../models/userChart';
 import { UserView } from '../../models/userView';
+import { SystemService } from '../../services/system.service';
 declare var M: any;
 
 @Component({
@@ -37,7 +38,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     private chartService: ChartService,
     private modalService: ModalService,
     private dragulaService: DragulaService,
-    private sampleTypeCategoryService: SampleTypeCategoryService) { }
+    private sampleTypeCategoryService: SampleTypeCategoryService,
+    private labSystemService: SystemService) { }
 
   @Input() type: string;
 
@@ -68,7 +70,14 @@ export class ViewMainComponent implements OnInit, OnDestroy {
    */
   chartDisplay = [];
 
+  /**
+   * Array for the list of charts
+   */
   charts: UserChart[] = [];
+  /**
+   * Array for hold the original chart array
+   */
+  nodeCharts: UserChart[] = [];
   cv: CV;
 
   viewDisplay: ViewDisplay[][] = [];
@@ -134,7 +143,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      // load datasources owned by the node
+      this.loadAvailableChartsByNode();
       this.submitButtonText = 'Save';
       this.route.params.subscribe(
         (params) => {
@@ -149,9 +158,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
                     this.viewService.getUserDisplayByView(view)
                       .subscribe(
                         (viewDisplay) => {
-                          console.log(viewDisplay);
                           this.loadDefaultDisplayView(viewDisplay);
-                          delay(1).then(() => this.getElementByChartId());
+                          delay(100).then(() => this.getElementByChartId());
                         }
                       );
                   } else {
@@ -176,7 +184,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
   /**
    * We need to build the display as the view in the database
    * So, it will create the rows and columns with the layout
-   * of the database.
+   * from the database.
    * @param viewDisplay The display from the database
    */
   private loadDefaultDisplayView(viewDisplay: Display): void {
@@ -198,10 +206,9 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         );
       }
     );
-
     this.loadedViewDisplay = charts;
-
   }
+
   private getElementByChartId(): void {
     this.loadedViewDisplay.forEach(
       (chart) => {
@@ -210,8 +217,21 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         // append to its corresponding spot
         const slot = document.getElementById(chart.row + ';' + chart.col);
         slot.appendChild(listedChart);
+        this.setPlacedChart(chart.chart.id, true);
+
       }
     );
+  }
+
+  private setPlacedChart(chartId: number, placed: boolean): void {
+    if (this.type !== 'defaults') {
+      const chart = this.nodeCharts.find(
+        (c) => {
+          return c.id === Number(chartId);
+        }
+      );
+      chart.placed = placed;
+    }
   }
 
   onSubmit(): void {
@@ -226,8 +246,24 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     }
 
     if (formOk) {
-      this.saveDefaultView();
+      if (this.submitButtonText === 'Save') {
+        this.saveDefaultView();
+      } else {
+        this.updateDefaultView();
+      }
     }
+  }
+
+  private updateDefaultView(): void {
+    this.viewService.updateDefaultView(this.view)
+      .subscribe(
+        (view) => {
+          this.prepareViewDisplayArray(view);
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveDefaultView', null));
+        }
+      );
   }
 
   private saveDefaultView(): void {
@@ -265,11 +301,28 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         this.saveUserViewDisplay();
       }
     } else {
-      this.updateViewDisplay();
+      if (this.type === 'defaults') {
+        this.updateViewDisplay();
+      } else {
+        this.updateUserViewDisplay();
+      }
     }
   }
+
+  private updateUserViewDisplay(): void {
+    this.viewService.updateLayoutToUserView(this.viewDisplay, this.view.apiKey)
+      .subscribe(
+        (display) => {
+          this.navigateBack('Chart updated!');
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'updateViewDisplay', null));
+        }
+      );
+  }
+
   private updateViewDisplay(): void {
-    this.viewService.updateLayoutToDefaultView(this.viewDisplay, this.view.id)
+    this.viewService.updateLayoutToDefaultView(this.viewDisplay, this.view.apiKey)
       .subscribe(
         (display) => {
           this.navigateBack('Chart updated!');
@@ -296,7 +349,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     this.viewService.addLayoutToUserView(this.viewDisplay)
       .subscribe(
         (display) => {
-          // this.navigateBack('Chart saved!');
+          this.navigateBack('Chart saved!');
         },
         (error) => {
           this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveViewDisplay', null));
@@ -306,7 +359,11 @@ export class ViewMainComponent implements OnInit, OnDestroy {
 
   private navigateBack(action: string): void {
     M.toast({ html: action });
-    this.router.navigate(['/application/administration/views']);
+    if (this.type === 'defaults') {
+      this.router.navigate(['/application/administration/views']);
+    } else {
+      this.router.navigate(['/application/configuration/views']);
+    }
   }
 
   private loadChartsByCVAndSampleTypeCategoryApiKey(cv: CV, sampleTypeCategoryApiKey: string): void {
@@ -363,12 +420,12 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       if (adding) {
         if (el.getAttribute('id') !== 'charts-list') {
           // delete from previous position if it was any
-          this.removeChartFromDisplay(plotId);
           const position = id.split(';');
           this.addChartIntoDisplay(plotId, position);
+          this.setPlacedChart(plotId, true);
         } else {
           // remove
-          this.removeChartFromDisplay(plotId);
+          this.setPlacedChart(plotId, false);
         }
 
       } else {
@@ -377,28 +434,12 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     }
   }
 
-  private removeChartFromDisplay(plotId: number): void {
-    this.chartDisplay.forEach(
-      (row, r) => {
-        row.forEach(
-          (col, c) => {
-            if (col === plotId) {
-              this.chartDisplay[r][c] = null;
-            }
-          }
-        );
-      }
-    );
-  }
-
   private addChartIntoDisplay(plotId: number, position: number[]): void {
     this.chartDisplay[position[0]][position[1]] = plotId;
   }
 
   private onDrag(args) {
     const [e, el] = args;
-    // do something
-    // console.log(el.getAttribute('id'));
   }
 
   private subscribeToBottomModal(): void {
@@ -466,34 +507,98 @@ export class ViewMainComponent implements OnInit, OnDestroy {
 
   selectSampleType(sampleType: SampleType): void {
     this.selectedSampleType = sampleType;
-    this.loadCharts();
+    this.filterCharts();
 
   }
 
   selectLabSystem(labSystem: System): void {
     this.selectedLabSystem = labSystem;
-    this.loadCharts();
+    this.filterCharts();
   }
 
-  private loadCharts(): void {
-    if (this.selectedLabSystem !== undefined && this.selectedSampleType !== undefined) {
-      const mainCV = this.selectedLabSystem.dataSources.find(ds => ds.cv.category.mainDataSource === true);
-      this.chartService.getChartsByCVAndSampleType(mainCV.cv, this.selectedSampleType)
-        .subscribe(
-          (charts) => {
-            charts.forEach(c => {
-              this.charts.push(new UserChart(c.id,
-                c.name,
-                c.cv,
-                c.sampleType,
-                c.isThresholdEnabled,
-                c.apiKey,
-                this.selectedLabSystem));
-            });
-          }, err => console.log(err)
-        );
+  private filterCharts(): void {
+    if (this.selectedLabSystem === undefined && this.selectedSampleType !== undefined) {
+      // only by sample type
+      this.charts = this.nodeCharts.filter(c => {
+        return (c.sampleType.qualityControlControlledVocabulary === this.selectedSampleType.qualityControlControlledVocabulary || c.placed);
+      });
+    } else if (this.selectedLabSystem !== undefined && this.selectedSampleType === undefined) {
+      // only by lab system
+      this.charts = this.nodeCharts.filter(c => {
+        return (c.labSystem.apiKey === this.selectedLabSystem.apiKey || c.placed);
+      });
+    } else {
+      // both criteria
+      this.charts = this.nodeCharts.filter(c => {
+        // tslint:disable-next-line:max-line-length
+        return ((c.labSystem.apiKey === this.selectedLabSystem.apiKey &&
+          c.sampleType.qualityControlControlledVocabulary === this.selectedSampleType.qualityControlControlledVocabulary) || c.placed);
+      });
     }
+    delay(10).then(() => this.correctDragula());
   }
+
+  /**
+   * Dragula is not working fine... it places charts when the filter
+   * ends in the layout instead of placing it in the list.
+   * This is not a good solution.
+   */
+  private correctDragula(): void {
+    // look for charts out of its place
+    const ids = [];
+    this.chartDisplay.forEach(
+      (row) => {
+        row.forEach(
+          (col) => {
+            ids.push(col);
+          }
+        );
+      }
+    );
+    [].forEach.call(
+      document.querySelectorAll('.layout > .avatar'),
+      function (el) {
+        const plotId: string = el.getAttribute('id');
+        const chartId: string = plotId.replace('plotId-', '');
+        if (!ids.find(id => Number(id) === Number(chartId))) {
+          // move to the correct box
+          const elem = document.getElementById(plotId);
+          const list = document.getElementById('charts-list');
+          list.appendChild(elem);
+        }
+      }
+    );
+  }
+
+  private loadAvailableChartsByNode(): void {
+    this.labSystemService.getSystems()
+      .subscribe(
+        (labSystems) => {
+          labSystems.forEach(
+            (ls) => {
+              const mainCV = ls.dataSources.find(ds => ds.cv.category.mainDataSource === true);
+              this.chartService.getChartsByCV(mainCV.cv)
+                .subscribe(
+                  (charts) => {
+                    charts.forEach(c => {
+                      const userChart = new UserChart(c.id,
+                        ls.name + '-' + c.name,
+                        c.cv,
+                        c.sampleType,
+                        c.isThresholdEnabled,
+                        c.apiKey,
+                        ls);
+                      this.nodeCharts.push(userChart);
+                      this.charts.push(userChart);
+                    });
+                  }
+                );
+            }
+          );
+        }
+      );
+  }
+
   onSubmitUser(): void {
     // Before insert check the layout
     const viewName = this.view.name;
@@ -506,12 +611,27 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     }
 
     if (formOk) {
-      this.saveUserView();
+      if (this.submitButtonText === 'Save') {
+        this.saveUserView();
+      } else {
+        this.updateUserView();
+      }
     }
   }
 
   private saveUserView(): void {
     this.viewService.addUserView(this.view)
+      .subscribe(
+        (view) => {
+          this.prepareViewDisplayArray(view);
+        },
+        (error) => {
+          this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'saveDefaultView', null));
+        }
+      );
+  }
+  private updateUserView(): void {
+    this.viewService.updateUserView(this.view)
       .subscribe(
         (view) => {
           this.prepareViewDisplayArray(view);

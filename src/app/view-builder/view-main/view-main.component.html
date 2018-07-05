@@ -37,7 +37,7 @@
         <ng-template #single>
           <div class="col s12 m12 l12 xl12" *ngFor="let charts of row; let c = index">
             <ul class="collection">
-              <li class="collection-item" [dragula]='"first-bag"' id="{{r}};{{c}}">
+              <li class="collection-item layout" [dragula]='"first-bag"' id="{{r}};{{c}}">
 
               </li>
             </ul>
@@ -47,7 +47,7 @@
         <ng-template #double>
           <div class="col s12 m6 l6 xl6" *ngFor="let charts of row; let c = index">
             <ul class="collection">
-              <li class="collection-item" [dragula]='"first-bag"' id="{{r}};{{c}}">
+              <li class="collection-item layout" [dragula]='"first-bag"' id="{{r}};{{c}}">
 
               </li>
             </ul>

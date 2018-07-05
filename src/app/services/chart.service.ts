@@ -105,4 +105,5 @@ export class ChartService {
   public getChartsByCVAndSampleType(cv: CV, sampleType: SampleType): Observable<Chart[]> {
     return this.httpClient.get<Chart[]>(this.chartUrl + '/cv/' + cv.cvid + '/' + sampleType.qualityControlControlledVocabulary);
   }
+
 }

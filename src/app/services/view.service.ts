@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs/Subject';
 import { Display } from '../models/display';
 import { Chart } from '../models/chart';
 import { CV } from '../models/cv';
 import { View } from '../models/view';
 import { ViewDisplay } from '../models/viewDisplay';
-import { SampleTypeCategory } from '../models/sampleTypeCategory';
 
 @Injectable()
 export class ViewService {
@@ -97,6 +94,13 @@ export class ViewService {
     return this.httpClient.post<View>(this.defaultViewsUrl, params, {headers: headers});
   }
 
+  public updateDefaultView(view: View): Observable<View> {
+    const json = JSON.stringify(view);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<View>(this.defaultViewsUrl, params, {headers: headers});
+  }
+
   public addUserView(view: View): Observable<View> {
     const json = JSON.stringify(view);
     const params = json;
@@ -104,7 +108,14 @@ export class ViewService {
     return this.httpClient.post<View>(this.userViewsUrl, params, {headers: headers});
   }
 
-  public updateLayoutToDefaultView(viewDisplay: ViewDisplay[][], viewId: number): Observable<ViewDisplay[]> {
+  public updateUserView(view: View): Observable<View> {
+    const json = JSON.stringify(view);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<View>(this.userViewsUrl, params, {headers: headers});
+  }
+
+  public updateLayoutToDefaultView(viewDisplay: ViewDisplay[][], viewApiKey: string): Observable<ViewDisplay[]> {
     const layout = [];
     viewDisplay.forEach(
       (row) => {
@@ -118,7 +129,24 @@ export class ViewService {
     const json = JSON.stringify(layout);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<ViewDisplay[]>(this.defaultViewsUrl + '/layout/' + viewId, params, {headers: headers});
+    return this.httpClient.put<ViewDisplay[]>(this.defaultViewsUrl + '/layout/' + viewApiKey, params, {headers: headers});
+  }
+
+  public updateLayoutToUserView(viewDisplay: ViewDisplay[][], viewApiKey: string): Observable<ViewDisplay[]> {
+    const layout = [];
+    viewDisplay.forEach(
+      (row) => {
+        row.forEach(
+          (col) => {
+            layout.push(col);
+          }
+        );
+      }
+    );
+    const json = JSON.stringify(layout);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<ViewDisplay[]>(this.userViewsUrl + '/layout/' + viewApiKey, params, {headers: headers});
   }
 
   public addLayoutToDefaultView(viewDisplay: ViewDisplay[][]): Observable<ViewDisplay[]> {
