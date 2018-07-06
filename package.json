@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "transpile": "ng build --env=prod --build-optimizer --aot"
+    "transpile": "ng build --prod --build-optimizer --aot"
   },
   "private": true,
   "dependencies": {
