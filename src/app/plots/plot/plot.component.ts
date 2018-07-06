@@ -113,7 +113,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     threshold.thresholdParams.forEach(
       (thresholdParam) => {
         for (let i = 0; i < threshold.steps; i++) {
-          const value = thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue);
           const shape = {
             type: 'rect',
             x0: 0,

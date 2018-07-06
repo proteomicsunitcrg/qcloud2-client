@@ -187,7 +187,6 @@ export class ThresholdBuilderComponent implements OnInit {
     this.thresholdService.getThresholdConstraints(thresholdType)
       .subscribe(
         (constraint) => {
-          console.log(constraint);
           this.thresholdConstraint = constraint;
           delay(1).then(() => {
             M.updateTextFields();

@@ -56,7 +56,6 @@ export class ChartSampleTypeComponent implements OnInit {
       .subscribe(
         (sampleTypes) => {
           sampleTypes.forEach(sampleType => this.sampleTypes.push(sampleType));
-          console.log(sampleTypes);
         }
       );
   }

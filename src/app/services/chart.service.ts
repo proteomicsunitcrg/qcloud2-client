@@ -29,6 +29,13 @@ export class ChartService {
   private chartToEdit = new Subject<Chart>();
   chartToEdit$ = this.chartToEdit.asObservable();
 
+  /**
+   * This will inform to the subscribed components
+   * if the chart is beign edited.
+   */
+  private editingChart = new Subject<boolean>();
+  editingChart$ = this.editingChart.asObservable();
+
   public addNewChart(chart: Chart): Observable<Chart> {
     const json = JSON.stringify(chart);
     const params = json;
@@ -97,6 +104,7 @@ export class ChartService {
    * @param chart
    */
   public sendChartToEdit(chart: Chart): void {
+    this.editingChart.next(true);
     this.chartToEdit.next(chart);
   }
 

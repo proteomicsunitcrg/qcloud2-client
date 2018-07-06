@@ -1,13 +1,18 @@
 <h5>{{title}}</h5>
+<div id="selectAll" *ngIf="contextSources.length>0">
+  <span class="selector" (click)="selectAll(true)">Select all</span>
+  <span> / </span>
+  <span class="selector" (click)="selectAll(false)">Unselect all</span>
+</div>
 <table class="highlight">
   <thead>
     <th>Name</th>
   </thead>
   <tbody>
-    <tr *ngFor="let contextSource of contextSources; let i = index" >
+    <tr *ngFor="let contextSource of contextSources; let i = index">
       <td>
         <label>
-          <input type="checkbox" [checked]="isChecked(contextSource)" (change)="toggleEditable($event,contextSource)"/>
+          <input type="checkbox" [checked]="isChecked(contextSource)" (change)="toggleEditable($event,contextSource)" />
           <span>{{contextSource.abbreviated}}</span>
         </label>
       </td>

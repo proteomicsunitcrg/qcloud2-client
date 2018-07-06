@@ -9,6 +9,7 @@ import { InstrumentSampleService } from '../../../services/instrument-sample.ser
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { ChartParam } from '../../../models/chartParam';
 import { Subscription } from 'rxjs';
+import { ChartService } from '../../../services/chart.service';
 
 /**
  * Context source selector component.
@@ -29,7 +30,8 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
     private sampleTypeService: SampleTypeService,
     private sampleCompositionService: SampleCompositionService,
     private instrumentSampleService: InstrumentSampleService,
-    private chartParamsService: ChartParamsService) { }
+    private chartParamsService: ChartParamsService,
+    private chartService: ChartService) { }
 
   title: String = 'Sources';
 
@@ -40,17 +42,21 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
   contextSources: ContextSource[] = [];
   selectedContextSources: ContextSource[] = [];
 
-  chartParamsArray: ChartParam[] = [] ;
+  chartParamsArray: ChartParam[] = [];
 
   selectedContextSources$: Subscription;
   selectedParameter$: Subscription;
   selectedSampleType$: Subscription;
   resetComponent$: Subscription;
+  editingChart$: Subscription;
+
+  editing: boolean;
 
   ngOnInit() {
     this.subscribeToChartParamsToEdit();
     this.subscribeToSelectedParameter();
     this.subscribeToSelectedSampleType();
+    this.subscribeToChartEditing();
     this.linkChartParamsArray();
     this.subscribeToReset();
   }
@@ -60,10 +66,20 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
     this.selectedParameter$.unsubscribe();
     this.selectedSampleType$.unsubscribe();
     this.resetComponent$.unsubscribe();
+    this.editingChart$.unsubscribe();
   }
 
   isChecked(contextSource: ContextSource): boolean {
     return this.selectedContextSources.find(c => c.id === contextSource.id) !== undefined;
+  }
+
+  private subscribeToChartEditing(): void {
+    this.editingChart$ = this.chartService.editingChart$
+      .subscribe(
+        (editing) => {
+          this.editing = true;
+        }
+      );
   }
 
   private subscribeToChartParamsToEdit(): void {
@@ -89,23 +105,29 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
 
   private subscribeToSelectedParameter(): void {
     this.selectedParameter$ = this.paramService.selectedParameter$
-    .subscribe(
-      (param) => {
-        this.currentParam = param;
-        this.loadContextSources();
-      });
+      .subscribe(
+        (param) => {
+          if (this.editing) {
+            this.editing = false;
+          } else {
+            this.selectedContextSources = [];
+            this.fillChartParamsArray();
+          }
+          this.currentParam = param;
+          this.loadContextSources();
+        });
   }
 
 
   private subscribeToSelectedSampleType(): void {
     this.selectedSampleType$ = this.sampleTypeService.selectedSampleType$
-    .subscribe(
-      (sampleType) => {
-        this.sampleType = sampleType;
-        if (this.currentParam !== undefined) {
-          this.loadContextSources();
-        }
-      });
+      .subscribe(
+        (sampleType) => {
+          this.sampleType = sampleType;
+          if (this.currentParam !== undefined) {
+            this.loadContextSources();
+          }
+        });
   }
 
   private subscribeToReset(): void {
@@ -191,6 +213,18 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
   }
   private removeContextSource(contextSource: ContextSource) {
     this.selectedContextSources = this.selectedContextSources.filter(cs => cs.id !== contextSource.id);
+  }
+
+  selectAll(all: boolean): void {
+    if (all) {
+      this.contextSources.forEach(
+        (contextSource) => {
+          this.addContextSource(contextSource);
+        });
+    } else {
+      this.selectedContextSources = [];
+    }
+    this.fillChartParamsArray();
   }
 
 }
