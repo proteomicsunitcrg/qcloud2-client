@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import * as moment from 'moment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
+import { Router } from '@angular/router';
 
 /**
  * Authorization service
@@ -15,7 +16,8 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService,
+    private route: Router) {}
 
   private apiPrefix = environment.apiPrefix;
 
@@ -33,6 +35,7 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    this.route.navigate(['/']);
   }
 
   public isLoggedIn() {

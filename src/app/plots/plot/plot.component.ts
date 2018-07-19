@@ -212,7 +212,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
     plot.on('plotly_click', (data) => {
-      this.plotService.sendClick(data, this.chart, this.system);
+      this.plotService.sendClick(data, this.system);
     });
 
   }

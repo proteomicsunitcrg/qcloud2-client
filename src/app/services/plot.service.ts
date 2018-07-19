@@ -21,7 +21,7 @@ export class PlotService {
     this.collapsibleOpened.next(opened);
   }
 
-  public sendClick(data: any, chart: Chart, labSystem: System): void {
+  public sendClick(data: any, labSystem: System): void {
     this.filenameFromPlot.next(this.getFilenameFromPlotData(data));
     this.labSystemFromPlot.next(labSystem);
   }

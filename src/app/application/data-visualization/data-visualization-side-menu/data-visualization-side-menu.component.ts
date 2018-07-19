@@ -43,7 +43,7 @@ export class DataVisualizationSideMenuComponent implements OnInit {
 
   private loadDatesArray(): void {
     const today = moment().format('YYYY-MM-DD');
-    const monthAgo = moment().subtract(8, 'week').format('YYYY-MM-DD');
+    const monthAgo = moment().subtract(2, 'week').format('YYYY-MM-DD');
     this.datesArray[0] = monthAgo;
     this.datesArray[1] = today;
     this.sendDates(this.datesArray);

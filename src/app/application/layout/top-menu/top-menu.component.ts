@@ -5,6 +5,10 @@ import { System } from '../../../models/system';
 import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 declare var M: any;
+import { Stomp} from 'stompjs/lib/stomp.js';
+import * as SockJS from 'sockjs-client';
+
+
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',
@@ -22,6 +26,7 @@ export class TopMenuComponent implements OnInit {
 
   isAdmin = false;
   isManager = false;
+  private stompClient;
 
   ngOnInit() {
     if (this.authService.checkIfAdmin()) {
@@ -32,6 +37,30 @@ export class TopMenuComponent implements OnInit {
     }
     this.loadNodeSystems();
     this.loadUserViews();
+    // this.initializeWebSocket();
+  }
+
+  private initializeWebSocket(): void {
+    // let stompClient: any = null;
+    // const socket = new SockJS('/api/gs-guide-websocket/?Authorization=' + localStorage.getItem('id_token'));
+    const socket = new SockJS('/api/gs-guide-websocket');
+    const stompClient = Stomp.over(socket);
+    this.stompClient = stompClient;
+    const headers = {
+      Authorization : localStorage.getItem('id_token')
+    };
+    console.log(headers);
+    stompClient.connect(headers, (frame) => {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/greetings', function (greeting) {
+            console.log(greeting);
+        });
+    });
+
+  }
+
+  sendMessage(): void {
+    this.stompClient.send('/app/hello', {}, JSON.stringify({'name': 'yisuscristus'}));
   }
 
   private loadUserViews(): void {
@@ -61,6 +90,11 @@ export class TopMenuComponent implements OnInit {
   openMobile(): void {
     const elems = document.getElementById('mobile-demo');
     const instances = M.Sidenav.init(elems, {});
+  }
+
+  doLogout(): void {
+    this.authService.logout();
+
   }
 
 }

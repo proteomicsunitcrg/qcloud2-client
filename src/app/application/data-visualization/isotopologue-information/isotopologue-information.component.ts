@@ -30,12 +30,16 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
 
   plotFilename$: Subscription;
 
+  collapsible: any;
+
   /**
    * This will prevent a malforming layout inside the component
    */
   isCollapsibleOpen: boolean;
 
   collapsibleOpened$: Subscription;
+
+  firstLoad = true;
 
   rows = 0;
   /**
@@ -78,7 +82,7 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
 
   private enableCollapsible(): void {
     const elem = document.getElementById('iso-collapsible');
-    const collapsible = M.Collapsible.init(elem, {
+    this.collapsible = M.Collapsible.init(elem, {
       onOpenEnd:  () => {
         // time to load the plots
         this.plotService.isCollapsibleOpened(true);
@@ -87,6 +91,12 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
         this.plotService.isCollapsibleOpened(false);
       }
     });
+  }
+
+  private openCollapsible(): void {
+    // open the collapsible
+    this.collapsible.open();
+    window.scroll(0, 0);
   }
 
   private subscribeToPlotFile(): void {
@@ -153,6 +163,13 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
             for (let j = 0, k = i * this.cols ; j < this.cols ; j++, k++) {
               this.plots[i][j] = {'abbr': distinctAbbreviated[k], 'cleaned': distinctCleanedSequence[k]};
             }
+          }
+        }, err => console.log(err),
+        () => {
+          if (this.firstLoad) {
+            this.firstLoad = false;
+          } else {
+            this.openCollapsible();
           }
         }
       );
