@@ -40,6 +40,9 @@ export class PlotComponent implements OnInit, OnDestroy {
   errorMessage: string;
   error: boolean;
 
+  datesArray;
+  dataArray;
+
   layout: any;
 
   thresholdColors = ['#a9dbed', '#60c3e8', '#056487'];
@@ -47,17 +50,22 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   plotThreshold: PlotThreshold;
 
+  abbreviatedNames: string[] = [];
+
   ngOnInit() {
     this.loading = true;
     this.error = false;
     this.loadCurrentDates();
     this.subscribeToDateChanges();
     if (this.chart != null) {
+      /*
       if (this.chart.isThresholdEnabled) {
         this.loadThreshold();
       } else {
         this.loadData();
       }
+      */
+     this.loadData();
     }
   }
 
@@ -69,6 +77,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loading = false;
     const datesArray = [];
     const dataArray = [];
+    const abbreviatedNames = [];
     this.dataService.getPlotData(this.chart, this.system)
       .subscribe(
         (dataFromServer) => {
@@ -78,6 +87,9 @@ export class PlotComponent implements OnInit, OnDestroy {
               (element) => {
                 if (dataArray[element] === undefined) {
                   dataArray[element] = [];
+                  if (element !== 'filename') {
+                    abbreviatedNames.push(element);
+                  }
                 }
                 dataArray[element].push(dataFromServer[key][element]);
               }
@@ -87,7 +99,14 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadErrorPlot(e);
         },
         () => {
-          this.loadPlot(datesArray, dataArray);
+          this.datesArray = datesArray;
+          this.dataArray = dataArray;
+          this.abbreviatedNames = abbreviatedNames;
+          if (this.chart.isThresholdEnabled) {
+            this.loadThreshold();
+          } else {
+            this.loadPlot(datesArray, dataArray);
+          }
         }
       );
   }
@@ -99,40 +118,66 @@ export class PlotComponent implements OnInit, OnDestroy {
           if (threshold.monitored) {
             this.drawThreshold(threshold);
             this.plotThreshold = threshold;
+            this.loadPlot(this.datesArray, this.dataArray);
           } else {
-            this.loadData();
+            this.loadPlot(this.datesArray, this.dataArray);
           }
         } else {
-          this.loadData();
+          this.loadPlot(this.datesArray, this.dataArray);
         }
       },
         err => console.log(err));
   }
 
   private drawThreshold(threshold: PlotThreshold): void {
-    threshold.thresholdParams.forEach(
-      (thresholdParam) => {
-        for (let i = 0; i < threshold.steps; i++) {
-          const shape = {
-            type: 'rect',
-            x0: 0,
-            x1: 1,
-            y0: thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue),
-            y1: thresholdParam.initialValue - ((i + 1) * thresholdParam.stepValue),
-            xref: 'paper',
-            fillcolor: this.thresholdColors[i],
-            opacity: 0.5,
-            line: {
-              color: 'red',
-              width: 0
-            },
-            layer: 'below'
-          };
-          this.layoutShapes.push(shape);
-        }
+    // if there is only one context source load only this.
+    // this prevents a sigma threshold do be drawed more than once
+    let uniqueThresholdParam: ThresholdParam = null;
+    if (this.abbreviatedNames.length === 1) {
+      uniqueThresholdParam = threshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.abbreviatedNames[0]);
+      for (let i = 0; i < threshold.steps; i++) {
+        const shape = {
+          type: 'rect',
+          x0: 0,
+          x1: 1,
+          y0: uniqueThresholdParam.initialValue + ((i + 1) * uniqueThresholdParam.stepValue),
+          y1: uniqueThresholdParam.initialValue - ((i + 1) * uniqueThresholdParam.stepValue),
+          xref: 'paper',
+          fillcolor: this.thresholdColors[i],
+          opacity: 0.5,
+          line: {
+            color: 'red',
+            width: 0
+          },
+          layer: 'below'
+        };
+        this.layoutShapes.push(shape);
       }
-    );
-    this.loadData();
+    } else {
+      threshold.thresholdParams.forEach(
+        (thresholdParam) => {
+          for (let i = 0; i < threshold.steps; i++) {
+            const shape = {
+              type: 'rect',
+              x0: 0,
+              x1: 1,
+              y0: thresholdParam.initialValue + ((i + 1) * thresholdParam.stepValue),
+              y1: thresholdParam.initialValue - ((i + 1) * thresholdParam.stepValue),
+              xref: 'paper',
+              fillcolor: this.thresholdColors[i],
+              opacity: 0.5,
+              line: {
+                color: 'red',
+                width: 0
+              },
+              layer: 'below'
+            };
+            this.layoutShapes.push(shape);
+          }
+        }
+      );
+    }
+    // this.loadData();
   }
 
   private loadErrorPlot(error: any): void {
