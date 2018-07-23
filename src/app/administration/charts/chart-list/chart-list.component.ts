@@ -5,6 +5,7 @@ import { CV } from '../../../models/cv';
 import { Chart } from '../../../models/chart';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { Subscription } from 'rxjs';
+import { SampleType } from '../../../models/sampleType';
 declare var M: any;
 
 /**
@@ -24,8 +25,25 @@ export class ChartListComponent implements OnInit, OnDestroy {
     private chartService: ChartService,
     private chartParamsService: ChartParamsService) { }
 
-    resetComponent$: Subscription;
-    selectedChartCv$: Subscription;
+  resetComponent$: Subscription;
+  selectedChartCv$: Subscription;
+
+  limit = 10;
+
+  page = 1;
+
+  maxPages: number;
+
+  filter: Chart = new Chart(null, null, null, null, null, null);
+
+  filteredCharts: Chart[] = [];
+
+  filters: { type: string, name: string, code: string }[] = [];
+
+  orderAsc = false;
+
+  orderIcon = 'arrow_drop_up';
+
 
   ngOnInit() {
     this.loadAllCharts();
@@ -57,18 +75,6 @@ export class ChartListComponent implements OnInit, OnDestroy {
         }
       );
   }
-  /**
-   * Load the charts by cv
-   * @param cv the cv to look for its charts
-   */
-  private loadChartsByCV(cv: CV): void {
-    this.chartService.getChartsByCV(cv)
-      .subscribe(
-        (charts) => {
-          this.loadChartsIntoList(charts);
-        }
-      );
-  }
 
   /**
    * Listen to any CV change at the
@@ -79,13 +85,27 @@ export class ChartListComponent implements OnInit, OnDestroy {
       .subscribe(
         (cv) => {
           // show only charts by cv
-          this.loadChartsByCV(cv);
+          const filteredCvs = this.filters.filter(f => f.type === 'cv');
+
+          if (filteredCvs.length > 0) {
+            this.filters.splice(this.filters.findIndex(f => f.code === filteredCvs[0].code));
+          }
+
+          if (filteredCvs.find(f => f.code === cv.cvid) === undefined) {
+            this.filters.push({ type: 'cv', name: cv.name, code: cv.cvid });
+            this.filterCharts();
+          }
+
         }
       );
   }
 
   private loadChartsIntoList(charts: Chart[]): void {
+    this.maxPages = charts.length / 10;
     this.charts = charts;
+    charts.forEach(chart => {
+      this.filteredCharts.push(chart);
+    });
   }
 
   /**
@@ -110,5 +130,64 @@ export class ChartListComponent implements OnInit, OnDestroy {
         },
         err => console.log(err)
       );
+  }
+
+  doSampleTypeFilter(sampleType: SampleType): void {
+    // get sampletype filters
+    const filteredSampleTypes = this.filters.filter(f => f.type === 'st');
+    if (filteredSampleTypes.find(f => f.name === sampleType.name) === undefined) {
+      this.filters.push({ type: 'st', name: sampleType.name, code: sampleType.qualityControlControlledVocabulary });
+      this.filterCharts();
+    }
+  }
+
+  doRemoveFilter(filter: any): void {
+    this.filters.splice(this.filters.findIndex(f => {
+      return f.type === filter.type;
+    }), 1);
+    this.filterCharts();
+  }
+
+  private filterCharts(): void {
+    let sampleType = '';
+    let cv = '';
+    this.filters.forEach(
+      (filter) => {
+        switch (filter.type) {
+          case 'st':
+            sampleType = filter.code;
+            break;
+          case 'cv':
+            cv = filter.code;
+            break;
+        }
+      });
+    this.filteredCharts = this.charts.filter((chart) => {
+      // tslint:disable-next-line:max-line-length
+      return (chart.sampleType.qualityControlControlledVocabulary === sampleType || sampleType === '') && (chart.cv.cvid === cv || cv === '') ? true : false;
+    });
+    this.maxPages = this.filteredCharts.length / 10;
+  }
+
+  sortBy(field: string): void {
+    switch (field) {
+      case 'name':
+        if (this.orderAsc) {
+          this.filteredCharts.sort((a, b) => {
+            return (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0;
+          });
+          this.orderIcon = 'arrow_drop_down';
+        } else {
+          this.filteredCharts.sort((a, b) => {
+            return (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0;
+          });
+          this.orderIcon = 'arrow_drop_up';
+        }
+        this.orderAsc = !this.orderAsc;
+        break;
+      default:
+        break;
+    }
+
   }
 }
