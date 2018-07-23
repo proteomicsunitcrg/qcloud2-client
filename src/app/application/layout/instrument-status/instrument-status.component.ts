@@ -64,22 +64,25 @@ export class InstrumentStatusComponent implements OnInit {
         this.thresholdService.getLabSystemStatus(labSystem.system)
           .subscribe(
             (status) => {
-              labSystem.status = status;
+              // labSystem.status = status;
               status.forEach(
                 (stat) => {
-                  switch (stat.status) {
-                    case 'WARNING':
-                      labSystem.alerts.quantity++;
-                      if (labSystem.alerts.severity === 'OK') {
-                        labSystem.alerts.severity = 'WARNING';
-                      }
-                    break;
-                    case 'DANGER':
-                      labSystem.alerts.quantity++;
-                      if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
-                        labSystem.alerts.severity = 'DANGER';
-                      }
-                    break;
+                  if (stat.status !== 'OK') {
+                    labSystem.status.push(stat);
+                    switch (stat.status) {
+                      case 'WARNING':
+                        labSystem.alerts.quantity++;
+                        if (labSystem.alerts.severity === 'OK') {
+                          labSystem.alerts.severity = 'WARNING';
+                        }
+                        break;
+                      case 'DANGER':
+                        labSystem.alerts.quantity++;
+                        if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
+                          labSystem.alerts.severity = 'DANGER';
+                        }
+                        break;
+                    }
                   }
                 }
               );
@@ -99,7 +102,7 @@ export class InstrumentStatusComponent implements OnInit {
     delay(1).then(
       () => {
         const elem = document.getElementById(dropdown);
-        const instance = M.Dropdown.init(elem, {constrainWidth: false});
+        const instance = M.Dropdown.init(elem, { constrainWidth: false });
         instance.open();
       }
     );

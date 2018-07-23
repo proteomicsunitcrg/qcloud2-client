@@ -1,6 +1,5 @@
 import { Param } from './param';
 import { CV } from './cv';
-import { ContextSource } from './contextSource';
 import { SampleType } from './sampleType';
 
 export class Threshold {
@@ -13,6 +12,7 @@ export class Threshold {
     sampleType: SampleType;
     thresholdType: string;
     isMonitored: boolean;
+    isZeroNoData: boolean;
 
     constructor(id: number,
         name: string,
@@ -22,7 +22,8 @@ export class Threshold {
         cv: CV,
         sampleType: SampleType,
         thresholdType: string,
-        isMonitored: boolean) {
+        isMonitored: boolean,
+        isZeroNoData: boolean) {
             this.id = id;
             this.name = name;
             this.direction = direction;
@@ -32,5 +33,6 @@ export class Threshold {
             this.sampleType = sampleType;
             this.thresholdType = thresholdType;
             this.isMonitored = isMonitored;
+            this.isZeroNoData = isZeroNoData;
     }
 }

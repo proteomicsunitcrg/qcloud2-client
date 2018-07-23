@@ -8,7 +8,7 @@ import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
-import { HtmlPlotComponent} from '../helper/html-plot.component';
+import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
 
 @Component({
@@ -65,7 +65,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.loadData();
       }
       */
-     this.loadData();
+      this.loadData();
     }
   }
 
@@ -135,23 +135,25 @@ export class PlotComponent implements OnInit, OnDestroy {
     let uniqueThresholdParam: ThresholdParam = null;
     if (this.abbreviatedNames.length === 1) {
       uniqueThresholdParam = threshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.abbreviatedNames[0]);
-      for (let i = 0; i < threshold.steps; i++) {
-        const shape = {
-          type: 'rect',
-          x0: 0,
-          x1: 1,
-          y0: uniqueThresholdParam.initialValue + ((i + 1) * uniqueThresholdParam.stepValue),
-          y1: uniqueThresholdParam.initialValue - ((i + 1) * uniqueThresholdParam.stepValue),
-          xref: 'paper',
-          fillcolor: this.thresholdColors[i],
-          opacity: 0.5,
-          line: {
-            color: 'red',
-            width: 0
-          },
-          layer: 'below'
-        };
-        this.layoutShapes.push(shape);
+      if (uniqueThresholdParam !== undefined) {
+        for (let i = 0; i < threshold.steps; i++) {
+          const shape = {
+            type: 'rect',
+            x0: 0,
+            x1: 1,
+            y0: uniqueThresholdParam.initialValue + ((i + 1) * uniqueThresholdParam.stepValue),
+            y1: uniqueThresholdParam.initialValue - ((i + 1) * uniqueThresholdParam.stepValue),
+            xref: 'paper',
+            fillcolor: this.thresholdColors[i],
+            opacity: 0.5,
+            line: {
+              color: 'red',
+              width: 0
+            },
+            layer: 'below'
+          };
+          this.layoutShapes.push(shape);
+        }
       }
     } else {
       threshold.thresholdParams.forEach(

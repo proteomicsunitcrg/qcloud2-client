@@ -12,6 +12,9 @@
 .DANGER {
     color: red;
 }
+.NO_DATA {
+    color: #888888
+}
 button {
     margin-left: 5px;
 }
