@@ -22,7 +22,7 @@ export class NewPeptideFormComponent implements OnInit {
   @Input() isoSampleType: SampleType;
   @Output() newPeptide = new EventEmitter<Peptide>();
 
-  peptide: Peptide = new Peptide(null, null, null, null, null, null);
+  peptide: Peptide = new Peptide(null, null, null, null, null, null, null);
 
   ngOnInit() {
   }

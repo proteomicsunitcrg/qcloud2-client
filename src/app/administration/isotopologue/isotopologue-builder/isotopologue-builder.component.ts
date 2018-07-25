@@ -25,7 +25,7 @@ export class IsotopologueBuilderComponent implements OnInit, OnDestroy {
 
   isotopologues: Isotopologue[];
 
-  isotopologue: Isotopologue = new Isotopologue(null, null, null, null, null, null, null, null);
+  isotopologue: Isotopologue = new Isotopologue(null, null, null, null, null, null, null, null, null);
 
   ngOnInit() {
     this.subscribeToPeptide();
@@ -50,7 +50,7 @@ export class IsotopologueBuilderComponent implements OnInit, OnDestroy {
 
   addIsotopologue(): void {
     this.newIsotopologue = true;
-    this.isotopologue = new Isotopologue(null, null, null, null, null, null, null, null);
+    this.isotopologue = new Isotopologue(null, null, null, null, null, null, null, null, null);
   }
 
 

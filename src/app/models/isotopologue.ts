@@ -5,8 +5,8 @@ export class Isotopologue extends Peptide {
     concentration: number;
 
     constructor(id: number, name: string, sequence: string, abbreviatedSequence: string,
-        mainPeptide: Peptide, mz: number, charge: number, concentration: number) {
-        super(id, name, sequence, abbreviatedSequence, mz, charge);
+        mainPeptide: Peptide, mz: number, charge: number, concentration: number, apiKey: string) {
+        super(id, name, sequence, abbreviatedSequence, mz, charge, apiKey);
         this.mainPeptide = mainPeptide;
         this.concentration = concentration;
     }

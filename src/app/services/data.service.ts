@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 import { Chart } from '../models/chart';
 import { System } from '../models/system';
 import { File } from '../models/file';
+import { ContextSource } from '../models/contextSource';
+import { Param } from '../models/param';
+import { SampleType } from '../models/sampleType';
 
 @Injectable()
 export class DataService {
@@ -54,6 +57,33 @@ export class DataService {
           return dataArray;
         }
       ));
+  }
+
+  public getAutoPlotData(labSystemApiKey: string, param: Param,
+    contextSource: ContextSource, sampleTypeQccv: string, thresholdId: number): Observable<MiniData[]> {
+
+    const url = this.dataUrl + '/auto/' + labSystemApiKey +
+      '/' + param.qCCV + '/' + contextSource.apiKey + '/' + sampleTypeQccv + '/' + thresholdId;
+
+    return this.httpClient.get<MiniData[]>(url).pipe(
+      map(
+        (data) => {
+          const dataArray = [];
+          data.forEach((row) => {
+            if (dataArray[row.fileCreationDate] === undefined) {
+              dataArray[row.fileCreationDate] = {};
+            }
+            if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
+              dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
+            }
+            if (dataArray[row.fileCreationDate]['filename'] === undefined) {
+              dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
+            }
+          });
+          return dataArray;
+        }
+      )
+    );
   }
 
   /**

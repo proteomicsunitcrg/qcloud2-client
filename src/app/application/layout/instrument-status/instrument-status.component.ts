@@ -68,6 +68,7 @@ export class InstrumentStatusComponent implements OnInit {
               status.forEach(
                 (stat) => {
                   if (stat.status !== 'OK') {
+                    stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
                     switch (stat.status) {
                       case 'WARNING':
@@ -82,6 +83,12 @@ export class InstrumentStatusComponent implements OnInit {
                           labSystem.alerts.severity = 'DANGER';
                         }
                         break;
+                      case 'NO_DATA':
+                        if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
+                          labSystem.alerts.severity = 'DANGER';
+                        }
+                        break;
+
                     }
                   }
                 }
@@ -106,6 +113,10 @@ export class InstrumentStatusComponent implements OnInit {
         instance.open();
       }
     );
+  }
+
+  doSendToAutoPlot(labSystemStatus: LabSystemStatus): void {
+    this.thresholdService.selectLabSystemStatus(labSystemStatus);
   }
 
 }

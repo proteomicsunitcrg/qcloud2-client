@@ -4,8 +4,8 @@ export class Peptide extends ContextSource {
     mz: number;
     charge: number;
 
-    constructor(id: number, name: string, sequence: string, abbreviated: string, mz: number, charge: number) {
-        super(id, name, abbreviated);
+    constructor(id: number, name: string, sequence: string, abbreviated: string, mz: number, charge: number, apiKey: string) {
+        super(id, name, abbreviated, apiKey);
         this.sequence = sequence;
         this.mz = mz;
         this.charge = charge;

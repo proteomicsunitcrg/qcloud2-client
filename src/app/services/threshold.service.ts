@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Threshold } from '../models/threshold';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ThresholdParam } from '../models/thresholdParams';
 import { ThresholdConstraint } from '../models/thresholdConstraint';
 import { PlotThreshold } from '../models/plotThreshold';
@@ -17,6 +17,9 @@ export class ThresholdService {
 
   private apiPrefix = environment.apiPrefix;
   private thresholdUrl = this.apiPrefix + 'api/threshold';
+
+  private selectedLabSystemStatus = new Subject<LabSystemStatus>();
+  selectedLabSystemStatus$ = this.selectedLabSystemStatus.asObservable();
 
   public getAllThresholds(): Observable<Threshold[]> {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl);
@@ -56,6 +59,10 @@ export class ThresholdService {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node');
   }
 
+  public getAutoPlotThreshold(thresholdId: number): Observable<PlotThreshold> {
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/autoplot/' + thresholdId);
+  }
+
   public getAllThresholdsBySystem(labSystem: System): Observable<Threshold[]> {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node/' + labSystem.apiKey);
   }
@@ -73,6 +80,14 @@ export class ThresholdService {
 
   public getLabSystemStatus(labSystem: System): Observable<LabSystemStatus[]> {
     return this.httpClient.get<LabSystemStatus[]>(this.thresholdUrl + '/status/' + labSystem.apiKey);
+  }
+
+  /**
+   * Send a lab system status
+   * @param labSystemStatus
+   */
+  public selectLabSystemStatus(labSystemStatus: LabSystemStatus): void {
+    this.selectedLabSystemStatus.next(labSystemStatus);
   }
 
 }

@@ -1,117 +1,89 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Chart } from '../../models/chart';
-import { DataService } from '../../services/data.service';
-import * as Plotly from 'plotly.js';
-import { System } from '../../models/system';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThresholdService } from '../../services/threshold.service';
-import { PlotThreshold } from '../../models/plotThreshold';
-import * as traceColor from './traceColors';
-import { ThresholdParam } from '../../models/thresholdParams';
-import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { PlotService } from '../../services/plot.service';
+import { Subscription } from 'rxjs';
+import { DataService } from '../../services/data.service';
+import { LabSystemStatus } from '../../models/labsystemstatus';
+import * as Plotly from 'plotly.js';
 import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import * as traceColor from '../plot/traceColors';
+import { PlotThreshold } from '../../models/plotThreshold';
+import { ThresholdParam } from '../../models/thresholdParams';
+import { MiniData } from '../../models/miniData';
 
 @Component({
-  selector: 'app-plot',
-  templateUrl: './plot.component.html',
-  styleUrls: ['./plot.component.css']
+  selector: 'app-auto-plot',
+  templateUrl: './auto-plot.component.html',
+  styleUrls: ['./auto-plot.component.css']
 })
+export class AutoPlotComponent implements OnInit, OnDestroy {
 
+  constructor(private thresholdService: ThresholdService,
+    private dataService: DataService) { }
 
-export class PlotComponent implements OnInit, OnDestroy {
-
-  constructor(private dataService: DataService,
-    private thresholdService: ThresholdService,
-    private plotService: PlotService) { }
-
-  @Input() chart: Chart;
-  @Input() system: System;
-  /**
-   * If it is true it means that this plot is in a user view.
-   * In that case we need to add to the chart name the
-   * labsystem name and the sample type name.
-   */
-  @Input() shownames: boolean;
-
-  currentDates: string[];
-  dateChangesSubscription$: Subscription;
+  selectedLabSystemStatus$: Subscription;
 
   loading: boolean;
   errorMessage: string;
   error: boolean;
 
-  // datesArray;
-  // dataArray;
-  // abbreviatedNames: string[] = [];
+  serverData: {dates: any[], data: any[], names: any[]};
 
   layout: any;
 
-  serverData: {dates: any[], data: any[], names: any[]};
-
+  thresholdColors = ['#a9dbed', '#60c3e8', '#056487'];
   layoutShapes = [];
 
   plotThreshold: PlotThreshold;
 
 
   ngOnInit() {
-    this.loading = true;
-    this.error = false;
-    this.loadCurrentDates();
-    this.subscribeToDateChanges();
-    if (this.chart != null) {
-      this.loadData();
-    }
+    this.subscribeToLabSystemStatus();
   }
 
   ngOnDestroy() {
-    this.dateChangesSubscription$.unsubscribe();
+    this.selectedLabSystemStatus$.unsubscribe();
   }
 
-  private loadData(): void {
-    this.loading = false;
-    this.dataService.getPlotData(this.chart, this.system)
+  private subscribeToLabSystemStatus(): void {
+    this.selectedLabSystemStatus$ = this.thresholdService.selectedLabSystemStatus$
       .subscribe(
-        (dataFromServer) => {
-          this.serverData = loadDataAndDatesArray(dataFromServer);
-          /*
-          this.dataArray = serverData.data;
-          this.datesArray = serverData.dates;
-          this.abbreviatedNames = serverData.names;
-          */
-          if (this.chart.isThresholdEnabled) {
-            this.loadThreshold();
-          } else {
-            this.loadPlot();
-          }
-        }, (e) => {
-          this.loadErrorPlot(e);
+        (selectedLabSystemStatus: LabSystemStatus) => {
+          // retrieve data
+          this.dataService.getAutoPlotData(selectedLabSystemStatus.labSystemApikey,
+            selectedLabSystemStatus.param,
+            selectedLabSystemStatus.contextSource,
+            selectedLabSystemStatus.sampleTypeQccv,
+            selectedLabSystemStatus.thresholdId)
+            .subscribe(
+              (dataForPlot) => {
+                this.serverData = loadDataAndDatesArray(dataForPlot);
+                this.loadAutoPlotThreshold(selectedLabSystemStatus.thresholdId);
+              }, err => console.log(err)
+            );
         }
       );
   }
 
-  private loadThreshold(): void {
-    this.thresholdService.getPlotThreshold(this.chart, this.system)
+
+  private loadAutoPlotThreshold(thresholdId: number): void {
+    this.thresholdService.getAutoPlotThreshold(thresholdId)
       .subscribe((threshold) => {
         if (threshold != null) {
-          if (threshold.monitored) {
-            this.plotThreshold = threshold;
-            this.drawThreshold();
-            this.loadPlot();
-          } else {
-            this.loadPlot();
-          }
+          this.plotThreshold = threshold;
+          this.drawThreshold();
+          this.loadPlot();
         } else {
           this.loadPlot();
         }
-      }, err => console.log(err));
+      },
+        err => console.log(err));
   }
 
   private drawThreshold(): void {
+    this.layoutShapes = [];
     // if there is only one context source load only this.
     // this prevents a sigma threshold do be drawed more than once
     let uniqueThresholdParam: ThresholdParam = null;
-
     if (this.serverData.names.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData.names[0]);
       if (uniqueThresholdParam !== undefined) {
@@ -130,14 +102,6 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       );
     }
-    // this.loadData();
-  }
-
-  private loadErrorPlot(error: any): void {
-    this.loading = false;
-    this.error = true;
-    this.errorMessage = error.error.message;
-
   }
 
   private loadPlot(): void {
@@ -162,12 +126,12 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          let color = this.calculatePointColor(key, element, traceIndex);
+          let color = this.calculatePointColor(key, element);
           let elementText = element;
           if (isNaN(element)) {
             element = mean;
             marker = 'diamond';
-            color = '#edbfa9';
+            color = 'grey';
             elementText = 'No data';
           }
           values.push(element);
@@ -176,7 +140,6 @@ export class PlotComponent implements OnInit, OnDestroy {
           textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
         }
       );
-
       minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
       maxValues.push(Math.max.apply(null, values.filter((n) => !isNaN(n))));
 
@@ -216,8 +179,10 @@ export class PlotComponent implements OnInit, OnDestroy {
       MAXVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y0'] + height;
     }
 
+
     this.layout = {
-      title: this.getChartName(),
+      // title: this.chart.name,
+      title: 'Analysis',
       shapes: [],
       colorway: traceColor.colorRange,
       hovermode: 'closest',
@@ -228,30 +193,16 @@ export class PlotComponent implements OnInit, OnDestroy {
         type: 'linear',
         range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
       },
-      sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
     };
     this.layout.shapes = this.layoutShapes;
-    Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
-
-    const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
-    plot.on('plotly_click', (data) => {
-      this.plotService.sendClick(data, this.system);
-    });
+    Plotly.react('plot', dataForPlot, this.layout);
 
   }
+  private calculatePointColor(key: string, value: number): string {
 
-
-  private getChartName(): string {
-    if (this.shownames) {
-      return this.system.name + ' ' + this.chart.name + ' ' + this.chart.sampleType.name;
-    } else {
-      return this.chart.name;
-    }
-  }
-
-  private calculatePointColor(key: string, value: number, traceIndex: number): string {
     // check if threshold exists
+    const regularColor = 'rgb(51, 102, 204)';
     if (this.plotThreshold !== undefined) {
       const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.abbreviated === key);
       if (thresholdParam.length > 0) {
@@ -265,48 +216,32 @@ export class PlotComponent implements OnInit, OnDestroy {
                 && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
                 return 'yellow';
               } else {
-                return traceColor.colorRange[traceIndex];
+                return regularColor;
               }
             } else {
               if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
                 return 'red';
               } else {
-                return traceColor.colorRange[traceIndex];
+                return regularColor;
               }
             }
           case 'UPDOWN':
             if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
               return 'red';
             } else {
-              return traceColor.colorRange[traceIndex];
+              return regularColor;
             }
 
           default:
             return null;
         }
       } else {
-        return traceColor.colorRange[traceIndex];
+        return 'rgb(51, 102, 204)';
       }
     } else {
-      return traceColor.colorRange[traceIndex];
+      return 'rgb(51, 102, 204)';
     }
   }
 
-
-  private loadCurrentDates(): void {
-    this.currentDates = this.dataService.getCurrentDates();
-  }
-
-  private subscribeToDateChanges(): void {
-    this.dateChangesSubscription$ = this.dataService.selectedDates$
-      .subscribe(
-        (dates) => {
-          this.currentDates = dates;
-          // reload the plot...
-          this.loadData();
-          // this.loadThreshold();
-        }
-      );
-  }
 
 }

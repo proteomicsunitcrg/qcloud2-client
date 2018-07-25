@@ -37,7 +37,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   currentSampleComposition$: Subscription;
 
   formData = {
-    currentPeptide: new Peptide(null, '', '', '', null, null),
+    currentPeptide: new Peptide(null, '', '', '', null, null, null),
   };
 
   compositionInputs = {};
@@ -183,7 +183,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
-    this.formData.currentPeptide = new Peptide(null, '', '', '', null, null);
+    this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null);
   }
 }
 
