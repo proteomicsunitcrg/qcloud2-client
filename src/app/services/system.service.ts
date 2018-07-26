@@ -60,7 +60,7 @@ export class SystemService {
   }
 
   public saveGuideSet(system: System, guideSet: GuideSet): Observable<any> {
-    const json = JSON.stringify(guideSet);
+    const json = JSON.stringify(system.guideSet);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<any>(this.systemUrl + '/guideset/' + system.apiKey, params, {headers: headers});

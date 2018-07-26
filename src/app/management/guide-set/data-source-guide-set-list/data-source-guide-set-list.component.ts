@@ -37,7 +37,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
           systems.forEach(
             (system) => {
               if (system.guideSet === null) {
-                system.guideSet = new GuideSet(null, null, null);
+                system.guideSet = new GuideSet(null, null, null, true);
               }
               this.systems.push(system);
             }
@@ -98,14 +98,16 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
       if (this.datePickers[system.apiKey][0] > this.datePickers[system.apiKey][1]) {
         alert('End date must be greater than start date');
       } else {
-        system.guideSet.startDate = this.datePickers[system.apiKey][0].toString();
-        system.guideSet.endDate = this.datePickers[system.apiKey][1].toString();
+        system.guideSet.startDate = this.datePickers[system.apiKey][0].toString() + ' 00:00';
+        system.guideSet.endDate = this.datePickers[system.apiKey][1].toString() + ' 00:00';
+        system.guideSet.isActive = true;
         this.updateDataSource(system);
       }
     }
   }
 
   private updateDataSource(system: System): void {
+    console.log('system', system);
     this.systemService.saveGuideSet(system, system.guideSet)
       .subscribe(
         (result) => {
