@@ -110,7 +110,7 @@ export class ThresholdBuilderComponent implements OnInit {
             (peptides) => {
               this.thresholdParams = [];
               peptides.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0))
+                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0, true))
               );
             }
           );
@@ -121,7 +121,7 @@ export class ThresholdBuilderComponent implements OnInit {
             (instrumentSamples) => {
               this.thresholdParams = [];
               instrumentSamples.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0))
+                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0, true))
               );
             }, err => console.log(err)
           );

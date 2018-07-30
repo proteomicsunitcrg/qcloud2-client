@@ -114,7 +114,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     if (this.serverData.names.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData.names[0]);
-      if (uniqueThresholdParam !== undefined) {
+      if (uniqueThresholdParam !== undefined && uniqueThresholdParam.isEnabled) {
         generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps).forEach(
           (layoutShape) => {
             this.layoutShapes.push(layoutShape);
@@ -123,10 +123,12 @@ export class PlotComponent implements OnInit, OnDestroy {
     } else {
       this.plotThreshold.thresholdParams.forEach(
         (thresholdParam) => {
-          generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
-            (layoutShape) => {
-              this.layoutShapes.push(layoutShape);
-            });
+          if (thresholdParam.isEnabled) {
+            generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
+              (layoutShape) => {
+                this.layoutShapes.push(layoutShape);
+              });
+          }
         }
       );
     }
@@ -207,7 +209,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     let MINVALUEFORPLOT;
     let MAXVALUEFORPLOT;
 
-    if (this.plotThreshold === undefined) {
+    if (this.plotThreshold === undefined || this.layoutShapes.length === 0) {
       MINVALUEFORPLOT = Math.min.apply(null, minValues) - Math.abs((Math.min.apply(null, minValues) * 0.1));
       MAXVALUEFORPLOT = Math.max.apply(null, maxValues) + (Math.max.apply(null, maxValues) * 0.1);
     } else {
@@ -253,8 +255,8 @@ export class PlotComponent implements OnInit, OnDestroy {
   private calculatePointColor(key: string, value: number, traceIndex: number): string {
     // check if threshold exists
     if (this.plotThreshold !== undefined) {
-      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.abbreviated === key);
-      if (thresholdParam.length > 0) {
+      const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
+      if (thresholdParam !== undefined && thresholdParam.isEnabled) {
         switch (this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
             // taking care if the steps is 1
