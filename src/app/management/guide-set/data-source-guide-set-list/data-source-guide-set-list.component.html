@@ -1,37 +1,53 @@
 <div class="row">
   <div class="col s12 m12 l12 xl12">
-    <h5>Node instruments</h5>
+    <blockquote>
+      <p>You need at least <strong>{{minFiles}}</strong> files to set up a custom guide set</p>
+      <p>Your start and end date must include <strong>{{minFiles}}</strong> files.</p>
+    </blockquote>
   </div>
 </div>
 <table>
-  <thead>
+  <tbody *ngFor="let system of systems">
     <tr>
-      <th>System Name</th>
-      <th>Instruments</th>
+      <td colspan="5">{{system.name}}</td>
+    </tr>
+    <tr>
+      <th>Sample type</th>
       <th>Start date</th>
       <th>End date</th>
       <th>Set guide set</th>
+      <th>Information</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let system of systems">
-      <td>{{system.name}}</td>
+    <tr *ngFor="let guideSet of system.enabledGuideSets">
       <td>
-        <ul>
-          <li *ngFor="let cv of system.dataSources">
-            {{cv.name}}
-          </li>
-        </ul>
+        {{guideSet.sampleType.name}}
+      </td>
+      <td>
+        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="start" name="startDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
+          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.startDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
+        />
+      </td>
 
+      <td>
+        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="end" name="endDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
+          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.endDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
+        />
       </td>
       <td>
-        <input type="text" name="startDate{{system.apiKey}}" class="datepicker{{system.apiKey}}" [(ngModel)]="system.guideSet.startDate"/>
+        <ng-container *ngIf="guideSet.isUserDefined==false then buttonAuto else buttonManual"></ng-container>
+        <ng-template #buttonAuto>
+          <button type="button" [attr.disabled]="guideSet.labSystemTotalFiles < 20 ? true : null" (click)="createGuideSet(system, guideSet.sampleType)"
+            class="waves-effect waves-light btn">Create guide set</button>
+        </ng-template>
+        <ng-template #buttonManual>
+          <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set</button>
+        </ng-template>
       </td>
       <td>
-        <input type="text" name="endDate{{system.apiKey}}" class="datepicker{{system.apiKey}}" [(ngModel)]="system.guideSet.endDate"/>
-      </td>
-      <td>
-        <button type="button" class="waves-effect waves-light btn" (click)="set(system)">Set</button>
+        <p>This guide set has
+          <strong>{{guideSet.totalFiles}}</strong> files.</p>
+        <p *ngIf="guideSet.labSystemTotalFiles<20">This is an automatic guide set</p>
+        <p>You have <strong>{{guideSet.labSystemTotalFiles}}</strong> files of this sample type.</p>
       </td>
     </tr>
   </tbody>

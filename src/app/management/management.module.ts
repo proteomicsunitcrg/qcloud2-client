@@ -24,6 +24,7 @@ import { MainThresholdComponent } from './threshold/main-threshold/main-threshol
 import { ThresholdListComponent } from './threshold/threshold-list/threshold-list.component';
 import { ParametersService } from '../services/parameters.service';
 import { ChartService } from '../services/chart.service';
+import { GuideSetService } from '../services/guide-set.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -51,6 +52,7 @@ import { ChartService } from '../services/chart.service';
     DataSourceService,
     SystemService,
     ParametersService,
-    ChartService]
+    ChartService,
+    GuideSetService]
 })
 export class ManagementModule { }

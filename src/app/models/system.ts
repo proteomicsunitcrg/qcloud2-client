@@ -5,14 +5,14 @@ export class System {
     id: number;
     name: string;
     dataSources: DataSource[];
-    guideSet: GuideSet;
+    enabledGuideSets: GuideSet[];
     apiKey: string;
 
-    constructor(id: number, name: string, dataSources: DataSource[], guideSet: GuideSet, apiKey: string) {
+    constructor(id: number, name: string, dataSources: DataSource[], enabledGuideSets: GuideSet[], apiKey: string) {
         this.id = id;
         this.name = name;
         this.dataSources = dataSources;
-        this.guideSet = guideSet;
+        this.enabledGuideSets = enabledGuideSets;
         this.apiKey = apiKey;
     }
 }
