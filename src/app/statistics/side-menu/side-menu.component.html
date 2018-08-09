@@ -1,0 +1,29 @@
+    <!-- ASIDE show only for big screens-->
+    <div class="col s12 m2 l2 xl2 hide-on-med-and-down">
+        <ul class="collapsible z-depth-0" id="menu">
+            <li (click)="open('menu')">
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Statistics</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>Awesome node statistics</li>
+                    </ul>
+                </div>
+            </li>
+            <li (click)="open('menu')">
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Non conformities</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a routerLink="/application/statistics/nonconformities" routerLinkActive="active">View non conformities</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col s12 m2 l2 xl2 hide-on-med-and-up">
+        <span><i class="material-icons">people</i><i class="material-icons">web</i></span>
+
+    </div>

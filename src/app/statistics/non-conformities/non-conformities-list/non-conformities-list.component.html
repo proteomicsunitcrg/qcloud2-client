@@ -1,0 +1,26 @@
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Creation date</th>
+      <th>Parameter</th>
+      <th>Context source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let thnc of thresholdNonConformities">
+      <td>
+        <span class="truncate">{{thnc.file.filename}}</span>
+      </td>
+      <td>
+        <span class="truncate">{{thnc.file.creationDate}}</span>
+      </td>
+      <td>
+        <span class="truncate">{{thnc.threshold.param.name}}</span>
+      </td>
+      <td>
+        <span class="truncate">{{thnc.contextSource.abbreviated}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -6,9 +6,7 @@ import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
 import { Subscription } from 'rxjs';
 import { GuideSetService } from '../../../services/guide-set.service';
-import { last } from '@angular/router/src/utils/collection';
 import { SampleType } from '../../../models/sampleType';
-import { Modal } from '../../../models/modal';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
