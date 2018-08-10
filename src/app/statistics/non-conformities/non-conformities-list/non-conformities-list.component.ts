@@ -32,6 +32,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
     this.selectedLabSystem = null;
     this.selectedSampleType = null;
     this.subscribeToLabSystem();
+    this.subscribeToSampleType();
   }
 
   private subscribeToLabSystem(): void {
@@ -39,6 +40,16 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
       .subscribe(
         (labSystem) => {
           this.selectedLabSystem = labSystem;
+          this.loadThresholdNonConformitiesByLabSystem();
+        }
+      );
+  }
+
+  private subscribeToSampleType(): void {
+    this.selectedSampleType$ = this.thresholdNonConformityService.selectedSampleType$
+      .subscribe(
+        (sampleType) => {
+          this.selectedSampleType = sampleType;
           this.loadThresholdNonConformitiesByLabSystem();
         }
       );
@@ -58,6 +69,14 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
         );
     } else {
       // both
+      // tslint:disable-next-line:max-line-length
+      this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystemAndSampleType(this.selectedLabSystem, this.selectedSampleType, 0)
+        .subscribe(
+          (resp) => {
+            this.maxPages = +resp.headers.get('total');
+            this.thresholdNonConformities = resp.body;
+          }
+        );
     }
   }
 
