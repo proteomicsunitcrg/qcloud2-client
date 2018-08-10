@@ -7,8 +7,19 @@
       <th>Context source</th>
     </tr>
   </thead>
+  <tfoot>
+    <tr>
+      <td colspan="1">
+        <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="page=page-1">navigate_before</i>
+      </td>
+      <td colspan="2">{{page}}/{{maxPages}}</td>
+      <td colspan="1">
+        <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="page=page+1">navigate_next</i>
+      </td>
+    </tr>
+  </tfoot>
   <tbody>
-    <tr *ngFor="let thnc of thresholdNonConformities">
+    <tr *ngFor="let thnc of thresholdNonConformities" (click)="selectThresholdNonConformity(thnc)">
       <td>
         <span class="truncate">{{thnc.file.filename}}</span>
       </td>
