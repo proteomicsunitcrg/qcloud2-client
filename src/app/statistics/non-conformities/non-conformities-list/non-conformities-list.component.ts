@@ -40,6 +40,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
       .subscribe(
         (labSystem) => {
           this.selectedLabSystem = labSystem;
+          this.page = 1;
           this.loadThresholdNonConformitiesByLabSystem();
         }
       );
@@ -50,6 +51,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
       .subscribe(
         (sampleType) => {
           this.selectedSampleType = sampleType;
+          this.page = 1;
           this.loadThresholdNonConformitiesByLabSystem();
         }
       );
@@ -60,7 +62,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
       // nothing
     } else if (this.selectedLabSystem !== null && this.selectedSampleType === null) {
       // only labSystem
-      this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystem(this.selectedLabSystem, 0)
+      this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystem(this.selectedLabSystem, this.page - 1)
         .subscribe(
           (resp) => {
             this.maxPages = +resp.headers.get('total');
@@ -69,8 +71,8 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
         );
     } else {
       // both
-      // tslint:disable-next-line:max-line-length
-      this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystemAndSampleType(this.selectedLabSystem, this.selectedSampleType, 0)
+      this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystemAndSampleType(this.selectedLabSystem,
+        this.selectedSampleType, this.page - 1)
         .subscribe(
           (resp) => {
             this.maxPages = +resp.headers.get('total');
@@ -87,6 +89,12 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
 
   selectThresholdNonConformity(thresholdNonConformity: ThresholdNonConformity): void {
     console.log(thresholdNonConformity);
+  }
+
+  changePage(page: number) {
+    this.page = page;
+    this.loadThresholdNonConformitiesByLabSystem();
+
   }
 
 }
