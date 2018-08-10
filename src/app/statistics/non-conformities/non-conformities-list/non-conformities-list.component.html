@@ -7,7 +7,7 @@
       <th>Context source</th>
     </tr>
   </thead>
-  <tfoot>
+  <tfoot *ngIf="thresholdNonConformities">
     <tr>
       <td colspan="1">
         <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="changePage(page-1)">navigate_before</i>
