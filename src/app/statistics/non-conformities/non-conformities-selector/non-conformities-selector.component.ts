@@ -54,6 +54,10 @@ export class NonConformitiesSelectorComponent implements OnInit {
     this.loadSampleTypes(this.selectedLabSystem);
   }
 
+  selectSampleType(): void {
+    this.thresholdNonConformityService.sendSelectedSampleTypeToList(this.selectedSampleType);
+  }
+
   private loadSampleTypes(labSystem: System): void {
     this.fileService.getSampleTypesByLabSystem(labSystem)
       .subscribe(
