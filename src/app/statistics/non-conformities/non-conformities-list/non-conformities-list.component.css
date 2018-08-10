@@ -1,0 +1,26 @@
+table {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+
+table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-filename {
+  width: 45%;
+}
+.row-creation-date {
+  width: 20%;
+}
+
+.row-parameter {
+  width: 20%;
+}
+
+.row-context-source {
+  width: 15%;
+}
