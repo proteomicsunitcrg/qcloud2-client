@@ -18,11 +18,15 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
 
   selectedLabSystem: System;
 
+  selectedSampleType$: Subscription;
+
   selectedSampleType: SampleType;
 
   thresholdNonConformities: ThresholdNonConformity[];
 
-  totalPages: number;
+  page = 1;
+
+  maxPages: number;
 
   ngOnInit() {
     this.selectedLabSystem = null;
@@ -48,7 +52,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
       this.thresholdNonConformityService.getThresholdNonConformitiesByLabSystem(this.selectedLabSystem, 0)
         .subscribe(
           (resp) => {
-            this.totalPages = +resp.headers.get('total');
+            this.maxPages = +resp.headers.get('total');
             this.thresholdNonConformities = resp.body;
           }
         );
@@ -59,6 +63,11 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.selectedLabSystem$.unsubscribe();
+    this.selectedSampleType$.unsubscribe();
+  }
+
+  selectThresholdNonConformity(thresholdNonConformity: ThresholdNonConformity): void {
+    console.log(thresholdNonConformity);
   }
 
 }
