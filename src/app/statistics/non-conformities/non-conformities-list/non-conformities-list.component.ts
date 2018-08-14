@@ -88,7 +88,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
   }
 
   selectThresholdNonConformity(thresholdNonConformity: ThresholdNonConformity): void {
-    console.log(thresholdNonConformity);
+    this.thresholdNonConformityService.sendSelectedThresholdNonConformity(thresholdNonConformity);
   }
 
   changePage(page: number) {

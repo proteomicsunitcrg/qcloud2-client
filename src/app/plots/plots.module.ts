@@ -6,13 +6,14 @@ import { ThresholdService } from '../services/threshold.service';
 import { PlotService } from '../services/plot.service';
 import { IsotopologuePlotComponent } from './isotopologue-plot/isotopologue-plot.component';
 import { AutoPlotComponent } from './auto-plot/auto-plot.component';
+import { NonConformityPlotComponent } from './non-conformity-plot/non-conformity-plot.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent],
-  exports : [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent],
+  declarations: [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
+  exports : [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
   providers : [DataService,
     ThresholdService,
     PlotService]
