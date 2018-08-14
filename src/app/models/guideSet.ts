@@ -9,9 +9,10 @@ export class GuideSet {
     sampleType: SampleType;
     totalFiles: number;
     labSystemTotalFiles: number;
+    apiKey: string;
 
     // tslint:disable-next-line:max-line-length
-    constructor(id: number, startDate: string, endDate: string, isActive: boolean, isUserDefined: boolean, sampleType: SampleType, totalFiles: number, labSystemTotalFiles: number) {
+    constructor(id: number, startDate: string, endDate: string, isActive: boolean, isUserDefined: boolean, sampleType: SampleType, totalFiles: number, labSystemTotalFiles: number, apiKey: string) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -20,5 +21,6 @@ export class GuideSet {
         this.sampleType = sampleType;
         this.totalFiles = totalFiles;
         this.labSystemTotalFiles = labSystemTotalFiles;
+        this.apiKey = apiKey;
     }
 }
