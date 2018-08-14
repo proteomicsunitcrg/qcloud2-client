@@ -35,7 +35,7 @@ export class ThresholdBuilderComponent implements OnInit {
 
   thresholdParams: ThresholdParam[] = [];
 
-  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, null, null);
+  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, null, null, null);
 
   thresholdTypes: string[] = [];
 
