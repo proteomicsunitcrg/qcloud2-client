@@ -4,7 +4,7 @@ import { System } from './system';
 export class File {
     id: number;
     sampleType: SampleType;
-    system: System;
+    labSystem: System;
     creationDate: Date;
     filename: string;
     checksum: string;
@@ -12,7 +12,7 @@ export class File {
     constructor(id: number, sampleType: SampleType, system: System, creationDate: Date, filename: string, checksum: string) {
         this.id = id;
         this.sampleType = sampleType;
-        this.system = system;
+        this.labSystem = system;
         this.creationDate = creationDate;
         this.filename = filename;
         this.checksum = checksum;
