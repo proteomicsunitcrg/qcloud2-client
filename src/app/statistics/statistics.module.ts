@@ -9,19 +9,25 @@ import { NonConformitiesSelectorComponent } from './non-conformities/non-conform
 import { FormsModule } from '@angular/forms';
 import { NonConformitiesListComponent } from './non-conformities/non-conformities-list/non-conformities-list.component';
 import { ThresholdNonConformityService } from '../services/threshold-non-conformity.service';
+// tslint:disable-next-line:max-line-length
+import { NonConformitiesInformationComponent } from './non-conformities/non-conformities-information/non-conformities-information.component';
+import { PlotsModule } from '../plots/plots.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     StatisticsRouterModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    PlotsModule
   ],
   declarations: [MainComponent,
     SideMenuComponent,
     MainNonConformitiesComponent,
     NonConformitiesSelectorComponent,
-    NonConformitiesListComponent],
+    NonConformitiesListComponent,
+    NonConformitiesInformationComponent],
   providers: [ThresholdNonConformityService]
 })
 export class StatisticsModule { }

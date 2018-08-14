@@ -37,14 +37,14 @@ export class ThresholdService {
     const json = JSON.stringify(threshold);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Threshold>(this.thresholdUrl + '/' + threshold.thresholdType, params, {headers: headers});
+    return this.httpClient.post<Threshold>(this.thresholdUrl + '/' + threshold.thresholdType, params, { headers: headers });
   }
 
   public saveThresholdParams(thresholdParams: ThresholdParam[]): Observable<any> {
     const json = JSON.stringify(thresholdParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl + '/params', params, {headers: headers});
+    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl + '/params', params, { headers: headers });
   }
 
   public getThresholdConstraints(thresholdType: string): Observable<ThresholdConstraint> {
@@ -63,19 +63,26 @@ export class ThresholdService {
     return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/autoplot/' + thresholdId);
   }
 
+  public getNonConformityPlotThreshold(thresholdApiKey: string,
+    fileChecksum: string,
+    contextSourceApiKey: string): Observable<PlotThreshold> {
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl
+      + '/nonconformityplot/' + thresholdApiKey + '/' + fileChecksum + '/' + contextSourceApiKey);
+  }
+
   public getAllThresholdsBySystem(labSystem: System): Observable<Threshold[]> {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node/' + labSystem.apiKey);
   }
 
   public changeEnabled(thresholdId: number): Observable<any> {
-    return this.httpClient.put<number>(this.thresholdUrl + '/switchmonitor/' + thresholdId, {}, { observe: 'response'});
+    return this.httpClient.put<number>(this.thresholdUrl + '/switchmonitor/' + thresholdId, {}, { observe: 'response' });
   }
 
   public updateThresholdParams(thresholdId: number, thresholdParams: ThresholdParam[]): Observable<any> {
     const json = JSON.stringify(thresholdParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<number>(this.thresholdUrl + '/' + thresholdId, params, {headers: headers, observe: 'response'});
+    return this.httpClient.put<number>(this.thresholdUrl + '/' + thresholdId, params, { headers: headers, observe: 'response' });
   }
 
   public getLabSystemStatus(labSystem: System): Observable<LabSystemStatus[]> {

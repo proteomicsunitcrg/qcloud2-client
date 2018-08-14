@@ -95,6 +95,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       .subscribe((threshold) => {
         if (threshold != null) {
           if (threshold.monitored) {
+            console.log('th', threshold);
             this.plotThreshold = threshold;
             this.drawThreshold();
             this.loadPlot();

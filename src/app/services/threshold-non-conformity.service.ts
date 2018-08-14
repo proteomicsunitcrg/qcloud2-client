@@ -21,8 +21,14 @@ export class ThresholdNonConformityService {
   selectedSampleType = new Subject<SampleType>();
   selectedSampleType$ = this.selectedSampleType.asObservable();
 
+  selectedThresholdNonConformity = new Subject<ThresholdNonConformity>();
+  selectedThresholdNonConformity$ = this.selectedThresholdNonConformity.asObservable();
+
   constructor(private httpClient: HttpClient) { }
 
+  public sendSelectedThresholdNonConformity(thnc: ThresholdNonConformity): void {
+    this.selectedThresholdNonConformity.next(thnc);
+  }
 
   public sendSelectedLabSystemToList(labSystem: System): void {
     this.selectedLabSystem.next(labSystem);

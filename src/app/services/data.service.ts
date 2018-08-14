@@ -10,6 +10,7 @@ import { File } from '../models/file';
 import { ContextSource } from '../models/contextSource';
 import { Param } from '../models/param';
 import { SampleType } from '../models/sampleType';
+import { GuideSet } from '../models/guideSet';
 
 @Injectable()
 export class DataService {
@@ -42,19 +43,7 @@ export class DataService {
       chart.apiKey + '/' + system.apiKey + '/' + chart.sampleType.qualityControlControlledVocabulary)
       .pipe(map(
         (data) => {
-          const dataArray = [];
-          data.forEach((row) => {
-            if (dataArray[row.fileCreationDate] === undefined) {
-              dataArray[row.fileCreationDate] = {};
-            }
-            if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
-              dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
-            }
-            if (dataArray[row.fileCreationDate]['filename'] === undefined) {
-              dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
-            }
-          });
-          return dataArray;
+          return this.mapPlotData(data);
         }
       ));
   }
@@ -68,19 +57,7 @@ export class DataService {
     return this.httpClient.get<MiniData[]>(url).pipe(
       map(
         (data) => {
-          const dataArray = [];
-          data.forEach((row) => {
-            if (dataArray[row.fileCreationDate] === undefined) {
-              dataArray[row.fileCreationDate] = {};
-            }
-            if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
-              dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
-            }
-            if (dataArray[row.fileCreationDate]['filename'] === undefined) {
-              dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
-            }
-          });
-          return dataArray;
+          return this.mapPlotData(data);
         }
       )
     );
@@ -96,22 +73,55 @@ export class DataService {
       .pipe(
         map(
           (data) => {
-            const dataArray = [];
-            data.forEach((row) => {
-              if (dataArray[row.fileCreationDate] === undefined) {
-                dataArray[row.fileCreationDate] = {};
-              }
-              if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
-                dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
-              }
-              if (dataArray[row.fileCreationDate]['filename'] === undefined) {
-                dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
-              }
-            });
-            return dataArray;
+            return this.mapPlotData(data);
           }
         ));
   }
+  /**
+   * Get the data for a non conformity plot
+   * @param labSystemApiKey
+   * @param paramQccv
+   * @param contextSourceApiKey
+   * @param fileChecksum
+   */
+  public getNonConformityPlotData(labSystemApiKey: string,
+    paramQccv: string,
+    contextSourceApiKey: string,
+    sampleTypeQqcv: string,
+    fileChecksum: string,
+    guideSet: GuideSet): Observable<MiniData[]> {
+      let url = this.dataUrl + '/nonconformity/'
+      + labSystemApiKey + '/' + paramQccv + '/' + contextSourceApiKey + '/' + sampleTypeQqcv + '/' + fileChecksum;
+      if (guideSet !== null) {
+        url += '/?guideSet=' + guideSet.apiKey;
+      }
+      return this.httpClient.get<MiniData[]>(url)
+        .pipe(
+          map(
+            (data) => {
+              return this.mapPlotData(data);
+            }
+          )
+        );
+  }
+
+  private mapPlotData(data: MiniData[]): any[] {
+    const dataArray = [];
+    data.forEach((row) => {
+      if (dataArray[row.fileCreationDate] === undefined) {
+        dataArray[row.fileCreationDate] = {};
+      }
+      if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
+        dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
+      }
+      if (dataArray[row.fileCreationDate]['filename'] === undefined) {
+        dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
+      }
+    });
+    return dataArray;
+  }
+
+
 
   public selectDates(datesArray: string[]): void {
     this.currentDates = datesArray;
