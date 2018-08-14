@@ -91,11 +91,11 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadThreshold(): void {
+    this.layoutShapes = [];
     this.thresholdService.getPlotThreshold(this.chart, this.system)
       .subscribe((threshold) => {
         if (threshold != null) {
           if (threshold.monitored) {
-            console.log('th', threshold);
             this.plotThreshold = threshold;
             this.drawThreshold();
             this.loadPlot();
