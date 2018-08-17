@@ -74,7 +74,6 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
       .subscribe((threshold) => {
         if (threshold != null) {
           this.plotThreshold = threshold;
-          console.log('plotthreshold', this.plotThreshold);
           this.drawThreshold();
           this.loadPlot();
         } else {

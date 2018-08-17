@@ -49,10 +49,10 @@ export class DataService {
   }
 
   public getAutoPlotData(labSystemApiKey: string, param: Param,
-    contextSource: ContextSource, sampleTypeQccv: string, thresholdId: number): Observable<MiniData[]> {
+    contextSource: ContextSource, sampleTypeQccv: string, thresholdApiKey: string): Observable<MiniData[]> {
 
     const url = this.dataUrl + '/auto/' + labSystemApiKey +
-      '/' + param.qCCV + '/' + contextSource.apiKey + '/' + sampleTypeQccv + '/' + thresholdId;
+      '/' + param.qCCV + '/' + contextSource.apiKey + '/' + sampleTypeQccv + '/' + thresholdApiKey;
 
     return this.httpClient.get<MiniData[]>(url).pipe(
       map(

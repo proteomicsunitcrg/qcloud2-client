@@ -26,7 +26,6 @@ export class ThresholdListComponent implements OnInit {
       .subscribe(
         (labSystems) => {
           this.loadThresholds(labSystems);
-          console.log(labSystems);
         }, err => console.log(err)
       );
   }
@@ -75,7 +74,7 @@ export class ThresholdListComponent implements OnInit {
    * @param cv
    */
   changeStatus(threshold: Threshold) {
-    this.thresholdService.changeEnabled(threshold.id)
+    this.thresholdService.changeEnabled(threshold.apiKey)
       .subscribe(
         (res) => {
           // change color
@@ -102,10 +101,9 @@ export class ThresholdListComponent implements OnInit {
       }
     );
     threshold['edditing'] = !threshold['edditing'];
-    console.log(threshold);
-    this.thresholdService.updateThresholdParams(threshold.id, threshold['thresholdParams'])
+    this.thresholdService.updateThresholdParams(threshold.apiKey, threshold['thresholdParams'])
       .subscribe(
-        (res) => console.log(res),
+        (res) => {},
         (err) => console.log(err)
       );
   }

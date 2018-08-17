@@ -53,11 +53,11 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
             selectedLabSystemStatus.param,
             selectedLabSystemStatus.contextSource,
             selectedLabSystemStatus.sampleTypeQccv,
-            selectedLabSystemStatus.thresholdId)
+            selectedLabSystemStatus.thresholdApiKey)
             .subscribe(
               (dataForPlot) => {
                 this.serverData = loadDataAndDatesArray(dataForPlot);
-                this.loadAutoPlotThreshold(selectedLabSystemStatus.thresholdId);
+                this.loadAutoPlotThreshold(selectedLabSystemStatus.thresholdApiKey);
               }, err => console.log(err)
             );
         }
@@ -65,8 +65,8 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
   }
 
 
-  private loadAutoPlotThreshold(thresholdId: number): void {
-    this.thresholdService.getAutoPlotThreshold(thresholdId)
+  private loadAutoPlotThreshold(thresholdApiKey: string): void {
+    this.thresholdService.getAutoPlotThreshold(thresholdApiKey)
       .subscribe((threshold) => {
         if (threshold != null) {
           this.plotThreshold = threshold;
