@@ -185,8 +185,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
 
 
     this.layout = {
-      // title: this.chart.name,
-      title: 'Analysis',
+      title: 'Non conformity',
       shapes: [],
       colorway: traceColor.colorRange,
       hovermode: 'closest',
