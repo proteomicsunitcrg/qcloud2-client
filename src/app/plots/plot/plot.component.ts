@@ -47,7 +47,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layout: any;
 
-  serverData: {dates: any[], data: any[], names: any[]};
+  serverData: { dates: any[], data: any[], names: any[] };
 
   layoutShapes = [];
 
@@ -234,7 +234,10 @@ export class PlotComponent implements OnInit, OnDestroy {
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
     };
-    this.layout.shapes = this.layoutShapes;
+    if (dataForPlot.length > 0) {
+      this.layout.shapes = this.layoutShapes;
+
+    }
     Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
 
     const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
