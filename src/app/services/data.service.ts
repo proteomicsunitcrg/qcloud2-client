@@ -7,10 +7,8 @@ import { map } from 'rxjs/operators';
 import { Chart } from '../models/chart';
 import { System } from '../models/system';
 import { File } from '../models/file';
-import { ContextSource } from '../models/contextSource';
-import { Param } from '../models/param';
-import { SampleType } from '../models/sampleType';
 import { GuideSet } from '../models/guideSet';
+import { LabSystemStatus } from '../models/labsystemstatus';
 
 @Injectable()
 export class DataService {
@@ -48,11 +46,10 @@ export class DataService {
       ));
   }
 
-  public getAutoPlotData(labSystemApiKey: string, param: Param,
-    contextSource: ContextSource, sampleTypeQccv: string, thresholdApiKey: string): Observable<MiniData[]> {
+  public getAutoPlotData(ls: LabSystemStatus): Observable<MiniData[]> {
 
-    const url = this.dataUrl + '/auto/' + labSystemApiKey +
-      '/' + param.qCCV + '/' + contextSource.apiKey + '/' + sampleTypeQccv + '/' + thresholdApiKey;
+    const url = this.dataUrl + '/auto/' + ls.labSystemApikey +
+      '/' + ls.param.qCCV + '/' + ls.contextSource.apiKey + '/' + ls.sampleTypeQccv + '/' + ls.thresholdApiKey;
 
     return this.httpClient.get<MiniData[]>(url).pipe(
       map(

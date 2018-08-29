@@ -59,8 +59,9 @@ export class ThresholdService {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl + '/node');
   }
 
-  public getAutoPlotThreshold(thresholdApiKey: string): Observable<PlotThreshold> {
-    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/autoplot/' + thresholdApiKey);
+  public getAutoPlotThreshold(labSystemStatus: LabSystemStatus): Observable<PlotThreshold> {
+    return this.httpClient.get<PlotThreshold>(this.thresholdUrl + '/autoplot/'
+      + labSystemStatus.thresholdApiKey + '/' + labSystemStatus.contextSource.apiKey);
   }
 
   public getNonConformityPlotThreshold(thresholdApiKey: string,
