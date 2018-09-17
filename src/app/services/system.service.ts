@@ -59,15 +59,15 @@ export class SystemService {
     return this.httpClient.post<System>(this.systemUrl + '/datasources/' + system.apiKey, params, {headers: headers});
   }
 
-  public saveGuideSet(system: System, guideSet: GuideSet): Observable<any> {
+  public saveGuideSet(system: System, guideSet: GuideSet): Observable<System> {
     guideSet.startDate = guideSet.startDate + ' 00:00';
-    guideSet.endDate = guideSet.endDate + ' 00:00';
+    guideSet.endDate = guideSet.endDate + ' 23:59';
     const json = JSON.stringify(guideSet);
     const params = json;
     guideSet.startDate = guideSet.startDate.slice(0, -6);
     guideSet.endDate = guideSet.endDate.slice(0, -6);
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<any>(this.systemUrl + '/guideset/' + system.apiKey, params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl + '/guideset/' + system.apiKey, params, {headers: headers});
   }
 
   public getSystemByApikey(systemApikey: string): Observable<System> {

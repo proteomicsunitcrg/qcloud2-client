@@ -109,7 +109,7 @@ export class DataService {
         dataArray[row.fileCreationDate] = {};
       }
       if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
-        dataArray[row.fileCreationDate][row.contextSourceName] = row.value;
+        dataArray[row.fileCreationDate][row.contextSourceName] = {'value': row.value, 'nc': row.nonConformityStatus};
       }
       if (dataArray[row.fileCreationDate]['filename'] === undefined) {
         dataArray[row.fileCreationDate]['filename'] = row.fileFilename;

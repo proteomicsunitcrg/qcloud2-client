@@ -6,6 +6,7 @@ import { System } from '../../../models/system';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { delay } from 'q';
+import { ContextSource } from '../../../models/contextSource';
 declare var M: any;
 
 @Component({
@@ -105,6 +106,16 @@ export class ThresholdListComponent implements OnInit {
       .subscribe(
         (res) => {},
         (err) => console.log(err)
+      );
+  }
+
+  changeContextSourceStatus(threshold: Threshold, contextSource: any): void {
+    this.thresholdService.changeContextSourceEnabled(threshold, contextSource['contextSource'])
+      .subscribe(
+        (res) => {
+          contextSource['isEnabled'] = !contextSource['isEnabled'];
+          console.log(contextSource);
+        }, err => console.log(err)
       );
   }
 

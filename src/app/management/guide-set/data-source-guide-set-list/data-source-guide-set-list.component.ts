@@ -7,6 +7,7 @@ import { System } from '../../../models/system';
 import { Subscription } from 'rxjs';
 import { GuideSetService } from '../../../services/guide-set.service';
 import { SampleType } from '../../../models/sampleType';
+import { GuideSetPeptideStatus } from '../../../models/guideSetPeptideStatus';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
@@ -24,24 +25,51 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
 
   datePickers: any = [];
 
+  currentGuideSetStatus: GuideSetPeptideStatus[];
+
   minFiles: number;
+  minValidContextSource: number;
 
   selectedAction$: Subscription;
+  isValidGuideSet$: Subscription;
 
   validGuideSet = false;
+
+  editingGuideSet = false;
 
   ngOnInit() {
     this.getMinFilesForManualGuideSet();
     this.loadSystems();
     this.subscribeToModal();
+    this.subscribeToValidGuideSet();
   }
   ngOnDestroy() {
     this.selectedAction$.unsubscribe();
+    this.isValidGuideSet$.unsubscribe();
+  }
+
+  private subscribeToValidGuideSet(): void {
+    this.isValidGuideSet$ = this.guideSetService.isValidGuideSet$
+      .subscribe(
+        (isValid) => {
+          this.validGuideSet = isValid;
+          this.refresh();
+        }
+      );
+  }
+
+  private refresh(): void {
+    const self = this;
+    self.ref.detectChanges();
+
   }
 
   private getMinFilesForManualGuideSet(): void {
     this.guideSetService.getMinFilesForManualGuideSet()
-      .subscribe(minFiles => this.minFiles = minFiles);
+      .subscribe(minFiles => {
+        this.minFiles = minFiles.body;
+        this.minValidContextSource = +minFiles.headers.get('minpoints');
+      });
   }
 
   private loadSystems(): void {
@@ -115,23 +143,13 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
         // check number of files
         this.guideSetService.checkNumberOfFilesInGuideSet(labSystemApikey, guideSet)
           .subscribe(
-            (totalFiles) => {
-              this.updateGuideSetTotalFiles(guideSet, totalFiles);
+            (guideSetPeptideStatus) => {
+              this.guideSetService.selectGuideSetPeptideStatus(guideSetPeptideStatus);
+              // this.updateGuideSetTotalFiles(guideSet, totalFiles);
             }, err => console.log(err)
           );
       }
     }
-  }
-
-  private updateGuideSetTotalFiles(guideSet: GuideSet, totalFiles: number): void {
-    const self = this;
-    guideSet.totalFiles = totalFiles;
-    if (totalFiles >= this.minFiles) {
-      this.validGuideSet = true;
-    } else {
-      this.validGuideSet = false;
-    }
-    self.ref.detectChanges();
   }
 
   private setModelData(element: any): void {
@@ -181,25 +199,23 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
     this.systemService.saveGuideSet(system, guideSet)
       .subscribe(
         (res) => {
-          this.validGuideSet = false;
+          this.editingGuideSet = false;
         }, err => console.log(err)
       );
   }
 
   createGuideSet(system: System, sampleType: SampleType): void {
+    this.editingGuideSet = true;
     const index = system.enabledGuideSets.findIndex(gs => {
       return gs.sampleType.qualityControlControlledVocabulary === sampleType.qualityControlControlledVocabulary;
     });
 
-    const labSystemTotalFiles = system.enabledGuideSets[index].labSystemTotalFiles;
-
-    // system.enabledGuideSets[0] = new GuideSet(null, null, null, true, true, sampleType, 0, labSystemTotalFiles);
-    system.enabledGuideSets[0].isUserDefined = true;
-    system.enabledGuideSets[0].id = null;
-    system.enabledGuideSets[0].startDate = null;
-    system.enabledGuideSets[0].endDate = null;
-    delay(10).then(() => this.initializeDatePickers(system, system.enabledGuideSets[index]));
-
-
+    system.enabledGuideSets[index].isUserDefined = true;
+    system.enabledGuideSets[index].id = null;
+    system.enabledGuideSets[index].startDate = null;
+    system.enabledGuideSets[index].endDate = null;
+    //  delay(10).then(() => this.initializeDatePickers(system, system.enabledGuideSets[index]));
+    this.refresh();
+    this.initializeDatePickers(system, system.enabledGuideSets[index]);
   }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CvService } from '../../../services/cv.service';
 import { CV } from '../../../models/cv';
+import { ThresholdService } from '../../../services/threshold.service';
 
 @Component({
   selector: 'app-main-threshold',
@@ -9,9 +9,9 @@ import { CV } from '../../../models/cv';
   styleUrls: ['./main-threshold.component.css']
 })
 
-export class MainThresholdComponent implements OnInit {
+export class MainThresholdComponent implements OnInit, OnDestroy {
 
-  constructor(private cvService: CvService) { }
+  constructor(private thresholdService: ThresholdService) { }
 
   newThreshold: boolean;
   selectedChart$: Subscription;
@@ -19,6 +19,8 @@ export class MainThresholdComponent implements OnInit {
   isCVSelected: boolean;
 
   thresholdNav: any[] = [];
+
+  resetBuilder$: Subscription;
 
   cosa = [
     {
@@ -32,6 +34,11 @@ export class MainThresholdComponent implements OnInit {
   ngOnInit() {
     this.newThreshold = false;
     this.isCVSelected = false;
+    this.subscribeToBuilderReset();
+  }
+
+  ngOnDestroy() {
+    this.resetBuilder$.unsubscribe();
   }
 
   open(): void {
@@ -58,6 +65,15 @@ export class MainThresholdComponent implements OnInit {
       this.isCVSelected = false;
       this.selectedCV = null;
     }
+  }
+
+  private subscribeToBuilderReset(): void {
+    this.resetBuilder$ = this.thresholdService.resetThresholdBuilder$
+      .subscribe(
+        () => {
+          this.closeThreshold(true);
+        }
+      );
   }
 
 }

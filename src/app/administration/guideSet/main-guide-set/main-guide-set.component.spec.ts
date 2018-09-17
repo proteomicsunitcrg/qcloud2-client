@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewPeptideFormComponent } from './new-peptide-form.component';
+import { MainGuideSetComponent } from './main-guide-set.component';
 
-describe('NewPeptideFormComponent', () => {
-  let component: NewPeptideFormComponent;
-  let fixture: ComponentFixture<NewPeptideFormComponent>;
+describe('MainGuideSetComponent', () => {
+  let component: MainGuideSetComponent;
+  let fixture: ComponentFixture<MainGuideSetComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewPeptideFormComponent ]
+      declarations: [ MainGuideSetComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewPeptideFormComponent);
+    fixture = TestBed.createComponent(MainGuideSetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

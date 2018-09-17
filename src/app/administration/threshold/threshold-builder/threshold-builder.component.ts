@@ -7,8 +7,6 @@ import { Param } from '../../../models/param';
 import { ParametersService } from '../../../services/parameters.service';
 import { Threshold } from '../../../models/threshold';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
-import { ContextSource } from '../../../models/contextSource';
-import { PeptideService } from '../../../services/peptide.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ThresholdService } from '../../../services/threshold.service';
 import { ThresholdParam } from '../../../models/thresholdParams';
@@ -35,7 +33,7 @@ export class ThresholdBuilderComponent implements OnInit {
 
   thresholdParams: ThresholdParam[] = [];
 
-  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, null, null, null);
+  threshold: Threshold = new Threshold(null, null, null, null, null, null, null, null, null, null);
 
   thresholdTypes: string[] = [];
 
@@ -178,6 +176,8 @@ export class ThresholdBuilderComponent implements OnInit {
       .subscribe(
         (result) => {
           console.log(result);
+          // go back
+          this.thresholdService.resetBuilder();
         },
         (err) => console.log(err)
       );

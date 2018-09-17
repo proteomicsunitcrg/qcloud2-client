@@ -8,7 +8,6 @@ import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../h
 import * as traceColor from '../plot/traceColors';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
-import { MiniData } from '../../models/miniData';
 
 @Component({
   selector: 'app-auto-plot',
@@ -62,17 +61,18 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
 
 
   private loadAutoPlotThreshold(labSystemStatus: LabSystemStatus): void {
-    this.thresholdService.getAutoPlotThreshold(labSystemStatus)
-      .subscribe((threshold) => {
-        if (threshold != null) {
-          this.plotThreshold = threshold;
-          this.drawThreshold();
-          this.loadPlot();
-        } else {
-          this.loadPlot();
-        }
-      },
-        err => console.log(err));
+    // tslint:disable-next-line:max-line-length
+    this.thresholdService.getNonConformityPlotThreshold(labSystemStatus.thresholdApiKey, labSystemStatus.fileChecksum, labSystemStatus.contextSource.apiKey)
+    .subscribe((threshold) => {
+      if (threshold != null) {
+        this.plotThreshold = threshold;
+        this.drawThreshold();
+        this.loadPlot();
+      } else {
+        this.loadPlot();
+      }
+    },
+      err => console.log(err));
   }
 
   private drawThreshold(): void {
@@ -122,15 +122,21 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          let color = this.calculatePointColor(key, element);
-          let elementText = element;
-          if (isNaN(element)) {
+          // let color = this.calculatePointColor(key, element['value']);
+          let color = this.getPointColor(element['nc']);
+          let elementText = element['value'];
+          let value = element['value'];
+          if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
             color = 'grey';
             elementText = 'No data';
+            value = mean;
           }
-          values.push(element);
+          if (index === this.serverData.data[key].length - 1) {
+            marker = 'diamond-cross';
+          }
+          values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
           textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
@@ -236,6 +242,20 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
       }
     } else {
       return 'rgb(51, 102, 204)';
+    }
+  }
+
+  private getPointColor(nc: string) {
+    const regularColor = 'rgb(51, 102, 204)';
+    switch (nc) {
+      case 'OK':
+        return regularColor;
+      case 'WARNING':
+        return 'yellow';
+      case 'DANGER':
+        return 'red';
+      default:
+        return 'grey';
     }
   }
 

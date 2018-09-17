@@ -29,7 +29,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
 
   @Input() guideSet: GuideSet;
 
-  serverData: {dates: any[], data: any[], names: any[]};
+  serverData: { dates: any[], data: any[], names: any[] };
 
   layout: any;
 
@@ -81,7 +81,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
         }
       },
         err => console.log(err));
-      this.loadPlot();
+    this.loadPlot();
   }
   private drawThreshold(): void {
     this.layoutShapes = [];
@@ -124,26 +124,33 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
       const markersForLine = [];
 
       const mean = calculateMean(this.serverData.data[key]);
-
       const textArray = [];
 
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          let color = this.calculatePointColor(key, element);
-          let elementText = element;
-          if (isNaN(element)) {
+          // let color = this.calculatePointColor(key, element);
+          let color = this.getPointColor(element['nc']);
+          let elementText = element['value'];
+          let value = element['value'];
+          if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
             color = 'grey';
             elementText = 'No data';
+            value = mean;
           }
-          values.push(element);
+          if (index === this.serverData.data[key].length - 1) {
+            marker = 'diamond-cross';
+          }
+
+          values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
           textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
         }
       );
+
       minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
       maxValues.push(Math.max.apply(null, values.filter((n) => !isNaN(n))));
 
@@ -194,13 +201,27 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
       },
       yaxis: {
         type: 'linear',
-        range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
+        // range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
       },
       currentDiv: 'plot'
     };
     this.layout.shapes = this.layoutShapes;
     Plotly.react('plot', dataForPlot, this.layout);
 
+  }
+
+  private getPointColor(nc: string) {
+    const regularColor = 'rgb(51, 102, 204)';
+    switch (nc) {
+      case 'OK':
+        return regularColor;
+      case 'WARNING':
+        return 'yellow';
+      case 'DANGER':
+        return 'red';
+      default:
+        return 'grey';
+    }
   }
 
   private calculatePointColor(key: string, value: number): string {

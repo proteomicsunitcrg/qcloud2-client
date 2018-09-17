@@ -1,0 +1,11 @@
+td {
+    font-size: 0.7em;
+}
+
+.no-valid {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}

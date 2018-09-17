@@ -8,9 +8,10 @@ export class LabSystemStatus {
     thresholdApiKey: string;
     labSystemApikey: string;
     sampleTypeQccv: string;
+    fileChecksum: string;
 
     constructor(param: Param, contextSource: ContextSource, status: string,
-        thresholdApiKey: string, labSystemApikey: string, sampleTypeQccv: string) {
+        thresholdApiKey: string, labSystemApikey: string, sampleTypeQccv: string, fileChecksum: string) {
 
         this.param = param;
         this.contextSource = contextSource;
@@ -18,5 +19,6 @@ export class LabSystemStatus {
         this.thresholdApiKey = thresholdApiKey;
         this.labSystemApikey = labSystemApikey;
         this.sampleTypeQccv = sampleTypeQccv;
+        this.fileChecksum = fileChecksum;
     }
 }

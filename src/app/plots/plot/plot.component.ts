@@ -74,11 +74,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       .subscribe(
         (dataFromServer) => {
           this.serverData = loadDataAndDatesArray(dataFromServer);
-          /*
-          this.dataArray = serverData.data;
-          this.datesArray = serverData.dates;
-          this.abbreviatedNames = serverData.names;
-          */
           if (this.chart.isThresholdEnabled) {
             this.loadThreshold();
           } else {
@@ -165,15 +160,17 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          let color = this.calculatePointColor(key, element, traceIndex);
-          let elementText = element;
-          if (isNaN(element)) {
+          let color = this.calculatePointColor(key, element['value'], traceIndex);
+          let elementText = element['value'];
+          let value = element['value'];
+          if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
             color = '#edbfa9';
             elementText = 'No data';
+            value = mean;
           }
-          values.push(element);
+          values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
           textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
@@ -194,7 +191,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           size: 5
         },
         line: {
-          // color: colorsForLine,
+          color: colorsForLine,
         },
         connectgaps: false,
         name: key,

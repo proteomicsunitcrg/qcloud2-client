@@ -25,6 +25,7 @@ import { ThresholdListComponent } from './threshold/threshold-list/threshold-lis
 import { ParametersService } from '../services/parameters.service';
 import { ChartService } from '../services/chart.service';
 import { GuideSetService } from '../services/guide-set.service';
+import { GuideSetInformationComponent } from './guide-set/guide-set-information/guide-set-information.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +47,8 @@ import { GuideSetService } from '../services/guide-set.service';
     SystemListComponent,
     SystemBuilderComponent,
     MainThresholdComponent,
-    ThresholdListComponent],
+    ThresholdListComponent,
+    GuideSetInformationComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService,

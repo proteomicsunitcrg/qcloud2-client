@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col s12 m12 l12 xl12">
+        <h5>Guide set information</h5>
+    </div>
+</div>
+<div class="row" *ngIf="selected">
+    <ng-container *ngIf="selectedGuideSetStatus.length>0 then warning else isok"></ng-container>
+    <ng-template #warning>
+        <table>
+            <thead>
+                <tr>
+                    <th>Param</th>
+                    <th>Peptide</th>
+                    <th>Valid values</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let status of selectedGuideSetStatus" [class.warning]="status.status=='NOT_RECOMENDED'"
+                [class.no-valid]="status.status=='NO_VALID'">
+                    <td>{{status.param.name}}</td>
+                    <td>{{status.peptide.abbreviated}}</td>
+                    <td>{{status.count}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+    <ng-template #isok>
+        <p>Todo bien</p>
+    </ng-template>
+</div>

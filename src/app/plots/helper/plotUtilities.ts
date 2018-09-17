@@ -2,13 +2,13 @@ import { ThresholdParam } from '../../models/thresholdParams';
 import * as traceColor from '../plot/traceColors';
 import { MiniData } from '../../models/miniData';
 
-export function calculateMean(dataArray: number[]): number {
+export function calculateMean(dataArray: {'value': number, 'nc': string}[]): number {
     let mean = 0;
     let q = 0;
     dataArray.forEach((n) => {
-        if (!isNaN(n)) {
+        if (!isNaN(n.value)) {
             q++;
-            mean += n;
+            mean += n.value;
         }
     });
     return mean / q;
@@ -46,7 +46,7 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     return shapes;
   }
 
-  export function loadDataAndDatesArray(dataFromServer: MiniData[]): {dates: any[], data: any[], names: any[]} {
+  export function loadDataAndDatesArray(dataFromServer: MiniData[]): {dates: any[], data: {'value': number, 'nc': string}[], names: any[]} {
     const datesArray = [];
     const dataArray = [];
     const abbreviatedNames = [];
@@ -60,7 +60,12 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
               abbreviatedNames.push(element);
             }
           }
-          dataArray[element].push(dataFromServer[key][element]);
+          if (element === 'filename') {
+            dataArray[element].push(dataFromServer[key][element]);
+          } else {
+            dataArray[element].push({'value': dataFromServer[key][element]['value'], 'nc': dataFromServer[key][element]['nc']});
+          }
+          // dataArray[element].push(dataFromServer[key][element]);
         }
       );
     });

@@ -55,15 +55,6 @@
         </select>
         <label>Threshold direction</label>
       </div>
-      <!-- 0 values treated as... -->
-      <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
-        <select [(ngModel)]="threshold.isZeroNoData" name="isZeroNoData" required>
-          <option value="" disabled selected>Choose your option</option>
-          <option [ngValue]="true">Yes</option>
-          <option [ngValue]="false">No</option>
-        </select>
-        <label>Treat 0,0 values as no data?</label>
-      </div>
     </div>
     <div class="col s12 m6 l6 xl6">
       <table class="highlight">

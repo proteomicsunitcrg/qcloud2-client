@@ -12,7 +12,6 @@ export class Threshold {
     sampleType: SampleType;
     thresholdType: string;
     isMonitored: boolean;
-    isZeroNoData: boolean;
     apiKey: string;
 
     constructor(id: number,
@@ -24,7 +23,6 @@ export class Threshold {
         sampleType: SampleType,
         thresholdType: string,
         isMonitored: boolean,
-        isZeroNoData: boolean,
         apiKey: string) {
             this.id = id;
             this.name = name;
@@ -35,7 +33,6 @@ export class Threshold {
             this.sampleType = sampleType;
             this.thresholdType = thresholdType;
             this.isMonitored = isMonitored;
-            this.isZeroNoData = isZeroNoData;
             this.apiKey = apiKey;
     }
 }

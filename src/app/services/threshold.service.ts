@@ -9,6 +9,7 @@ import { PlotThreshold } from '../models/plotThreshold';
 import { System } from '../models/system';
 import { Chart } from '../models/chart';
 import { LabSystemStatus } from '../models/labsystemstatus';
+import { ContextSource } from '../models/contextSource';
 
 @Injectable()
 export class ThresholdService {
@@ -20,6 +21,13 @@ export class ThresholdService {
 
   private selectedLabSystemStatus = new Subject<LabSystemStatus>();
   selectedLabSystemStatus$ = this.selectedLabSystemStatus.asObservable();
+
+  private resetThresholdBuilder = new Subject<boolean>();
+  resetThresholdBuilder$ = this.resetThresholdBuilder.asObservable();
+
+  public resetBuilder(): void {
+    this.resetThresholdBuilder.next(true);
+  }
 
   public getAllThresholds(): Observable<Threshold[]> {
     return this.httpClient.get<Threshold[]>(this.thresholdUrl);
@@ -88,6 +96,10 @@ export class ThresholdService {
 
   public getLabSystemStatus(labSystem: System): Observable<LabSystemStatus[]> {
     return this.httpClient.get<LabSystemStatus[]>(this.thresholdUrl + '/status/' + labSystem.apiKey);
+  }
+
+  public changeContextSourceEnabled(threshold: Threshold, contextSource: ContextSource): Observable<any> {
+    return this.httpClient.put<any>(this.thresholdUrl + '/switchcontextsource/' + threshold.apiKey + '/' + contextSource.apiKey, {});
   }
 
   /**

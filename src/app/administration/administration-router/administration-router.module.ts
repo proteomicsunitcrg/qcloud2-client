@@ -14,7 +14,7 @@ import { MainDefaultViewComponent } from '../default-view/main-default-view/main
 import { DefaultViewGeneratorComponent } from '../default-view/default-view-generator/default-view-generator.component';
 import { SampleTypeCategoryComponent } from '../sample-type-category/sample-type-category.component';
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
-import { MainIsotopologueComponent } from '../isotopologue/main-isotopologue/main-isotopologue.component';
+import { MainGuideSetComponent } from '../guideSet/main-guide-set/main-guide-set.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
@@ -29,7 +29,7 @@ const routes: Routes = [
     { path: 'views/cv/:id', component: DefaultViewGeneratorComponent},
     { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent},
     { path: 'threshold', component: MainThresholdComponent},
-    { path: 'isotopologues', component: MainIsotopologueComponent},
+    { path: 'guideset', component: MainGuideSetComponent},
     { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}

@@ -2,7 +2,8 @@
   <div class="col s12 m12 l12 xl12">
     <blockquote>
       <p>You need at least <strong>{{minFiles}}</strong> files to set up a custom guide set</p>
-      <p>Your start and end date must include <strong>{{minFiles}}</strong> files.</p>
+      <p>Your start and end date should include <strong>{{minFiles}}</strong> valid data points per each context source.</p>
+      <p>At least <strong>{{minValidContextSource}}</strong> valid context sources points are needed per param to set up a manual guide set.</p>
     </blockquote>
   </div>
 </div>
@@ -27,7 +28,6 @@
           class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.startDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
         />
       </td>
-
       <td>
         <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="end" name="endDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
           class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.endDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
@@ -36,17 +36,17 @@
       <td>
         <ng-container *ngIf="guideSet.isUserDefined==false then buttonAuto else buttonManual"></ng-container>
         <ng-template #buttonAuto>
-          <button type="button" [attr.disabled]="guideSet.labSystemTotalFiles < 20 ? true : null" (click)="createGuideSet(system, guideSet.sampleType)"
+          <button type="button" [attr.disabled]="guideSet.labSystemTotalFiles < 20 || editingGuideSet==true ? true : null" (click)="createGuideSet(system, guideSet.sampleType)"
             class="waves-effect waves-light btn">Create guide set</button>
         </ng-template>
         <ng-template #buttonManual>
-          <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set</button>
+          <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set / Update</button>
         </ng-template>
       </td>
       <td>
-        <p>This guide set has
+        <p *ngIf="guideSet.isUserDefined==false"><strong>AUTOMATIC</strong></p>
+        <p *ngIf="guideSet.isUserDefined==true">This guide set has
           <strong>{{guideSet.totalFiles}}</strong> files.</p>
-        <p *ngIf="guideSet.labSystemTotalFiles<20">This is an automatic guide set</p>
         <p>You have <strong>{{guideSet.labSystemTotalFiles}}</strong> files of this sample type.</p>
       </td>
     </tr>

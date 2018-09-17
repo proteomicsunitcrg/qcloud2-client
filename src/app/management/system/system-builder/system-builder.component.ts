@@ -91,11 +91,6 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
             (category) => {
               // Initialize the arrays with the categories
               this.categories.push(category);
-              /*
-              this.nodeDataSources[category.apiKey] = [];
-              this.systemDataSources[category.apiKey] = [];
-              this.selectedDataSources[category.apiKey] = [];
-              */
             });
         },
         (error) => {
@@ -145,10 +140,10 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
       this.systemDataSources[category.apiKey].push(this.selectedDataSources[category.apiKey]);
       // remove element from array
       const dataSourceIndex = this.nodeDataSources[category.apiKey].findIndex((dataSource) => {
-        return dataSource.id === this.selectedDataSources[category.apiKey].id;
+        return dataSource.apiKey === this.selectedDataSources[category.apiKey].apiKey;
       });
       this.nodeDataSources[category.apiKey].splice(dataSourceIndex, 1);
-      delay(1).then(
+      delay(100).then(
         () => M.AutoInit()
       );
     }

@@ -3,7 +3,7 @@
     <table>
       <tbody *ngFor="let labSystemThreshold of labSystemThresholds">
         <tr>
-          <td colspan="6" class="blue-grey lighten-4">
+          <td colspan="7" class="blue-grey lighten-4">
             <strong>Lab system:</strong> {{labSystemThreshold.labSystem.name}}</td>
         </tr>
         <tr>
@@ -12,7 +12,6 @@
           <th>Initial value</th>
           <th>Step value</th>
           <th>Steps</th>
-          <th>Monitor</th>
         </tr>
         <tr *ngFor="let threshold of labSystemThreshold.thresholds">
           <td>
@@ -24,6 +23,7 @@
           <td>
             <ul>
               <li *ngFor="let contextSource of threshold.thresholdParams">
+                <i class="material-icons cursorIcon" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource)">power_settings_new</i>
                 {{contextSource.contextSource.name}}
               </li>
             </ul>
@@ -65,9 +65,6 @@
           </td>
           <td>
             {{threshold.steps}}
-          </td>
-          <td>
-            <i class="material-icons cursorIcon" [ngClass]="(threshold.isMonitored)?'enabled':'disabled'" (click)="changeStatus(threshold)">power_settings_new</i>
           </td>
         </tr>
       </tbody>

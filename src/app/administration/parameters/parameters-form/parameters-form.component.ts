@@ -65,6 +65,8 @@ export class ParametersFormComponent implements OnInit {
           // Send to list
           M.toast({html: 'Parameter saved!'});
           this.parameterService.sendParamToList(result);
+          // Reset selectors
+          this.enableSelect();
         },
         (error) => {
           console.log(error);
