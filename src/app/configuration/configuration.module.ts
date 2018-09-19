@@ -9,6 +9,13 @@ import { UserViewListComponent } from './user-view/user-view-list/user-view-list
 import { UserViewBuilderComponent } from './user-view/user-view-builder/user-view-builder.component';
 import { ViewBuilderModule } from '../view-builder/view-builder.module';
 import { ViewService } from '../services/view.service';
+import { MainProfileComponent } from './profile/main-profile/main-profile.component';
+import { ProfileManagementComponent } from './profile/profile-management/profile-management.component';
+import { PasswordChangeComponent } from './profile/password-change/password-change.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModulesModule } from '../shared-modules/shared-modules.module';
+import { DefaultViewSelectorComponent } from './profile/default-view-selector/default-view-selector.component';
+import { UserDefaultViewService } from '../services/user-default-view.service';
 /**
  * Module for user configuration like profile and user views
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -17,12 +24,23 @@ import { ViewService } from '../services/view.service';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     ConfigurationRouterModule,
     ViewBuilderModule
   ],
-  declarations: [MainComponent, SidebarComponent, MainUserViewComponent, UserViewListComponent, UserViewBuilderComponent],
+  declarations: [MainComponent,
+    SidebarComponent,
+    MainUserViewComponent,
+    UserViewListComponent,
+    UserViewBuilderComponent,
+    MainProfileComponent,
+    ProfileManagementComponent,
+    PasswordChangeComponent,
+    DefaultViewSelectorComponent],
   providers: [
-    ViewService
+    ViewService,
+    UserDefaultViewService
   ]
 })
 export class ConfigurationModule { }

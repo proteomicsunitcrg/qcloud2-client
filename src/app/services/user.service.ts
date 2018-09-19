@@ -39,7 +39,17 @@ export class UserService {
 
   public deleteMemberFromNode(member: User): Observable<User[]> {
     return this.httpClient.delete<any>(this.nodeUrl + '/user/' + member.apiKey, {});
+  }
 
+  public changeUserPassword(currentPassword: string, newPassword: string): Observable<any> {
+    const user = new User(null, null, newPassword, null, null, null);
+    const json = JSON.stringify({
+      'currentPassword' : currentPassword,
+      'newPassword' : newPassword
+    });
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<User>(this.nodeUrl + '/user/password', params, { headers: headers, observe: 'response' });
   }
 
   errorHandler(error: HttpErrorResponse) {
