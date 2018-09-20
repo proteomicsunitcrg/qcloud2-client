@@ -35,8 +35,9 @@
         </a>
       </li>
       <li>
-        <a class="dropdown-trigger" id="viewsMenu" (click)="open('viewsMenu')" data-target="user_views">Views
-          <i class="material-icons right">arrow_drop_down</i>
+        <a class="dropdown-trigger" id="viewsMenu" (click)="open('viewsMenu')" data-target="user_views">
+          <i class="material-icons">view_module</i>
+          <!-- <i class="material-icons right">arrow_drop_down</i> -->
         </a>
       </li>
 
@@ -52,18 +53,13 @@
       </li>
       <li>
         <a (click)="doLogout()">
-          LOGOUT
+          <i class="material-icons">exit_to_app</i>
         </a>
       </li>
-
-      <li>
-        <a href="alert.html">
-          <span class="new badge red" data-badge-caption="alert/s">666</span>
-        </a>
-      </li>
+      <!-- For websocket testing
       <li>
         <span (click)="sendMessage()">Send message</span>
-      </li>
+      </li> -->
     </ul>
     <ul class="sidenav" id="mobile-demo">
       <li>
