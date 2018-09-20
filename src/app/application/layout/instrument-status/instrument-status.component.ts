@@ -4,6 +4,7 @@ import { SystemService } from '../../../services/system.service';
 import { delay } from 'q';
 import { ThresholdService } from '../../../services/threshold.service';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
+import { Router } from '@angular/router';
 declare var M: any;
 
 @Component({
@@ -14,7 +15,8 @@ declare var M: any;
 export class InstrumentStatusComponent implements OnInit {
 
   constructor(private systemService: SystemService,
-    private thresholdService: ThresholdService) { }
+    private thresholdService: ThresholdService,
+    private router: Router) { }
 
   nodeLabSystems: {
     system: System,
@@ -26,6 +28,8 @@ export class InstrumentStatusComponent implements OnInit {
   }[] = [];
 
   currentStatus: LabSystemStatus[] = [];
+
+  currentDropdownInstance: any = null;
 
   ngOnInit() {
     this.loadNodeLabSystems();
@@ -109,14 +113,20 @@ export class InstrumentStatusComponent implements OnInit {
     delay(1).then(
       () => {
         const elem = document.getElementById(dropdown);
-        const instance = M.Dropdown.init(elem, { constrainWidth: false });
-        instance.open();
+        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false });
+        this.currentDropdownInstance.open();
       }
     );
   }
 
   doSendToAutoPlot(labSystemStatus: LabSystemStatus): void {
     this.thresholdService.selectLabSystemStatus(labSystemStatus);
+    this.currentDropdownInstance.destroy();
   }
+
+  navigateTo(labSystem: System): void {
+    this.router.navigate(['application/view/instrument/' + labSystem.apiKey]);
+  }
+
 
 }
