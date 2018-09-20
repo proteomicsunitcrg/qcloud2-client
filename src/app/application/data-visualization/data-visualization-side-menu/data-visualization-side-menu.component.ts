@@ -16,12 +16,29 @@ export class DataVisualizationSideMenuComponent implements OnInit {
   datesArray: string[] = [];
   cosa = 'cosa';
 
+  dateRanges: {'days': number, 'name': string}[] = [
+    {
+      'days' : 5,
+      'name': '5 days'
+    },
+    {
+      'days' : 15,
+      'name': '15 days'
+    },
+    {
+      'days' : 30,
+      'name': 'Month'
+    }
+  ];
+
+  selectedDateRange: {'days': number, 'name': string};
+
   datePickers: any[] = [];
 
   ngOnInit() {
+    this.selectedDateRange = this.dateRanges[0];
     this.loadDatesArray();
     this.enableDatePickers();
-
   }
 
   private enableDatePickers(): void {
@@ -37,13 +54,11 @@ export class DataVisualizationSideMenuComponent implements OnInit {
       const instance = M.Datepicker.init(datePickers[i], options);
       this.datePickers.push(instance);
     }
-
-
   }
 
   private loadDatesArray(): void {
     const today = moment().format('YYYY-MM-DD');
-    const monthAgo = moment().subtract(8, 'week').format('YYYY-MM-DD');
+    const monthAgo = moment().subtract(this.selectedDateRange.days, 'days').format('YYYY-MM-DD');
     this.datesArray[0] = monthAgo;
     this.datesArray[1] = today;
     this.sendDates(this.datesArray);
@@ -56,6 +71,10 @@ export class DataVisualizationSideMenuComponent implements OnInit {
     const startDate = this.datePickers[0].toString();
     const endDate = this.datePickers[1].toString();
     this.dataService.selectDates([startDate, endDate]);
+  }
+
+  doChangeRange(): void {
+    this.loadDatesArray();
   }
 
 }

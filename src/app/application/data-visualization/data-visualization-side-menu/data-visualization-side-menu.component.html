@@ -5,6 +5,19 @@
     </span>
   </li>
   <li class="collection-item">
+    <div class="row">
+      <p *ngFor="let dateRange of dateRanges">
+        <label>
+          <input name="date-range" type="radio" 
+          [(ngModel)]="selectedDateRange" 
+          [value]="dateRange"
+          (change)="doChangeRange()"/>
+          <span>{{dateRange.name}}</span>
+        </label>
+      </p>
+    </div>
+  </li>
+  <li class="collection-item">
     <span>Start date</span>
     <input type="text" name="startDate" class="datepicker" [(ngModel)]="datesArray[0]" />
   </li>
@@ -14,8 +27,9 @@
   </li>
   <li class="collection-item">
     <button type="button" class="btn" (click)="search()">Search</button>
-  </li>  
-  <li class="collection-item">
+  </li>
+
+  <!-- <li class="collection-item">
     <strong>Show annotations</strong>
     <div class="switch">
       <label>
@@ -24,8 +38,6 @@
         <span class="lever"></span>
         Yes
       </label>
-      
     </div>
-    
-  </li>
+  </li> -->
 </ul>
