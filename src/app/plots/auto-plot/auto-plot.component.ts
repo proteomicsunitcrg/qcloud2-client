@@ -123,9 +123,10 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
         (element, index) => {
           let marker = 'circle';
           // let color = this.calculatePointColor(key, element['value']);
-          let color = this.getPointColor(element['nc']);
-          let elementText = element['value'];
-          let value = element['value'];
+          const color = this.getPointColor(element['nc']);
+          const elementText = element['value'];
+          const value = element['value'];
+          /*
           if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
@@ -133,6 +134,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
             elementText = 'No data';
             value = mean;
           }
+          */
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
           }

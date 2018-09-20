@@ -159,10 +159,12 @@ export class PlotComponent implements OnInit, OnDestroy {
 
       this.serverData.data[key].forEach(
         (element, index) => {
-          let marker = 'circle';
-          let color = this.calculatePointColor(key, element['value'], traceIndex);
-          let elementText = element['value'];
-          let value = element['value'];
+
+          const marker = 'circle';
+          const color = this.calculatePointColor(key, element['value'], traceIndex);
+          const elementText = element['value'];
+          const value = element['value'];
+          /*
           if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
@@ -170,6 +172,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             elementText = 'No data';
             value = mean;
           }
+          */
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;

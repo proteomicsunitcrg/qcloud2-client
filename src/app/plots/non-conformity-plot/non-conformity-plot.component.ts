@@ -130,9 +130,10 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
         (element, index) => {
           let marker = 'circle';
           // let color = this.calculatePointColor(key, element);
-          let color = this.getPointColor(element['nc']);
-          let elementText = element['value'];
-          let value = element['value'];
+          const color = this.getPointColor(element['nc']);
+          const elementText = element['value'];
+          const value = element['value'];
+          /*
           if (isNaN(element['value'])) {
             element = mean;
             marker = 'diamond';
@@ -140,6 +141,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
             elementText = 'No data';
             value = mean;
           }
+          */
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
           }
