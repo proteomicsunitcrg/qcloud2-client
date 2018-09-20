@@ -57,6 +57,11 @@
       </div>
     </div>
     <div class="col s12 m6 l6 xl6">
+      <div id="selectAll" *ngIf="thresholdParams.length>0">
+        <span class="selector" (click)="selectAll(true)">Select all</span>
+        <span> / </span>
+        <span class="selector" (click)="selectAll(false)">Unselect all</span>
+      </div>
       <table class="highlight">
         <thead>
           <th>Name</th>
@@ -69,7 +74,7 @@
             <ng-template #checkbox>
               <td>
                 <label>
-                  <input type="checkbox" (change)="toggleEditable($event,thresholdParam)" />
+                  <input type="checkbox" [checked]="isChecked(thresholdParam)" (change)="toggleEditable($event,thresholdParam)" />
                   <span>{{thresholdParam.contextSource.name}}</span>
                 </label>
               </td>

@@ -210,4 +210,19 @@ export class ThresholdBuilderComponent implements OnInit {
       }
     );
   }
+
+  selectAll(all: boolean): void {
+    if (all) {
+      this.thresholdParams.forEach(
+        (thresholdParam) => {
+          this.addThresholdParam(thresholdParam);
+        });
+    } else {
+      this.selectedThresholdParams = [];
+    }
+  }
+
+  isChecked(thresholdParam: ThresholdParam): boolean {
+    return this.selectedThresholdParams.find(tp => tp.contextSource.apiKey === thresholdParam.contextSource.apiKey) !== undefined;
+  }
 }
