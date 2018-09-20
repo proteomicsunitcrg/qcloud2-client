@@ -79,10 +79,10 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
           systems.forEach(
             (system) => {
               this.systems.push(system);
-              this.enableDatePickersOnUserDefinedGuideSets();
             }
           );
         }, err => console.log(err),
+        () => this.enableDatePickersOnUserDefinedGuideSets()
       );
   }
 
