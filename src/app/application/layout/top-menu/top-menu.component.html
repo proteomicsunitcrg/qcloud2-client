@@ -1,8 +1,8 @@
-<ul id="instruments" class="dropdown-content">
+<!-- <ul id="instruments" class="dropdown-content">
   <li *ngFor="let system of systems">
     <a routerLink="view/instrument/{{system.apiKey}}">{{system.name}}</a>
   </li>
-</ul>
+</ul> -->
 <ul id="user_views" class="dropdown-content">
   <li *ngFor="let view of userViews">
     <a routerLink="view/user/{{view.apiKey}}">{{view.name}}</a>
@@ -29,11 +29,11 @@
           <a routerLink="/application/statistics/nonconformities"><i class="material-icons right">broken_image</i>
           </a>
         </li>
-      <li>
+      <!-- <li>
         <a class="dropdown-trigger" id="instrumentMenu" (click)="open('instrumentMenu')" data-target="instruments">Instruments
           <i class="material-icons right">arrow_drop_down</i>
         </a>
-      </li>
+      </li> -->
       <li>
         <a class="dropdown-trigger" id="viewsMenu" (click)="open('viewsMenu')" data-target="user_views">
           <i class="material-icons">view_module</i>
@@ -61,12 +61,13 @@
         <span (click)="sendMessage()">Send message</span>
       </li> -->
     </ul>
+    
     <ul class="sidenav" id="mobile-demo">
-      <li>
+      <!-- <li>
         <a class="dropdown-trigger" href="#!" data-target="instruments">Instruments
           <i class="material-icons right">arrow_drop_down</i>
         </a>
-      </li>
+      </li> -->
       <li>
         <a class="dropdown-trigger" href="#!" data-target="user_views">Views
           <i class="material-icons right">arrow_drop_down</i>
