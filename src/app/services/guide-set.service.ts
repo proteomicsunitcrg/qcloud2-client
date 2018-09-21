@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GuideSet } from '../models/guideSet';
-import { GuideSetPeptideStatus } from '../models/guideSetPeptideStatus';
+import { GuideSetContextSourceStatus } from '../models/guideSetContextSourceStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class GuideSetService {
   private apiPrefix = environment.apiPrefix;
   private guideSetUrl = this.apiPrefix + 'api/guideset';
 
-  private selectedGuideSetPeptideStatus = new Subject<GuideSetPeptideStatus[]>();
-  selectedGuideSetPeptideStatus$ = this.selectedGuideSetPeptideStatus.asObservable();
+  private selectedGuideSetContextSourceStatus = new Subject<GuideSetContextSourceStatus[]>();
+  selectedGuideSetContextSourceStatus$ = this.selectedGuideSetContextSourceStatus.asObservable();
 
   private isValidGuideSet = new Subject<boolean>();
   isValidGuideSet$ = this.isValidGuideSet.asObservable();
@@ -34,8 +34,8 @@ export class GuideSetService {
     return this.httpClient.get<number>(this.guideSetUrl + '/minmanual', {observe: 'response'});
   }
 
-  public checkNumberOfFilesInGuideSet(labSystemApiKey: string, guideSet: GuideSet): Observable<GuideSetPeptideStatus[]> {
-    return this.httpClient.get<GuideSetPeptideStatus[]>(this.guideSetUrl + '/checkfiles/' + labSystemApiKey
+  public checkNumberOfFilesInGuideSet(labSystemApiKey: string, guideSet: GuideSet): Observable<GuideSetContextSourceStatus[]> {
+    return this.httpClient.get<GuideSetContextSourceStatus[]>(this.guideSetUrl + '/checkfiles/' + labSystemApiKey
       + '/' + guideSet.startDate + '/' + guideSet.endDate + '/' + guideSet.sampleType.qualityControlControlledVocabulary);
   }
 
@@ -46,8 +46,8 @@ export class GuideSetService {
     return this.httpClient.post<GuideSet>(this.guideSetUrl + '/automatic', params, { headers: headers });
   }
 
-  public selectGuideSetPeptideStatus(guideSetPeptideStatus: GuideSetPeptideStatus[]): void {
-    this.selectedGuideSetPeptideStatus.next(guideSetPeptideStatus);
+  public selectGuideSetContextSourceStatus(guideSetContextSourceStatus: GuideSetContextSourceStatus[]): void {
+    this.selectedGuideSetContextSourceStatus.next(guideSetContextSourceStatus);
   }
 
   public sendIsValidGuideSet(isValid: boolean): void {

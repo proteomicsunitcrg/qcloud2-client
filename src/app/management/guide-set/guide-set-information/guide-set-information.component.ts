@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { GuideSetPeptideStatus } from '../../../models/guideSetPeptideStatus';
+import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
 import { Subscription } from 'rxjs';
 import { GuideSetService } from '../../../services/guide-set.service';
 
@@ -10,7 +10,7 @@ import { GuideSetService } from '../../../services/guide-set.service';
 })
 export class GuideSetInformationComponent implements OnInit, OnDestroy {
 
-  selectedGuideSetStatus: GuideSetPeptideStatus[] = null;
+  selectedGuideSetStatus: GuideSetContextSourceStatus[] = null;
 
   selectedGuideSetStatus$: Subscription;
 
@@ -28,13 +28,13 @@ export class GuideSetInformationComponent implements OnInit, OnDestroy {
   private subscribeToSelectedGuideSetStatus(): void {
     const self = this;
 
-    this.selectedGuideSetStatus$ = this.guideSetService.selectedGuideSetPeptideStatus$
+    this.selectedGuideSetStatus$ = this.guideSetService.selectedGuideSetContextSourceStatus$
       .subscribe(
-        (guideSetPeptideStatus) => {
+        (guideSetContextSourceStatus) => {
           this.isValidGuidSet = true;
           this.selectedGuideSetStatus = [];
 
-          guideSetPeptideStatus.forEach(
+          guideSetContextSourceStatus.forEach(
             (gs) => {
               if (gs.status === 'NO_VALID') {
                 this.isValidGuidSet = false;

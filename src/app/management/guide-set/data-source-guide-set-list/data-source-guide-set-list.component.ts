@@ -7,7 +7,7 @@ import { System } from '../../../models/system';
 import { Subscription } from 'rxjs';
 import { GuideSetService } from '../../../services/guide-set.service';
 import { SampleType } from '../../../models/sampleType';
-import { GuideSetPeptideStatus } from '../../../models/guideSetPeptideStatus';
+import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
@@ -25,7 +25,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
 
   datePickers: any = [];
 
-  currentGuideSetStatus: GuideSetPeptideStatus[];
+  currentGuideSetStatus: GuideSetContextSourceStatus[];
 
   minFiles: number;
   minValidContextSource: number;
@@ -144,7 +144,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
         this.guideSetService.checkNumberOfFilesInGuideSet(labSystemApikey, guideSet)
           .subscribe(
             (guideSetPeptideStatus) => {
-              this.guideSetService.selectGuideSetPeptideStatus(guideSetPeptideStatus);
+              this.guideSetService.selectGuideSetContextSourceStatus(guideSetPeptideStatus);
               // this.updateGuideSetTotalFiles(guideSet, totalFiles);
             }, err => console.log(err)
           );
