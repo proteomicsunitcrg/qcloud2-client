@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { ThresholdService } from '../../services/threshold.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data.service';
@@ -14,10 +14,13 @@ import { ThresholdParam } from '../../models/thresholdParams';
   templateUrl: './auto-plot.component.html',
   styleUrls: ['./auto-plot.component.css']
 })
-export class AutoPlotComponent implements OnInit, OnDestroy {
+export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private thresholdService: ThresholdService,
     private dataService: DataService) { }
+
+
+  @Input() labSystemStatus: LabSystemStatus;
 
   selectedLabSystemStatus$: Subscription;
 
@@ -25,7 +28,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
   errorMessage: string;
   error: boolean;
 
-  serverData: {dates: any[], data: any[], names: any[]};
+  serverData: { dates: any[], data: any[], names: any[] };
 
   layout: any;
 
@@ -39,6 +42,12 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
     this.subscribeToLabSystemStatus();
   }
 
+  ngOnChanges() {
+    if (this.labSystemStatus !== null && this.labSystemStatus !== undefined) {
+      this.loadAutoPlotData(this.labSystemStatus);
+    }
+  }
+
   ngOnDestroy() {
     this.selectedLabSystemStatus$.unsubscribe();
   }
@@ -48,31 +57,36 @@ export class AutoPlotComponent implements OnInit, OnDestroy {
       .subscribe(
         (selectedLabSystemStatus: LabSystemStatus) => {
           // retrieve data
-          this.dataService.getAutoPlotData(selectedLabSystemStatus)
-            .subscribe(
-              (dataForPlot) => {
-                this.serverData = loadDataAndDatesArray(dataForPlot);
-                this.loadAutoPlotThreshold(selectedLabSystemStatus);
-              }, err => console.log(err)
-            );
+          this.loadAutoPlotData(selectedLabSystemStatus);
         }
       );
+  }
+
+  private loadAutoPlotData(labSystemStatus: LabSystemStatus): void {
+    // retrieve data
+    this.dataService.getAutoPlotData(labSystemStatus)
+    .subscribe(
+      (dataForPlot) => {
+        this.serverData = loadDataAndDatesArray(dataForPlot);
+        this.loadAutoPlotThreshold(labSystemStatus);
+      }, err => console.log(err)
+    );
   }
 
 
   private loadAutoPlotThreshold(labSystemStatus: LabSystemStatus): void {
     // tslint:disable-next-line:max-line-length
     this.thresholdService.getNonConformityPlotThreshold(labSystemStatus.thresholdApiKey, labSystemStatus.fileChecksum, labSystemStatus.contextSource.apiKey)
-    .subscribe((threshold) => {
-      if (threshold != null) {
-        this.plotThreshold = threshold;
-        this.drawThreshold();
-        this.loadPlot();
-      } else {
-        this.loadPlot();
-      }
-    },
-      err => console.log(err));
+      .subscribe((threshold) => {
+        if (threshold != null) {
+          this.plotThreshold = threshold;
+          this.drawThreshold();
+          this.loadPlot();
+        } else {
+          this.loadPlot();
+        }
+      },
+        err => console.log(err));
   }
 
   private drawThreshold(): void {

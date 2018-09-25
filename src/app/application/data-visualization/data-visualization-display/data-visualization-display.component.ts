@@ -9,7 +9,8 @@ import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
 import { delay } from 'q';
 import { Subscription } from 'rxjs';
-import { PlotService } from '../../../services/plot.service';
+import { ThresholdService } from '../../../services/threshold.service';
+import { LabSystemStatus } from '../../../models/labsystemstatus';
 declare var M: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     private dataSourceService: DataSourceService,
     private route: ActivatedRoute,
     private systemService: SystemService,
-    private plotService: PlotService) { }
+    private thresholdService: ThresholdService) { }
 
   display: Display = new Display(null);
 
@@ -45,6 +46,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
 
   selectedDataSourceForDisplay$: Subscription;
 
+  labSystemStatusFromUrl: LabSystemStatus = null;
+
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();
     this.subscribeToRoute();
@@ -58,6 +61,9 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
       (params) => {
         this.type = params.type;
         this.loadView(params.type, params.apiKey);
+        if (params['alertData'] !== undefined) {
+          this.labSystemStatusFromUrl = JSON.parse(atob(params['alertData']));
+        }
       }
     );
   }

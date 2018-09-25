@@ -40,25 +40,23 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('me borro');
     this.newLabSystem$.unsubscribe();
   }
 
   private subscribeToNewLabSystem(): void {
     this.newLabSystem$ = this.systemService.createdLabSystem$
-    .subscribe(
-      (labSystem) => {
-        this.nodeLabSystems.push({
-          system: labSystem,
-          status: [],
-          alerts: {
-            quantity: 0,
-            severity: 'OK'
-          }
-        });
-      }, err => console.log('err'), () => console.log('end')
-    );
-    console.log(this.newLabSystem$);
+      .subscribe(
+        (labSystem) => {
+          this.nodeLabSystems.push({
+            system: labSystem,
+            status: [],
+            alerts: {
+              quantity: 0,
+              severity: 'OK'
+            }
+          });
+        }, err => console.log('err'), () => console.log('end')
+      );
   }
 
 
@@ -147,8 +145,16 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   doSendToAutoPlot(labSystemStatus: LabSystemStatus): void {
-    this.thresholdService.selectLabSystemStatus(labSystemStatus);
+    const currentRoute = this.router.url;
     this.currentDropdownInstance.destroy();
+    if (currentRoute.includes('application/view/instrument/' + labSystemStatus.labSystemApikey)) {
+      this.thresholdService.selectLabSystemStatus(labSystemStatus);
+    } else {
+      this.router.navigate(['application/view/instrument/' + labSystemStatus.labSystemApikey, {
+        'alertData': btoa(JSON.stringify(labSystemStatus))
+      }
+      ]);
+    }
   }
 
   navigateTo(labSystem: System): void {
