@@ -1,6 +1,7 @@
 import { Param } from './param';
 import { CV } from './cv';
 import { SampleType } from './sampleType';
+import { System } from './system';
 
 export class Threshold {
     id: number;
@@ -13,6 +14,7 @@ export class Threshold {
     thresholdType: string;
     isMonitored: boolean;
     apiKey: string;
+    labSystem: System;
 
     constructor(id: number,
         name: string,
@@ -23,7 +25,8 @@ export class Threshold {
         sampleType: SampleType,
         thresholdType: string,
         isMonitored: boolean,
-        apiKey: string) {
+        apiKey: string,
+        labSystem: System) {
             this.id = id;
             this.name = name;
             this.direction = direction;
@@ -34,5 +37,6 @@ export class Threshold {
             this.thresholdType = thresholdType;
             this.isMonitored = isMonitored;
             this.apiKey = apiKey;
+            this.labSystem = labSystem;
     }
 }

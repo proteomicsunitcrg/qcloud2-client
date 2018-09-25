@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GuideSet } from '../models/guideSet';
 import { GuideSetContextSourceStatus } from '../models/guideSetContextSourceStatus';
+import { Threshold } from '../models/threshold';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,22 @@ export class GuideSetService {
 
   public sendIsValidGuideSet(isValid: boolean): void {
     this.isValidGuideSet.next(isValid);
+  }
+
+  // tslint:disable-next-line:max-line-length
+  public checkCurrentGuideSet(labSystemApiKey: string, sampleTypeQccv: string, contextSourceApiKey: string): Observable<GuideSetContextSourceStatus> {
+    return this.httpClient.get<any>(this.guideSetUrl +
+      '/checkguideset/' +
+      labSystemApiKey +
+      '/' + sampleTypeQccv +
+      '/' + contextSourceApiKey);
+  }
+
+  resetLabSystemGuideSet(threshold: Threshold): Observable<any> {
+    const json = JSON.stringify(threshold);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<Threshold>(this.guideSetUrl + '/reset/' + threshold.labSystem.apiKey, params, {headers: headers});
   }
 
 }

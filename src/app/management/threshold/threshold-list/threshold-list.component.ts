@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThresholdService } from '../../../services/threshold.service';
 import { Threshold } from '../../../models/threshold';
 import { SystemService } from '../../../services/system.service';
@@ -6,6 +6,11 @@ import { System } from '../../../models/system';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { delay } from 'q';
+import { GuideSetService } from '../../../services/guide-set.service';
+import { LabSystemThreshold } from '../../../models/labSystemThreshold';
+import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
+import { Subscription } from 'rxjs';
+import { ModalResponse } from '../../../models/modalResponse';
 import { ContextSource } from '../../../models/contextSource';
 declare var M: any;
 
@@ -14,13 +19,19 @@ declare var M: any;
   templateUrl: './threshold-list.component.html',
   styleUrls: ['./threshold-list.component.css']
 })
-export class ThresholdListComponent implements OnInit {
+export class ThresholdListComponent implements OnInit, OnDestroy {
 
   constructor(private thresholdService: ThresholdService,
     private labSystemService: SystemService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private guideSetService: GuideSetService) { }
 
-  labSystemThresholds: { labSystem: System, thresholds: Threshold[] }[] = [];
+
+  labSystemThresholds: LabSystemThreshold[] = [];
+
+  modalSubscription$: Subscription;
+
+  currentContextSource: any;
 
   ngOnInit() {
     this.labSystemService.getSystems()
@@ -29,7 +40,13 @@ export class ThresholdListComponent implements OnInit {
           this.loadThresholds(labSystems);
         }, err => console.log(err)
       );
+    this.subscribeToModal();
   }
+
+  ngOnDestroy() {
+    this.modalSubscription$.unsubscribe();
+  }
+
 
   private loadThresholds(labSystems: System[]): void {
     labSystems.forEach(
@@ -84,7 +101,7 @@ export class ThresholdListComponent implements OnInit {
         (err) => {
           // show modal
           this.modalService.openModal(new Modal('Error', err.error.message,
-        'Ok', null, 'switchMonitoring', null));
+            'Ok', null, 'switchMonitoring', null));
         }
       );
   }
@@ -104,19 +121,97 @@ export class ThresholdListComponent implements OnInit {
     threshold['edditing'] = !threshold['edditing'];
     this.thresholdService.updateThresholdParams(threshold.apiKey, threshold['thresholdParams'])
       .subscribe(
-        (res) => {},
+        (res) => { },
         (err) => console.log(err)
       );
   }
 
-  changeContextSourceStatus(threshold: Threshold, contextSource: any): void {
-    this.thresholdService.changeContextSourceEnabled(threshold, contextSource['contextSource'])
+  changeContextSourceStatus(threshold: Threshold, contextSource: any, labSystemThreshold: LabSystemThreshold): void {
+    this.currentContextSource = contextSource;
+    console.log('this', this.currentContextSource);
+    if (!contextSource['isEnabled']) {
+      this.guideSetService.checkCurrentGuideSet(labSystemThreshold.labSystem.apiKey,
+        threshold.sampleType.qualityControlControlledVocabulary,
+        contextSource['contextSource']['apiKey'])
+        .subscribe(
+          (guideSetContextSourceStatus) => {
+            this.checkGuideSetContextSourceStatus(guideSetContextSourceStatus, contextSource['contextSource'], threshold);
+          }, err => console.log(err)
+        );
+    } else {
+      this.changeContextSourceEnabled(threshold, contextSource['contextSource']);
+    }
+  }
+
+  private checkGuideSetContextSourceStatus(guideSetContextSourceStatus: GuideSetContextSourceStatus,
+    contextSource: ContextSource,
+    threshold: Threshold): void {
+
+    if (guideSetContextSourceStatus !== null) {
+      // const status = guideSetContextSourceStatus.find(gscs => gscs.contextSource.apiKey === contextSource.apiKey);
+        if (guideSetContextSourceStatus.status === 'NO_VALID') {
+          this.modalService.openModal(new Modal('Warning', guideSetContextSourceStatus.contextSource.name +
+            ' does not have the minimum points to keep your current guide set working. ' +
+            'If you want to start monitoring this parameter your guide set will ' +
+            'be set to automatic until you set a new one.',
+            'Yes',
+            'Cancel',
+            'checkGuideSet', { 'status': status, 'threshold': threshold}));
+        } else {
+          this.changeContextSourceEnabled(threshold, contextSource);
+        }
+    } else {
+      this.changeContextSourceEnabled(threshold, contextSource);
+    }
+
+  }
+
+  private subscribeToModal(): void {
+    this.modalSubscription$ = this.modalService.selectedAction$
       .subscribe(
-        (res) => {
-          contextSource['isEnabled'] = !contextSource['isEnabled'];
-          console.log(contextSource);
-        }, err => console.log(err)
+        (modalResponse) => {
+          switch (modalResponse.modalAction) {
+            case 'checkGuideSet':
+              this.doCheckGuideSetModal(modalResponse);
+              break;
+          }
+        }
       );
+  }
+
+  private doCheckGuideSetModal(modalResponse: ModalResponse): void {
+    switch (modalResponse.userAction) {
+      case 'accept':
+        // tslint:disable-next-line:max-line-length
+        this.thresholdService.changeContextSourceEnabled(modalResponse.objectInstance['threshold'], this.currentContextSource.contextSource)
+          .subscribe(
+            (res) => {
+              this.currentContextSource['isEnabled'] = !this.currentContextSource['isEnabled'];
+            }, err => console.log(err),
+            () => {
+              this.guideSetService.resetLabSystemGuideSet(modalResponse.objectInstance['threshold'])
+                .subscribe(
+                  (res) => {
+                    M.toast({'html': 'Guide set reset to automatic!'});
+                  }, err => console.log('reset', err)
+                );
+            }
+          );
+        break;
+      case 'cancel':
+        console.log(modalResponse.objectInstance['contextSource']);
+
+        break;
+    }
+  }
+
+  private changeContextSourceEnabled(threshold: Threshold, contextSource: ContextSource): void {
+    this.thresholdService.changeContextSourceEnabled(threshold, contextSource)
+    .subscribe(
+      (res) => {
+        this.currentContextSource['isEnabled'] = !this.currentContextSource['isEnabled'];
+      }, err => console.log(err)
+    );
   }
 
 }

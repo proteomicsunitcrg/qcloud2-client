@@ -23,7 +23,7 @@
           <td>
             <ul>
               <li *ngFor="let contextSource of threshold.thresholdParams">
-                <i class="material-icons cursorIcon" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource)">power_settings_new</i>
+                <i class="material-icons cursorIcon" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>
                 {{contextSource.contextSource.name}}
               </li>
             </ul>
