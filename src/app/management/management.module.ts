@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MainComponent } from './main/main.component';
 import { ManagementRouterModule } from './management-router/management-router.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
@@ -19,7 +19,6 @@ import { DataSourceGuideSetListComponent } from './guide-set/data-source-guide-s
 import { MainSystemComponent } from './system/main-system/main-system.component';
 import { SystemListComponent } from './system/system-list/system-list.component';
 import { SystemBuilderComponent } from './system/system-builder/system-builder.component';
-import { SystemService } from '../services/system.service';
 import { MainThresholdComponent } from './threshold/main-threshold/main-threshold.component';
 import { ThresholdListComponent } from './threshold/threshold-list/threshold-list.component';
 import { ParametersService } from '../services/parameters.service';
@@ -52,7 +51,6 @@ import { GuideSetInformationComponent } from './guide-set/guide-set-information/
   providers: [CategoryService,
     CvService,
     DataSourceService,
-    SystemService,
     ParametersService,
     ChartService,
     GuideSetService]

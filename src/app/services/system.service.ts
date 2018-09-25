@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { System } from '../models/system';
 import { DataSource } from '../models/dataSource';
@@ -31,6 +31,9 @@ export class SystemService {
   private selectedSystem = new Subject<System>();
   selectedSystem$ = this.selectedSystem.asObservable();
 
+  private createdLabSystem = new Subject<System>();
+  createdLabSystem$ = this.createdLabSystem.asObservable();
+
   public selectSystem(system: System): void {
     this.selectedSystem.next(system);
   }
@@ -38,6 +41,17 @@ export class SystemService {
   public reloadList(): void {
     this.reloadSystemList.next(true);
   }
+
+  /**
+   * Pass a new lab system to the instrument status bar
+   * @param labSystem
+   */
+  public addNewLabSystem(labSystem: System): void {
+    console.log('caca', labSystem);
+    this.createdLabSystem.next(labSystem);
+    console.log('caco', labSystem);
+  }
+
   /**
    * Get all the systems of the current node
    */
@@ -49,14 +63,14 @@ export class SystemService {
     const json = JSON.stringify(system);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl, params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl, params, { headers: headers });
   }
 
   public saveSystemDataSources(system: System, dataSources: DataSource[]): Observable<any> {
     const json = JSON.stringify(dataSources);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl + '/datasources/' + system.apiKey, params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl + '/datasources/' + system.apiKey, params, { headers: headers });
   }
 
   public saveGuideSet(system: System, guideSet: GuideSet): Observable<System> {
@@ -67,7 +81,7 @@ export class SystemService {
     guideSet.startDate = guideSet.startDate.slice(0, -6);
     guideSet.endDate = guideSet.endDate.slice(0, -6);
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<System>(this.systemUrl + '/guideset/' + system.apiKey, params, {headers: headers});
+    return this.httpClient.post<System>(this.systemUrl + '/guideset/' + system.apiKey, params, { headers: headers });
   }
 
   public getSystemByApikey(systemApikey: string): Observable<System> {
@@ -78,7 +92,7 @@ export class SystemService {
     const json = JSON.stringify(system);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<System>(this.systemUrl + '/' + system.apiKey, params, {headers: headers});
+    return this.httpClient.put<System>(this.systemUrl + '/' + system.apiKey, params, { headers: headers });
   }
 
   /**

@@ -25,6 +25,7 @@ import { tokenConfiguration} from './common/token-config';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DragulaService } from 'ng2-dragula/components/dragula.provider';
+import { SystemService } from './services/system.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DragulaService } from 'ng2-dragula/components/dragula.provider';
   AuthGuardService,
   RoleGuardService,
   UserService,
-  ModalService],
+  ModalService,
+  SystemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

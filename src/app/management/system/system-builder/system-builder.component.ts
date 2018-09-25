@@ -206,7 +206,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
           this.systemService.reloadList();
           this.loadNodeDataSources();
           this.doCancel();
-          M.toast({html: 'System updated!'});
+          M.toast({ html: 'System updated!' });
         },
         (err) => {
           console.log(err);
@@ -219,11 +219,12 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
       .subscribe(
         (system) => {
           /**
-           * when the system is save is time to save the datasources
+           * when the system is saved is time to save the datasources
            * the only way to recover node systems is via system data sources as
            * it is specified in the backend documentation.
            * Check the related classes and take a look at the system repository
           */
+          this.systemService.addNewLabSystem(system);
           const ds = [];
           for (const key in this.systemDataSources) {
             if (this.systemDataSources[key].length > 0) {

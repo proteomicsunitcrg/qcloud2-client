@@ -23,7 +23,6 @@ import { PlotsModule } from '../plots/plots.module';
 import { FileService } from '../services/file.service';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from './layout/welcome/welcome.component';
-import { SystemService } from '../services/system.service';
 import { FileInformationComponent } from './data-visualization/file-information/file-information.component';
 import { IsotopologueInformationComponent } from './data-visualization/isotopologue-information/isotopologue-information.component';
 import { SampleTypeService } from '../services/sample-type.service';
@@ -50,7 +49,6 @@ import { SampleCompositionService } from '../services/sample-composition.service
     ViewService,
     DataSourceService,
     FileService,
-    SystemService,
     SampleTypeService,
     PlotService,
     SampleCompositionService]

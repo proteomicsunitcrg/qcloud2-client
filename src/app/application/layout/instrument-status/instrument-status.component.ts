@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
 import { delay } from 'q';
 import { ThresholdService } from '../../../services/threshold.service';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 declare var M: any;
 
 @Component({
@@ -12,7 +13,7 @@ declare var M: any;
   templateUrl: './instrument-status.component.html',
   styleUrls: ['./instrument-status.component.css']
 })
-export class InstrumentStatusComponent implements OnInit {
+export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   constructor(private systemService: SystemService,
     private thresholdService: ThresholdService,
@@ -27,13 +28,39 @@ export class InstrumentStatusComponent implements OnInit {
     }
   }[] = [];
 
+  private newLabSystem$: Subscription;
+
   currentStatus: LabSystemStatus[] = [];
 
   currentDropdownInstance: any = null;
 
   ngOnInit() {
+    delay(1000).then(() => this.subscribeToNewLabSystem());
     this.loadNodeLabSystems();
   }
+
+  ngOnDestroy() {
+    console.log('me borro');
+    this.newLabSystem$.unsubscribe();
+  }
+
+  private subscribeToNewLabSystem(): void {
+    this.newLabSystem$ = this.systemService.createdLabSystem$
+    .subscribe(
+      (labSystem) => {
+        this.nodeLabSystems.push({
+          system: labSystem,
+          status: [],
+          alerts: {
+            quantity: 0,
+            severity: 'OK'
+          }
+        });
+      }, err => console.log('err'), () => console.log('end')
+    );
+    console.log(this.newLabSystem$);
+  }
+
 
   /**
    * Get the node labsystems and when completes
