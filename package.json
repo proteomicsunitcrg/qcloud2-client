@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "transpile": "ng build --prod --build-optimizer --aot",
-    "transpile-dev": "ng build --prod --build-optimizer --configuration=dev --aot --base-href /qcloud2/"
+    "transpile:dev": "ng build --prod --build-optimizer --configuration=dev --aot --base-href /qcloud2/",
+    "transpile:preprod": "ng build --prod --build-optimizer --aot --base-href /qcloud2/"
   },
   "private": true,
   "dependencies": {
