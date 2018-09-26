@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
@@ -24,6 +24,9 @@ export class CvService {
   private selectedChartCv = new Subject<CV>();
   selectedChartCv$ = this.selectedChartCv.asObservable();
 
+  private newCv = new Subject<CV>();
+  newCv$ = this.newCv.asObservable();
+
   public getAllCV(): Observable<CV[]> {
     return this.httpClient.get<CV[]>(this.cvUrl);
   }
@@ -44,6 +47,17 @@ export class CvService {
 
   public sendSelectedCvToChartForm(cv: CV): void {
     this.selectedChartCv.next(cv);
+  }
+
+  public sendNewCvToList(cv: CV): void {
+    this.newCv.next(cv);
+  }
+
+  public addNewCv(cv: CV): Observable<CV> {
+    const json = JSON.stringify(cv);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<CV>(this.cvUrl + '/category/apikey/' + cv.category.apiKey, params, {headers: headers});
   }
 
   errorHandler(error: HttpErrorResponse) {

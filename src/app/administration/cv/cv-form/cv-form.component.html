@@ -1,3 +1,30 @@
-<p>
-  <strong>TODO: </strong>This will reload from the remote CV file
-</p>
+<h6 *ngIf="selectedCategory">Add new {{selectedCategory.name}}</h6>
+<form (ngSubmit)="onSubmit(); newControlledVocabulary.reset()" #newControlledVocabulary="ngForm" ngNativeValidate
+  autocomplete="off">
+  <div class="input-field">
+    <input #nameBox type="text" name="name" class="validate" [(ngModel)]="cv.name" id="name" validate required>
+    <label for="name">Name</label>
+  </div>
+  <div class="input-field">
+    <input type="text" name="definition" class="validate" [(ngModel)]="cv.definition" id="definition" minlength="4" validate required>
+    <label for="definition">Definition</label>
+  </div>
+  <div class="input-field">
+    <input type="text" name="qccv" class="validate" id="qccv" [(ngModel)]="cv.cvid" minlength="4" validate required>
+    <label for="qccv">QC Controlled vocabulary</label>
+  </div>
+  <div class="input-field">
+    <div class="switch">
+      <label>
+        Off
+        <input type="checkbox" [(ngModel)]="cv.enabled" name="enabled">
+        <span class="lever"></span>
+        On
+      </label>
+    </div>
+  </div>
+
+  <div class="input-field">
+    <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
+  </div>
+</form>
