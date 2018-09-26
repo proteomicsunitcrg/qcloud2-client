@@ -94,7 +94,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.emailBox.nativeElement.classList.remove('valid');
     this.userService.addLabMemberToNode(this.user).subscribe(
       (result) => {
-        this.parseUsersFromDb(result['body']);
+        this.parseUsersFromDb(result);
       },
       (error) => {
         this.showModalByError(error);
