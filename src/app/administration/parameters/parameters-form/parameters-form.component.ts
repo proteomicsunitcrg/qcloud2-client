@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Param } from '../../../models/param';
 import { ParametersService } from '../../../services/parameters.service';
 declare var M: any;
@@ -10,9 +10,10 @@ import { delay } from 'q';
 })
 export class ParametersFormComponent implements OnInit {
 
-  constructor(private parameterService: ParametersService) { }
+  constructor(private parameterService: ParametersService,
+    private ref: ChangeDetectorRef) { }
 
-  newParam: Param = new Param(null, '', '', '', '');
+  newParam: Param = new Param(null, '', '', '', '', null);
 
   isFors: String[] = [];
 
@@ -23,6 +24,17 @@ export class ParametersFormComponent implements OnInit {
     this.getProcessors();
   }
 
+  private enableSelect(selectId: string): void {
+    this.refresh();
+    const elem = document.getElementById(selectId);
+    M.FormSelect.init(elem, {});
+  }
+
+  private refresh(): void {
+    const self = this;
+    self.ref.detectChanges();
+  }
+
   /**
    * Get the types for the params. Those types are the extended
    * classes of the context_source class in the backend.
@@ -31,10 +43,11 @@ export class ParametersFormComponent implements OnInit {
     this.parameterService.getTypeList()
       .subscribe(
         (types) => {
-          types.forEach(type => {
-            this.isFors.push(type);
-          });
-          delay(100).then(() => this.enableSelect());
+          this.isFors = types;
+        }, err => console.log(err),
+        () => {
+          this.enableSelect('selectFor');
+          this.enableSelect('isZeroNoDataSelect');
         }
       );
   }
@@ -44,18 +57,9 @@ export class ParametersFormComponent implements OnInit {
       .subscribe(
         (processors) => {
           processors.forEach(processor => this.processors.push(processor));
-        }
+        }, err => console.log(err),
+        () => this.enableSelect('selectProcessor')
       );
-      delay(100).then(() => this.enableSelect());
-  }
-
-
-
-  private enableSelect() {
-    let elem = document.getElementById('selectFor');
-    let instance = M.FormSelect.init(elem, {});
-    elem = document.getElementById('selectProcessor');
-    instance = M.FormSelect.init(elem, {});
   }
 
   onSubmit(): void {
@@ -63,10 +67,13 @@ export class ParametersFormComponent implements OnInit {
       .subscribe(
         (result) => {
           // Send to list
-          M.toast({html: 'Parameter saved!'});
+          M.toast({ html: 'Parameter saved!' });
           this.parameterService.sendParamToList(result);
           // Reset selectors
-          this.enableSelect();
+          this.newParam = new Param(null, '', '', '', '', true);
+          this.enableSelect('selectProcessor');
+          this.enableSelect('selectFor');
+          this.enableSelect('isZeroNoDataSelect');
         },
         (error) => {
           console.log(error);
