@@ -1,0 +1,9 @@
+.item-visible {
+    display: block;
+}
+.item-hidden {
+    display: none;
+}
+.show-context-source-text {
+    cursor: pointer;
+}

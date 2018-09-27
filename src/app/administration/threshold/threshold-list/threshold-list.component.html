@@ -21,7 +21,13 @@
       <td>{{threshold.param.name}}</td>
       <td>
         <ul>
-          <li *ngFor="let contextSource of threshold.thresholdParams">
+          <li *ngIf="viewThresholdContextSources !== threshold.apiKey">
+            <a (click)="doVisible(threshold.apiKey)" class="show-context-source-text">Click to view context sources</a></li>
+          <li *ngIf="viewThresholdContextSources === threshold.apiKey">
+            <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context
+              sources</a></li>
+          <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+            [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
             {{contextSource.contextSource.name}}
           </li>
         </ul>

@@ -19,6 +19,8 @@ export class ThresholdListComponent implements OnInit {
 
   thresholds: Threshold[];
 
+  viewThresholdContextSources: string;
+
   showForm: boolean;
 
   selectedCV: CV;
@@ -42,5 +44,9 @@ export class ThresholdListComponent implements OnInit {
 
   openForm(event): void {
     this.openThreshold.emit('fale');
+  }
+
+  doVisible(thresholdApiKey: string): void {
+    this.viewThresholdContextSources = thresholdApiKey;
   }
 }
