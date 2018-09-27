@@ -29,6 +29,8 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
 
   labSystemThresholds: LabSystemThreshold[] = [];
 
+  viewThresholdContextSources: string;
+
   modalSubscription$: Subscription;
 
   currentContextSource: any;

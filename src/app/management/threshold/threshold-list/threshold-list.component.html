@@ -22,8 +22,14 @@
           </td>
           <td>
             <ul>
-              <li *ngFor="let contextSource of threshold.thresholdParams">
-                <i class="material-icons cursorIcon" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>
+                <li *ngIf="viewThresholdContextSources !== threshold.apiKey">
+                    <a (click)="viewThresholdContextSources = threshold.apiKey" class="show-context-source-text">Click to view context sources</a></li>
+              <li *ngIf="viewThresholdContextSources === threshold.apiKey">
+                  <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context
+                    sources</a></li>
+              <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+              [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
+                <i class="material-icons cursorIcon tiny" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>
                 {{contextSource.contextSource.name}}
               </li>
             </ul>
@@ -33,7 +39,8 @@
             <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>
             <ng-template #show>
               <ul>
-                <li *ngFor="let contextSource of threshold.thresholdParams">
+                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
                   {{contextSource.initialValue}}
                 </li>
               </ul>
@@ -50,7 +57,8 @@
             <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>
             <ng-template #showSV>
               <ul>
-                <li *ngFor="let contextSource of threshold.thresholdParams">
+                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
                   {{contextSource.stepValue}}
                 </li>
               </ul>
