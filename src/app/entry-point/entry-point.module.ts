@@ -8,6 +8,8 @@ import { EntryPointRouterModule} from './entry-point-router/entry-point-router.m
 import { RegistrationService } from '../services/registration.service';
 import { ModalModuleModule } from '../modal-module/modal-module.module';
 import { ModalService } from '../common/modal.service';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { PasswordResetService } from '../services/password-reset.service';
 
 @NgModule({
   imports: [
@@ -18,10 +20,12 @@ import { ModalService } from '../common/modal.service';
     FormsModule
   ],
   declarations: [LoginFormComponent,
-  RegisterComponent],
+  RegisterComponent,
+  PasswordRecoveryComponent],
   providers: [
     RegistrationService,
-    ModalService
+    ModalService,
+    PasswordResetService
   ],
   bootstrap: []
 })
