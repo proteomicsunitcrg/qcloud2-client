@@ -9,7 +9,6 @@ import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
 import { delay } from 'q';
 import { Subscription } from 'rxjs';
-import { ThresholdService } from '../../../services/threshold.service';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
 declare var M: any;
 
@@ -23,8 +22,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
     private route: ActivatedRoute,
-    private systemService: SystemService,
-    private thresholdService: ThresholdService) { }
+    private systemService: SystemService) { }
 
   display: Display = new Display(null);
 
@@ -32,7 +30,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
 
   dataSource: DataSource;
 
-  system: System;
+  system: System = null;
 
   type: string;
 

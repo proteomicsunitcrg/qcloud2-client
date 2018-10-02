@@ -1,5 +1,10 @@
 <ng-container *ngIf="type==='instrument' then instrument else user"></ng-container>
 <ng-template #instrument>
+    <div class="row">
+        <div class="col s12 center" *ngIf="system!==null">
+          <h4>{{system.name}}</h4>
+        </div>
+      </div>
   <div class="row">
     <div class="col s12 m12 l12 xl12">
       <app-auto-plot [labSystemStatus]="labSystemStatusFromUrl"></app-auto-plot>
@@ -35,7 +40,7 @@
   </div>
 </ng-template>
 <ng-template #user>
-  <app-file-information></app-file-information>
+  <!-- <app-file-information></app-file-information> -->
   <div class="row valign-wrapper" *ngFor="let row of display.charts">
     <ng-container *ngIf="row.length==1 then single else double"></ng-container>
     <ng-template #single>
