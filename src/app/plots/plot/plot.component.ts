@@ -100,7 +100,11 @@ export class PlotComponent implements OnInit, OnDestroy {
         } else {
           this.loadPlot();
         }
-      }, err => console.log(err));
+      }, (err) => {
+        console.log('loading threshold', err);
+        this.loadPlot();
+      }
+      );
   }
 
   private drawThreshold(): void {
