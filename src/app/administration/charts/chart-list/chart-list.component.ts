@@ -103,6 +103,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
   private loadChartsIntoList(charts: Chart[]): void {
     this.maxPages = charts.length / 10;
     this.charts = charts;
+    this.filteredCharts = [];
     charts.forEach(chart => {
       this.filteredCharts.push(chart);
     });
