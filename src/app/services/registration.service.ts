@@ -33,6 +33,10 @@ export class RegistrationService {
     return this.http.get('assets/documents/newAccount.txt', {responseType: 'text'});
   }
 
+  public getCountries(): Observable<any> {
+    return this.http.get('assets/documents/countries.json');
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message || 'Server Error');
   }

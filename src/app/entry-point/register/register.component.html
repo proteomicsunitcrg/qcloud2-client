@@ -7,39 +7,49 @@
           <div class="section">
             <h5>Node information</h5>
             <div class="input-field col s12">
-              <input type="text" name="nodeName" class="validate" [(ngModel)]="node.name" id="nodeName" validate required>
+              <input type="text" name="nodeName" class="validate" [(ngModel)]="node.name" id="nodeName" validate
+                required>
               <label for="nodeName">Node name</label>
             </div>
             <div class="input-field col s12">
-              <input type="text" name="country" class="validate" id="country" required>
-              <label for="country">Country-- select unavailable</label>
+              <select id="country-select" name="country-select" [(ngModel)]="node.country">
+                <option *ngFor="let country of countries" [ngValue]="country.country">
+                  {{country.country}}
+                </option>
+              </select>
+              <label>Select your country</label>
             </div>
           </div>
           <div class="section">
             <h5>User information</h5>
-            <blockquote>You will became the lab manager. Once you've registered and log in you will be able to add new members and managers to your
+            <blockquote>You will became the lab manager. Once you've registered and log in you will be able to add new
+              members and managers to your
               lab.
             </blockquote>
           </div>
           <div class="input-field col s12">
-            <input type="text" name="firstName" class="validate" [(ngModel)]="node.users[0].firstname" id="firstName" required>
+            <input type="text" name="firstName" class="validate" [(ngModel)]="node.users[0].firstname" id="firstName"
+              required>
             <label for="firstName">First name</label>
           </div>
           <div class="input-field col s12">
-            <input type="text" name="lastName" class="validate" id="lastName" [(ngModel)]="node.users[0].lastname" required>
+            <input type="text" name="lastName" class="validate" id="lastName" [(ngModel)]="node.users[0].lastname"
+              required>
             <label for="lastName">Last name</label>
           </div>
           <div class="input-field col s12">
             <input type="email" name="email" class="validate" id="email" [(ngModel)]="node.users[0].email" required>
-            <label for="email">Email</label>            
+            <label for="email">Email</label>
           </div>
-          <div class="input-field col s12">              
-            <input type="{{ !showPassword ? 'password' : 'text' }}" name="password" class="validate" id="password" [(ngModel)]="node.users[0].password" required>
+          <div class="input-field col s12">
+            <input type="{{ !showPassword ? 'password' : 'text' }}" name="password" class="validate" id="password"
+              [(ngModel)]="node.users[0].password" required>
             <label for="email">Password</label>
-            <span class="helper-text show-password" (click)="togglePassword()" >Show password</span>
-          </div>          
-          <button type="submit" class="right waves-effect waves-light btn" id="loginbtn" [disabled]="!registrationForm.form.valid">Register<i class="material-icons right">send</i></button>
-        </div>        
+            <span class="helper-text show-password" (click)="togglePassword()">Show password</span>
+          </div>
+          <button type="submit" class="right waves-effect waves-light btn" id="loginbtn" [disabled]="!registrationForm.form.valid">Register<i
+              class="material-icons right">send</i></button>
+        </div>
       </form>
     </div>
 
@@ -51,4 +61,3 @@
     </div>
   </div>
 </div>
-

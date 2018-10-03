@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Node } from '../../models/node';
 import { User } from '../../models/user';
-import { RegistrationService} from '../../services/registration.service';
+import { RegistrationService } from '../../services/registration.service';
 import { Router } from '@angular/router';
-import { Modal} from '../../models/modal';
-import { ModalResponse} from '../../models/modalResponse';
+import { Modal } from '../../models/modal';
+import { ModalResponse } from '../../models/modalResponse';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../../common/modal.service';
+import { delay } from 'q';
+
+declare var M: any;
 
 /**
  * Register component
@@ -22,22 +25,34 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   user: User = new User('', '', '', '', '', '');
 
-  node: Node = new Node('', '', [this.user]);
+  node: Node = new Node('', '', [this.user], null);
 
   showPassword = false;
 
   private modalSubscription$: Subscription;
 
+  countries: any[] = [];
+
+  data: any[] = [];
+
 
   constructor(private registrationService: RegistrationService,
     private router: Router,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.subscribeToModal();
+    this.loadCountries();
+  }
+
+  private subscribeToModal(): void {
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
       this.formAction(action);
     });
   }
+
+
   changeRoute() {
     this.router.navigate(['login']);
   }
@@ -87,6 +102,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
+  private loadCountries(): void {
+    this.registrationService.getCountries()
+      .subscribe(
+        (countries) => {
+          this.countries = countries;
+        }, err => console.log('loading countries', err),
+        () => {
+          this.enableCountriesSelect();
+        }
+      );
+  }
+
+  private enableCountriesSelect(): void {
+    this.refresh();
+    const elem = document.getElementById('country-select');
+    M.FormSelect.init(elem, {});
+  }
+
+  private refresh(): void {
+    const self = this;
+    self.ref.detectChanges();
+  }
 
   togglePassword(): void {
     // change the type of the input for password
