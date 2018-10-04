@@ -348,6 +348,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     this.viewService.addLayoutToUserView(this.viewDisplay)
       .subscribe(
         (display) => {
+          this.viewService.sendNewUserViewToMenu();
           this.navigateBack('Chart saved!');
         },
         (error) => {

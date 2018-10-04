@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../auth.service';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
@@ -7,6 +7,7 @@ import { ViewService } from '../../../services/view.service';
 declare var M: any;
 import { Stomp} from 'stompjs/lib/stomp.js';
 import * as SockJS from 'sockjs-client';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,7 +15,7 @@ import * as SockJS from 'sockjs-client';
   templateUrl: './top-menu.component.html',
   styleUrls: ['./top-menu.component.css']
 })
-export class TopMenuComponent implements OnInit {
+export class TopMenuComponent implements OnInit, OnDestroy {
 
   systems: System[] = [];
 
@@ -28,6 +29,8 @@ export class TopMenuComponent implements OnInit {
   isManager = false;
   private stompClient;
 
+  newUserView$: Subscription;
+
   ngOnInit() {
     if (this.authService.checkIfAdmin()) {
       this.isAdmin = true;
@@ -37,7 +40,12 @@ export class TopMenuComponent implements OnInit {
     }
     this.loadNodeSystems();
     this.loadUserViews();
+    this.subscribeToNewUserView();
     // this.initializeWebSocket();
+  }
+
+  ngOnDestroy() {
+    this.newUserView$.unsubscribe();
   }
 
   private initializeWebSocket(): void {
@@ -64,6 +72,7 @@ export class TopMenuComponent implements OnInit {
   }
 
   private loadUserViews(): void {
+    this.userViews = [];
     this.viewService.getUserViews()
       .subscribe(
         (views) => {
@@ -95,6 +104,15 @@ export class TopMenuComponent implements OnInit {
   doLogout(): void {
     this.authService.logout();
 
+  }
+
+  private subscribeToNewUserView(): void {
+    this.newUserView$ = this.viewService.newUserView$
+      .subscribe(
+        (any) => {
+          this.loadUserViews();
+        }
+      );
   }
 
 }

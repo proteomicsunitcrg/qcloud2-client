@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Display } from '../models/display';
 import { Chart } from '../models/chart';
@@ -17,6 +17,9 @@ export class ViewService {
   private apiPrefix = environment.apiPrefix;
   defaultViewsUrl = this.apiPrefix + 'api/views/default';
   userViewsUrl = this.apiPrefix + 'api/views/user';
+
+  private newUserView = new Subject<boolean>();
+  newUserView$ = this.newUserView.asObservable();
 
   public getDefaultViewNameByCV(cv: CV): Observable<View> {
     return this.httpClient.get<View>(this.defaultViewsUrl + '/' + cv.id)
@@ -194,6 +197,11 @@ export class ViewService {
    */
   public getUserViews(): Observable<View[]> {
     return this.httpClient.get<View[]>(this.userViewsUrl);
+  }
+
+  public sendNewUserViewToMenu(): void {
+    console.log('envio');
+    this.newUserView.next(true);
   }
 
 }

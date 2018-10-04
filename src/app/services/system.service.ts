@@ -47,9 +47,7 @@ export class SystemService {
    * @param labSystem
    */
   public addNewLabSystem(labSystem: System): void {
-    console.log('caca', labSystem);
     this.createdLabSystem.next(labSystem);
-    console.log('caco', labSystem);
   }
 
   /**
