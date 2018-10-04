@@ -8,12 +8,10 @@ import { MainUserViewComponent } from './user-view/main-user-view/main-user-view
 import { UserViewListComponent } from './user-view/user-view-list/user-view-list.component';
 import { UserViewBuilderComponent } from './user-view/user-view-builder/user-view-builder.component';
 import { ViewBuilderModule } from '../view-builder/view-builder.module';
-import { ViewService } from '../services/view.service';
 import { MainProfileComponent } from './profile/main-profile/main-profile.component';
 import { ProfileManagementComponent } from './profile/profile-management/profile-management.component';
 import { PasswordChangeComponent } from './profile/password-change/password-change.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModulesModule } from '../shared-modules/shared-modules.module';
 import { DefaultViewSelectorComponent } from './profile/default-view-selector/default-view-selector.component';
 import { UserDefaultViewService } from '../services/user-default-view.service';
 /**
@@ -39,7 +37,6 @@ import { UserDefaultViewService } from '../services/user-default-view.service';
     PasswordChangeComponent,
     DefaultViewSelectorComponent],
   providers: [
-    ViewService,
     UserDefaultViewService
   ]
 })

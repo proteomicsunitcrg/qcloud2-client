@@ -27,6 +27,7 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DragulaService } from 'ng2-dragula/components/dragula.provider';
 import { SystemService } from './services/system.service';
 import { ThresholdService } from './services/threshold.service';
+import { ViewService } from './services/view.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ThresholdService } from './services/threshold.service';
   UserService,
   ModalService,
   SystemService,
-  ThresholdService],
+  ThresholdService,
+  ViewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

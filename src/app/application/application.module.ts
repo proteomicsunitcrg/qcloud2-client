@@ -17,7 +17,6 @@ import { DataVisualizationMainWindowComponent } from './data-visualization/data-
 // tslint:disable-next-line:max-line-length
 import { DataVisualizationSideMenuComponent } from './data-visualization/data-visualization-side-menu/data-visualization-side-menu.component';
 import { DataVisualizationDisplayComponent } from './data-visualization/data-visualization-display/data-visualization-display.component';
-import { ViewService } from '../services/view.service';
 import { DataSourceService } from '../services/data-source.service';
 import { PlotsModule } from '../plots/plots.module';
 import { FileService } from '../services/file.service';
@@ -46,7 +45,6 @@ import { SampleCompositionService } from '../services/sample-composition.service
     IsotopologueInformationComponent
     ],
   providers: [DataService,
-    ViewService,
     DataSourceService,
     FileService,
     SampleTypeService,
