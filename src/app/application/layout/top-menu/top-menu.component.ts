@@ -41,7 +41,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.loadNodeSystems();
     this.loadUserViews();
     this.subscribeToNewUserView();
-    // this.initializeWebSocket();
+    this.initializeWebSocket();
   }
 
   ngOnDestroy() {
@@ -60,7 +60,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     console.log(headers);
     stompClient.connect(headers, (frame) => {
         // console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) {
+        stompClient.subscribe('/user/queue/reply', function (greeting) {
             console.log(greeting);
         });
     });
@@ -68,7 +68,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(): void {
-    this.stompClient.send('/app/hello', {}, JSON.stringify({'name': 'yisuscristus'}));
+    this.stompClient.send('/app/bye', {}, JSON.stringify({'name': 'yisuscristus'}));
   }
 
   private loadUserViews(): void {
