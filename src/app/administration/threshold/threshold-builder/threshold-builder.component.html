@@ -49,7 +49,7 @@
       </div>
       <!-- Direction -->
       <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="threshold.param==null">
-        <select [(ngModel)]="threshold.direction" name="direction" required>
+        <select [(ngModel)]="threshold.nonConformityDirection" name="direction" required>
           <option value="" disabled selected>Choose your option</option>
           <option *ngFor="let thresholdDirection of thresholdDirections" [ngValue]="thresholdDirection">{{thresholdDirection}}</option>
         </select>

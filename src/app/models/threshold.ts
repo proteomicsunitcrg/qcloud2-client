@@ -6,7 +6,7 @@ import { System } from './system';
 export class Threshold {
     id: number;
     name: string;
-    direction: string;
+    nonConformityDirection: string;
     steps: number;
     param: Param;
     cv: CV;
@@ -18,7 +18,7 @@ export class Threshold {
 
     constructor(id: number,
         name: string,
-        direction: string,
+        nonConformityDirection: string,
         steps: number,
         param: Param,
         cv: CV,
@@ -29,7 +29,7 @@ export class Threshold {
         labSystem: System) {
             this.id = id;
             this.name = name;
-            this.direction = direction;
+            this.nonConformityDirection = nonConformityDirection;
             this.steps = steps;
             this.param = param;
             this.cv = cv;
