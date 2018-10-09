@@ -25,6 +25,9 @@ export class ThresholdService {
   private resetThresholdBuilder = new Subject<boolean>();
   resetThresholdBuilder$ = this.resetThresholdBuilder.asObservable();
 
+  private webSocketLabSystemStatus = new Subject<LabSystemStatus>();
+  webSocketLabSystemStatus$ = this.webSocketLabSystemStatus.asObservable();
+
   public resetBuilder(): void {
     this.resetThresholdBuilder.next(true);
   }
@@ -108,6 +111,10 @@ export class ThresholdService {
    */
   public selectLabSystemStatus(labSystemStatus: LabSystemStatus): void {
     this.selectedLabSystemStatus.next(labSystemStatus);
+  }
+
+  public sendWebSocketLabSystemStatus(labSystemStatus: LabSystemStatus) {
+    this.webSocketLabSystemStatus.next(labSystemStatus);
   }
 
 }

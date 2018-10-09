@@ -34,13 +34,17 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   currentDropdownInstance: any = null;
 
+  webSocketInstrumentStatus$: Subscription;
+
   ngOnInit() {
     delay(1000).then(() => this.subscribeToNewLabSystem());
     this.loadNodeLabSystems();
+    this.subscribeToWebSocketInstrumentStatus();
   }
 
   ngOnDestroy() {
     this.newLabSystem$.unsubscribe();
+    this.webSocketInstrumentStatus$.unsubscribe();
   }
 
   private subscribeToNewLabSystem(): void {
@@ -96,6 +100,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
               // labSystem.status = status;
               status.forEach(
                 (stat) => {
+                  console.log(stat);
                   if (stat.status !== 'OK') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
@@ -159,6 +164,15 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   navigateTo(labSystem: System): void {
     this.router.navigate(['application/view/instrument/' + labSystem.apiKey]);
+  }
+
+  private subscribeToWebSocketInstrumentStatus(): void {
+    this.webSocketInstrumentStatus$ = this.thresholdService.webSocketLabSystemStatus$
+      .subscribe(
+        (status) => {
+          console.log('new status', status);
+        }
+      );
   }
 
 

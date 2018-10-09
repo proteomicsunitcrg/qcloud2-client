@@ -8,6 +8,7 @@ declare var M: any;
 import { Stomp} from 'stompjs/lib/stomp.js';
 import * as SockJS from 'sockjs-client';
 import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../services/websocket.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private systemService: SystemService,
-    private viewService: ViewService) { }
+    private viewService: ViewService,
+    private webSocketService: WebsocketService) { }
 
   isAdmin = false;
   isManager = false;
@@ -49,22 +51,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   private initializeWebSocket(): void {
-    // let stompClient: any = null;
-    // const socket = new SockJS('/api/gs-guide-websocket/?Authorization=' + localStorage.getItem('id_token'));
-    const socket = new SockJS('/api/gs-guide-websocket');
-    const stompClient = Stomp.over(socket);
-    this.stompClient = stompClient;
-    const headers = {
-      Authorization : localStorage.getItem('id_token')
-    };
-    console.log(headers);
-    stompClient.connect(headers, (frame) => {
-        // console.log('Connected: ' + frame);
-        stompClient.subscribe('/user/queue/reply', function (greeting) {
-            console.log(greeting);
-        });
-    });
-
+    this.webSocketService.initializeWebSocket();
   }
 
   sendMessage(): void {
