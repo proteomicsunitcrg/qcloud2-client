@@ -100,7 +100,6 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
               // labSystem.status = status;
               status.forEach(
                 (stat) => {
-                  console.log(stat);
                   if (stat.status !== 'OK') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
