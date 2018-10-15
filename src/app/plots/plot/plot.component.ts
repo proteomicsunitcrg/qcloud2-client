@@ -10,7 +10,7 @@ import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
 
 @Component({
   selector: 'app-plot',
@@ -165,8 +165,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         (element, index) => {
 
           const marker = 'circle';
-          // const color = this.calculatePointColor(key, element['value'], traceIndex);
-          const color = getPointColor(element['nc']);
+          const color = this.calculatePointColor(key, element['value'], traceIndex);
           const elementText = element['value'];
           const value = element['value'];
           /*
@@ -291,7 +290,24 @@ export class PlotComponent implements OnInit, OnDestroy {
             } else {
               return traceColor.colorRange[traceIndex];
             }
-
+          case 'UP':
+          // taking care if the steps is 1
+          if (this.layoutShapes.length > 1) {
+            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
+              return 'red';
+            } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0
+              && value > this.layoutShapes[this.layoutShapes.length - 2].y0) {
+              return 'yellow';
+            } else {
+              return traceColor.colorRange[traceIndex];
+            }
+          } else {
+            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
+              return 'red';
+            } else {
+              return traceColor.colorRange[traceIndex];
+            }
+          }
           default:
             return null;
         }
