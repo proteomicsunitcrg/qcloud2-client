@@ -8,6 +8,7 @@
         </tr>
         <tr>
           <th>Param</th>
+          <th>Sample type</th>
           <th>Context sources</th>
           <th>Initial value</th>
           <th>Step value</th>
@@ -19,6 +20,9 @@
             <i class="material-icons cursorIcon" *ngIf="threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue"
               (click)="editThreshold(threshold)">create</i>
             <i class="material-icons cursorIcon" *ngIf="threshold['edditing']" (click)="saveThresholdParams(threshold)">save</i>
+          </td>
+          <td>
+            {{threshold.sampleType.name}}
           </td>
           <td>
             <ul>
