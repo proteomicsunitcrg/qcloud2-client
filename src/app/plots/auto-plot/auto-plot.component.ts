@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { LabSystemStatus } from '../../models/labsystemstatus';
 import * as Plotly from 'plotly.js';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
 import * as traceColor from '../plot/traceColors';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
@@ -137,7 +137,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
         (element, index) => {
           let marker = 'circle';
           // let color = this.calculatePointColor(key, element['value']);
-          const color = this.getPointColor(element['nc']);
+          const color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
           /*
@@ -217,63 +217,5 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
     Plotly.react('plot', dataForPlot, this.layout);
 
   }
-  private calculatePointColor(key: string, value: number): string {
-
-    // check if threshold exists
-    const regularColor = 'rgb(51, 102, 204)';
-    if (this.plotThreshold !== undefined) {
-      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.abbreviated === key);
-      if (thresholdParam.length > 0) {
-        switch (this.plotThreshold.nonConformityDirection) {
-          case 'DOWN':
-            // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
-              } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
-                && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
-                return 'yellow';
-              } else {
-                return regularColor;
-              }
-            } else {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
-              } else {
-                return regularColor;
-              }
-            }
-          case 'UPDOWN':
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-              return 'red';
-            } else {
-              return regularColor;
-            }
-
-          default:
-            return null;
-        }
-      } else {
-        return 'rgb(51, 102, 204)';
-      }
-    } else {
-      return 'rgb(51, 102, 204)';
-    }
-  }
-
-  private getPointColor(nc: string) {
-    const regularColor = 'rgb(51, 102, 204)';
-    switch (nc) {
-      case 'OK':
-        return regularColor;
-      case 'WARNING':
-        return 'yellow';
-      case 'DANGER':
-        return 'red';
-      default:
-        return 'grey';
-    }
-  }
-
 
 }

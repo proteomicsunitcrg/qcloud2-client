@@ -4,7 +4,7 @@ import { File } from '../../models/file';
 import { Threshold } from '../../models/threshold';
 import { GuideSet } from '../../models/guideSet';
 import { DataService } from '../../services/data.service';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
 import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
@@ -130,7 +130,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
         (element, index) => {
           let marker = 'circle';
           // let color = this.calculatePointColor(key, element);
-          const color = this.getPointColor(element['nc']);
+          const color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
           /*
@@ -210,20 +210,6 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
     this.layout.shapes = this.layoutShapes;
     Plotly.react('plot', dataForPlot, this.layout);
 
-  }
-
-  private getPointColor(nc: string) {
-    const regularColor = 'rgb(51, 102, 204)';
-    switch (nc) {
-      case 'OK':
-        return regularColor;
-      case 'WARNING':
-        return 'yellow';
-      case 'DANGER':
-        return 'red';
-      default:
-        return 'grey';
-    }
   }
 
   private calculatePointColor(key: string, value: number): string {

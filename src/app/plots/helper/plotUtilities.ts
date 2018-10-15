@@ -46,6 +46,20 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     return shapes;
   }
 
+  export function getPointColor(nc: string) {
+    const regularColor = 'rgb(51, 102, 204)';
+    switch (nc) {
+      case 'OK':
+        return regularColor;
+      case 'WARNING':
+        return 'yellow';
+      case 'DANGER':
+        return 'red';
+      default:
+        return 'grey';
+    }
+  }
+
   export function loadDataAndDatesArray(dataFromServer: MiniData[]): {dates: any[], data: {'value': number, 'nc': string}[], names: any[]} {
     const datesArray = [];
     const dataArray = [];

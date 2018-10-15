@@ -10,7 +10,7 @@ import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
 
 @Component({
   selector: 'app-plot',
@@ -165,7 +165,8 @@ export class PlotComponent implements OnInit, OnDestroy {
         (element, index) => {
 
           const marker = 'circle';
-          const color = this.calculatePointColor(key, element['value'], traceIndex);
+          // const color = this.calculatePointColor(key, element['value'], traceIndex);
+          const color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
           /*
