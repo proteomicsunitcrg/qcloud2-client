@@ -43,7 +43,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.loadNodeSystems();
     this.loadUserViews();
     this.subscribeToNewUserView();
-    this.initializeWebSocket();
+    // this.initializeWebSocket();
   }
 
   ngOnDestroy() {
