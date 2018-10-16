@@ -47,9 +47,8 @@ export class DataService {
   }
 
   public getAutoPlotData(ls: LabSystemStatus): Observable<MiniData[]> {
-
     const url = this.dataUrl + '/auto/' + ls.labSystemApikey +
-      '/' + ls.param.qCCV + '/' + ls.contextSource.apiKey + '/' + ls.sampleTypeQccv + '/' + ls.thresholdApiKey;
+      '/' + ls.param.qCCV + '/' + ls.contextSource.apiKey + '/' + ls.thresholdApiKey;
 
     return this.httpClient.get<MiniData[]>(url).pipe(
       map(

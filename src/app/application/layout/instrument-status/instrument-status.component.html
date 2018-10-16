@@ -2,8 +2,9 @@
   <ng-container *ngIf="currentStatus!=null then status else nostatus"></ng-container>
   <ng-template #status>
     <li *ngFor="let status of currentStatus">
-      <a class="cursorIcon" (click)="doSendToAutoPlot(status)">{{status.param.name}} {{status.contextSource.abbreviated}}
-        <span [class]="status.status">{{status.status}}</span>
+      <a class="cursorIcon" (click)="doSendToAutoPlot(status)">{{status.sampleTypeName}} {{status.param.name}} {{status.contextSource.abbreviated}}
+        <!-- <span [class]="status.status">{{status.status}}</span> -->
+        <span class="dot" [class.red]="status.status=='DANGER'" [class.orange]="status.status=='WARNING'"></span>
       </a>
     </li>
   </ng-template>

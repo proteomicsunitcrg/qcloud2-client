@@ -40,7 +40,6 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.subscribeToLabSystemStatus();
-    console.log(this.labSystemStatus);
   }
 
   ngOnChanges() {
@@ -58,6 +57,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe(
         (selectedLabSystemStatus: LabSystemStatus) => {
           // retrieve data
+          this.labSystemStatus = selectedLabSystemStatus;
           this.loadAutoPlotData(selectedLabSystemStatus);
         }
       );
