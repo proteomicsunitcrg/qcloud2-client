@@ -40,6 +40,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.subscribeToLabSystemStatus();
+    console.log(this.labSystemStatus);
   }
 
   ngOnChanges() {
@@ -136,19 +137,9 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          // let color = this.calculatePointColor(key, element['value']);
           const color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
-          /*
-          if (isNaN(element['value'])) {
-            element = mean;
-            marker = 'diamond';
-            color = 'grey';
-            elementText = 'No data';
-            value = mean;
-          }
-          */
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
           }
@@ -200,7 +191,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
     this.layout = {
       // title: this.chart.name,
-      title: 'Analysis',
+      title: this.generatePlotTitle(),
       shapes: [],
       colorway: traceColor.colorRange,
       hovermode: 'closest',
@@ -216,6 +207,10 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
     this.layout.shapes = this.layoutShapes;
     Plotly.react('plot', dataForPlot, this.layout);
 
+  }
+
+  private generatePlotTitle(): string {
+    return this.labSystemStatus.param.name + ': ' + this.labSystemStatus.contextSource.abbreviated;
   }
 
 }
