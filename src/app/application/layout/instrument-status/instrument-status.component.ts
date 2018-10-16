@@ -121,7 +121,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                           labSystem.alerts.severity = 'DANGER';
                         }
                         break;
-
+                      case 'OFFLINE':
+                        labSystem.alerts.severity = 'OFFLINE';
+                        labSystem.status.length = 0;
+                        break;
                     }
                   }
                 }

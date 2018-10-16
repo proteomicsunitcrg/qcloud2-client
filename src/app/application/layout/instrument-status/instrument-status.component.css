@@ -16,6 +16,10 @@
   color: red;
 }
 
+.OFFLINE {
+  color: grey;
+}
+
 button {
   margin-left: 5px;
 }
