@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "transpile": "ng build --prod --build-optimizer --aot",
     "transpile:dev": "ng build --prod --build-optimizer --configuration=dev --aot --base-href /qcloud2/",
-    "transpile:test": "ng build --prod --build-optimizer --configuration=dev --aot",
+    "transpile:test": "ng build --prod --build-optimizer --configuration=test --aot",
     "transpile:preprod": "ng build --prod --build-optimizer --aot --base-href /qcloud2/"
   },
   "private": true,
