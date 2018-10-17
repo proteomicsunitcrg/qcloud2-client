@@ -22,6 +22,8 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
 
   selectedSampleType: SampleType;
 
+  selectedThresholdNonConformity: ThresholdNonConformity;
+
   thresholdNonConformities: ThresholdNonConformity[];
 
   page = 1;
@@ -88,6 +90,7 @@ export class NonConformitiesListComponent implements OnInit, OnDestroy {
   }
 
   selectThresholdNonConformity(thresholdNonConformity: ThresholdNonConformity): void {
+    this.selectedThresholdNonConformity = thresholdNonConformity;
     this.thresholdNonConformityService.sendSelectedThresholdNonConformity(thresholdNonConformity);
   }
 

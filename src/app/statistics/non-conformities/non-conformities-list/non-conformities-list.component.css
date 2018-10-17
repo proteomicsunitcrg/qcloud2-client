@@ -24,3 +24,9 @@ table td {
 .row-context-source {
   width: 15%;
 }
+.non-conformity {
+  cursor: pointer;
+}
+.selected {
+  background-color: antiquewhite;
+}

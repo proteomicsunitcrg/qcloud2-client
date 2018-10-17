@@ -1,4 +1,4 @@
-<table class="responsive-table">
+<table class="responsive-table highlight">
   <thead>
     <tr>
       <th class="row-filename">Filename</th>
@@ -19,7 +19,9 @@
     </tr>
   </tfoot>
   <tbody>
-    <tr *ngFor="let thnc of thresholdNonConformities" (click)="selectThresholdNonConformity(thnc)">
+    <tr *ngFor="let thnc of thresholdNonConformities" (click)="selectThresholdNonConformity(thnc)" class="non-conformity"
+    [class.blue-grey]="selectedThresholdNonConformity===thnc"
+    [class.lighten-4]="selectedThresholdNonConformity===thnc">
       <td>
         <span class="truncate">{{thnc.file.filename}}</span>
       </td>

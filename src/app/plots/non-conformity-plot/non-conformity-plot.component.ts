@@ -133,15 +133,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
           const color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
-          /*
-          if (isNaN(element['value'])) {
-            element = mean;
-            marker = 'diamond';
-            color = 'grey';
-            elementText = 'No data';
-            value = mean;
-          }
-          */
+
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
           }
@@ -194,7 +186,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
 
 
     this.layout = {
-      title: 'Non conformity',
+      title: this.generateNonConformityPlotTitle(),
       shapes: [],
       colorway: traceColor.colorRange,
       hovermode: 'closest',
@@ -212,48 +204,8 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
 
   }
 
-  private calculatePointColor(key: string, value: number): string {
-
-    // check if threshold exists
-    const regularColor = 'rgb(51, 102, 204)';
-    if (this.plotThreshold !== undefined) {
-      const thresholdParam: ThresholdParam[] = this.plotThreshold.thresholdParams.filter(th => th.contextSource.abbreviated === key);
-      if (thresholdParam.length > 0) {
-        switch (this.plotThreshold.nonConformityDirection) {
-          case 'DOWN':
-            // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
-              } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
-                && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
-                return 'yellow';
-              } else {
-                return regularColor;
-              }
-            } else {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
-              } else {
-                return regularColor;
-              }
-            }
-          case 'UPDOWN':
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-              return 'red';
-            } else {
-              return regularColor;
-            }
-
-          default:
-            return null;
-        }
-      } else {
-        return 'rgb(51, 102, 204)';
-      }
-    } else {
-      return 'rgb(51, 102, 204)';
-    }
+  private generateNonConformityPlotTitle(): string {
+    return this.threshold.param.name + ' ' + this.contextSource.abbreviated;
   }
 
 }
