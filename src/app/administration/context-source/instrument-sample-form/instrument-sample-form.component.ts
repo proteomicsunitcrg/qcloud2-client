@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Peptide } from '../../../models/peptide';
 import { InstrumentSample } from '../../../models/instrumentSample';
 import { ContextSource } from '../../../models/contextSource';
-import { SampleTypeService } from '../../../services/sample-type.service';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
+import { Subscription } from 'rxjs';
+import { delay } from 'q';
+declare var M: any;
 
 @Component({
   selector: 'app-instrument-sample-form',
   templateUrl: './instrument-sample-form.component.html',
   styleUrls: ['./instrument-sample-form.component.css']
 })
-export class InstrumentSampleFormComponent implements OnInit {
+export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
 
-  constructor(private instrumentSampleService: InstrumentSampleService,
-    private sampleTypeService: SampleTypeService) {
-
+  constructor(private instrumentSampleService: InstrumentSampleService) {
   }
 
   peptide: Peptide = new Peptide(null, '', '', null, null, null, null);
@@ -22,10 +22,14 @@ export class InstrumentSampleFormComponent implements OnInit {
 
   contextSource: ContextSource = new ContextSource(null, '', '', null);
 
+  selectedInstrumentSample$: Subscription;
 
+  ngOnDestroy() {
+    this.selectedInstrumentSample$.unsubscribe();
+  }
 
   ngOnInit() {
-
+    this.subscribeToSelectedInstrumentSample();
   }
 
   onSubmit(): void {
@@ -41,4 +45,21 @@ export class InstrumentSampleFormComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  private subscribeToSelectedInstrumentSample(): void {
+    this.selectedInstrumentSample$ = this.instrumentSampleService
+      .selectedInstrumentSample$.subscribe(
+        (instrumentSample) => {
+          this.loadSelectedInstrumentSample(instrumentSample);
+        }
+      );
+  }
+
+  private loadSelectedInstrumentSample(instrumentSample: InstrumentSample): void {
+    this.instrumentSample = instrumentSample;
+    this.contextSource.name = instrumentSample.name;
+    delay(50).then(() => M.updateTextFields());
+
+  }
+
 }

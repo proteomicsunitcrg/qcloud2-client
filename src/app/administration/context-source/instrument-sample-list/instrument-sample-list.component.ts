@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ContextSourceService } from '../../../services/context-source.service';
-import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { ContextSourceCategory } from '../../../models/contextSourceCategory';
-import { ContextSource } from '../../../models/contextSource';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
+import { InstrumentSample } from '../../../models/instrumentSample';
 declare var M: any;
 
 @Component({
@@ -35,5 +33,9 @@ export class InstrumentSampleListComponent implements OnInit {
         instrumentSamples.forEach(instrumentSample => this.instrumentSamples.push(instrumentSample));
       }
     );
+  }
+
+  sendToDetail(instrumentSample: InstrumentSample): void {
+    this.isService.sendInstrumentSampleToEdit(instrumentSample);
   }
 }

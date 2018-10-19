@@ -16,6 +16,9 @@ export class InstrumentSampleService {
   private newInstrumentSample = new Subject<InstrumentSample>();
   newInstrumentSample$ = this.newInstrumentSample.asObservable();
 
+  private selectedInstrumentSample = new Subject<InstrumentSample>();
+  selectedInstrumentSample$ = this.selectedInstrumentSample.asObservable();
+
   public getAllInstrumentSample(): Observable<InstrumentSample[]> {
     return this.httpClient.get<InstrumentSample[]>(this.isUrl);
   }
@@ -29,6 +32,10 @@ export class InstrumentSampleService {
 
   public sendInstrumentSampleToList(instrumentSample: InstrumentSample): void {
     this.newInstrumentSample.next(instrumentSample);
+  }
+
+  public sendInstrumentSampleToEdit(instrumentSample: InstrumentSample): void {
+    this.selectedInstrumentSample.next(instrumentSample);
   }
 
 }
