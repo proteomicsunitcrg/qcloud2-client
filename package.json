@@ -28,7 +28,7 @@
     "@auth0/angular-jwt": "^2.0.0",
     "core-js": "^2.5.7",
     "jwt-decode": "^2.2.0",
-    "materialize-css": "^1.0.0-rc.2",
+    "materialize-css": "^1.0.0",
     "moment": "^2.22.2",
     "ng2-dragula": "^1.5.0",
     "plotly.js": "^1.38.3",
