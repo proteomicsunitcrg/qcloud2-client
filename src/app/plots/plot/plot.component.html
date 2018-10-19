@@ -1,7 +1,7 @@
 <div>
   <ng-container *ngIf="loading then load else chartHolder"></ng-container>
   <ng-template #chartHolder>
-    <div id="plot{{chart.id}}">
+    <div id="plot{{chart.id}}" class="center">
       <div *ngIf="error">
         <h2>Error</h2>
         <p>There is an error with chart:
@@ -18,15 +18,3 @@
   </ng-template>
 </div>
 
-<!-- 
-<div>
-  <ng-container *ngIf="chart then load else placeholder"></ng-container>
-  <ng-template #load>
-    <div id="plot{{chart.id}}"></div>
-  </ng-template>
-  <ng-template #placeholder>
-    <div>
-      <h2>Loading....</h2>
-    </div>
-  </ng-template>
-</div> -->

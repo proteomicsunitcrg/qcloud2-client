@@ -168,15 +168,6 @@ export class PlotComponent implements OnInit, OnDestroy {
           const color = this.calculatePointColor(key, element['value'], traceIndex);
           const elementText = element['value'];
           const value = element['value'];
-          /*
-          if (isNaN(element['value'])) {
-            element = mean;
-            marker = 'diamond';
-            color = '#edbfa9';
-            elementText = 'No data';
-            value = mean;
-          }
-          */
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
@@ -242,12 +233,17 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.layout.shapes = this.layoutShapes;
 
     }
-    Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
+    if (this.serverData.dates.length > 0) {
+      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
+      const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
+      plot.on('plotly_click', (data) => {
+        this.plotService.sendClick(data, this.system);
+      });
+    } else {
+      const placeHolder = document.getElementById('plot' + this.chart.id);
+      placeHolder.innerHTML = '<h2>No data available</h2>';
+    }
 
-    const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
-    plot.on('plotly_click', (data) => {
-      this.plotService.sendClick(data, this.system);
-    });
 
   }
 
