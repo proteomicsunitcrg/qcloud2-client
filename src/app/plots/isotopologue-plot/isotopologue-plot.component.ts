@@ -79,10 +79,10 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
       const values = [];
       dataArray[key].forEach(
         (element, index) => {
-          if (isNaN(element)) {
+          if (isNaN(element['value'])) {
             values[key] = null;
           } else {
-            values[key] = element;
+            values[key] = element['value'];
           }
         }
       );
@@ -121,9 +121,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
       },
       currentDiv: 'plot'
     };
-
     Plotly.react('isoplot' + this.abbreviatedIsotopologueName, dataForPlot, this.layout);
-
   }
 
   ngOnDestroy() {
