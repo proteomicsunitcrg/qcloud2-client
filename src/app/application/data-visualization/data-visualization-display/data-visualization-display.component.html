@@ -14,7 +14,7 @@
     <div class="col s12 m12 l12 xl12">
       <ul class="tabs tabs-fixed-width" id="chartstabs">
         <li class="tab" *ngFor="let view of views">
-          <a href="#tab{{view.id}}" (click)="loadTab(view)">{{view.name}}</a>
+          <a href="#tab{{view.id}}" (click)="loadTab(view)" class="blue-grey-text">{{view.name}}</a>
         </li>
       </ul>
     </div>
