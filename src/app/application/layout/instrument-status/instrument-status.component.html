@@ -1,4 +1,4 @@
-<ul id="content" class="dropdown-content">
+<ul id="content" class="dropdown-content" (mouseleave)="closeAlertList()">
   <ng-container *ngIf="currentStatus!=null then status else nostatus"></ng-container>
   <ng-template #status>
     <li *ngFor="let status of currentStatus">

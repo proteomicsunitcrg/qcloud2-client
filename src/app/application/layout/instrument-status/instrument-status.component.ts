@@ -177,5 +177,9 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
       );
   }
 
+  closeAlertList(): void {
+    this.currentDropdownInstance.close();
+  }
+
 
 }
