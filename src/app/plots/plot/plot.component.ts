@@ -40,6 +40,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   loading: boolean;
   errorMessage: string;
   error: boolean;
+  loaded = false;
 
   // datesArray;
   // dataArray;
@@ -233,6 +234,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.layout.shapes = this.layoutShapes;
 
     }
+    this.loaded = true;
     if (this.serverData.dates.length > 0) {
       Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
@@ -243,8 +245,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       const placeHolder = document.getElementById('plot' + this.chart.id);
       placeHolder.innerHTML = '<h2 class=\'text-error\' style=\'color: grey\'>No data available</h2>';
     }
-
-
   }
 
 
