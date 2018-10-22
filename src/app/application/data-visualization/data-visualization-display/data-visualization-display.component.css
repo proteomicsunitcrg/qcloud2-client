@@ -1,3 +1,6 @@
 .tabs {
     overflow-x: hidden !important;
 }
+.tabs .indicator {
+    background-color: blue !important;
+  }
