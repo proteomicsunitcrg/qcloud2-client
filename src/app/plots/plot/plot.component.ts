@@ -241,7 +241,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       });
     } else {
       const placeHolder = document.getElementById('plot' + this.chart.id);
-      placeHolder.innerHTML = '<h2>No data available</h2>';
+      placeHolder.innerHTML = '<h2 class=\'text-error\' style=\'color: grey\'>No data available</h2>';
     }
 
 
