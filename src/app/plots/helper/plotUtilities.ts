@@ -1,5 +1,4 @@
 import { ThresholdParam } from '../../models/thresholdParams';
-import * as traceColor from '../plot/traceColors';
 import { MiniData } from '../../models/miniData';
 
 export function calculateMean(dataArray: {'value': number, 'nc': string}[]): number {
@@ -23,7 +22,12 @@ export function getChartName(): string {
 }
 
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number): any[] {
-    const thresholdColors = ['#a9dbed', '#60c3e8', '#056487'];
+    let thresholdColors = [];
+    if (thresholdSteps > 1) {
+      thresholdColors = [ '#056487', '#60c3e8', '#a9dbed'];
+    } else {
+      thresholdColors = ['#a9dbed'];
+    }
     const shapes: any[] = [];
     for (let i = 0; i < thresholdSteps; i++) {
       const shape = {
