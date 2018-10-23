@@ -1,20 +1,15 @@
 <div class="loader" [style.display]="loaded ? 'none' : 'block'">Loading...</div>
+<div class="no-data" [style.display]="noData ? 'none' : 'block'">
+  <h2 class="text-error center-align" style="color: grey">No data available</h2>
+</div>
 <div class="plot-display">
-  <ng-container *ngIf="loading then load else chartHolder"></ng-container>
-  <ng-template #chartHolder>
-    <div id="plot{{chart.id}}" class="center">
-      <div *ngIf="error">
-        <h2>Error</h2>
-        <p>There is an error with chart:
-          <strong>{{chart.name}}</strong>
-        </p>
-        <i>{{errorMessage}}</i>
-      </div>
+  <div id="plot{{chart.id}}" class="center">
+    <div *ngIf="error">
+      <h2>Error</h2>
+      <p>There is an error with chart:
+        <strong>{{chart.name}}</strong>
+      </p>
+      <i>{{errorMessage}}</i>
     </div>
-  </ng-template>
-  <ng-template #load>
-    <div>
-      <h2>Loading....</h2>
-    </div>
-  </ng-template>
+  </div>
 </div>

@@ -37,14 +37,10 @@ export class PlotComponent implements OnInit, OnDestroy {
   currentDates: string[];
   dateChangesSubscription$: Subscription;
 
-  loading: boolean;
   errorMessage: string;
   error: boolean;
   loaded = false;
-
-  // datesArray;
-  // dataArray;
-  // abbreviatedNames: string[] = [];
+  noData = true;
 
   layout: any;
 
@@ -56,7 +52,6 @@ export class PlotComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.loading = true;
     this.error = false;
     this.loadCurrentDates();
     this.subscribeToDateChanges();
@@ -70,7 +65,6 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
-    this.loading = false;
     this.dataService.getPlotData(this.chart, this.system)
       .subscribe(
         (dataFromServer) => {
@@ -137,10 +131,11 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadErrorPlot(error: any): void {
-    this.loading = false;
     this.error = true;
-    this.errorMessage = error.error.message;
+    this.noData = true;
+    this.loaded = true;
 
+    this.errorMessage = error.error.message;
   }
 
   private loadPlot(): void {
@@ -235,6 +230,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     }
     this.loaded = true;
+    this.noData = true;
     if (this.serverData.dates.length > 0) {
       Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
@@ -242,8 +238,8 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.plotService.sendClick(data, this.system);
       });
     } else {
-      const placeHolder = document.getElementById('plot' + this.chart.id);
-      placeHolder.innerHTML = '<h2 class=\'text-error\' style=\'color: grey\'>No data available</h2>';
+      Plotly.purge('plot' + this.chart.id);
+      this.noData = false;
     }
   }
 
