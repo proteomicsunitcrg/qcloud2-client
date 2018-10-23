@@ -43,8 +43,12 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.labSystemStatus !== null && this.labSystemStatus !== undefined) {
-      this.loadAutoPlotData(this.labSystemStatus);
+    if (this.labSystemStatus !== null || this.labSystemStatus !== undefined) {
+      if (this.labSystemStatus.fileChecksum === null) {
+        Plotly.purge('plot');
+      } else {
+        this.loadAutoPlotData(this.labSystemStatus);
+      }
     }
   }
 

@@ -61,6 +61,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
         this.loadView(params.type, params.apiKey);
         if (params['alertData'] !== undefined) {
           this.labSystemStatusFromUrl = JSON.parse(atob(params['alertData']));
+        } else {
+          this.labSystemStatusFromUrl = new LabSystemStatus(null, null, null, null, null, null, null);
         }
       }
     );
