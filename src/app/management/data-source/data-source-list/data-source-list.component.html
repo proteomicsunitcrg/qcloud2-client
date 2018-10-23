@@ -9,7 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Edit</th>
-      <th>Guide set</th>
+      <th>Serial number</th>
       <th>Instrument</th>
       <th>Remove</th>
     </tr>
@@ -23,15 +23,9 @@
         <td>
           <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
         </td>
-        <td *ngIf="dataSource.guideSet; else noGuideSet">
-          {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
-
+        <td>
+            {{dataSource.serialNumber}}
         </td>
-        <ng-template #noGuideSet>
-          <td>
-            No guide set, click to add one.
-          </td>
-        </ng-template>
       </ng-template>
       <ng-template #edit>
         <ng-container *ngIf="editRow==i then edit else show"></ng-container>
@@ -43,28 +37,20 @@
             <i class="material-icons cursorIcon" (click)="saveDataSource(dataSource)">save</i>
             <i class="material-icons cursorIcon" (click)="cancelEditing(dataSource)">undo</i>
           </td>
-          <td *ngIf="dataSource.guideSet; else noGuideSet">
-            {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
+          <td>
+            <input type="text" name="instrumentSerialNumber" [(ngModel)]="dataSource.serialNumber" placeholder="Serial number" />
           </td>
-          <ng-template #noGuideSet>
-            <td>
-              No guide set, click to add one.
-            </td>
-          </ng-template>
+
         </ng-template>
         <ng-template #show>
           <td>{{dataSource.name}}</td>
           <td>
             <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
           </td>
-          <td *ngIf="dataSource.guideSet; else noGuideSet">
-              {{dataSource.guideSet.startDate}} to {{dataSource.guideSet.endDate}}
-            </td>
-            <ng-template #noGuideSet>
-              <td>
-                No guide set, click to add one.
-              </td>
-            </ng-template>
+          <td>
+            {{dataSource.serialNumber}}
+          </td>
+          
         </ng-template>
       </ng-template>
       <td>{{dataSource.cv.name}}</td>

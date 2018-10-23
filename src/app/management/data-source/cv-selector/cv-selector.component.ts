@@ -57,7 +57,7 @@ export class CvSelectorComponent implements OnInit, OnDestroy {
   }
   addInstrument(cv: CV): void {
     // Create datasource
-    const dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null, '', true);
+    const dataSource: DataSource = new DataSource(null, 'my-' + cv.name, cv, null, '', true, null);
 
     this.dataSourceService.addNewDataSource(dataSource).subscribe(
       (result) => {
