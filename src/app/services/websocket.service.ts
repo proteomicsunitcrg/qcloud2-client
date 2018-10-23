@@ -12,8 +12,6 @@ export class WebsocketService {
 
   private stompClient = null;
 
-  
-
   public initializeWebSocket(): void {
     if (this.stompClient === null) {
       const socket = new SockJS('/api/gs-guide-websocket');
