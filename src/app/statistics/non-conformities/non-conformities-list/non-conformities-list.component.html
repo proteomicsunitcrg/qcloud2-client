@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th class="row-filename">Filename</th>
+      <th class="row-sample-type">QC</th>
       <th class="row-creation-date">Creation date</th>
       <th class="row-parameter">Parameter</th>
       <th class="row-context-source">Context source</th>
@@ -12,7 +13,7 @@
       <td colspan="1">
         <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="changePage(page-1)">navigate_before</i>
       </td>
-      <td colspan="2">{{page}}/{{maxPages}}</td>
+      <td colspan="3">{{page}}/{{maxPages}}</td>
       <td colspan="1">
         <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="changePage(page+1)">navigate_next</i>
       </td>
@@ -23,8 +24,9 @@
     [class.blue-grey]="selectedThresholdNonConformity===thnc"
     [class.lighten-4]="selectedThresholdNonConformity===thnc">
       <td>
-        <span class="truncate">{{thnc.file.filename}}</span>
+        <span class="truncate" title="{{thnc.file.filename}}">{{thnc.file.filename}}</span>
       </td>
+      <td>{{thnc.file.sampleType.name}}</td>
       <td>
         <span class="truncate">{{thnc.file.creationDate || date}}</span>
       </td>

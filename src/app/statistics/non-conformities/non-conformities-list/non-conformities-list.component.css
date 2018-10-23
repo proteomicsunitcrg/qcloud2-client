@@ -11,10 +11,14 @@ table td {
 }
 
 .row-filename {
-  width: 45%;
+  width: 35%;
 }
 .row-creation-date {
   width: 20%;
+}
+
+.row-sample-type {
+  width: 10%;
 }
 
 .row-parameter {

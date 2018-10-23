@@ -1,7 +1,7 @@
 <h5>Non conformities</h5>
 <form #nonConformitiesForm="ngForm">
   <!-- Lab system-->
-  <div class="input-field col s12">
+  <div class="input-field col s6">
     <select [(ngModel)]="selectedLabSystem" id="labSystemSelect" name="labSystemSelect" (change)="selectLabSystem()">
       <!-- <option value="" disabled selected>Select a lab system</option> -->
       <option [ngValue]="labSystem" *ngFor="let labSystem of labSystems">{{labSystem.name}}</option>
@@ -9,7 +9,7 @@
     <label>Lab system</label>
   </div>
   <!--  Sample type-->
-  <div class="input-field col s12" *ngIf="selectedLabSystem">
+  <div class="input-field col s6" *ngIf="selectedLabSystem">
       <select [(ngModel)]="selectedSampleType" id="sampleTypeSelect" name="sampleTypeSelect" (change)="selectSampleType()">
         <!-- <option value="" disabled selected>Select a lab system</option> -->
         <option [ngValue]="sampleType" *ngFor="let sampleType of sampleTypes">{{sampleType.name}}</option>
