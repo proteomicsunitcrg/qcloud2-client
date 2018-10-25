@@ -6,6 +6,9 @@ import { ThresholdService } from '../../../services/threshold.service';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../services/websocket.service';
+import { NodeLabSystemStatus } from '../../../models/nodeLabSystemStatus';
+import { Alert } from '../../../models/alert';
 declare var M: any;
 
 @Component({
@@ -17,8 +20,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   constructor(private systemService: SystemService,
     private thresholdService: ThresholdService,
+    private webSocketService: WebsocketService,
     private router: Router) { }
 
+  /*
   nodeLabSystems: {
     system: System,
     status: LabSystemStatus[],
@@ -27,6 +32,9 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
       severity: string
     }
   }[] = [];
+  */
+
+  nodeLabSystems: NodeLabSystemStatus[] = [];
 
   private newLabSystem$: Subscription;
 
@@ -34,17 +42,15 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   currentDropdownInstance: any = null;
 
-  webSocketInstrumentStatus$: Subscription;
 
   ngOnInit() {
     delay(1000).then(() => this.subscribeToNewLabSystem());
     this.loadNodeLabSystems();
-    this.subscribeToWebSocketInstrumentStatus();
+    this.subscribeToWebSocket();
   }
 
   ngOnDestroy() {
     this.newLabSystem$.unsubscribe();
-    this.webSocketInstrumentStatus$.unsubscribe();
   }
 
   private subscribeToNewLabSystem(): void {
@@ -59,7 +65,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
               severity: 'OK'
             }
           });
-        }, err => console.log('err'), () => console.log('end')
+        }, err => console.log('err')
       );
   }
 
@@ -74,6 +80,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         (labSystems) => {
           labSystems.forEach(
             (labSystem) => {
+              this.nodeLabSystems.push(
+                new NodeLabSystemStatus(labSystem, [], new Alert(0, 'OK'))
+              );
+              /*
               this.nodeLabSystems.push({
                 system: labSystem,
                 status: [],
@@ -82,6 +92,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   severity: 'OK'
                 }
               });
+              */
             }
           );
         }, err => console.log(err),
@@ -97,47 +108,51 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         this.thresholdService.getLabSystemStatus(labSystem.system)
           .subscribe(
             (status) => {
-              // labSystem.status = status;
               status.forEach(
                 (stat) => {
                   if (stat.status !== 'OK') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
-                    switch (stat.status) {
-                      case 'WARNING':
-                        labSystem.alerts.quantity++;
-                        if (labSystem.alerts.severity === 'OK') {
-                          labSystem.alerts.severity = 'WARNING';
-                        }
-                        break;
-                      case 'DANGER':
-                        labSystem.alerts.quantity++;
-                        if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
-                          labSystem.alerts.severity = 'DANGER';
-                        }
-                        break;
-                      case 'NO_DATA':
-                        if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
-                          labSystem.alerts.severity = 'DANGER';
-                        }
-                        break;
-                      case 'OFFLINE':
-                        labSystem.alerts.severity = 'OFFLINE';
-                        labSystem.status.length = 0;
-                        break;
-                    }
                   }
+                  this.updateLabSystemLight(labSystem, stat);
                 }
               );
             }, err => {
               labSystem.status = null;
-            },
-            () => {
-
             }
           );
       }
     );
+  }
+
+  private updateLabSystemLight(labSystem: NodeLabSystemStatus, stat: LabSystemStatus): void {
+    if (stat.status !== 'OK') {
+      stat.labSystemApikey = labSystem.system.apiKey;
+      // labSystem.status.push(stat);
+      switch (stat.status) {
+        case 'WARNING':
+          labSystem.alerts.quantity++;
+          if (labSystem.alerts.severity === 'OK') {
+            labSystem.alerts.severity = 'WARNING';
+          }
+          break;
+        case 'DANGER':
+          labSystem.alerts.quantity++;
+          if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
+            labSystem.alerts.severity = 'DANGER';
+          }
+          break;
+        case 'NO_DATA':
+          if (labSystem.alerts.severity === 'OK' || labSystem.alerts.severity === 'WARNING') {
+            labSystem.alerts.severity = 'DANGER';
+          }
+          break;
+        case 'OFFLINE':
+          labSystem.alerts.severity = 'OFFLINE';
+          labSystem.status.length = 0;
+          break;
+      }
+    }
   }
 
   open(dropdown: string, index: number): void {
@@ -168,17 +183,58 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
     this.router.navigate(['application/view/instrument/' + labSystem.apiKey]);
   }
 
-  private subscribeToWebSocketInstrumentStatus(): void {
-    this.webSocketInstrumentStatus$ = this.thresholdService.webSocketLabSystemStatus$
-      .subscribe(
-        (status) => {
-          console.log('new status', status);
-        }
-      );
-  }
-
   closeAlertList(): void {
     this.currentDropdownInstance.close();
+  }
+
+  private subscribeToWebSocket(): void {
+    this.webSocketService.nonConformities$.subscribe(
+      (res) => {
+        if (res.action.includes('nc-')) {
+          this.manageNonConformitiesFromWebSocket(res.action.substring(3), res.body);
+        }
+      }
+    );
+  }
+
+
+  private manageNonConformitiesFromWebSocket(labSystemApiKey: string, nonConformities: LabSystemStatus[]): void {
+    let nodeLabSystem;
+    if (nonConformities.length > 0) {
+      nodeLabSystem = this.nodeLabSystems.find(nls => {
+        return nls.system.apiKey === labSystemApiKey;
+      });
+
+      let qc;
+      qc = nonConformities[0]['sampleTypeName'];
+
+      let index = this.getNonConformityIndexToDelete(nodeLabSystem.status, nonConformities[0].fileChecksum, qc);
+      while (index !== -1) {
+        nodeLabSystem.status.splice(index, 1);
+        index = this.getNonConformityIndexToDelete(nodeLabSystem.status, nonConformities[0].fileChecksum, qc);
+      }
+      nonConformities.forEach(
+        (nc) => {
+          nc.labSystemApikey = labSystemApiKey;
+          nodeLabSystem.status.push(nc);
+        }
+      );
+    }
+    nodeLabSystem.alerts.quantity = 0;
+    nodeLabSystem.alerts.severity = 'OK';
+    nodeLabSystem.status.forEach(
+      (status) => {
+        this.updateLabSystemLight(nodeLabSystem, status);
+      }
+    );
+  }
+
+  private getNonConformityIndexToDelete(labSystemStatus: any, fileChecksum: string, qc: string): number {
+    return labSystemStatus.findIndex((status) => {
+      if (status.fileChecksum !== fileChecksum && status.sampleTypeName === qc) {
+        return true;
+      }
+    });
   }
 
 

@@ -5,8 +5,6 @@ import { System } from '../../../models/system';
 import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 declare var M: any;
-import { Stomp} from 'stompjs/lib/stomp.js';
-import * as SockJS from 'sockjs-client';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../../services/websocket.service';
 
@@ -43,19 +41,14 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.loadNodeSystems();
     this.loadUserViews();
     this.subscribeToNewUserView();
-    // this.initializeWebSocket();
   }
 
   ngOnDestroy() {
     this.newUserView$.unsubscribe();
   }
 
-  private initializeWebSocket(): void {
-    this.webSocketService.initializeWebSocket();
-  }
-
   sendMessage(): void {
-    this.stompClient.send('/app/bye', {}, JSON.stringify({'name': 'yisuscristus'}));
+    this.stompClient.send('/app/bye', {}, JSON.stringify({ 'name': 'yisuscristus' }));
   }
 
   private loadUserViews(): void {
@@ -79,7 +72,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   open(dropdown): void {
     const elem = document.getElementById(dropdown);
-    const instance = M.Dropdown.init(elem, {constrainWidth: false});
+    const instance = M.Dropdown.init(elem, { constrainWidth: false });
     instance.open();
   }
 
