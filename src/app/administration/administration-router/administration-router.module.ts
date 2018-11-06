@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../../role-guard.service';
 import { MainComponent } from '../main/main.component';
 import { CategoryComponent } from '../category/category.component';
@@ -15,6 +14,7 @@ import { DefaultViewGeneratorComponent } from '../default-view/default-view-gene
 import { SampleTypeCategoryComponent } from '../sample-type-category/sample-type-category.component';
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
 import { MainGuideSetComponent } from '../guideSet/main-guide-set/main-guide-set.component';
+import { MainColorManagementComponent } from '../colorManagement/main-color-management/main-color-management.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
@@ -30,6 +30,7 @@ const routes: Routes = [
     { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent},
     { path: 'threshold', component: MainThresholdComponent},
     { path: 'guideset', component: MainGuideSetComponent},
+    { path: 'color', component: MainColorManagementComponent},
     { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}

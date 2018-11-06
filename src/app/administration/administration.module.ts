@@ -55,6 +55,8 @@ import { CvSelectorComponent } from './threshold/cv-selector/cv-selector.compone
 import { ThresholdService } from '../services/threshold.service';
 import { ThresholdBuilderComponent } from './threshold/threshold-builder/threshold-builder.component';
 import { MainGuideSetComponent } from './guideSet/main-guide-set/main-guide-set.component';
+import { MainColorManagementComponent } from './colorManagement/main-color-management/main-color-management.component';
+import { ColorListComponent } from './colorManagement/color-list/color-list.component';
 
 
 @NgModule({
@@ -115,6 +117,8 @@ import { MainGuideSetComponent } from './guideSet/main-guide-set/main-guide-set.
     ThresholdListComponent,
     CvSelectorComponent,
     ThresholdBuilderComponent,
-    MainGuideSetComponent]
+    MainGuideSetComponent,
+    MainColorManagementComponent,
+    ColorListComponent]
 })
 export class AdministrationModule { }
