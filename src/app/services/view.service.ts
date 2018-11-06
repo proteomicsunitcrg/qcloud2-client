@@ -200,7 +200,6 @@ export class ViewService {
   }
 
   public sendNewUserViewToMenu(): void {
-    console.log('envio');
     this.newUserView.next(true);
   }
 
