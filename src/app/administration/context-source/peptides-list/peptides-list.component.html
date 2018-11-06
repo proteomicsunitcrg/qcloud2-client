@@ -19,13 +19,13 @@
     <tr *ngFor="let peptide of peptides">
       <td class="truncate">{{peptide.name}}</td>
       <td>
-          {{peptide.abbreviatedSequence}}
+          {{peptide.abbreviated}}
       </td>
       <td>
         {{peptide.belongs}}
       </td>
       <td>
-          <i class="material-icons" (click)="sendToDetail(peptide)">pageview</i>
+          <i class="material-icons cursorIcon" (click)="sendToDetail(peptide)">pageview</i>
       </td>
     </tr>
   </tbody>
