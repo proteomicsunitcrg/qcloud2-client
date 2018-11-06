@@ -6,8 +6,6 @@ import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 declare var M: any;
 import { Subscription } from 'rxjs';
-import { WebsocketService } from '../../../services/websocket.service';
-
 
 @Component({
   selector: 'app-top-menu',
@@ -22,12 +20,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private systemService: SystemService,
-    private viewService: ViewService,
-    private webSocketService: WebsocketService) { }
+    private viewService: ViewService) { }
 
   isAdmin = false;
   isManager = false;
-  private stompClient;
 
   newUserView$: Subscription;
 
@@ -45,10 +41,6 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.newUserView$.unsubscribe();
-  }
-
-  sendMessage(): void {
-    this.stompClient.send('/app/bye', {}, JSON.stringify({ 'name': 'yisuscristus' }));
   }
 
   private loadUserViews(): void {
