@@ -31,23 +31,12 @@ export class SystemService {
   private selectedSystem = new Subject<System>();
   selectedSystem$ = this.selectedSystem.asObservable();
 
-  private createdLabSystem = new Subject<System>();
-  createdLabSystem$ = this.createdLabSystem.asObservable();
-
   public selectSystem(system: System): void {
     this.selectedSystem.next(system);
   }
 
   public reloadList(): void {
     this.reloadSystemList.next(true);
-  }
-
-  /**
-   * Pass a new lab system to the instrument status bar
-   * @param labSystem
-   */
-  public addNewLabSystem(labSystem: System): void {
-    this.createdLabSystem.next(labSystem);
   }
 
   /**

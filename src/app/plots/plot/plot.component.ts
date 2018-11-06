@@ -10,7 +10,9 @@ import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { WebsocketService } from '../../services/websocket.service';
+import { PointColor } from './pointColor';
 
 @Component({
   selector: 'app-plot',
@@ -23,7 +25,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService,
     private thresholdService: ThresholdService,
-    private plotService: PlotService) { }
+    private plotService: PlotService,
+    private webSocketService: WebsocketService) { }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -36,6 +39,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   currentDates: string[];
   dateChangesSubscription$: Subscription;
+  webSocketData$: Subscription;
+  thresholdFromWebSocket$: Subscription;
 
   errorMessage: string;
   error: boolean;
@@ -48,8 +53,9 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layoutShapes = [];
 
-  plotThreshold: PlotThreshold;
+  traceColorsByKey = [];
 
+  plotThreshold: PlotThreshold;
 
   ngOnInit() {
     this.error = false;
@@ -58,10 +64,14 @@ export class PlotComponent implements OnInit, OnDestroy {
     if (this.chart != null) {
       this.loadData();
     }
+    this.subscribeToWebSocketData();
+    this.subscribeToWebSocketThreshold();
   }
 
   ngOnDestroy() {
     this.dateChangesSubscription$.unsubscribe();
+    this.webSocketData$.unsubscribe();
+    this.thresholdFromWebSocket$.unsubscribe();
   }
 
   private loadData(): void {
@@ -78,6 +88,94 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadErrorPlot(e);
         }
       );
+  }
+
+  private subscribeToWebSocketThreshold(): void {
+    this.thresholdFromWebSocket$ = this.webSocketService.thresholdFormWebSocket$
+      .subscribe((res) => {
+        if (res.action === this.chart.param.qCCV &&
+          res.apiKey === this.system.apiKey &&
+          res.qccv === this.chart.sampleType.qualityControlControlledVocabulary &&
+          this.chart.isThresholdEnabled) {
+
+          if (this.noData) {
+            this.plotThreshold = res.body;
+            this.drawThreshold();
+            // relayout the plot
+            Plotly.relayout('plot' + this.chart.id, {
+              shapes: this.layoutShapes
+            });
+          }
+        }
+      });
+  }
+
+  private subscribeToWebSocketData(): void {
+    this.webSocketData$ = this.webSocketService.dataFromWebSocket$
+      .subscribe(
+        (res) => {
+          if (res.action === this.chart.param.qCCV &&
+            res.apiKey === this.system.apiKey &&
+            res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
+            if (this.noData) {
+              const newData = loadDataAndDatesArray(this.dataService.mapPlotData(res.body));
+              const yValues = [];
+              const xValues = [];
+              const textValues = [];
+              const colorValues = [];
+              Object.entries(this.serverData['data']).forEach(
+                ([key, value], index) => {
+                  if (newData['data'][key] !== undefined) {
+                    if (key !== 'filename') {
+                      yValues.push([newData['data'][key][0].value]);
+                      xValues.push(newData['dates']);
+                      textValues.push(newData['data']['filename']);
+                      colorValues.push([this.getPointColorFromWebSocket(index, key, newData['data'][key][0].value)]);
+                    }
+                  }
+                }
+              );
+              Plotly.extendTraces('plot' + this.chart.id, {
+                'marker.color': colorValues,
+                y: yValues,
+                x: xValues,
+                hovertext: textValues
+              }, Array.apply(null, { length: yValues.length }).map(Number.call, Number));
+            }
+
+          }
+        }
+      );
+  }
+
+  private getPointColorFromWebSocket(traceIndex: number, key: string, value: number): string {
+    return this.getPointColorForWebSocketPoint(key, this.calculatePointColor(key, value));
+  }
+
+  private getPointColorForWebSocketPoint(key: string, status: PointColor): string {
+    switch (status) {
+      case PointColor.OK:
+        return this.traceColorsByKey[key];
+      case PointColor.WARNING:
+        return 'yellow';
+      case PointColor.DANGER:
+        return 'red';
+      default:
+        return this.traceColorsByKey[key];
+    }
+  }
+
+  private getPointColorFromPointColors(traceIndex: number, status: PointColor): string {
+    switch (status) {
+      case PointColor.OK:
+        return traceColor.colorRange[traceIndex];
+      case PointColor.WARNING:
+        return 'yellow';
+      case PointColor.DANGER:
+        return 'red';
+      default:
+        return traceColor.colorRange[traceIndex];
+    }
   }
 
   private loadThreshold(): void {
@@ -103,6 +201,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private drawThreshold(): void {
+    this.layoutShapes = [];
     // if there is only one context source load only this.
     // this prevents a sigma threshold do be drawed more than once
     let uniqueThresholdParam: ThresholdParam = null;
@@ -127,7 +226,6 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       );
     }
-    // this.loadData();
   }
 
   private loadErrorPlot(error: any): void {
@@ -153,15 +251,14 @@ export class PlotComponent implements OnInit, OnDestroy {
       const colorsForLine = [];
       const markersForLine = [];
 
-      const mean = calculateMean(this.serverData.data[key]);
-
       const textArray = [];
 
       this.serverData.data[key].forEach(
         (element, index) => {
-
           const marker = 'circle';
-          const color = this.calculatePointColor(key, element['value'], traceIndex);
+          const pColor = this.calculatePointColor(key, element['value']);
+          const color = this.getPointColorFromPointColors(traceIndex, pColor);
+          this.traceColorsByKey[key] = color;
           const elementText = element['value'];
           const value = element['value'];
           values.push(value);
@@ -252,7 +349,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
   }
 
-  private calculatePointColor(key: string, value: number, traceIndex: number): string {
+  private calculatePointColor(key: string, value: number): PointColor {
     // check if threshold exists
     if (this.plotThreshold !== undefined) {
       const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
@@ -262,52 +359,52 @@ export class PlotComponent implements OnInit, OnDestroy {
             // taking care if the steps is 1
             if (this.layoutShapes.length > 1) {
               if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
+                return PointColor.DANGER;
               } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
                 && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
-                return 'yellow';
+                return PointColor.WARNING;
               } else {
-                return traceColor.colorRange[traceIndex];
+                return PointColor.OK;
               }
             } else {
               if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return 'red';
+                return PointColor.DANGER;
               } else {
-                return traceColor.colorRange[traceIndex];
+                return PointColor.OK;
               }
             }
           case 'UPDOWN':
             if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-              return 'red';
+              return PointColor.DANGER;
             } else {
-              return traceColor.colorRange[traceIndex];
+              return PointColor.OK;
             }
           case 'UP':
-          // taking care if the steps is 1
-          if (this.layoutShapes.length > 1) {
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
-              return 'red';
-            } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0
-              && value > this.layoutShapes[this.layoutShapes.length - 2].y0) {
-              return 'yellow';
+            // taking care if the steps is 1
+            if (this.layoutShapes.length > 1) {
+              if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
+                return PointColor.DANGER;
+              } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0
+                && value > this.layoutShapes[this.layoutShapes.length - 2].y0) {
+                return PointColor.WARNING;
+              } else {
+                return PointColor.OK;
+              }
             } else {
-              return traceColor.colorRange[traceIndex];
+              if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
+                return PointColor.DANGER;
+              } else {
+                return PointColor.OK;
+              }
             }
-          } else {
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
-              return 'red';
-            } else {
-              return traceColor.colorRange[traceIndex];
-            }
-          }
           default:
             return null;
         }
       } else {
-        return traceColor.colorRange[traceIndex];
+        return PointColor.OK;
       }
     } else {
-      return traceColor.colorRange[traceIndex];
+      return PointColor.OK;
     }
   }
 
@@ -323,7 +420,6 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.currentDates = dates;
           // reload the plot...
           this.loadData();
-          // this.loadThreshold();
         }
       );
   }

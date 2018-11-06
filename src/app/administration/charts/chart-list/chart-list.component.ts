@@ -34,7 +34,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
 
   maxPages: number;
 
-  filter: Chart = new Chart(null, null, null, null, null, null);
+  filter: Chart = new Chart(null, null, null, null, null, null, null);
 
   filteredCharts: Chart[] = [];
 

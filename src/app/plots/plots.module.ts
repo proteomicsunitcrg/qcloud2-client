@@ -6,6 +6,7 @@ import { PlotService } from '../services/plot.service';
 import { IsotopologuePlotComponent } from './isotopologue-plot/isotopologue-plot.component';
 import { AutoPlotComponent } from './auto-plot/auto-plot.component';
 import { NonConformityPlotComponent } from './non-conformity-plot/non-conformity-plot.component';
+import { WebsocketService } from '../services/websocket.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { NonConformityPlotComponent } from './non-conformity-plot/non-conformity
   declarations: [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
   exports : [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
   providers : [DataService,
-    PlotService]
+    PlotService,
+    WebsocketService]
 })
 export class PlotsModule { }

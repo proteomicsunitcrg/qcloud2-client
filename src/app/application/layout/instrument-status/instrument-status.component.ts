@@ -23,20 +23,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
     private webSocketService: WebsocketService,
     private router: Router) { }
 
-  /*
-  nodeLabSystems: {
-    system: System,
-    status: LabSystemStatus[],
-    alerts: {
-      quantity: number,
-      severity: string
-    }
-  }[] = [];
-  */
-
   nodeLabSystems: NodeLabSystemStatus[] = [];
 
-  private newLabSystem$: Subscription;
+  private nonConformitiesFromWebsocket$: Subscription;
+  private newLabSystemFromWebsocket$: Subscription;
 
   currentStatus: LabSystemStatus[] = [];
 
@@ -44,31 +34,31 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    delay(1000).then(() => this.subscribeToNewLabSystem());
     this.loadNodeLabSystems();
     this.subscribeToWebSocket();
+    this.subscribeToNewLabSystemFromWebsocket();
   }
 
   ngOnDestroy() {
-    this.newLabSystem$.unsubscribe();
+    this.newLabSystemFromWebsocket$.unsubscribe();
+    this.nonConformitiesFromWebsocket$.unsubscribe();
   }
 
-  private subscribeToNewLabSystem(): void {
-    this.newLabSystem$ = this.systemService.createdLabSystem$
+  private subscribeToNewLabSystemFromWebsocket(): void {
+    this.newLabSystemFromWebsocket$ = this.webSocketService.newLabSystemFromWebSocket$
       .subscribe(
-        (labSystem) => {
+        (res) => {
           this.nodeLabSystems.push({
-            system: labSystem,
+            system: res.body,
             status: [],
             alerts: {
               quantity: 0,
               severity: 'OK'
             }
           });
-        }, err => console.log('err')
+        }
       );
   }
-
 
   /**
    * Get the node labsystems and when completes
@@ -83,16 +73,6 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
               this.nodeLabSystems.push(
                 new NodeLabSystemStatus(labSystem, [], new Alert(0, 'OK'))
               );
-              /*
-              this.nodeLabSystems.push({
-                system: labSystem,
-                status: [],
-                alerts: {
-                  quantity: 0,
-                  severity: 'OK'
-                }
-              });
-              */
             }
           );
         }, err => console.log(err),
@@ -128,7 +108,6 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   private updateLabSystemLight(labSystem: NodeLabSystemStatus, stat: LabSystemStatus): void {
     if (stat.status !== 'OK') {
       stat.labSystemApikey = labSystem.system.apiKey;
-      // labSystem.status.push(stat);
       switch (stat.status) {
         case 'WARNING':
           labSystem.alerts.quantity++;
@@ -188,15 +167,12 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToWebSocket(): void {
-    this.webSocketService.nonConformities$.subscribe(
+    this.nonConformitiesFromWebsocket$ = this.webSocketService.nonConformities$.subscribe(
       (res) => {
-        if (res.action.includes('nc-')) {
-          this.manageNonConformitiesFromWebSocket(res.action.substring(3), res.body);
-        }
+        this.manageNonConformitiesFromWebSocket(res.action, res.body);
       }
     );
   }
-
 
   private manageNonConformitiesFromWebSocket(labSystemApiKey: string, nonConformities: LabSystemStatus[]): void {
     let nodeLabSystem;
@@ -215,8 +191,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
       }
       nonConformities.forEach(
         (nc) => {
-          nc.labSystemApikey = labSystemApiKey;
-          nodeLabSystem.status.push(nc);
+          if (nc.status !== 'OK') {
+            nc.labSystemApikey = labSystemApiKey;
+            nodeLabSystem.status.push(nc);
+          }
         }
       );
     }

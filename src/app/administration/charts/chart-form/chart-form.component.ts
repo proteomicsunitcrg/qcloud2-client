@@ -12,6 +12,8 @@ import { ChartService } from '../../../services/chart.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
+import { ParametersService } from '../../../services/parameters.service';
+import { Param } from '../../../models/param';
 declare var M: any;
 
 /**
@@ -31,17 +33,17 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     private sampleTypeService: SampleTypeService,
     private chartParamsService: ChartParamsService,
     private chartService: ChartService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private paramService: ParametersService) { }
 
   selectedCategory: Category;
   cvs: CV[] = [];
 
-  newChart: Chart = new Chart(null, '', null, null, false, null);
+  newChart: Chart = new Chart(null, '', null, null, false, null, null);
 
   chartParams: ChartParam[] = [];
 
   isEditing = false;
-
 
   categories: Category[] = [];
 
@@ -49,12 +51,14 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   chartParamsToFill$: Subscription;
   selectedSampleType$: Subscription;
   selectedChartCv$: Subscription;
+  selectedParameter$: Subscription;
 
   ngOnInit() {
     this.subscribeToCV();
     this.subscribeToSampleType();
     this.subscribeToChartParams();
     this.subscribeToChartEdition();
+    this.subscribeToParameter();
   }
 
   ngOnDestroy() {
@@ -62,6 +66,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     this.chartParamsToFill$.unsubscribe();
     this.selectedSampleType$.unsubscribe();
     this.selectedChartCv$.unsubscribe();
+    this.selectedParameter$.unsubscribe();
   }
   /**
    * This function listens to a chart edit call.
@@ -94,7 +99,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
         (chartParams) => {
           chartParams.forEach(
             (chartParam) => {
-              this.chartParams.push(new ChartParam(this.newChart, chartParam.param, chartParam.contextSource));
+              this.chartParams.push(new ChartParam(this.newChart, chartParam.contextSource));
             });
           this.chartParamsService.sendContextSourcesToEdit(this.chartParams);
         }
@@ -108,6 +113,15 @@ export class ChartFormComponent implements OnInit, OnDestroy {
       .subscribe(
         (chartParamsArray) => {
           this.chartParams = chartParamsArray;
+        }
+      );
+  }
+
+  private subscribeToParameter(): void {
+    this.selectedParameter$ = this.paramService.selectedParameter$
+      .subscribe(
+        (parameter) => {
+          this.newChart.param = parameter;
         }
       );
   }

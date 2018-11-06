@@ -61,7 +61,7 @@ export class ChartParamComponent implements OnInit, OnDestroy {
     this.chartParamsService.getChartsParamsByChart(chart)
       .subscribe(
         (chartParams: ChartParam[]) => {
-          this.selectParameter(chartParams[0].param);
+          this.selectParameter(chart.param);
         }
       );
   }

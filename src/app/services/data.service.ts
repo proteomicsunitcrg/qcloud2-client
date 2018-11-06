@@ -36,8 +36,8 @@ export class DataService {
    */
   public getPlotData(chart: Chart, system: System): Observable<MiniData[]> {
     return this.httpClient.get<MiniData[]>(this.dataUrl + '/' +
-      this.currentDates[0] + 'T00:00:00.000-05:00/' +
-      this.currentDates[1] + 'T23:59:59.000-05:00/' +
+      this.currentDates[0] + 'T00:00:00.000+02:00/' +
+      this.currentDates[1] + 'T23:59:59.000+02:00/' +
       chart.apiKey + '/' + system.apiKey + '/' + chart.sampleType.qualityControlControlledVocabulary)
       .pipe(map(
         (data) => {
@@ -101,7 +101,7 @@ export class DataService {
         );
   }
 
-  private mapPlotData(data: MiniData[]): any[] {
+  public mapPlotData(data: MiniData[]): any[] {
     const dataArray = [];
     data.forEach((row) => {
       if (dataArray[row.fileCreationDate] === undefined) {

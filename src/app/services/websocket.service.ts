@@ -1,23 +1,83 @@
 import { Injectable } from '@angular/core';
 import { Stomp } from 'stompjs/lib/stomp.js';
 import * as SockJS from 'sockjs-client';
-import { ThresholdService } from './threshold.service';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { WebSocketNotification } from '../models/webSocketNotification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
-  constructor(private thresholdService: ThresholdService) { }
-
   private stompClient = null;
 
-  nonConformities$ = new Observable<{'action': string, 'body': any}>((observer) => {
-    const {next, error} = observer;
+  dateRangeAllowNewData = true;
+
+  nonConformities = new Subject<WebSocketNotification>();
+  nonConformities$ = this.nonConformities.asObservable();
+
+  dataFromWebSocket = new Subject<WebSocketNotification>();
+  dataFromWebSocket$ = this.dataFromWebSocket.asObservable();
+
+  thresholdFromWebSocket = new Subject<WebSocketNotification>();
+  thresholdFormWebSocket$ = this.thresholdFromWebSocket.asObservable();
+
+  newLabSystemFromWebSocket = new Subject<WebSocketNotification>();
+  newLabSystemFromWebSocket$ = this.newLabSystemFromWebSocket.asObservable();
+
+  constructor() {
+    this.connectWebsocket();
+  }
+
+  private manageWebSocketMessage(actionFromWebSocket: string, apiKey: string, qccv: string, body: any) {
+    const action = this.getActionFromActionFromWebSocket(actionFromWebSocket);
+    const actionValue = this.getActionValueFromActionWebSocket(actionFromWebSocket);
+    switch (action) {
+      case 'nc':
+        this.nonConformities.next(
+          new WebSocketNotification(actionValue,
+            null,
+            null,
+            body));
+        break;
+      case 'data':
+        if (this.dateRangeAllowNewData) {
+          this.dataFromWebSocket.next(
+            new WebSocketNotification(actionValue,
+              apiKey,
+              qccv,
+              body));
+        }
+        break;
+      case 'threshold':
+        if (this.dateRangeAllowNewData) {
+          this.thresholdFromWebSocket.next(
+            new WebSocketNotification(actionValue,
+              apiKey,
+              qccv,
+              body));
+        }
+        break;
+      case 'labsystem':
+        this.newLabSystemFromWebSocket.next(
+          new WebSocketNotification(actionValue,
+            null,
+            null,
+            body));
+        break;
+      default:
+        console.log(actionFromWebSocket);
+    }
+
+  }
+
+  public connectWebsocket(): void {
+    const _this = this;
+    console.log('connecting...');
     if (this.stompClient === null) {
       const socket = new SockJS('/api/gs-guide-websocket');
       const stompClient = Stomp.over(socket);
+      stompClient.debug = f => f; // disable stomp client debug log
       this.stompClient = stompClient;
 
       const headers = {
@@ -26,12 +86,23 @@ export class WebsocketService {
       stompClient.connect(headers, (frame) => {
         stompClient.subscribe('/user/queue/reply', function (greeting) {
           const response = JSON.parse(greeting.body);
-          observer.next({
-            'action': response['action'],
-            'body': response['object']
-          });
+          _this.manageWebSocketMessage(response['action'], response['apiKey'], response['qccv'], response['object']);
         });
+      }, () => {
+        console.log('Disconnected, trying to reconnect...');
+        setTimeout(() => {
+          this.stompClient = null;
+          this.connectWebsocket();
+        }, 5000);
       });
     }
-  });
+  }
+
+  private getActionFromActionFromWebSocket(actionFromWebSocket: string): string {
+    return actionFromWebSocket.substring(0, actionFromWebSocket.indexOf('-'));
+  }
+
+  private getActionValueFromActionWebSocket(actionFromWebSocket: string): string {
+    return actionFromWebSocket.substring(actionFromWebSocket.indexOf('-') + 1);
+  }
 }

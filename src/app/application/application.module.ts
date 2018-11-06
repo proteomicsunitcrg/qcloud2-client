@@ -27,7 +27,7 @@ import { IsotopologueInformationComponent } from './data-visualization/isotopolo
 import { SampleTypeService } from '../services/sample-type.service';
 import { PlotService } from '../services/plot.service';
 import { SampleCompositionService } from '../services/sample-composition.service';
-import { WebsocketService } from '../services/websocket.service';
+// import { WebsocketService } from '../services/websocket.service';
 
 @NgModule({
   imports: [
@@ -51,6 +51,7 @@ import { WebsocketService } from '../services/websocket.service';
     SampleTypeService,
     PlotService,
     SampleCompositionService,
-    WebsocketService]
+    // WebsocketService
+  ]
 })
 export class ApplicationModule { }

@@ -56,6 +56,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     M.updateTextFields();
     this.subscribeToSelectedSystem();
   }
+
   ngOnDestroy() {
     this.selectedSystem$.unsubscribe();
   }
@@ -224,7 +225,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
            * it is specified in the backend documentation.
            * Check the related classes and take a look at the system repository
           */
-          this.systemService.addNewLabSystem(system);
+          // this.systemService.addNewLabSystem(system);
           const ds = [];
           for (const key in this.systemDataSources) {
             if (this.systemDataSources[key].length > 0) {

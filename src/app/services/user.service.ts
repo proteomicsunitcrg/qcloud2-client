@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
@@ -54,7 +54,7 @@ export class UserService {
 
   errorHandler(error: HttpErrorResponse) {
     // console.log(error);
-    return Observable.throw(error || 'Server Error');
+    return throwError(error || 'Server Error');
   }
 
 }

@@ -372,7 +372,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       .subscribe(
         (charts) => {
           charts.forEach(c => {
-            this.charts.push(new UserChart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey, null));
+            this.charts.push(new UserChart(c.id, c.name, c.cv, c.sampleType, c.isThresholdEnabled, c.apiKey, null, c.param));
           });
         }
       );
@@ -587,7 +587,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
                         c.sampleType,
                         c.isThresholdEnabled,
                         c.apiKey,
-                        ls);
+                        ls,
+                        c.param);
                       this.nodeCharts.push(userChart);
                       this.charts.push(userChart);
                     });

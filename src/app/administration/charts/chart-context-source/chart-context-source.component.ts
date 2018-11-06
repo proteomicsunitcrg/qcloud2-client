@@ -193,7 +193,7 @@ export class ChartContextSourceComponent implements OnInit, OnDestroy {
     this.chartParamsArray.length = 0;
     this.selectedContextSources.forEach(
       (contextSource) => {
-        const chartParam = new ChartParam(null, this.currentParam, contextSource);
+        const chartParam = new ChartParam(null, contextSource);
         this.chartParamsArray.push(chartParam);
       }
     );

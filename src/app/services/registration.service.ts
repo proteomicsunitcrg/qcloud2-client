@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Node } from '../models/node';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
@@ -38,7 +38,7 @@ export class RegistrationService {
   }
 
   errorHandler(error: HttpErrorResponse) {
-    return Observable.throw(error.message || 'Server Error');
+    return throwError(error.message || 'Server Error');
   }
 
 }

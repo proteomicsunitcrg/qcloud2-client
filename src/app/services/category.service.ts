@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Category } from '../models/category';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subject, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 /**
  * Service for instrument categories
@@ -66,7 +66,7 @@ export class CategoryService {
 
   errorHandler(error: HttpErrorResponse) {
     // console.log(error);
-    return Observable.throw(error || 'Server Error');
+    return throwError(error || 'Server Error');
   }
 
 }

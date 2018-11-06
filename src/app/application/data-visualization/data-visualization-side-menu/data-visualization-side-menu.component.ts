@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from '../../../services/file.service';
 import * as moment from 'moment';
 import { DataService } from '../../../services/data.service';
+import { WebsocketService } from '../../../services/websocket.service';
 declare var M: any;
 @Component({
   selector: 'app-data-visualization-side-menu',
@@ -10,11 +10,10 @@ declare var M: any;
 })
 export class DataVisualizationSideMenuComponent implements OnInit {
 
-  constructor(private fileService: FileService,
-    private dataService: DataService) { }
+  constructor(private dataService: DataService,
+    private websocketService: WebsocketService) { }
 
   datesArray: string[] = [];
-  cosa = 'cosa';
 
   dateRanges: {'days': number, 'name': string}[] = [
     {
@@ -68,13 +67,19 @@ export class DataVisualizationSideMenuComponent implements OnInit {
   }
 
   search(): void {
+    this.selectedDateRange = null;
+    this.websocketService.dateRangeAllowNewData = false;
     const startDate = this.datePickers[0].toString();
     const endDate = this.datePickers[1].toString();
     this.dataService.selectDates([startDate, endDate]);
   }
 
   doChangeRange(): void {
+    this.websocketService.dateRangeAllowNewData = true;
     this.loadDatesArray();
+    const instance = this.datePickers[0];
+    const date = new Date(this.datesArray[0] + 'T00:00:00+02:00');
+    instance.setDate(date);
   }
 
 }

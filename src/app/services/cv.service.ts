@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
 import { Category } from '../models/category';
@@ -61,6 +61,6 @@ export class CvService {
   }
 
   errorHandler(error: HttpErrorResponse) {
-    return Observable.throw(error || 'Server Error');
+    return throwError(error || 'Server Error');
   }
 }

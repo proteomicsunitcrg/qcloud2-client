@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataSource } from '../models/dataSource';
 import { environment } from '../../environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Category } from '../models/category';
 import { GuideSet } from '../models/guideSet';
@@ -100,7 +100,7 @@ export class DataSourceService {
 
   errorHandler(error: HttpErrorResponse) {
     // console.log(error);
-    return Observable.throw(error || 'Server Error');
+    return throwError(error || 'Server Error');
 
   }
 

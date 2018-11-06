@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 import { Peptide } from '../models/peptide';
@@ -87,6 +87,6 @@ export class ContextSourceService {
   }
 
   errorHandler(error: HttpErrorResponse) {
-    return Observable.throw(error.message || 'Server Error');
+    return throwError(error.message || 'Server Error');
   }
 }
