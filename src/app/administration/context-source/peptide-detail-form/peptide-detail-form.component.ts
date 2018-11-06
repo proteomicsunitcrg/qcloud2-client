@@ -164,22 +164,13 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      this.peptideService.sendPeptideToList(this.formData.currentPeptide);
-      this.sampleCompositionService.sendPeptide(this.formData.currentPeptide);
-      /*
       this.peptideService.updatePeptide(this.formData.currentPeptide)
         .subscribe(
-          (result) => {
-            this.peptideService.sendPeptideToList(result);
-            // If is ok, then grab de sample composition and send to the server
-            this.sampleCompositionService.sendPeptide(result);
-          },
-          (error) => {
-            this.modalService.openModal(new Modal(error.error.error,
-              error.error.message, 'Ok', '', 'updatePeptide', null));
+          (peptide) => {
+            this.peptideService.sendPeptideToList(peptide);
+            this.sampleCompositionService.sendPeptide(peptide);
           }
         );
-        */
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
