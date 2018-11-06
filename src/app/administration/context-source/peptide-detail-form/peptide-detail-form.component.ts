@@ -129,7 +129,6 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   private checkInPreviousArray(sampleType: SampleType): void {
     this.previousSampleCompositions.forEach(
       (sc) => {
-        console.log(sc);
         if (sc.sampleType.qualityControlControlledVocabulary === sampleType.qualityControlControlledVocabulary) {
           this.deleteSampleComposition(sc);
         }
