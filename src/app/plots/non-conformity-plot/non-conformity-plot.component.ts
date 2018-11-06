@@ -4,7 +4,7 @@ import { File } from '../../models/file';
 import { Threshold } from '../../models/threshold';
 import { GuideSet } from '../../models/guideSet';
 import { DataService } from '../../services/data.service';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor, truncateFilename } from '../helper/plotUtilities';
 import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
@@ -141,7 +141,7 @@ export class NonConformityPlotComponent implements OnInit, OnChanges {
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
-          textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
+          textArray[index] = elementText + '<br>' + truncateFilename(this.serverData.data['filename'][index], 20);
         }
       );
 

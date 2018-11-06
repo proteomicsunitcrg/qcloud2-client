@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { LabSystemStatus } from '../../models/labsystemstatus';
 import * as Plotly from 'plotly.js';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor, truncateFilename } from '../helper/plotUtilities';
 import * as traceColor from '../plot/traceColors';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
@@ -150,7 +150,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
-          textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
+          textArray[index] = elementText + '<br>' + truncateFilename(this.serverData.data['filename'][index], 50);
         }
       );
       minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));

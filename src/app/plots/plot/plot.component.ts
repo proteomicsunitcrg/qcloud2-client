@@ -10,7 +10,7 @@ import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
-import { generateLayoutShapes, loadDataAndDatesArray } from '../helper/plotUtilities';
+import { generateLayoutShapes, loadDataAndDatesArray, truncateFilename } from '../helper/plotUtilities';
 import { WebsocketService } from '../../services/websocket.service';
 import { PointColor } from './pointColor';
 
@@ -264,7 +264,8 @@ export class PlotComponent implements OnInit, OnDestroy {
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
-          textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
+          // textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
+          textArray[index] = elementText + '<br>' + truncateFilename(this.serverData.data['filename'][index], 50);
         }
       );
 

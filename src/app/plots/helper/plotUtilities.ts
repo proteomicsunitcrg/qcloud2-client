@@ -90,3 +90,11 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     return {dates: datesArray, data: dataArray, names: abbreviatedNames};
   }
 
+export function truncateFilename(filename: string, fromCharacter: number): string {
+  if (filename.length >= fromCharacter) {
+    return filename.substring(0, fromCharacter) + '...';
+  } else {
+    return filename;
+  }
+}
+
