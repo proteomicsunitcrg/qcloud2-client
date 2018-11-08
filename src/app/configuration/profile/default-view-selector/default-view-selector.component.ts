@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SystemService } from '../../../services/system.service';
 import { UserDefaultViewService } from '../../../services/user-default-view.service';
 import { System } from '../../../models/system';
