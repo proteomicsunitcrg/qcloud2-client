@@ -31,6 +31,7 @@
     "materialize-css": "^1.0.0",
     "moment": "^2.22.2",
     "ng2-dragula": "^1.5.0",
+    "pickr-widget": "^0.3.1",
     "plotly.js": "^1.38.3",
     "rxjs": "^6.3.3",
     "sockjs-client": "^1.1.5",

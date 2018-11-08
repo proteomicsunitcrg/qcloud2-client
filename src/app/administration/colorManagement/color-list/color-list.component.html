@@ -1,3 +1,33 @@
-<p>
-  color-list works!
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Color</th>
+      <th>Regular trace</th>
+      <th>Trace shades</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let color of traceColors; let i = index">
+      <td><i class="material-icons large" id="trace{{i}}"></i></td>
+      <td>
+        <i class="material-icons large cursorIcon" [style.color]="color.mainColor">linear_scale</i>
+      </td>
+      <td>
+        <i *ngFor="let shade of color.shades" [style.color]="shade" class="material-icons medium">linear_scale</i>
+      </td>
+
+      <td>
+        <i class="material-icons cursorIcon" (click)="doSaveColor(color)">save</i>
+        <i class="material-icons">delete</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <button class="waves-effect waves-light btn-large" id="new-color-button" (click)="doAddNewColor()">Add new
+          color</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

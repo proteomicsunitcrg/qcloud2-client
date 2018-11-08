@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from './main/main.component';
-import { AdministrationRouterModule} from './administration-router/administration-router.module';
+import { AdministrationRouterModule } from './administration-router/administration-router.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
@@ -42,7 +42,7 @@ import { ChartParamComponent } from './charts/chart-param/chart-param.component'
 import { ChartContextSourceComponent } from './charts/chart-context-source/chart-context-source.component';
 import { ChartParamsService } from '../services/chart-params.service';
 import { ChartService } from '../services/chart.service';
-import { ViewBuilderModule} from '../view-builder/view-builder.module';
+import { ViewBuilderModule } from '../view-builder/view-builder.module';
 import { MainDefaultViewComponent } from './default-view/main-default-view/main-default-view.component';
 import { DefaultViewGeneratorComponent } from './default-view/default-view-generator/default-view-generator.component';
 import { ViewListComponent } from './default-view/view-list/view-list.component';
@@ -57,7 +57,7 @@ import { ThresholdBuilderComponent } from './threshold/threshold-builder/thresho
 import { MainGuideSetComponent } from './guideSet/main-guide-set/main-guide-set.component';
 import { MainColorManagementComponent } from './colorManagement/main-color-management/main-color-management.component';
 import { ColorListComponent } from './colorManagement/color-list/color-list.component';
-
+import { TraceColorService } from '../services/trace-color.service';
 
 @NgModule({
   imports: [
@@ -80,7 +80,8 @@ import { ColorListComponent } from './colorManagement/color-list/color-list.comp
     ChartParamsService,
     ChartService,
     SampleTypeCategoryService,
-    ThresholdService],
+    ThresholdService,
+    TraceColorService],
   declarations: [MainComponent,
     SidebarComponent,
     CategoryComponent,
