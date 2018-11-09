@@ -64,6 +64,20 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     }
   }
 
+  export function getTracePointColor(nc: string, color: string) {
+    switch (nc) {
+      case 'OK':
+        return color;
+      case 'WARNING':
+        return 'yellow';
+      case 'DANGER':
+        return 'red';
+      default:
+        return 'grey';
+    }
+  }
+
+
   export function loadDataAndDatesArray(dataFromServer: MiniData[]): {dates: any[], data: {'value': number, 'nc': string}[], names: any[]} {
     const datesArray = [];
     const dataArray = [];

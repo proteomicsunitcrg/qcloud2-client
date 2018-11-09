@@ -13,6 +13,7 @@ import { PlotService } from '../../services/plot.service';
 import { generateLayoutShapes, loadDataAndDatesArray, truncateFilename } from '../helper/plotUtilities';
 import { WebsocketService } from '../../services/websocket.service';
 import { PointColor } from './pointColor';
+import { PlotTrace } from '../../models/plotTrace';
 
 @Component({
   selector: 'app-plot',
@@ -49,7 +50,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layout: any;
 
-  serverData: { dates: any[], data: any[], names: any[] };
+  // serverData: { dates: any[], data: any[], names: any[] };
+  serverData: PlotTrace[];
 
   layoutShapes = [];
 
@@ -75,10 +77,10 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
-    this.dataService.getPlotData(this.chart, this.system)
+    this.dataService.getPlotTraceData(this.chart, this.system)
       .subscribe(
         (dataFromServer) => {
-          this.serverData = loadDataAndDatesArray(dataFromServer);
+          this.serverData = dataFromServer;
           if (this.chart.isThresholdEnabled) {
             this.loadThreshold();
           } else {
@@ -118,35 +120,69 @@ export class PlotComponent implements OnInit, OnDestroy {
             res.apiKey === this.system.apiKey &&
             res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
             if (this.noData) {
-              const newData = loadDataAndDatesArray(this.dataService.mapPlotData(res.body));
-              const yValues = [];
-              const xValues = [];
-              const textValues = [];
-              const colorValues = [];
-              Object.entries(this.serverData['data']).forEach(
-                ([key, value], index) => {
-                  if (newData['data'][key] !== undefined) {
-                    if (key !== 'filename') {
-                      yValues.push([newData['data'][key][0].value]);
-                      xValues.push(newData['dates']);
-                      textValues.push(newData['data']['filename']);
-                      colorValues.push([this.getPointColorFromWebSocket(index, key, newData['data'][key][0].value)]);
-                    }
-                  }
-                }
-              );
-              Plotly.extendTraces('plot' + this.chart.id, {
-                'marker.color': colorValues,
-                y: yValues,
-                x: xValues,
-                hovertext: textValues
-              }, Array.apply(null, { length: yValues.length }).map(Number.call, Number));
+              res.body.forEach(
+                (plotTrace) => {
+                  const values = [];
+                  const filenames = [];
+                  const color = [];
+                  const text = [];
+                  const yValues = [];
+                  const xValues = [];
+
+                  Plotly.extendTraces('plot' + this.chart.id, {
+                    // 'marker.color': colorValues,
+                    y: yValues,
+                    x: xValues,
+                    // hovertext: textValues
+                  }, Array.apply(null, { length: values.length }).map(Number.call, Number));
+
+
+                });
+
             }
 
           }
         }
       );
   }
+
+  // private subscribeToWebSocketData(): void {
+  //   this.webSocketData$ = this.webSocketService.dataFromWebSocket$
+  //     .subscribe(
+  //       (res) => {
+  //         if (res.action === this.chart.param.qCCV &&
+  //           res.apiKey === this.system.apiKey &&
+  //           res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
+  //           if (this.noData) {
+  //             const newData = loadDataAndDatesArray(this.dataService.mapPlotData(res.body));
+  //             const yValues = [];
+  //             const xValues = [];
+  //             const textValues = [];
+  //             const colorValues = [];
+  //             Object.entries(this.serverData['data']).forEach(
+  //               ([key, value], index) => {
+  //                 if (newData['data'][key] !== undefined) {
+  //                   if (key !== 'filename') {
+  //                     yValues.push([newData['data'][key][0].value]);
+  //                     xValues.push(newData['dates']);
+  //                     textValues.push(newData['data']['filename']);
+  //                     colorValues.push([this.getPointColorFromWebSocket(index, key, newData['data'][key][0].value)]);
+  //                   }
+  //                 }
+  //               }
+  //             );
+  //             Plotly.extendTraces('plot' + this.chart.id, {
+  //               'marker.color': colorValues,
+  //               y: yValues,
+  //               x: xValues,
+  //               hovertext: textValues
+  //             }, Array.apply(null, { length: yValues.length }).map(Number.call, Number));
+  //           }
+
+  //         }
+  //       }
+  //     );
+  // }
 
   private getPointColorFromWebSocket(traceIndex: number, key: string, value: number): string {
     return this.getPointColorForWebSocketPoint(key, this.calculatePointColor(key, value));
@@ -165,16 +201,16 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getPointColorFromPointColors(traceIndex: number, status: PointColor): string {
+  private getPointColorFromTracePointColors(color: string, status: PointColor): string {
     switch (status) {
       case PointColor.OK:
-        return traceColor.colorRange[traceIndex];
+        return color;
       case PointColor.WARNING:
         return 'yellow';
       case PointColor.DANGER:
         return 'red';
       default:
-        return traceColor.colorRange[traceIndex];
+        return color;
     }
   }
 
@@ -206,8 +242,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     // this prevents a sigma threshold do be drawed more than once
     let uniqueThresholdParam: ThresholdParam = null;
 
-    if (this.serverData.names.length === 1) {
-      uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData.names[0]);
+    if (this.serverData.length === 1) {
+      uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData[0].abbreviated);
       if (uniqueThresholdParam !== undefined && uniqueThresholdParam.isEnabled) {
         generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps).forEach(
           (layoutShape) => {
@@ -241,60 +277,48 @@ export class PlotComponent implements OnInit, OnDestroy {
     const maxValues = [];
 
     const dataForPlot = [];
-    let traceIndex = 0;
-    for (const key in this.serverData.data) {
-      if (key === 'filename') {
-        continue;
-      }
-      const values = [];
+    console.log('server', this.serverData);
+    this.serverData.forEach(
+      (plotTrace) => {
+        const values = [];
+        const filenames = [];
+        const dates = [];
+        const color = [];
+        const text = [];
+        plotTrace.plotTracePoints.forEach(
+          (plotTracePoint) => {
+            values.push(plotTracePoint.value);
+            filenames.push(plotTracePoint.file.filename);
+            dates.push(plotTracePoint.file.creationDate);
+            const status = this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value);
+            color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor.mainColor, status));
+            text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
+          }
+        );
+        minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
+        maxValues.push(Math.max.apply(null, values.filter((n) => !isNaN(n))));
+        const trace = {
+          x: dates,
+          y: values,
+          type: 'scatter',
+          mode: 'lines+markers',
+          marker: {
+            color: color,
+            size: 5
+          },
+          line: {
+            color: plotTrace.traceColor.mainColor,
+          },
+          connectgaps: false,
+          name: plotTrace.abbreviated,
+          description: 'number of ' + plotTrace.abbreviated,
+          filenames: filenames,
+          hoverinfo: 'x+text',
+          hovertext: text
+        };
 
-      const colorsForLine = [];
-      const markersForLine = [];
-
-      const textArray = [];
-
-      this.serverData.data[key].forEach(
-        (element, index) => {
-          const marker = 'circle';
-          const pColor = this.calculatePointColor(key, element['value']);
-          const color = this.getPointColorFromPointColors(traceIndex, pColor);
-          this.traceColorsByKey[key] = color;
-          const elementText = element['value'];
-          const value = element['value'];
-          values.push(value);
-          colorsForLine[index] = color;
-          markersForLine[index] = marker;
-          // textArray[index] = elementText + '<br>' + this.serverData.data['filename'][index];
-          textArray[index] = elementText + '<br>' + truncateFilename(this.serverData.data['filename'][index], 50);
-        }
-      );
-
-      minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
-      maxValues.push(Math.max.apply(null, values.filter((n) => !isNaN(n))));
-
-      const trace = {
-        x: this.serverData.dates,
-        y: values,
-        type: 'scatter',
-        mode: 'lines+markers',
-        marker: {
-          color: colorsForLine,
-          symbol: markersForLine,
-          size: 5
-        },
-        line: {
-          color: colorsForLine,
-        },
-        connectgaps: false,
-        name: key,
-        description: 'number of ' + key,
-        filenames: this.serverData.data['filename'],
-        hoverinfo: 'x+text',
-        hovertext: textArray
-      };
-      dataForPlot.push(trace);
-      traceIndex++;
-    }
+        dataForPlot.push(trace);
+      });
 
     let MINVALUEFORPLOT;
     let MAXVALUEFORPLOT;
@@ -329,7 +353,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     this.loaded = true;
     this.noData = true;
-    if (this.serverData.dates.length > 0) {
+    if (this.serverData.length > 0) {
       Plotly.react('plot' + this.chart.id, dataForPlot, this.layout);
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
       plot.on('plotly_click', (data) => {
@@ -340,7 +364,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.noData = false;
     }
   }
-
 
   private getChartName(): string {
     if (this.shownames) {

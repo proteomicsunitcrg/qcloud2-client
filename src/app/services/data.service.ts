@@ -9,6 +9,7 @@ import { System } from '../models/system';
 import { File } from '../models/file';
 import { GuideSet } from '../models/guideSet';
 import { LabSystemStatus } from '../models/labsystemstatus';
+import { PlotTrace } from '../models/plotTrace';
 
 @Injectable()
 export class DataService {
@@ -42,6 +43,18 @@ export class DataService {
       .pipe(map(
         (data) => {
           return this.mapPlotData(data);
+        }
+      ));
+  }
+
+  public getPlotTraceData(chart: Chart, system: System): Observable<PlotTrace[]> {
+    return this.httpClient.get<PlotTrace[]>(this.dataUrl + '/traces/' +
+      this.currentDates[0] + 'T00:00:00.000+02:00/' +
+      this.currentDates[1] + 'T23:59:59.000+02:00/' +
+      chart.apiKey + '/' + system.apiKey + '/' + chart.sampleType.qualityControlControlledVocabulary)
+      .pipe(map(
+        (data) => {
+          return data;
         }
       ));
   }
