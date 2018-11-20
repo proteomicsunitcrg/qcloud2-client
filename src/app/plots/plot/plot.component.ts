@@ -120,24 +120,28 @@ export class PlotComponent implements OnInit, OnDestroy {
             res.apiKey === this.system.apiKey &&
             res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
             if (this.noData) {
-              res.body.forEach(
-                (plotTrace) => {
-                  const values = [];
-                  const filenames = [];
-                  const color = [];
-                  const text = [];
-                  const yValues = [];
-                  const xValues = [];
-
-                  Plotly.extendTraces('plot' + this.chart.id, {
-                    // 'marker.color': colorValues,
-                    y: yValues,
-                    x: xValues,
-                    // hovertext: textValues
-                  }, Array.apply(null, { length: values.length }).map(Number.call, Number));
-
-
-                });
+              const plot = document.getElementById('plot' + this.chart.id);
+              const color = [];
+              const text = [];
+              const yValues = [];
+              const xValues = [];
+              plot['data'].forEach(
+                (trace) => {
+                  const websocketTrace = this.getCorrectTraceFromWebsocketTraces(trace.name, res.body);
+                  const status = this.calculatePointColor(trace.name, websocketTrace.plotTracePoints[0].value);
+                  xValues.push([websocketTrace.plotTracePoints[0].file.creationDate]);
+                  yValues.push([websocketTrace.plotTracePoints[0].value]);
+                  color.push([this.getPointColorFromTracePointColors(websocketTrace.traceColor.mainColor, status)]);
+                  text.push([yValues[yValues.length - 1] + '<br>' +
+                    truncateFilename(websocketTrace.plotTracePoints[0].file.filename, 50)]);
+                }
+              );
+              Plotly.extendTraces('plot' + this.chart.id, {
+                'marker.color': color,
+                y: yValues,
+                x: xValues,
+                hovertext: text
+              }, Array.apply(null, { length: xValues.length }).map(Number.call, Number));
 
             }
 
@@ -146,59 +150,10 @@ export class PlotComponent implements OnInit, OnDestroy {
       );
   }
 
-  // private subscribeToWebSocketData(): void {
-  //   this.webSocketData$ = this.webSocketService.dataFromWebSocket$
-  //     .subscribe(
-  //       (res) => {
-  //         if (res.action === this.chart.param.qCCV &&
-  //           res.apiKey === this.system.apiKey &&
-  //           res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
-  //           if (this.noData) {
-  //             const newData = loadDataAndDatesArray(this.dataService.mapPlotData(res.body));
-  //             const yValues = [];
-  //             const xValues = [];
-  //             const textValues = [];
-  //             const colorValues = [];
-  //             Object.entries(this.serverData['data']).forEach(
-  //               ([key, value], index) => {
-  //                 if (newData['data'][key] !== undefined) {
-  //                   if (key !== 'filename') {
-  //                     yValues.push([newData['data'][key][0].value]);
-  //                     xValues.push(newData['dates']);
-  //                     textValues.push(newData['data']['filename']);
-  //                     colorValues.push([this.getPointColorFromWebSocket(index, key, newData['data'][key][0].value)]);
-  //                   }
-  //                 }
-  //               }
-  //             );
-  //             Plotly.extendTraces('plot' + this.chart.id, {
-  //               'marker.color': colorValues,
-  //               y: yValues,
-  //               x: xValues,
-  //               hovertext: textValues
-  //             }, Array.apply(null, { length: yValues.length }).map(Number.call, Number));
-  //           }
-
-  //         }
-  //       }
-  //     );
-  // }
-
-  private getPointColorFromWebSocket(traceIndex: number, key: string, value: number): string {
-    return this.getPointColorForWebSocketPoint(key, this.calculatePointColor(key, value));
-  }
-
-  private getPointColorForWebSocketPoint(key: string, status: PointColor): string {
-    switch (status) {
-      case PointColor.OK:
-        return this.traceColorsByKey[key];
-      case PointColor.WARNING:
-        return 'yellow';
-      case PointColor.DANGER:
-        return 'red';
-      default:
-        return this.traceColorsByKey[key];
-    }
+  private getCorrectTraceFromWebsocketTraces(abbreviated: string, traces: any[]): any {
+    return traces.find(trace => {
+      return trace.abbreviated === abbreviated;
+    });
   }
 
   private getPointColorFromTracePointColors(color: string, status: PointColor): string {
@@ -277,7 +232,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     const maxValues = [];
 
     const dataForPlot = [];
-    console.log('server', this.serverData);
     this.serverData.forEach(
       (plotTrace) => {
         const values = [];
