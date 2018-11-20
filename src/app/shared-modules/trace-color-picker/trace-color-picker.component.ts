@@ -8,7 +8,7 @@ import { TraceColor } from '../../models/TraceColor';
   templateUrl: './trace-color-picker.component.html',
   styleUrls: ['./trace-color-picker.component.css']
 })
-export class TraceColorPickerComponent implements OnInit, OnChanges {
+export class TraceColorPickerComponent implements OnInit {
 
   constructor(private traceColorService: TraceColorService) { }
 
@@ -18,11 +18,6 @@ export class TraceColorPickerComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.loadTraceColors();
-
-  }
-
-  ngOnChanges(): void {
-    console.log(this.contextSource);
   }
 
   private loadTraceColors(): void {
