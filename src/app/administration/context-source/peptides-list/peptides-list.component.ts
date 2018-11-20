@@ -65,18 +65,6 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @deprecated check if it is not used anymore
-   * @param peptide
-   */
-  private isPeptideInList(peptide: Peptide): boolean {
-    // Loop and look for the peptide
-    if (this.peptides.find(p => p.id === peptide.id) === undefined) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
    * Get All peptides from the database and
    * where they are comming from
    * @param sampleTypeName the name of the sampletype
@@ -95,7 +83,6 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
         error => console.log(error));
     } else {
       const sampleType = this.sampleTypes.find((st) => st.name === sampleTypeName);
-      console.log(sampleType);
       this.sampleCompositionService.getAllPeptidesBySampleType(sampleType)
         .subscribe(
           (peptides) => {

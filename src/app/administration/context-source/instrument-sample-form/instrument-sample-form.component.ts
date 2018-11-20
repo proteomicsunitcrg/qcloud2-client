@@ -17,10 +17,10 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
   constructor(private instrumentSampleService: InstrumentSampleService) {
   }
 
-  peptide: Peptide = new Peptide(null, '', '', null, null, null, null);
-  instrumentSample: InstrumentSample = new InstrumentSample(null, '', '', null, null);
+  peptide: Peptide = new Peptide(null, '', '', null, null, null, null, null, null);
+  instrumentSample: InstrumentSample = new InstrumentSample(null, '', '', null, null, null, null);
 
-  contextSource: ContextSource = new ContextSource(null, '', '', null);
+  contextSource: ContextSource = new ContextSource(null, '', '', null, null, null);
 
   selectedInstrumentSample$: Subscription;
 
