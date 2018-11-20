@@ -27,7 +27,9 @@
       <label for="mz">mz</label>
     </div>
     <div class="input-field">
-      <ul class="collapsible" id="collapsible-colors">
+      <app-trace-color-picker [contextSource]="formData.currentPeptide"></app-trace-color-picker>
+      
+      <!-- <ul class="collapsible" id="collapsible-colors">
         <li>
           <div class="collapsible-header"><i class="material-icons">filter_drama</i>Choose your color</div>
           <div class="collapsible-body">
@@ -37,17 +39,19 @@
               (click)="changeTraceColor(traceColor)">linear_scale</i>
           </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
 
     <div class="input-field">
-      <table>
+      
+      <!-- <table>
         <tr>
           <td *ngFor="let shade of formData.currentPeptide.traceColor.shades; let i = index" [class.selected-shade]="i==formData.currentPeptide.shadeGrade">
             <i class="material-icons cursorIcon" [style.color]="shade" (click)="selectShade(formData.currentPeptide, i)">linear_scale</i>
           </td>
         </tr>
-      </table>
+      </table> -->
+
     </div>
   </div>
   <div class="input-field">

@@ -93,7 +93,6 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     this.selectedPeptide$ = this.peptideService.selectedPeptide$
       .subscribe(
         (peptide) => {
-          console.log(peptide);
           this.loadPeptideIntoForm(peptide);
           this.formTitle = 'Edit peptide';
           this.formSubmitButton = 'Update peptide';
@@ -206,14 +205,5 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), null);
   }
 
-  selectShade(peptide: Peptide, shade: number): void {
-    peptide.shadeGrade = shade;
-  }
-
-  changeTraceColor(traceColor: TraceColor): void {
-    traceColor.updateTraceShades();
-    this.formData.currentPeptide.traceColor = traceColor;
-
-  }
 }
 
