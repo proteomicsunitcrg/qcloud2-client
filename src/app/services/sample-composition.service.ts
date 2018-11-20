@@ -6,6 +6,7 @@ import { SampleComposition } from '../models/sampleComposition';
 import { Peptide } from '../models/peptide';
 import { map } from 'rxjs/operators';
 import { SampleType } from '../models/sampleType';
+import { TraceColor } from '../models/TraceColor';
 
 @Injectable()
 export class SampleCompositionService {
@@ -78,7 +79,16 @@ export class SampleCompositionService {
       .pipe(
         map((peptides) => {
           const peptideList = [];
-          peptides.forEach(peptide => peptideList.push(peptide['peptide']));
+          // peptides.forEach(peptide => peptideList.push(peptide['peptide']));
+          peptides.forEach(pep => {
+            const peptide = pep['peptide'];
+            const p = new Peptide(peptide.id, peptide.name,
+              peptide.sequence, peptide.abbreviated,
+              peptide.mz, peptide.charge, peptide.apiKey,
+              new TraceColor(peptide.traceColor.mainColor,
+                peptide.traceColor.apiKey), peptide.shadeGrade);
+            peptideList.push(p);
+          });
           return peptideList;
         })
       );

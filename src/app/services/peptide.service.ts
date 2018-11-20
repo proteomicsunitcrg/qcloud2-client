@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Peptide} from '../models/peptide';
 import { SampleTypeComplexity } from '../models/sampleTypeComplexity';
 import { map } from 'rxjs/operators';
+import { TraceColor } from '../models/TraceColor';
 
 @Injectable()
 export class PeptideService {
@@ -28,7 +29,20 @@ export class PeptideService {
    * Get all peptides from the database
    */
   public getAllPeptides(): Observable<Peptide[]> {
-    return this.httpClient.get<Peptide[]>(this.peptideUrl).pipe(map(res => res));
+    return this.httpClient.get<Peptide[]>(this.peptideUrl).pipe(map(res => {
+      const peptides: Peptide[] = [];
+      res.forEach(
+        (peptide) => {
+          const p = new Peptide(peptide.id, peptide.name,
+            peptide.sequence, peptide.abbreviated,
+            peptide.mz, peptide.charge, peptide.apiKey,
+            new TraceColor(peptide.traceColor.mainColor,
+              peptide.traceColor.apiKey), peptide.shadeGrade);
+          peptides.push(p);
+        }
+      );
+      return peptides;
+    }));
   }
 
   /**

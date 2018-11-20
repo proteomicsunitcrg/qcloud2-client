@@ -9,6 +9,9 @@ import { SampleCompositionService } from '../../../services/sample-composition.s
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
+import { TraceColor } from '../../../models/TraceColor';
+import { TraceColorService } from '../../../services/trace-color.service';
+
 declare var M: any;
 /**
  * Peptide form component
@@ -24,11 +27,16 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   constructor(private sampleTypeService: SampleTypeService,
     private peptideService: PeptideService,
     private sampleCompositionService: SampleCompositionService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private traceColorService: TraceColorService) { }
 
   sampleTypes: SampleType[] = [];
 
+  traceColors: TraceColor[] = [];
+
   previousSampleCompositions: SampleComposition[] = [];
+
+  collapsibleInstance: any;
 
   formTitle = 'New peptide';
   formSubmitButton = 'Add new peptide';
@@ -37,31 +45,59 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   currentSampleComposition$: Subscription;
 
   formData = {
-    currentPeptide: new Peptide(null, '', '', '', null, null, null, null, null),
+    currentPeptide: new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), 0),
   };
 
   compositionInputs = {};
 
   ngOnInit() {
-    this.selectedPeptide$ = this.peptideService.selectedPeptide$
-      .subscribe(
-        (peptide) => {
-          this.loadPeptideIntoForm(peptide);
-          this.formTitle = 'Edit peptide';
-          this.formSubmitButton = 'Update peptide';
-        }, error => console.log(error));
+    this.subscribeToSelectedPeptide();
+    this.subscribeToCurrentSampleComposition();
+    this.getSampleTypes();
+    this.loadTraceColors();
+  }
 
+  private loadTraceColors(): void {
+    this.traceColorService.getAllTraceColors()
+      .subscribe(
+        (traceColors) => {
+          this.traceColors = traceColors;
+        }, err => console.log(err),
+        () => {
+          this.initializeCollapsible();
+        });
+  }
+
+  private initializeCollapsible(): void {
+      const collapsible = document.getElementById('collapsible-colors');
+      this.collapsibleInstance = M.Collapsible.init(collapsible, {});
+  }
+
+  private getSampleTypes(): void {
+    this.sampleTypeService.getSamplesTypes()
+      .subscribe(
+        (sampleTypes) => this.sampleTypes = sampleTypes
+      );
+  }
+
+  private subscribeToCurrentSampleComposition(): void {
     // Sample compositions observer
     this.currentSampleComposition$ = this.sampleCompositionService.currentSampleComposition$
       .subscribe(
         (sampleCompositions) => {
           this.saveSampleCompositions(sampleCompositions);
         }, error => console.log(error));
+  }
 
-    this.sampleTypeService.getSamplesTypes()
+  private subscribeToSelectedPeptide(): void {
+    this.selectedPeptide$ = this.peptideService.selectedPeptide$
       .subscribe(
-        (sampleTypes) => this.sampleTypes = sampleTypes
-    );
+        (peptide) => {
+          console.log(peptide);
+          this.loadPeptideIntoForm(peptide);
+          this.formTitle = 'Edit peptide';
+          this.formSubmitButton = 'Update peptide';
+        }, error => console.log(error));
   }
 
   ngOnDestroy() {
@@ -74,24 +110,16 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
    * @param peptide the peptide to load
    */
   private loadPeptideIntoForm(peptide: Peptide) {
-    this.peptideService.findPeptide(peptide).subscribe(
-      (foundPeptide) => {
-        this.formData.currentPeptide = foundPeptide;
-        // Load sample composition if any
-        this.sampleCompositionService.getSampleCompositionByPeptide(foundPeptide)
-          .subscribe(
-            (sampleCompositions) => {
-              this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions);
-              this.previousSampleCompositions = sampleCompositions;
-            },
-            error => console.log(error)
-          );
-      },
-      error => console.log(error),
-      () => {
-        delay(50).then(() => M.updateTextFields());
-      }
-    );
+    this.formData.currentPeptide = peptide;
+    this.sampleCompositionService.getSampleCompositionByPeptide(peptide)
+      .subscribe(
+        (sampleCompositions) => {
+          this.sampleCompositionService.sendPeptideSampleComposition(sampleCompositions);
+          this.previousSampleCompositions = sampleCompositions;
+        },
+        error => console.log(error)
+      );
+    delay(50).then(() => M.updateTextFields());
   }
 
   private saveSampleCompositions(sampleCompositions: SampleComposition[]): void {
@@ -148,6 +176,8 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    // close color picker
+    this.collapsibleInstance.close(0);
     // Save the peptide
     if (this.formTitle === 'New peptide') {
       this.peptideService.savePeptide(this.formData.currentPeptide)
@@ -173,7 +203,17 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     }
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
-    this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, null, null);
+    this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), null);
+  }
+
+  selectShade(peptide: Peptide, shade: number): void {
+    peptide.shadeGrade = shade;
+  }
+
+  changeTraceColor(traceColor: TraceColor): void {
+    traceColor.updateTraceShades();
+    this.formData.currentPeptide.traceColor = traceColor;
+
   }
 }
 

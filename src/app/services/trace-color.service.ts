@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TraceColor } from '../models/TraceColor';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +29,16 @@ export class TraceColorService {
   }
 
   public getAllTraceColors(): Observable<TraceColor[]> {
-    return this.httpClient.get<TraceColor[]>(this.traceColorUrl);
+    return this.httpClient.get<TraceColor[]>(this.traceColorUrl).pipe(
+      map((traceColors) => {
+        const traceColorList: TraceColor[] = [];
+        traceColors.forEach(
+          (traceColor) => {
+            traceColorList.push(new TraceColor(traceColor.mainColor, traceColor.apiKey));
+          }
+        );
+        return traceColorList;
+      })
+    );
   }
 }

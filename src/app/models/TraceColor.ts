@@ -10,7 +10,7 @@ export class TraceColor {
     }
 
     public updateTraceShades(numberOfShades: number = 5): string[] {
-        this.shades = [];
+        this.shades = [this.mainColor];
         for (let i = 0; i < numberOfShades; i++) {
             this.shades.push(this.shadeRGBColor(this.mainColor, (0.1 * (i + 1))));
         }
