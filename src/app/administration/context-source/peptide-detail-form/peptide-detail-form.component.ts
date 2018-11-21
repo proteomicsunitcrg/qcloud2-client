@@ -158,8 +158,6 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    // close color picker
-    this.collapsibleInstance.close(0);
     // Save the peptide
     if (this.formTitle === 'New peptide') {
       this.peptideService.savePeptide(this.formData.currentPeptide)
@@ -186,6 +184,10 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     this.formTitle = 'New peptide';
     this.formSubmitButton = 'Add new peptide';
     this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), null);
+  }
+
+  resetForm(): void {
+    this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), 0);
   }
 
 }
