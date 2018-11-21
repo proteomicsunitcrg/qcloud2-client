@@ -11,6 +11,7 @@
     <tr>
       <th>Name</th>
       <th>Abbreviated</th>
+      <th>Color</th>
       <th>Belongs to</th>
       <th></th>
     </tr>
@@ -19,13 +20,16 @@
     <tr *ngFor="let peptide of peptides">
       <td class="truncate">{{peptide.name}}</td>
       <td>
-          {{peptide.abbreviated}}
+        {{peptide.abbreviated}}
+      </td>
+      <td>
+        <i class="material-icons" [style.color]="peptide.traceColor.shades[peptide.shadeGrade]">linear_scale</i>
       </td>
       <td>
         {{peptide.belongs}}
       </td>
       <td>
-          <i class="material-icons cursorIcon" (click)="sendToDetail(peptide)">pageview</i>
+        <i class="material-icons cursorIcon" (click)="sendToDetail(peptide)">pageview</i>
       </td>
     </tr>
   </tbody>
