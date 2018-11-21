@@ -75,6 +75,7 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
 
   resetForm(): void {
     this.instrumentSample = new InstrumentSample(null, '', '', null, null, new TraceColor('rgb(51, 102, 204)', null), 0);
+    this.formSubmitButton = 'Add new instrument sample';
   }
 
 }

@@ -188,6 +188,8 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
 
   resetForm(): void {
     this.formData.currentPeptide = new Peptide(null, '', '', '', null, null, null, new TraceColor('rgb(51, 102, 204)', null), 0);
+    this.formTitle = 'New peptide';
+    this.formSubmitButton = 'Add new peptide';
   }
 
 }
