@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ContextSourceCategory } from '../../../models/contextSourceCategory';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InstrumentSampleService } from '../../../services/instrument-sample.service';
 import { InstrumentSample } from '../../../models/instrumentSample';
+import { Subscription } from 'rxjs';
 declare var M: any;
 
 @Component({
@@ -9,20 +9,34 @@ declare var M: any;
   templateUrl: './instrument-sample-list.component.html',
   styleUrls: ['./instrument-sample-list.component.css']
 })
-export class InstrumentSampleListComponent implements OnInit {
+export class InstrumentSampleListComponent implements OnInit, OnDestroy {
 
   constructor(private isService: InstrumentSampleService) { }
 
-  currentContextCategory: ContextSourceCategory;
+  instrumentSamples: InstrumentSample[] = [];
 
-  instrumentSamples = [];
+  newInstrumentSample$: Subscription;
 
   ngOnInit() {
     this.loadInstrumentSamples();
-    // Observe for new instrument samples
-    this.isService.newInstrumentSample$.subscribe(
+    this.subscribeToNewInstrumentSample();
+  }
+
+  ngOnDestroy(): void {
+    this.newInstrumentSample$.unsubscribe();
+  }
+
+  private subscribeToNewInstrumentSample(): void {
+    this.newInstrumentSample$ = this.isService.newInstrumentSample$.subscribe(
       (instrumentSample) => {
-        this.instrumentSamples.push(instrumentSample);
+        // this.instrumentSamples.push(instrumentSample);
+        // check if already exists and substitute, if not, push it
+        const index = this.instrumentSamples.findIndex((is) => is.apiKey === instrumentSample.apiKey);
+        if (index === -1) {
+          this.instrumentSamples.push(instrumentSample);
+        } else {
+          this.instrumentSamples[index] = instrumentSample;
+        }
       }
     );
   }

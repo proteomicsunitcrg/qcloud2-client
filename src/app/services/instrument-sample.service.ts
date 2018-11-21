@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { ContextSource } from '../models/contextSource';
 import { InstrumentSample } from '../models/instrumentSample';
+import { map } from 'rxjs/operators';
+import { TraceColor } from '../models/TraceColor';
 
 @Injectable()
 export class InstrumentSampleService {
@@ -20,14 +21,42 @@ export class InstrumentSampleService {
   selectedInstrumentSample$ = this.selectedInstrumentSample.asObservable();
 
   public getAllInstrumentSample(): Observable<InstrumentSample[]> {
-    return this.httpClient.get<InstrumentSample[]>(this.isUrl);
+    return this.httpClient.get<InstrumentSample[]>(this.isUrl).pipe(
+      map((instrumentSamples) => {
+        const instrumentSamplesList: InstrumentSample[] = [];
+        instrumentSamples.forEach(
+          (is) => {
+            instrumentSamplesList.push(new InstrumentSample(is.id, is.name,
+              is.abbreviated, is.qCCV, is.apiKey,
+              new TraceColor(is.traceColor.mainColor, is.traceColor.apiKey), is.shadeGrade));
+          }
+        );
+        return instrumentSamplesList;
+      })
+    );
   }
 
-  public addNewInstrumentSample(instrumentSample: ContextSource): Observable<InstrumentSample> {
+  public addNewInstrumentSample(instrumentSample: InstrumentSample): Observable<InstrumentSample> {
     const json = JSON.stringify(instrumentSample);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<InstrumentSample>(this.isUrl, params, {headers: headers});
+    return this.httpClient.post<InstrumentSample>(this.isUrl, params, { headers: headers }).pipe(
+      map((is) => {
+        return new InstrumentSample(is.id, is.name,
+          is.abbreviated, is.qCCV, is.apiKey, new TraceColor(is.traceColor.mainColor, is.traceColor.apiKey), is.shadeGrade);
+      }));
+  }
+
+  public updateInstrumentSample(instrumentSample: InstrumentSample): Observable<InstrumentSample> {
+    const json = JSON.stringify(instrumentSample);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<InstrumentSample>(this.isUrl, params, { headers: headers }).pipe(
+      map((is) => {
+        return new InstrumentSample(is.id, is.name,
+          is.abbreviated, is.qCCV, is.apiKey, new TraceColor(is.traceColor.mainColor, is.traceColor.apiKey), is.shadeGrade);
+      })
+    );
   }
 
   public sendInstrumentSampleToList(instrumentSample: InstrumentSample): void {

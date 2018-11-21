@@ -2,7 +2,8 @@
   <h5>Add new</h5>
   <form (ngSubmit)="onSubmit(); newContext.reset()" #newContext="ngForm" ngNativeValidate autocomplete="off">
     <div class="input-field">
-      <input #nameBox type="text" name="name" [(ngModel)]="contextSource.name" class="validate" id="name" validate required>
+      <input #nameBox type="text" name="name" [(ngModel)]="instrumentSample.name" class="validate" id="name" validate
+        required>
       <label for="name">Name</label>
     </div>
     <div class="input-field">
@@ -11,12 +12,17 @@
       <label for="abbreviatedName">Abbreviated name</label>
     </div>
     <div class="input-field">
-      <input type="text" #qccv name="qccv" class="validate" [(ngModel)]="instrumentSample.qCCV"
-        id="qccv" minlength="4" validate required>
+      <input type="text" #qccv name="qccv" class="validate" [(ngModel)]="instrumentSample.qCCV" id="qccv" minlength="4"
+        validate required>
       <label for="qccv">QC Controlled vocabulary</label>
     </div>
     <div class="input-field">
-      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1">Add</button>
+      <app-trace-color-picker [contextSource]="instrumentSample"></app-trace-color-picker>
+    </div>
+
+    <div class="input-field">
+      <button type="submit" class="waves-effect waves-light btn blue-grey darken-1 left">{{formSubmitButton}}</button>
+      <button type="button" class="waves-effect waves-light btn orange darken-1 right" (click)="newContext.reset()">Cancel</button>
     </div>
   </form>
 </div>

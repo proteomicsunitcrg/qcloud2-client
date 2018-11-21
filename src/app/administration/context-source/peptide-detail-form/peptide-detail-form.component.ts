@@ -54,23 +54,6 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
     this.subscribeToSelectedPeptide();
     this.subscribeToCurrentSampleComposition();
     this.getSampleTypes();
-    this.loadTraceColors();
-  }
-
-  private loadTraceColors(): void {
-    this.traceColorService.getAllTraceColors()
-      .subscribe(
-        (traceColors) => {
-          this.traceColors = traceColors;
-        }, err => console.log(err),
-        () => {
-          this.initializeCollapsible();
-        });
-  }
-
-  private initializeCollapsible(): void {
-      const collapsible = document.getElementById('collapsible-colors');
-      this.collapsibleInstance = M.Collapsible.init(collapsible, {});
   }
 
   private getSampleTypes(): void {
