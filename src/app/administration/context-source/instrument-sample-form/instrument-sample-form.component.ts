@@ -54,8 +54,6 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
         }
       );
     }
-
-
   }
 
   private subscribeToSelectedInstrumentSample(): void {
@@ -73,6 +71,10 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
     this.formSubmitButton = 'Update instrument sample';
     delay(50).then(() => M.updateTextFields());
 
+  }
+
+  resetForm(): void {
+    this.instrumentSample = new InstrumentSample(null, '', '', null, null, new TraceColor('rgb(51, 102, 204)', null), 0);
   }
 
 }
