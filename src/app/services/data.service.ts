@@ -10,6 +10,7 @@ import { File } from '../models/file';
 import { GuideSet } from '../models/guideSet';
 import { LabSystemStatus } from '../models/labsystemstatus';
 import { PlotTrace } from '../models/plotTrace';
+import { TraceColor } from '../models/TraceColor';
 
 @Injectable()
 export class DataService {
@@ -54,6 +55,11 @@ export class DataService {
       chart.apiKey + '/' + system.apiKey + '/' + chart.sampleType.qualityControlControlledVocabulary)
       .pipe(map(
         (data) => {
+          data.forEach(
+            (trace) => {
+              trace.traceColor = new TraceColor(trace.traceColor.mainColor, trace.traceColor.apiKey);
+            }
+          );
           return data;
         }
       ));

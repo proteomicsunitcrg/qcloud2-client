@@ -14,6 +14,7 @@ import { generateLayoutShapes, loadDataAndDatesArray, truncateFilename } from '.
 import { WebsocketService } from '../../services/websocket.service';
 import { PointColor } from './pointColor';
 import { PlotTrace } from '../../models/plotTrace';
+import { TraceColor } from '../../models/TraceColor';
 
 @Component({
   selector: 'app-plot',
@@ -128,10 +129,11 @@ export class PlotComponent implements OnInit, OnDestroy {
               plot['data'].forEach(
                 (trace) => {
                   const websocketTrace = this.getCorrectTraceFromWebsocketTraces(trace.name, res.body);
+                  websocketTrace.traceColor = new TraceColor(websocketTrace.traceColor.mainColor, websocketTrace.traceColor.apiKe);
                   const status = this.calculatePointColor(trace.name, websocketTrace.plotTracePoints[0].value);
                   xValues.push([websocketTrace.plotTracePoints[0].file.creationDate]);
                   yValues.push([websocketTrace.plotTracePoints[0].value]);
-                  color.push([this.getPointColorFromTracePointColors(websocketTrace.traceColor.mainColor, status)]);
+                  color.push([this.getPointColorFromTracePointColors(websocketTrace.traceColor, websocketTrace.shade, status)]);
                   text.push([yValues[yValues.length - 1] + '<br>' +
                     truncateFilename(websocketTrace.plotTracePoints[0].file.filename, 50)]);
                 }
@@ -156,16 +158,16 @@ export class PlotComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getPointColorFromTracePointColors(color: string, status: PointColor): string {
+  private getPointColorFromTracePointColors(color: TraceColor, shadeGrade: number, status: PointColor): string {
     switch (status) {
       case PointColor.OK:
-        return color;
+        return color.shades[shadeGrade];
       case PointColor.WARNING:
         return 'yellow';
       case PointColor.DANGER:
         return 'red';
       default:
-        return color;
+        return color.shades[shadeGrade];
     }
   }
 
@@ -245,7 +247,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
             const status = this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value);
-            color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor.mainColor, status));
+            color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor, plotTrace.shade, status));
             text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
           }
         );
@@ -261,7 +263,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             size: 5
           },
           line: {
-            color: plotTrace.traceColor.mainColor,
+            color: plotTrace.traceColor.shades[plotTrace.shade],
           },
           connectgaps: false,
           name: plotTrace.abbreviated,
