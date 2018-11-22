@@ -29,15 +29,17 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
 
   peptideFromDb$: Subscription;
 
+  selectedSampleType = 'All';
+
   ngOnInit() {
     this.loadSampleTypes();
-    this.loadPeptides('All');
+    this.loadPeptides();
     // Observing the incomming peptides from the form
     this. peptideFromDb$ = this.peptideService.peptideFromDb$
       .subscribe(
         (peptide) => {
           this.peptides = [];
-          this.loadPeptides('All');
+          this.loadPeptides();
         });
   }
 
@@ -69,9 +71,9 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
    * where they are comming from
    * @param sampleTypeName the name of the sampletype
    */
-  private loadPeptides(sampleTypeName: string): void {
+  private loadPeptides(): void {
     this.peptides = [];
-    if (sampleTypeName === 'All') {
+    if (this.selectedSampleType === 'All') {
       this.peptideService.getAllPeptides()
       .subscribe((peptides) => {
         peptides.forEach(peptide => {
@@ -82,7 +84,7 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
       },
         error => console.log(error));
     } else {
-      const sampleType = this.sampleTypes.find((st) => st.name === sampleTypeName);
+      const sampleType = this.sampleTypes.find((st) => st.name === this.selectedSampleType);
       this.sampleCompositionService.getAllPeptidesBySampleType(sampleType)
         .subscribe(
           (peptides) => {
@@ -133,7 +135,8 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
   }
 
   doFilter(sampleType: string): void {
-    this.loadPeptides(sampleType);
+    this.selectedSampleType = sampleType;
+    this.loadPeptides();
   }
 
 }

@@ -130,7 +130,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
   private saveSampleComposition(sampleComposition: SampleComposition): void {
     this.sampleCompositionService.saveSampleComposition(sampleComposition).subscribe(
       (result) => {
-        // this.peptideService.sendPeptideToList(result.peptide);
+        this.peptideService.sendPeptideToList(result.peptide);
       },
       error => console.log(error)
     );
@@ -163,7 +163,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
       this.peptideService.savePeptide(this.formData.currentPeptide)
         .subscribe(
           (result) => {
-            this.peptideService.sendPeptideToList(result);
+            // this.peptideService.sendPeptideToList(result);
             // If is ok, then grab de sample composition and send to the server
             this.sampleCompositionService.sendPeptide(result);
           },
@@ -176,7 +176,7 @@ export class PeptideDetailFormComponent implements OnInit, OnDestroy {
       this.peptideService.updatePeptide(this.formData.currentPeptide)
         .subscribe(
           (peptide) => {
-            this.peptideService.sendPeptideToList(peptide);
+            // this.peptideService.sendPeptideToList(peptide);
             this.sampleCompositionService.sendPeptide(peptide);
           }
         );
