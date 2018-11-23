@@ -187,7 +187,6 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadPlot();
         }
       }, (err) => {
-        console.log('loading threshold', err);
         this.loadPlot();
       }
       );
@@ -226,7 +225,12 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.noData = true;
     this.loaded = true;
 
-    this.errorMessage = error.error.message;
+    if (error.error === undefined) {
+      this.errorMessage = error.message;
+    } else {
+      this.errorMessage = error.error.message;
+    }
+
   }
 
   private loadPlot(): void {

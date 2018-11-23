@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MiniData } from '../models/miniData';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Chart } from '../models/chart';
 import { System } from '../models/system';
 import { File } from '../models/file';
@@ -57,12 +57,19 @@ export class DataService {
         (data) => {
           data.forEach(
             (trace) => {
-              trace.traceColor = new TraceColor(trace.traceColor.mainColor, trace.traceColor.apiKey);
+              try {
+                trace.traceColor = new TraceColor(trace.traceColor.mainColor, trace.traceColor.apiKey);
+              } catch (err) {
+                // TODO: work for a color control inside the client, last resort
+                throw new Error('No color defined');
+              }
             }
           );
           return data;
-        }
-      ));
+        }), catchError(err => {
+          throw err;
+        })
+      );
   }
 
   public getAutoPlotData(ls: LabSystemStatus): Observable<MiniData[]> {
@@ -105,19 +112,19 @@ export class DataService {
     sampleTypeQqcv: string,
     fileChecksum: string,
     guideSet: GuideSet): Observable<MiniData[]> {
-      let url = this.dataUrl + '/nonconformity/'
+    let url = this.dataUrl + '/nonconformity/'
       + labSystemApiKey + '/' + paramQccv + '/' + contextSourceApiKey + '/' + sampleTypeQqcv + '/' + fileChecksum;
-      if (guideSet !== null) {
-        url += '/?guideSet=' + guideSet.apiKey;
-      }
-      return this.httpClient.get<MiniData[]>(url)
-        .pipe(
-          map(
-            (data) => {
-              return this.mapPlotData(data);
-            }
-          )
-        );
+    if (guideSet !== null) {
+      url += '/?guideSet=' + guideSet.apiKey;
+    }
+    return this.httpClient.get<MiniData[]>(url)
+      .pipe(
+        map(
+          (data) => {
+            return this.mapPlotData(data);
+          }
+        )
+      );
   }
 
   public mapPlotData(data: MiniData[]): any[] {
@@ -127,7 +134,7 @@ export class DataService {
         dataArray[row.fileCreationDate] = {};
       }
       if (dataArray[row.fileCreationDate][row.contextSourceName] === undefined) {
-        dataArray[row.fileCreationDate][row.contextSourceName] = {'value': row.value, 'nc': row.nonConformityStatus};
+        dataArray[row.fileCreationDate][row.contextSourceName] = { 'value': row.value, 'nc': row.nonConformityStatus };
       }
       if (dataArray[row.fileCreationDate]['filename'] === undefined) {
         dataArray[row.fileCreationDate]['filename'] = row.fileFilename;
