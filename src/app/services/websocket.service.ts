@@ -25,6 +25,8 @@ export class WebsocketService {
   newLabSystemFromWebSocket = new Subject<WebSocketNotification>();
   newLabSystemFromWebSocket$ = this.newLabSystemFromWebSocket.asObservable();
 
+  private connectionAttemps = 0;
+
   constructor() {
     this.connectWebsocket();
   }
@@ -75,6 +77,7 @@ export class WebsocketService {
     const _this = this;
     console.log('connecting...');
     if (this.stompClient === null) {
+      _this.connectionAttemps++;
       const socket = new SockJS('/api/gs-guide-websocket');
       const stompClient = Stomp.over(socket);
       stompClient.debug = f => f; // disable stomp client debug log
@@ -84,6 +87,7 @@ export class WebsocketService {
         Authorization: localStorage.getItem('id_token')
       };
       stompClient.connect(headers, (frame) => {
+        _this.connectionAttemps = 0;
         stompClient.subscribe('/user/queue/reply', function (greeting) {
           const response = JSON.parse(greeting.body);
           _this.manageWebSocketMessage(response['action'], response['apiKey'], response['qccv'], response['object']);
@@ -92,7 +96,11 @@ export class WebsocketService {
         console.log('Disconnected, trying to reconnect...');
         setTimeout(() => {
           this.stompClient = null;
-          this.connectWebsocket();
+          if (_this.connectionAttemps < 5) {
+            this.connectWebsocket();
+          } else {
+            console.log('Max number of connection attemps');
+          }
         }, 5000);
       });
     }
