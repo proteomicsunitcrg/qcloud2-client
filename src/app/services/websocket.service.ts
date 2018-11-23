@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Stomp } from 'stompjs/lib/stomp.js';
 import * as SockJS from 'sockjs-client';
 import { Subject } from 'rxjs';
@@ -24,6 +25,9 @@ export class WebsocketService {
 
   newLabSystemFromWebSocket = new Subject<WebSocketNotification>();
   newLabSystemFromWebSocket$ = this.newLabSystemFromWebSocket.asObservable();
+
+  private apiPrefix = environment.apiPrefix;
+  private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
 
   private connectionAttemps = 0;
 
@@ -78,7 +82,7 @@ export class WebsocketService {
     console.log('connecting...');
     if (this.stompClient === null) {
       _this.connectionAttemps++;
-      const socket = new SockJS('/api/gs-guide-websocket');
+      const socket = new SockJS(_this.websocketUrl);
       const stompClient = Stomp.over(socket);
       stompClient.debug = f => f; // disable stomp client debug log
       this.stompClient = stompClient;
