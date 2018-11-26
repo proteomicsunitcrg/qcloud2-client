@@ -79,14 +79,18 @@ export class SampleCompositionService {
       .pipe(
         map((peptides) => {
           const peptideList = [];
-          // peptides.forEach(peptide => peptideList.push(peptide['peptide']));
           peptides.forEach(pep => {
             const peptide = pep['peptide'];
+            let tc = null;
+            if (peptide.traceColor === null) {
+              tc = new TraceColor(null, null);
+            } else {
+              tc = new TraceColor(peptide.traceColor.mainColor, peptide.traceColor.apiKey);
+            }
             const p = new Peptide(peptide.id, peptide.name,
               peptide.sequence, peptide.abbreviated,
               peptide.mz, peptide.charge, peptide.apiKey,
-              new TraceColor(peptide.traceColor.mainColor,
-                peptide.traceColor.apiKey), peptide.shadeGrade);
+              tc, peptide.shadeGrade);
             peptideList.push(p);
           });
           return peptideList;

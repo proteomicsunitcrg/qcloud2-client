@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Peptide} from '../models/peptide';
+import { Peptide } from '../models/peptide';
 import { SampleTypeComplexity } from '../models/sampleTypeComplexity';
 import { map } from 'rxjs/operators';
 import { TraceColor } from '../models/TraceColor';
@@ -33,11 +33,16 @@ export class PeptideService {
       const peptides: Peptide[] = [];
       res.forEach(
         (peptide) => {
+          let tc = null;
+          if (peptide.traceColor) {
+            tc = new TraceColor(peptide.traceColor.mainColor, peptide.traceColor.apiKey);
+          } else {
+            tc = new TraceColor(null, null);
+          }
           const p = new Peptide(peptide.id, peptide.name,
             peptide.sequence, peptide.abbreviated,
             peptide.mz, peptide.charge, peptide.apiKey,
-            new TraceColor(peptide.traceColor.mainColor,
-              peptide.traceColor.apiKey), peptide.shadeGrade);
+            tc, peptide.shadeGrade);
           peptides.push(p);
         }
       );
@@ -58,7 +63,7 @@ export class PeptideService {
     const json = JSON.stringify(peptide);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Peptide>(this.peptideUrl, params, {headers: headers});
+    return this.httpClient.post<Peptide>(this.peptideUrl, params, { headers: headers });
   }
 
   public sendPeptide(peptide: Peptide): void {
@@ -77,6 +82,6 @@ export class PeptideService {
     const json = JSON.stringify(peptide);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Peptide>(this.peptideUrl + '/' + peptide.sequence, params, {headers: headers});
+    return this.httpClient.put<Peptide>(this.peptideUrl + '/' + peptide.sequence, params, { headers: headers });
   }
 }

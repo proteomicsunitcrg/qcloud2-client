@@ -26,9 +26,15 @@ export class InstrumentSampleService {
         const instrumentSamplesList: InstrumentSample[] = [];
         instrumentSamples.forEach(
           (is) => {
+            let tc = null;
+            if (is.traceColor) {
+              tc = new TraceColor(is.traceColor.mainColor, is.apiKey);
+            } else {
+              tc = new TraceColor(null, null);
+            }
             instrumentSamplesList.push(new InstrumentSample(is.id, is.name,
               is.abbreviated, is.qCCV, is.apiKey,
-              new TraceColor(is.traceColor.mainColor, is.traceColor.apiKey), is.shadeGrade));
+              tc, is.shadeGrade));
           }
         );
         return instrumentSamplesList;

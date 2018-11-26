@@ -6,7 +6,9 @@ export class TraceColor {
     constructor(mainColor: string, apiKey: string) {
         this.mainColor = mainColor;
         this.apiKey = apiKey;
-        this.shades = this.updateTraceShades();
+        if (mainColor) {
+            this.shades = this.updateTraceShades();
+        }
     }
 
     public updateTraceShades(numberOfShades: number = 5): string[] {

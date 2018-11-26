@@ -88,6 +88,7 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
       this.sampleCompositionService.getAllPeptidesBySampleType(sampleType)
         .subscribe(
           (peptides) => {
+            console.log('p', peptides);
             peptides.forEach(peptide => {
               // get the belongs
               peptide['belongs'] = null;
