@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Chart } from '../models/chart';
 import { System } from '../models/system';
 import { Subject } from 'rxjs';
 
@@ -17,12 +16,16 @@ export class PlotService {
   private collapsibleOpened = new Subject<boolean>();
   collapsibleOpened$ = this.collapsibleOpened.asObservable();
 
+  private fileChecksum = new Subject<string>();
+  fileChecksum$ = this.fileChecksum.asObservable();
+
   public isCollapsibleOpened(opened: boolean): void {
     this.collapsibleOpened.next(opened);
   }
 
   public sendClick(data: any, labSystem: System): void {
     this.filenameFromPlot.next(this.getFilenameFromPlotData(data));
+    this.fileChecksum.next(this.getFileChecksumFromPlotData(data));
     this.labSystemFromPlot.next(labSystem);
   }
 
@@ -30,6 +33,10 @@ export class PlotService {
     let filename: string = data['points'][0]['hovertext'];
     filename = filename.substring(filename.indexOf('<br>') + 4);
     return filename;
+  }
+
+  private getFileChecksumFromPlotData(data: any): string {
+    return  data['points'][0]['data']['checksums'][data['points'][0]['pointIndex']];
   }
 
 }

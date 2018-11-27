@@ -28,7 +28,7 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
 
   file: File;
 
-  plotFilename$: Subscription;
+  fileChecksum$: Subscription;
 
   collapsible: any;
 
@@ -83,7 +83,7 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
   private enableCollapsible(): void {
     const elem = document.getElementById('iso-collapsible');
     this.collapsible = M.Collapsible.init(elem, {
-      onOpenEnd:  () => {
+      onOpenEnd: () => {
         // time to load the plots
         this.plotService.isCollapsibleOpened(true);
       },
@@ -100,21 +100,16 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToPlotFile(): void {
-    this.plotFilename$ = this.plotService.filenameFromPlot$
+    this.fileChecksum$ = this.plotService.fileChecksum$
       .subscribe(
-        (filename) => {
-          this.fileService.getFileByFilename(filename)
-          .subscribe(
-            (file) => {
-              this.file = file;
-            }, err => console.log(err),
-            () => {
-              this.loadIsotopologues();
-            }
-          );
-        }
+        (checksum) => {
+          console.log(checksum);
+          this.file = new File(null, null, null, null, null, checksum);
+          this.loadIsotopologues();
+        }, err => console.log('err', err)
       );
   }
+
   private loadLastFile(apikey: string): void {
     this.sampleTypeService.getDefaultSampleTypeBySampleTypeCategory(this.sampleTypeCategory)
       .subscribe(
@@ -154,14 +149,14 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
           );
           // Calculate cols & rows
           if (distinctAbbreviated.length % this.cols > 0) {
-            this.rows = ( distinctAbbreviated.length / this.cols) + 1;
+            this.rows = (distinctAbbreviated.length / this.cols) + 1;
           } else {
-            this.rows = ( distinctAbbreviated.length / this.cols);
+            this.rows = (distinctAbbreviated.length / this.cols);
           }
-          for (let i = 0 ; i < this.rows ; i++) {
+          for (let i = 0; i < this.rows; i++) {
             this.plots[i] = [];
-            for (let j = 0, k = i * this.cols ; j < this.cols ; j++, k++) {
-              this.plots[i][j] = {'abbr': distinctAbbreviated[k], 'cleaned': distinctCleanedSequence[k]};
+            for (let j = 0, k = i * this.cols; j < this.cols; j++ , k++) {
+              this.plots[i][j] = { 'abbr': distinctAbbreviated[k], 'cleaned': distinctCleanedSequence[k] };
             }
           }
         }, err => console.log(err),
@@ -176,8 +171,8 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.plotFilename$.unsubscribe();
     this.collapsibleOpened$.unsubscribe();
+    this.fileChecksum$.unsubscribe();
   }
 
 }

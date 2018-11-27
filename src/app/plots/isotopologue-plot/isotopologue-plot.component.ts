@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PlotService } from '../../services/plot.service';
 import { Subscription } from 'rxjs';
 import { File } from '../../models/file';
-import { FileService } from '../../services/file.service';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js';
 
@@ -14,14 +13,13 @@ import * as Plotly from 'plotly.js';
 export class IsotopologuePlotComponent implements OnInit, OnDestroy {
 
   constructor(private plotService: PlotService,
-    private fileService: FileService,
     private dataService: DataService) { }
 
   @Input() abbreviatedIsotopologueName: string;
 
   @Input() cleanedSequence: string;
 
-  plotFilename$: Subscription;
+  fileChecksum$: Subscription;
 
   layout: any;
 
@@ -32,16 +30,12 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToPlotFile(): void {
-    this.plotFilename$ = this.plotService.filenameFromPlot$
+    this.fileChecksum$ = this.plotService.fileChecksum$
       .subscribe(
-        (filename) => {
-          this.fileService.getFileByFilename(filename)
-          .subscribe(
-            (file) => {
-              this.file = file;
-            }
-          );
-        }
+        (checksum) => {
+          this.file = new File(null, null, null, null, null, checksum);
+          this.loadPlotData();
+        }, err => console.log('err', err)
       );
       this.loadPlotData();
   }
@@ -125,7 +119,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.plotFilename$.unsubscribe();
+    this.fileChecksum$.unsubscribe();
   }
 
 }

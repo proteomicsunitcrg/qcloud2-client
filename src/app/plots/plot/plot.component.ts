@@ -245,6 +245,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         const dates = [];
         const color = [];
         const text = [];
+        const checksums = [];
         plotTrace.plotTracePoints.forEach(
           (plotTracePoint) => {
             values.push(plotTracePoint.value);
@@ -253,6 +254,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             const status = this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value);
             color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor, plotTrace.shade, status));
             text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
+            checksums.push(plotTracePoint.file.checksum);
           }
         );
         minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));
@@ -274,7 +276,8 @@ export class PlotComponent implements OnInit, OnDestroy {
           description: 'number of ' + plotTrace.abbreviated,
           filenames: filenames,
           hoverinfo: 'x+text',
-          hovertext: text
+          hovertext: text,
+          checksums: checksums
         };
 
         dataForPlot.push(trace);
