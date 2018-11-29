@@ -27,7 +27,8 @@ import { IsotopologueInformationComponent } from './data-visualization/isotopolo
 import { SampleTypeService } from '../services/sample-type.service';
 import { PlotService } from '../services/plot.service';
 import { SampleCompositionService } from '../services/sample-composition.service';
-// import { WebsocketService } from '../services/websocket.service';
+import { AnnotationMenuComponent } from './data-visualization/annotation-menu/annotation-menu.component';
+import { DataVisualizationSideMenuComponent } from './data-visualization/data-visualization-side-menu/data-visualization-side-menu.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,9 @@ import { SampleCompositionService } from '../services/sample-composition.service
     DataVisualizationDisplayComponent,
     WelcomeComponent,
     FileInformationComponent,
-    IsotopologueInformationComponent
+    IsotopologueInformationComponent,
+    AnnotationMenuComponent,
+    DataVisualizationSideMenuComponent
     ],
   providers: [DataService,
     DataSourceService,
@@ -51,7 +54,6 @@ import { SampleCompositionService } from '../services/sample-composition.service
     SampleTypeService,
     PlotService,
     SampleCompositionService,
-    // WebsocketService
   ]
 })
 export class ApplicationModule { }

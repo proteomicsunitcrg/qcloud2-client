@@ -8,10 +8,7 @@
     <div class="row">
       <p *ngFor="let dateRange of dateRanges">
         <label>
-          <input name="date-range" type="radio" 
-          [(ngModel)]="selectedDateRange" 
-          [value]="dateRange"
-          (change)="doChangeRange()"/>
+          <input name="date-range" type="radio" [(ngModel)]="selectedDateRange" [value]="dateRange" (change)="doChangeRange()" />
           <span>{{dateRange.name}}</span>
         </label>
       </p>
