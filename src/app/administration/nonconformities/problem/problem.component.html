@@ -1,0 +1,10 @@
+<p (mouseenter)="showActions=true" (mouseleave)="showActions=false">
+  <label>
+    <input name="group1" type="radio" checked />
+    <span>{{problem}}</span>
+  </label>
+  <span [class.hide-action]="!showActions">
+    <i class="material-icons tiny action">edit</i>
+    <i class="material-icons tiny action">delete</i>
+  </span>
+</p>

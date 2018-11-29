@@ -58,6 +58,11 @@ import { MainGuideSetComponent } from './guideSet/main-guide-set/main-guide-set.
 import { MainColorManagementComponent } from './colorManagement/main-color-management/main-color-management.component';
 import { ColorListComponent } from './colorManagement/color-list/color-list.component';
 import { TraceColorService } from '../services/trace-color.service';
+import { MainNonConformitiesComponent } from './nonconformities/main-non-conformities/main-non-conformities.component';
+import { ProblemsListComponent } from './nonconformities/problems-list/problems-list.component';
+import { ActionsListComponent } from './nonconformities/actions-list/actions-list.component';
+import { ReasonsListComponent } from './nonconformities/reasons-list/reasons-list.component';
+import { ProblemComponent } from './nonconformities/problem/problem.component';
 
 @NgModule({
   imports: [
@@ -120,6 +125,11 @@ import { TraceColorService } from '../services/trace-color.service';
     ThresholdBuilderComponent,
     MainGuideSetComponent,
     MainColorManagementComponent,
-    ColorListComponent]
+    ColorListComponent,
+    MainNonConformitiesComponent,
+    ProblemsListComponent,
+    ActionsListComponent,
+    ReasonsListComponent,
+    ProblemComponent]
 })
 export class AdministrationModule { }

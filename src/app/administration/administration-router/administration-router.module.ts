@@ -15,6 +15,8 @@ import { SampleTypeCategoryComponent } from '../sample-type-category/sample-type
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
 import { MainGuideSetComponent } from '../guideSet/main-guide-set/main-guide-set.component';
 import { MainColorManagementComponent } from '../colorManagement/main-color-management/main-color-management.component';
+import { MainNonConformitiesComponent } from '../nonconformities/main-non-conformities/main-non-conformities.component';
+
 
 const routes: Routes = [
   {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
@@ -31,6 +33,7 @@ const routes: Routes = [
     { path: 'threshold', component: MainThresholdComponent},
     { path: 'guideset', component: MainGuideSetComponent},
     { path: 'color', component: MainColorManagementComponent},
+    { path: 'troubleshooting', component: MainNonConformitiesComponent},
     { path: 'charts', component: MainChartComponent,
       children: [
         { path: 'edit', component: MainChartComponent}
