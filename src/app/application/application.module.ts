@@ -15,7 +15,7 @@ import { DataService } from '../services/data.service';
 // tslint:disable-next-line:max-line-length
 import { DataVisualizationMainWindowComponent } from './data-visualization/data-visualization-main-window/data-visualization-main-window.component';
 // tslint:disable-next-line:max-line-length
-import { DataVisualizationSideMenuComponent } from './data-visualization/data-visualization-side-menu/data-visualization-side-menu.component';
+import { DataVisualizationDateMenuComponent } from './data-visualization/data-visualization-date-menu/data-visualization-date-menu.component';
 import { DataVisualizationDisplayComponent } from './data-visualization/data-visualization-display/data-visualization-display.component';
 import { DataSourceService } from '../services/data-source.service';
 import { PlotsModule } from '../plots/plots.module';
@@ -39,7 +39,7 @@ import { SampleCompositionService } from '../services/sample-composition.service
     TopMenuComponent,
     InstrumentStatusComponent,
     DataVisualizationMainWindowComponent,
-    DataVisualizationSideMenuComponent,
+    DataVisualizationDateMenuComponent,
     DataVisualizationDisplayComponent,
     WelcomeComponent,
     FileInformationComponent,

@@ -4,11 +4,11 @@ import { DataService } from '../../../services/data.service';
 import { WebsocketService } from '../../../services/websocket.service';
 declare var M: any;
 @Component({
-  selector: 'app-data-visualization-side-menu',
-  templateUrl: './data-visualization-side-menu.component.html',
-  styleUrls: ['./data-visualization-side-menu.component.css']
+  selector: 'app-data-visualization-date-menu',
+  templateUrl: './data-visualization-date-menu.component.html',
+  styleUrls: ['./data-visualization-date-menu.component.css']
 })
-export class DataVisualizationSideMenuComponent implements OnInit {
+export class DataVisualizationDateMenuComponent implements OnInit {
 
   constructor(private dataService: DataService,
     private websocketService: WebsocketService) { }
