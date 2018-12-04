@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { delay } from 'q';
 declare var M: any;
 
@@ -7,7 +7,7 @@ declare var M: any;
   templateUrl: './annotation-menu.component.html',
   styleUrls: ['./annotation-menu.component.css']
 })
-export class AnnotationMenuComponent implements OnInit {
+export class AnnotationMenuComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
@@ -20,10 +20,10 @@ export class AnnotationMenuComponent implements OnInit {
   tempActions = ['Add more controls between samples', 'Eliminate the air buble'];
 
   ngOnInit() {
-    delay(1).then(
-      () => {
-        this.enableSelects();
-      });
+  }
+
+  ngAfterViewInit() {
+    this.enableSelects();
   }
 
   private enableSelects(): void {

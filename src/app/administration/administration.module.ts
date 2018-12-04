@@ -59,10 +59,9 @@ import { MainColorManagementComponent } from './colorManagement/main-color-manag
 import { ColorListComponent } from './colorManagement/color-list/color-list.component';
 import { TraceColorService } from '../services/trace-color.service';
 import { MainNonConformitiesComponent } from './nonconformities/main-non-conformities/main-non-conformities.component';
-import { ProblemsListComponent } from './nonconformities/problems-list/problems-list.component';
-import { ActionsListComponent } from './nonconformities/actions-list/actions-list.component';
-import { ReasonsListComponent } from './nonconformities/reasons-list/reasons-list.component';
 import { ProblemComponent } from './nonconformities/problem/problem.component';
+import { TroubleshootingFormComponent } from './nonconformities/troubleshooting-form/troubleshooting-form.component';
+import { TroubleshootingListComponent } from './nonconformities/troubleshooting-list/troubleshooting-list.component';
 
 @NgModule({
   imports: [
@@ -127,9 +126,8 @@ import { ProblemComponent } from './nonconformities/problem/problem.component';
     MainColorManagementComponent,
     ColorListComponent,
     MainNonConformitiesComponent,
-    ProblemsListComponent,
-    ActionsListComponent,
-    ReasonsListComponent,
-    ProblemComponent]
+    ProblemComponent,
+    TroubleshootingFormComponent,
+    TroubleshootingListComponent]
 })
 export class AdministrationModule { }

@@ -10,6 +10,7 @@ export class MainNonConformitiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

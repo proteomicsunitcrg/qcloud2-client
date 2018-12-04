@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Troubleshooting } from '../../../models/troubleshooting';
 
 @Component({
   selector: 'app-problem',
@@ -11,8 +12,17 @@ export class ProblemComponent implements OnInit {
 
   showActions = false;
 
-  @Input() problem: string;
+
+  @Input() problem: Troubleshooting;
 
   ngOnInit() {
+  }
+
+  doEdit(): void {
+    console.log('edit');
+  }
+
+  doDelete(): void {
+    console.log('delete');
   }
 }
