@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RoutingModule } from './routing/routing.module';
-import { UserService} from './services/user.service';
+import { UserService } from './services/user.service';
 import { EntryPointModule } from './entry-point/entry-point.module';
 /**
  * Required for the modals functionality
@@ -21,7 +21,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './auth-interceptor';
 import { AuthGuardService } from './auth-guard.service';
 import { RoleGuardService } from './role-guard.service';
-import { tokenConfiguration} from './common/token-config';
+import { tokenConfiguration } from './common/token-config';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DragulaService } from 'ng2-dragula/components/dragula.provider';
@@ -29,7 +29,7 @@ import { SystemService } from './services/system.service';
 import { ThresholdService } from './services/threshold.service';
 import { ViewService } from './services/view.service';
 import { WebsocketService } from './services/websocket.service';
-
+import { TroubleshootingService } from './services/troubleshooting.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -48,16 +48,17 @@ import { WebsocketService } from './services/websocket.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-  },
-  DragulaService,
-  AuthGuardService,
-  RoleGuardService,
-  UserService,
-  ModalService,
-  SystemService,
-  ThresholdService,
-  ViewService,
-  WebsocketService],
+    },
+    DragulaService,
+    AuthGuardService,
+    RoleGuardService,
+    UserService,
+    ModalService,
+    SystemService,
+    ThresholdService,
+    ViewService,
+    WebsocketService,
+    TroubleshootingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
