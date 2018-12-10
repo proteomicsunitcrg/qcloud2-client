@@ -1,0 +1,16 @@
+<ul class="collection z-depth-1" style="min-height: 100vh">
+  <li class="collection-item">
+    <h5>Annotation</h5>
+    <span>[Go back]</span>
+  </li>
+  <li class="collection-item">
+    <!-- Calendar -->
+    <p>Date from click</p>
+  </li>
+  <li *ngFor="let type of troubleshootingTypes()">
+    <app-annotation-selector [troubleshootingType]="type"></app-annotation-selector>
+  </li>
+  <li>
+    <app-annotation-list></app-annotation-list>
+  </li>
+</ul>

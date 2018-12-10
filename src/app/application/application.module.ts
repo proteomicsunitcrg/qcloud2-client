@@ -27,8 +27,12 @@ import { IsotopologueInformationComponent } from './data-visualization/isotopolo
 import { SampleTypeService } from '../services/sample-type.service';
 import { PlotService } from '../services/plot.service';
 import { SampleCompositionService } from '../services/sample-composition.service';
-import { AnnotationMenuComponent } from './data-visualization/annotation-menu/annotation-menu.component';
+// tslint:disable-next-line:max-line-length
 import { DataVisualizationSideMenuComponent } from './data-visualization/data-visualization-side-menu/data-visualization-side-menu.component';
+import { AnnotationMainComponent } from './data-visualization/annotations/annotation-main/annotation-main.component';
+import { AnnotationSelectorComponent } from './data-visualization/annotations/annotation-selector/annotation-selector.component';
+import { AnnotationListComponent } from './data-visualization/annotations/annotation-list/annotation-list.component';
+import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
 
 @NgModule({
   imports: [
@@ -45,8 +49,11 @@ import { DataVisualizationSideMenuComponent } from './data-visualization/data-vi
     WelcomeComponent,
     FileInformationComponent,
     IsotopologueInformationComponent,
-    AnnotationMenuComponent,
-    DataVisualizationSideMenuComponent
+    DataVisualizationSideMenuComponent,
+    AnnotationMainComponent,
+    AnnotationSelectorComponent,
+    AnnotationListComponent,
+    AnnotationListItemComponent
     ],
   providers: [DataService,
     DataSourceService,

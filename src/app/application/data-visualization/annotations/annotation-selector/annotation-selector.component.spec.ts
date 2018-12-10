@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnnotationMenuComponent } from './annotation-menu.component';
+import { AnnotationSelectorComponent } from './annotation-selector.component';
 
-describe('AnnotationMenuComponent', () => {
-  let component: AnnotationMenuComponent;
-  let fixture: ComponentFixture<AnnotationMenuComponent>;
+describe('AnnotationSelectorComponent', () => {
+  let component: AnnotationSelectorComponent;
+  let fixture: ComponentFixture<AnnotationSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnnotationMenuComponent ]
+      declarations: [ AnnotationSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnnotationMenuComponent);
+    fixture = TestBed.createComponent(AnnotationSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

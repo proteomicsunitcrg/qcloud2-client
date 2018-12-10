@@ -1,0 +1,6 @@
+<div class="input-field col s12">
+  <select multiple [(ngModel)]="selectedTroubleshooting" (change)="updateList()">
+    <option *ngFor="let troubleshooting of troubleshootings" [ngValue]="troubleshooting">{{troubleshooting.name}}</option>
+  </select>
+  <label>Pick your {{troubleshootingType}}/s</label>
+</div>
