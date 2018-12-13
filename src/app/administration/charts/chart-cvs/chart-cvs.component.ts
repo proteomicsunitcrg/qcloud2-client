@@ -27,7 +27,7 @@ export class ChartCvsComponent implements OnInit, OnDestroy {
 
   cvs: CV[] = [];
 
-  selectedCv: CV = new CV(null, null, null, null, null, null);
+  selectedCv: CV = new CV(null, null, null, null, null, null, []);
 
   limit = 10;
 
@@ -35,7 +35,7 @@ export class ChartCvsComponent implements OnInit, OnDestroy {
 
   maxPages: number;
 
-  filter: CV = new CV(null, '', null, '', '', false);
+  filter: CV = new CV(null, '', null, '', '', false, []);
 
   showEnabledCvs = true;
 
@@ -84,7 +84,7 @@ export class ChartCvsComponent implements OnInit, OnDestroy {
     this.resetComponent$ = this.chartParamsService.resetComponent$
       .subscribe(
         (reset) => {
-          this.selectedCv = new CV(null, null, null, null, null, null);
+          this.selectedCv = new CV(null, null, null, null, null, null, []);
         }
       );
   }

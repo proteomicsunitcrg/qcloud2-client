@@ -4,14 +4,14 @@ export class SampleType {
     id: number;
     name: string;
     sampleTypeCategory: SampleTypeCategory;
-    isMainSampleType: boolean;
+    mainSampleType: boolean;
     qualityControlControlledVocabulary: string;
 
-    constructor(id: number, name: string, sampleTypeCategory: SampleTypeCategory, isMainSampleType: boolean, qCCV: string) {
+    constructor(id: number, name: string, sampleTypeCategory: SampleTypeCategory, mainSampleType: boolean, qCCV: string) {
         this.id = id;
         this.name = name;
         this.sampleTypeCategory = sampleTypeCategory;
-        this.isMainSampleType = isMainSampleType;
+        this.mainSampleType = mainSampleType;
         this.qualityControlControlledVocabulary = qCCV;
     }
 }

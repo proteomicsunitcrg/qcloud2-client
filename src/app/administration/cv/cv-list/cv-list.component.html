@@ -8,6 +8,9 @@
     <tr>
       <th>Name</th>
       <th>CV ID</th>
+      <th *ngFor="let stc of sampleTypeCategories">
+        {{stc.name}}
+      </th>
       <th>Status</th>
     </tr>
   </thead>
@@ -16,7 +19,7 @@
       <td>
         <i class="material-icons cursorIcon left" *ngIf="page>1" (click)="page=page-1">navigate_before</i>
       </td>
-      <td>{{page}}</td>
+      <td [attr.colspan]="sampleTypeCategories.length+1" class="center">{{page}}</td>
       <td>
         <i class="material-icons cursorIcon right" *ngIf="page<maxPages" (click)="page=page+1">navigate_next</i>
       </td>
@@ -26,6 +29,9 @@
     <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
       <td>{{cv.name}}</td>
       <td>{{cv.cvid}}</td>
+      <td *ngFor="let stc of sampleTypeCategories">
+        <app-sample-type-selector [sampleTypeCategory]="stc" [cv]="cv"></app-sample-type-selector>
+      </td>
       <td>
         <i class="material-icons cursorIcon" [ngClass]="(cv.enabled)?'enabled':'disabled'" (click)="changeStatus(cv)">power_settings_new</i>
       </td>

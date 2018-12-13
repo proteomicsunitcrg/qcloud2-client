@@ -62,6 +62,7 @@ import { MainNonConformitiesComponent } from './nonconformities/main-non-conform
 import { ProblemComponent } from './nonconformities/problem/problem.component';
 import { TroubleshootingFormComponent } from './nonconformities/troubleshooting-form/troubleshooting-form.component';
 import { TroubleshootingListComponent } from './nonconformities/troubleshooting-list/troubleshooting-list.component';
+import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-type-selector.component';
 
 @NgModule({
   imports: [
@@ -128,6 +129,7 @@ import { TroubleshootingListComponent } from './nonconformities/troubleshooting-
     MainNonConformitiesComponent,
     ProblemComponent,
     TroubleshootingFormComponent,
-    TroubleshootingListComponent]
+    TroubleshootingListComponent,
+    SampleTypeSelectorComponent]
 })
 export class AdministrationModule { }

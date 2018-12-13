@@ -20,7 +20,7 @@ export class CvSelectorComponent implements OnInit {
   currentCategory: Category;
   cvs: CV[] = [];
 
-  selectedCv: CV = new CV(null, null, null, null, null, null);
+  selectedCv: CV = new CV(null, null, null, null, null, null, []);
 
   limit = 10;
 
@@ -28,7 +28,7 @@ export class CvSelectorComponent implements OnInit {
 
   maxPages: number;
 
-  filter: CV = new CV(null, '', null, '', '', false);
+  filter: CV = new CV(null, '', null, '', '', false, []);
 
   showEnabledCvs = true;
 

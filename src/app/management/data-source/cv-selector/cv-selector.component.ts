@@ -26,7 +26,7 @@ export class CvSelectorComponent implements OnInit, OnDestroy {
 
   maxPages: number;
 
-  filter: CV = new CV(null, '', null, '', '', false);
+  filter: CV = new CV(null, '', null, '', '', false, []);
 
   selectedCategory$: Subscription;
 

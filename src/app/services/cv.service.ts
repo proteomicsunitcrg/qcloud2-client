@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
 import { Category } from '../models/category';
 import { environment } from '../../environments/environment';
+import { SampleType } from '../models/sampleType';
 
 
 @Injectable()
@@ -58,6 +59,13 @@ export class CvService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<CV>(this.cvUrl + '/category/apikey/' + cv.category.apiKey, params, {headers: headers});
+  }
+
+  public addSampleTypeToCv(instrumentCV: string, sampleType: SampleType): Observable<CV> {
+    const json = JSON.stringify(sampleType);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<CV>(this.cvUrl + '/sampletype/' + instrumentCV, params, {headers: headers});
   }
 
   errorHandler(error: HttpErrorResponse) {

@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Modal } from '../../../models/modal';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category';
+import { SampleTypeCategoryService } from '../../../services/sample-type-category.service';
+import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
 /**
  * List of CVs component
  * @author Daniel Mancera <daniel.mancera@crg.eu>
@@ -24,7 +26,8 @@ export class CvListComponent implements OnInit, OnDestroy {
 
   constructor(private cvService: CvService,
     private modalService: ModalService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private sampleTyeCategoryService: SampleTypeCategoryService) { }
 
   cvs = [];
 
@@ -34,7 +37,9 @@ export class CvListComponent implements OnInit, OnDestroy {
 
   maxPages: number;
 
-  filter: CV = new CV(null, '', null, '', '', false);
+  filter: CV = new CV(null, '', null, '', '', false, []);
+
+  sampleTypeCategories: SampleTypeCategory[] = [];
 
   ngOnInit() {
     this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
@@ -43,6 +48,16 @@ export class CvListComponent implements OnInit, OnDestroy {
 
     this.subscribeToCategoryChange();
     this.subscribeToNewCv();
+  }
+
+  private getSampleTypeCategories(): void {
+    this.sampleTyeCategoryService.findAll()
+      .subscribe(
+        (sampleTypeCategories) => {
+          // console.log('stcs', sampleTypeCategories);
+          this.sampleTypeCategories = sampleTypeCategories;
+        }
+      );
   }
 
   private subscribeToNewCv(): void {
@@ -60,6 +75,11 @@ export class CvListComponent implements OnInit, OnDestroy {
       .subscribe(
         (category) => {
           this.getCvListByCategoryFromServer(category);
+          if (category.mainDataSource) {
+            this.getSampleTypeCategories();
+          } else {
+            this.sampleTypeCategories = [];
+          }
         },
         (error) => {
           this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, 'getCategory', null));

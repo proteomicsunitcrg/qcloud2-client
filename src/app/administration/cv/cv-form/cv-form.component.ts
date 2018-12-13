@@ -19,7 +19,7 @@ export class CvFormComponent implements OnInit, OnDestroy {
   selectedCategory$: Subscription;
   selectedCategory: Category;
 
-  cv = new CV(null, null, null, null, null, true);
+  cv = new CV(null, null, null, null, null, true, []);
 
   ngOnInit() {
     this.initializeForm();

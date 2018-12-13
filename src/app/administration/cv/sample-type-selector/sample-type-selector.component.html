@@ -1,0 +1,5 @@
+<div class="input-field col s12">
+  <select id="st-selector-{{cv.cvid}}-{{sampleTypeCategory.apiKey}}" [(ngModel)]="selectedSampleType" (change)="updateSampleType()">
+    <option *ngFor="let sampleType of sampleTypeCategory.sampleTypes" [ngValue]="sampleType">{{sampleType.name}}</option>
+  </select>
+</div>
