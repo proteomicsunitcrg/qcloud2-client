@@ -15,22 +15,22 @@ export class DataVisualizationDateMenuComponent implements OnInit {
 
   datesArray: string[] = [];
 
-  dateRanges: {'days': number, 'name': string}[] = [
+  dateRanges: { 'days': number, 'name': string }[] = [
     {
-      'days' : 5,
+      'days': 5,
       'name': '5 days'
     },
     {
-      'days' : 15,
+      'days': 15,
       'name': '15 days'
     },
     {
-      'days' : 30,
+      'days': 30,
       'name': 'Month'
     }
   ];
 
-  selectedDateRange: {'days': number, 'name': string};
+  selectedDateRange: { 'days': number, 'name': string };
 
   datePickers: any[] = [];
 
@@ -43,7 +43,7 @@ export class DataVisualizationDateMenuComponent implements OnInit {
   private enableDatePickers(): void {
     const datePickers = document.getElementsByClassName('datepicker');
 
-    for ( let i = 0; i < datePickers.length; i++) {
+    for (let i = 0; i < datePickers.length; i++) {
       const options = {
         format: 'yyyy-mm-dd',
         firstDay: 1,
@@ -77,9 +77,13 @@ export class DataVisualizationDateMenuComponent implements OnInit {
   doChangeRange(): void {
     this.websocketService.dateRangeAllowNewData = true;
     this.loadDatesArray();
-    const instance = this.datePickers[0];
-    const date = new Date(this.datesArray[0] + 'T00:00:00+02:00');
-    instance.setDate(date);
+    const startDateinstance = this.datePickers[0];
+    const startDate = new Date(this.datesArray[0] + 'T00:00:00+02:00');
+    startDateinstance.setDate(startDate);
+
+    const endDateInstance = this.datePickers[1];
+    const endDate = new Date(this.datesArray[1] + 'T00:00:00+02:00');
+    endDateInstance.setDate(endDate);
   }
 
 }
