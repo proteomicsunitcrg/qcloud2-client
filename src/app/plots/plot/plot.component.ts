@@ -10,7 +10,7 @@ import * as traceColor from './traceColors';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { PlotService } from '../../services/plot.service';
-import { generateLayoutShapes, loadDataAndDatesArray, truncateFilename } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
 import { WebsocketService } from '../../services/websocket.service';
 import { PointColor } from './pointColor';
 import { PlotTrace } from '../../models/plotTrace';
@@ -51,7 +51,6 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   layout: any;
 
-  // serverData: { dates: any[], data: any[], names: any[] };
   serverData: PlotTrace[];
 
   layoutShapes = [];

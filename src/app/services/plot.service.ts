@@ -16,6 +16,9 @@ export class PlotService {
   private collapsibleOpened = new Subject<boolean>();
   collapsibleOpened$ = this.collapsibleOpened.asObservable();
 
+  private dateFromPlot = new Subject<string>();
+  dateFromPlot$ = this.dateFromPlot.asObservable();
+
   private fileChecksum = new Subject<string>();
   fileChecksum$ = this.fileChecksum.asObservable();
 
@@ -26,7 +29,12 @@ export class PlotService {
   public sendClick(data: any, labSystem: System): void {
     this.filenameFromPlot.next(this.getFilenameFromPlotData(data));
     this.fileChecksum.next(this.getFileChecksumFromPlotData(data));
+    this.dateFromPlot.next(this.getDateFromPlotData(data));
     this.labSystemFromPlot.next(labSystem);
+  }
+
+  private getDateFromPlotData(data: any): string {
+    return data['points'][0]['x'];
   }
 
   private getFilenameFromPlotData(data: any): string {

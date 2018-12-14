@@ -33,6 +33,7 @@ import { AnnotationMainComponent } from './data-visualization/annotations/annota
 import { AnnotationSelectorComponent } from './data-visualization/annotations/annotation-selector/annotation-selector.component';
 import { AnnotationListComponent } from './data-visualization/annotations/annotation-list/annotation-list.component';
 import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
+import { AnnotationService } from '../services/annotation.service';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { AnnotationListItemComponent } from './data-visualization/annotations/an
     SampleTypeService,
     PlotService,
     SampleCompositionService,
+    AnnotationService,
   ]
 })
 export class ApplicationModule { }

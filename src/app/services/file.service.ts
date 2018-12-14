@@ -32,4 +32,8 @@ export class FileService {
    return this.httpClient.get<SampleType[]>(this.fileUrl + '/sampletypes/' + labSystem.apiKey);
   }
 
+  public getFileByChecksum(checksum: string): Observable<File> {
+    return this.httpClient.get<File>(this.fileUrl + '/checksum/' + checksum);
+  }
+
 }

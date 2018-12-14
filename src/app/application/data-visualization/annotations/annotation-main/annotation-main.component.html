@@ -5,12 +5,12 @@
   </li>
   <li class="collection-item">
     <!-- Calendar -->
-    <p>Date from click</p>
+    <p *ngIf="file">{{file.creationDate}}</p>
   </li>
   <li *ngFor="let type of troubleshootingTypes()">
     <app-annotation-selector [troubleshootingType]="type"></app-annotation-selector>
   </li>
   <li>
-    <app-annotation-list></app-annotation-list>
+    <app-annotation-list [file]="file"></app-annotation-list>
   </li>
 </ul>
