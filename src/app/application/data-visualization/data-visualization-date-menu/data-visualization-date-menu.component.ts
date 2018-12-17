@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { DataService } from '../../../services/data.service';
 import { WebsocketService } from '../../../services/websocket.service';
+import { AnnotationService } from '../../../services/annotation.service';
+import { ActivatedRoute } from '@angular/router';
 declare var M: any;
 @Component({
   selector: 'app-data-visualization-date-menu',
@@ -11,7 +13,9 @@ declare var M: any;
 export class DataVisualizationDateMenuComponent implements OnInit {
 
   constructor(private dataService: DataService,
-    private websocketService: WebsocketService) { }
+    private websocketService: WebsocketService,
+    private annotationService: AnnotationService,
+    private route: ActivatedRoute) { }
 
   datesArray: string[] = [];
 
@@ -64,6 +68,13 @@ export class DataVisualizationDateMenuComponent implements OnInit {
   }
   public sendDates(datesArray: string[]): void {
     this.dataService.selectDates(datesArray);
+
+    this.route.params.subscribe(
+      (params) => {
+        if (params.type === 'instrument') {
+          this.annotationService.getAnnotationsBetweenDates(datesArray, params.apiKey);
+        }
+      });
   }
 
   search(): void {

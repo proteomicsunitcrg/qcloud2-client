@@ -15,6 +15,8 @@ import { WebsocketService } from '../../services/websocket.service';
 import { PointColor } from './pointColor';
 import { PlotTrace } from '../../models/plotTrace';
 import { TraceColor } from '../../models/TraceColor';
+import { AnnotationService } from '../../services/annotation.service';
+import { Annotation } from '../../models/annotation';
 
 @Component({
   selector: 'app-plot',
@@ -28,7 +30,8 @@ export class PlotComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService,
     private thresholdService: ThresholdService,
     private plotService: PlotService,
-    private webSocketService: WebsocketService) { }
+    private webSocketService: WebsocketService,
+    private annotationService: AnnotationService) { }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -40,9 +43,12 @@ export class PlotComponent implements OnInit, OnDestroy {
   @Input() shownames: boolean;
 
   currentDates: string[];
+  annotations: Annotation[];
+
   dateChangesSubscription$: Subscription;
   webSocketData$: Subscription;
   thresholdFromWebSocket$: Subscription;
+  annotations$: Subscription;
 
   errorMessage: string;
   error: boolean;
@@ -74,6 +80,9 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.dateChangesSubscription$.unsubscribe();
     this.webSocketData$.unsubscribe();
     this.thresholdFromWebSocket$.unsubscribe();
+    if (this.serverData.length > 0) {
+      this.annotations$.unsubscribe();
+    }
   }
 
   private loadData(): void {
@@ -321,10 +330,72 @@ export class PlotComponent implements OnInit, OnDestroy {
       plot.on('plotly_click', (data) => {
         this.plotService.sendClick(data, this.system);
       });
+      // Call for annotations
+      this.loadAnnotations();
     } else {
       Plotly.purge('plot' + this.chart.id);
       this.noData = false;
     }
+  }
+
+  private loadAnnotations(): void {
+    this.annotations$ = this.annotationService.annotations$.subscribe(
+      (annotations) => {
+        console.log(annotations);
+        this.annotations = annotations;
+        if (annotations.length > 0) {
+          this.drawAnnotations();
+        }
+
+      }, err => console.log(err)
+    );
+  }
+
+  private drawAnnotations(): void {
+    const lines = [];
+    const annotations = [];
+
+    this.annotations.forEach(
+      (annotation) => {
+
+        lines.push({
+          type: 'line',
+          x0: annotation.date,
+          x1: annotation.date,
+          y0: 0,
+          y1: 1,
+          yref: 'paper',
+          line: {
+            width: 1,
+          }
+        });
+        annotations.push({
+          x: annotation.date,
+          xref: 'x',
+          yref: 'y',
+          text: 'textToShow',
+          fullText: 'fulltext',
+          // userAnnotations: userAnnotationArray,
+          textangle: 270,
+          showarrow: false,
+          arrowhead: 3,
+          arrowwidth: 0.1,
+          arrowcolor: 'white',
+          standoff: 100,
+          xshift: 10,
+          yanchor: 'middle',
+          textposition: 'bottom',
+        });
+      }
+    );
+
+
+    const layoutUpdate = {
+      shapes: lines,
+      annotations: annotations
+    };
+
+    Plotly.relayout('plot' + this.chart.id, layoutUpdate);
   }
 
   private getChartName(): string {
