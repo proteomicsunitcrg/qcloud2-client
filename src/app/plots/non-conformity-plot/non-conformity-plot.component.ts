@@ -9,7 +9,7 @@ import { ThresholdService } from '../../services/threshold.service';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
 import * as traceColor from '../plot/traceColors';
-import * as Plotly from 'plotly.js';
+import * as Plotly from 'plotly.js/dist/plotly';
 
 @Component({
   selector: 'app-non-conformity-plot',

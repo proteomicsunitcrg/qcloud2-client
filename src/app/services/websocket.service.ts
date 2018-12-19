@@ -4,6 +4,7 @@ import { Stomp } from 'stompjs/lib/stomp.js';
 import * as SockJS from 'sockjs-client';
 import { Subject } from 'rxjs';
 import { WebSocketNotification } from '../models/webSocketNotification';
+import { AnnotationService } from './annotation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,21 @@ export class WebsocketService {
   newLabSystemFromWebSocket = new Subject<WebSocketNotification>();
   newLabSystemFromWebSocket$ = this.newLabSystemFromWebSocket.asObservable();
 
+  newAnnotationFromWebSocket = new Subject<WebSocketNotification>();
+  newAnnotationFromWebSocket$ = this.newAnnotationFromWebSocket.asObservable();
+
+  updateAnnotationFromWebSocket = new Subject<WebSocketNotification>();
+  updateAnnotationFromWebSocket$ = this.updateAnnotationFromWebSocket.asObservable();
+
+  deleteAnnotationFromWebSocket = new Subject<WebSocketNotification>();
+  deleteAnnotationFromWebSocket$ = this.deleteAnnotationFromWebSocket.asObservable();
+
   private apiPrefix = environment.apiPrefix;
   private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
 
   private connectionAttemps = 0;
 
-  constructor() {
+  constructor(private annotationService: AnnotationService) {
     this.connectWebsocket();
   }
 
@@ -70,6 +80,21 @@ export class WebsocketService {
             null,
             null,
             body));
+        break;
+      case 'annotation':
+        this.newAnnotationFromWebSocket.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break;
+      case 'deleteannotation':
+        this.deleteAnnotationFromWebSocket.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break;
+      case 'updateannotation':
+        this.updateAnnotationFromWebSocket.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
         break;
       default:
         console.log(actionFromWebSocket);

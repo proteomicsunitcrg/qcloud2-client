@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnChanges } from '@angular/core';
 import { TroubleshootingService } from '../../../../services/troubleshooting.service';
 import { Troubleshooting } from '../../../../models/troubleshooting';
 import { TroubleshootingType } from '../../../../models/troubleshootingType';
 import { delay } from 'q';
+import { Annotation } from '../../../../models/annotation';
 declare var M: any;
 
 @Component({
@@ -10,7 +11,7 @@ declare var M: any;
   templateUrl: './annotation-selector.component.html',
   styleUrls: ['./annotation-selector.component.css']
 })
-export class AnnotationSelectorComponent implements OnInit, AfterViewInit {
+export class AnnotationSelectorComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(private troubleshootingService: TroubleshootingService) { }
 
@@ -18,7 +19,9 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit {
 
   @Input() troubleshootingType: TroubleshootingType;
 
-  selectedTroubleshooting: any;
+  @Input() annotation: Annotation;
+
+  selectedTroubleshooting: Troubleshooting[] = [];
 
 
   ngOnInit() {
@@ -26,6 +29,42 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.enableSelects();
+  }
+
+  ngOnChanges() {
+    if (this.annotation !== undefined) {
+      this.updateSelector();
+    } else {
+      this.resetSelector();
+    }
+  }
+
+  private resetSelector(): void {
+    this.selectedTroubleshooting = [];
+    this.enableSelects();
+  }
+
+  private updateSelector(): void {
+    const found = [];
+    switch (this.troubleshootingType) {
+      case TroubleshootingType.ACTION:
+        this.annotation.actions.forEach(
+          (action) => {
+            found.push(this.troubleshootings.find(ts => ts.apiKey === action.apiKey));
+            this.selectedTroubleshooting = found;
+          }
+        );
+        break;
+      case TroubleshootingType.PROBLEM:
+        this.annotation.problems.forEach(
+          (problem) => {
+            found.push(this.troubleshootings.find(ts => ts.apiKey === problem.apiKey));
+            this.selectedTroubleshooting = found;
+          }
+        );
+        break;
+    }
     this.enableSelects();
   }
 
@@ -50,4 +89,5 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit {
   updateList(): void {
     this.troubleshootingService.sendItemsToList(this.troubleshootingType, this.selectedTroubleshooting);
   }
+
 }

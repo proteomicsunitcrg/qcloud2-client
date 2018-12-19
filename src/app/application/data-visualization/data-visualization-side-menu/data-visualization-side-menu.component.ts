@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlotService } from '../../../services/plot.service';
 
 @Component({
   selector: 'app-data-visualization-side-menu',
@@ -7,11 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataVisualizationSideMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private plotService: PlotService) { }
 
-  menu = false;
+  menu = true;
 
   ngOnInit() {
+    this.subscribeToPlotClick();
+  }
+
+  switch(event: any): void {
+    this.menu = !this.menu;
+  }
+
+  private subscribeToPlotClick(): void {
+    this.plotService.dateFromPlot$
+      .subscribe(
+        (date) => {
+          this.menu = false;
+        }
+      );
   }
 
 }

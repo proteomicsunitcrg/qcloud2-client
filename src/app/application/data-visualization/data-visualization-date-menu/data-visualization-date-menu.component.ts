@@ -66,15 +66,10 @@ export class DataVisualizationDateMenuComponent implements OnInit {
     this.datesArray[1] = today;
     this.sendDates(this.datesArray);
   }
+
   public sendDates(datesArray: string[]): void {
     this.dataService.selectDates(datesArray);
-
-    this.route.params.subscribe(
-      (params) => {
-        if (params.type === 'instrument') {
-          this.annotationService.getAnnotationsBetweenDates(datesArray, params.apiKey);
-        }
-      });
+    this.loadAnnotations(datesArray);
   }
 
   search(): void {
@@ -83,6 +78,8 @@ export class DataVisualizationDateMenuComponent implements OnInit {
     const startDate = this.datePickers[0].toString();
     const endDate = this.datePickers[1].toString();
     this.dataService.selectDates([startDate, endDate]);
+    this.loadAnnotations([startDate, endDate]);
+
   }
 
   doChangeRange(): void {
@@ -95,6 +92,15 @@ export class DataVisualizationDateMenuComponent implements OnInit {
     const endDateInstance = this.datePickers[1];
     const endDate = new Date(this.datesArray[1] + 'T00:00:00+02:00');
     endDateInstance.setDate(endDate);
+  }
+
+  private loadAnnotations(datesArray: string[]): void {
+    this.route.params.subscribe(
+      (params) => {
+        if (params.type === 'instrument') {
+          this.annotationService.getAnnotationsBetweenDates(datesArray, params.apiKey);
+        }
+      });
   }
 
 }

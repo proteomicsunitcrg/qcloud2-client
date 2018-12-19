@@ -1,16 +1,18 @@
 <ul class="collection z-depth-1" style="min-height: 100vh">
   <li class="collection-item">
     <h5>Annotation</h5>
-    <span>[Go back]</span>
+    <span class="go-back" (click)="goBack()">[Go back]</span>
   </li>
   <li class="collection-item">
-    <!-- Calendar -->
-    <p *ngIf="file">{{file.creationDate}}</p>
+    <p *ngIf="file"><strong>{{file.creationDate}}</strong></p>
+    <p *ngIf="annotation" class="annotation-author">
+      by {{annotation.user.firstname}} {{annotation.user.lastname}} on {{annotation.annotationDate | date:'short'}}
+    </p>
   </li>
   <li *ngFor="let type of troubleshootingTypes()">
-    <app-annotation-selector [troubleshootingType]="type"></app-annotation-selector>
+    <app-annotation-selector [troubleshootingType]="type" [annotation]="annotation"></app-annotation-selector>
   </li>
   <li>
-    <app-annotation-list [file]="file"></app-annotation-list>
+    <app-annotation-list [file]="file" [annotation]="annotation" (annotationAction)="onAction($event)"></app-annotation-list>
   </li>
 </ul>

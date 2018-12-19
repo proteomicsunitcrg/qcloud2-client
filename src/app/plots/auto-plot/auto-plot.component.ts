@@ -3,7 +3,7 @@ import { ThresholdService } from '../../services/threshold.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { LabSystemStatus } from '../../models/labsystemstatus';
-import * as Plotly from 'plotly.js';
+import * as Plotly from 'plotly.js/dist/plotly';
 import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor, truncateFilename } from '../helper/plotUtilities';
 import * as traceColor from '../plot/traceColors';
 import { PlotThreshold } from '../../models/plotThreshold';

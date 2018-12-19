@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from '../../models/chart';
 import { DataService } from '../../services/data.service';
-import * as Plotly from 'plotly.js';
+import * as Plotly from 'plotly.js/dist/plotly';
 import { System } from '../../models/system';
 import { Subscription } from 'rxjs';
 import { ThresholdService } from '../../services/threshold.service';
@@ -48,7 +48,19 @@ export class PlotComponent implements OnInit, OnDestroy {
   dateChangesSubscription$: Subscription;
   webSocketData$: Subscription;
   thresholdFromWebSocket$: Subscription;
+
+  /**
+   * Annotations will load after the data is displayed
+   */
   annotations$: Subscription;
+
+  /**
+   * This subscriptions will be enabled only if the user is in
+   * a default view.
+   */
+  annotationFromWebSocket$: Subscription;
+  deleteAnnotationFromWebSocket$: Subscription;
+  updateAnnotationFromWebSocket$: Subscription;
 
   errorMessage: string;
   error: boolean;
@@ -74,14 +86,18 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
+
   }
 
   ngOnDestroy() {
     this.dateChangesSubscription$.unsubscribe();
     this.webSocketData$.unsubscribe();
     this.thresholdFromWebSocket$.unsubscribe();
-    if (this.serverData.length > 0) {
+    if (this.serverData !== undefined && this.serverData.length > 0 && !this.shownames) {
       this.annotations$.unsubscribe();
+      this.annotationFromWebSocket$.unsubscribe();
+      this.deleteAnnotationFromWebSocket$.unsubscribe();
+      this.updateAnnotationFromWebSocket$.unsubscribe();
     }
   }
 
@@ -90,6 +106,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       .subscribe(
         (dataFromServer) => {
           this.serverData = dataFromServer;
+          this.enableAnnotationSubscriptions();
           if (this.chart.isThresholdEnabled) {
             this.loadThreshold();
           } else {
@@ -99,6 +116,14 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadErrorPlot(e);
         }
       );
+  }
+
+  enableAnnotationSubscriptions(): void {
+    if (this.serverData !== undefined && this.serverData.length > 0 && !this.shownames) {
+      this.subscribeToWebSocketAnnotations();
+      this.subscribeToWebSocketDeleteAnnotations();
+      this.subscribeToWebSocketUpdateAnnotations();
+    }
   }
 
   private subscribeToWebSocketThreshold(): void {
@@ -313,7 +338,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       },
       yaxis: {
         type: 'linear',
-        range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
+        // range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
       },
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
@@ -331,7 +356,9 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.plotService.sendClick(data, this.system);
       });
       // Call for annotations
-      this.loadAnnotations();
+      if (!this.shownames) {
+        this.loadAnnotations();
+      }
     } else {
       Plotly.purge('plot' + this.chart.id);
       this.noData = false;
@@ -341,22 +368,73 @@ export class PlotComponent implements OnInit, OnDestroy {
   private loadAnnotations(): void {
     this.annotations$ = this.annotationService.annotations$.subscribe(
       (annotations) => {
-        console.log(annotations);
         this.annotations = annotations;
         if (annotations.length > 0) {
           this.drawAnnotations();
         }
-
       }, err => console.log(err)
     );
+  }
+
+  private subscribeToWebSocketAnnotations(): void {
+    this.annotationFromWebSocket$ = this.webSocketService.newAnnotationFromWebSocket$
+      .subscribe(
+        (annotation) => {
+          if (this.serverData.length > 0 && this.system.apiKey === annotation.body.labSystem.apiKey) {
+            if (this.annotations.findIndex(a => a.apiKey === annotation.body.apiKey) === -1) {
+              this.annotations.push(annotation.body);
+            }
+            this.drawAnnotations();
+          }
+        }
+      );
+  }
+
+  private subscribeToWebSocketDeleteAnnotations(): void {
+    this.deleteAnnotationFromWebSocket$ = this.webSocketService.deleteAnnotationFromWebSocket$
+      .subscribe(
+        (annotation) => {
+          if (this.serverData.length > 0) {
+            const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body);
+            if (annotationIndex !== -1) {
+              this.annotations.splice(annotationIndex, 1);
+            }
+            this.drawAnnotations();
+          }
+        }
+      );
+  }
+
+  private subscribeToWebSocketUpdateAnnotations(): void {
+    this.updateAnnotationFromWebSocket$ = this.webSocketService.updateAnnotationFromWebSocket$
+      .subscribe(
+        (annotation) => {
+          if (this.serverData.length > 0 && this.system.apiKey === annotation.body.labSystem.apiKey) {
+            const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body.apiKey);
+            if (annotationIndex !== -1) {
+              this.annotations[annotationIndex] = annotation.body;
+              this.drawAnnotations();
+            }
+          }
+
+        }
+      );
   }
 
   private drawAnnotations(): void {
     const lines = [];
     const annotations = [];
 
+
     this.annotations.forEach(
       (annotation) => {
+        let text = '';
+        annotation.problems.forEach(p => text += p.name + '-');
+        annotation.actions.forEach(p => text += p.name + '-');
+        text = text.slice(0, -1);
+        if (text.split('-').length > 3) {
+          text = 'Click on any point to see the annotations.';
+        }
 
         lines.push({
           type: 'line',
@@ -369,13 +447,13 @@ export class PlotComponent implements OnInit, OnDestroy {
             width: 1,
           }
         });
+
         annotations.push({
           x: annotation.date,
           xref: 'x',
           yref: 'y',
-          text: 'textToShow',
+          text: text,
           fullText: 'fulltext',
-          // userAnnotations: userAnnotationArray,
           textangle: 270,
           showarrow: false,
           arrowhead: 3,
@@ -386,12 +464,18 @@ export class PlotComponent implements OnInit, OnDestroy {
           yanchor: 'middle',
           textposition: 'bottom',
         });
-      }
-    );
 
+      });
+
+    const shapesUpdate = this.layout.shapes.filter(s => s.type !== 'line');
+
+    lines.forEach(l => {
+      shapesUpdate.push(l);
+    });
 
     const layoutUpdate = {
-      shapes: lines,
+      ...this.layout,
+      shapes: shapesUpdate,
       annotations: annotations
     };
 

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Troubleshooting } from '../models/troubleshooting';
 import { TroubleshootingType } from '../models/troubleshootingType';
+import { ItemList } from '../models/itemList';
 
 @Injectable()
 export class TroubleshootingService {
@@ -13,7 +14,7 @@ export class TroubleshootingService {
   private apiPrefix = environment.apiPrefix;
   private troubleshootingUrl = this.apiPrefix + 'api/troubleshooting/';
 
-  private itemList = new Subject<{type: TroubleshootingType, items: Troubleshooting[]}>();
+  private itemList = new Subject<ItemList>();
   itemList$ = this.itemList.asObservable();
 
   public getAllTroubleshootingByType(type: string): Observable<Troubleshooting[]> {

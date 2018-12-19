@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, from } from 'rxjs';
 import { Annotation } from '../models/annotation';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,6 @@ export class AnnotationService {
   }
 
   public getAnnotationsBetweenDates(datesArray: string[], labSystemApiKey: string): void {
-    console.log('sending');
     const currentDates = [];
     currentDates[0] = datesArray[0] + 'T00:00:00.000+02:00';
     currentDates[1] = datesArray[1] + 'T23:59:59.000+02:00';
@@ -37,6 +37,19 @@ export class AnnotationService {
           }
         }
       );
+  }
+
+  public getAnnotationByLabSystemApiKeyAndDate(labSystemApiKey: string, date: Date): Observable<Annotation> {
+    return this.httpClient.get<Annotation>(this.annotationUrl + '/labsystem/' + labSystemApiKey + '/' + date.toUTCString());
+  }
+
+  public deleteAnnotation(annotation: Annotation): Observable<any> {
+    return this.httpClient.delete<Annotation>(this.annotationUrl + '/' + annotation.apiKey);
+  }
+
+  public updateAnnotation(annotation: Annotation): Observable<Annotation> {
+    const json = JSON.stringify(annotation);
+    return this.httpClient.put<Annotation>(this.annotationUrl + '/' + annotation.apiKey, json, { headers: this.headers });
   }
 
 }
