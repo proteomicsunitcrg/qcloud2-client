@@ -162,7 +162,9 @@ export class PlotComponent implements OnInit, OnDestroy {
               plot['data'].forEach(
                 (trace) => {
                   const websocketTrace = this.getCorrectTraceFromWebsocketTraces(trace.name, res.body);
-                  websocketTrace.traceColor = new TraceColor(websocketTrace.traceColor.mainColor, websocketTrace.traceColor.apiKe);
+                  const serverDataTrace = this.getTraceFromServerData(trace.name);
+                  // websocketTrace.traceColor = new TraceColor(websocketTrace.traceColor.mainColor, websocketTrace.traceColor.apiKey);
+                  websocketTrace.traceColor = new TraceColor(serverDataTrace.traceColor.mainColor, serverDataTrace.traceColor.apiKey);
                   const status = this.calculatePointColor(trace.name, websocketTrace.plotTracePoints[0].value);
                   xValues.push([websocketTrace.plotTracePoints[0].file.creationDate]);
                   yValues.push([websocketTrace.plotTracePoints[0].value]);
@@ -187,6 +189,12 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private getCorrectTraceFromWebsocketTraces(abbreviated: string, traces: any[]): any {
     return traces.find(trace => {
+      return trace.abbreviated === abbreviated;
+    });
+  }
+
+  private getTraceFromServerData(abbreviated: String): any {
+    return this.serverData.find(trace => {
       return trace.abbreviated === abbreviated;
     });
   }
