@@ -199,6 +199,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
     this.systemService.saveGuideSet(system, guideSet)
       .subscribe(
         (res) => {
+          console.log(res);
+          system = res;
           this.editingGuideSet = false;
         }, err => console.log(err)
       );
@@ -214,7 +216,6 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
     system.enabledGuideSets[index].id = null;
     system.enabledGuideSets[index].startDate = null;
     system.enabledGuideSets[index].endDate = null;
-    //  delay(10).then(() => this.initializeDatePickers(system, system.enabledGuideSets[index]));
     this.refresh();
     this.initializeDatePickers(system, system.enabledGuideSets[index]);
   }
@@ -223,8 +224,12 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
     this.guideSetService.resetLabSystemGuideSetBySampleType(labSystem.apiKey, guideSet.sampleType)
       .subscribe(
         (res) => {
-          guideSet.startDate = null;
-          guideSet.endDate = null;
+          const currentGuideSet = labSystem.enabledGuideSets.find(egs => egs.apiKey === guideSet.apiKey);
+          currentGuideSet.apiKey = null;
+          currentGuideSet.startDate = null;
+          currentGuideSet.endDate = null;
+          currentGuideSet.totalFiles = null;
+          currentGuideSet.isUserDefined = false;
           this.editingGuideSet = false;
           this.refresh();
         }

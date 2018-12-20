@@ -3,7 +3,7 @@
     <blockquote>
       <p>You need at least <strong>{{minFiles}}</strong> files to set up a custom guide set</p>
       <p>Your start and end date should include <strong>{{minFiles}}</strong> valid data points per each context source.</p>
-      <p>At least <strong>{{minValidContextSource}}</strong> valid context sources points are needed per param to set up a manual guide set.</p>
+      <!-- <p>At least <strong>{{minValidContextSource}}</strong> valid context sources points are needed per param to set up a manual guide set.</p> -->
     </blockquote>
   </div>
 </div>
@@ -41,7 +41,7 @@
         </ng-template>
         <ng-template #buttonManual>
           <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set / Update</button>
-          <button type="button" class="waves-effect waves-light btn" (click)="setGuideSetToAutomatic(system,guideSet)">SET AUTO GUIDESET</button>
+          <button type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey" (click)="setGuideSetToAutomatic(system,guideSet)">Automatic</button>
         </ng-template>
       </td>
       <td>
