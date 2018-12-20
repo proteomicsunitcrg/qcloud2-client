@@ -191,7 +191,7 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
               this.currentContextSource['isEnabled'] = !this.currentContextSource['isEnabled'];
             }, err => console.log(err),
             () => {
-              this.guideSetService.resetLabSystemGuideSet(modalResponse.objectInstance['threshold'])
+              this.guideSetService.resetLabSystemGuideSetByThreshold(modalResponse.objectInstance['threshold'])
                 .subscribe(
                   (res) => {
                     M.toast({'html': 'Guide set reset to automatic!'});

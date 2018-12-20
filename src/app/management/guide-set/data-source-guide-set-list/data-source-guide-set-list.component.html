@@ -41,6 +41,7 @@
         </ng-template>
         <ng-template #buttonManual>
           <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set / Update</button>
+          <button type="button" class="waves-effect waves-light btn" (click)="setGuideSetToAutomatic(system,guideSet)">SET AUTO GUIDESET</button>
         </ng-template>
       </td>
       <td>

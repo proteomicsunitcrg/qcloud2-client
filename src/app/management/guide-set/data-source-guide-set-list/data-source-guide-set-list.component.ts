@@ -218,4 +218,16 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
     this.refresh();
     this.initializeDatePickers(system, system.enabledGuideSets[index]);
   }
+
+  setGuideSetToAutomatic(labSystem: System, guideSet: GuideSet): void {
+    this.guideSetService.resetLabSystemGuideSetBySampleType(labSystem.apiKey, guideSet.sampleType)
+      .subscribe(
+        (res) => {
+          guideSet.startDate = null;
+          guideSet.endDate = null;
+          this.editingGuideSet = false;
+          this.refresh();
+        }
+      );
+  }
 }

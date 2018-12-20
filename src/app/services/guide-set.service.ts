@@ -3,10 +3,10 @@ import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { GuideSet } from '../models/guideSet';
 import { GuideSetContextSourceStatus } from '../models/guideSetContextSourceStatus';
 import { Threshold } from '../models/threshold';
+import { SampleType } from '../models/sampleType';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class GuideSetService {
   }
 
   public getMinFilesForManualGuideSet(): Observable<HttpResponse<number>> {
-    return this.httpClient.get<number>(this.guideSetUrl + '/minmanual', {observe: 'response'});
+    return this.httpClient.get<number>(this.guideSetUrl + '/minmanual', { observe: 'response' });
   }
 
   public checkNumberOfFilesInGuideSet(labSystemApiKey: string, guideSet: GuideSet): Observable<GuideSetContextSourceStatus[]> {
@@ -64,11 +64,17 @@ export class GuideSetService {
       '/' + contextSourceApiKey);
   }
 
-  resetLabSystemGuideSet(threshold: Threshold): Observable<any> {
+  resetLabSystemGuideSetByThreshold(threshold: Threshold): Observable<any> {
     const json = JSON.stringify(threshold);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Threshold>(this.guideSetUrl + '/reset/' + threshold.labSystem.apiKey, params, {headers: headers});
+    return this.httpClient.put<Threshold>(this.guideSetUrl + '/reset/' + threshold.labSystem.apiKey, params, { headers: headers });
+  }
+
+  resetLabSystemGuideSetBySampleType(labSystemApiKey: string, sampleType: SampleType): Observable<any> {
+    const json = JSON.stringify(sampleType);
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.put<any>(this.guideSetUrl + '/reset/sampletype/' + labSystemApiKey, json, { headers: headers });
   }
 
 }
