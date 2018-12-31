@@ -17,6 +17,8 @@ import { PlotTrace } from '../../models/plotTrace';
 import { TraceColor } from '../../models/TraceColor';
 import { AnnotationService } from '../../services/annotation.service';
 import { Annotation } from '../../models/annotation';
+import { delay } from 'q';
+
 
 @Component({
   selector: 'app-plot',
@@ -98,6 +100,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.annotationFromWebSocket$.unsubscribe();
       this.deleteAnnotationFromWebSocket$.unsubscribe();
       this.updateAnnotationFromWebSocket$.unsubscribe();
+      this.annotations$.unsubscribe();
     }
   }
 
@@ -327,13 +330,19 @@ export class PlotComponent implements OnInit, OnDestroy {
     let MINVALUEFORPLOT;
     let MAXVALUEFORPLOT;
 
-    if (this.plotThreshold === undefined || this.layoutShapes.length === 0) {
-      MINVALUEFORPLOT = Math.min.apply(null, minValues) - Math.abs((Math.min.apply(null, minValues) * 0.1));
-      MAXVALUEFORPLOT = Math.max.apply(null, maxValues) + (Math.max.apply(null, maxValues) * 0.1);
+    MINVALUEFORPLOT = Math.min.apply(null, minValues) - Math.abs((Math.min.apply(null, minValues) * 0.1));
+    MAXVALUEFORPLOT = Math.max.apply(null, maxValues) + (Math.max.apply(null, maxValues) * 0.1);
+
+    const range = Math.abs(MAXVALUEFORPLOT) + Math.abs(MINVALUEFORPLOT);
+
+    const rangeArray = [];
+
+    if (range > 5) {
+      rangeArray[0] = MINVALUEFORPLOT;
+      rangeArray[1] = MAXVALUEFORPLOT;
     } else {
-      const height = (this.layoutShapes[this.layoutShapes.length - 1]['y0'] - this.layoutShapes[this.layoutShapes.length - 1]['y1']) * 0.3;
-      MINVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y1'] - height;
-      MAXVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y0'] + height;
+      rangeArray[0] = (range * -1) * 3;
+      rangeArray[1] = range * 3;
     }
 
     this.layout = {
@@ -346,7 +355,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       },
       yaxis: {
         type: 'linear',
-        // range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
+        range: rangeArray
       },
       sampleType: this.chart.sampleType.name,
       currentDiv: 'plot'
@@ -365,7 +374,8 @@ export class PlotComponent implements OnInit, OnDestroy {
       });
       // Call for annotations
       if (!this.shownames) {
-        this.loadAnnotations();
+        delay(100).then(() => this.loadAnnotations());
+
       }
     } else {
       Plotly.purge('plot' + this.chart.id);
@@ -440,7 +450,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         annotation.problems.forEach(p => text += p.name + '-');
         annotation.actions.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);
-        if (text.split('-').length > 3) {
+        if (text.split('-').length > 2) {
           text = 'Click on any point to see the annotations.';
         }
 
