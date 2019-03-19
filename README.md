@@ -8,9 +8,15 @@ Clone this repo and the QCloud2.0 backend in your computer in order to run it.
 
 ### Deploy in local server
 
+First install all the dependencies with `npm install` and `npm install -g @angular/cli`
+
 If you want to deploy the application in a local server instead of using *Angular Live Development Server* transpile the application with the following command:
 
 `npm run transpile:dev`
+
+If you want to use the *Angular Live Development Server* (better for development) use the following command:
+
+`ng serve`
 
 The application will appear in the dist folder at the root of the project. Just copy in your server at the **/qcloud2/** path. If you want to use another path change it in the package.json scripts section.
 

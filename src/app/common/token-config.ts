@@ -6,7 +6,7 @@ export function tokenGetter() {
 const tokenConfiguration: JwtModuleOptions = {
     config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8080']
+        whitelistedDomains: ['localhost:8083']
     }
   };
 
