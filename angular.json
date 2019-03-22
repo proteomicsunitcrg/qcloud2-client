@@ -19,7 +19,7 @@
             "assets": [
               "src/assets",
               "src/documents",
-              "src/favicon.ico"
+              "src/favicon.png"
             ],
             "styles": [
               "src/styles.css",
@@ -121,7 +121,7 @@
             "assets": [
               "src/assets",
               "src/documents",
-              "src/favicon.ico"
+              "src/favicon.png"
             ]
           }
         },
