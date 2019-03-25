@@ -10,12 +10,12 @@
         <!-- New lab member form -->
         <h5>Add lab member</h5>
         <div class="input-field">
-          <input #firstnameBox type="text" name="firstName" [(ngModel)]="user.firstname" class="validate" id="firstName" minlength="3" maxlength="20">
+          <input #firstnameBox type="text" name="firstName" [(ngModel)]="user.firstname" class="validate" id="firstName" minlength="3" maxlength="20"
             validate required>
           <label for="firstName">First name</label>
         </div>
         <div class="input-field">
-          <input type="text" #lastnameBox name="lastName" [(ngModel)]="user.lastname" class="validate" id="lastName" minlength="3" maxlength="60">
+          <input type="text" #lastnameBox name="lastName" [(ngModel)]="user.lastname" class="validate" id="lastName" minlength="3" maxlength="60"
             validate required>
           <label for="firstName">Last name</label>
         </div>
