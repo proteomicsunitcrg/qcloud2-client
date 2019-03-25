@@ -1,5 +1,7 @@
 #qcloudlogo {
-    position: relative;
-    width: 50%;
-    filter: invert(100%);
+    /* position: relative; */
+    margin-left: 2vh;
+}
+#qcloudlogoA {
+    width: 11%;
 }
