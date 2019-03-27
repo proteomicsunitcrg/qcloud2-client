@@ -9,6 +9,8 @@ import { SystemService } from '../../../services/system.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../services/websocket.service';
+
 declare var M: any;
 @Component({
   selector: 'app-system-builder',
@@ -20,7 +22,9 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
   constructor(private categoryService: CategoryService,
     private dataSourceService: DataSourceService,
     private systemService: SystemService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private webSocketService: WebsocketService,
+    ) { }
 
   system: System = new System(null, null, null, null, null);
 

@@ -53,7 +53,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
             status: [],
             alerts: {
               quantity: 0,
-              severity: 'OK'
+              severity: 'OFFLINE' //By default the new labsystem is offline
             }
           });
         }
@@ -93,6 +93,8 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   if (stat.status !== 'OK') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
+                  }
+                  if (stat.status === 'OK') {
                   }
                   this.updateLabSystemLight(labSystem, stat);
                 }
