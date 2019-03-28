@@ -65,3 +65,20 @@
 .hide-div {
   display: none;
 }
+.no-data-name {
+  font-family: "Open Sans", verdana, arial, sans-serif;
+font-size: 17px;
+fill: rgb(68, 68, 68);
+opacity: 1;
+font-weight: normal;
+white-space: pre;
+text-align: center;
+}
+ .no-data {
+  background-color: #eeeeee;
+  color: #bbbbbb;
+  position: relative;
+  padding: 10% 0;
+  height: 270px;
+  border-radius: 5px;
+} 
