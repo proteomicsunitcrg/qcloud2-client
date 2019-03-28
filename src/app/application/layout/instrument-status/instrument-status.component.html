@@ -19,7 +19,7 @@
     <span class="right" *ngFor="let labSystem of nodeLabSystems; let i = index">
       <a class="btn btn-flat dropdown-trigger" data-target="content" id="{{labSystem.system.name}}" 
       (mouseenter)="open(labSystem.system.name,i)"
-      (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}</a>
+      (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}
       <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>
       <ng-template #alerts>
         <span class="dot" [class.red]="labSystem.alerts.severity=='DANGER'" [class.orange]="labSystem.alerts.severity=='WARNING'"></span>
@@ -27,7 +27,7 @@
       <ng-template #clean>
         <span class="dot" [class.green]="labSystem.alerts.severity=='OK'"></span>
       </ng-template>
-
+    </a>
     </span>
   </div>
 </div>
