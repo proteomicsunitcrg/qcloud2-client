@@ -1,0 +1,19 @@
+#panell {
+	margin-top: 50px;
+	padding: 0px;
+}
+
+#title {
+	background-color: #003b35;
+	color: white;
+	padding: 8px;
+	margin-top: 0px
+}
+
+.messageText {
+    margin-left: 10px;
+}
+
+#saveButton {
+    margin-bottom: 10px;
+}

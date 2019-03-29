@@ -16,6 +16,7 @@ import { MainThresholdComponent } from '../threshold/main-threshold/main-thresho
 import { MainGuideSetComponent } from '../guideSet/main-guide-set/main-guide-set.component';
 import { MainColorManagementComponent } from '../colorManagement/main-color-management/main-color-management.component';
 import { MainNonConformitiesComponent } from '../nonconformities/main-non-conformities/main-non-conformities.component';
+import { MessageComponent } from '../message/message.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
       children: [
         { path: 'edit', component: MainChartComponent}
       ]},
+    { path: 'message', component: MessageComponent}
   ]},
 ];
 

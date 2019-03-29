@@ -5,7 +5,7 @@ import { AdministrationRouterModule } from './administration-router/administrati
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 import { CvFormComponent } from './cv/cv-form/cv-form.component';
 import { CvListComponent } from './cv/cv-list/cv-list.component';
@@ -63,6 +63,7 @@ import { ProblemComponent } from './nonconformities/problem/problem.component';
 import { TroubleshootingFormComponent } from './nonconformities/troubleshooting-form/troubleshooting-form.component';
 import { TroubleshootingListComponent } from './nonconformities/troubleshooting-list/troubleshooting-list.component';
 import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-type-selector.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-ty
     AdministrationRouterModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     ViewBuilderModule,
     SharedModulesModule
@@ -130,6 +132,7 @@ import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-ty
     ProblemComponent,
     TroubleshootingFormComponent,
     TroubleshootingListComponent,
-    SampleTypeSelectorComponent]
+    SampleTypeSelectorComponent,
+    MessageComponent]
 })
 export class AdministrationModule { }
