@@ -62,6 +62,16 @@
                     </ul>
                 </div>
             </li>
+            <li (click)="open('menu')">
+                <a class="collapsible-header blue-grey darken-1 waves-effect waves-cyan">
+                    <span class="nav-headers">Messages</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a routerLink="/application/administration/color" routerLinkActive="active">Manage messages</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="col s12 m2 l2 xl2 hide-on-med-and-up">
