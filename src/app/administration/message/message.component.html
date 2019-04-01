@@ -19,13 +19,21 @@
       <textarea formControlName="message" id="msgText" class="materialize-textarea" placeholder="Text"></textarea>
       <div class="input-field">
 
-        <select id="typeMsg" formControlName="type" (change)=log()>
+        <select id="typeMsg" formControlName="type">
           <option value="default" disabled selected>Choose the message type</option>
           <option value="message">Message</option>
           <option value="warning">Warning</option>
           <option value="error">Error</option>
         </select>
       <label for="typeMsg">Choose the message type</label>
+      </div>
+      <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" formControlName="show">
+          <span class="lever"></span>
+          On
+        </label>
       </div>
     </form>
     <div class="row">
@@ -36,6 +44,6 @@
         <p [innerHTML]="messageForm.value.message" class="messageText"></p>
       </div>
     </div>
-    <button class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="saveButton">Save</button>
+    <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="saveButton" (click)="submit()">Save</button>
   </div>
 </div>
