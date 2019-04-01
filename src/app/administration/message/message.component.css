@@ -3,11 +3,23 @@
 	padding: 0px;
 }
 
-#title {
-	background-color: #003b35;
+.title {
 	color: white;
 	padding: 8px;
 	margin-top: 0px
+}
+
+.titleWarning {
+	background-color: #ffc107;
+	color: rgba(0,0,0,0.87);
+}
+
+.titleError {
+	background-color: #dc3545;
+}
+
+.titleMessage {
+	background-color: #003b35;
 }
 
 .messageText {

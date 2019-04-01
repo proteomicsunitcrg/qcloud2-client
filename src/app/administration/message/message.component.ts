@@ -14,16 +14,23 @@ export class MessageComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(30),
     ]),
-    message: new FormControl('Message text. Type &lt;/br&gt;</br>to breakline')
+    message: new FormControl('Message text. Type &lt;/br&gt;</br>to breakline'),
+    type: new FormControl(null, [
+      Validators.required
+    ])
   });
   constructor() { }
   
   ngOnInit() {
     this.enableSelect();
+    console.log(this.messageForm);
   }
 
   private enableSelect(): void {
     M.FormSelect.init(document.getElementById('typeMsg'), {});
+  }
+  log() {
+    console.log(this.messageForm);
   }
 
 }
