@@ -30,4 +30,9 @@ export class MessageService {
     return this.httpClient.post<Message>(this.userDefaultViewUrl, { headers: headers });
   }
 
+  public getLastMessage() :Observable<Message> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<Message>(this.userDefaultViewUrl + '/last', { headers: headers });
+  }
+
 }

@@ -9,3 +9,31 @@
 .card-image {
     height: 315px;
 }
+
+#panell {
+	margin-top: 50px;
+	padding: 0px;
+}
+
+.title {
+	color: white;
+	padding: 8px;
+	margin-top: 0px
+}
+
+.titleWarning {
+	background-color: #ffc107;
+	color: rgba(0,0,0,0.87);
+}
+
+.titleError {
+	background-color: #dc3545;
+}
+
+.titleMessage {
+	background-color: #003b35;
+}
+
+.messageText {
+    margin-left: 10px;
+}

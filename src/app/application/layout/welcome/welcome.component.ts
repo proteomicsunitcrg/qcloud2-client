@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MessageService } from '../../../services/message.service';
+import { Message } from '../../../models/message';
 
 @Component({
   selector: 'app-welcome',
@@ -8,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer) { }
+  constructor(public sanitizer: DomSanitizer, private msgService: MessageService) { }
   videoLinks = [
     { 
       title: "Getting started as a user",
@@ -23,7 +25,22 @@ export class WelcomeComponent implements OnInit {
       link: "https://drive.google.com/file/d/1WCmGel417NYIZiyfIFLsln98dSDNKwP4/preview"
     },
   ];
+  message = new Message("title", "text","error", false);
   ngOnInit() {
+    this.retrieveMsg();
+  }
+
+  private retrieveMsg(): void {
+    this.msgService.getLastMessage().subscribe(
+      (msg: any) => {
+        delete msg.id;
+        this.message = msg;
+        console.log(this.message);
+      },
+      (err) => {
+
+      }
+    );
   }
 
 }
