@@ -12,13 +12,13 @@
     <h1 class="center-align">Welcome to QCloud2.0</h1>
   </div>
 </div>
-<div class="row">
+<div class="row" style="margin-left: 23px;">
   <div class="col xl4 s12 m12 l6" *ngFor="let video of videoLinks">
     <div class="card">
       <div class="card-image">
-        <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(video.link)" frameborder="0"
-          allowfullscreen>
-        </iframe>
+        <a [href] = "video.link" target="_blank">
+          <img width="560" height="315" [src]="video.img">
+        </a>
       </div>
       <div class="card-action">
         <p href="#" class="videoTitle">{{video.title}}</p>
