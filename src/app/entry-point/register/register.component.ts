@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.registrationService.registerNode(this.node).subscribe(
             (resp) => {
               this.modalService.openModal(new Modal('Successful',
-                'You have been registered. We have sent you an email with further instructions.', 'Ok', '', 'welcome', null));
+                'User created successfully', 'Ok', '', 'welcome', null));
             },
             (error) => {
               this.modalService.openModal(new Modal('Error',
