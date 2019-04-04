@@ -53,7 +53,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
             status: [],
             alerts: {
               quantity: 0,
-              severity: 'OFFLINE' //By default the new labsystem is offline
+              severity: 'OFFLINE' // By default the new labsystem is offline
             }
           });
         }
@@ -81,7 +81,6 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         }
       );
   }
-  //test
   private loadLabSystemStatus(): void {
     this.nodeLabSystems.forEach(
       (labSystem) => {
