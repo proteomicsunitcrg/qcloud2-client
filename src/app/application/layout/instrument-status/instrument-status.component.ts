@@ -81,7 +81,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         }
       );
   }
-
+  //test
   private loadLabSystemStatus(): void {
     this.nodeLabSystems.forEach(
       (labSystem) => {
