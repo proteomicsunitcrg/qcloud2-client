@@ -28,11 +28,15 @@ Step 5.2. For the production deploy:
 ```
 java -jar -Dspring.profiles.active=test QCloudXXX.jar
 ```
-*Please see the application.yaml file to get more information about the server profiles*
+*Please see the application.yml file to get more information about the server profiles*
 
 ## Notes
 
 Before the deploy make a database backup
+
+If everything goes ok the FlyAway should add all the new tables and data to the database
+
+Update the version number in the file pom.xml, application.yml and package.json
 
 Document created by Marc Serret (marc.serret@crg.eu)
 
