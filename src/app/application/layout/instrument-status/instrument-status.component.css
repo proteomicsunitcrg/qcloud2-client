@@ -36,3 +36,11 @@ button {
 .cursorIcon {
   cursor: pointer;
 }
+a {
+  color: black;
+}
+
+.wrapper {
+  background-color: #a7d7c5;
+  
+}

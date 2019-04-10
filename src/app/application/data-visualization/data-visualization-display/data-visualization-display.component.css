@@ -1,3 +1,20 @@
 .tabs {
     overflow-x: hidden !important;
 }
+.tabs .tab a{
+    color:#5c8d89;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color: #5c8d89;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+    background-color:#ffffff;
+    color:#5c8d89;
+} /*Background and text color when a tab is active*/
+
+.indicator {
+    background-color:blue;
+} 

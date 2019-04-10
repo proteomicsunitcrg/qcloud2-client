@@ -4,3 +4,9 @@
 .active {
     color: red;
 }
+.collapsible-header {
+    background-color: #a7d7c5;
+}
+.collapsible-header span{
+    color: black;
+}

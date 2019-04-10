@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
+.green-background {
+    background-color: #f4f9f4;
+    color: black;
+}
+
+.collapsible-header {
+    background-color: #f4f9f4 !important;
+}
+.collapsible-header span {
+    color: black !important;
+    
+}
+button[type="submit"] {
+    background-color: #a7d7c5;
+    color: black;
+}
+button[type="button"] {
+    background-color: #a7d7c5;
+    color: black;
+}
+

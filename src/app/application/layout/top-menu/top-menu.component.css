@@ -5,3 +5,9 @@
 #qcloudlogoA {
     width: 11%;
 }
+.nav-wrapper {
+    background-color: #f4f9f4;
+}
+a {
+    color: black;
+}

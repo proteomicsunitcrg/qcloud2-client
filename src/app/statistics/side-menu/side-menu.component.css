@@ -1,6 +1,9 @@
 .nav-headers {
-    color: white;
+    color: black;
 }
 .active {
     color: red;
+}
+.collapsible-header {
+    background-color: #a7d7c5;
 }
