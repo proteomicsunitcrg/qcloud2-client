@@ -4,7 +4,7 @@ In this guide you will learn how to deploy QCloud 2 in production and test
 
 Step 1. First of all compile the Angular code with:
 ```
-node --max old space=8196 node_modules/@angular/cli/bin/ng build --configuration=dev|test|prod
+node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=dev|test|prod
 ```
 *Please see the enviroment files in the client code to get more info about the diferent transpile configuration*
 
