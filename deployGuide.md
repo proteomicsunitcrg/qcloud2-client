@@ -30,6 +30,11 @@ java -jar QCloudXXX.jar
 ```
 *Please see the application.yml file to get more information about the server profiles*
 
+##Production deploy
+
+Move all the Angular compiled code to ```/var/www/html/qcloud2```
+*Be carefull and dont delete the .htaccess file please*
+
 ## Notes
 
 Before the deploy make a database backup
@@ -40,4 +45,4 @@ Update the version number in the file pom.xml, application.yml and package.json
 
 Document created by Marc Serret (marc.serret@crg.eu)
 
-Revision 1.0 (8 April 2019)
+Revision 1.1 (10 April 2019)
