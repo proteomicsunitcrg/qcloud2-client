@@ -7,7 +7,9 @@
 /out-tsc
 
 # dependencies
-/node_modules
+/node_modules/*
+!/node_modules/materialize-css/dist/css/materialize.css
+!/node_modules/materialize-css/dist/css/materialize.min.css
 
 # IDEs and editors
 /.idea

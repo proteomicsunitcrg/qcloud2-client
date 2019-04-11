@@ -16,6 +16,7 @@
         <li class="tab" *ngFor="let view of views">
           <a href="#tab{{view.id}}" (click)="loadTab(view)" class="text">{{view.name}}</a>
         </li>
+        <div class="indicator purple accent-1" style="z-index:999"></div>
       </ul>
     </div>
   </div>

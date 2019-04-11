@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ViewService } from '../../../services/view.service';
 import { Display } from '../../../models/display';
 import { View } from '../../../models/view';
@@ -52,6 +52,11 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.selectedDataSourceForDisplay$.unsubscribe();
+  }
+  ngAfterViewInit() {
+    // const indic = document.querySelector(".indicator");
+    // indic[0].style.backgroundColor = "blue"
+    
   }
 
   private subscribeToRoute(): void {
