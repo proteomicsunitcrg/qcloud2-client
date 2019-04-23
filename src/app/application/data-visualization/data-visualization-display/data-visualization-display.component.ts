@@ -56,7 +56,6 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     // const indic = document.querySelector(".indicator");
     // indic[0].style.backgroundColor = "blue"
-    
   }
 
   private subscribeToRoute(): void {
