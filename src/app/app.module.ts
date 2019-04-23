@@ -30,6 +30,9 @@ import { ThresholdService } from './services/threshold.service';
 import { ViewService } from './services/view.service';
 import { WebsocketService } from './services/websocket.service';
 import { TroubleshootingService } from './services/troubleshooting.service';
+
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -41,6 +44,8 @@ import { TroubleshootingService } from './services/troubleshooting.service';
     RoutingModule,
     ModalModuleModule,
     DragulaModule,
+    NgProgressModule,
+    NgProgressHttpModule,
     JwtModule.forRoot(tokenConfiguration)
   ],
   providers: [AuthService,
