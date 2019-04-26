@@ -36,6 +36,9 @@ export class WebsocketService {
   deleteAnnotationFromWebSocket = new Subject<WebSocketNotification>();
   deleteAnnotationFromWebSocket$ = this.deleteAnnotationFromWebSocket.asObservable();
 
+  updateMessageFromWebSocket = new Subject<WebSocketNotification>();
+  updateMessageFromWebSocket$ = this.updateMessageFromWebSocket.asObservable();
+
   private apiPrefix = environment.apiPrefix;
   private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
 
@@ -93,6 +96,11 @@ export class WebsocketService {
         break;
       case 'updateannotation':
         this.updateAnnotationFromWebSocket.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break;
+      case 'message':
+        this.updateMessageFromWebSocket.next(
           new WebSocketNotification(actionValue, null, null, body)
         );
         break;

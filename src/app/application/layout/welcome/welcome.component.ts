@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from '../../../services/message.service';
 import { Message } from '../../../models/message';
+import { WebsocketService } from '../../../services/websocket.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-welcome',
@@ -10,7 +12,7 @@ import { Message } from '../../../models/message';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer, private msgService: MessageService) { }
+  constructor(public sanitizer: DomSanitizer, private msgService: MessageService, private webSocketService: WebsocketService) { }
   imgUrl = 'assets/images/thumbnails/thumb';
   videoLinks = [
     {
@@ -30,8 +32,17 @@ export class WelcomeComponent implements OnInit {
     },
   ];
   message = new Message('title', 'text', 'error', false);
+  messageFromWebSocket$: Subscription;
   ngOnInit() {
     this.retrieveMsg();
+    this.subscribeToWebSocketMessage();
+  }
+
+  private subscribeToWebSocketMessage(): void {
+    this.messageFromWebSocket$ = this.webSocketService.updateMessageFromWebSocket$
+      .subscribe((res) => {
+        this.message = res.body;
+      });
   }
 
   private retrieveMsg(): void {
@@ -39,7 +50,6 @@ export class WelcomeComponent implements OnInit {
       (msg: any) => {
         delete msg.id;
         this.message = msg;
-        console.log(this.message);
       },
       (err) => {
 
