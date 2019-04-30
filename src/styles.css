@@ -20,4 +20,14 @@ button[type="button"] {
     background-color: #a7d7c5;
     color: black;
 }
+.datepicker-day-button {
+    background-color: #fafafa !important;
+}
 
+.datepicker-day-button {
+    background-color: #fafafa !important;
+}
+
+.is-selected button{
+    background-color: #a7d7c5 !important;
+}
