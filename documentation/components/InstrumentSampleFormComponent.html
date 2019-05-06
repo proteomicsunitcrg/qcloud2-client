@@ -1,0 +1,879 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qcloud2-client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qcloud2-client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>InstrumentSampleFormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-instrument-sample-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./instrument-sample-form.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./instrument-sample-form.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contextSource">contextSource</a>
+                            </li>
+                            <li>
+                                <a href="#formSubmitButton">formSubmitButton</a>
+                            </li>
+                            <li>
+                                <a href="#instrumentSample">instrumentSample</a>
+                            </li>
+                            <li>
+                                <a href="#selectedInstrumentSample$">selectedInstrumentSample$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadSelectedInstrumentSample">loadSelectedInstrumentSample</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit">onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#resetForm">resetForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToSelectedInstrumentSample">subscribeToSelectedInstrumentSample</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(instrumentSampleService: <a href="../injectables/InstrumentSampleService.html">InstrumentSampleService</a>, modalService: <a href="../injectables/ModalService.html">ModalService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>instrumentSampleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/InstrumentSampleService.html" target="_self" >InstrumentSampleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ModalService.html" target="_self" >ModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSelectedInstrumentSample"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            loadSelectedInstrumentSample
+                        </b>
+                        <a href="#loadSelectedInstrumentSample"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadSelectedInstrumentSample(instrumentSample: <a href="../classes/InstrumentSample.html">InstrumentSample</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>instrumentSample</td>
+                                    <td>
+                                                <code><a href="../classes/InstrumentSample.html" target="_self" >InstrumentSample</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <b>
+                            onSubmit
+                        </b>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                        <b>
+                            resetForm
+                        </b>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForm()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:76</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToSelectedInstrumentSample"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToSelectedInstrumentSample
+                        </b>
+                        <a href="#subscribeToSelectedInstrumentSample"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToSelectedInstrumentSample()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:59</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextSource"></a>
+                        <span class="name">
+                            <b>
+                            contextSource</b>
+                            <a href="#contextSource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/ContextSource.html" target="_self" >ContextSource</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ContextSource(null, &#x27;&#x27;, &#x27;&#x27;, null, null, null)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formSubmitButton"></a>
+                        <span class="name">
+                            <b>
+                            formSubmitButton</b>
+                            <a href="#formSubmitButton"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;Add new instrument sample&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="instrumentSample"></a>
+                        <span class="name">
+                            <b>
+                            instrumentSample</b>
+                            <a href="#instrumentSample"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/InstrumentSample.html" target="_self" >InstrumentSample</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new InstrumentSample(null, &#x27;&#x27;, &#x27;&#x27;, null, null, new TraceColor(&#x27;rgb(51, 102, 204)&#x27;, null), 0)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedInstrumentSample$"></a>
+                        <span class="name">
+                            <b>
+                            selectedInstrumentSample$</b>
+                            <a href="#selectedInstrumentSample$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { InstrumentSample } from &#x27;../../../models/instrumentSample&#x27;;
+import { ContextSource } from &#x27;../../../models/contextSource&#x27;;
+import { InstrumentSampleService } from &#x27;../../../services/instrument-sample.service&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { delay } from &#x27;q&#x27;;
+import { TraceColor } from &#x27;../../../models/TraceColor&#x27;;
+import { ModalService } from &#x27;../../../common/modal.service&#x27;;
+import { Modal } from &#x27;../../..//models/modal&#x27;;
+declare var M: any;
+
+@Component({
+  selector: &#x27;app-instrument-sample-form&#x27;,
+  templateUrl: &#x27;./instrument-sample-form.component.html&#x27;,
+  styleUrls: [&#x27;./instrument-sample-form.component.css&#x27;]
+})
+export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
+
+  constructor(private instrumentSampleService: InstrumentSampleService,
+      private modalService: ModalService) {
+  }
+
+  instrumentSample: InstrumentSample &#x3D; new InstrumentSample(null, &#x27;&#x27;, &#x27;&#x27;, null, null, new TraceColor(&#x27;rgb(51, 102, 204)&#x27;, null), 0);
+
+  contextSource: ContextSource &#x3D; new ContextSource(null, &#x27;&#x27;, &#x27;&#x27;, null, null, null);
+
+  selectedInstrumentSample$: Subscription;
+
+  formSubmitButton &#x3D; &#x27;Add new instrument sample&#x27;;
+
+  ngOnDestroy() {
+    this.selectedInstrumentSample$.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.subscribeToSelectedInstrumentSample();
+  }
+
+  onSubmit(): void {
+    if (this.formSubmitButton &#x3D;&#x3D;&#x3D; &#x27;Add new instrument sample&#x27;) {
+      this.instrumentSampleService.addNewInstrumentSample(this.instrumentSample).subscribe(
+        (result) &#x3D;&gt; {
+          this.instrumentSampleService.sendInstrumentSampleToList(result);
+        },
+        (error) &#x3D;&gt; this.modalService.openModal(new Modal(&#x27;Error&#x27;, error.error.message, &#x27;Ok&#x27;, null, &#x27;saveInstrumentSample&#x27;, null))
+      );
+    } else {
+      this.instrumentSampleService.updateInstrumentSample(this.instrumentSample).subscribe(
+        (result) &#x3D;&gt; {
+          this.instrumentSampleService.sendInstrumentSampleToList(result);
+        },
+        (error) &#x3D;&gt; {
+          this.modalService.openModal(new Modal(&#x27;Error&#x27;, error.error.message, &#x27;Ok&#x27;, null, &#x27;updateInstrumentSample&#x27;, null));
+        }
+      );
+    }
+  }
+
+  private subscribeToSelectedInstrumentSample(): void {
+    this.selectedInstrumentSample$ &#x3D; this.instrumentSampleService
+      .selectedInstrumentSample$.subscribe(
+        (instrumentSample) &#x3D;&gt; {
+          this.loadSelectedInstrumentSample(instrumentSample);
+        }
+      );
+  }
+
+  private loadSelectedInstrumentSample(instrumentSample: InstrumentSample): void {
+    this.instrumentSample &#x3D; instrumentSample;
+    this.contextSource.name &#x3D; instrumentSample.name;
+    this.formSubmitButton &#x3D; &#x27;Update instrument sample&#x27;;
+    delay(50).then(() &#x3D;&gt; M.updateTextFields());
+
+  }
+
+  resetForm(): void {
+    this.instrumentSample &#x3D; new InstrumentSample(null, &#x27;&#x27;, &#x27;&#x27;, null, null, new TraceColor(&#x27;rgb(51, 102, 204)&#x27;, null), 0);
+    this.formSubmitButton &#x3D; &#x27;Add new instrument sample&#x27;;
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div&gt;
+  &lt;h5&gt;Add new&lt;/h5&gt;
+  &lt;form (ngSubmit)&#x3D;&quot;onSubmit(); newContext.reset()&quot; #newContext&#x3D;&quot;ngForm&quot; ngNativeValidate autocomplete&#x3D;&quot;off&quot;&gt;
+    &lt;div class&#x3D;&quot;input-field&quot;&gt;
+      &lt;input #nameBox type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot; [(ngModel)]&#x3D;&quot;instrumentSample.name&quot; class&#x3D;&quot;validate&quot; id&#x3D;&quot;name&quot; validate
+        required&gt;
+      &lt;label for&#x3D;&quot;name&quot;&gt;Name&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;input-field&quot;&gt;
+      &lt;input type&#x3D;&quot;text&quot; #abbreviatedName name&#x3D;&quot;abbreviatedName&quot; class&#x3D;&quot;validate&quot; [(ngModel)]&#x3D;&quot;instrumentSample.abbreviated&quot;
+        id&#x3D;&quot;abbreviatedName&quot; minlength&#x3D;&quot;4&quot; validate required&gt;
+      &lt;label for&#x3D;&quot;abbreviatedName&quot;&gt;Abbreviated name&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;input-field&quot;&gt;
+      &lt;input type&#x3D;&quot;text&quot; #qccv name&#x3D;&quot;qccv&quot; class&#x3D;&quot;validate&quot; [(ngModel)]&#x3D;&quot;instrumentSample.qCCV&quot; id&#x3D;&quot;qccv&quot; minlength&#x3D;&quot;4&quot;
+        validate required&gt;
+      &lt;label for&#x3D;&quot;qccv&quot;&gt;QC Controlled vocabulary&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;input-field&quot;&gt;
+      &lt;app-trace-color-picker [contextSource]&#x3D;&quot;instrumentSample&quot;&gt;&lt;/app-trace-color-picker&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;input-field&quot;&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;waves-effect waves-light btn green-background   left&quot;&gt;{{formSubmitButton}}&lt;/button&gt;
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;waves-effect waves-light btn orange   right&quot; (click)&#x3D;&quot;resetForm()&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./instrument-sample-form.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div>  <h5>Add new</h5>  <form (ngSubmit)="onSubmit(); newContext.reset()" #newContext="ngForm" ngNativeValidate autocomplete="off">    <div class="input-field">      <input #nameBox type="text" name="name" [(ngModel)]="instrumentSample.name" class="validate" id="name" validate        required>      <label for="name">Name</label>    </div>    <div class="input-field">      <input type="text" #abbreviatedName name="abbreviatedName" class="validate" [(ngModel)]="instrumentSample.abbreviated"        id="abbreviatedName" minlength="4" validate required>      <label for="abbreviatedName">Abbreviated name</label>    </div>    <div class="input-field">      <input type="text" #qccv name="qccv" class="validate" [(ngModel)]="instrumentSample.qCCV" id="qccv" minlength="4"        validate required>      <label for="qccv">QC Controlled vocabulary</label>    </div>    <div class="input-field">      <app-trace-color-picker [contextSource]="instrumentSample"></app-trace-color-picker>    </div>    <div class="input-field">      <button type="submit" class="waves-effect waves-light btn green-background   left">{{formSubmitButton}}</button>      <button type="button" class="waves-effect waves-light btn orange   right" (click)="resetForm()">Cancel</button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'InstrumentSampleFormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'InstrumentSampleFormComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

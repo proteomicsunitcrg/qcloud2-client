@@ -1,0 +1,1603 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qcloud2-client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qcloud2-client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ThresholdListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/management/threshold/threshold-list/threshold-list.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-threshold-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./threshold-list.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./threshold-list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentContextSource">currentContextSource</a>
+                            </li>
+                            <li>
+                                <a href="#labSystemThresholds">labSystemThresholds</a>
+                            </li>
+                            <li>
+                                <a href="#modalSubscription$">modalSubscription$</a>
+                            </li>
+                            <li>
+                                <a href="#viewThresholdContextSources">viewThresholdContextSources</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#changeContextSourceEnabled">changeContextSourceEnabled</a>
+                            </li>
+                            <li>
+                                <a href="#changeContextSourceStatus">changeContextSourceStatus</a>
+                            </li>
+                            <li>
+                                <a href="#changeStatus">changeStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkGuideSetContextSourceStatus">checkGuideSetContextSourceStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#doCheckGuideSetModal">doCheckGuideSetModal</a>
+                            </li>
+                            <li>
+                                <a href="#editThreshold">editThreshold</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadThresholds">loadThresholds</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveThresholdParams">saveThresholdParams</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToModal">subscribeToModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(thresholdService: <a href="../injectables/ThresholdService.html">ThresholdService</a>, labSystemService: <a href="../injectables/SystemService.html">SystemService</a>, modalService: <a href="../injectables/ModalService.html">ModalService</a>, guideSetService: <a href="../injectables/GuideSetService.html">GuideSetService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>thresholdService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ThresholdService.html" target="_self" >ThresholdService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>labSystemService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SystemService.html" target="_self" >SystemService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ModalService.html" target="_self" >ModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>guideSetService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GuideSetService.html" target="_self" >GuideSetService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeContextSourceEnabled"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            changeContextSourceEnabled
+                        </b>
+                        <a href="#changeContextSourceEnabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeContextSourceEnabled(threshold: <a href="../classes/Threshold.html">Threshold</a>, contextSource: <a href="../classes/ContextSource.html">ContextSource</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="210"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:210</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>contextSource</td>
+                                    <td>
+                                                <code><a href="../classes/ContextSource.html" target="_self" >ContextSource</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeContextSourceStatus"></a>
+                    <span class="name">
+                        <b>
+                            changeContextSourceStatus
+                        </b>
+                        <a href="#changeContextSourceStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeContextSourceStatus(threshold: <a href="../classes/Threshold.html">Threshold</a>, contextSource: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, labSystemThreshold: <a href="../classes/LabSystemThreshold.html">LabSystemThreshold</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>contextSource</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>labSystemThreshold</td>
+                                    <td>
+                                                <code><a href="../classes/LabSystemThreshold.html" target="_self" >LabSystemThreshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeStatus"></a>
+                    <span class="name">
+                        <b>
+                            changeStatus
+                        </b>
+                        <a href="#changeStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeStatus(threshold: <a href="../classes/Threshold.html">Threshold</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Toggle the selected threshold monitoring on/off</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkGuideSetContextSourceStatus"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            checkGuideSetContextSourceStatus
+                        </b>
+                        <a href="#checkGuideSetContextSourceStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkGuideSetContextSourceStatus(guideSetContextSourceStatus: <a href="../classes/GuideSetContextSourceStatus.html">GuideSetContextSourceStatus</a>, contextSource: <a href="../classes/ContextSource.html">ContextSource</a>, threshold: <a href="../classes/Threshold.html">Threshold</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="148"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:148</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>guideSetContextSourceStatus</td>
+                                    <td>
+                                                <code><a href="../classes/GuideSetContextSourceStatus.html" target="_self" >GuideSetContextSourceStatus</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>contextSource</td>
+                                    <td>
+                                                <code><a href="../classes/ContextSource.html" target="_self" >ContextSource</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doCheckGuideSetModal"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            doCheckGuideSetModal
+                        </b>
+                        <a href="#doCheckGuideSetModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>doCheckGuideSetModal(modalResponse: <a href="../classes/ModalResponse.html">ModalResponse</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:184</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>modalResponse</td>
+                                    <td>
+                                                <code><a href="../classes/ModalResponse.html" target="_self" >ModalResponse</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editThreshold"></a>
+                    <span class="name">
+                        <b>
+                            editThreshold
+                        </b>
+                        <a href="#editThreshold"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editThreshold(threshold: <a href="../classes/Threshold.html">Threshold</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:111</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadThresholds"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            loadThresholds
+                        </b>
+                        <a href="#loadThresholds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadThresholds(labSystems: <a href="../classes/System.html">System[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:53</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystems</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:48</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveThresholdParams"></a>
+                    <span class="name">
+                        <b>
+                            saveThresholdParams
+                        </b>
+                        <a href="#saveThresholdParams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveThresholdParams(threshold: <a href="../classes/Threshold.html">Threshold</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:116</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>threshold</td>
+                                    <td>
+                                                <code><a href="../classes/Threshold.html" target="_self" >Threshold</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToModal"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToModal
+                        </b>
+                        <a href="#subscribeToModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToModal()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:171</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentContextSource"></a>
+                        <span class="name">
+                            <b>
+                            currentContextSource</b>
+                            <a href="#currentContextSource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="labSystemThresholds"></a>
+                        <span class="name">
+                            <b>
+                            labSystemThresholds</b>
+                            <a href="#labSystemThresholds"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>LabSystemThreshold[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modalSubscription$"></a>
+                        <span class="name">
+                            <b>
+                            modalSubscription$</b>
+                            <a href="#modalSubscription$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="viewThresholdContextSources"></a>
+                        <span class="name">
+                            <b>
+                            viewThresholdContextSources</b>
+                            <a href="#viewThresholdContextSources"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/management/threshold/threshold-list/threshold-list.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { ThresholdService } from &#x27;../../../services/threshold.service&#x27;;
+import { Threshold } from &#x27;../../../models/threshold&#x27;;
+import { SystemService } from &#x27;../../../services/system.service&#x27;;
+import { System } from &#x27;../../../models/system&#x27;;
+import { ModalService } from &#x27;../../../common/modal.service&#x27;;
+import { Modal } from &#x27;../../../models/modal&#x27;;
+import { delay } from &#x27;q&#x27;;
+import { GuideSetService } from &#x27;../../../services/guide-set.service&#x27;;
+import { LabSystemThreshold } from &#x27;../../../models/labSystemThreshold&#x27;;
+import { GuideSetContextSourceStatus } from &#x27;../../../models/guideSetContextSourceStatus&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { ModalResponse } from &#x27;../../../models/modalResponse&#x27;;
+import { ContextSource } from &#x27;../../../models/contextSource&#x27;;
+declare var M: any;
+
+@Component({
+  selector: &#x27;app-threshold-list&#x27;,
+  templateUrl: &#x27;./threshold-list.component.html&#x27;,
+  styleUrls: [&#x27;./threshold-list.component.css&#x27;]
+})
+export class ThresholdListComponent implements OnInit, OnDestroy {
+
+  constructor(private thresholdService: ThresholdService,
+    private labSystemService: SystemService,
+    private modalService: ModalService,
+    private guideSetService: GuideSetService) { }
+
+
+  labSystemThresholds: LabSystemThreshold[] &#x3D; [];
+
+  viewThresholdContextSources: string;
+
+  modalSubscription$: Subscription;
+
+  currentContextSource: any;
+
+  ngOnInit() {
+    this.labSystemService.getSystems()
+      .subscribe(
+        (labSystems) &#x3D;&gt; {
+          this.loadThresholds(labSystems);
+        }, err &#x3D;&gt; console.log(err)
+      );
+    this.subscribeToModal();
+  }
+
+  ngOnDestroy() {
+    this.modalSubscription$.unsubscribe();
+  }
+
+
+  private loadThresholds(labSystems: System[]): void {
+    labSystems.forEach(
+      (labSystem) &#x3D;&gt; {
+        this.thresholdService.getAllThresholdsBySystem(labSystem)
+          .subscribe(
+            (thresholds) &#x3D;&gt; {
+              const thresholdList: Threshold[] &#x3D; [];
+              thresholds.forEach(
+                (threshold) &#x3D;&gt; {
+                  /**
+                   * Adding the property edditing for let
+                   * the ngContainer work without a big mess
+                   */
+                  threshold[&#x27;editing&#x27;] &#x3D; false;
+                  /**
+                   * Adding global values in case of global
+                   * step value and global initial value
+                   * I am picking the first value of the params array
+                   * because it should be the same in every param as it
+                   * is configured as global values
+                   */
+                  if (threshold[&#x27;managerThresholdConstraint&#x27;].globalInitialValue) {
+                    threshold[&#x27;globalInitialValue&#x27;] &#x3D; threshold[&#x27;thresholdParams&#x27;][0].initialValue;
+                  }
+                  if (threshold[&#x27;managerThresholdConstraint&#x27;].globalStepValue) {
+                    threshold[&#x27;globalStepValue&#x27;] &#x3D; threshold[&#x27;thresholdParams&#x27;][0].stepValue;
+                  }
+                  thresholdList.push(threshold);
+                }
+              );
+              this.labSystemThresholds.push({
+                labSystem: labSystem,
+                thresholds: thresholdList
+              });
+            }, err &#x3D;&gt; console.log(err)
+          );
+      }
+    );
+  }
+  /**
+   * Toggle the selected threshold monitoring on/off
+   * @param cv
+   */
+  changeStatus(threshold: Threshold) {
+    this.thresholdService.changeEnabled(threshold.apiKey)
+      .subscribe(
+        (res) &#x3D;&gt; {
+          // change color
+          threshold.isMonitored &#x3D; !threshold.isMonitored;
+        },
+        (err) &#x3D;&gt; {
+          // show modal
+          this.modalService.openModal(new Modal(&#x27;Error&#x27;, err.error.message,
+            &#x27;Ok&#x27;, null, &#x27;switchMonitoring&#x27;, null));
+        }
+      );
+  }
+
+  editThreshold(threshold: Threshold): void {
+    threshold[&#x27;edditing&#x27;] &#x3D; !threshold[&#x27;edditing&#x27;];
+    delay(1).then(() &#x3D;&gt; M.updateTextFields());
+  }
+
+  saveThresholdParams(threshold: Threshold): void {
+    threshold[&#x27;thresholdParams&#x27;].forEach(
+      (param) &#x3D;&gt; {
+        param[&#x27;initialValue&#x27;] &#x3D; threshold[&#x27;globalInitialValue&#x27;];
+        param[&#x27;stepValue&#x27;] &#x3D; threshold[&#x27;globalStepValue&#x27;];
+      }
+    );
+    threshold[&#x27;edditing&#x27;] &#x3D; !threshold[&#x27;edditing&#x27;];
+    this.thresholdService.updateThresholdParams(threshold.apiKey, threshold[&#x27;thresholdParams&#x27;])
+      .subscribe(
+        (res) &#x3D;&gt; { },
+        (err) &#x3D;&gt; console.log(err)
+      );
+  }
+
+  changeContextSourceStatus(threshold: Threshold, contextSource: any, labSystemThreshold: LabSystemThreshold): void {
+    this.currentContextSource &#x3D; contextSource;
+    console.log(&#x27;this&#x27;, this.currentContextSource);
+    if (!contextSource[&#x27;isEnabled&#x27;]) {
+      this.guideSetService.checkCurrentGuideSet(labSystemThreshold.labSystem.apiKey,
+        threshold.sampleType.qualityControlControlledVocabulary,
+        contextSource[&#x27;contextSource&#x27;][&#x27;apiKey&#x27;])
+        .subscribe(
+          (guideSetContextSourceStatus) &#x3D;&gt; {
+            this.checkGuideSetContextSourceStatus(guideSetContextSourceStatus, contextSource[&#x27;contextSource&#x27;], threshold);
+          }, err &#x3D;&gt; console.log(err)
+        );
+    } else {
+      this.changeContextSourceEnabled(threshold, contextSource[&#x27;contextSource&#x27;]);
+    }
+  }
+
+  private checkGuideSetContextSourceStatus(guideSetContextSourceStatus: GuideSetContextSourceStatus,
+    contextSource: ContextSource,
+    threshold: Threshold): void {
+
+    if (guideSetContextSourceStatus !&#x3D;&#x3D; null) {
+      // const status &#x3D; guideSetContextSourceStatus.find(gscs &#x3D;&gt; gscs.contextSource.apiKey &#x3D;&#x3D;&#x3D; contextSource.apiKey);
+        if (guideSetContextSourceStatus.status &#x3D;&#x3D;&#x3D; &#x27;NO_VALID&#x27;) {
+          this.modalService.openModal(new Modal(&#x27;Warning&#x27;, guideSetContextSourceStatus.contextSource.name +
+            &#x27; does not have the minimum points to keep your current guide set working. &#x27; +
+            &#x27;If you want to start monitoring this parameter your guide set will &#x27; +
+            &#x27;be set to automatic until you set a new one.&#x27;,
+            &#x27;Yes&#x27;,
+            &#x27;Cancel&#x27;,
+            &#x27;checkGuideSet&#x27;, { &#x27;status&#x27;: status, &#x27;threshold&#x27;: threshold}));
+        } else {
+          this.changeContextSourceEnabled(threshold, contextSource);
+        }
+    } else {
+      this.changeContextSourceEnabled(threshold, contextSource);
+    }
+
+  }
+
+  private subscribeToModal(): void {
+    this.modalSubscription$ &#x3D; this.modalService.selectedAction$
+      .subscribe(
+        (modalResponse) &#x3D;&gt; {
+          switch (modalResponse.modalAction) {
+            case &#x27;checkGuideSet&#x27;:
+              this.doCheckGuideSetModal(modalResponse);
+              break;
+          }
+        }
+      );
+  }
+
+  private doCheckGuideSetModal(modalResponse: ModalResponse): void {
+    switch (modalResponse.userAction) {
+      case &#x27;accept&#x27;:
+        // tslint:disable-next-line:max-line-length
+        this.thresholdService.changeContextSourceEnabled(modalResponse.objectInstance[&#x27;threshold&#x27;], this.currentContextSource.contextSource)
+          .subscribe(
+            (res) &#x3D;&gt; {
+              this.currentContextSource[&#x27;isEnabled&#x27;] &#x3D; !this.currentContextSource[&#x27;isEnabled&#x27;];
+            }, err &#x3D;&gt; console.log(err),
+            () &#x3D;&gt; {
+              this.guideSetService.resetLabSystemGuideSetByThreshold(modalResponse.objectInstance[&#x27;threshold&#x27;])
+                .subscribe(
+                  (res) &#x3D;&gt; {
+                    M.toast({&#x27;html&#x27;: &#x27;Guide set reset to automatic!&#x27;});
+                  }, err &#x3D;&gt; console.log(&#x27;reset&#x27;, err)
+                );
+            }
+          );
+        break;
+      case &#x27;cancel&#x27;:
+        console.log(modalResponse.objectInstance[&#x27;contextSource&#x27;]);
+
+        break;
+    }
+  }
+
+  private changeContextSourceEnabled(threshold: Threshold, contextSource: ContextSource): void {
+    this.thresholdService.changeContextSourceEnabled(threshold, contextSource)
+    .subscribe(
+      (res) &#x3D;&gt; {
+        this.currentContextSource[&#x27;isEnabled&#x27;] &#x3D; !this.currentContextSource[&#x27;isEnabled&#x27;];
+      }, err &#x3D;&gt; console.log(err)
+    );
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row&quot;&gt;
+  &lt;div class&#x3D;&quot;col s12 m12 l12 xl12&quot;&gt;
+    &lt;table&gt;
+      &lt;tbody *ngFor&#x3D;&quot;let labSystemThreshold of labSystemThresholds&quot;&gt;
+        &lt;tr&gt;
+          &lt;td colspan&#x3D;&quot;7&quot; class&#x3D;&quot;green-background lighten-4&quot;&gt;
+            &lt;strong&gt;Lab system:&lt;/strong&gt; {{labSystemThreshold.labSystem.name}}&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Param&lt;/th&gt;
+          &lt;th&gt;Sample type&lt;/th&gt;
+          &lt;th&gt;Context sources&lt;/th&gt;
+          &lt;th&gt;Initial value&lt;/th&gt;
+          &lt;th&gt;Step value&lt;/th&gt;
+          &lt;th&gt;Steps&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr *ngFor&#x3D;&quot;let threshold of labSystemThreshold.thresholds&quot;&gt;
+          &lt;td&gt;
+            {{threshold.param.name}}
+            &lt;i class&#x3D;&quot;material-icons cursorIcon&quot; *ngIf&#x3D;&quot;threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue&quot;
+              (click)&#x3D;&quot;editThreshold(threshold)&quot;&gt;create&lt;/i&gt;
+            &lt;i class&#x3D;&quot;material-icons cursorIcon&quot; *ngIf&#x3D;&quot;threshold[&#x27;edditing&#x27;]&quot; (click)&#x3D;&quot;saveThresholdParams(threshold)&quot;&gt;save&lt;/i&gt;
+          &lt;/td&gt;
+          &lt;td&gt;
+            {{threshold.sampleType.name}}
+          &lt;/td&gt;
+          &lt;td&gt;
+            &lt;ul&gt;
+                &lt;li *ngIf&#x3D;&quot;viewThresholdContextSources !&#x3D;&#x3D; threshold.apiKey&quot;&gt;
+                    &lt;a (click)&#x3D;&quot;viewThresholdContextSources &#x3D; threshold.apiKey&quot; class&#x3D;&quot;show-context-source-text&quot;&gt;Click to view context sources&lt;/a&gt;&lt;/li&gt;
+              &lt;li *ngIf&#x3D;&quot;viewThresholdContextSources &#x3D;&#x3D;&#x3D; threshold.apiKey&quot;&gt;
+                  &lt;a (click)&#x3D;&quot;viewThresholdContextSources&#x3D;null&quot; class&#x3D;&quot;show-context-source-text&quot;&gt;Click to hide context
+                    sources&lt;/a&gt;&lt;/li&gt;
+              &lt;li *ngFor&#x3D;&quot;let contextSource of threshold.thresholdParams&quot; [class.item-visible]&#x3D;&quot;viewThresholdContextSources &#x3D;&#x3D;&#x3D; threshold.apiKey&quot;
+              [class.item-hidden]&#x3D;&quot;viewThresholdContextSources !&#x3D;&#x3D; threshold.apiKey&quot;&gt;
+                &lt;i class&#x3D;&quot;material-icons cursorIcon tiny&quot; [ngClass]&#x3D;&quot;(contextSource.isEnabled)?&#x27;enabled&#x27;:&#x27;disabled&#x27;&quot; (click)&#x3D;&quot;changeContextSourceStatus(threshold, contextSource, labSystemThreshold)&quot;&gt;power_settings_new&lt;/i&gt;
+                {{contextSource.contextSource.name}}
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/td&gt;
+          &lt;!-- INITIAL VALUE--&gt;
+          &lt;td&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;threshold.edditing then edit else show&quot;&gt;&lt;/ng-container&gt;
+            &lt;ng-template #show&gt;
+              &lt;ul&gt;
+                &lt;li *ngFor&#x3D;&quot;let contextSource of threshold.thresholdParams&quot; [class.item-visible]&#x3D;&quot;viewThresholdContextSources &#x3D;&#x3D;&#x3D; threshold.apiKey&quot;
+                [class.item-hidden]&#x3D;&quot;viewThresholdContextSources !&#x3D;&#x3D; threshold.apiKey&quot;&gt;
+                  {{contextSource.initialValue}}
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template #edit&gt;
+              &lt;div class&#x3D;&quot;input-field col s3&quot;&gt;
+                &lt;input id&#x3D;&quot;initialValue&quot; name&#x3D;&quot;initialValue&quot; [(ngModel)]&#x3D;&quot;threshold.globalInitialValue&quot; type&#x3D;&quot;number&quot; class&#x3D;&quot;validate&quot;&gt;
+                &lt;label for&#x3D;&quot;initialValue&quot;&gt;Initial value&lt;/label&gt;
+              &lt;/div&gt;
+            &lt;/ng-template&gt;
+          &lt;/td&gt;
+          &lt;!-- STEP VALUE--&gt;
+          &lt;td&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;threshold.edditing then editSV else showSV&quot;&gt;&lt;/ng-container&gt;
+            &lt;ng-template #showSV&gt;
+              &lt;ul&gt;
+                &lt;li *ngFor&#x3D;&quot;let contextSource of threshold.thresholdParams&quot; [class.item-visible]&#x3D;&quot;viewThresholdContextSources &#x3D;&#x3D;&#x3D; threshold.apiKey&quot;
+                [class.item-hidden]&#x3D;&quot;viewThresholdContextSources !&#x3D;&#x3D; threshold.apiKey&quot;&gt;
+                  {{contextSource.stepValue}}
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template #editSV&gt;
+              &lt;div class&#x3D;&quot;input-field col s3&quot;&gt;
+                &lt;input id&#x3D;&quot;stepValue&quot; name&#x3D;&quot;stepValue&quot; [(ngModel)]&#x3D;&quot;threshold.globalStepValue&quot; type&#x3D;&quot;number&quot; class&#x3D;&quot;validate&quot;&gt;
+                &lt;label for&#x3D;&quot;stepValue&quot;&gt;Step value&lt;/label&gt;
+              &lt;/div&gt;
+            &lt;/ng-template&gt;
+
+          &lt;/td&gt;
+          &lt;td&gt;
+            {{threshold.steps}}
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./threshold-list.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.cursorIcon {
+    cursor: pointer;
+}
+.enabled {
+    color: green;
+}
+.disabled {
+    color: red;
+}
+.item-visible {
+    display: block;
+}
+.item-hidden {
+    display: none;
+}
+.show-context-source-text {
+    cursor: pointer;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row">  <div class="col s12 m12 l12 xl12">    <table>      <tbody *ngFor="let labSystemThreshold of labSystemThresholds">        <tr>          <td colspan="7" class="green-background lighten-4">            <strong>Lab system:</strong> {{labSystemThreshold.labSystem.name}}</td>        </tr>        <tr>          <th>Param</th>          <th>Sample type</th>          <th>Context sources</th>          <th>Initial value</th>          <th>Step value</th>          <th>Steps</th>        </tr>        <tr *ngFor="let threshold of labSystemThreshold.thresholds">          <td>            {{threshold.param.name}}            <i class="material-icons cursorIcon" *ngIf="threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue"              (click)="editThreshold(threshold)">create</i>            <i class="material-icons cursorIcon" *ngIf="threshold[\'edditing\']" (click)="saveThresholdParams(threshold)">save</i>          </td>          <td>            {{threshold.sampleType.name}}          </td>          <td>            <ul>                <li *ngIf="viewThresholdContextSources !== threshold.apiKey">                    <a (click)="viewThresholdContextSources = threshold.apiKey" class="show-context-source-text">Click to view context sources</a></li>              <li *ngIf="viewThresholdContextSources === threshold.apiKey">                  <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context                    sources</a></li>              <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"              [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">                <i class="material-icons cursorIcon tiny" [ngClass]="(contextSource.isEnabled)?\'enabled\':\'disabled\'" (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>                {{contextSource.contextSource.name}}              </li>            </ul>          </td>          <!-- INITIAL VALUE-->          <td>            <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>            <ng-template #show>              <ul>                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">                  {{contextSource.initialValue}}                </li>              </ul>            </ng-template>            <ng-template #edit>              <div class="input-field col s3">                <input id="initialValue" name="initialValue" [(ngModel)]="threshold.globalInitialValue" type="number" class="validate">                <label for="initialValue">Initial value</label>              </div>            </ng-template>          </td>          <!-- STEP VALUE-->          <td>            <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>            <ng-template #showSV>              <ul>                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">                  {{contextSource.stepValue}}                </li>              </ul>            </ng-template>            <ng-template #editSV>              <div class="input-field col s3">                <input id="stepValue" name="stepValue" [(ngModel)]="threshold.globalStepValue" type="number" class="validate">                <label for="stepValue">Step value</label>              </div>            </ng-template>          </td>          <td>            {{threshold.steps}}          </td>        </tr>      </tbody>    </table>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ThresholdListComponent-1'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ThresholdListComponent-1.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

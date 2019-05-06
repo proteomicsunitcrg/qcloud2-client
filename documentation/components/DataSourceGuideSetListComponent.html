@@ -1,0 +1,1945 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qcloud2-client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qcloud2-client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DataSourceGuideSetListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-data-source-guide-set-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./data-source-guide-set-list.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./data-source-guide-set-list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentGuideSetStatus">currentGuideSetStatus</a>
+                            </li>
+                            <li>
+                                <a href="#datePickers">datePickers</a>
+                            </li>
+                            <li>
+                                <a href="#editingGuideSet">editingGuideSet</a>
+                            </li>
+                            <li>
+                                <a href="#isValidGuideSet$">isValidGuideSet$</a>
+                            </li>
+                            <li>
+                                <a href="#minFiles">minFiles</a>
+                            </li>
+                            <li>
+                                <a href="#minValidContextSource">minValidContextSource</a>
+                            </li>
+                            <li>
+                                <a href="#selectedAction$">selectedAction$</a>
+                            </li>
+                            <li>
+                                <a href="#systems">systems</a>
+                            </li>
+                            <li>
+                                <a href="#validGuideSet">validGuideSet</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkDates">checkDates</a>
+                            </li>
+                            <li>
+                                <a href="#createGuideSet">createGuideSet</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enableDatePickersOnUserDefinedGuideSets">enableDatePickersOnUserDefinedGuideSets</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getMinFilesForManualGuideSet">getMinFilesForManualGuideSet</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getSampleTypeNameFromHtml">getSampleTypeNameFromHtml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getSystemApikeyFromHtml">getSystemApikeyFromHtml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initializeDatePickers">initializeDatePickers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadSystems">loadSystems</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#refresh">refresh</a>
+                            </li>
+                            <li>
+                                <a href="#setGuideSetToAutomatic">setGuideSetToAutomatic</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setModelData">setModelData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToModal">subscribeToModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToValidGuideSet">subscribeToValidGuideSet</a>
+                            </li>
+                            <li>
+                                <a href="#updateSystemGuideSet">updateSystemGuideSet</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(systemService: <a href="../injectables/SystemService.html">SystemService</a>, modalService: <a href="../injectables/ModalService.html">ModalService</a>, guideSetService: <a href="../injectables/GuideSetService.html">GuideSetService</a>, ref: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>systemService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SystemService.html" target="_self" >SystemService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ModalService.html" target="_self" >ModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>guideSetService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GuideSetService.html" target="_self" >GuideSetService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkDates"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            checkDates
+                        </b>
+                        <a href="#checkDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkDates(element: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:128</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createGuideSet"></a>
+                    <span class="name">
+                        <b>
+                            createGuideSet
+                        </b>
+                        <a href="#createGuideSet"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createGuideSet(system: <a href="../classes/System.html">System</a>, sampleType: <a href="../classes/SampleType.html">SampleType</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="209"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:209</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>system</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>sampleType</td>
+                                    <td>
+                                                <code><a href="../classes/SampleType.html" target="_self" >SampleType</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enableDatePickersOnUserDefinedGuideSets"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            enableDatePickersOnUserDefinedGuideSets
+                        </b>
+                        <a href="#enableDatePickersOnUserDefinedGuideSets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enableDatePickersOnUserDefinedGuideSets()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:89</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMinFilesForManualGuideSet"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getMinFilesForManualGuideSet
+                        </b>
+                        <a href="#getMinFilesForManualGuideSet"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMinFilesForManualGuideSet()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:67</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSampleTypeNameFromHtml"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getSampleTypeNameFromHtml
+                        </b>
+                        <a href="#getSampleTypeNameFromHtml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getSampleTypeNameFromHtml(htmlId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="181"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:181</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>htmlId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSystemApikeyFromHtml"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getSystemApikeyFromHtml
+                        </b>
+                        <a href="#getSystemApikeyFromHtml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getSystemApikeyFromHtml(htmlId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="185"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:185</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>htmlId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeDatePickers"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initializeDatePickers
+                        </b>
+                        <a href="#initializeDatePickers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initializeDatePickers(system: <a href="../classes/System.html">System</a>, guideSet: <a href="../classes/GuideSet.html">GuideSet</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:108</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>system</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>guideSet</td>
+                                    <td>
+                                                <code><a href="../classes/GuideSet.html" target="_self" >GuideSet</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSystems"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            loadSystems
+                        </b>
+                        <a href="#loadSystems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadSystems()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refresh"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            refresh
+                        </b>
+                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>refresh()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setGuideSetToAutomatic"></a>
+                    <span class="name">
+                        <b>
+                            setGuideSetToAutomatic
+                        </b>
+                        <a href="#setGuideSetToAutomatic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setGuideSetToAutomatic(labSystem: <a href="../classes/System.html">System</a>, guideSet: <a href="../classes/GuideSet.html">GuideSet</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="223"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:223</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystem</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>guideSet</td>
+                                    <td>
+                                                <code><a href="../classes/GuideSet.html" target="_self" >GuideSet</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setModelData"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            setModelData
+                        </b>
+                        <a href="#setModelData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setModelData(element: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="155"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:155</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToModal"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToModal
+                        </b>
+                        <a href="#subscribeToModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToModal()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="189"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:189</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToValidGuideSet"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToValidGuideSet
+                        </b>
+                        <a href="#subscribeToValidGuideSet"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToValidGuideSet()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:51</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSystemGuideSet"></a>
+                    <span class="name">
+                        <b>
+                            updateSystemGuideSet
+                        </b>
+                        <a href="#updateSystemGuideSet"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateSystemGuideSet(system: <a href="../classes/System.html">System</a>, guideSet: <a href="../classes/GuideSet.html">GuideSet</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="198"
+                            class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:198</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>system</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>guideSet</td>
+                                    <td>
+                                                <code><a href="../classes/GuideSet.html" target="_self" >GuideSet</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentGuideSetStatus"></a>
+                        <span class="name">
+                            <b>
+                            currentGuideSetStatus</b>
+                            <a href="#currentGuideSetStatus"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>GuideSetContextSourceStatus[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="datePickers"></a>
+                        <span class="name">
+                            <b>
+                            datePickers</b>
+                            <a href="#datePickers"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editingGuideSet"></a>
+                        <span class="name">
+                            <b>
+                            editingGuideSet</b>
+                            <a href="#editingGuideSet"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isValidGuideSet$"></a>
+                        <span class="name">
+                            <b>
+                            isValidGuideSet$</b>
+                            <a href="#isValidGuideSet$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="minFiles"></a>
+                        <span class="name">
+                            <b>
+                            minFiles</b>
+                            <a href="#minFiles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="minValidContextSource"></a>
+                        <span class="name">
+                            <b>
+                            minValidContextSource</b>
+                            <a href="#minValidContextSource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedAction$"></a>
+                        <span class="name">
+                            <b>
+                            selectedAction$</b>
+                            <a href="#selectedAction$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="systems"></a>
+                        <span class="name">
+                            <b>
+                            systems</b>
+                            <a href="#systems"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/System.html" target="_self" >System[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="validGuideSet"></a>
+                        <span class="name">
+                            <b>
+                            validGuideSet</b>
+                            <a href="#validGuideSet"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/management/guide-set/data-source-guide-set-list/data-source-guide-set-list.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ChangeDetectorRef } from &#x27;@angular/core&#x27;;
+import { GuideSet } from &#x27;../../../models/guideSet&#x27;;
+import { delay } from &#x27;q&#x27;;
+import { ModalService } from &#x27;../../../common/modal.service&#x27;;
+import { SystemService } from &#x27;../../../services/system.service&#x27;;
+import { System } from &#x27;../../../models/system&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { GuideSetService } from &#x27;../../../services/guide-set.service&#x27;;
+import { SampleType } from &#x27;../../../models/sampleType&#x27;;
+import { GuideSetContextSourceStatus } from &#x27;../../../models/guideSetContextSourceStatus&#x27;;
+declare var M: any;
+@Component({
+  selector: &#x27;app-data-source-guide-set-list&#x27;,
+  templateUrl: &#x27;./data-source-guide-set-list.component.html&#x27;,
+  styleUrls: [&#x27;./data-source-guide-set-list.component.css&#x27;]
+})
+export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
+
+  constructor(private systemService: SystemService,
+    private modalService: ModalService,
+    private guideSetService: GuideSetService,
+    private ref: ChangeDetectorRef) { }
+
+  systems: System[] &#x3D; [];
+
+  datePickers: any &#x3D; [];
+
+  currentGuideSetStatus: GuideSetContextSourceStatus[];
+
+  minFiles: number;
+  minValidContextSource: number;
+
+  selectedAction$: Subscription;
+  isValidGuideSet$: Subscription;
+
+  validGuideSet &#x3D; false;
+
+  editingGuideSet &#x3D; false;
+
+  ngOnInit() {
+    this.getMinFilesForManualGuideSet();
+    this.loadSystems();
+    this.subscribeToModal();
+    this.subscribeToValidGuideSet();
+  }
+  ngOnDestroy() {
+    this.selectedAction$.unsubscribe();
+    this.isValidGuideSet$.unsubscribe();
+  }
+
+  private subscribeToValidGuideSet(): void {
+    this.isValidGuideSet$ &#x3D; this.guideSetService.isValidGuideSet$
+      .subscribe(
+        (isValid) &#x3D;&gt; {
+          this.validGuideSet &#x3D; isValid;
+          this.refresh();
+        }
+      );
+  }
+
+  private refresh(): void {
+    const self &#x3D; this;
+    self.ref.detectChanges();
+
+  }
+
+  private getMinFilesForManualGuideSet(): void {
+    this.guideSetService.getMinFilesForManualGuideSet()
+      .subscribe(minFiles &#x3D;&gt; {
+        this.minFiles &#x3D; minFiles.body;
+        this.minValidContextSource &#x3D; +minFiles.headers.get(&#x27;minpoints&#x27;);
+      });
+  }
+
+  private loadSystems(): void {
+    this.systemService.getSystems()
+      .subscribe(
+        (systems) &#x3D;&gt; {
+          systems.forEach(
+            (system) &#x3D;&gt; {
+              this.systems.push(system);
+            }
+          );
+        }, err &#x3D;&gt; console.log(err),
+        () &#x3D;&gt; this.enableDatePickersOnUserDefinedGuideSets()
+      );
+  }
+
+  private enableDatePickersOnUserDefinedGuideSets(): void {
+    this.systems.forEach(
+      (system) &#x3D;&gt; {
+        system.enabledGuideSets.forEach(
+          (gs) &#x3D;&gt; {
+            if (gs.isUserDefined) {
+              gs.startDate &#x3D; gs.startDate.slice(0, -6);
+              gs.endDate &#x3D; gs.endDate.slice(0, -6);
+              delay(10).then(
+                () &#x3D;&gt; {
+                  this.initializeDatePickers(system, gs);
+                });
+            }
+          }
+        );
+      }
+    );
+  }
+
+  private initializeDatePickers(system: System, guideSet: GuideSet): void {
+    const elems &#x3D; document.querySelectorAll(&#x27;.datepicker-&#x27; + system.apiKey + &#x27;-&#x27; + guideSet.sampleType.name);
+    const options &#x3D; {
+      format: &#x27;yyyy-mm-dd&#x27;,
+      firstDay: 1,
+      setDefaultDate: true,
+      maxDate: new Date()
+    };
+    const instances &#x3D; M.Datepicker.init(elems, options);
+
+    instances.forEach(
+      (instance) &#x3D;&gt; {
+        instance.options.onClose &#x3D; () &#x3D;&gt; {
+          this.setModelData(instance.el);
+          this.checkDates(instance.el);
+        };
+      }
+    );
+  }
+
+  private checkDates(element: any): void {
+    const labSystemApikey &#x3D; this.getSystemApikeyFromHtml(element.getAttribute(&#x27;data-coord&#x27;));
+    const sampleTypeName &#x3D; this.getSampleTypeNameFromHtml(element.getAttribute(&#x27;data-coord&#x27;));
+    const labSystem &#x3D; this.systems.find(
+      (system) &#x3D;&gt; {
+        return system.apiKey &#x3D;&#x3D;&#x3D; labSystemApikey;
+      });
+    const guideSet &#x3D; labSystem.enabledGuideSets.find((gs) &#x3D;&gt; {
+      return gs.sampleType.name &#x3D;&#x3D;&#x3D; sampleTypeName;
+    });
+    if ((guideSet.startDate !&#x3D;&#x3D; null) &amp;&amp; (guideSet.endDate !&#x3D;&#x3D; null)) {
+      // check if start date is greater than end date
+      if (guideSet.startDate &gt; guideSet.endDate) {
+        alert(&#x27;Start date can not be greater than the end date&#x27;);
+      } else {
+        // check number of files
+        this.guideSetService.checkNumberOfFilesInGuideSet(labSystemApikey, guideSet)
+          .subscribe(
+            (guideSetPeptideStatus) &#x3D;&gt; {
+              this.guideSetService.selectGuideSetContextSourceStatus(guideSetPeptideStatus);
+              // this.updateGuideSetTotalFiles(guideSet, totalFiles);
+            }, err &#x3D;&gt; console.log(err)
+          );
+      }
+    }
+  }
+
+  private setModelData(element: any): void {
+    // get the system
+    const labSystemApikey &#x3D; this.getSystemApikeyFromHtml(element.getAttribute(&#x27;data-coord&#x27;));
+    const sampleTypeName &#x3D; this.getSampleTypeNameFromHtml(element.getAttribute(&#x27;data-coord&#x27;));
+    const position &#x3D; element.getAttribute(&#x27;position&#x27;);
+    // update the system guide set
+    const labSystem &#x3D; this.systems.find(
+      (system) &#x3D;&gt; {
+        return system.apiKey &#x3D;&#x3D;&#x3D; labSystemApikey;
+      });
+    const guideSet &#x3D; labSystem.enabledGuideSets.find((gs) &#x3D;&gt; {
+      return gs.sampleType.name &#x3D;&#x3D;&#x3D; sampleTypeName;
+    });
+    switch (position) {
+      case &#x27;start&#x27;:
+        guideSet.startDate &#x3D; element.value;
+        break;
+      case &#x27;end&#x27;:
+        guideSet.endDate &#x3D; element.value;
+        break;
+      default:
+        console.log(&#x27;Wrong position&#x27;);
+        break;
+    }
+  }
+
+  private getSampleTypeNameFromHtml(htmlId: string): string {
+    return htmlId.substring(htmlId.lastIndexOf(&#x27;-&#x27;) + 1, htmlId.length);
+  }
+
+  private getSystemApikeyFromHtml(htmlId: string): string {
+    return htmlId.substring(htmlId.indexOf(&#x27;-&#x27;) + 1, htmlId.lastIndexOf(&#x27;-&#x27;));
+  }
+
+  private subscribeToModal(): void {
+    this.selectedAction$ &#x3D; this.modalService.selectedAction$
+      .subscribe(
+        (response) &#x3D;&gt; {
+          console.log(response);
+        }
+      );
+  }
+
+  updateSystemGuideSet(system: System, guideSet: GuideSet): void {
+    this.systemService.saveGuideSet(system, guideSet)
+      .subscribe(
+        (res) &#x3D;&gt; {
+          console.log(res);
+          system &#x3D; res;
+          this.editingGuideSet &#x3D; false;
+        }, err &#x3D;&gt; console.log(err)
+      );
+  }
+
+  createGuideSet(system: System, sampleType: SampleType): void {
+    this.editingGuideSet &#x3D; true;
+    const index &#x3D; system.enabledGuideSets.findIndex(gs &#x3D;&gt; {
+      return gs.sampleType.qualityControlControlledVocabulary &#x3D;&#x3D;&#x3D; sampleType.qualityControlControlledVocabulary;
+    });
+
+    system.enabledGuideSets[index].isUserDefined &#x3D; true;
+    system.enabledGuideSets[index].id &#x3D; null;
+    system.enabledGuideSets[index].startDate &#x3D; null;
+    system.enabledGuideSets[index].endDate &#x3D; null;
+    this.refresh();
+    this.initializeDatePickers(system, system.enabledGuideSets[index]);
+  }
+
+  setGuideSetToAutomatic(labSystem: System, guideSet: GuideSet): void {
+    this.guideSetService.resetLabSystemGuideSetBySampleType(labSystem.apiKey, guideSet.sampleType)
+      .subscribe(
+        (res) &#x3D;&gt; {
+          const currentGuideSet &#x3D; labSystem.enabledGuideSets.find(egs &#x3D;&gt; egs.apiKey &#x3D;&#x3D;&#x3D; guideSet.apiKey);
+          currentGuideSet.apiKey &#x3D; null;
+          currentGuideSet.startDate &#x3D; null;
+          currentGuideSet.endDate &#x3D; null;
+          currentGuideSet.totalFiles &#x3D; null;
+          currentGuideSet.isUserDefined &#x3D; false;
+          this.editingGuideSet &#x3D; false;
+          this.refresh();
+        }
+      );
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row&quot;&gt;
+  &lt;div class&#x3D;&quot;col s12 m12 l12 xl12&quot;&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;You need at least &lt;strong&gt;{{minFiles}}&lt;/strong&gt; files to set up a custom guide set&lt;/p&gt;
+      &lt;p&gt;Your start and end date should include &lt;strong&gt;{{minFiles}}&lt;/strong&gt; valid data points per each context source.&lt;/p&gt;
+      &lt;!-- &lt;p&gt;At least &lt;strong&gt;{{minValidContextSource}}&lt;/strong&gt; valid context sources points are needed per param to set up a manual guide set.&lt;/p&gt; --&gt;
+    &lt;/blockquote&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+  &lt;tbody *ngFor&#x3D;&quot;let system of systems&quot;&gt;
+    &lt;tr&gt;
+      &lt;td colspan&#x3D;&quot;5&quot; class&#x3D;&quot;center-align green-background lighten-5&quot;&gt;&lt;strong&gt;{{system.name}}&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Sample type&lt;/th&gt;
+      &lt;th&gt;Start date&lt;/th&gt;
+      &lt;th&gt;End date&lt;/th&gt;
+      &lt;th&gt;Set guide set&lt;/th&gt;
+      &lt;th&gt;Information&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr *ngFor&#x3D;&quot;let guideSet of system.enabledGuideSets&quot;&gt;
+      &lt;td&gt;
+        {{guideSet.sampleType.name}}
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;input type&#x3D;&quot;text&quot; [attr.disabled]&#x3D;&quot;guideSet.isUserDefined&#x3D;&#x3D;false ? true : null&quot; position&#x3D;&quot;start&quot; name&#x3D;&quot;startDate{{system.apiKey}}-{{guideSet.sampleType.name}}&quot;
+          class&#x3D;&quot;datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}&quot; [(ngModel)]&#x3D;&quot;guideSet.startDate&quot; attr.data-coord&#x3D;&quot;datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}&quot;
+        /&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;input type&#x3D;&quot;text&quot; [attr.disabled]&#x3D;&quot;guideSet.isUserDefined&#x3D;&#x3D;false ? true : null&quot; position&#x3D;&quot;end&quot; name&#x3D;&quot;endDate{{system.apiKey}}-{{guideSet.sampleType.name}}&quot;
+          class&#x3D;&quot;datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}&quot; [(ngModel)]&#x3D;&quot;guideSet.endDate&quot; attr.data-coord&#x3D;&quot;datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}&quot;
+        /&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;guideSet.isUserDefined&#x3D;&#x3D;false then buttonAuto else buttonManual&quot;&gt;&lt;/ng-container&gt;
+        &lt;ng-template #buttonAuto&gt;
+          &lt;button type&#x3D;&quot;button&quot; [attr.disabled]&#x3D;&quot;guideSet.labSystemTotalFiles &lt; 20 || editingGuideSet&#x3D;&#x3D;true ? true : null&quot; (click)&#x3D;&quot;createGuideSet(system, guideSet.sampleType)&quot;
+            class&#x3D;&quot;waves-effect waves-light btn&quot;&gt;Create guide set&lt;/button&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template #buttonManual&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;waves-effect waves-light btn&quot; [attr.disabled]&#x3D;&quot;validGuideSet &#x3D;&#x3D; false ? true: null&quot; (click)&#x3D;&quot;updateSystemGuideSet(system,guideSet)&quot;&gt;Set / Update&lt;/button&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;waves-effect waves-light btn&quot; *ngIf&#x3D;&quot;guideSet.apiKey&quot; (click)&#x3D;&quot;setGuideSetToAutomatic(system,guideSet)&quot;&gt;Automatic&lt;/button&gt;
+        &lt;/ng-template&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;p *ngIf&#x3D;&quot;guideSet.isUserDefined&#x3D;&#x3D;false&quot;&gt;&lt;strong&gt;AUTOMATIC&lt;/strong&gt;&lt;/p&gt;
+        &lt;p *ngIf&#x3D;&quot;guideSet.isUserDefined&#x3D;&#x3D;true&quot;&gt;This guide set has
+          &lt;strong&gt;{{guideSet.totalFiles}}&lt;/strong&gt; files.&lt;/p&gt;
+        &lt;p&gt;You have &lt;strong&gt;{{guideSet.labSystemTotalFiles}}&lt;/strong&gt; files of this sample type.&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./data-source-guide-set-list.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row">  <div class="col s12 m12 l12 xl12">    <blockquote>      <p>You need at least <strong>{{minFiles}}</strong> files to set up a custom guide set</p>      <p>Your start and end date should include <strong>{{minFiles}}</strong> valid data points per each context source.</p>      <!-- <p>At least <strong>{{minValidContextSource}}</strong> valid context sources points are needed per param to set up a manual guide set.</p> -->    </blockquote>  </div></div><table>  <tbody *ngFor="let system of systems">    <tr>      <td colspan="5" class="center-align green-background lighten-5"><strong>{{system.name}}</strong></td>    </tr>    <tr>      <th>Sample type</th>      <th>Start date</th>      <th>End date</th>      <th>Set guide set</th>      <th>Information</th>    </tr>    <tr *ngFor="let guideSet of system.enabledGuideSets">      <td>        {{guideSet.sampleType.name}}      </td>      <td>        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="start" name="startDate{{system.apiKey}}-{{guideSet.sampleType.name}}"          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.startDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"        />      </td>      <td>        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="end" name="endDate{{system.apiKey}}-{{guideSet.sampleType.name}}"          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.endDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"        />      </td>      <td>        <ng-container *ngIf="guideSet.isUserDefined==false then buttonAuto else buttonManual"></ng-container>        <ng-template #buttonAuto>          <button type="button" [attr.disabled]="guideSet.labSystemTotalFiles < 20 || editingGuideSet==true ? true : null" (click)="createGuideSet(system, guideSet.sampleType)"            class="waves-effect waves-light btn">Create guide set</button>        </ng-template>        <ng-template #buttonManual>          <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set / Update</button>          <button type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey" (click)="setGuideSetToAutomatic(system,guideSet)">Automatic</button>        </ng-template>      </td>      <td>        <p *ngIf="guideSet.isUserDefined==false"><strong>AUTOMATIC</strong></p>        <p *ngIf="guideSet.isUserDefined==true">This guide set has          <strong>{{guideSet.totalFiles}}</strong> files.</p>        <p>You have <strong>{{guideSet.labSystemTotalFiles}}</strong> files of this sample type.</p>      </td>    </tr>  </tbody></table></div>'
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DataSourceGuideSetListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DataSourceGuideSetListComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

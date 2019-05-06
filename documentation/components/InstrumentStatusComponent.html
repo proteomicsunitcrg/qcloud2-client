@@ -1,0 +1,1654 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qcloud2-client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qcloud2-client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>InstrumentStatusComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/application/layout/instrument-status/instrument-status.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-instrument-status</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./instrument-status.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./instrument-status.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentDropdownInstance">currentDropdownInstance</a>
+                            </li>
+                            <li>
+                                <a href="#currentStatus">currentStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#newLabSystemFromWebsocket$">newLabSystemFromWebsocket$</a>
+                            </li>
+                            <li>
+                                <a href="#nodeLabSystems">nodeLabSystems</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#nonConformitiesFromWebsocket$">nonConformitiesFromWebsocket$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeAlertList">closeAlertList</a>
+                            </li>
+                            <li>
+                                <a href="#doSendToAutoPlot">doSendToAutoPlot</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getNonConformityIndexToDelete">getNonConformityIndexToDelete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadLabSystemStatus">loadLabSystemStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadNodeLabSystems">loadNodeLabSystems</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#manageNonConformitiesFromWebSocket">manageNonConformitiesFromWebSocket</a>
+                            </li>
+                            <li>
+                                <a href="#navigateTo">navigateTo</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#open">open</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToNewLabSystemFromWebsocket">subscribeToNewLabSystemFromWebsocket</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToWebSocket">subscribeToWebSocket</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateLabSystemLight">updateLabSystemLight</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(systemService: <a href="../injectables/SystemService.html">SystemService</a>, thresholdService: <a href="../injectables/ThresholdService.html">ThresholdService</a>, webSocketService: <a href="../injectables/WebsocketService.html">WebsocketService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>systemService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SystemService.html" target="_self" >SystemService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>thresholdService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ThresholdService.html" target="_self" >ThresholdService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>webSocketService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WebsocketService.html" target="_self" >WebsocketService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeAlertList"></a>
+                    <span class="name">
+                        <b>
+                            closeAlertList
+                        </b>
+                        <a href="#closeAlertList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeAlertList()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="167"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:167</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doSendToAutoPlot"></a>
+                    <span class="name">
+                        <b>
+                            doSendToAutoPlot
+                        </b>
+                        <a href="#doSendToAutoPlot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>doSendToAutoPlot(labSystemStatus: <a href="../classes/LabSystemStatus.html">LabSystemStatus</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:150</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystemStatus</td>
+                                    <td>
+                                                <code><a href="../classes/LabSystemStatus.html" target="_self" >LabSystemStatus</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNonConformityIndexToDelete"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getNonConformityIndexToDelete
+                        </b>
+                        <a href="#getNonConformityIndexToDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getNonConformityIndexToDelete(labSystemStatus: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, fileChecksum: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, qc: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="212"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:212</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystemStatus</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>fileChecksum</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>qc</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadLabSystemStatus"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            loadLabSystemStatus
+                        </b>
+                        <a href="#loadLabSystemStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadLabSystemStatus()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:84</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadNodeLabSystems"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            loadNodeLabSystems
+                        </b>
+                        <a href="#loadNodeLabSystems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadNodeLabSystems()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:67</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get the node labsystems and when completes
+load the instrument status</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="manageNonConformitiesFromWebSocket"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            manageNonConformitiesFromWebSocket
+                        </b>
+                        <a href="#manageNonConformitiesFromWebSocket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>manageNonConformitiesFromWebSocket(labSystemApiKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, nonConformities: LabSystemStatus[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="179"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:179</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystemApiKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>nonConformities</td>
+                                    <td>
+                                            <code>LabSystemStatus[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateTo"></a>
+                    <span class="name">
+                        <b>
+                            navigateTo
+                        </b>
+                        <a href="#navigateTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateTo(labSystem: <a href="../classes/System.html">System</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:163</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystem</td>
+                                    <td>
+                                                <code><a href="../classes/System.html" target="_self" >System</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="open"></a>
+                    <span class="name">
+                        <b>
+                            open
+                        </b>
+                        <a href="#open"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>open(dropdown: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:139</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dropdown</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToNewLabSystemFromWebsocket"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToNewLabSystemFromWebsocket
+                        </b>
+                        <a href="#subscribeToNewLabSystemFromWebsocket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToNewLabSystemFromWebsocket()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:47</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToWebSocket"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            subscribeToWebSocket
+                        </b>
+                        <a href="#subscribeToWebSocket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToWebSocket()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:171</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateLabSystemLight"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateLabSystemLight
+                        </b>
+                        <a href="#updateLabSystemLight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateLabSystemLight(labSystem: <a href="../classes/NodeLabSystemStatus.html">NodeLabSystemStatus</a>, stat: <a href="../classes/LabSystemStatus.html">LabSystemStatus</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:110</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>labSystem</td>
+                                    <td>
+                                                <code><a href="../classes/NodeLabSystemStatus.html" target="_self" >NodeLabSystemStatus</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>stat</td>
+                                    <td>
+                                                <code><a href="../classes/LabSystemStatus.html" target="_self" >LabSystemStatus</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentDropdownInstance"></a>
+                        <span class="name">
+                            <b>
+                            currentDropdownInstance</b>
+                            <a href="#currentDropdownInstance"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentStatus"></a>
+                        <span class="name">
+                            <b>
+                            currentStatus</b>
+                            <a href="#currentStatus"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>LabSystemStatus[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="newLabSystemFromWebsocket$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            newLabSystemFromWebsocket$</b>
+                            <a href="#newLabSystemFromWebsocket$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nodeLabSystems"></a>
+                        <span class="name">
+                            <b>
+                            nodeLabSystems</b>
+                            <a href="#nodeLabSystems"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>NodeLabSystemStatus[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nonConformitiesFromWebsocket$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            nonConformitiesFromWebsocket$</b>
+                            <a href="#nonConformitiesFromWebsocket$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/application/layout/instrument-status/instrument-status.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { System } from &#x27;../../../models/system&#x27;;
+import { SystemService } from &#x27;../../../services/system.service&#x27;;
+import { delay } from &#x27;q&#x27;;
+import { ThresholdService } from &#x27;../../../services/threshold.service&#x27;;
+import { LabSystemStatus } from &#x27;../../../models/labsystemstatus&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { WebsocketService } from &#x27;../../../services/websocket.service&#x27;;
+import { NodeLabSystemStatus } from &#x27;../../../models/nodeLabSystemStatus&#x27;;
+import { Alert } from &#x27;../../../models/alert&#x27;;
+declare var M: any;
+
+@Component({
+  selector: &#x27;app-instrument-status&#x27;,
+  templateUrl: &#x27;./instrument-status.component.html&#x27;,
+  styleUrls: [&#x27;./instrument-status.component.css&#x27;]
+})
+export class InstrumentStatusComponent implements OnInit, OnDestroy {
+
+  constructor(private systemService: SystemService,
+    private thresholdService: ThresholdService,
+    private webSocketService: WebsocketService,
+    private router: Router) { }
+
+  nodeLabSystems: NodeLabSystemStatus[] &#x3D; [];
+
+  private nonConformitiesFromWebsocket$: Subscription;
+  private newLabSystemFromWebsocket$: Subscription;
+
+  currentStatus: LabSystemStatus[] &#x3D; [];
+
+  currentDropdownInstance: any &#x3D; null;
+
+
+  ngOnInit() {
+    this.loadNodeLabSystems();
+    this.subscribeToWebSocket();
+    this.subscribeToNewLabSystemFromWebsocket();
+  }
+
+  ngOnDestroy() {
+    this.newLabSystemFromWebsocket$.unsubscribe();
+    this.nonConformitiesFromWebsocket$.unsubscribe();
+  }
+
+  private subscribeToNewLabSystemFromWebsocket(): void {
+    this.newLabSystemFromWebsocket$ &#x3D; this.webSocketService.newLabSystemFromWebSocket$
+      .subscribe(
+        (res) &#x3D;&gt; {
+          this.nodeLabSystems.push({
+            system: res.body,
+            status: [],
+            alerts: {
+              quantity: 0,
+              severity: &#x27;OFFLINE&#x27; // By default the new labsystem is offline
+            }
+          });
+        }
+      );
+  }
+
+  /**
+   * Get the node labsystems and when completes
+   * load the instrument status
+   */
+  private loadNodeLabSystems(): void {
+    this.systemService.getSystems()
+      .subscribe(
+        (labSystems) &#x3D;&gt; {
+          labSystems.forEach(
+            (labSystem) &#x3D;&gt; {
+              this.nodeLabSystems.push(
+                new NodeLabSystemStatus(labSystem, [], new Alert(0, &#x27;OK&#x27;))
+              );
+            }
+          );
+        }, err &#x3D;&gt; console.log(err),
+        () &#x3D;&gt; {
+          this.loadLabSystemStatus();
+        }
+      );
+  }
+  private loadLabSystemStatus(): void {
+    this.nodeLabSystems.forEach(
+      (labSystem) &#x3D;&gt; {
+        this.thresholdService.getLabSystemStatus(labSystem.system)
+          .subscribe(
+            (status) &#x3D;&gt; {
+              console.log(status)
+              status.forEach(
+                (stat) &#x3D;&gt; {
+                  if (stat.status !&#x3D;&#x3D; &#x27;OK&#x27;) {
+                    stat.labSystemApikey &#x3D; labSystem.system.apiKey;
+                    labSystem.status.push(stat);
+                  }
+                  if (stat.status &#x3D;&#x3D;&#x3D; &#x27;OK&#x27;) {
+                  }
+                  this.updateLabSystemLight(labSystem, stat);
+                }
+              );
+            }, err &#x3D;&gt; {
+              labSystem.status &#x3D; null;
+            }
+          );
+      }
+    );
+  }
+
+  private updateLabSystemLight(labSystem: NodeLabSystemStatus, stat: LabSystemStatus): void {
+    if (stat.status !&#x3D;&#x3D; &#x27;OK&#x27;) {
+      stat.labSystemApikey &#x3D; labSystem.system.apiKey;
+      switch (stat.status) {
+        case &#x27;WARNING&#x27;:
+          labSystem.alerts.quantity++;
+          if (labSystem.alerts.severity &#x3D;&#x3D;&#x3D; &#x27;OK&#x27;) {
+            labSystem.alerts.severity &#x3D; &#x27;WARNING&#x27;;
+          }
+          break;
+        case &#x27;DANGER&#x27;:
+          labSystem.alerts.quantity++;
+          if (labSystem.alerts.severity &#x3D;&#x3D;&#x3D; &#x27;OK&#x27; || labSystem.alerts.severity &#x3D;&#x3D;&#x3D; &#x27;WARNING&#x27;) {
+            labSystem.alerts.severity &#x3D; &#x27;DANGER&#x27;;
+          }
+          break;
+        case &#x27;NO_DATA&#x27;:
+          if (labSystem.alerts.severity &#x3D;&#x3D;&#x3D; &#x27;OK&#x27; || labSystem.alerts.severity &#x3D;&#x3D;&#x3D; &#x27;WARNING&#x27;) {
+            labSystem.alerts.severity &#x3D; &#x27;DANGER&#x27;;
+          }
+          break;
+        case &#x27;OFFLINE&#x27;:
+          labSystem.alerts.severity &#x3D; &#x27;OFFLINE&#x27;;
+          labSystem.status.length &#x3D; 0;
+          break;
+      }
+    }
+  }
+
+  open(dropdown: string, index: number): void {
+    this.currentStatus &#x3D; this.nodeLabSystems[index].status;
+    delay(1).then(
+      () &#x3D;&gt; {
+        const elem &#x3D; document.getElementById(dropdown);
+        this.currentDropdownInstance &#x3D; M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false });
+        this.currentDropdownInstance.open();
+      }
+    );
+  }
+
+  doSendToAutoPlot(labSystemStatus: LabSystemStatus): void {
+    const currentRoute &#x3D; this.router.url;
+    this.currentDropdownInstance.destroy();
+    if (currentRoute.includes(&#x27;application/view/instrument/&#x27; + labSystemStatus.labSystemApikey)) {
+      this.thresholdService.selectLabSystemStatus(labSystemStatus);
+    } else {
+      this.router.navigate([&#x27;application/view/instrument/&#x27; + labSystemStatus.labSystemApikey, {
+        &#x27;alertData&#x27;: btoa(JSON.stringify(labSystemStatus))
+      }
+      ]);
+    }
+  }
+
+  navigateTo(labSystem: System): void {
+    this.router.navigate([&#x27;application/view/instrument/&#x27; + labSystem.apiKey]);
+  }
+
+  closeAlertList(): void {
+    this.currentDropdownInstance.close();
+  }
+
+  private subscribeToWebSocket(): void {
+    this.nonConformitiesFromWebsocket$ &#x3D; this.webSocketService.nonConformities$.subscribe(
+      (res) &#x3D;&gt; {
+        this.manageNonConformitiesFromWebSocket(res.action, res.body);
+      }
+    );
+  }
+
+  private manageNonConformitiesFromWebSocket(labSystemApiKey: string, nonConformities: LabSystemStatus[]): void {
+    let nodeLabSystem;
+    if (nonConformities.length &gt; 0) {
+      nodeLabSystem &#x3D; this.nodeLabSystems.find(nls &#x3D;&gt; {
+        return nls.system.apiKey &#x3D;&#x3D;&#x3D; labSystemApiKey;
+      });
+
+      let qc;
+      qc &#x3D; nonConformities[0][&#x27;sampleTypeName&#x27;];
+
+      let index &#x3D; this.getNonConformityIndexToDelete(nodeLabSystem.status, nonConformities[0].fileChecksum, qc);
+      while (index !&#x3D;&#x3D; -1) {
+        nodeLabSystem.status.splice(index, 1);
+        index &#x3D; this.getNonConformityIndexToDelete(nodeLabSystem.status, nonConformities[0].fileChecksum, qc);
+      }
+      nonConformities.forEach(
+        (nc) &#x3D;&gt; {
+          if (nc.status !&#x3D;&#x3D; &#x27;OK&#x27;) {
+            nc.labSystemApikey &#x3D; labSystemApiKey;
+            nodeLabSystem.status.push(nc);
+          }
+        }
+      );
+    }
+    nodeLabSystem.alerts.quantity &#x3D; 0;
+    nodeLabSystem.alerts.severity &#x3D; &#x27;OK&#x27;;
+    nodeLabSystem.status.forEach(
+      (status) &#x3D;&gt; {
+        this.updateLabSystemLight(nodeLabSystem, status);
+      }
+    );
+  }
+
+  private getNonConformityIndexToDelete(labSystemStatus: any, fileChecksum: string, qc: string): number {
+    return labSystemStatus.findIndex((status) &#x3D;&gt; {
+      if (status.fileChecksum !&#x3D;&#x3D; fileChecksum &amp;&amp; status.sampleTypeName &#x3D;&#x3D;&#x3D; qc) {
+        return true;
+      }
+    });
+  }
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ul id&#x3D;&quot;content&quot; class&#x3D;&quot;dropdown-content&quot; (mouseleave)&#x3D;&quot;closeAlertList()&quot;&gt;
+  &lt;ng-container *ngIf&#x3D;&quot;currentStatus!&#x3D;null then status else nostatus&quot;&gt;&lt;/ng-container&gt;
+  &lt;ng-template #status&gt;
+    &lt;li *ngFor&#x3D;&quot;let status of currentStatus&quot;&gt;
+      &lt;a class&#x3D;&quot;cursorIcon&quot; (click)&#x3D;&quot;doSendToAutoPlot(status)&quot;&gt;{{status.sampleTypeName}} {{status.param.name}} {{status.contextSource.abbreviated}}
+        &lt;!-- &lt;span [class]&#x3D;&quot;status.status&quot;&gt;{{status.status}}&lt;/span&gt; --&gt;
+        &lt;span class&#x3D;&quot;dot&quot; [class.red]&#x3D;&quot;status.status&#x3D;&#x3D;&#x27;DANGER&#x27;&quot; [class.orange]&#x3D;&quot;status.status&#x3D;&#x3D;&#x27;WARNING&#x27;&quot;&gt;&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template #nostatus&gt;
+    &lt;li&gt;
+      &lt;a&gt;No status available.&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ng-template&gt;
+&lt;/ul&gt;
+&lt;div class&#x3D;&quot;col s12 m12 l12 xl12 wrapper&quot;&gt;
+  &lt;div id&#x3D;&quot;instrumentStatus&quot;&gt;
+    &lt;span class&#x3D;&quot;right&quot; *ngFor&#x3D;&quot;let labSystem of nodeLabSystems; let i &#x3D; index&quot;&gt;
+      &lt;a class&#x3D;&quot;btn btn-flat dropdown-trigger&quot; data-target&#x3D;&quot;content&quot; id&#x3D;&quot;{{labSystem.system.name}}&quot; 
+      (mouseenter)&#x3D;&quot;open(labSystem.system.name,i)&quot;
+      (click)&#x3D;&quot;navigateTo(labSystem.system)&quot;&gt;{{labSystem.system.name}}
+      &lt;ng-container *ngIf&#x3D;&quot;labSystem.alerts.quantity!&#x3D;0 then alerts else clean&quot;&gt;&lt;/ng-container&gt;
+      &lt;ng-template #alerts&gt;
+        &lt;span class&#x3D;&quot;dot&quot; [class.red]&#x3D;&quot;labSystem.alerts.severity&#x3D;&#x3D;&#x27;DANGER&#x27;&quot; [class.orange]&#x3D;&quot;labSystem.alerts.severity&#x3D;&#x3D;&#x27;WARNING&#x27;&quot;&gt;&lt;/span&gt;
+      &lt;/ng-template&gt;
+      &lt;ng-template #clean&gt;
+        &lt;span class&#x3D;&quot;dot&quot; [class.green]&#x3D;&quot;labSystem.alerts.severity&#x3D;&#x3D;&#x27;OK&#x27;&quot;&gt;&lt;/span&gt;
+      &lt;/ng-template&gt;
+    &lt;/a&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./instrument-status.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">#instrumentStatus {
+  width: 100%;
+  height: 30px;
+  padding-right: 10px;
+}
+
+.OK {
+  color: #00ff00;
+}
+
+.WARNING {
+  color: orange;
+}
+
+.DANGER, .NO_DATA {
+  color: red;
+}
+
+.OFFLINE {
+  color: grey;
+}
+
+button {
+  margin-left: 5px;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.cursorIcon {
+  cursor: pointer;
+}
+a {
+  color: black;
+}
+
+.wrapper {
+  background-color: #a7d7c5;
+  
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ul id="content" class="dropdown-content" (mouseleave)="closeAlertList()">  <ng-container *ngIf="currentStatus!=null then status else nostatus"></ng-container>  <ng-template #status>    <li *ngFor="let status of currentStatus">      <a class="cursorIcon" (click)="doSendToAutoPlot(status)">{{status.sampleTypeName}} {{status.param.name}} {{status.contextSource.abbreviated}}        <!-- <span [class]="status.status">{{status.status}}</span> -->        <span class="dot" [class.red]="status.status==\'DANGER\'" [class.orange]="status.status==\'WARNING\'"></span>      </a>    </li>  </ng-template>  <ng-template #nostatus>    <li>      <a>No status available.</a>    </li>  </ng-template></ul><div class="col s12 m12 l12 xl12 wrapper">  <div id="instrumentStatus">    <span class="right" *ngFor="let labSystem of nodeLabSystems; let i = index">      <a class="btn btn-flat dropdown-trigger" data-target="content" id="{{labSystem.system.name}}"       (mouseenter)="open(labSystem.system.name,i)"      (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}      <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>      <ng-template #alerts>        <span class="dot" [class.red]="labSystem.alerts.severity==\'DANGER\'" [class.orange]="labSystem.alerts.severity==\'WARNING\'"></span>      </ng-template>      <ng-template #clean>        <span class="dot" [class.green]="labSystem.alerts.severity==\'OK\'"></span>      </ng-template>    </a>    </span>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'InstrumentStatusComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'InstrumentStatusComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
