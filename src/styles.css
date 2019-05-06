@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Some elements here are global ant other are from libs. The lib elements only can be modified in this file */
+
 .green-background {
     background-color: #f4f9f4;
     color: black;
@@ -30,4 +32,8 @@ button[type="button"] {
 
 .is-selected button{
     background-color: #a7d7c5 !important;
+}
+
+.btn-flat.datepicker-done.waves-effect {
+    margin-left: 10px !important;
 }
