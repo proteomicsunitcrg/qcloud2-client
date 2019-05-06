@@ -37,3 +37,7 @@ form {
 .helper-text{
 	color:red;
 }
+
+.greenLink {
+	color: #7dc4a9;
+}

@@ -41,3 +41,6 @@ blockquote {
 .show-password {
   cursor: pointer;
 }
+.greenLink {
+	color: #7dc4a9;
+}
