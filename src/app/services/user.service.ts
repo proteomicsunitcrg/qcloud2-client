@@ -24,8 +24,8 @@ export class UserService {
     return this.httpClient.get<User[]>(this.nodeUrl + '/users');
   }
 
-  public getAllNodes() :Observable<Node[]>{
-    return this.httpClient.get<Node[]>(this.nodeUrl + 's')
+  public getAllNodes(): Observable<Node[]> {
+    return this.httpClient.get<Node[]>(this.nodeUrl + 's');
   }
 
   public addLabMemberToNode(member: User): Observable<User[]> {

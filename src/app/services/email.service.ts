@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Email } from '../models/email';
-// import { Message } from '../models/message';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +12,7 @@ export class EmailService {
 
   // ENV URL
   private apiPrefix = environment.apiPrefix;
-  
+
   // Email API URL
   emailUrl = this.apiPrefix + 'api/email';
 

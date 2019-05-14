@@ -11,8 +11,8 @@ declare let M: any;
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent {
-  
-  //This variable is used to access the toast methods
+
+  // This variable is used to access the toast methods
   M: any;
 
   // To get the selected users from the list
@@ -43,7 +43,7 @@ export class EmailComponent {
   * @access public
   */
   receiveMessage($event) {
-    this.selectedUsers = $event
+    this.selectedUsers = $event;
   }
 
   /**
@@ -55,8 +55,8 @@ export class EmailComponent {
   */
   submit(): void {
     M.toast({ html: 'Sending the email' });
-    for (let user in this.selectedUsers) {
-      const email = new Email("qcloud@crg.eu", this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
+    for (const user of Object.keys(this.selectedUsers)) {
+      const email = new Email('no-reply@qcloud.eu', this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
       this.emailService.sendEmail(email).subscribe(
         (result) => {
           if (result) {

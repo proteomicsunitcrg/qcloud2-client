@@ -8,19 +8,17 @@ declare var M: any;
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-
+  allNodes = [];
+  hola = [];
+  selected = [];
   constructor(private emailService: EmailService, private userService: UserService) { }
   @Output() contactEmitter = new EventEmitter<any>();
   ngOnInit() {
     this.getAllNodes();
-  
   }
 
-  allNodes = [];
-  hola = [];
-  selected = []
   onSelect(i: number): void {
-    let contact = document.getElementsByClassName('contactList')[i];
+    const contact = document.getElementsByClassName('contactList')[i];
     if (!this.selected.includes(contact.textContent) && !this.isTitle(contact.textContent)) {
       contact.classList.add('selected');
       this.selected.push(contact.textContent);
@@ -48,12 +46,12 @@ export class ContactListComponent implements OnInit {
   private getAllNodes() {
     this.userService.getAllNodes().subscribe(
       (nodes) => {
-        for (let node in nodes) {
+        for (const node of Object.keys(nodes)) {
           this.allNodes.push(nodes[node].name);
-          let users = nodes[node].users;
-          for (let user in users){
-            if (typeof(users[user].authorities[1])!= 'undefined') {
-              this.allNodes.push(users[user].email)
+          const users = nodes[node].users;
+          for (const user of Object.keys(users)) {
+            if (typeof(users[user].authorities[1]) !== 'undefined') {
+              this.allNodes.push(users[user].email);
             }
           }
         }
