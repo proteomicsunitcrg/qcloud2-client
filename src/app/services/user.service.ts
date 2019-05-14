@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
+import { Node } from '../models/node';
 @Injectable()
 export class UserService {
 
@@ -21,6 +22,10 @@ export class UserService {
 
   public getUsersByNode(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.nodeUrl + '/users');
+  }
+
+  public getAllNodes() :Observable<Node[]>{
+    return this.httpClient.get<Node[]>(this.nodeUrl + 's')
   }
 
   public addLabMemberToNode(member: User): Observable<User[]> {
