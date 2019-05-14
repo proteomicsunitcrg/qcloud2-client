@@ -25,7 +25,7 @@ export class EmailService {
    * @access public
    */
   public sendEmail(email: Email): Observable<boolean> {
-    console.log(email);
+    // console.log(email);
     const json = JSON.stringify(email);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
