@@ -22,7 +22,7 @@ Step 5. In the server run:
 
 Step 5.1. For test deploy
 ```
-java -jar QCloudXXX.jar -Dspring.profiles.active=test 
+java -jar -Dspring.profiles.active=test QCloudXXX.jar 
 ```
 Step 5.2. For the production deploy:
 ```
