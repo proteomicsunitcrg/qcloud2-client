@@ -36,5 +36,15 @@ export class UserViewListComponent implements OnInit {
   editView(view: View): void {
     this.router.navigate(['application/configuration/builder/edit', view.apiKey]);
   }
+  
+  deleteView(view: View): void {
+    this.viewService.deleteView(view).subscribe(
+      (result) => {
+        this.loadUserViews();
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
 
 }

@@ -203,4 +203,15 @@ export class ViewService {
     this.newUserView.next(true);
   }
 
+  public deleteView(view: View): any {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    const json = JSON.stringify(view);
+    const params = json;
+    const options = {
+      headers: headers,
+      body: params
+    }
+    return this.httpClient.delete<View>(this.userViewsUrl, options);
+  }
+
 }
