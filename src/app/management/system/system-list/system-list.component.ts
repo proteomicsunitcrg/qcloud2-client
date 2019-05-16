@@ -44,7 +44,6 @@ export class SystemListComponent implements OnInit, OnDestroy {
             (system) => {
               this.nodeSystems.push(system);
             });
-            console.log(this.nodeSystems);
         });
   }
 

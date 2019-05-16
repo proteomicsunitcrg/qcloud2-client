@@ -87,7 +87,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         this.thresholdService.getLabSystemStatus(labSystem.system)
           .subscribe(
             (status) => {
-              console.log(status)
+              // console.log(status)
               status.forEach(
                 (stat) => {
                   if (stat.status !== 'OK') {

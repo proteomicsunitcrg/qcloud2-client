@@ -130,7 +130,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
 
   changeContextSourceStatus(threshold: Threshold, contextSource: any, labSystemThreshold: LabSystemThreshold): void {
     this.currentContextSource = contextSource;
-    console.log('this', this.currentContextSource);
     if (!contextSource['isEnabled']) {
       this.guideSetService.checkCurrentGuideSet(labSystemThreshold.labSystem.apiKey,
         threshold.sampleType.qualityControlControlledVocabulary,

@@ -8,6 +8,8 @@ import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointCol
 import * as traceColor from '../plot/traceColors';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
+import { Chart } from '../../models/chart';
+
 
 @Component({
   selector: 'app-auto-plot',
@@ -21,6 +23,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
 
   @Input() labSystemStatus: LabSystemStatus;
+  @Input() chart: Chart;
 
   selectedLabSystemStatus$: Subscription;
 
@@ -190,6 +193,8 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       const height = (this.layoutShapes[this.layoutShapes.length - 1]['y0'] - this.layoutShapes[this.layoutShapes.length - 1]['y1']) * 0.3;
       MINVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y1'] - height;
       MAXVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y0'] + height;
+      // this vars used in yaxys layout options as range: range: [MINVALUEFORPLOT, MAXVALUEFORPLOT] puts the first zoom to the threshold, but now we 
+      // prefeer the autozoom to the data
     }
 
 
@@ -204,7 +209,6 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       },
       yaxis: {
         type: 'linear',
-        range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
       },
       currentDiv: 'plot'
     };
