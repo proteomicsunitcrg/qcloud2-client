@@ -207,7 +207,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       case PointColor.OK:
         return color.shades[shadeGrade];
       case PointColor.WARNING:
-        return '#ff9800';
+        return 'yellow';
       case PointColor.DANGER:
         return 'red';
       default:
