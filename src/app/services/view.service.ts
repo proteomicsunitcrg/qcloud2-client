@@ -17,6 +17,7 @@ export class ViewService {
   private apiPrefix = environment.apiPrefix;
   defaultViewsUrl = this.apiPrefix + 'api/views/default';
   userViewsUrl = this.apiPrefix + 'api/views/user';
+  mainViewsUrl = this.apiPrefix + 'api';
 
   private newUserView = new Subject<boolean>();
   newUserView$ = this.newUserView.asObservable();
@@ -211,7 +212,7 @@ export class ViewService {
       headers: headers,
       body: params
     }
-    return this.httpClient.delete<View>(this.userViewsUrl, options);
+    return this.httpClient.delete<View>(this.mainViewsUrl + '/views', options);
   }
 
 }

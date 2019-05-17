@@ -72,4 +72,14 @@ export class ViewListComponent implements OnInit, OnDestroy {
     this.loadDefaultViews();
   }
 
+  deleteView(view: View): void {
+    this.viewService.deleteView(view).subscribe(
+      (result) => {
+        this.loadDefaultViews();
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 }
