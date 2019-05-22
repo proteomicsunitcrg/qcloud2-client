@@ -64,7 +64,8 @@ import { TroubleshootingFormComponent } from './nonconformities/troubleshooting-
 import { TroubleshootingListComponent } from './nonconformities/troubleshooting-list/troubleshooting-list.component';
 import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-type-selector.component';
 import { MessageComponent } from './message/message.component';
-
+import { ContactListComponent } from './email/contact-list/contact-list.component';
+import { EmailComponent } from './email/email.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -133,6 +134,8 @@ import { MessageComponent } from './message/message.component';
     TroubleshootingFormComponent,
     TroubleshootingListComponent,
     SampleTypeSelectorComponent,
-    MessageComponent]
+    MessageComponent,
+    ContactListComponent,
+    EmailComponent]
 })
 export class AdministrationModule { }

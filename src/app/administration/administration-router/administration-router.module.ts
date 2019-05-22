@@ -17,6 +17,7 @@ import { MainGuideSetComponent } from '../guideSet/main-guide-set/main-guide-set
 import { MainColorManagementComponent } from '../colorManagement/main-color-management/main-color-management.component';
 import { MainNonConformitiesComponent } from '../nonconformities/main-non-conformities/main-non-conformities.component';
 import { MessageComponent } from '../message/message.component';
+import { EmailComponent } from '../email/email.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
       children: [
         { path: 'edit', component: MainChartComponent}
       ]},
-    { path: 'message', component: MessageComponent}
+    { path: 'message', component: MessageComponent},
+    { path: 'email', component: EmailComponent}
   ]},
 ];
 

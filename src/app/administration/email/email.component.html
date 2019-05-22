@@ -1,0 +1,27 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Manage emails</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s3">
+      <app-contact-list (contactEmitter)="receiveMessage($event)"></app-contact-list>
+    </div>
+    <div class="col s9">
+      <form [formGroup]="emailForm">
+        <label>
+          Email title
+        </label>
+        <input type="text" placeholder="Title" formControlName="title">
+        <label>
+          Email body
+        </label>
+        <textarea id="msgText" class="materialize-textarea" placeholder="Text" formControlName="body"></textarea>
+        <button [disabled]="emailForm.invalid" class="waves-effect waves-light btn green-background"
+          type="submit" (click) = "submit()">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
