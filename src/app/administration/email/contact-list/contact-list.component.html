@@ -1,5 +1,8 @@
 <!-- <div class="row">
   <div class="col s3"> -->
+      <span class="selector" (click)="selectAll()">Select all</span>
+  <span> / </span>
+  <span class="selector" (click)="unselectAll()">Unselect all</span>
     <ul class="collection with-header">
       <li class="collection-item contactList" *ngFor="let node of allNodes; let i = index" (click)="onSelect(i)" >
         <h6 *ngIf = "isTitle(node) == true">{{node}}</h6>

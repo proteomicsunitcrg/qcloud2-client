@@ -4,3 +4,7 @@
 .contactList {
     cursor: pointer;
 }
+.selector {
+    font-size: 0.8em;
+    cursor: pointer;
+}
