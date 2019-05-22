@@ -21,6 +21,8 @@ export class EmailComponent {
   // Array to store the selected users
   selectedUsers = [];
 
+  showHelp = false;
+
   // Email form with validations
   emailForm = new FormGroup({
     title: new FormControl('Email subject', [
@@ -69,6 +71,11 @@ export class EmailComponent {
         }
       );
     }
+  }
+
+  toggleHelp() {
+    this.showHelp = !this.showHelp;
+
   }
 
 }
