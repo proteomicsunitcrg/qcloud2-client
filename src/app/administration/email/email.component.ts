@@ -56,7 +56,7 @@ export class EmailComponent {
   submit(): void {
     M.toast({ html: 'Sending the email' });
     for (const user of Object.keys(this.selectedUsers)) {
-      const email = new Email('no-reply@qcloud.eu', this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
+      const email = new Email('qcloud@crg.eu', this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
       this.emailService.sendEmail(email).subscribe(
         (result) => {
           if (result) {
