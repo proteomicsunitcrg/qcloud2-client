@@ -14,6 +14,7 @@ const routes: Routes = [
     {path: 'management', loadChildren: '../../management/management.module#ManagementModule'},
     {path: 'statistics', loadChildren: '../../statistics/statistics.module#StatisticsModule'},
     {path: 'configuration', loadChildren: '../../configuration/configuration.module#ConfigurationModule' },
+    {path: 'help', loadChildren: '../../help/help.module#HelpModule' },
     {path: 'view/:type/:apiKey', component: DataVisualizationMainWindowComponent}
   ]},
 ];
