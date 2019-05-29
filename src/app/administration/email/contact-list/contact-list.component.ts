@@ -45,15 +45,15 @@ export class ContactListComponent implements OnInit {
   */
   selectAll() {
     const contactList: any = document.getElementsByClassName('contactList');
-    for (let contact of contactList) {
+    for (const contact of contactList) {
       if (!this.isTitle(contact.textContent) && !this.selected.includes(contact.textContent)) {
         contact.classList.add('selected');
         this.selected.push(contact.textContent);
       }
     }
-    this.emitList();    
+    this.emitList();
   }
-  
+
   /**
   * @summary Remove all the users from the selected array
   * @description Remove all the users from the selected array and removes all the users the selected css class, also emits the list
@@ -64,7 +64,7 @@ export class ContactListComponent implements OnInit {
   unselectAll() {
     const contactList: any = document.getElementsByClassName('contactList');
     this.selected.splice(0, this.selected.length);
-    for(let contact of contactList) {
+    for (const contact of contactList) {
       contact.classList.remove('selected');
     }
     this.emitList();

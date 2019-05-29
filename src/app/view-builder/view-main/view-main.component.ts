@@ -158,7 +158,6 @@ export class ViewMainComponent implements OnInit, OnDestroy {
                       .subscribe(
                         (viewDisplay) => {
                           this.loadDefaultDisplayView(viewDisplay);
-                          
                           delay(1000).then(() => this.getElementByChartId());
                         }
                       );

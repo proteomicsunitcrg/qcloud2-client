@@ -8,10 +8,9 @@ import { environment } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  public constructor(private titleService: Title){}
+export class AppComponent implements OnInit {
+  public constructor(private titleService: Title) {}
   title = 'QCloud 2.0';
-  
   ngOnInit() {
     this.setTitle();
   }
@@ -22,7 +21,7 @@ export class AppComponent implements OnInit{
    * @author Marc Serret
    */
   setTitle() {
-    if (environment.name!=='prod') {
+    if (environment.name !== 'prod') {
       this.titleService.setTitle(environment.name + this.titleService.getTitle());
     }
   }

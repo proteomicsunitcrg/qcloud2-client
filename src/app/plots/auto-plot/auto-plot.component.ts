@@ -193,7 +193,8 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       const height = (this.layoutShapes[this.layoutShapes.length - 1]['y0'] - this.layoutShapes[this.layoutShapes.length - 1]['y1']) * 0.3;
       MINVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y1'] - height;
       MAXVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y0'] + height;
-      // this vars used in yaxys layout options as range: range: [MINVALUEFORPLOT, MAXVALUEFORPLOT] puts the first zoom to the threshold, but now we
+      // this vars used in yaxys layout options as range: range: [MINVALUEFORPLOT, MAXVALUEFORPLOT]
+      // puts the first zoom to the threshold, but now we
       // prefeer the autozoom to the data
     }
 
@@ -220,7 +221,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
   private generatePlotTitle(): string {
     // I do this because the object labsystemstatus oficially doesnt have the attribute sampleTypeName
     // and fails in compile
-    const helper: any = this.labSystemStatus; 
+    const helper: any = this.labSystemStatus;
     return helper.sampleTypeName + ' ' + this.labSystemStatus.param.name + ' ' + this.labSystemStatus.contextSource.abbreviated;
   }
 

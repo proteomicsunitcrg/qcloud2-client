@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
   downloadFile(filename): void {
     this.helpService.downloadFile(filename).subscribe(
       (response) => {
-        this.saveFile(response.body, filename)
+        this.saveFile(response.body, filename);
       }, () => {
       }
     );

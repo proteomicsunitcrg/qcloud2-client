@@ -211,7 +211,7 @@ export class ViewService {
     const options = {
       headers: headers,
       body: params
-    }
+    };
     return this.httpClient.delete<View>(this.mainViewsUrl + '/views', options);
   }
 
