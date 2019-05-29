@@ -10,6 +10,9 @@ import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../../services/websocket.service';
+import { ModalResponse } from '../../../models/modalResponse';
+import { Router } from '@angular/router';
+
 
 declare var M: any;
 @Component({
@@ -24,9 +27,11 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private modalService: ModalService,
     private webSocketService: WebsocketService,
-    ) { }
+    private router: Router
+  ) { }
 
   system: System = new System(null, null, null, null, null);
+  private modalSubscription$: Subscription;
 
   categories: Category[];
 
@@ -55,10 +60,13 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
 
   selectedSystem$: Subscription;
 
+
+
   ngOnInit() {
     this.loadCategories();
     M.updateTextFields();
     this.subscribeToSelectedSystem();
+    this.subscribeToModal();
   }
 
   ngOnDestroy() {
@@ -201,6 +209,28 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
         'Ok', null, null, null));
     } else {
       this.saveSystem();
+      setTimeout(() => {  // The timeout is necessary because the save system func updates the view and the modal dissapears
+        this.modalService.openModal(new Modal(
+          'Instrument cards',
+          'Now you should check the Instrument Cards in order to know how you must prepare your quality control samples for the QCloud.',
+          'Go to help page', 'Close', 'go', null
+        ));
+      }, 500);
+    }
+  }
+  private subscribeToModal(): void {
+    this.modalSubscription$ = this.modalService.selectedAction$.subscribe((action) => {
+      this.formAction(action);
+    });
+  }
+
+  formAction(action: ModalResponse): void {
+    switch (action.modalAction) {
+      case 'go':
+        if (action.userAction === 'accept') {
+          this.router.navigate(['application/help']);
+        }
+        break;
     }
   }
 
