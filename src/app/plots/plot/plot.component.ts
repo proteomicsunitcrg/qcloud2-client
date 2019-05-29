@@ -1,23 +1,23 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Chart } from '../../models/chart';
-import { DataService } from '../../services/data.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import * as Plotly from 'plotly.js/dist/plotly';
-import { System } from '../../models/system';
+import { delay } from 'q';
 import { Subscription } from 'rxjs';
-import { ThresholdService } from '../../services/threshold.service';
+import { Annotation } from '../../models/annotation';
+import { Chart } from '../../models/chart';
 import { PlotThreshold } from '../../models/plotThreshold';
-import * as traceColor from './traceColors';
-import { ThresholdParam } from '../../models/thresholdParams';
-import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { PlotService } from '../../services/plot.service';
-import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
-import { WebsocketService } from '../../services/websocket.service';
-import { PointColor } from './pointColor';
 import { PlotTrace } from '../../models/plotTrace';
+import { System } from '../../models/system';
+import { ThresholdParam } from '../../models/thresholdParams';
 import { TraceColor } from '../../models/TraceColor';
 import { AnnotationService } from '../../services/annotation.service';
-import { Annotation } from '../../models/annotation';
-import { delay } from 'q';
+import { DataService } from '../../services/data.service';
+import { PlotService } from '../../services/plot.service';
+import { ThresholdService } from '../../services/threshold.service';
+import { WebsocketService } from '../../services/websocket.service';
+import { HtmlPlotComponent } from '../helper/html-plot.component';
+import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
+import { PointColor } from './pointColor';
+import * as traceColor from './traceColors';
 
 
 @Component({
@@ -367,7 +367,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loaded = true;
     this.noData = true;
     if (this.serverData.length > 0) {
-      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, {showLink: true});
+      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true });
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
       plot.on('plotly_click', (data) => {
         this.plotService.sendClick(data, this.system);

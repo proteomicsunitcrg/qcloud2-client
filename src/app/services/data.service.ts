@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { MiniData } from '../models/miniData';
-import { map, catchError } from 'rxjs/operators';
 import { Chart } from '../models/chart';
-import { System } from '../models/system';
 import { File } from '../models/file';
 import { GuideSet } from '../models/guideSet';
 import { LabSystemStatus } from '../models/labsystemstatus';
+import { MiniData } from '../models/miniData';
 import { PlotTrace } from '../models/plotTrace';
+import { System } from '../models/system';
 import { TraceColor } from '../models/TraceColor';
 
 @Injectable()

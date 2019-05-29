@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
-import { ThresholdService } from '../../services/threshold.service';
-import { Subscription } from 'rxjs';
-import { DataService } from '../../services/data.service';
-import { LabSystemStatus } from '../../models/labsystemstatus';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import * as Plotly from 'plotly.js/dist/plotly';
-import { calculateMean, generateLayoutShapes, loadDataAndDatesArray, getPointColor, truncateFilename } from '../helper/plotUtilities';
-import * as traceColor from '../plot/traceColors';
+import { Subscription } from 'rxjs';
+import { Chart } from '../../models/chart';
+import { LabSystemStatus } from '../../models/labsystemstatus';
 import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
-import { Chart } from '../../models/chart';
+import { DataService } from '../../services/data.service';
+import { ThresholdService } from '../../services/threshold.service';
+import { calculateMean, generateLayoutShapes, getPointColor, loadDataAndDatesArray, truncateFilename } from '../helper/plotUtilities';
+import * as traceColor from '../plot/traceColors';
 
 
 @Component({
@@ -193,7 +193,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       const height = (this.layoutShapes[this.layoutShapes.length - 1]['y0'] - this.layoutShapes[this.layoutShapes.length - 1]['y1']) * 0.3;
       MINVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y1'] - height;
       MAXVALUEFORPLOT = this.layoutShapes[this.layoutShapes.length - 1]['y0'] + height;
-      // this vars used in yaxys layout options as range: range: [MINVALUEFORPLOT, MAXVALUEFORPLOT] puts the first zoom to the threshold, but now we 
+      // this vars used in yaxys layout options as range: range: [MINVALUEFORPLOT, MAXVALUEFORPLOT] puts the first zoom to the threshold, but now we
       // prefeer the autozoom to the data
     }
 
@@ -218,7 +218,10 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private generatePlotTitle(): string {
-    return this.labSystemStatus.param.name + ': ' + this.labSystemStatus.contextSource.abbreviated;
+    // I do this because the object labsystemstatus oficially doesnt have the attribute sampleTypeName
+    // and fails in compile
+    const helper: any = this.labSystemStatus; 
+    return helper.sampleTypeName + ' ' + this.labSystemStatus.param.name + ' ' + this.labSystemStatus.contextSource.abbreviated;
   }
 
 }

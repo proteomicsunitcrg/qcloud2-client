@@ -1,5 +1,5 @@
-import { Param } from './param';
 import { ContextSource } from './contextSource';
+import { Param } from './param';
 
 export class LabSystemStatus {
     param: Param;
