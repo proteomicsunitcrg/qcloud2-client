@@ -20,13 +20,13 @@ export class HelpService {
    * @author Marc Serret
    * @since 1.0.0
    * @param string requested file
-   * @returns An observable boolean with the request status
+   * @returns An observable with the blob (PDF file)
    * @access public
    */
-  public downloadFile(filename: string): Observable<HttpResponse<string>> {
+  public downloadFile(filename: string): Observable<HttpResponse<Blob>> {
     filename = filename + '.pdf';
     const headers = new HttpHeaders().set('Accept', 'application/pdf');
-    return this.httpClient.get(this.helpUrl + filename, { headers: headers, observe: 'response', responseType: 'text' });
+    return this.httpClient.get(this.helpUrl + filename, { headers: headers, observe: 'response', responseType: 'blob'});
   }
 
 
