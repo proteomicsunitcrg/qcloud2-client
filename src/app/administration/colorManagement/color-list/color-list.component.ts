@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TraceColor } from '../../../models/TraceColor';
 import { TraceColorService } from '../../../services/trace-color.service';
 
@@ -23,7 +23,13 @@ export class ColorListComponent implements OnInit {
     this.loadTraceColors();
     this.refresh();
   }
-
+  /**
+   * @summary Get all traces colors from the server
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private loadTraceColors(): void {
     this.traceColorService.getAllTraceColors()
       .subscribe(
@@ -36,6 +42,13 @@ export class ColorListComponent implements OnInit {
       );
   }
 
+  /**
+   * @summary Add the retrivet traces to the trace array
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private addTraceColorsToArray(traceColors: TraceColor[]): void {
     traceColors.forEach(
       (traceColor) => {
@@ -44,11 +57,25 @@ export class ColorListComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Refresh the list
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private refresh(): void {
     const self = this;
     self.ref.detectChanges();
   }
 
+  /**
+   * @summary Initalize all color pickers calling loadPickr
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private initializeColorPickers(): void {
     this.traceColors.forEach(
       (trace, index) => {
@@ -57,6 +84,14 @@ export class ColorListComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Load all color pickers
+   * @param {TraceColor} trace to initialize
+   * @param {number} index to load
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private loadPickr(trace: TraceColor, index: number): void {
     const pickr = new Pickr({
       el: '#trace' + index,
@@ -84,14 +119,28 @@ export class ColorListComponent implements OnInit {
     });
   }
 
-  doAddNewColor(): void {
+  /**
+   * @summary Add a new color and color picker to use
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access public
+   */
+  public doAddNewColor(): void {
     const newTraceColor = new TraceColor('rgb(214,24,42)', null);
     this.traceColors.push(newTraceColor);
     this.refresh();
     this.loadPickr(newTraceColor, this.traceColors.length - 1);
   }
 
-  doSaveColor(traceColor: TraceColor): void {
+  /**
+   * @summary Send the new color to the server to save it or uppdates an existing one
+   * @param {TraceColor} traceColor to save
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
+  public doSaveColor(traceColor: TraceColor): void {
     if (traceColor.apiKey === null) {
       this.traceColorService.addNewTraceColor(traceColor)
         .subscribe(

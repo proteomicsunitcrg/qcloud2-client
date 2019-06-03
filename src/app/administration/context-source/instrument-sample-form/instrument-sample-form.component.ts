@@ -36,7 +36,13 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
     this.subscribeToSelectedInstrumentSample();
   }
 
-  onSubmit(): void {
+  /**
+   * @summary Sends the new instrument sample to the server to makea new or update an existing one
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access public
+   */
+  public onSubmit(): void {
     if (this.formSubmitButton === 'Add new instrument sample') {
       this.instrumentSampleService.addNewInstrumentSample(this.instrumentSample).subscribe(
         (result) => {
@@ -56,6 +62,13 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @summary Add the retrivet traces to the trace array
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private subscribeToSelectedInstrumentSample(): void {
     this.selectedInstrumentSample$ = this.instrumentSampleService
       .selectedInstrumentSample$.subscribe(

@@ -9,7 +9,9 @@ declare let M: any;
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
+  // Var to launch the Toast
   M: any;
+  // The formulary with restrictions
   messageForm = new FormGroup({
     title: new FormControl('Message title', [
       Validators.required,
@@ -30,6 +32,7 @@ export class MessageComponent implements OnInit {
     this.enableSelect();
     this.subscribeToMessage();
   }
+
   /**
    * @summary Retreives all the messages from the database
    * @description Retreives all the messages from the database,
@@ -38,7 +41,7 @@ export class MessageComponent implements OnInit {
    * @since 1.0.1
    * @access private
    */
-  private subscribeToMessage() {
+  private subscribeToMessage(): void {
     this.msgService.getAllMessages().subscribe(
       (msg) => {
         if (Array.isArray(msg) && msg.length) {
@@ -51,6 +54,7 @@ export class MessageComponent implements OnInit {
       }
     );
   }
+
   /**
    * @summary Updates the form with the retrieved data from th database
    *
@@ -66,7 +70,14 @@ export class MessageComponent implements OnInit {
     this.messageForm.controls.show.setValue(msg.show);
   }
 
-  submit() {
+  /**
+   * @summary Send the new message to the service, triggered when submit button is clicked
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access public
+   */
+  public submit(): void {
     const msg = new Message(this.messageForm.value.title, this.messageForm.value.message,
       this.messageForm.value.type, this.messageForm.value.show);
     this.msgService.saveMessage(msg).subscribe(
@@ -78,6 +89,13 @@ export class MessageComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Enables the select
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access private
+   */
   private enableSelect(): void {
     M.FormSelect.init(document.getElementById('typeMsg'), {});
   }

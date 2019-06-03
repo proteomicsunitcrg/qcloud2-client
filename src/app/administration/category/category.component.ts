@@ -13,9 +13,10 @@ import { CategoryService } from '../../services/category.service';
 })
 export class CategoryComponent implements OnInit {
 
-
+  // Category object in the form
   category: Category = new Category(null, '', false, null);
 
+  // Array with all categories
   categories = [];
 
   @ViewChild('categoryNameBox') categoryNameBox;
@@ -25,7 +26,12 @@ export class CategoryComponent implements OnInit {
     this.getCategoriesFromServer();
   }
 
-
+  /**
+   * @summary Sends the category from the form to the server and updates the list
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access public
+   */
   onSubmit(): void {
     this.categoryService.addNewCategory(this.category).subscribe(
       (result) => {
@@ -38,6 +44,13 @@ export class CategoryComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Retrieves all categories from the server and fills the categories array
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private getCategoriesFromServer() {
     this.categories = [];
     this.categoryService.getCategories().subscribe(
@@ -52,6 +65,13 @@ export class CategoryComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Upgrades a category to main category
+   * @param {Category} category
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access public
+   */
   doMainCategory(category: Category): void {
     this.categoryService.categoryToMainCategory(category)
       .subscribe(
