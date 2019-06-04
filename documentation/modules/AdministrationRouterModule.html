@@ -89,6 +89,7 @@ import { MainGuideSetComponent } from &#x27;../guideSet/main-guide-set/main-guid
 import { MainColorManagementComponent } from &#x27;../colorManagement/main-color-management/main-color-management.component&#x27;;
 import { MainNonConformitiesComponent } from &#x27;../nonconformities/main-non-conformities/main-non-conformities.component&#x27;;
 import { MessageComponent } from &#x27;../message/message.component&#x27;;
+import { EmailComponent } from &#x27;../email/email.component&#x27;;
 
 
 const routes: Routes &#x3D; [
@@ -111,7 +112,8 @@ const routes: Routes &#x3D; [
       children: [
         { path: &#x27;edit&#x27;, component: MainChartComponent}
       ]},
-    { path: &#x27;message&#x27;, component: MessageComponent}
+    { path: &#x27;message&#x27;, component: MessageComponent},
+    { path: &#x27;email&#x27;, component: EmailComponent}
   ]},
 ];
 

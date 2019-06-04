@@ -10,7 +10,7 @@
       <app-contact-list (contactEmitter)="receiveMessage($event)"></app-contact-list>
     </div>
 
-    <div class="col s9">
+    <div class="col s6">
       <form [formGroup]="emailForm">
         <label>
           Email title
@@ -25,6 +25,9 @@
           <button class="waves-effect waves-light btn green-background" type="button"
           (click)="toggleHelp()" style="margin-left: 20px;">Show help</button>
       </form>
+    </div>
+    <div class="col s3">
+      <app-template-list></app-template-list>
     </div>
     <div class="row">
       <div class="col s12 m5 offset-s6" style="margin-left: 15%; margin-top: 3%">

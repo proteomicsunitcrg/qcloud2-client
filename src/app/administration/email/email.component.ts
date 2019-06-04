@@ -33,7 +33,7 @@ export class EmailComponent {
     body: new FormControl('Email body', [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(300)
+      Validators.maxLength(30000)
     ])
   });
 

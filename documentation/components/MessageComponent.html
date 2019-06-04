@@ -159,6 +159,7 @@
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#submit">submit</a>
                             </li>
                             <li>
@@ -188,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/administration/message/message.component.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/administration/message/message.component.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -259,8 +260,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">src/app/administration/message/message.component.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/administration/message/message.component.ts:99</a></div>
                 </td>
             </tr>
 
@@ -300,8 +301,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">src/app/administration/message/message.component.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">src/app/administration/message/message.component.ts:66</a></div>
                 </td>
             </tr>
 
@@ -375,8 +376,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/app/administration/message/message.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/administration/message/message.component.ts:31</a></div>
                 </td>
             </tr>
 
@@ -399,6 +400,7 @@
                     <a name="submit"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Public</span>
                             submit
                         </b>
                         <a href="#submit"><span class="icon ion-ios-link"></span></a>
@@ -407,15 +409,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>submit()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submit()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/app/administration/message/message.component.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/app/administration/message/message.component.ts:80</a></div>
                 </td>
             </tr>
 
@@ -455,8 +458,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">src/app/administration/message/message.component.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/app/administration/message/message.component.ts:44</a></div>
                 </td>
             </tr>
 
@@ -498,7 +501,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/administration/message/message.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/administration/message/message.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -537,7 +540,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/administration/message/message.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/administration/message/message.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -561,7 +564,9 @@ declare let M: any;
   styleUrls: [&#x27;./message.component.css&#x27;]
 })
 export class MessageComponent implements OnInit {
+  // Var to launch the Toast
   M: any;
+  // The formulary with restrictions
   messageForm &#x3D; new FormGroup({
     title: new FormControl(&#x27;Message title&#x27;, [
       Validators.required,
@@ -582,6 +587,7 @@ export class MessageComponent implements OnInit {
     this.enableSelect();
     this.subscribeToMessage();
   }
+
   /**
    * @summary Retreives all the messages from the database
    * @description Retreives all the messages from the database,
@@ -590,7 +596,7 @@ export class MessageComponent implements OnInit {
    * @since 1.0.1
    * @access private
    */
-  private subscribeToMessage() {
+  private subscribeToMessage(): void {
     this.msgService.getAllMessages().subscribe(
       (msg) &#x3D;&gt; {
         if (Array.isArray(msg) &amp;&amp; msg.length) {
@@ -603,6 +609,7 @@ export class MessageComponent implements OnInit {
       }
     );
   }
+
   /**
    * @summary Updates the form with the retrieved data from th database
    *
@@ -618,7 +625,14 @@ export class MessageComponent implements OnInit {
     this.messageForm.controls.show.setValue(msg.show);
   }
 
-  submit() {
+  /**
+   * @summary Send the new message to the service, triggered when submit button is clicked
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access public
+   */
+  public submit(): void {
     const msg &#x3D; new Message(this.messageForm.value.title, this.messageForm.value.message,
       this.messageForm.value.type, this.messageForm.value.show);
     this.msgService.saveMessage(msg).subscribe(
@@ -630,6 +644,13 @@ export class MessageComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Enables the select
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access private
+   */
   private enableSelect(): void {
     M.FormSelect.init(document.getElementById(&#x27;typeMsg&#x27;), {});
   }
@@ -754,7 +775,7 @@ export class MessageComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="col s12 m10 l10 xl10 z-depth-2">  <div class="row z-depth-0 green-background  ">    <div class="col s12 m12 l12 xl12">      <h4>Manage messages</h4>    </div>  </div>  <div class="container">    <form [formGroup]="messageForm">      <label>        Message title      </label>      <input type="text" formControlName="title" placeholder="Title">      <label>        Message text      </label>      <textarea formControlName="message" id="msgText" class="materialize-textarea" placeholder="Text"></textarea>      <div class="input-field">        <select id="typeMsg" formControlName="type">          <option value="default" disabled selected>Choose the message type</option>          <option value="message">Message</option>          <option value="warning">Warning</option>          <option value="error">Error</option>        </select>      <label for="typeMsg">Choose the message type</label>      </div>      <div class="switch">        <label>          Off          <input type="checkbox" formControlName="show">          <span class="lever"></span>          On        </label>      </div>    </form>    <div class="row">      <div class="col s6 offset-s3 z-depth-1" id="panell">        <h5 class="title titleWarning" *ngIf = "messageForm.value.type === \'warning\'">{{messageForm.value.title}}</h5>        <h5 class="title titleError" *ngIf = "messageForm.value.type === \'error\'">{{messageForm.value.title}}</h5>        <h5 class="title titleMessage" *ngIf = "messageForm.value.type === \'message\'">{{messageForm.value.title}}</h5>        <p [innerHTML]="messageForm.value.message" class="messageText"></p>      </div>    </div>    <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="saveButton" (click)="submit()">Save</button>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'MessageComponent'};
 </script>

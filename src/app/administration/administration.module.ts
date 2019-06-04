@@ -66,6 +66,7 @@ import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-ty
 import { MessageComponent } from './message/message.component';
 import { ContactListComponent } from './email/contact-list/contact-list.component';
 import { EmailComponent } from './email/email.component';
+import { TemplateListComponent } from './email/template-list/template-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -136,6 +137,7 @@ import { EmailComponent } from './email/email.component';
     SampleTypeSelectorComponent,
     MessageComponent,
     ContactListComponent,
-    EmailComponent]
+    EmailComponent,
+    TemplateListComponent]
 })
 export class AdministrationModule { }

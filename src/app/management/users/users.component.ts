@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth.service';
 import { ModalService } from '../../common/modal.service';
 import { Modal } from '../../models/modal';
 import { ModalResponse } from '../../models/modalResponse';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../../auth.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 declare var M: any;
 /**
  * User management component
@@ -106,15 +106,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userList = [];
     userArray.forEach((user) => {
       let role = 'User';
-      // user.authorities.forEach(
-      //   (authority) => {
-      //     // if (authority.name === 'ROLE_MANAGER' && authority.name == 'ROLE_ADMIN') {
-      //     //   role = 'Manager';
-      //     // }
-      //     console.log(authority);
-          
-      //   }
-      // );
       if (user.authorities.length === 3) {
         role = 'Administrator';
       } else if (user.authorities.length == 2) {
@@ -124,8 +115,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       }
       user.role = role;
       this.userList.push(user);
-      // console.log(userArray);
-      
     }
     );
   }
@@ -138,7 +127,7 @@ export class UsersComponent implements OnInit, OnDestroy {
           error.error.message, 'Ok', '', 'addnewmember', null));
         break;
       default:
-      this.modalService.openModal(new Modal('Server error',
+        this.modalService.openModal(new Modal('Server error',
           'There is a problem with the server. Try again later.', 'Ok', '', 'addnewmember', null));
         break;
     }

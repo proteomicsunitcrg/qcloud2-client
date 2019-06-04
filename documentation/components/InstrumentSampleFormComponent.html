@@ -165,6 +165,7 @@
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#onSubmit">onSubmit</a>
                             </li>
                             <li>
@@ -280,8 +281,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:81</a></div>
                 </td>
             </tr>
 
@@ -413,6 +414,7 @@
                     <a name="onSubmit"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Public</span>
                             onSubmit
                         </b>
                         <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
@@ -421,15 +423,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>onSubmit()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSubmit()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:45</a></div>
                 </td>
             </tr>
 
@@ -467,8 +470,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:89</a></div>
                 </td>
             </tr>
 
@@ -508,8 +511,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="59"
-                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:59</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/app/administration/context-source/instrument-sample-form/instrument-sample-form.component.ts:72</a></div>
                 </td>
             </tr>
 
@@ -698,7 +701,13 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
     this.subscribeToSelectedInstrumentSample();
   }
 
-  onSubmit(): void {
+  /**
+   * @summary Sends the new instrument sample to the server to makea new or update an existing one
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access public
+   */
+  public onSubmit(): void {
     if (this.formSubmitButton &#x3D;&#x3D;&#x3D; &#x27;Add new instrument sample&#x27;) {
       this.instrumentSampleService.addNewInstrumentSample(this.instrumentSample).subscribe(
         (result) &#x3D;&gt; {
@@ -718,6 +727,13 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @summary Add the retrivet traces to the trace array
+   *
+   * @author Daniel Mancera
+   * @since 1.0.0
+   * @access private
+   */
   private subscribeToSelectedInstrumentSample(): void {
     this.selectedInstrumentSample$ &#x3D; this.instrumentSampleService
       .selectedInstrumentSample$.subscribe(
@@ -809,7 +825,7 @@ export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div>  <h5>Add new</h5>  <form (ngSubmit)="onSubmit(); newContext.reset()" #newContext="ngForm" ngNativeValidate autocomplete="off">    <div class="input-field">      <input #nameBox type="text" name="name" [(ngModel)]="instrumentSample.name" class="validate" id="name" validate        required>      <label for="name">Name</label>    </div>    <div class="input-field">      <input type="text" #abbreviatedName name="abbreviatedName" class="validate" [(ngModel)]="instrumentSample.abbreviated"        id="abbreviatedName" minlength="4" validate required>      <label for="abbreviatedName">Abbreviated name</label>    </div>    <div class="input-field">      <input type="text" #qccv name="qccv" class="validate" [(ngModel)]="instrumentSample.qCCV" id="qccv" minlength="4"        validate required>      <label for="qccv">QC Controlled vocabulary</label>    </div>    <div class="input-field">      <app-trace-color-picker [contextSource]="instrumentSample"></app-trace-color-picker>    </div>    <div class="input-field">      <button type="submit" class="waves-effect waves-light btn green-background   left">{{formSubmitButton}}</button>      <button type="button" class="waves-effect waves-light btn orange   right" (click)="resetForm()">Cancel</button>    </div>  </form></div></div>'
-    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'InstrumentSampleFormComponent'};
 </script>

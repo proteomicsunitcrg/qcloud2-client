@@ -66,6 +66,12 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
 
 
 <section>
@@ -130,6 +136,23 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#setTitle">setTitle</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -139,12 +162,144 @@
     </table>
 </section>
 
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                                <span class="modifier">Public</span>
+                        <code>constructor(titleService: <a href="https://angular.io/api/platform-browser/Title" target="_blank">Title</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/app.component.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>titleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/platform-browser/Title" target="_blank" >Title</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
 
 
 
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">src/app/app.component.ts:14</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setTitle"></a>
+                    <span class="name">
+                        <b>
+                            setTitle
+                        </b>
+                        <a href="#setTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setTitle()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/app.component.ts:23</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
     <section>
     
         <h3 id="inputs">
@@ -175,7 +330,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/app.component.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/app.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -188,15 +343,34 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { Title } from &#x27;@angular/platform-browser&#x27;;
+import { environment } from &#x27;../environments/environment&#x27;;
+
 
 @Component({
   selector: &#x27;app-root&#x27;,
   templateUrl: &#x27;./app.component.html&#x27;,
   styleUrls: [&#x27;./app.component.css&#x27;]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public constructor(private titleService: Title) {}
   title &#x3D; &#x27;QCloud 2.0&#x27;;
+  ngOnInit() {
+    this.setTitle();
+  }
+  /**
+   * @name SetTitle
+   * @description If the enviroment is not prod shows the env in the title
+   * to avoid confusion in the browser
+   * @author Marc Serret
+   */
+  setTitle() {
+    if (environment.name !&#x3D;&#x3D; &#x27;prod&#x27;) {
+      this.titleService.setTitle(environment.name + this.titleService.getTitle());
+    }
+  }
+
 }
 </code></pre>
     </div>
@@ -241,7 +415,7 @@ export class AppComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-progress [spinner] = "false" [color] = "\'#a7d7c5\'"></ng-progress><router-outlet></router-outlet><app-modal></app-modal><app-bottom-modal></app-bottom-modal></div>'
-    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

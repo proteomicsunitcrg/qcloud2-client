@@ -61,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/management/sidebar/sidebar.component.ts</code>
+    <code>src/app/help/sidebar/sidebar.component.ts</code>
 </p>
 
 
@@ -145,14 +145,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#getCategories">getCategories</a>
+                                <a href="#downloadFile">downloadFile</a>
                             </li>
                             <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
                                 <a href="#open">open</a>
+                            </li>
+                            <li>
+                                <a href="#saveFile">saveFile</a>
                             </li>
                         </ul>
                     </td>
@@ -172,12 +174,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(categoryService: <a href="../injectables/CategoryService.html">CategoryService</a>)</code>
+<code>constructor(helpService: <a href="../injectables/HelpService.html">HelpService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/management/sidebar/sidebar.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -195,10 +197,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>categoryService</td>
+                                                        <td>helpService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/CategoryService.html" target="_self" >CategoryService</a></code>
+                                                                        <code><a href="../injectables/HelpService.html" target="_self" >HelpService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -228,28 +230,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getCategories"></a>
+                    <a name="downloadFile"></a>
                     <span class="name">
                         <b>
-                            <span class="modifier">Private</span>
-                            getCategories
+                            downloadFile
                         </b>
-                        <a href="#getCategories"><span class="icon ion-ios-link"></span></a>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getCategories()</code>
+<code>downloadFile(filename)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/management/sidebar/sidebar.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:30</a></div>
                 </td>
             </tr>
 
@@ -258,8 +258,35 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filename</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -287,8 +314,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/management/sidebar/sidebar.component.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:16</a></div>
                 </td>
             </tr>
 
@@ -326,8 +353,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">src/app/management/sidebar/sidebar.component.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="20"
+                            class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:20</a></div>
                 </td>
             </tr>
 
@@ -350,6 +377,88 @@
 
                                     <td>
                                         No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveFile"></a>
+                    <span class="name">
+                        <b>
+                            saveFile
+                        </b>
+                        <a href="#saveFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveFile(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, filename?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>filename</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
                                     </td>
 
 
@@ -401,7 +510,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/management/sidebar/sidebar.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/help/sidebar/sidebar.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -415,7 +524,8 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { CategoryService } from &#x27;../../services/category.service&#x27;;
+import { HelpService } from &#x27;../../services/help.service&#x27;;
+import { saveAs } from &#x27;file-saver&#x27;;
 declare var M: any;
 @Component({
   selector: &#x27;app-sidebar&#x27;,
@@ -424,29 +534,31 @@ declare var M: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private helpService: HelpService) { }
 
   categories &#x3D; [];
 
   ngOnInit() {
-    // get the categories for the menu
-    this.getCategories();
 
   }
 
-  private getCategories(): void {
-    this.categoryService.getCategories().subscribe(
-      (result) &#x3D;&gt; {
-        result.forEach(category &#x3D;&gt; this.categories.push(category));
-      },
-      (error) &#x3D;&gt; {
-
-      }
-    );
-  }
   open(item): void {
     const elem &#x3D; document.getElementById(item);
     const instance &#x3D; M.Collapsible.init(elem);
+  }
+
+  saveFile(data: any, filename?: string) {
+    const blob &#x3D; new Blob([data], { type: &#x27;application/pdf; charset&#x3D;utf-8&#x27; });
+    saveAs(blob, filename + &#x27;.pdf&#x27;);
+  }
+
+  downloadFile(filename): void {
+    this.helpService.downloadFile(filename).subscribe(
+      (response) &#x3D;&gt; {
+        this.saveFile(response.body, filename);
+      }, () &#x3D;&gt; {
+      }
+    );
   }
 }
 </code></pre>
@@ -458,33 +570,14 @@ export class SidebarComponent implements OnInit {
         &lt;ul class&#x3D;&quot;collapsible z-depth-0&quot; id&#x3D;&quot;menu&quot;&gt;
             &lt;li (click)&#x3D;&quot;open(&#x27;menu&#x27;)&quot;&gt;
                 &lt;a class&#x3D;&quot;collapsible-header green-background   waves-effect waves-cyan&quot;&gt;
-                    &lt;span class&#x3D;&quot;nav-headers&quot;&gt;Users&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;nav-headers&quot;&gt;Instruments Cards&lt;/span&gt;
                 &lt;/a&gt;
                 &lt;div class&#x3D;&quot;collapsible-body&quot;&gt;
                     &lt;ul&gt;
-                        &lt;li&gt;&lt;a routerLink&#x3D;&quot;/application/management/users&quot;&gt;Manage users&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a class&#x3D;&quot;cursorIcon&quot; (click) &#x3D; &quot;downloadFile(&#x27;Orbitrap_QExactive_family&#x27;)&quot;&gt;Orbitrap QExactive family&lt;/a&gt;&lt;/li&gt;
                     &lt;/ul&gt;
-                &lt;/div&gt;
-            &lt;/li&gt;
-            &lt;li (click)&#x3D;&quot;open(&#x27;menu&#x27;)&quot;&gt;
-                &lt;a class&#x3D;&quot;collapsible-header green-background   waves-effect waves-cyan&quot;&gt;
-                    &lt;span class&#x3D;&quot;nav-headers&quot;&gt;Instruments&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;div class&#x3D;&quot;collapsible-body&quot;&gt;
                     &lt;ul&gt;
-                        &lt;li *ngFor&#x3D;&quot;let category of categories&quot;&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/application/management/instruments&#x27;,category.name]&quot;&gt;{{category.name}}&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a routerLink&#x3D;&quot;/application/management/systems&quot;&gt;Lab systems&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/div&gt;
-            &lt;/li&gt;
-            &lt;li (click)&#x3D;&quot;open(&#x27;menu&#x27;)&quot;&gt;
-                &lt;a class&#x3D;&quot;collapsible-header green-background   waves-effect waves-cyan&quot;&gt;
-                    &lt;span class&#x3D;&quot;nav-headers&quot;&gt;Thresholds&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;div class&#x3D;&quot;collapsible-body&quot;&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a routerLink&#x3D;&quot;/application/management/thresholds&quot;&gt;Manage thresholds&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a routerLink&#x3D;&quot;/application/management/guidesets&quot;&gt;Instrument guide sets&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a class&#x3D;&quot;cursorIcon&quot; (click) &#x3D; &quot;downloadFile(&#x27;Orbitrap_Tribrid_family&#x27;)&quot;&gt;Orbitrap Tribrid family&lt;/a&gt;&lt;/li&gt;
                     &lt;/ul&gt;
                 &lt;/div&gt;
             &lt;/li&gt;
@@ -506,6 +599,9 @@ export class SidebarComponent implements OnInit {
 .collapsible-header {
     background-color: #f4f9f4;
 
+}
+.cursorIcon {
+    cursor: pointer;
 }</code></pre>
     </div>
 
@@ -534,8 +630,8 @@ export class SidebarComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>    <!-- ASIDE show only for big screens-->    <div class="col s12 m2 l2 xl2 hide-on-med-and-down">        <ul class="collapsible z-depth-0" id="menu">            <li (click)="open(\'menu\')">                <a class="collapsible-header green-background   waves-effect waves-cyan">                    <span class="nav-headers">Users</span>                </a>                <div class="collapsible-body">                    <ul>                        <li><a routerLink="/application/management/users">Manage users</a></li>                    </ul>                </div>            </li>            <li (click)="open(\'menu\')">                <a class="collapsible-header green-background   waves-effect waves-cyan">                    <span class="nav-headers">Instruments</span>                </a>                <div class="collapsible-body">                    <ul>                        <li *ngFor="let category of categories"><a [routerLink]="[\'/application/management/instruments\',category.name]">{{category.name}}</a></li>                        <li><a routerLink="/application/management/systems">Lab systems</a></li>                    </ul>                </div>            </li>            <li (click)="open(\'menu\')">                <a class="collapsible-header green-background   waves-effect waves-cyan">                    <span class="nav-headers">Thresholds</span>                </a>                <div class="collapsible-body">                    <ul>                        <li><a routerLink="/application/management/thresholds">Manage thresholds</a></li>                        <li><a routerLink="/application/management/guidesets">Instrument guide sets</a></li>                    </ul>                </div>            </li>        </ul>    </div>    <div class="col s12 m2 l2 xl2 hide-on-med-and-up">        <span><i class="material-icons">people</i><i class="material-icons">web</i></span>    </div></div>'
-    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
+        var COMPONENT_TEMPLATE = '<div>    <!-- ASIDE show only for big screens-->    <div class="col s12 m2 l2 xl2 hide-on-med-and-down">        <ul class="collapsible z-depth-0" id="menu">            <li (click)="open(\'menu\')">                <a class="collapsible-header green-background   waves-effect waves-cyan">                    <span class="nav-headers">Instruments Cards</span>                </a>                <div class="collapsible-body">                    <ul>                        <li><a class="cursorIcon" (click) = "downloadFile(\'Orbitrap_QExactive_family\')">Orbitrap QExactive family</a></li>                    </ul>                    <ul>                        <li><a class="cursorIcon" (click) = "downloadFile(\'Orbitrap_Tribrid_family\')">Orbitrap Tribrid family</a></li>                    </ul>                </div>            </li>        </ul>    </div>    <div class="col s12 m2 l2 xl2 hide-on-med-and-up">        <span><i class="material-icons">people</i><i class="material-icons">web</i></span>    </div></div>'
+    var COMPONENTS = [{'name': 'AllPeptidesListComponent', 'selector': 'app-all-peptides-list'},{'name': 'AnnotationListComponent', 'selector': 'app-annotation-list'},{'name': 'AnnotationListItemComponent', 'selector': 'app-annotation-list-item'},{'name': 'AnnotationMainComponent', 'selector': 'app-annotation-main'},{'name': 'AnnotationSelectorComponent', 'selector': 'app-annotation-selector'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AutoPlotComponent', 'selector': 'app-auto-plot'},{'name': 'BottomModalComponent', 'selector': 'app-bottom-modal'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'CategorySelectorComponent', 'selector': 'app-category-selector'},{'name': 'ChartContextSourceComponent', 'selector': 'app-chart-context-source'},{'name': 'ChartCvsComponent', 'selector': 'app-chart-cvs'},{'name': 'ChartFormComponent', 'selector': 'app-chart-form'},{'name': 'ChartListComponent', 'selector': 'app-chart-list'},{'name': 'ChartParamComponent', 'selector': 'app-chart-param'},{'name': 'ChartSampleTypeComponent', 'selector': 'app-chart-sample-type'},{'name': 'ColorListComponent', 'selector': 'app-color-list'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContextSourceDetailComponent', 'selector': 'app-context-source-detail'},{'name': 'CvFormComponent', 'selector': 'app-cv-form'},{'name': 'CvListComponent', 'selector': 'app-cv-list'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'CvSelectorComponent', 'selector': 'app-cv-selector'},{'name': 'DataSourceComponent', 'selector': 'app-data-source'},{'name': 'DataSourceGuideSetListComponent', 'selector': 'app-data-source-guide-set-list'},{'name': 'DataSourceListComponent', 'selector': 'app-data-source-list'},{'name': 'DataVisualizationDateMenuComponent', 'selector': 'app-data-visualization-date-menu'},{'name': 'DataVisualizationDisplayComponent', 'selector': 'app-data-visualization-display'},{'name': 'DataVisualizationMainWindowComponent', 'selector': 'app-data-visualization-main-window'},{'name': 'DataVisualizationSideMenuComponent', 'selector': 'app-data-visualization-side-menu'},{'name': 'DefaultViewGeneratorComponent', 'selector': 'app-default-view-generator'},{'name': 'DefaultViewSelectorComponent', 'selector': 'app-default-view-selector'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'FileInformationComponent', 'selector': 'app-file-information'},{'name': 'GuideSetInformationComponent', 'selector': 'app-guide-set-information'},{'name': 'InstrumentSampleFormComponent', 'selector': 'app-instrument-sample-form'},{'name': 'InstrumentSampleListComponent', 'selector': 'app-instrument-sample-list'},{'name': 'InstrumentStatusComponent', 'selector': 'app-instrument-status'},{'name': 'IsotopologueInformationComponent', 'selector': 'app-isotopologue-information'},{'name': 'IsotopologuePlotComponent', 'selector': 'app-isotopologue-plot'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'MainChartComponent', 'selector': 'app-main-chart'},{'name': 'MainColorManagementComponent', 'selector': 'app-main-color-management'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MainContextSourceComponent', 'selector': 'app-main-context-source'},{'name': 'MainCvComponent', 'selector': 'app-main-cv'},{'name': 'MainDefaultViewComponent', 'selector': 'app-main-default-view'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainGuideSetComponent', 'selector': 'app-main-guide-set'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainNonConformitiesComponent', 'selector': 'app-main-non-conformities'},{'name': 'MainParametersComponent', 'selector': 'app-main-parameters'},{'name': 'MainProfileComponent', 'selector': 'app-main-profile'},{'name': 'MainSampleTypeComponent', 'selector': 'app-main-sample-type'},{'name': 'MainSystemComponent', 'selector': 'app-main-system'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainThresholdComponent', 'selector': 'app-main-threshold'},{'name': 'MainUserViewComponent', 'selector': 'app-main-user-view'},{'name': 'MainWindowComponent', 'selector': 'app-main-window'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'NonConformitiesInformationComponent', 'selector': 'app-non-conformities-information'},{'name': 'NonConformitiesListComponent', 'selector': 'app-non-conformities-list'},{'name': 'NonConformitiesSelectorComponent', 'selector': 'app-non-conformities-selector'},{'name': 'NonConformityPlotComponent', 'selector': 'app-non-conformity-plot'},{'name': 'ParametersFormComponent', 'selector': 'app-parameters-form'},{'name': 'ParametersListComponent', 'selector': 'app-parameters-list'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PeptideDetailFormComponent', 'selector': 'app-peptide-detail-form'},{'name': 'PeptidesListComponent', 'selector': 'app-peptides-list'},{'name': 'PlotComponent', 'selector': 'app-plot'},{'name': 'ProblemComponent', 'selector': 'app-problem'},{'name': 'ProfileManagementComponent', 'selector': 'app-profile-management'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SampleCompositionFormComponent', 'selector': 'app-sample-composition-form'},{'name': 'SamplePeptidesListComponent', 'selector': 'app-sample-peptides-list'},{'name': 'SampleTypeCategoryComponent', 'selector': 'app-sample-type-category'},{'name': 'SampleTypeFormComponent', 'selector': 'app-sample-type-form'},{'name': 'SampleTypeLabSystemSelectorComponent', 'selector': 'app-sample-type-lab-system-selector'},{'name': 'SampleTypeListComponent', 'selector': 'app-sample-type-list'},{'name': 'SampleTypeSelectorComponent', 'selector': 'app-sample-type-selector'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SideMenuComponent', 'selector': 'app-side-menu'},{'name': 'SystemBuilderComponent', 'selector': 'app-system-builder'},{'name': 'SystemListComponent', 'selector': 'app-system-list'},{'name': 'ThresholdBuilderComponent', 'selector': 'app-threshold-builder'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'ThresholdListComponent', 'selector': 'app-threshold-list'},{'name': 'TopMenuComponent', 'selector': 'app-top-menu'},{'name': 'TraceColorPickerComponent', 'selector': 'app-trace-color-picker'},{'name': 'TroubleshootingFormComponent', 'selector': 'app-troubleshooting-form'},{'name': 'TroubleshootingListComponent', 'selector': 'app-troubleshooting-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UserViewBuilderComponent', 'selector': 'app-user-view-builder'},{'name': 'UserViewListComponent', 'selector': 'app-user-view-list'},{'name': 'ViewListComponent', 'selector': 'app-view-list'},{'name': 'ViewMainComponent', 'selector': 'app-view-main'},{'name': 'WelcomeComponent', 'selector': 'app-welcome'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidebarComponent-2'};
 </script>

@@ -1019,18 +1019,18 @@ Dates are an array of string with YYYY-MM-DD format</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
 import { Observable, Subject } from &#x27;rxjs&#x27;;
+import { catchError, map } from &#x27;rxjs/operators&#x27;;
 import { environment } from &#x27;../../environments/environment&#x27;;
-import { MiniData } from &#x27;../models/miniData&#x27;;
-import { map, catchError } from &#x27;rxjs/operators&#x27;;
 import { Chart } from &#x27;../models/chart&#x27;;
-import { System } from &#x27;../models/system&#x27;;
 import { File } from &#x27;../models/file&#x27;;
 import { GuideSet } from &#x27;../models/guideSet&#x27;;
 import { LabSystemStatus } from &#x27;../models/labsystemstatus&#x27;;
+import { MiniData } from &#x27;../models/miniData&#x27;;
 import { PlotTrace } from &#x27;../models/plotTrace&#x27;;
+import { System } from &#x27;../models/system&#x27;;
 import { TraceColor } from &#x27;../models/TraceColor&#x27;;
 
 @Injectable()

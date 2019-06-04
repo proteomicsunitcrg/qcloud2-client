@@ -32,5 +32,9 @@ export class EmailService {
     return this.httpClient.post<boolean>(this.emailUrl + '/send', params, {headers: headers});
   }
 
+  public getAllTemplates(): Observable<Array<Email>> {
+    return this.httpClient.get<Array<Email>>(this.emailUrl + '/templates');
+  }
+
 
 }
