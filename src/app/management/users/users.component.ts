@@ -106,15 +106,26 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userList = [];
     userArray.forEach((user) => {
       let role = 'User';
-      user.authorities.forEach(
-        (authority) => {
-          if (authority.name === 'ROLE_MANAGER') {
-            role = 'Manager';
-          }
-        }
-      );
+      // user.authorities.forEach(
+      //   (authority) => {
+      //     // if (authority.name === 'ROLE_MANAGER' && authority.name == 'ROLE_ADMIN') {
+      //     //   role = 'Manager';
+      //     // }
+      //     console.log(authority);
+          
+      //   }
+      // );
+      if (user.authorities.length === 3) {
+        role = 'Administrator';
+      } else if (user.authorities.length == 2) {
+        role = 'Manager';
+      } else {
+        role = 'User';
+      }
       user.role = role;
       this.userList.push(user);
+      // console.log(userArray);
+      
     }
     );
   }

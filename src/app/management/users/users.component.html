@@ -54,12 +54,15 @@
                   </td>
                   <td *ngIf="user.role=='Manager'">
                     <a class="promoteLink" (click)="changeRole(user)">To user</a>
+                  </td>
+                  <td *ngIf="user.role=='Administrator'">
+                    <a class="text-black">Administrator</a>
                   </td></ng-template>
-                <ng-template #myself>-</ng-template>
+                <ng-template #myself>{{user.role}}</ng-template>
             </td>
             <td>
               <span class="promoteLink">
-                <i *ngIf="user.email!=loggedUser" class="material-icons" (click)="deleteMember(user)">delete_forever</i>
+                <i *ngIf="user.email!=loggedUser && user.role!='Administrator'" class="material-icons" (click)="deleteMember(user)">delete_forever</i>
               </span>
             </td>
           </tr>

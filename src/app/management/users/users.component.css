@@ -7,3 +7,6 @@ blockquote {
 input:-webkit-autofill {
   color: #2a2a2a !important;
 }
+.text-black {
+  color: black;
+}
