@@ -19,7 +19,7 @@ export class EmailComponent {
   @ViewChild(ContactListComponent) child;
 
   // Array to store the selected users
-  selectedUsers = [];
+  selectedUsers: any;
 
   showHelp = false;
 
@@ -57,20 +57,32 @@ export class EmailComponent {
   */
   submit(): void {
     M.toast({ html: 'Sending the email' });
-    for (const user of Object.keys(this.selectedUsers)) {
-      const email = new Email('qcloud@crg.eu', this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
-      this.emailService.sendEmail(email).subscribe(
-        (result) => {
-          if (result) {
-            M.toast({ html: 'Email send to ' + this.selectedUsers[user] });
-          } else {
-            M.toast({ html: 'Error sending the email to to ' + this.selectedUsers[user] });
+    // for (const user of Object.keys(this.selectedUsers)) {
+    //   const email = new Email('qcloud@crg.eu', this.selectedUsers[user], this.emailForm.value.title, this.emailForm.value.body);
+    //   this.emailService.sendEmail(email).subscribe(
+    //     (result) => {
+    //       if (result) {
+    //         M.toast({ html: 'Email send to ' + this.selectedUsers[user] });
+    //       } else {
+    //         M.toast({ html: 'Error sending the email to to ' + this.selectedUsers[user] });
+    //       }
+    //     }, (error) => {
+    //       M.toast({ html: 'Error sending the email to to ' + this.selectedUsers[user] });
+    //     }
+    //   );
+    // }
+    const email = new Email('qcloud@crg.eu', this.selectedUsers, this.emailForm.value.title, this.emailForm.value.body);
+    this.emailService.sendEmail(email).subscribe(
+          (result) => {
+            if (result) {
+              M.toast({ html: 'Email send to all' });
+            } else {
+              M.toast({ html: 'Error sending the email to all' });
+            }
+          }, (error) => {
+            M.toast({ html: 'Error sending the email to all' });
           }
-        }, (error) => {
-          M.toast({ html: 'Error sending the email to to ' + this.selectedUsers[user] });
-        }
-      );
-    }
+        );
   }
 
   toggleHelp() {
