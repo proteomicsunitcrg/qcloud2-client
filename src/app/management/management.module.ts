@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MainComponent } from './main/main.component';
 import { ManagementRouterModule } from './management-router/management-router.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -53,6 +53,7 @@ import { GuideSetInformationComponent } from './guide-set/guide-set-information/
     DataSourceService,
     ParametersService,
     ChartService,
-    GuideSetService]
+    GuideSetService,
+    DatePipe]
 })
 export class ManagementModule { }

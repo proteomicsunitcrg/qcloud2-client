@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { GuideSet } from '../../../models/guideSet';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { delay } from 'q';
-import { ModalService } from '../../../common/modal.service';
-import { SystemService } from '../../../services/system.service';
-import { System } from '../../../models/system';
 import { Subscription } from 'rxjs';
-import { GuideSetService } from '../../../services/guide-set.service';
-import { SampleType } from '../../../models/sampleType';
+import { ModalService } from '../../../common/modal.service';
+import { GuideSet } from '../../../models/guideSet';
 import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
+import { SampleType } from '../../../models/sampleType';
+import { System } from '../../../models/system';
+import { DataService } from '../../../services/data.service';
+import { GuideSetService } from '../../../services/guide-set.service';
+import { SystemService } from '../../../services/system.service';
 declare var M: any;
 @Component({
   selector: 'app-data-source-guide-set-list',
@@ -19,7 +20,9 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
   constructor(private systemService: SystemService,
     private modalService: ModalService,
     private guideSetService: GuideSetService,
-    private ref: ChangeDetectorRef) { }
+    private ref: ChangeDetectorRef,
+    private dataService: DataService
+  ) { }
 
   systems: System[] = [];
 
@@ -29,7 +32,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
 
   minFiles: number;
   minValidContextSource: number;
-
+  totalFiles: number;
   selectedAction$: Subscription;
   isValidGuideSet$: Subscription;
 
@@ -145,7 +148,6 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
           .subscribe(
             (guideSetPeptideStatus) => {
               this.guideSetService.selectGuideSetContextSourceStatus(guideSetPeptideStatus);
-              // this.updateGuideSetTotalFiles(guideSet, totalFiles);
             }, err => console.log(err)
           );
       }
@@ -162,7 +164,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
       (system) => {
         return system.apiKey === labSystemApikey;
       });
-    const guideSet = labSystem.enabledGuideSets.find((gs) => {
+    let guideSet = labSystem.enabledGuideSets.find((gs) => {
       return gs.sampleType.name === sampleTypeName;
     });
     switch (position) {
@@ -176,6 +178,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
         console.log('Wrong position');
         break;
     }
+
+    this.getFilesBetweenDates(labSystemApikey, sampleTypeName, guideSet.startDate, guideSet.endDate, guideSet);
   }
 
   private getSampleTypeNameFromHtml(htmlId: string): string {
@@ -234,5 +238,19 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
           this.refresh();
         }
       );
+  }
+
+  /**
+   * refreshNumbers
+   */
+  private getFilesBetweenDates(systemApiKey: string, guidesetSampleTypeName: string, startDate, endDate, guideSet) {
+    this.dataService.getDataBetweenTwoDates(systemApiKey, guidesetSampleTypeName, startDate, endDate).subscribe(
+      (res) => {
+        guideSet.totalFiles = res;
+      }, (error) => {
+        console.log(error);
+        return 0;
+      }
+    );
   }
 }

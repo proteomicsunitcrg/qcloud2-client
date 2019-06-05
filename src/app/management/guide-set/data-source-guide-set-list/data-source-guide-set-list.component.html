@@ -1,16 +1,16 @@
 <div class="row">
   <div class="col s12 m12 l12 xl12">
     <blockquote>
-      <p>You need at least <strong>{{minFiles}}</strong> files to set up a custom guide set</p>
-      <p>Your start and end date should include <strong>{{minFiles}}</strong> valid data points per each context source.</p>
-      <!-- <p>At least <strong>{{minValidContextSource}}</strong> valid context sources points are needed per param to set up a manual guide set.</p> -->
+      <p>You need at least <b>{{minFiles}}</b> files to set up a custom guide set</p>
+      <p>Your start and end date should include <b>{{minFiles}}</b> valid data points per each context source.</p>
+      <!-- <p>At least <b>{{minValidContextSource}}</b> valid context sources points are needed per param to set up a manual guide set.</p> -->
     </blockquote>
   </div>
 </div>
 <table>
   <tbody *ngFor="let system of systems">
     <tr>
-      <td colspan="5" class="center-align green-background lighten-5"><strong>{{system.name}}</strong></td>
+      <td colspan="5" class="center-align green-background lighten-5"><b>{{system.name}}</b></td>
     </tr>
     <tr>
       <th>Sample type</th>
@@ -45,10 +45,10 @@
         </ng-template>
       </td>
       <td>
-        <p *ngIf="guideSet.isUserDefined==false"><strong>AUTOMATIC</strong></p>
+        <p *ngIf="guideSet.isUserDefined==false"><b>AUTOMATIC</b></p>
         <p *ngIf="guideSet.isUserDefined==true">This guide set has
-          <strong>{{guideSet.totalFiles}}</strong> files.</p>
-        <p>You have <strong>{{guideSet.labSystemTotalFiles}}</strong> files of this sample type.</p>
+          <b>{{guideSet.totalFiles}}</b> files.</p>
+        <p>You have <b>{{guideSet.labSystemTotalFiles}}</b> files of this sample type.</p>
       </td>
     </tr>
   </tbody>
