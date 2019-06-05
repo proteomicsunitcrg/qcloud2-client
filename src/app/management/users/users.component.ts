@@ -95,6 +95,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userService.addLabMemberToNode(this.user).subscribe(
       (result) => {
         this.parseUsersFromDb(result);
+        this.showModalChangePassword();
       },
       (error) => {
         this.showModalByError(error);
@@ -132,6 +133,10 @@ export class UsersComponent implements OnInit, OnDestroy {
         break;
     }
 
+  }
+
+  private showModalChangePassword() {
+    this.modalService.openModal(new Modal('New user added', 'The password for the new user is "emailUsername.actualYear"', 'Ok', '', null, null));
   }
 
   private formAction(action: ModalResponse): void {
