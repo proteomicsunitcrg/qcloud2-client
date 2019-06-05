@@ -109,7 +109,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       let role = 'User';
       if (user.authorities.length === 3) {
         role = 'Administrator';
-      } else if (user.authorities.length == 2) {
+      } else if (user.authorities.length === 2) {
         role = 'Manager';
       } else {
         role = 'User';
@@ -136,7 +136,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   private showModalChangePassword() {
-    this.modalService.openModal(new Modal('New user added', 'The password for the new user is "emailUsername.actualYear"', 'Ok', '', null, null));
+    this.modalService.openModal(new Modal('New user added', 'The password for the new user is "emailUsername.actualYear"',
+    'Ok', '', null, null));
   }
 
   private formAction(action: ModalResponse): void {

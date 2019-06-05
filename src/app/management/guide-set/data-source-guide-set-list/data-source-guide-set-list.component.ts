@@ -164,7 +164,7 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
       (system) => {
         return system.apiKey === labSystemApikey;
       });
-    let guideSet = labSystem.enabledGuideSets.find((gs) => {
+    const guideSet = labSystem.enabledGuideSets.find((gs) => {
       return gs.sampleType.name === sampleTypeName;
     });
     switch (position) {

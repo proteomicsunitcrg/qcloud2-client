@@ -154,9 +154,10 @@ export class DataService {
     return this.currentDates;
   }
 
-  public getDataBetweenTwoDates(labSystemApiKey, guideSetSampleTypeName, from, to):Observable<any> {
+  public getDataBetweenTwoDates(labSystemApiKey, guideSetSampleTypeName, from, to): Observable<any> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.get(this.dataUrl + `/between/${from}T00:00:00.000+00:00/${to}T23:59:59.000+02:00/${labSystemApiKey}/${guideSetSampleTypeName}`, {headers: headers});
+    return this.httpClient.get(this.dataUrl + `/between/${from}T00:00:00.000+00:00/${to}T23:59:59.000+02:00/
+    ${labSystemApiKey}/${guideSetSampleTypeName}`, {headers: headers});
   }
 
 }
