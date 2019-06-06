@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ThresholdService } from '../../../services/threshold.service';
-import { Threshold } from '../../../models/threshold';
-import { SystemService } from '../../../services/system.service';
-import { System } from '../../../models/system';
-import { ModalService } from '../../../common/modal.service';
-import { Modal } from '../../../models/modal';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { delay } from 'q';
-import { GuideSetService } from '../../../services/guide-set.service';
-import { LabSystemThreshold } from '../../../models/labSystemThreshold';
-import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
 import { Subscription } from 'rxjs';
-import { ModalResponse } from '../../../models/modalResponse';
+import { ModalService } from '../../../common/modal.service';
 import { ContextSource } from '../../../models/contextSource';
+import { GuideSetContextSourceStatus } from '../../../models/guideSetContextSourceStatus';
+import { LabSystemThreshold } from '../../../models/labSystemThreshold';
+import { Modal } from '../../../models/modal';
+import { ModalResponse } from '../../../models/modalResponse';
+import { System } from '../../../models/system';
+import { Threshold } from '../../../models/threshold';
+import { GuideSetService } from '../../../services/guide-set.service';
+import { SystemService } from '../../../services/system.service';
+import { ThresholdService } from '../../../services/threshold.service';
 declare var M: any;
 
 @Component({
@@ -39,9 +39,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
     this.labSystemService.getSystems()
       .subscribe(
         (labSystems) => {
-
-          console.log(labSystems);
-          
           this.loadThresholds(labSystems);
         }, err => console.log(err)
       );
@@ -57,7 +54,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
     labSystems.forEach(
       (labSystem) => {
         // console.log(labSystem.name);
-        
         this.thresholdService.getAllThresholdsBySystem(labSystem)
           .subscribe(
             (thresholds) => {
@@ -65,7 +61,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
               thresholds.forEach(
                 (threshold) => {
                   // console.log(threshold);
-                  
                   /**
                    * Adding the property edditing for let
                    * the ngContainer work without a big mess
@@ -92,8 +87,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
                 thresholds: thresholdList
               });
               this.labSystemThresholds.sort((a, b) => a.labSystem.name.localeCompare(b.labSystem.name));
-              console.log(this.labSystemThresholds);
-              
             }, err => console.log(err)
           );
       }
@@ -160,17 +153,17 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
 
     if (guideSetContextSourceStatus !== null) {
       // const status = guideSetContextSourceStatus.find(gscs => gscs.contextSource.apiKey === contextSource.apiKey);
-        if (guideSetContextSourceStatus.status === 'NO_VALID') {
-          this.modalService.openModal(new Modal('Warning', guideSetContextSourceStatus.contextSource.name +
-            ' does not have the minimum points to keep your current guide set working. ' +
-            'If you want to start monitoring this parameter your guide set will ' +
-            'be set to automatic until you set a new one.',
-            'Yes',
-            'Cancel',
-            'checkGuideSet', { 'status': status, 'threshold': threshold}));
-        } else {
-          this.changeContextSourceEnabled(threshold, contextSource);
-        }
+      if (guideSetContextSourceStatus.status === 'NO_VALID') {
+        this.modalService.openModal(new Modal('Warning', guideSetContextSourceStatus.contextSource.name +
+          ' does not have the minimum points to keep your current guide set working. ' +
+          'If you want to start monitoring this parameter your guide set will ' +
+          'be set to automatic until you set a new one.',
+          'Yes',
+          'Cancel',
+          'checkGuideSet', { 'status': status, 'threshold': threshold }));
+      } else {
+        this.changeContextSourceEnabled(threshold, contextSource);
+      }
     } else {
       this.changeContextSourceEnabled(threshold, contextSource);
     }
@@ -203,7 +196,7 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
               this.guideSetService.resetLabSystemGuideSetByThreshold(modalResponse.objectInstance['threshold'])
                 .subscribe(
                   (res) => {
-                    M.toast({'html': 'Guide set reset to automatic!'});
+                    M.toast({ 'html': 'Guide set reset to automatic!' });
                   }, err => console.log('reset', err)
                 );
             }
@@ -218,11 +211,11 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
 
   private changeContextSourceEnabled(threshold: Threshold, contextSource: ContextSource): void {
     this.thresholdService.changeContextSourceEnabled(threshold, contextSource)
-    .subscribe(
-      (res) => {
-        this.currentContextSource['isEnabled'] = !this.currentContextSource['isEnabled'];
-      }, err => console.log(err)
-    );
+      .subscribe(
+        (res) => {
+          this.currentContextSource['isEnabled'] = !this.currentContextSource['isEnabled'];
+        }, err => console.log(err)
+      );
   }
 
 }
