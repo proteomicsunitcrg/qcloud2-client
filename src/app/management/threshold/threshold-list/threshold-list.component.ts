@@ -39,6 +39,9 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
     this.labSystemService.getSystems()
       .subscribe(
         (labSystems) => {
+
+          console.log(labSystems);
+          
           this.loadThresholds(labSystems);
         }, err => console.log(err)
       );
@@ -53,12 +56,16 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
   private loadThresholds(labSystems: System[]): void {
     labSystems.forEach(
       (labSystem) => {
+        // console.log(labSystem.name);
+        
         this.thresholdService.getAllThresholdsBySystem(labSystem)
           .subscribe(
             (thresholds) => {
               const thresholdList: Threshold[] = [];
               thresholds.forEach(
                 (threshold) => {
+                  // console.log(threshold);
+                  
                   /**
                    * Adding the property edditing for let
                    * the ngContainer work without a big mess
@@ -84,6 +91,9 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
                 labSystem: labSystem,
                 thresholds: thresholdList
               });
+              this.labSystemThresholds.sort((a, b) => a.labSystem.name.localeCompare(b.labSystem.name));
+              console.log(this.labSystemThresholds);
+              
             }, err => console.log(err)
           );
       }
