@@ -1,9 +1,6 @@
 .selected {
     background-color: #a7d7c5;
 }
-.contactList {
-    cursor: pointer;
-}
 .selector {
     font-size: 0.8em;
     cursor: pointer;

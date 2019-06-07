@@ -1,13 +1,23 @@
 <!-- <div class="row">
   <div class="col s3"> -->
-      <span class="selector" (click)="selectAll()">Select all</span>
-  <span> / </span>
-  <span class="selector" (click)="unselectAll()">Unselect all</span>
-    <ul class="collection with-header">
-      <li class="collection-item contactList" *ngFor="let node of allNodes; let i = index" (click)="onSelect(i)" >
-        <h6 *ngIf = "isTitle(node) == true">{{node}}</h6>
-        <a *ngIf = "isTitle(node) == false">{{node}}</a>
+<span class="selector" (click)="selectAll()">Select all</span>
+<span> / </span>
+<span class="selector" (click)="unselectAll()">Unselect all</span>
+<ul class="collection with-header" id="list" style="width: 335px;">
+  <div *ngFor="let node of allNodes; let i = index;">
+    <li class="collection-header">
+      <h6>{{node.node.name}} <sub>{{node.totalFiles}}</sub></h6>
+    </li>
+    <div *ngFor="let user of node.node.users; ">
+      <li class="collection-item" *ngIf="user.authorities.length > 1" style="border-bottom: 1px solid #e0e0e0;">
+        <a class="name">{{user.username}}</a> 
+        <label>
+          <input type="checkbox" class="filled-in checkbox" (click)="onSelect(i)" value="{{user.checked}}" [(ngModel)]="user.checked"/>
+          <span style="margin-left: 8px; top: 7px;"></span>
+        </label>
       </li>
-    </ul>
-  <!-- </div>
+    </div>
+  </div>
+</ul>
+<!-- </div>
 </div> -->

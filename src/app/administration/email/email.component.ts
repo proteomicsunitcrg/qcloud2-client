@@ -19,7 +19,7 @@ export class EmailComponent {
   @ViewChild(ContactListComponent) child;
 
   // Array to store the selected users
-  selectedUsers: any;
+  selectedUsers = [];
 
   showHelp = false;
 

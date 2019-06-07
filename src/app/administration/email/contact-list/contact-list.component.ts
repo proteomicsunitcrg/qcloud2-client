@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EmailService } from '../../../services/email.service';
 import { UserService } from '../../../services/user.service';
+
 declare var M: any;
 @Component({
   selector: 'app-contact-list',
@@ -25,67 +26,64 @@ export class ContactListComponent implements OnInit {
   * @since 1.0.0
   * @access public
   */
-  onSelect(i: number): void {
-    const contact = document.getElementsByClassName('contactList')[i];
-    if (!this.selected.includes(contact.textContent) && !this.isTitle(contact.textContent)) {
-      contact.classList.add('selected');
-      this.selected.push(contact.textContent);
-    } else {
-      this.selected = this.selected.filter(item => item !== contact.textContent);
-      contact.classList.remove('selected');
-    }
-    this.emitList();
+  public onSelect(): void {
+    this.selected = [];
+    setTimeout(() => {  // The timeout is necessary because the checkbox isnt instant
+      for (const nodeFather of this.allNodes) {
+        for (const user of nodeFather.node.users) {
+          if (user.checked) {
+            this.selected.push(user.username);
+          }
+        }
+      }
+      this.emitList();
+    }, 100);
+
   }
   /**
   * @summary Add all the users to the selected array
-  * @description Add all the users to the selected array and sets all the users to selected css class, also emits the list
+  * @description Add all the users to the selected array, also emits the list
   * @author Marc Serret
   * @since 1.0.0
   * @access public
   */
-  selectAll() {
-    const contactList: any = document.getElementsByClassName('contactList');
-    for (const contact of contactList) {
-      if (!this.isTitle(contact.textContent) && !this.selected.includes(contact.textContent)) {
-        contact.classList.add('selected');
-        this.selected.push(contact.textContent);
+  public selectAll() {
+    this.selected = [];
+    setTimeout(() => {  // The timeout is necessary because the checkbox isnt instant
+      for (const nodeFather of this.allNodes) {
+        for (const user of nodeFather.node.users) {
+          user.checked = true;
+          if (user.checked) {
+            this.selected.push(user.username);
+          }
+        }
       }
-    }
-    this.emitList();
+      this.emitList();
+    }, 100);
   }
 
   /**
   * @summary Remove all the users from the selected array
-  * @description Remove all the users from the selected array and removes all the users the selected css class, also emits the list
+  * @description Remove all the users from the selected array, also emits the list
   * @author Marc Serret
   * @since 1.0.0
   * @access public
   */
-  unselectAll() {
-    const contactList: any = document.getElementsByClassName('contactList');
-    this.selected.splice(0, this.selected.length);
-    for (const contact of contactList) {
-      contact.classList.remove('selected');
-    }
-    this.emitList();
+  public unselectAll() {
+    this.selected = [];
+    setTimeout(() => {  // The timeout is necessary because the checkbox isnt instant
+      for (const nodeFather of this.allNodes) {
+        for (const user of nodeFather.node.users) {
+          user.checked = false;
+          if (user.checked) {
+            this.selected.push(user.username);
+          }
+        }
+      }
+      this.emitList();
+    }, 100);
   }
-  /**
-  * @summary Check if the string is a title
-  * @description Check if the string is a title based on the arroba char
-  * @param name the name to check
-  * @typeparam name string
-  * @author Marc Serret
-  * @returns true if int't a title or false otherwise
-  * @since 1.0.0
-  * @access public
-  */
-  isTitle(name: string): boolean {
-    if (name.includes('@')) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+
   /**
   * @summary Emits the selected users list
   * @description Emits the selected users list to the father component
@@ -93,7 +91,7 @@ export class ContactListComponent implements OnInit {
   * @since 1.0.0
   * @access public
   */
-  emitList() {
+  private emitList() {
     this.contactEmitter.emit(this.selected);
   }
   /**
@@ -106,16 +104,13 @@ export class ContactListComponent implements OnInit {
   private getAllNodes() {
     this.userService.getAllNodes().subscribe(
       (nodes) => {
-        for (const node of Object.keys(nodes)) {
-          this.allNodes.push(nodes[node].name);
-          const users = nodes[node].users;
-          for (const user of Object.keys(users)) {
-            if (typeof(users[user].authorities[1]) !== 'undefined') {
-              this.allNodes.push(users[user].email);
-            }
+        this.allNodes = nodes.sort((a, b) => b.totalFiles - a.totalFiles);
+        for (const nodeFather of this.allNodes) {
+          for (const node of nodeFather.node.users) {
+            // Add a new property to every user to make easy the selection handler
+            (node as any).checked = false;
           }
         }
-        console.log(this.allNodes);
       }, (error) => {
         console.log(error);
       }
