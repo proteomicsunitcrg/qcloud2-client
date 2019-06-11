@@ -7,7 +7,6 @@ import { Email } from '../models/email';
   providedIn: 'root'
 })
 export class EmailService {
-
   constructor(private httpClient: HttpClient) { }
 
   // ENV URL
@@ -25,16 +24,18 @@ export class EmailService {
    * @access public
    */
   public sendEmail(email: Email): Observable<boolean> {
-    // console.log(email);
     const json = JSON.stringify(email);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<boolean>(this.emailUrl + '/send', params, {headers: headers});
   }
 
-  public getAllTemplates(): Observable<Array<Email>> {
-    return this.httpClient.get<Array<Email>>(this.emailUrl + '/templates');
+  public getAllTemplates(): Observable<Array<String>> {
+    return this.httpClient.get<Array<String>>(this.emailUrl + '/templates');
   }
 
+  public loadTemplate(template: String) {
+    return this.httpClient.get(this.emailUrl + '/template/' + template, {responseType: 'text'});
+  }
 
 }
