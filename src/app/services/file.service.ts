@@ -24,6 +24,10 @@ export class FileService {
     return this.httpClient.get<File>(this.fileUrl + '/' + sampleType.qualityControlControlledVocabulary + '/' + labSystemApiKey);
   }
 
+  public getLastFileBySampleTypeQCCVAndLabSystem(sampleTypeQCCV: String, labSystemApiKey: string): Observable<File> {
+    return this.httpClient.get<File>(this.fileUrl + '/' + sampleTypeQCCV + '/' + labSystemApiKey);
+  }
+
   public getFileByFilename(filename: string): Observable<File> {
     return this.httpClient.get<File>(this.fileUrl + '/name/' + filename);
   }

@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../../services/websocket.service';
 import { NodeLabSystemStatus } from '../../../models/nodeLabSystemStatus';
 import { Alert } from '../../../models/alert';
+import { FileService } from '../../../services/file.service';
+import { File } from '../../../models/file'
 declare var M: any;
 
 @Component({
@@ -21,6 +23,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   constructor(private systemService: SystemService,
     private thresholdService: ThresholdService,
     private webSocketService: WebsocketService,
+    private fileService: FileService,
     private router: Router) { }
 
   nodeLabSystems: NodeLabSystemStatus[] = [];
@@ -87,14 +90,16 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         this.thresholdService.getLabSystemStatus(labSystem.system)
           .subscribe(
             (status) => {
-              // console.log(status)
               status.forEach(
                 (stat) => {
-                  if (stat.status !== 'OK') {
+                  if (stat.status === 'DANGER' || stat.status === 'WARNING') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
                   }
-                  if (stat.status === 'OK') {
+                  else if (stat.status == 'OFFLINE') {
+                    this.getLastFile(labSystem.system.apiKey).then((res) =>
+                      labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' + this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
+                    )
                   }
                   this.updateLabSystemLight(labSystem, stat);
                 }
@@ -105,6 +110,23 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
           );
       }
     );
+  }
+
+  private parseDate(date: Date): string {
+    let date1 = new Date(date).getTime();
+    let date2 = new Date().getTime();
+    let time = date2 - date1;  //msec
+    let hoursDiff = Math.round(time / (3600 * 1000));
+    if (hoursDiff >= 720) {
+      return Math.round((hoursDiff / 24) / 30) + ' months ago'
+    } else if (hoursDiff >= 72) {
+      return Math.round(hoursDiff / 24) + ' days ago'
+    }
+    return hoursDiff.toString() + ' hours ago';
+  }
+
+  private getLastFile(lsApiKey: string): Promise<File> {
+    return this.fileService.getLastFileBySampleTypeQCCVAndLabSystem('QC:0000005', lsApiKey).toPromise();
   }
 
   private updateLabSystemLight(labSystem: NodeLabSystemStatus, stat: LabSystemStatus): void {
@@ -138,6 +160,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
   open(dropdown: string, index: number): void {
     this.currentStatus = this.nodeLabSystems[index].status;
+
     delay(1).then(
       () => {
         const elem = document.getElementById(dropdown);
