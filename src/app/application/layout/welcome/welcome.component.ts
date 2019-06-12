@@ -17,17 +17,17 @@ export class WelcomeComponent implements OnInit {
   videoLinks = [
     {
       title: 'Getting started as a user',
-      link: 'https://drive.google.com/file/d/1nHgbWmRltToAEvBF9J4_kd7k2q0mx_Pi/view?usp=sharing',
+      link: 'https://www.dropbox.com/s/e2mil82vuccvcox/getting-started-as-user.mp4',
       img: this.imgUrl + 'User.png'
     },
     {
       title: 'Getting started as a lab manager',
-      link: 'https://drive.google.com/file/d/10VhYb-q_Usrp-gCTVSpQf3u2fBZK7oEp/view?usp=sharing',
+      link: 'https://www.dropbox.com/s/5xani1zi7guqez7/getting-started-as-a-lab-manager.mp4',
       img: this.imgUrl + 'LabManager.png'
     },
     {
       title: 'Thresholds and guidesets',
-      link: 'https://drive.google.com/file/d/1WCmGel417NYIZiyfIFLsln98dSDNKwP4/view?usp=sharing',
+      link: 'https://www.dropbox.com/s/tqn83u22m7fs1tw/threholds-and-guidesets.mp4',
       img: this.imgUrl + 'Thres.png'
     },
   ];
