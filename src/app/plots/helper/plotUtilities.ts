@@ -22,6 +22,10 @@ export function getChartName(): string {
 }
 
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number): any[] {
+  // console.log(thresholdParam);
+  // console.log(thresholdSteps);
+  
+  
     let thresholdColors = [];
     if (thresholdSteps > 1) {
       thresholdColors = [ '#056487', '#60c3e8', '#a9dbed'];

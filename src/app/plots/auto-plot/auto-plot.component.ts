@@ -102,6 +102,8 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
     // if there is only one context source load only this.
     // this prevents a sigma threshold do be drawed more than once
     let uniqueThresholdParam: ThresholdParam = null;
+    // console.log(this.serverData);
+    
     if (this.serverData.names.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData.names[0]);
       if (uniqueThresholdParam !== undefined) {
