@@ -119,7 +119,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
     let hoursDiff = Math.round(time / (3600 * 1000));
     if (hoursDiff >= 720) {
       return Math.round((hoursDiff / 24) / 30) + ' months ago'
-    } else if (hoursDiff >= 72) {
+    } else if (hoursDiff >= 48) {
       return Math.round(hoursDiff / 24) + ' days ago'
     }
     return hoursDiff.toString() + ' hours ago';
