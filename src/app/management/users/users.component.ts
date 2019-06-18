@@ -23,9 +23,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   /**
    * This is for restore pristine after the form submit
    */
-  @ViewChild('firstnameBox') firstnameBox;
-  @ViewChild('lastnameBox') lastnameBox;
-  @ViewChild('emailBox') emailBox;
+  @ViewChild('firstnameBox', null) firstnameBox;
+  @ViewChild('lastnameBox', null) lastnameBox;
+  @ViewChild('emailBox', null) emailBox;
 
   constructor(private userService: UserService,
     private modalService: ModalService,

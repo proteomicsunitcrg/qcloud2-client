@@ -5,7 +5,7 @@ import { RegistrationService } from '../../services/registration.service';
 import { Router } from '@angular/router';
 import { Modal } from '../../models/modal';
 import { ModalResponse } from '../../models/modalResponse';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../../common/modal.service';
 import { delay } from 'q';

@@ -34,13 +34,15 @@ import { AnnotationSelectorComponent } from './data-visualization/annotations/an
 import { AnnotationListComponent } from './data-visualization/annotations/annotation-list/annotation-list.component';
 import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
 import { AnnotationService } from '../services/annotation.service';
+import { ShContextMenuModule } from 'ng2-right-click-menu'
 
 @NgModule({
   imports: [
     CommonModule,
     PlotsModule,
     ApplicationRouterModule,
-    FormsModule],
+    FormsModule,
+    ShContextMenuModule],
   declarations: [MainWindowComponent,
     TopMenuComponent,
     InstrumentStatusComponent,

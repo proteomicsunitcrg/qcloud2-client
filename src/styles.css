@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Some elements here are global ant other are from libs. The lib elements only can be modified in this file */
-
+@import "~@angular/cdk/overlay-prebuilt.css";
 .green-background {
     background-color: #f4f9f4;
     color: black;

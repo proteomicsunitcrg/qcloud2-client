@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   // Array with all categories
   categories = [];
 
-  @ViewChild('categoryNameBox') categoryNameBox;
+  @ViewChild('categoryNameBox', null) categoryNameBox;
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {

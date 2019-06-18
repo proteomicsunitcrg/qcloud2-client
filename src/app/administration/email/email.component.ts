@@ -17,9 +17,9 @@ export class EmailComponent {
   M: any;
 
   // To get the selected users from the list
-  @ViewChild(ContactListComponent) child;
+  @ViewChild(ContactListComponent,null) child;
 
-  @ViewChild(TemplateListComponent) child2;
+  @ViewChild(TemplateListComponent, null) child2;
 
   // Array to store the selected users
   selectedUsers = [];
