@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { System } from '../../../models/system';
-import { SystemService } from '../../../services/system.service';
-import { delay } from 'q';
-import { ThresholdService } from '../../../services/threshold.service';
-import { LabSystemStatus } from '../../../models/labsystemstatus';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { delay } from 'q';
 import { Subscription } from 'rxjs';
-import { WebsocketService } from '../../../services/websocket.service';
-import { NodeLabSystemStatus } from '../../../models/nodeLabSystemStatus';
 import { Alert } from '../../../models/alert';
+import { File } from '../../../models/file';
+import { LabSystemStatus } from '../../../models/labsystemstatus';
+import { NodeLabSystemStatus } from '../../../models/nodeLabSystemStatus';
+import { System } from '../../../models/system';
 import { FileService } from '../../../services/file.service';
-import { File } from '../../../models/file'
+import { SystemService } from '../../../services/system.service';
+import { ThresholdService } from '../../../services/threshold.service';
+import { WebsocketService } from '../../../services/websocket.service';
 declare var M: any;
 
 @Component({
@@ -45,6 +45,10 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.newLabSystemFromWebsocket$.unsubscribe();
     this.nonConformitiesFromWebsocket$.unsubscribe();
+  }
+
+  public newTab(apiKey: String): void {
+    window.open('/application/view/instrument/' + apiKey, "_blank");
   }
 
   private subscribeToNewLabSystemFromWebsocket(): void {
@@ -184,7 +188,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(labSystem: System): void {
-    this.router.navigate(['application/view/instrument/' + labSystem.apiKey]);
+    this.router.navigate(['application/view/instrument/' + labSystem.apiKey,]);
   }
 
   closeAlertList(): void {

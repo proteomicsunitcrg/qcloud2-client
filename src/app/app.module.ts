@@ -33,12 +33,14 @@ import { TroubleshootingService } from './services/troubleshooting.service';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import {ShContextMenuModule} from 'ng2-right-click-menu'
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    ShContextMenuModule,
     HttpClientModule,
     EntryPointModule,
     RoutingModule,

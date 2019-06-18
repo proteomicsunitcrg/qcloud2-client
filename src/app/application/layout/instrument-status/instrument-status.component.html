@@ -5,9 +5,10 @@
       <a *ngIf="status.sampleTypeQccv==='TIME'" style="cursor: default;"> {{status.thresholdApiKey}}
         <!-- <span [class]="status.status">{{status.status}}</span> -->
       </a>
-      <a *ngIf="status.sampleTypeQccv!=='TIME'" class="cursorIcon" (click)="doSendToAutoPlot(status)"> {{status.sampleTypeName}} {{status.param.name}} {{status.contextSource.abbreviated}}
-          <span class="dot" [class.red]="status.status=='DANGER'" [class.orange]="status.status=='WARNING'"></span>
-        </a>
+      <a *ngIf="status.sampleTypeQccv!=='TIME'" class="cursorIcon" (click)="doSendToAutoPlot(status)">
+        {{status.sampleTypeName}} {{status.param.name}} {{status.contextSource.abbreviated}}
+        <span class="dot" [class.red]="status.status=='DANGER'" [class.orange]="status.status=='WARNING'"></span>
+      </a>
     </li>
   </ng-template>
   <ng-template #nostatus>
@@ -17,19 +18,28 @@
   </ng-template>
 </ul>
 <div class="col s12 m12 l12 xl12 wrapper">
-  <div id="instrumentStatus">
+  <div id="instrumentStatus" style="z-index: 1;">
     <span class="right" *ngFor="let labSystem of nodeLabSystems; let i = index">
-      <a class="btn btn-flat dropdown-trigger" data-target="content" id="{{labSystem.system.name}}" 
-      (mouseenter)="open(labSystem.system.name,i)"
-      (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}
-      <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>
-      <ng-template #alerts>
-        <span class="dot" [class.red]="labSystem.alerts.severity=='DANGER'" [class.orange]="labSystem.alerts.severity=='WARNING'"></span>
-      </ng-template>
-      <ng-template #clean>
-        <span class="dot" [class.green]="labSystem.alerts.severity=='OK'"></span>
-      </ng-template>
-    </a>
+      <a [shAttachMenu]="menu" [shMenuData]="labSystem.system.apiKey" class="btn btn-flat dropdown-trigger"
+        data-target="content" id="{{labSystem.system.name}}" (mouseenter)="open(labSystem.system.name,i)"
+        (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}
+        <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>
+        <ng-template #alerts>
+          <span class="dot" [class.red]="labSystem.alerts.severity=='DANGER'"
+            [class.orange]="labSystem.alerts.severity=='WARNING'"></span>
+        </ng-template>
+        <ng-template #clean>
+          <span class="dot" [class.green]="labSystem.alerts.severity=='OK'"></span>
+        </ng-template>
+      </a>
     </span>
   </div>
 </div>
+
+<sh-context-menu #menu>
+  <ng-template shContextMenuItem let-data>
+    <div (click)="newTab(data)">
+      Open in new tab
+    </div>
+  </ng-template>
+</sh-context-menu>
