@@ -15,6 +15,7 @@ export class Threshold {
     isMonitored: boolean;
     apiKey: string;
     labSystem: System;
+    isCommFeat: boolean;
 
     constructor(id: number,
         name: string,
@@ -26,7 +27,8 @@ export class Threshold {
         thresholdType: string,
         isMonitored: boolean,
         apiKey: string,
-        labSystem: System) {
+        labSystem: System,
+        isCommFeat: boolean) {
             this.id = id;
             this.name = name;
             this.nonConformityDirection = nonConformityDirection;
@@ -38,5 +40,6 @@ export class Threshold {
             this.isMonitored = isMonitored;
             this.apiKey = apiKey;
             this.labSystem = labSystem;
+            this.isCommFeat = isCommFeat;
     }
 }
