@@ -20,7 +20,7 @@
 <div class="col s12 m12 l12 xl12 wrapper">
   <div id="instrumentStatus" style="z-index: 1;">
     <span class="right" *ngFor="let labSystem of nodeLabSystems; let i = index">
-      <a [shAttachMenu]="menu" [shMenuData]="labSystem.system.apiKey" class="btn btn-flat dropdown-trigger"
+      <a (contextmenu)="closeAlertList()" [shAttachMenu]="menu" [shMenuData]="labSystem.system.apiKey" class="btn btn-flat dropdown-trigger"
         data-target="content" id="{{labSystem.system.name}}" (mouseenter)="open(labSystem.system.name,i)"
         (click)="navigateTo(labSystem.system)">{{labSystem.system.name}}
         <ng-container *ngIf="labSystem.alerts.quantity!=0 then alerts else clean"></ng-container>
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<sh-context-menu #menu>
+<sh-context-menu #menu id="testi">
   <ng-template shContextMenuItem let-data>
     <div (click)="newTab(data)">
       Open in new tab
