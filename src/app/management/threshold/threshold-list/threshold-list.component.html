@@ -8,6 +8,7 @@
         </tr>
         <tr>
           <th>Param</th>
+          <th>Type</th>
           <th>Sample type</th>
           <th>Context sources</th>
           <th>Initial value</th>
@@ -21,6 +22,7 @@
               (click)="editThreshold(threshold)">create</i>
             <i class="material-icons cursorIcon" *ngIf="threshold['edditing']" (click)="saveThresholdParams(threshold)">save</i>
           </td>
+          <td>{{threshold.thresholdType}}</td>
           <td>
             {{threshold.sampleType.name}}
           </td>
