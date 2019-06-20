@@ -38,6 +38,8 @@ export class DataVisualizationDateMenuComponent implements OnInit {
 
   datePickers: any[] = [];
 
+  hideAnnotations: boolean = false;
+
   ngOnInit() {
     this.selectedDateRange = this.dateRanges[0];
     this.loadDatesArray();
@@ -79,7 +81,6 @@ export class DataVisualizationDateMenuComponent implements OnInit {
     const endDate = this.datePickers[1].toString();
     this.dataService.selectDates([startDate, endDate]);
     this.loadAnnotations([startDate, endDate]);
-
   }
 
   doChangeRange(): void {
@@ -101,6 +102,10 @@ export class DataVisualizationDateMenuComponent implements OnInit {
           this.annotationService.getAnnotationsBetweenDates(datesArray, params.apiKey);
         }
       });
+  }
+
+  public emitAnnotations(): void {
+    this.dataService.changeHideAnnotations(this.hideAnnotations);
   }
 
 }

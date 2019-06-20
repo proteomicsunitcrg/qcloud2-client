@@ -8,7 +8,8 @@
     <div class="row">
       <p *ngFor="let dateRange of dateRanges">
         <label>
-          <input name="date-range" type="radio" [(ngModel)]="selectedDateRange" [value]="dateRange" (change)="doChangeRange()" />
+          <input name="date-range" type="radio" [(ngModel)]="selectedDateRange" [value]="dateRange"
+            (change)="doChangeRange()" />
           <span>{{dateRange.name}}</span>
         </label>
       </p>
@@ -24,5 +25,11 @@
   </li>
   <li class="collection-item">
     <button type="button" class="btn" (click)="search()">Search</button>
+  </li>
+  <li class="collection-item">
+    <label>
+      <input type="checkbox" [(ngModel)]="hideAnnotations" (change) = "emitAnnotations()"/>
+      <span>Hide annotations</span>
+    </label> 
   </li>
 </ul>

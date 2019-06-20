@@ -37,6 +37,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   @Input() chart: Chart;
   @Input() system: System;
+
+  @Input() hideAnnotations: Boolean;
   /**
    * If it is true it means that this plot is in a user view.
    * In that case we need to add to the chart name the
@@ -48,6 +50,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   annotations: Annotation[];
 
   dateChangesSubscription$: Subscription;
+  hideAnnotationsSubscription$: Subscription;
   webSocketData$: Subscription;
   thresholdFromWebSocket$: Subscription;
 
@@ -80,6 +83,8 @@ export class PlotComponent implements OnInit, OnDestroy {
   plotThreshold: PlotThreshold;
 
   ngOnInit() {
+    this.subscribeHideAnnotations();
+    this.loadHideAnnotations();
     this.error = false;
     this.loadCurrentDates();
     this.subscribeToDateChanges();
@@ -92,6 +97,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.annotations$.unsubscribe();
     this.dateChangesSubscription$.unsubscribe();
     this.webSocketData$.unsubscribe();
     this.thresholdFromWebSocket$.unsubscribe();
@@ -394,7 +400,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.plotService.sendClick(data, this.system);
       });
       // Call for annotations
-      if (!this.shownames) {
+      if (!this.shownames && (this.hideAnnotations === false || this.hideAnnotations === undefined)) {
         delay(100).then(() => this.loadAnnotations());
 
       }
@@ -593,6 +599,19 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private loadCurrentDates(): void {
     this.currentDates = this.dataService.getCurrentDates();
+  }
+
+  private loadHideAnnotations(): void {
+    this.hideAnnotations = this.dataService.getHideAnnotations();
+  }
+
+  private subscribeHideAnnotations(): void {
+    this.hideAnnotationsSubscription$ = this.dataService.annotationsOption$.subscribe(
+      (res) => {
+        this.hideAnnotations = res;
+        this.loadData();
+      }
+    );
   }
 
   private subscribeToDateChanges(): void {

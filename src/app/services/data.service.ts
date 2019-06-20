@@ -23,6 +23,8 @@ export class DataService {
 
   currentDates: string[];
 
+  hideAnnotations: boolean;
+
   /**
    * This observables are for pass the dates to the
    * plots currently displayed
@@ -30,6 +32,9 @@ export class DataService {
    */
   private selectedDates = new Subject<string[]>();
   selectedDates$ = this.selectedDates.asObservable();
+
+  private annotationsOption = new Subject<Boolean>();
+  annotationsOption$ = this.annotationsOption.asObservable();
 
   /**
    * Retrieve data from the server
@@ -154,6 +159,15 @@ export class DataService {
     return this.currentDates;
   }
 
+
+  public changeHideAnnotations(hideAnnotations: boolean): void {
+    this.hideAnnotations = hideAnnotations;
+    this.annotationsOption.next(hideAnnotations);
+  }
+
+  public getHideAnnotations(): boolean {
+    return this.hideAnnotations;
+  }
   public getDataBetweenTwoDates(labSystemApiKey, guideSetSampleTypeName, from, to): Observable<any> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.get(this.dataUrl + `/between/${from}T00:00:00.000+00:00/${to}T23:59:59.000+02:00/
