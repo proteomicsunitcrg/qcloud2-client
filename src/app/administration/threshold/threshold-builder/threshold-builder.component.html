@@ -24,6 +24,11 @@
         </select>
         <label>Sample type</label>
       </div>
+      <!-- Name -->
+      <div class="input-field col s12">
+        <input type="text" name="name" id="nameInput" [(ngModel)]="threshold.name">
+        <label>Threshold name</label>
+      </div>
       <!-- Param -->
       <div class="input-field col s12" [hidden]="threshold.sampleType==null">
         <select [(ngModel)]="threshold.param" (ngModelChange)="onParamChange($event)" name="param" required>

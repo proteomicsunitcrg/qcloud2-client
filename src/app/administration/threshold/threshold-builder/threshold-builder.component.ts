@@ -154,6 +154,8 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.threshold);
+    // return;
     this.thresholdService.saveThreshold(this.threshold)
       .subscribe(
         (threshold) => {
