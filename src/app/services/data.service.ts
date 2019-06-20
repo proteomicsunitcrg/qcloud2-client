@@ -23,7 +23,7 @@ export class DataService {
 
   currentDates: string[];
 
-  hideAnnotations: boolean;
+  hideAnnotations: boolean = false; // false by default
 
   /**
    * This observables are for pass the dates to the
