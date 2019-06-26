@@ -11,6 +11,8 @@ import { FileService } from '../../../services/file.service';
 import { SystemService } from '../../../services/system.service';
 import { ThresholdService } from '../../../services/threshold.service';
 import { WebsocketService } from '../../../services/websocket.service';
+import { Param } from '../../../models/param';
+import { ContextSource } from '../../../models/contextSource';
 declare var M: any;
 
 @Component({
@@ -34,6 +36,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   currentStatus: LabSystemStatus[] = [];
 
   currentDropdownInstance: any = null;
+  oneOffline = false;
 
 
   ngOnInit() {
@@ -88,12 +91,14 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   private loadLabSystemStatus(): void {
+    
     this.nodeLabSystems.forEach(
       (labSystem) => {
         this.thresholdService.getLabSystemStatus(labSystem.system)
-          .subscribe(
-            (status) => {
+        .subscribe(
+          (status) => {
               status.forEach(
                 (stat) => {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
@@ -101,6 +106,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                     labSystem.status.push(stat);
                   }
                   else if (stat.status == 'OFFLINE') {
+                    console.log(labSystem.status);
                     this.getLastFile(labSystem.system.apiKey).then((res) =>
                       labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' + this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
                     )

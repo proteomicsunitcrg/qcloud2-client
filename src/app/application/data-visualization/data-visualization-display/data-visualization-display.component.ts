@@ -121,7 +121,6 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
         break;
     }
   }
-
   private loadInitialView(): void {
     this.loadDefaultChartsByView(this.views[0]);
   }
