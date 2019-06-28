@@ -499,7 +499,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
       });
 
-    const shapesUpdate = this.layout.shapes.filter(s => s.type !== 'line');
+    const shapesUpdate = this.layout.shapes;
 
     lines.forEach(l => {
       shapesUpdate.push(l);
