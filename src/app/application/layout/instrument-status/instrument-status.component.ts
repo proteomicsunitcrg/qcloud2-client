@@ -106,7 +106,6 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                     labSystem.status.push(stat);
                   }
                   else if (stat.status == 'OFFLINE') {
-                    console.log(labSystem.status);
                     this.getLastFile(labSystem.system.apiKey).then((res) =>
                       labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' + this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
                     )

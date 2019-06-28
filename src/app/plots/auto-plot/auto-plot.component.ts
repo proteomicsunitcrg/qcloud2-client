@@ -107,7 +107,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
     if (this.serverData.names.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData.names[0]);
       if (uniqueThresholdParam !== undefined) {
-        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps).forEach(
+        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
           (layoutShape) => {
             this.layoutShapes.push(layoutShape);
           });
@@ -115,7 +115,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.plotThreshold.thresholdParams.forEach(
         (thresholdParam) => {
-          generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
+          generateLayoutShapes(thresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
             (layoutShape) => {
               this.layoutShapes.push(layoutShape);
             });

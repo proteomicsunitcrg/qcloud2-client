@@ -252,11 +252,10 @@ export class PlotComponent implements OnInit, OnDestroy {
     // if there is only one context source load only this.
     // this prevents a sigma threshold do be drawed more than once
     let uniqueThresholdParam: ThresholdParam = null;
-
     if (this.serverData.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData[0].abbreviated);
       if (uniqueThresholdParam !== undefined && uniqueThresholdParam.isEnabled) {
-        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps).forEach(
+        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
           (layoutShape) => {
             this.layoutShapes.push(layoutShape);
           });
@@ -265,7 +264,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.plotThreshold.thresholdParams.forEach(
         (thresholdParam) => {
           if (thresholdParam.isEnabled) {
-            generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
+            generateLayoutShapes(thresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
               (layoutShape) => {
                 this.layoutShapes.push(layoutShape);
               });
