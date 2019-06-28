@@ -22,6 +22,7 @@ export function getChartName(): string {
 }
 
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number, isCommunity: boolean): any[] {
+  const shapes: any[] = [];
   let thresholdColors = [];
   if (isCommunity) {
     if (thresholdSteps > 1) {
@@ -29,27 +30,27 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     } else {
       thresholdColors = ['#D8B3F8'];
     }
+    let line = {
+      x0: 0,
+      x1: 1,
+      type: 'line',
+      y0: thresholdParam.initialValue,
+      y1: thresholdParam.initialValue,
+      xref: 'paper',
+      opacity: 1,
+      line: {
+        color: '#FEFEFE',
+        width: 1,
+        dash: 'dot'
+      },
+    }
+    shapes.push(line);
   } else {
     if (thresholdSteps > 1) {
       thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
     } else {
       thresholdColors = ['#a9dbed'];
     }
-  }
-  const shapes: any[] = [];
-  let line = {
-    x0: 0,
-    x1: 1,
-    type: 'line',
-    y0: thresholdParam.initialValue,
-    y1: thresholdParam.initialValue,
-    xref: 'paper',
-    opacity: 1,
-    line: {
-      color: '#FEFEFE',
-      width: 1,
-      dash: 'dot'
-    },
   }
   for (let i = 0; i < thresholdSteps; i++) {
     const shape = {
@@ -69,7 +70,6 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
     };
     shapes.push(shape);
   }
-  shapes.push(line);
   return shapes;
 }
 
