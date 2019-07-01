@@ -13,6 +13,9 @@
       <th>Context source/s</th>
       <th>Direction</th>
       <th>Steps</th>
+      <th>Step value</th>
+      <th>Initial value</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -24,18 +27,61 @@
       <td>
         <ul>
           <li *ngIf="viewThresholdContextSources !== threshold.apiKey">
-            <a (click)="doVisible(threshold.apiKey)" class="show-context-source-text">Click to view context sources</a></li>
+            <a (click)="doVisible(threshold.apiKey)" class="show-context-source-text">Click to view context sources</a>
+          </li>
           <li *ngIf="viewThresholdContextSources === threshold.apiKey">
             <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context
               sources</a></li>
-          <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+          <li *ngFor="let contextSource of threshold.thresholdParams"
+            [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
             [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
             {{contextSource.contextSource.name}}
           </li>
         </ul>
       </td>
       <td>{{threshold.nonConformityDirection}}</td>
-      <td>{{threshold.steps}}</td>
+      <!-- STEPS -->
+      <ng-container *ngIf="threshold.edditing then editSteps else showSteps"></ng-container>
+      <ng-template #showSteps>
+        <td>{{threshold.steps}}</td>
+      </ng-template>
+      <ng-template #editSteps>
+        <td>
+          <div class="input-field col s3">
+            <input id="totalSteps" name="totalSteps" type="number" class="validate">
+            <label for="totalSteps">Steps</label>
+          </div>
+        </td>
+      </ng-template>
+      <!-- STEP VALUE -->
+      <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>
+      <ng-template #showSV>
+        <td>Step val</td>
+      </ng-template>
+      <ng-template #editSV>
+        <td>
+          <div class="input-field col s3">
+            <input id="stepValue" name="stepValue" type="number" class="validate">
+            <label for="stepValue">Step value</label>
+          </div>
+        </td>
+      </ng-template>
+      <!-- INITIAL VALUE -->
+      <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>
+      <ng-template #show>
+        <td>Initial value</td>
+      </ng-template>
+      <ng-template #edit>
+        <td>
+          <div class="input-field col s3">
+            <input id="initialValue" name="initialValue" type="number" class="validate">
+            <label for="initialValue">Initial value</label>
+          </div>
+        </td>
+      </ng-template>
+      <td *ngIf="threshold.commFeat==true">
+        <i class="material-icons cursorIcon" (click)="editThreshold(threshold)">create</i>
+      </td>
     </tr>
     <tr *ngIf="showForm">
       <td>{{selectedCV.name}}</td>

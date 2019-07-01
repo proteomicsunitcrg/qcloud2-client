@@ -19,7 +19,7 @@
   </div>
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
-      <app-threshold-list (openThreshold)="open()" *ngIf="!newThreshold"></app-threshold-list>
+      <app-threshold-list (openThreshold)="open()" (editThresholdOutput)="edit($event)" *ngIf="!checkEditOrNew()"></app-threshold-list>
     </div>
   </div>
   <div class="row z-depth-0" *ngIf="newThreshold">
@@ -28,4 +28,9 @@
       <app-threshold-builder [selectedCV]="selectedCV" *ngIf="isCVSelected"></app-threshold-builder>
     </div>
   </div>
+  <div class="row z-depth-0" *ngIf="editThreshold">
+      <div class="col s12 m12 l12 xl12">      
+        <app-edit-threshold [thresholdToEdit]="thresholdToEdit"></app-edit-threshold>
+      </div>
+    </div>
 </div>

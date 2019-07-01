@@ -67,6 +67,7 @@ import { MessageComponent } from './message/message.component';
 import { ContactListComponent } from './email/contact-list/contact-list.component';
 import { EmailComponent } from './email/email.component';
 import { TemplateListComponent } from './email/template-list/template-list.component';
+import { EditThresholdComponent } from './threshold/edit-threshold/edit-threshold.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -138,6 +139,7 @@ import { TemplateListComponent } from './email/template-list/template-list.compo
     MessageComponent,
     ContactListComponent,
     EmailComponent,
-    TemplateListComponent]
+    TemplateListComponent,
+    EditThresholdComponent]
 })
 export class AdministrationModule { }

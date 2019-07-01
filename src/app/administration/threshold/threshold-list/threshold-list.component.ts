@@ -3,6 +3,8 @@ import { CvService } from '../../../services/cv.service';
 import { ThresholdService } from '../../../services/threshold.service';
 import { Threshold } from '../../../models/threshold';
 import { CV } from '../../../models/cv';
+import { delay } from 'q';
+
 
 declare var M: any;
 
@@ -25,11 +27,16 @@ export class ThresholdListComponent implements OnInit {
 
   selectedCV: CV;
 
+  thresholdDirections: string[] = [];
+
   @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output() editThresholdOutput: EventEmitter<Threshold> = new EventEmitter<Threshold>();
 
   ngOnInit() {
     this.getAllThresholds();
     this.showForm = false;
+    this.loadThresholdDirections();
   }
 
   private getAllThresholds(): void {
@@ -37,9 +44,25 @@ export class ThresholdListComponent implements OnInit {
     this.thresholdService.getAllThresholds()
       .subscribe(
         (thresholds) => {
+          thresholds.forEach((threshold) => {
+            threshold['editing'] = false;
+          });
           this.thresholds = thresholds;
         }
       );
+  }
+
+  private loadThresholdDirections(): void {
+    this.thresholdService.getAllThresholdDirections()
+      .subscribe(
+        (directions) => this.thresholdDirections = directions,
+        err => console.log(err),
+        () => delay(1).then(() => M.AutoInit())      
+      );
+  }
+
+  public editThreshold(threshold: Threshold): void {
+    this.editThresholdOutput.emit(threshold);
   }
 
   openForm(event): void {

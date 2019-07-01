@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CV } from '../../../models/cv';
 import { ThresholdService } from '../../../services/threshold.service';
+import { Threshold } from '../../../models/threshold';
 
 @Component({
   selector: 'app-main-threshold',
@@ -17,8 +18,9 @@ export class MainThresholdComponent implements OnInit, OnDestroy {
   selectedChart$: Subscription;
   selectedCV: CV;
   isCVSelected: boolean;
-
+  editThreshold: boolean;
   thresholdNav: any[] = [];
+  thresholdToEdit: Threshold;
 
   resetBuilder$: Subscription;
 
@@ -34,6 +36,7 @@ export class MainThresholdComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.newThreshold = false;
     this.isCVSelected = false;
+    this.editThreshold = false;
     this.subscribeToBuilderReset();
   }
 
@@ -47,10 +50,22 @@ export class MainThresholdComponent implements OnInit, OnDestroy {
     this.thresholdNav.push(this.cosa[0]);
   }
 
+  edit(threshold: Threshold): void {
+    this.thresholdToEdit = threshold
+    this.editThreshold = true;
+  }
+
   openBuilder(cv: CV): void {
+    console.log(cv);
+    
+    this.editThreshold = false;
     this.selectedCV = cv;
     this.isCVSelected = true;
     this.thresholdNav.push(this.cosa[1]);
+  }
+
+  openEditor(): void {
+    this.editThreshold = true;
   }
 
   closeThreshold(condition: boolean): void {
@@ -74,6 +89,10 @@ export class MainThresholdComponent implements OnInit, OnDestroy {
           this.closeThreshold(true);
         }
       );
+  }
+
+  public checkEditOrNew(): boolean {
+    return this.editThreshold || this.newThreshold;
   }
 
 }

@@ -1,0 +1,118 @@
+<h6>Edit threshold:
+  <strong>{{thresholdToEdit.name}}</strong>
+</h6>
+<div class="input-field col s12">
+  <select name="type" id="type" [(ngModel)]="thresholdNew.thresholdType"
+    (ngModelChange)="onThresholdTypeChange($event)">
+    <option value="" disabled>Choose your option</option>
+    <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
+  </select>
+  <label for="type">Threshold type</label>
+</div>
+<form (ngSubmit)="onSubmit()" #thresholdForm="ngForm">
+  <!-- SUBMIT BUTTON -->
+  <div class="row">
+    <div class="col s12 m12 l12 xl12">
+      <button type="submit" class="waves-effect waves-teal btn"
+        [disabled]="!thresholdForm.form.valid || selectedThresholdParams.length==0">Save threshold</button>
+    </div>
+  </div>
+  <div class="row">
+    <!--sample type -->
+    <div class="col s12 m6 l6 xl6">
+      <p>{{thresholdNew.sampleType.name}}</p>
+    </div>
+    <!-- Name -->
+    <div class="input-field col s12">
+      <input type="text" name="name" id="nameInput" [(ngModel)]="thresholdNew.name">
+      <label>Threshold name</label>
+    </div>
+    <!-- Param -->
+    <div class="col s12 m6 l6 xl6">
+      <p>{{thresholdNew.param.name}}</p>
+    </div>
+    <!-- Globals -->
+    <div class="input-field col s12" *ngIf="thresholdConstraint">
+      <input placeholder="0" id="globalInitialValue" type="number" class="validate" name="globalInitialValue" required
+        [attr.disabled]="!thresholdConstraint.globalInitialValue?'':null"
+        (input)="onGlobalInitialValueChange($event.target.value)">
+      <label for="globalInitialValue">Global initial value</label>
+    </div>
+    <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="thresholdNew.param==null">
+      <input placeholder="0" id="globalSteplValue" type="number" class="validate" name="globalSteplValue" required
+        [attr.disabled]="!thresholdConstraint.globalStepValue?'':null"
+        (input)="onGlobalStepValueChange($event.target.value)">
+      <label for="globalSteplValue">Global step value</label>
+    </div>
+    <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="thresholdNew.param==null">
+      <input placeholder="Steps" id="steps" type="number" class="validate" name="steps" [(ngModel)]="thresholdNew.steps"
+        [attr.disabled]="!thresholdConstraint.stepsEditable?'':null">
+      <label for="steps">Steps</label>
+    </div>
+    <!-- Direction -->
+    <div class="input-field col s12" *ngIf="thresholdConstraint" [hidden]="thresholdNew.param==null">
+      <select [(ngModel)]="thresholdNew.nonConformityDirection" name="direction" required>
+        <option value="" disabled selected>Choose your option</option>
+        <option *ngFor="let thresholdDirection of thresholdDirections" [ngValue]="thresholdDirection">
+          {{thresholdDirection}}</option>
+      </select>
+      <label>Threshold direction</label>
+    </div>
+  </div>
+  <!-- RIGHT -->
+  <div class="col s12 m6 l6 xl6">
+    <div id="selectAll" *ngIf="thresholdParams.length>0">
+      <span class="selector" (click)="selectAll(true)">Select all</span>
+      <span> / </span>
+      <span class="selector" (click)="selectAll(false)">Unselect all</span>
+    </div>
+    <table class="highlight">
+      <thead>
+        <th>Name</th>
+        <th>Initial value</th>
+        <th>Step value</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let thresholdParam of thresholdParams; let i = index">
+          <ng-container *ngIf="thresholdConstraint.singleContextSource==true then radio else checkbox"></ng-container>
+          <ng-template #checkbox>
+            <td>
+              <label>
+                <input type="checkbox" [checked]="isChecked(thresholdParam)"
+                  (change)="toggleEditable($event,thresholdParam)" />
+                <span>{{thresholdParam.contextSource.name}}</span>
+              </label>
+            </td>
+          </ng-template>
+          <ng-template #radio>
+            <td>
+              <label>
+                <input type="radio" (change)="toggleEditable($event,thresholdParam)" name="radio-contextsource" />
+                <span>{{thresholdParam.contextSource.name}}</span>
+              </label>
+            </td>
+          </ng-template>
+          <td>
+            <label>
+              <input placeholder="1" id="initialValue{{i}}" type="number" class="validate" name="initialValue{{i}}"
+                [(ngModel)]="thresholdParam.initialValue" required
+                [attr.disabled]="!thresholdConstraint.initialValueEditable?'':null">
+              <label for="initialValue{{i}}">Initial value</label>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue"
+                [(ngModel)]="thresholdParam.stepValue" [attr.disabled]="!thresholdConstraint.stepValueEditable?'':null">
+              <label for="initialValue{{i}}">Step value</label>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+</form>
