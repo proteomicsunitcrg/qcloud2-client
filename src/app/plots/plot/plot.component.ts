@@ -15,7 +15,7 @@ import { PlotService } from '../../services/plot.service';
 import { ThresholdService } from '../../services/threshold.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateFilename, generateLayoutLogo } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 
@@ -80,6 +80,9 @@ export class PlotComponent implements OnInit, OnDestroy {
   traceColorsByKey = [];
 
   plotThreshold: PlotThreshold;
+
+  // If this is true a pic with the logo will be drawn in the plot
+  drawPicture: boolean = false;
 
   ngOnInit() {
     this.subscribeHideAnnotations();
@@ -231,6 +234,9 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.thresholdService.getPlotThreshold(this.chart, this.system)
       .subscribe((threshold) => {
         if (threshold != null) {
+          if (threshold.commFeat) {
+            this.drawPicture = true;
+          }
           if (threshold.monitored) {
             this.plotThreshold = threshold;
             this.drawThreshold();
@@ -378,6 +384,9 @@ export class PlotComponent implements OnInit, OnDestroy {
     };
     if (dataForPlot.length > 0) {
       this.layout.shapes = this.layoutShapes;
+    }
+    if (this.drawPicture == true) {
+      this.layout.images = generateLayoutLogo();
     }
     this.loaded = true;
     this.noData = true;

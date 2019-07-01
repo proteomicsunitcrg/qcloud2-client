@@ -24,6 +24,9 @@ export function getChartName(): string {
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number, isCommunity: boolean): any[] {
   const shapes: any[] = [];
   let thresholdColors = [];
+  /**
+   * if the threshold is community add the median line and a different color
+   */
   if (isCommunity) {
     if (thresholdSteps > 1) {
       thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
@@ -98,6 +101,23 @@ export function getTracePointColor(nc: string, color: string) {
     default:
       return 'grey';
   }
+}
+
+export function generateLayoutLogo() {
+  console.log("drawing img");
+
+  let images = [{
+    x: 1.12,
+    y: 1.05,
+    sizex: 0.2,
+    sizey: 0.2,
+    source: "https://i.imgur.com/np8wAVq.gif",
+    xanchor: "right",
+    xref: "paper",
+    yanchor: "bottom",
+    yref: "paper"
+  }];
+  return images;
 }
 
 
