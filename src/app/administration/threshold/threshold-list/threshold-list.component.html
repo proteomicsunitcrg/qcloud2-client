@@ -8,13 +8,12 @@
     <tr>
       <th>CV</th>
       <th>Type</th>
+      <th>Name</th>
       <th>Sample type</th>
       <th>Parameter</th>
       <th>Context source/s</th>
       <th>Direction</th>
       <th>Steps</th>
-      <th>Step value</th>
-      <th>Initial value</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -22,6 +21,7 @@
     <tr *ngFor="let threshold of thresholds">
       <td>{{threshold.cv.name}} {{threshold.cv.cvid}}</td>
       <td>{{threshold.thresholdType}}</td>
+      <td>{{threshold.name}}</td>
       <td>{{threshold.sampleType.name}}</td>
       <td>{{threshold.param.name}}</td>
       <td>
@@ -50,32 +50,6 @@
           <div class="input-field col s3">
             <input id="totalSteps" name="totalSteps" type="number" class="validate">
             <label for="totalSteps">Steps</label>
-          </div>
-        </td>
-      </ng-template>
-      <!-- STEP VALUE -->
-      <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>
-      <ng-template #showSV>
-        <td>Step val</td>
-      </ng-template>
-      <ng-template #editSV>
-        <td>
-          <div class="input-field col s3">
-            <input id="stepValue" name="stepValue" type="number" class="validate">
-            <label for="stepValue">Step value</label>
-          </div>
-        </td>
-      </ng-template>
-      <!-- INITIAL VALUE -->
-      <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>
-      <ng-template #show>
-        <td>Initial value</td>
-      </ng-template>
-      <ng-template #edit>
-        <td>
-          <div class="input-field col s3">
-            <input id="initialValue" name="initialValue" type="number" class="validate">
-            <label for="initialValue">Initial value</label>
           </div>
         </td>
       </ng-template>
