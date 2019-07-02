@@ -27,6 +27,8 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
   /**
    * if the threshold is community add the median line and a different color
    */
+  console.log(thresholdParam);
+  
   if (isCommunity) {
     if (thresholdSteps > 1) {
       thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
@@ -102,22 +104,43 @@ export function getTracePointColor(nc: string, color: string) {
       return 'grey';
   }
 }
-
-export function generateLayoutLogo() {
-  console.log("drawing img");
-
-  let images = [{
-    x: 1.12,
-    y: 1.05,
-    sizex: 0.2,
-    sizey: 0.2,
-    source: "https://i.imgur.com/np8wAVq.gif",
-    xanchor: "right",
-    xref: "paper",
-    yanchor: "bottom",
-    yref: "paper"
-  }];
+/**
+ * @description Returns an array ready to use in plotly to insert an image
+ * The logo position changes if the plot is small or big
+ * @param big Determines if the plot is big or small
+ * @returns an array of objects with the logo erady to use in plotly
+ * 
+ */
+export function generateLayoutLogo(big: boolean): object {
+  let images: Array<object> = []
+  if(big) {
+    console.log("biggie");
+    images = [{
+      x: 1.05,
+      y: 1.05,
+      sizex: 0.2,
+      sizey: 0.2,
+      source: "https://i.imgur.com/np8wAVq.gif",
+      xanchor: "right",
+      xref: "paper",
+      yanchor: "bottom",
+      yref: "paper"
+    }];
+  } else {
+    images = [{
+      x: 1.12,
+      y: 1.05,
+      sizex: 0.2,
+      sizey: 0.2,
+      source: "https://i.imgur.com/np8wAVq.gif",
+      xanchor: "right",
+      xref: "paper",
+      yanchor: "bottom",
+      yref: "paper"
+    }];
+  }
   return images;
+
 }
 
 

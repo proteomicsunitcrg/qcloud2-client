@@ -45,6 +45,10 @@ export class PlotComponent implements OnInit, OnDestroy {
    */
   @Input() shownames: boolean;
 
+  /**
+   * Plot is single or double, loads different logo position
+   */
+  @Input() big: boolean;
   currentDates: string[];
   annotations: Annotation[];
 
@@ -386,7 +390,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.layout.shapes = this.layoutShapes;
     }
     if (this.drawPicture == true) {
-      this.layout.images = generateLayoutLogo();
+      this.layout.images = generateLayoutLogo(this.big);
     }
     this.loaded = true;
     this.noData = true;
@@ -397,7 +401,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.plotService.sendClick(data, this.system);
       });
       // Call for annotations
-      if (!this.shownames && (this.hideAnnotations === false || this.hideAnnotations === undefined)) {
+      if (!this.shownames && this.hideAnnotations === false) {
         delay(100).then(() => this.loadAnnotations());
       }
     } else {

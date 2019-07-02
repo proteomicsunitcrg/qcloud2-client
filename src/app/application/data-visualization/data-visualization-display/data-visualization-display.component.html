@@ -28,12 +28,12 @@
         <ng-container *ngIf="row.length==1 then single else double"></ng-container>
         <ng-template #single>
           <div class="col s12 m12 l12 xl12" *ngFor="let charts of row">
-            <app-plot [chart]="charts.chart" [system]="system" [shownames]="false"></app-plot>
+            <app-plot [chart]="charts.chart" [system]="system" [shownames]="false" [big]="true"></app-plot>
           </div>
         </ng-template>
         <ng-template #double>
           <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
-            <app-plot [chart]="charts.chart" [system]="system" [shownames]="false"></app-plot>
+            <app-plot [chart]="charts.chart" [system]="system" [shownames]="false" [big]="false"></app-plot>
           </div>
         </ng-template>
       </div>
@@ -46,12 +46,12 @@
     <ng-container *ngIf="row.length==1 then single else double"></ng-container>
     <ng-template #single>
       <div class="col s12 m12 l12 xl12" *ngFor="let charts of row">
-        <app-plot [chart]="charts.chart" [system]="charts.labSystem" [shownames]="true"></app-plot>
+        <app-plot [chart]="charts.chart" [system]="charts.labSystem" [shownames]="true" [big]="true"></app-plot>
       </div>
     </ng-template>
     <ng-template #double>
       <div class="col s12 m6 l6 xl6" *ngFor="let charts of row">
-        <app-plot [chart]="charts.chart" [system]="charts.labSystem" [shownames]="true"></app-plot>
+        <app-plot [chart]="charts.chart" [system]="charts.labSystem" [shownames]="true" [big]="false"></app-plot>
       </div>
     </ng-template>
   </div>
