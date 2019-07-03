@@ -27,8 +27,6 @@ export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSt
   /**
    * if the threshold is community add the median line and a different color
    */
-  console.log(thresholdParam);
-  
   if (isCommunity) {
     if (thresholdSteps > 1) {
       thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];

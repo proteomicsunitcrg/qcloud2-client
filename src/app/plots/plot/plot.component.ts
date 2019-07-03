@@ -536,15 +536,14 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private calculatePointColor(key: string, value: number): PointColor {
-    
     // check if threshold exists
-    if (this.plotThreshold !== undefined) {
+    if (this.plotThreshold !== undefined) { 
       const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
       if (thresholdParam !== undefined && thresholdParam.isEnabled) {
         switch (this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
             // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
+            if (this.layoutShapes.length > 1 && !this.plotThreshold.commFeat === true) {
               if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
                 return PointColor.DANGER;
               } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
@@ -568,7 +567,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             }
           case 'UP':
             // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
+            if (this.layoutShapes.length > 1 && !this.plotThreshold.commFeat === true) {
               if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
                 return PointColor.DANGER;
               } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0
