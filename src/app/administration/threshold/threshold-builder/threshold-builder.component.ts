@@ -159,7 +159,7 @@ export class ThresholdBuilderComponent implements OnInit {
       .subscribe(
         (threshold) => {
           // save the threshold params
-          this.saveThresholdParams(threshold);
+          // this.saveThresholdParams(threshold);
         },
         (error) => {
           this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, 'newThreshold', null));

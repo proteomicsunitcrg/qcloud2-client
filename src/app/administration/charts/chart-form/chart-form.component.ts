@@ -39,7 +39,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   selectedCategory: Category;
   cvs: CV[] = [];
 
-  newChart: Chart = new Chart(null, '', null, null, false, null, null);
+  newChart: Chart = new Chart(null, '', null, null, false, null, null, null);
 
   chartParams: ChartParam[] = [];
 
@@ -197,6 +197,8 @@ export class ChartFormComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     // insert the chart first
     // Check if this is an update or new chart
+    console.log(this.newChart);
+    return;
     this.chartService.chartToDatabase(this.newChart, this.isEditing)
       .subscribe(
         (chart) => {

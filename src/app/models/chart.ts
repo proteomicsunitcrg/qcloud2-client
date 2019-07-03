@@ -9,8 +9,11 @@ export class Chart {
     isThresholdEnabled: boolean;
     apiKey: string;
     param: Param;
+    isCommFeat: boolean;
 
-    constructor(id: number, name: string, cv: CV, sampleType: SampleType, isThresholdEnabled: boolean, apiKey: string, param: Param) {
+
+    constructor(id: number, name: string, cv: CV, sampleType: SampleType, isThresholdEnabled: boolean, apiKey: string, param: Param, isCommFeat: boolean
+        ) {
         this.id = id;
         this.name = name;
         this.cv = cv;
@@ -18,5 +21,6 @@ export class Chart {
         this.isThresholdEnabled = isThresholdEnabled;
         this.apiKey = apiKey;
         this.param = param;
+        this.isCommFeat = isCommFeat;
     }
 }
