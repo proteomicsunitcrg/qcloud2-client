@@ -10,7 +10,7 @@ export class UserChart extends Chart {
 
     // tslint:disable-next-line:max-line-length
     constructor(id: number, name: string, cv: CV, sampleType: SampleType, isThresholdEnabled: boolean, apiKey: string, labSystem: System, param: Param) {
-        super(id, name, cv, sampleType, isThresholdEnabled, apiKey, param);
+        super(id, name, cv, sampleType, isThresholdEnabled, apiKey, param, false);
         this.labSystem = labSystem;
         this.placed = false;
     }

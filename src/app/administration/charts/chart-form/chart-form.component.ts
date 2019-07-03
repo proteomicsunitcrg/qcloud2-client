@@ -198,7 +198,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     // insert the chart first
     // Check if this is an update or new chart
     console.log(this.newChart);
-    return;
+    // return;
     this.chartService.chartToDatabase(this.newChart, this.isEditing)
       .subscribe(
         (chart) => {
