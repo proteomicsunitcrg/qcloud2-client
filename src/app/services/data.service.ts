@@ -40,6 +40,7 @@ export class DataService {
    * Retrieve data from the server
    * @param chart the chart you want to display
    * @param system the lab system to display
+   * @deprecated, use getPlotTraceData
    */
   public getPlotData(chart: Chart, system: System): Observable<MiniData[]> {
     return this.httpClient.get<MiniData[]>(this.dataUrl + '/' +
