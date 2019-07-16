@@ -68,6 +68,7 @@ import { ContactListComponent } from './email/contact-list/contact-list.componen
 import { EmailComponent } from './email/email.component';
 import { TemplateListComponent } from './email/template-list/template-list.component';
 import { EditThresholdComponent } from './threshold/edit-threshold/edit-threshold.component';
+import { CommunityLineComponent } from './community-line/community-line.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -140,6 +141,7 @@ import { EditThresholdComponent } from './threshold/edit-threshold/edit-threshol
     ContactListComponent,
     EmailComponent,
     TemplateListComponent,
-    EditThresholdComponent]
+    EditThresholdComponent,
+    CommunityLineComponent]
 })
 export class AdministrationModule { }
