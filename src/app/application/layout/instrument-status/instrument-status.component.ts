@@ -51,7 +51,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   public newTab(apiKey: String): void {
-    window.open('/application/view/instrument/' + apiKey, "_blank");
+    window.open('/application/view/instrument/' + apiKey, 'blank');
   }
 
   private subscribeToNewLabSystemFromWebsocket(): void {
@@ -93,7 +93,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   private loadLabSystemStatus(): void {
-    
+
     this.nodeLabSystems.forEach(
       (labSystem) => {
         this.thresholdService.getLabSystemStatus(labSystem.system)
@@ -104,11 +104,11 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
-                  }
-                  else if (stat.status == 'OFFLINE') {
+                  } else if (stat.status === 'OFFLINE') {
                     this.getLastFile(labSystem.system.apiKey).then((res) =>
-                      labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' + this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
-                    )
+                      labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
+                      this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
+                    );
                   }
                   this.updateLabSystemLight(labSystem, stat);
                 }
@@ -122,14 +122,14 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   private parseDate(date: Date): string {
-    let date1 = new Date(date).getTime();
-    let date2 = new Date().getTime();
-    let time = date2 - date1;  //msec
-    let hoursDiff = Math.round(time / (3600 * 1000));
+    const date1 = new Date(date).getTime();
+    const date2 = new Date().getTime();
+    const time = date2 - date1;  // msec
+    const hoursDiff = Math.round(time / (3600 * 1000));
     if (hoursDiff >= 720) {
-      return Math.round((hoursDiff / 24) / 30) + ' months ago'
+      return Math.round((hoursDiff / 24) / 30) + ' months ago';
     } else if (hoursDiff >= 48) {
-      return Math.round(hoursDiff / 24) + ' days ago'
+      return Math.round(hoursDiff / 24) + ' days ago';
     }
     return hoursDiff.toString() + ' hours ago';
   }
@@ -193,7 +193,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(labSystem: System): void {
-    this.router.navigate(['application/view/instrument/' + labSystem.apiKey,]);
+    this.router.navigate(['application/view/instrument/' + labSystem.apiKey, ]);
   }
 
   closeAlertList(): void {

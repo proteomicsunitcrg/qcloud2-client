@@ -38,7 +38,7 @@ export class DataVisualizationDateMenuComponent implements OnInit {
 
   datePickers: any[] = [];
 
-  hideAnnotations: boolean = false;
+  hideAnnotations = false;
 
   ngOnInit() {
     this.selectedDateRange = this.dateRanges[0];

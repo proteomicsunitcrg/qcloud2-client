@@ -21,40 +21,15 @@ export function getChartName(): string {
   }
 }
 
-export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number, isCommunity: boolean): any[] {
+export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number): any[] {
   const shapes: any[] = [];
   let thresholdColors = [];
-  /**
-   * if the threshold is community add the median line and a different color
-   */
-  if (isCommunity) {
-    if (thresholdSteps > 1) {
-      thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
-    } else {
-      thresholdColors = ['#D8B3F8'];
-    }
-    let line = {
-      x0: 0,
-      x1: 1,
-      type: 'line',
-      y0: thresholdParam.initialValue,
-      y1: thresholdParam.initialValue,
-      xref: 'paper',
-      opacity: 1,
-      line: {
-        color: '#FEFEFE',
-        width: 1,
-        dash: 'dot'
-      },
-    }
-    shapes.push(line);
-  } else {
     if (thresholdSteps > 1) {
       thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
     } else {
       thresholdColors = ['#a9dbed'];
     }
-  }
+
   for (let i = 0; i < thresholdSteps; i++) {
     const shape = {
       type: 'rect',
@@ -102,47 +77,9 @@ export function getTracePointColor(nc: string, color: string) {
       return 'grey';
   }
 }
-/**
- * @description Returns an array ready to use in plotly to insert an image
- * The logo position changes if the plot is small or big
- * @param big Determines if the plot is big or small
- * @returns an array of objects with the logo erady to use in plotly
- * 
- */
-export function generateLayoutLogo(big: boolean): object {
-  let images: Array<object> = []
-  if(big) {
-    console.log("biggie");
-    images = [{
-      x: 1.05,
-      y: 1.05,
-      sizex: 0.2,
-      sizey: 0.2,
-      source: "https://i.imgur.com/np8wAVq.gif",
-      xanchor: "right",
-      xref: "paper",
-      yanchor: "bottom",
-      yref: "paper"
-    }];
-  } else {
-    images = [{
-      x: 1.12,
-      y: 1.05,
-      sizex: 0.2,
-      sizey: 0.2,
-      source: "https://i.imgur.com/np8wAVq.gif",
-      xanchor: "right",
-      xref: "paper",
-      yanchor: "bottom",
-      yref: "paper"
-    }];
-  }
-  return images;
 
-}
-
-
-export function loadDataAndDatesArray(dataFromServer: MiniData[]): { dates: any[], data: { 'value': number, 'nc': string }[], names: any[] } {
+export function loadDataAndDatesArray(dataFromServer: MiniData[]): { dates: any[],
+  data: { 'value': number, 'nc': string }[], names: any[] } {
   const datesArray = [];
   const dataArray = [];
   const abbreviatedNames = [];

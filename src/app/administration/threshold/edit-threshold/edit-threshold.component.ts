@@ -28,7 +28,8 @@ export class EditThresholdComponent implements OnInit {
     private instrumentSampleService: InstrumentSampleService,
     private sampleCompositionService: SampleCompositionService,
     ) { }
-  
+
+  // tslint:disable-next-line:no-input-rename
   @Input('thresholdToEdit') thresholdToEdit: Threshold;
   thresholdNew: Threshold;
 
@@ -72,9 +73,11 @@ export class EditThresholdComponent implements OnInit {
     console.log(this.thresholdNew);
     // this.thresholdNew.thresholdParams = this.selectedThresholdParams;
     // return;
-    this.thresholdService.saveThreshold(this.thresholdNew)
+    this.thresholdService.editThreshold(this.thresholdNew)
       .subscribe(
         (threshold) => {
+          console.log(threshold);
+
           // save the threshold params
           this.saveThresholdParams(threshold);
         },
@@ -105,7 +108,7 @@ export class EditThresholdComponent implements OnInit {
     this.thresholdService.getAllThresholdTypes()
       .subscribe(
         (types) => {
-          this.thresholdTypes = types
+          this.thresholdTypes = types;
           console.log(types);
         }
       , err => console.log(err),
@@ -139,7 +142,7 @@ export class EditThresholdComponent implements OnInit {
       .subscribe(
         (constraint) => {
           console.log(constraint);
-          
+
           this.thresholdConstraint = constraint;
           delay(1).then(() => {
             M.updateTextFields();
@@ -227,7 +230,5 @@ export class EditThresholdComponent implements OnInit {
       this.selectedThresholdParams = [];
     }
   }
-
-  
 
 }

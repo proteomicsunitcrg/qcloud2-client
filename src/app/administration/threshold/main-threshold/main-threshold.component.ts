@@ -51,13 +51,12 @@ export class MainThresholdComponent implements OnInit, OnDestroy {
   }
 
   edit(threshold: Threshold): void {
-    this.thresholdToEdit = threshold
+    this.thresholdToEdit = threshold;
     this.editThreshold = true;
   }
 
   openBuilder(cv: CV): void {
     console.log(cv);
-    
     this.editThreshold = false;
     this.selectedCV = cv;
     this.isCVSelected = true;

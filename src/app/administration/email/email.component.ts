@@ -17,7 +17,7 @@ export class EmailComponent {
   M: any;
 
   // To get the selected users from the list
-  @ViewChild(ContactListComponent,null) child;
+  @ViewChild(ContactListComponent, null) child;
 
   @ViewChild(TemplateListComponent, null) child2;
 

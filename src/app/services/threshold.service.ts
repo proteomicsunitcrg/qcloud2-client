@@ -56,6 +56,12 @@ export class ThresholdService {
     return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl + '/params', params, { headers: headers });
   }
 
+  public editThreshold(threshold: Threshold): Observable<any> {
+    const params = JSON.stringify(threshold);
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<Threshold>(`${this.thresholdUrl}/editThreshold`, params, {headers: headers});
+  }
+
   public getThresholdConstraints(thresholdType: string): Observable<ThresholdConstraint> {
     return this.httpClient.get<ThresholdConstraint>(this.thresholdUrl + '/constraints/admin/' + thresholdType);
   }

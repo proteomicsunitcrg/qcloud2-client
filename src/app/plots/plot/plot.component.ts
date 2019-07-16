@@ -15,7 +15,7 @@ import { PlotService } from '../../services/plot.service';
 import { ThresholdService } from '../../services/threshold.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { generateLayoutShapes, truncateFilename, generateLayoutLogo } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 
@@ -85,9 +85,6 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   plotThreshold: PlotThreshold;
 
-  // If this is true a pic with the logo will be drawn in the plot
-  drawPicture: boolean = false;
-
   ngOnInit() {
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
@@ -106,9 +103,9 @@ export class PlotComponent implements OnInit, OnDestroy {
     // this.webSocketData$.unsubscribe();
     this.thresholdFromWebSocket$.unsubscribe();
     if (this.serverData !== undefined && this.serverData.length > 0 && !this.shownames) {
-      this.annotationFromWebSocket$.unsubscribe();
-      this.deleteAnnotationFromWebSocket$.unsubscribe();
-      this.updateAnnotationFromWebSocket$.unsubscribe();
+      // this.annotationFromWebSocket$.unsubscribe();
+      // this.deleteAnnotationFromWebSocket$.unsubscribe();
+      // this.updateAnnotationFromWebSocket$.unsubscribe();
     }
   }
 
@@ -122,6 +119,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           if (this.chart.isThresholdEnabled) {
             this.loadThreshold();
           } else {
+            this.layoutShapes = [];
             this.loadPlot();
           }
         }, (e) => {
@@ -238,17 +236,16 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.thresholdService.getPlotThreshold(this.chart, this.system)
       .subscribe((threshold) => {
         if (threshold != null) {
-          if (threshold.commFeat) {
-            this.drawPicture = true;
-          }
           if (threshold.monitored) {
             this.plotThreshold = threshold;
             this.drawThreshold();
             this.loadPlot();
           } else {
+            this.layoutShapes = [];
             this.loadPlot();
           }
         } else {
+          this.layoutShapes = [];
           this.loadPlot();
         }
       }, (err) => {
@@ -265,7 +262,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     if (this.serverData.length === 1) {
       uniqueThresholdParam = this.plotThreshold.thresholdParams.find(tp => tp.contextSource.abbreviated === this.serverData[0].abbreviated);
       if (uniqueThresholdParam !== undefined && uniqueThresholdParam.isEnabled) {
-        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
+        generateLayoutShapes(uniqueThresholdParam, this.plotThreshold.steps).forEach(
           (layoutShape) => {
             this.layoutShapes.push(layoutShape);
           });
@@ -274,7 +271,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       this.plotThreshold.thresholdParams.forEach(
         (thresholdParam) => {
           if (thresholdParam.isEnabled) {
-            generateLayoutShapes(thresholdParam, this.plotThreshold.steps, this.plotThreshold.commFeat).forEach(
+            generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
               (layoutShape) => {
                 this.layoutShapes.push(layoutShape);
               });
@@ -303,7 +300,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     const dataForPlot = [];
     this.serverData.forEach(
       (plotTrace) => {
-        let values = [];
+        const values = [];
         const filenames = [];
         const dates = [];
         const color = [];
@@ -319,16 +316,16 @@ export class PlotComponent implements OnInit, OnDestroy {
             const status = this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value);
             // const status = plotTracePoint.nonConformityStatus;
             color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor, plotTrace.shade, status));
-            if (plotTrace.abbreviated == 'ERROR') {
+            if (plotTrace.abbreviated === 'ERROR') {
               text.push('Pipeline error <br>' + truncateFilename(plotTracePoint.file.filename, 50));
-              mode = 'markers' 
+              mode = 'markers';
             } else {
               text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
             }
             checksums.push(plotTracePoint.file.checksum);
           }
         );
-        if (plotTrace.abbreviated == 'ERROR') {
+        if (plotTrace.abbreviated === 'ERROR') {
           symbol = 'x-dot';
         }
         const trace = {
@@ -388,9 +385,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     };
     if (dataForPlot.length > 0) {
       this.layout.shapes = this.layoutShapes;
-    }
-    if (this.drawPicture == true) {
-      this.layout.images = generateLayoutLogo(this.big);
     }
     this.loaded = true;
     this.noData = true;
@@ -467,6 +461,9 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private drawAnnotations(): void {
+    if (this.hideAnnotations) {
+      return ;
+    }
     const lines = [];
     const annotations = [];
 
@@ -537,13 +534,13 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private calculatePointColor(key: string, value: number): PointColor {
     // check if threshold exists
-    if (this.plotThreshold !== undefined) { 
+    if (this.plotThreshold !== undefined) {
       const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
       if (thresholdParam !== undefined && thresholdParam.isEnabled) {
         switch (this.plotThreshold.nonConformityDirection) {
           case 'DOWN':
             // taking care if the steps is 1
-            if (this.layoutShapes.length > 1 && !this.plotThreshold.commFeat === true) {
+            if (this.layoutShapes.length > 1) {
               if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
                 return PointColor.DANGER;
               } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
@@ -567,7 +564,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             }
           case 'UP':
             // taking care if the steps is 1
-            if (this.layoutShapes.length > 1 && !this.plotThreshold.commFeat === true) {
+            if (this.layoutShapes.length > 1) {
               if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
                 return PointColor.DANGER;
               } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0

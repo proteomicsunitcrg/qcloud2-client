@@ -57,7 +57,7 @@ export class ThresholdListComponent implements OnInit {
       .subscribe(
         (directions) => this.thresholdDirections = directions,
         err => console.log(err),
-        () => delay(1).then(() => M.AutoInit())      
+        () => delay(1).then(() => M.AutoInit())
       );
   }
 
