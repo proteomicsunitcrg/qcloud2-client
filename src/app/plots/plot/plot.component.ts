@@ -317,7 +317,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             // const status = plotTracePoint.nonConformityStatus;
             color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor, plotTrace.shade, status));
             if (plotTrace.abbreviated === 'ERROR') {
-              text.push('Pipeline error <br>' + truncateFilename(plotTracePoint.file.filename, 50));
+              text.push('File error <br>' + truncateFilename(plotTracePoint.file.filename, 50));
               mode = 'markers';
             } else {
               text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
