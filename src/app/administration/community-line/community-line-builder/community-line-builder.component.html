@@ -1,0 +1,57 @@
+<form (ngSubmit)="onSubmit()" #communityForm="ngForm">
+  <div class="row">
+    <div class="col s12 m6 l6 xl6">
+      <!-- sample type -->
+      <div class="input-field col s12">
+        <select [(ngModel)]="communityLine.sampleType" name="sampleType" required>
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let sampleType of sampleTypes" [ngValue]="sampleType">{{sampleType.name}}</option>
+        </select>
+        <label>Sample type</label>
+      </div>
+      <!-- name -->
+      <div class="input-field col s12">
+        <input type="text" name="name" id="nameInput" [(ngModel)]="communityLine.name" required>
+        <label>Line name</label>
+      </div>
+      <!-- param -->
+      <div class="input-field col s12">
+        <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
+        </select>
+        <label>Parameter</label>
+      </div>
+      <!-- context source  -->
+      <div class="input-field col s12">
+          <select name="cs" required [(ngModel)]="communityLine.contextSource">
+            <option value="" disabled selected>Choose your option</option>
+            <option *ngFor="let contextSource of contextSources" [ngValue]="contextSource">{{contextSource.name}}</option>
+          </select>
+          <label>context Source</label>
+        </div>
+      <!-- cv -->
+      <div class="input-field col s12">
+        <select name="cv" required [(ngModel)]="communityLine.instrument">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let cv of cvs" [ngValue]="cv">{{cv.name}}</option>
+        </select>
+        <label>CV</label>
+      </div>
+      <!-- value -->
+      <div class="input-field col s12">
+        <input type="number" name="value" id="valueInput" [(ngModel)]="communityLine.value" required>
+        <label>Line value</label>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col s12 m12 l12 xl12">
+      <button type="submit" class="waves-effect waves-teal btn" [disabled]="!communityForm.form.valid">Save community
+        line</button>
+    </div>
+  </div>
+</form>

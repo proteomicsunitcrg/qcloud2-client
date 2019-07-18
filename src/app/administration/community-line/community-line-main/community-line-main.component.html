@@ -1,0 +1,13 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Community line management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <app-community-line-list (openThreshold)="open()" *ngIf = "!newCommunityLine"></app-community-line-list>
+      <app-community-line-builder *ngIf = "newCommunityLine"></app-community-line-builder>
+    </div>
+  </div>
+</div>

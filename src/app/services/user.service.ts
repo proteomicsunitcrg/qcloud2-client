@@ -29,6 +29,10 @@ export class UserService {
     return this.httpClient.get<NodeWithTotalFiles[]>(this.nodeUrl + 's');
   }
 
+  public getAllNodesNoFiles(): Observable<Node[]> {
+    return this.httpClient.get<Node[]>(this.nodeUrl + '/allNoFiles');
+  }
+
   public addLabMemberToNode(member: User): Observable<User[]> {
     const json = JSON.stringify(member);
     const params = json;

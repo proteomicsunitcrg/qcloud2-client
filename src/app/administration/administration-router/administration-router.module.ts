@@ -18,7 +18,7 @@ import { MainColorManagementComponent } from '../colorManagement/main-color-mana
 import { MainNonConformitiesComponent } from '../nonconformities/main-non-conformities/main-non-conformities.component';
 import { MessageComponent } from '../message/message.component';
 import { EmailComponent } from '../email/email.component';
-import { CommunityLineComponent } from '../community-line/community-line.component';
+import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component';
 
 
 const routes: Routes = [
@@ -43,7 +43,7 @@ const routes: Routes = [
       ]},
     { path: 'message', component: MessageComponent},
     { path: 'email', component: EmailComponent},
-    { path: 'community-line', component: CommunityLineComponent }
+    { path: 'community-line', component: CommunityLineMainComponent }
   ]},
 ];
 

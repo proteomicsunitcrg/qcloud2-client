@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommunityLineComponent } from './community-line.component';
+import { CommunityLineListComponent } from './community-line-list.component';
 
-describe('CommunityLineComponent', () => {
-  let component: CommunityLineComponent;
-  let fixture: ComponentFixture<CommunityLineComponent>;
+describe('CommunityLineListComponent', () => {
+  let component: CommunityLineListComponent;
+  let fixture: ComponentFixture<CommunityLineListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityLineComponent ]
+      declarations: [ CommunityLineListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommunityLineComponent);
+    fixture = TestBed.createComponent(CommunityLineListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
