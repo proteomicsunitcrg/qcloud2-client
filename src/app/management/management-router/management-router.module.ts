@@ -9,14 +9,15 @@ import { DataSourceComponent } from '../data-source/data-source.component';
 import { MainGuideSetComponent } from '../guide-set/main-guide-set/main-guide-set.component';
 import { MainSystemComponent } from '../system/main-system/main-system.component';
 import { MainThresholdComponent } from '../threshold/main-threshold/main-threshold.component';
-
+import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component'
 const routes: Routes = [
   {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_MANAGER'}, children: [
     { path: 'users', component: UsersComponent},
     { path: 'guidesets', component: MainGuideSetComponent},
     { path: 'instruments/:name', component: DataSourceComponent},
     { path: 'systems', component: MainSystemComponent},
-    { path: 'thresholds', component: MainThresholdComponent}
+    { path: 'thresholds', component: MainThresholdComponent},
+    { path: 'community', component: CommunityLineMainComponent}
   ]},
 ];
 

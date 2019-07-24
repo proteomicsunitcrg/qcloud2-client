@@ -36,7 +36,7 @@ export class CommunityLineBuilderComponent implements OnInit {
   cvs: CV[] = [];
   contextSources: any[];
 
-  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null);
+  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null);
 
   ngOnInit() {
     M.updateTextFields();

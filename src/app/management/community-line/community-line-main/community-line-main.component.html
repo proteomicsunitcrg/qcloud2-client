@@ -1,0 +1,65 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Community line management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Parameter
+            </th>
+            <th>
+              Context source
+            </th>
+            <th>
+              Value
+            </th>
+            <th>
+              Instrument
+            </th>
+            <th>
+              Enabled
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let communityLineRelation of communityLines">
+            <td>
+              {{communityLineRelation.communityLine.name}}
+            </td>
+            <td>
+                {{communityLineRelation.communityLine.param.name}}
+            </td>
+            <td>
+              {{communityLineRelation.communityLine.contextSource.name}}
+            </td>
+            <td>
+                {{communityLineRelation.communityLine.value}}
+            </td>
+            <td>
+                {{communityLineRelation.communityLine.instrument.name}}
+            </td>
+            <td>
+                <div class="switch">
+                    <label>
+                      Off
+                      <input type="checkbox" [checked]="communityLineRelation.active" (change)="updateActive(communityLineRelation)">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+                
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

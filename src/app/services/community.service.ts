@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { CommunityLine } from '../models/CommunityLine';
+import { CommunityLineNode } from '../models/CommunityLineNode';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,14 +23,24 @@ export class CommunityService {
   * @returns Observable with array of CommunityLines
   * 
   */
-  public getAllCommunityLines(): Observable<CommunityLine[]> {
-      return this.httpClient.get<CommunityLine[]>(`${this.communityUrl}/getAllLines`);
+  public getAllCommunityLines(): Observable<any[]> {
+      return this.httpClient.get<any[]>(`${this.communityUrl}/getAllLines`);
   }
 
   public saveCommunityLine(communityLine: CommunityLine): Observable<CommunityLine> {
     const params = JSON.stringify(communityLine);
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<CommunityLine>(`${this.communityUrl}/save`, params, {headers: headers});
+  }
+
+  public getCommunityLinesByNode(): Observable<CommunityLine[]> {
+    return this.httpClient.get<CommunityLine[]>(`${this.communityUrl}/getByNode`);
+  }
+
+  public updateActive(CommunityLineRelation: CommunityLineNode): Observable<CommunityLineNode> {
+    const params = JSON.stringify(CommunityLineRelation);
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<CommunityLineNode>(`${this.communityUrl}/updateActive`, params, {headers: headers});
   }
 
 }

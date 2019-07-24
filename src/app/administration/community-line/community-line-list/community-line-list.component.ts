@@ -15,7 +15,7 @@ export class CommunityLineListComponent implements OnInit {
 
     constructor(private commService: CommunityService, private nodeService: UserService) { }
 
-    communityLines: CommunityLine[];
+    communityLines: CommunityLine[] = [];
     allNodes: Node[];
     @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
 
@@ -23,7 +23,8 @@ export class CommunityLineListComponent implements OnInit {
     ngOnInit() {
         M.updateTextFields();
         M.AutoInit();
-        this.getAllNodes();
+        // this.getAllNodes();
+        this.getAllCommunityLines();
     }
 
     private getAllCommunityLines(): void {
@@ -31,7 +32,7 @@ export class CommunityLineListComponent implements OnInit {
             (result) => {
                 console.log(result);
                 this.communityLines = result;
-                // this.allNodes = 
+                
             },
             (error) => {
                 console.log(error);
@@ -44,40 +45,7 @@ export class CommunityLineListComponent implements OnInit {
             (allNodesFromCall) => {
                 this.commService.getAllCommunityLines().subscribe(
                     (result) => {
-                        this.communityLines = result;
-                        for (let communityLine of this.communityLines) {
-                            this.allNodes = []
-                            console.log("viend: " + communityLine.name);
-                            
-                            this.allNodes = allNodesFromCall;
-                            for (let nodeInLine of communityLine.nodes) {
-                                // console.log(nodeInLine);
-                                
-                                for (let nodo of this.allNodes) {
-                                    if (nodeInLine.name == nodo.name) {
-                                        // console.log("match: " + nodeInLine.name + "  " + nodo.name);
-                                        
-                                        (nodo as any).selected = true;
-                                        // console.log(this.allNodes);
-                                        
-                                    } 
-                                }
-                                
-                            }
-                            
-                            console.log("volta total");
-                            
-                            communityLine.nodes = [];
-                            communityLine.nodes = this.allNodes;
-                            console.log(this.allNodes);
-                            
-                            this.allNodes = []
-                            console.log(this.allNodes);
-                            for (let nodo of allNodesFromCall) {
-                                (nodo as any).selected = false;
-                            }
-                            console.log(communityLine);
-                        }
+                        console.log(result);
                         console.log(this.communityLines);
                     },
                     (error) => {

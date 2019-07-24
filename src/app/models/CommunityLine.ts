@@ -13,9 +13,8 @@ export class CommunityLine {
     sampleType: SampleType;
     contextSource: ContextSource;
     value: number;
-    nodes: Node[];
 
-    constructor(id: number, apiKey: string, name: string, instrument: CV, param: Param, sampleType: SampleType, contextSource: ContextSource, value: number, nodes: Node[]) {
+    constructor(id: number, apiKey: string, name: string, instrument: CV, param: Param, sampleType: SampleType, contextSource: ContextSource, value: number) {
         this.id = id;
         this.apiKey = apiKey;
         this.name = name;
@@ -24,7 +23,6 @@ export class CommunityLine {
         this.sampleType = sampleType;
         this.contextSource = contextSource;
         this.value = value;
-        this.nodes = nodes;
     }
     
 }

@@ -25,6 +25,7 @@ import { ParametersService } from '../services/parameters.service';
 import { ChartService } from '../services/chart.service';
 import { GuideSetService } from '../services/guide-set.service';
 import { GuideSetInformationComponent } from './guide-set/guide-set-information/guide-set-information.component';
+import { CommunityLineMainComponent } from './community-line/community-line-main/community-line-main.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +48,8 @@ import { GuideSetInformationComponent } from './guide-set/guide-set-information/
     SystemBuilderComponent,
     MainThresholdComponent,
     ThresholdListComponent,
-    GuideSetInformationComponent],
+    GuideSetInformationComponent,
+    CommunityLineMainComponent],
   providers: [CategoryService,
     CvService,
     DataSourceService,
