@@ -1,0 +1,13 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Community partner management</h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <app-community-partner-list (openForm)="open()" *ngIf = "!newCommunityPartner"></app-community-partner-list>
+      <app-community-partner-builder (closeForm)="close()" *ngIf = "newCommunityPartner"></app-community-partner-builder>
+    </div>
+  </div>
+</div>

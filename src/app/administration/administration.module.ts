@@ -71,6 +71,9 @@ import { EditThresholdComponent } from './threshold/edit-threshold/edit-threshol
 import { CommunityLineMainComponent } from './community-line/community-line-main/community-line-main.component';
 import { CommunityLineListComponent } from './community-line/community-line-list/community-line-list.component';
 import { CommunityLineBuilderComponent } from './community-line/community-line-builder/community-line-builder.component';
+import { CommunityPartnerMainComponent } from './community-partner/community-partner-main/community-partner-main.component';
+import { CommunityPartnerListComponent } from './community-partner/community-partner-list/community-partner-list.component';
+import { CommunityPartnerBuilderComponent } from './community-partner/community-partner-builder/community-partner-builder.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -146,6 +149,9 @@ import { CommunityLineBuilderComponent } from './community-line/community-line-b
     EditThresholdComponent,
     CommunityLineMainComponent,
     CommunityLineListComponent,
-    CommunityLineBuilderComponent]
+    CommunityLineBuilderComponent,
+    CommunityPartnerMainComponent,
+    CommunityPartnerListComponent,
+    CommunityPartnerBuilderComponent]
 })
 export class AdministrationModule { }

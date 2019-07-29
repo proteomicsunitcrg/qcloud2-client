@@ -11,6 +11,8 @@ import { InstrumentSampleService } from '../../../services/instrument-sample.ser
 import { ParametersService } from '../../../services/parameters.service';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
+import { CommunityPartner } from '../../../models/CommunityPartner';
+import { CommunityPartnerService } from '../../../services/community-partner-service';
 
 
 
@@ -26,7 +28,8 @@ export class CommunityLineBuilderComponent implements OnInit {
   constructor(private sampleTypeService: SampleTypeService, private paramService: ParametersService,
     private cvService: CvService, private categoryService: CategoryService,
     private sampleCompositionService: SampleCompositionService,
-    private instrumentSampleService: InstrumentSampleService, private communityLineService: CommunityService
+    private instrumentSampleService: InstrumentSampleService, private communityLineService: CommunityService,
+    private partnerService: CommunityPartnerService
   ) { }
   // To store all the sample types
   sampleTypes: SampleType[] = [];
@@ -39,9 +42,13 @@ export class CommunityLineBuilderComponent implements OnInit {
 
   // To store all CSs
   contextSources: any[];
+  
+  // To store all partners
+  communityPartners: CommunityPartner[] = [];
 
   // Community Line to build
-  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null);
+  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null);
+
 
   // Output to emit close the form
   @Output() closeFormOutput: EventEmitter<string> = new EventEmitter<string>();
@@ -51,6 +58,7 @@ export class CommunityLineBuilderComponent implements OnInit {
     M.AutoInit();
     this.loadSampleTypes();
     this.loadParameters();
+    this.getAllPartners();
     this.getCVs();
   }
 
@@ -134,6 +142,16 @@ export class CommunityLineBuilderComponent implements OnInit {
         );
       }, error => console.error(error)
     )
+  }
+
+  /**
+   * Get all community partners
+   */
+  private getAllPartners(): void {
+    this.partnerService.getAll().subscribe(
+      res => this.communityPartners = res,
+      err => console.error(err) 
+    );
   }
   /**
    * Submit the new line to the server to save it

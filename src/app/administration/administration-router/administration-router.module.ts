@@ -19,6 +19,7 @@ import { MainNonConformitiesComponent } from '../nonconformities/main-non-confor
 import { MessageComponent } from '../message/message.component';
 import { EmailComponent } from '../email/email.component';
 import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component';
+import { CommunityPartnerMainComponent } from '../community-partner/community-partner-main/community-partner-main.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
       ]},
     { path: 'message', component: MessageComponent},
     { path: 'email', component: EmailComponent},
-    { path: 'community-line', component: CommunityLineMainComponent }
+    { path: 'community-line', component: CommunityLineMainComponent },
+    { path: 'community-partner', component: CommunityPartnerMainComponent}
   ]},
 ];
 

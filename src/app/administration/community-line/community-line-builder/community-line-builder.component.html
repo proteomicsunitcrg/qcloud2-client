@@ -43,6 +43,14 @@
         <input type="number" name="value" id="valueInput" [(ngModel)]="communityLine.value" required>
         <label>Line value</label>
       </div>
+      <!-- community partner  -->
+      <div class="input-field col s12">
+        <select name="cPartner" required [(ngModel)]="communityLine.communityPartner">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let communityPartner of communityPartners" [ngValue]="communityPartner">{{communityPartner.name}}</option>
+        </select>
+        <label>Community partner</label>
+      </div>
 
     </div>
   </div>

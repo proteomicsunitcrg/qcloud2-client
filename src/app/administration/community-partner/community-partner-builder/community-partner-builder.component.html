@@ -1,0 +1,35 @@
+<div class="container">
+  <form [formGroup]="partnerForm">
+
+    <label>
+      Name
+    </label>
+    <input type="text" formControlName="name" placeholder="Name">
+
+    <label>
+      Email
+    </label>
+    <input type="email" formControlName="email" placeholder="Email">
+
+    <label>
+      Logo
+    </label>
+    <input type="text" formControlName="logo" placeholder="Logo">
+
+    <label>
+      Web site
+    </label>
+    <input type="text" formControlName="website" placeholder="Web site">
+  </form>
+  
+
+    <div class="row">
+      <div class="col s12 m2 l2 xl2">
+        <button type="button" class="btn waves-effect waves-light" [disabled]="partnerForm.invalid" id="saveButton"
+    (click)="submit()">Save</button>
+      </div>
+      <div class="col s12 m2 l2 xl2">
+        <button style="margin-left: -50px" type="button" class="btn amber waves-effect waves-light" (click)="closeFormEvent()">Go back</button>
+      </div>
+    </div>
+</div>
