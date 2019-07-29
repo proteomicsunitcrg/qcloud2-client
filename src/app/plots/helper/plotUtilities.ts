@@ -24,11 +24,11 @@ export function getChartName(): string {
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number): any[] {
   const shapes: any[] = [];
   let thresholdColors = [];
-    if (thresholdSteps > 1) {
-      thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
-    } else {
-      thresholdColors = ['#a9dbed'];
-    }
+  if (thresholdSteps > 1) {
+    thresholdColors = ['#056487', '#60c3e8', '#a9dbed'];
+  } else {
+    thresholdColors = ['#a9dbed'];
+  }
 
   for (let i = 0; i < thresholdSteps; i++) {
     const shape = {
@@ -78,8 +78,10 @@ export function getTracePointColor(nc: string, color: string) {
   }
 }
 
-export function loadDataAndDatesArray(dataFromServer: MiniData[]): { dates: any[],
-  data: { 'value': number, 'nc': string }[], names: any[] } {
+export function loadDataAndDatesArray(dataFromServer: MiniData[]): {
+  dates: any[],
+  data: { 'value': number, 'nc': string }[], names: any[]
+} {
   const datesArray = [];
   const dataArray = [];
   const abbreviatedNames = [];
@@ -111,5 +113,27 @@ export function truncateFilename(filename: string, fromCharacter: number): strin
   } else {
     return filename;
   }
+}
+
+export function generateLogo(allLogos: String[]): Array<Object> {
+  let images = [];
+  let x: number = 1.125;
+  for (let logo of allLogos) {
+    x = x -0.06;
+    images.push(
+      {
+        x: x,
+        y: 1.05,
+        sizex: 0.2,
+        sizey: 0.2,
+        source: logo,
+        xanchor: "right",
+        xref: "paper",
+        yanchor: "bottom",
+        yref: "paper"
+      }
+    );
+  }
+  return images;
 }
 

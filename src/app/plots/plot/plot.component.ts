@@ -15,7 +15,7 @@ import { PlotService } from '../../services/plot.service';
 import { ThresholdService } from '../../services/threshold.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { generateLayoutShapes, truncateFilename } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateFilename, generateLogo } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 
@@ -75,6 +75,11 @@ export class PlotComponent implements OnInit, OnDestroy {
   loaded = false;
   noData = true;
 
+  // var to control if chart is community
+  isCommunity = false;
+
+  logosUrl: String[] = [];
+
   layout: any;
 
   serverData: PlotTrace[];
@@ -127,7 +132,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       );
   }
-  private compare(a: PlotTrace, b: PlotTrace ): number {
+  private compare(a: PlotTrace, b: PlotTrace): number {
     if (a.contextSourceId < b.contextSourceId) {
       return -1;
     }
@@ -295,11 +300,18 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadPlot(): void {
+    console.log(this.serverData);
+
     const minValues = [];
     const maxValues = [];
     const dataForPlot = [];
     this.serverData.forEach(
       (plotTrace) => {
+        this.isCommunity = false;
+        if (plotTrace.communityPartner != undefined) {
+          this.logosUrl.push(plotTrace.communityPartner.logo);
+          this.isCommunity = true;
+        }
         const values = [];
         const filenames = [];
         const dates = [];
@@ -328,6 +340,9 @@ export class PlotComponent implements OnInit, OnDestroy {
         if (plotTrace.abbreviated === 'ERROR') {
           symbol = 'x-dot';
         }
+        if (this.isCommunity) {
+          mode = 'lines';
+        }
         const trace = {
           x: dates,
           y: values,
@@ -340,7 +355,9 @@ export class PlotComponent implements OnInit, OnDestroy {
           },
           line: {
             color: plotTrace.traceColor.shades[plotTrace.shade],
+            dash: 'solid'
           },
+
           connectgaps: false,
           name: plotTrace.abbreviated,
           description: 'number of ' + plotTrace.abbreviated,
@@ -349,6 +366,9 @@ export class PlotComponent implements OnInit, OnDestroy {
           hovertext: text,
           checksums: checksums
         };
+        if (this.isCommunity) {
+          trace.line.dash = 'dot';
+        }
         dataForPlot.push(trace);
       });
 
@@ -381,7 +401,8 @@ export class PlotComponent implements OnInit, OnDestroy {
         range: rangeArray
       },
       sampleType: this.chart.sampleType.name,
-      currentDiv: 'plot'
+      currentDiv: 'plot',
+      images: generateLogo(this.removeDuplicated(this.logosUrl))
     };
     if (dataForPlot.length > 0) {
       this.layout.shapes = this.layoutShapes;
@@ -402,6 +423,13 @@ export class PlotComponent implements OnInit, OnDestroy {
       Plotly.purge('plot' + this.chart.id);
       this.noData = false;
     }
+    this.logosUrl = this.removeDuplicated(this.logosUrl);
+  }
+  private removeDuplicated(array: String[]): String[] {
+    array = array.filter(function (elem, index, self) {
+      return index === self.indexOf(elem);
+    });
+    return array;
   }
 
   private loadAnnotations(): void {
@@ -462,7 +490,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private drawAnnotations(): void {
     if (this.hideAnnotations) {
-      return ;
+      return;
     }
     const lines = [];
     const annotations = [];
