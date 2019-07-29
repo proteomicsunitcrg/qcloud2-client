@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { SampleTypeService } from '../../../services/sample-type.service';
-import { SampleType } from '../../../models/sampleType';
-import { Param } from '../../../models/param';
-import { ParametersService } from '../../../services/parameters.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { delay } from 'q';
-import { CvService } from '../../../services/cv.service';
-import { CV } from '../../../models/cv';
-import { CategoryService } from '../../../services/category.service';
 import { CommunityLine } from '../../../models/CommunityLine';
-import { ContextSourceService } from '../../../services/context-source.service';
-import { ContextSource } from '../../../models/contextSource';
-import { SampleCompositionService } from '../../../services/sample-composition.service';
-import { InstrumentSampleService } from '../../../services/instrument-sample.service';
+import { CV } from '../../../models/cv';
+import { Param } from '../../../models/param';
+import { SampleType } from '../../../models/sampleType';
+import { CategoryService } from '../../../services/category.service';
 import { CommunityService } from '../../../services/community.service';
+import { CvService } from '../../../services/cv.service';
+import { InstrumentSampleService } from '../../../services/instrument-sample.service';
+import { ParametersService } from '../../../services/parameters.service';
+import { SampleTypeService } from '../../../services/sample-type.service';
+import { SampleCompositionService } from '../../../services/sample-composition.service';
 
 
 
@@ -27,16 +25,26 @@ export class CommunityLineBuilderComponent implements OnInit {
 
   constructor(private sampleTypeService: SampleTypeService, private paramService: ParametersService,
     private cvService: CvService, private categoryService: CategoryService,
-    private csService: ContextSourceService, private sampleCompositionService: SampleCompositionService,
+    private sampleCompositionService: SampleCompositionService,
     private instrumentSampleService: InstrumentSampleService, private communityLineService: CommunityService
-    ) { }
-
+  ) { }
+  // To store all the sample types
   sampleTypes: SampleType[] = [];
+
+  // To store all parameters
   params: Param[] = [];
+
+  // To store all CVs
   cvs: CV[] = [];
+
+  // To store all CSs
   contextSources: any[];
 
+  // Community Line to build
   communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null);
+
+  // Output to emit close the form
+  @Output() closeFormOutput: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit() {
     M.updateTextFields();
@@ -45,6 +53,10 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.loadParameters();
     this.getCVs();
   }
+
+  /**
+   * Load all sample types from the server
+   */
   private loadSampleTypes(): void {
     this.sampleTypeService.getSamplesTypes()
       .subscribe(
@@ -56,19 +68,26 @@ export class CommunityLineBuilderComponent implements OnInit {
         }
       );
   }
-
+  /**
+   * Load all parameters from the server
+   */
   private loadParameters(): void {
     this.paramService.getAllParams()
       .subscribe(
         (params) => {
           this.params = params;
           console.log(params);
-          
+
         }, error => console.log(error),
         () => delay(1).then(() => M.AutoInit())
       );
   }
 
+  /**
+   * Retrives the contexts sources by param
+   * Launches when the selected param is updated
+   * @param {Param} event selected param
+   */
   onParamChange(event: Param) {
     // load contexts sources by sampletype and event
     switch (event.isFor) {
@@ -80,7 +99,7 @@ export class CommunityLineBuilderComponent implements OnInit {
               console.log(this.contextSources);
             }, error => console.log(error),
             () => delay(1).then(() => M.AutoInit())
-            
+
           );
         break;
       case 'InstrumentSample':
@@ -89,7 +108,7 @@ export class CommunityLineBuilderComponent implements OnInit {
             (instrumentSamples) => {
               this.contextSources = instrumentSamples;
               console.log(this.contextSources);
-              
+
             }, err => console.log(err),
             () => delay(1).then(() => M.AutoInit())
           );
@@ -99,6 +118,9 @@ export class CommunityLineBuilderComponent implements OnInit {
     }
   }
 
+  /**
+   * Get all the enabled MS
+   */
   private getCVs(): void {
     this.categoryService.getCategoryByName("Mass spectrometer").subscribe(
       (cat) => {
@@ -113,13 +135,22 @@ export class CommunityLineBuilderComponent implements OnInit {
       }, error => console.error(error)
     )
   }
-
-  public onSubmit() {
+  /**
+   * Submit the new line to the server to save it
+   */
+  public onSubmit(): void {
     console.log(this.communityLine);
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
       (response) => {
         console.log(response);
       }, error => console.error(error)
     );
+  }
+  
+  /**
+   * Emits to the parent to close the editor
+   */
+  public closeForm(): void {
+    this.closeFormOutput.emit("close");
   }
 }

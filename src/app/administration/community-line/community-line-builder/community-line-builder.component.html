@@ -24,12 +24,12 @@
       </div>
       <!-- context source  -->
       <div class="input-field col s12">
-          <select name="cs" required [(ngModel)]="communityLine.contextSource">
-            <option value="" disabled selected>Choose your option</option>
-            <option *ngFor="let contextSource of contextSources" [ngValue]="contextSource">{{contextSource.name}}</option>
-          </select>
-          <label>context Source</label>
-        </div>
+        <select name="cs" required [(ngModel)]="communityLine.contextSource">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let contextSource of contextSources" [ngValue]="contextSource">{{contextSource.name}}</option>
+        </select>
+        <label>context Source</label>
+      </div>
       <!-- cv -->
       <div class="input-field col s12">
         <select name="cv" required [(ngModel)]="communityLine.instrument">
@@ -49,9 +49,12 @@
 
 
   <div class="row">
-    <div class="col s12 m12 l12 xl12">
+    <div class="col s12 m2 l2 xl2">
       <button type="submit" class="waves-effect waves-teal btn" [disabled]="!communityForm.form.valid">Save community
         line</button>
+    </div>
+    <div class="col s12 m2 l2 xl2">
+      <button style="margin-left: -50px" type="button" class="btn amber waves-effect waves-light" (click)="closeForm()">Go back</button>
     </div>
   </div>
 </form>
