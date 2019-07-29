@@ -8,14 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class CommunityLineMainComponent implements OnInit {
 
   constructor() { }
-
-  newCommunityLine = false;
+  // True: show the new editor, false hide it
+  newCommunityLine: boolean = false;
 
   ngOnInit() {
   }
 
+  /**
+   * Sets newCommunityLine to true to show the new form
+   */
   open(): void {
     this.newCommunityLine = true;
+  }
+  /**
+   * Sets newCommunityLine to false to hide the new form
+   */
+  close(): void {
+    this.newCommunityLine = false;
   }
 
 }

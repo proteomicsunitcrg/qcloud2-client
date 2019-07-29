@@ -43,4 +43,12 @@ export class CommunityService {
     return this.httpClient.post<CommunityLineNode>(`${this.communityUrl}/updateActive`, params, {headers: headers});
   }
 
+  public getNodesInCommunityLineRelation(communityLine: CommunityLine): Observable<Node[]> {
+    return this.httpClient.get<Node[]>(`${this.communityUrl}/getNodesInCommunityLineRelation/${communityLine.id}`);
+  }
+
+  public makeDeleteRelation(nodeKey: String, lineKey: String): Observable<any> {
+    return this.httpClient.get<any>(`${this.communityUrl}/makeDeleteRelation/${nodeKey}/${lineKey}`);
+  }
+
 }

@@ -4,69 +4,113 @@ import { Node } from '../../../models/node';
 import { CommunityService } from '../../../services/community.service';
 import { UserService } from '../../../services/user.service';
 import { delay } from 'q';
+import { identifierModuleUrl } from '@angular/compiler';
 declare var M: any;
 
 @Component({
-    selector: 'app-community-line-list',
-    templateUrl: './community-line-list.component.html',
-    styleUrls: ['./community-line-list.component.css']
+  selector: 'app-community-line-list',
+  templateUrl: './community-line-list.component.html',
+  styleUrls: ['./community-line-list.component.css']
 })
 export class CommunityLineListComponent implements OnInit {
 
-    constructor(private commService: CommunityService, private nodeService: UserService) { }
+  constructor(private commService: CommunityService, private nodeService: UserService) { }
 
-    communityLines: CommunityLine[] = [];
-    allNodes: Node[];
-    @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
+  // Array to store all the community lines
+  communityLines: CommunityLine[] = [];
 
+  // Array to store all nodes
+  allNodes: Node[];
 
-    ngOnInit() {
-        M.updateTextFields();
-        M.AutoInit();
-        // this.getAllNodes();
-        this.getAllCommunityLines();
+  // Output to emit to show new line form
+  @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
+
+  nodeKey: any;
+
+  ngOnInit() {
+    // this.getAllNodes();
+    this.getAllCommunityLines();
+    M.updateTextFields();
+    M.AutoInit();
+  }
+
+  /**
+   * Get all community lines from the server to mount the table
+   */
+  private getAllCommunityLines() {
+    this.commService.getAllCommunityLines().subscribe(
+      (result) => {
+        this.communityLines = result;
+        this.getAllNodes().then(res => {
+          this.allNodes = res;
+          for (let communityLine of this.communityLines) {
+            this.getNodesInCommunityLineRelation(communityLine).then((res) => {
+              this.mountSelect(res, communityLine.apiKey);
+            });
+          }
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  private mountSelect(nodesInRelation, lineApiKey) {
+    let select = <HTMLSelectElement>document.getElementById(lineApiKey);
+    let copy = this.allNodes;
+    for (let node of nodesInRelation) {
+      copy.forEach((item, index) => {
+        if (item.name === node.name) copy.splice(index, 1);
+      });
+    }
+    for (let node of nodesInRelation) {
+      let newoption = new Option(node.name, node.apiKey, null, true);
+      select.add(newoption);
     }
 
-    private getAllCommunityLines(): void {
-        this.commService.getAllCommunityLines().subscribe(
-            (result) => {
-                console.log(result);
-                this.communityLines = result;
-                
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+    for (let node of copy) {
+      let newoption = new Option(node.name, node.apiKey, null, false);
+      select.add(newoption);
     }
+    M.updateTextFields();
+    M.AutoInit();
+  }
 
-    private getAllNodes(): void {
-        this.nodeService.getAllNodesNoFiles().subscribe(
-            (allNodesFromCall) => {
-                this.commService.getAllCommunityLines().subscribe(
-                    (result) => {
-                        console.log(result);
-                        console.log(this.communityLines);
-                    },
-                    (error) => {
-                        console.log(error);
-                    }, () => {
-                        delay(1).then(() => M.AutoInit());
-                    }
-                );
+  private eventGetChange(commLineKey, event) {
+    console.log(this.nodeKey[this.nodeKey.length-1]);
+    // console.log(commLineKey);
+    // console.log(event.target.value);
+    
+    return
+    this.commService.makeDeleteRelation(this.nodeKey[0], commLineKey.apiKey).subscribe(
+      result => {
+        console.log(result);
+      },
+      error => {
+        console.log(error);
+      }
+    )
 
-            }, (error) => {
-                console.error(error);
-            }, () => {
-                delay(1).then(() => M.AutoInit());
-            }
-        )
-    }
 
-    openForm(event): void {
-        this.openThreshold.emit('fale');
-    }
+  }
+  /**
+   * Get all nodes from the server to show the selects
+   */
+  private getAllNodes(): Promise<any> {
+    return this.nodeService.getAllNodesNoFiles().toPromise();
+  }
 
+  private getNodesInCommunityLineRelation(commLine): Promise<any> {
+    return this.commService.getNodesInCommunityLineRelation(commLine).toPromise();
+  }
+
+  /**
+   * Emits the output to show the new line builder
+   */
+  openForm(): void {
+    this.openThreshold.emit('fale');
+  }
 
 
 }
+

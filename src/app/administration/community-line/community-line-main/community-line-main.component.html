@@ -7,7 +7,7 @@
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
       <app-community-line-list (openThreshold)="open()" *ngIf = "!newCommunityLine"></app-community-line-list>
-      <app-community-line-builder *ngIf = "newCommunityLine"></app-community-line-builder>
+      <app-community-line-builder (closeFormOutput)="close()"*ngIf = "newCommunityLine"></app-community-line-builder>
     </div>
   </div>
 </div>

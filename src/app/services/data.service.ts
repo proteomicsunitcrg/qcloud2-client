@@ -174,4 +174,9 @@ export class DataService {
     ${labSystemApiKey}/${guideSetSampleTypeName}`, {headers: headers});
   }
 
+
+  public getCommunityLinesByChart(chart: Chart): Observable<any> {
+    return this.httpClient.get<any>(`${this.dataUrl}/getCommunityLines/${chart.apiKey}/${this.currentDates[0] + 'T00:00:00.000+02:00'}/${this.currentDates[1] + 'T23:59:59.000+02:00/'}`);
+  }
+
 }
