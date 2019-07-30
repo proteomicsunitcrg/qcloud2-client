@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommunityPartnerService } from '../../../services/community-partner-service';
 import { CommunityPartner } from '../../../models/CommunityPartner';
@@ -12,6 +12,9 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   constructor(private partnerService: CommunityPartnerService) { }
 
   @Output() closeForm: EventEmitter<String> = new EventEmitter<String>();
+
+  @Input() dataFromParent: string;
+
   partnerForm = new FormGroup({
     name: new FormControl('Name', [
       Validators.required,
@@ -35,11 +38,43 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   })
 
   ngOnInit() {
+    console.log(this.dataFromParent);
+    if (this.isEdition()) {
+      this.getDataToEdit();
+    }
+  }
+
+  private isEdition(): boolean {
+    if(this.dataFromParent === "noEdit") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  private getDataToEdit(): any {
+    this.partnerService.getDataToEdit(parseInt(this.dataFromParent)).subscribe(
+      result => {
+        this.mountForm(result);
+        console.log(result);
+      },
+      err => console.error(err)
+    );
+  }
+  mountForm(result: CommunityPartner) {
+    this.partnerForm.controls.name.setValue(result.name);
+    this.partnerForm.controls.email.setValue(result.email);
+    this.partnerForm.controls.logo.setValue(result.logo);
+    this.partnerForm.controls.website.setValue(result.webPage);
   }
 
   private submit(): void {
-    const newPartner = new CommunityPartner(this.partnerForm.value.email, null,
+    let newPartner = new CommunityPartner(this.partnerForm.value.email, null,
       this.partnerForm.value.logo, this.partnerForm.value.name, this.partnerForm.value.website);
+    if (this.isEdition()) {
+      newPartner.id = parseInt(this.dataFromParent);
+    }
+    console.log(newPartner);
     this.partnerService.createNew(newPartner).subscribe(
       result =>{
         console.log(result);

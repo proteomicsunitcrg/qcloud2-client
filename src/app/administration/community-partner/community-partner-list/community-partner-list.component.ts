@@ -30,7 +30,20 @@ export class CommunityPartnerListComponent implements OnInit {
   /**
    * Emits the output to show the new line builder
    */
-  public openFormEvent(): void {
-    this.openForm.emit('fale');
+  public openFormEvent(edit: boolean, id?: number): void {
+    if (edit) {
+      this.openForm.emit(id.toString());
+      console.log('edit');
+    } else {
+      this.openForm.emit('noEdit');
+      console.log('noEdit');
+    }
+  }
+
+  private deletePartner(id: number) {
+    this.partnerService.deletePartner(id).subscribe(
+      res => this.getAll(),
+      err => console.error(err)
+    );
   }
 }

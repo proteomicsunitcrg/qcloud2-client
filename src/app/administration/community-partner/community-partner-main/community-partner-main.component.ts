@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-community-partner-main',
@@ -9,15 +9,19 @@ export class CommunityPartnerMainComponent implements OnInit {
 
   constructor() { }
 
+
   newCommunityPartner: boolean = false;
 
+  editId: String;
   ngOnInit() {
   }
 
   /**
    * Sets newCommunityLine to true to show the new form
    */
-  open(): void {
+  open(id): void {
+    console.log(id);
+    this.editId = id
     this.newCommunityPartner = true;
   }
   /**

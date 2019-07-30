@@ -25,4 +25,12 @@ import { CommunityPartner } from '../models/CommunityPartner';
       const headers = new HttpHeaders().set('Content-type', 'application/json');
       return this.httpClient.post<CommunityPartner>(`${this.communityUrl}/create`, params, {headers: headers});
     }
+
+    public getDataToEdit(id: number): Observable<CommunityPartner> {
+      return this.httpClient.get<CommunityPartner>(`${this.communityUrl}/getById/${id}`);
+    }
+
+    public deletePartner(id: number): Observable<boolean> {
+      return this.httpClient.delete<boolean>(`${this.communityUrl}/${id}`);
+    }
   }
