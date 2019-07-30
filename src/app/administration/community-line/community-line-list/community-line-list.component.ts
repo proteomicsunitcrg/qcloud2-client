@@ -3,8 +3,6 @@ import { CommunityLine } from '../../../models/CommunityLine';
 import { Node } from '../../../models/node';
 import { CommunityService } from '../../../services/community.service';
 import { UserService } from '../../../services/user.service';
-import { delay } from 'q';
-import { identifierModuleUrl } from '@angular/compiler';
 declare var M: any;
 
 @Component({
@@ -111,6 +109,12 @@ export class CommunityLineListComponent implements OnInit {
     this.openThreshold.emit('fale');
   }
 
+  private deleteLine(id: number): void {
+    this.commService.delete(id).subscribe(
+      (res) => this.getAllCommunityLines(),
+      (err) => console.error(err)
+    );
+  }
 
 }
 

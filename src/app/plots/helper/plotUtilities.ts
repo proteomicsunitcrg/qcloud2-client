@@ -115,25 +115,47 @@ export function truncateFilename(filename: string, fromCharacter: number): strin
   }
 }
 
-export function generateLogo(allLogos: String[]): Array<Object> {
-  let images = [];
-  let x: number = 1.125;
-  for (let logo of allLogos) {
-    x = x -0.06;
-    images.push(
-      {
-        x: x,
-        y: 1.05,
-        sizex: 0.2,
-        sizey: 0.2,
-        source: logo,
-        xanchor: "right",
-        xref: "paper",
-        yanchor: "bottom",
-        yref: "paper"
-      }
-    );
+export function generateLogo(allLogos: String[], big: boolean): Array<Object> {
+  if (big) {
+    let images = [];
+    let x: number = 1.125;
+    for (let logo of allLogos) {
+      x = x - 0.06;
+      images.push(
+        {
+          x: x,
+          y: 1.05,
+          sizex: 0.2,
+          sizey: 0.2,
+          source: logo,
+          xanchor: "right",
+          xref: "paper",
+          yanchor: "bottom",
+          yref: "paper"
+        }
+      );
+    }
+    return images;
+  } else {
+    let images = [];
+    let x: number = 1.27;
+    for (let logo of allLogos) {
+      x = x - 0.15;
+      images.push(
+        {
+          x: x,
+          y: 1.05,
+          sizex: 0.2,
+          sizey: 0.2,
+          source: logo,
+          xanchor: "right",
+          xref: "paper",
+          yanchor: "bottom",
+          yref: "paper"
+        }
+      );
+    }
+    return images;
   }
-  return images;
 }
 
