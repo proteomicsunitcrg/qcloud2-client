@@ -18,12 +18,12 @@ export class CommunityLineListComponent implements OnInit {
   communityLines: CommunityLine[] = [];
 
   // Array to store all nodes
-  allNodes: Node[];
+  allNodes: any[];
 
   // Output to emit to show new line form
   @Output() openThreshold: EventEmitter<string> = new EventEmitter<string>();
 
-  nodeKey: any;
+  nodeKey: any[];
 
   ngOnInit() {
     // this.getAllNodes();
@@ -74,20 +74,25 @@ export class CommunityLineListComponent implements OnInit {
     M.AutoInit();
   }
 
-  private eventGetChange(commLineKey, event) {
-    console.log(this.nodeKey[this.nodeKey.length-1]);
-    // console.log(commLineKey);
-    // console.log(event.target.value);
-    
-    return
-    this.commService.makeDeleteRelation(this.nodeKey[0], commLineKey.apiKey).subscribe(
-      result => {
-        console.log(result);
-      },
-      error => {
-        console.log(error);
-      }
-    )
+  private updateRelation(line: CommunityLine) {
+    console.log(this.nodeKey);
+    if (this.nodeKey.length === 0) {
+      this.commService.deleteAllRelations(line.id).subscribe(
+        result => {
+          console.log(result);
+        },
+        error => console.error(error)
+      );
+    } else {
+      this.commService.makeDeleteRelation(this.nodeKey, line).subscribe(
+        result => {
+          console.log(result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
 
 
   }

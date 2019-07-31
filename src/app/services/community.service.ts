@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { CommunityLine } from '../models/CommunityLine';
@@ -50,8 +50,17 @@ export class CommunityService {
     return this.httpClient.get<Node[]>(`${this.communityUrl}/getNodesInCommunityLineRelation/${communityLine.id}`);
   }
 
-  public makeDeleteRelation(nodeKey: String, lineKey: String): Observable<any> {
-    return this.httpClient.get<any>(`${this.communityUrl}/makeDeleteRelation/${nodeKey}/${lineKey}`);
+  public makeDeleteRelation(nodeKey: any, lineKey: CommunityLine): Observable<any> {
+    let params = new HttpParams();
+    nodeKey.forEach((element: string) => {
+      params = params.append('UUIDsNodes',element);
+    });
+    params = params.append('UUIDLine', lineKey.apiKey);
+    return this.httpClient.get<any>(`${this.communityUrl}/makeDeleteRelation`, {params});
+  }
+
+  public deleteAllRelations(id: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.communityUrl}/deleteAllRelations/${id}`);
   }
 
 }
