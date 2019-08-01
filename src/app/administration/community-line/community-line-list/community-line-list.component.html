@@ -5,6 +5,9 @@
   <thead>
     <tr>
       <th>
+        Partner logo
+      </th>
+      <th>
         Name
       </th>
       <th>
@@ -35,6 +38,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let communityLine of communityLines">
+      <td><img [src]="communityLine.communityPartner.logo" [alt]="communityLine.communityPartner.name" [title]="communityLine.communityPartner.name"></td>
       <td>{{communityLine.name}}</td>
       <td>{{communityLine.instrument.name}}</td>
       <td>{{communityLine.param.name}}</td>

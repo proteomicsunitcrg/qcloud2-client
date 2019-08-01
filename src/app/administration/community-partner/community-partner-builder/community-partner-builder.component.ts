@@ -44,14 +44,27 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     }
   }
 
+  /**
+  * @summary if dataFromParent is "noEdit" returns false, else true
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @returns {boolean} with true if is edition or false otherwise
+  */
   private isEdition(): boolean {
-    if(this.dataFromParent === "noEdit") {
+    if (this.dataFromParent === "noEdit") {
       return false;
     } else {
       return true;
     }
   }
-
+  /**
+  * @summary if dataFromParent is "noEdit" returns false, else true
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @returns {boolean} with true if is edition or false otherwise
+  */
   private getDataToEdit(): any {
     this.partnerService.getDataToEdit(parseInt(this.dataFromParent)).subscribe(
       result => {
@@ -76,7 +89,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     }
     console.log(newPartner);
     this.partnerService.createNew(newPartner).subscribe(
-      result =>{
+      result => {
         console.log(result);
       },
       error => {

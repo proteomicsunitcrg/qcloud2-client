@@ -1,0 +1,8 @@
+.cursorIcon {
+    cursor: pointer;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: blur(1rem);
+}

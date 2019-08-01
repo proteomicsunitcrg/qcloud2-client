@@ -13,8 +13,10 @@ import { SampleTypeService } from '../../../services/sample-type.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { CommunityPartner } from '../../../models/CommunityPartner';
 import { CommunityPartnerService } from '../../../services/community-partner-service';
-
-
+import { TraceColorService } from '../../../services/trace-color.service';
+import { TraceColor } from '../../../models/TraceColor';
+import * as Plotly from 'plotly.js/dist/plotly';
+import { ContextSource } from '../../../models/contextSource';
 
 declare var M: any;
 
@@ -29,7 +31,7 @@ export class CommunityLineBuilderComponent implements OnInit {
     private cvService: CvService, private categoryService: CategoryService,
     private sampleCompositionService: SampleCompositionService,
     private instrumentSampleService: InstrumentSampleService, private communityLineService: CommunityService,
-    private partnerService: CommunityPartnerService
+    private partnerService: CommunityPartnerService, private traceColorService: TraceColorService
   ) { }
   // To store all the sample types
   sampleTypes: SampleType[] = [];
@@ -42,12 +44,20 @@ export class CommunityLineBuilderComponent implements OnInit {
 
   // To store all CSs
   contextSources: any[];
-  
+
   // To store all partners
   communityPartners: CommunityPartner[] = [];
 
   // Community Line to build
-  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null);
+  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null, null);
+
+  traceColors: TraceColor[] = [];
+
+  collapsibleInstance: any;
+
+  useSameCSColor: boolean = false;
+
+  showWarning: boolean = false;
 
 
   // Output to emit close the form
@@ -60,11 +70,16 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.loadParameters();
     this.getAllPartners();
     this.getCVs();
+    this.loadTraceColors();
+    this.drawPlot();
   }
 
   /**
-   * Load all sample types from the server
-   */
+  * @summary Return all the sample types
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  */
   private loadSampleTypes(): void {
     this.sampleTypeService.getSamplesTypes()
       .subscribe(
@@ -77,8 +92,11 @@ export class CommunityLineBuilderComponent implements OnInit {
       );
   }
   /**
-   * Load all parameters from the server
-   */
+  * @summary Return the promise all the parameters
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  */
   private loadParameters(): void {
     this.paramService.getAllParams()
       .subscribe(
@@ -97,6 +115,7 @@ export class CommunityLineBuilderComponent implements OnInit {
    * @param {Param} event selected param
    */
   onParamChange(event: Param) {
+    this.useSameCSColor = false;
     // load contexts sources by sampletype and event
     switch (event.isFor) {
       case 'Peptide':
@@ -115,8 +134,6 @@ export class CommunityLineBuilderComponent implements OnInit {
           .subscribe(
             (instrumentSamples) => {
               this.contextSources = instrumentSamples;
-              console.log(this.contextSources);
-
             }, err => console.log(err),
             () => delay(1).then(() => M.AutoInit())
           );
@@ -127,8 +144,11 @@ export class CommunityLineBuilderComponent implements OnInit {
   }
 
   /**
-   * Get all the enabled MS
-   */
+  * @summary Return all the enabled MS
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  */
   private getCVs(): void {
     this.categoryService.getCategoryByName("Mass spectrometer").subscribe(
       (cat) => {
@@ -145,30 +165,104 @@ export class CommunityLineBuilderComponent implements OnInit {
   }
 
   /**
-   * Get all community partners
-   */
+  * @summary Return all community partners
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  */
   private getAllPartners(): void {
     this.partnerService.getAll().subscribe(
       res => this.communityPartners = res,
-      err => console.error(err) 
+      err => console.error(err)
     );
   }
+
   /**
-   * Submit the new line to the server to save it
-   */
-  public onSubmit(): void {
+  * @summary Sends the line to the server to save it
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  */
+  private onSubmit(): void {
     console.log(this.communityLine);
+    if(this.communityLine.traceColor === null) {
+      alert("Select a color");
+    }
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
       (response) => {
         console.log(response);
       }, error => console.error(error)
     );
   }
-  
+
   /**
    * Emits to the parent to close the editor
    */
   public closeForm(): void {
     this.closeFormOutput.emit("close");
+  }
+
+  private loadTraceColors(): void {
+    this.traceColorService.getAllTraceColors()
+      .subscribe(
+        (traceColors) => {
+          this.traceColors = traceColors;
+        });
+  }
+
+  private changeTraceColor(traceColor: TraceColor): void {
+    this.communityLine.traceColor = traceColor;
+    this.changePlotTraceColor(traceColor.mainColor);
+  }
+
+  private useCSColor (): void {
+    if(!this.useSameCSColor) {
+      this.showWarning = false;
+      this.changePlotTraceColor('rgb(0, 98, 255)');
+      return;
+    }
+    console.log(this.communityLine.contextSource.traceColor);
+    
+    if(this.communityLine.contextSource.traceColor.mainColor === null) {
+      this.showWarning = true;
+    } else {
+      this.showWarning = false;
+      this.changePlotTraceColor(this.communityLine.contextSource.traceColor.mainColor);
+      this.communityLine.traceColor = this.communityLine.contextSource.traceColor;
+    }
+  }
+
+  private changePlotTraceColor(color: string) {
+    const trace1 = {
+      x: [1, 2, 3, 4],
+      y: [10, 15, 13, 17],
+      type: 'scatter'
+    };
+    const trace2 = {
+      x: [1, 4],
+      y: [12, 12],
+      type: 'scatter',
+      mode: 'lines',
+      line: {dash: 'dot', color: color}
+    };
+    const data = [trace1, trace2];
+    Plotly.react('plot', data);
+  }
+
+  private drawPlot(): void {
+    const trace1 = {
+      x: [1, 2, 3, 4],
+      y: [10, 15, 13, 17],
+      type: 'scatter'
+    };
+    const trace2 = {
+      x: [1, 4],
+      y: [12, 12],
+      type: 'scatter',
+      mode: 'lines',
+      line: {dash: 'dot', color: 'rgb(0, 98, 255)'}
+    };
+    const data = [trace1, trace2];
+    Plotly.newPlot('plot', data);
   }
 }

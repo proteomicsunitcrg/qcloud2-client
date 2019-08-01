@@ -16,7 +16,7 @@
       </div>
       <!-- param -->
       <div class="input-field col s12">
-        <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)">
+        <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)" >
           <option value="" disabled selected>Choose your option</option>
           <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
         </select>
@@ -24,7 +24,7 @@
       </div>
       <!-- context source  -->
       <div class="input-field col s12">
-        <select name="cs" required [(ngModel)]="communityLine.contextSource">
+        <select name="cs" required [(ngModel)]="communityLine.contextSource" [disabled]="communityLine.param===null">
           <option value="" disabled selected>Choose your option</option>
           <option *ngFor="let contextSource of contextSources" [ngValue]="contextSource">{{contextSource.name}}</option>
         </select>
@@ -47,12 +47,37 @@
       <div class="input-field col s12">
         <select name="cPartner" required [(ngModel)]="communityLine.communityPartner">
           <option value="" disabled selected>Choose your option</option>
-          <option *ngFor="let communityPartner of communityPartners" [ngValue]="communityPartner">{{communityPartner.name}}</option>
+          <option *ngFor="let communityPartner of communityPartners" [ngValue]="communityPartner" [attr.data-icon]="communityPartner.logo">
+            {{communityPartner.name}}</option>
         </select>
         <label>Community partner</label>
       </div>
 
+      <!-- color -->
+      <div class="input-field col s12" style="margin-bottom: 40px; margin-top: -10px">
+        <label>
+          <input type="checkbox" name="color" id="color" (change) = "useCSColor()" [(ngModel)]="useSameCSColor" [disabled]="communityLine.contextSource===null">
+          <span>Use same context source color </span>
+        </label>
+      </div>
+      <p style="margin-left: 11px" *ngIf="showWarning">Warning: This context doesn't have any color linked</p>
     </div>
+
+    <div class="col s6">
+      <ul class="collapsible" id="collapsible-colors">
+        <li class="active">
+          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Choose your color</div>
+          <div class="collapsible-body" [ngClass]="{'disabled': useSameCSColor }">
+            <i *ngFor="let traceColor of traceColors" class="material-icons medium cursorIcon"
+              [style.color]="traceColor.mainColor" (click)="changeTraceColor(traceColor)">linear_scale</i>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col s6">
+        <div id="plot"></div>
+  </div>
   </div>
 
 
@@ -62,7 +87,8 @@
         line</button>
     </div>
     <div class="col s12 m2 l2 xl2">
-      <button style="margin-left: -50px" type="button" class="btn amber waves-effect waves-light" (click)="closeForm()">Go back</button>
+      <button style="margin-left: -50px" type="button" class="btn amber waves-effect waves-light"
+        (click)="closeForm()">Go back</button>
     </div>
   </div>
 </form>

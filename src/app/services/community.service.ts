@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { CommunityLine } from '../models/CommunityLine';
 import { CommunityLineNode } from '../models/CommunityLineNode';
+import { Node } from '../models/node';
 @Injectable({
   providedIn: 'root'
 })

@@ -33,8 +33,12 @@ export class CommunityLineListComponent implements OnInit {
   }
 
   /**
-   * Get all community lines from the server to mount the table
-   */
+  * @summary Return the promise with all nodes.
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @returns Promise<Node[]> with all nodes
+  */
   private getAllCommunityLines() {
     this.commService.getAllCommunityLines().subscribe(
       (result) => {
@@ -53,7 +57,15 @@ export class CommunityLineListComponent implements OnInit {
       }
     );
   }
-  private mountSelect(nodesInRelation, lineApiKey) {
+  /**
+  * @summary Mount all the selects with the selecteds and the unselecteds
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @param nodesInRelation Node[] nodes linked with the line
+  * @param lineApiKey apiKey of the linked line
+  */
+  private mountSelect(nodesInRelation: Node[], lineApiKey: string) {
     let select = <HTMLSelectElement>document.getElementById(lineApiKey);
     let copy = this.allNodes;
     for (let node of nodesInRelation) {
@@ -74,6 +86,12 @@ export class CommunityLineListComponent implements OnInit {
     M.AutoInit();
   }
 
+  /**
+   * @summary Makes or deletes a relation between the node and the line
+   * @description If is the nodeKey is empty means that the select is empty
+   * and the API endpoint its different
+   * @param line CommunityLine related to update
+   */
   private updateRelation(line: CommunityLine) {
     console.log(this.nodeKey);
     if (this.nodeKey.length === 0) {
@@ -93,17 +111,28 @@ export class CommunityLineListComponent implements OnInit {
         }
       );
     }
-
-
   }
+
   /**
-   * Get all nodes from the server to show the selects
-   */
-  private getAllNodes(): Promise<any> {
+  * @summary Return the promise with all nodes.
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @returns Promise<Node[]> with all nodes
+  */
+  private getAllNodes(): Promise<Node[]> {
     return this.nodeService.getAllNodesNoFiles().toPromise();
   }
 
-  private getNodesInCommunityLineRelation(commLine): Promise<any> {
+  /**
+  * @summary Return the promise with all nodes with that are linked with the community line
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @param 
+  * @returns Promise<Node[]> with all nodes related to the commLine
+  */
+  private getNodesInCommunityLineRelation(commLine: CommunityLine): Promise<any> {
     return this.commService.getNodesInCommunityLineRelation(commLine).toPromise();
   }
 
@@ -114,10 +143,17 @@ export class CommunityLineListComponent implements OnInit {
     this.openThreshold.emit('fale');
   }
 
+  /**
+  * @summary deletes a communityLine
+  * @author Marc Serret
+  * @since 1.0.0
+  * @access private
+  * @returns Promise<Node[]> with all nodes
+  */
   private deleteLine(id: number): void {
     this.commService.delete(id).subscribe(
-      (res) => this.getAllCommunityLines(),
-      (err) => console.error(err)
+      (res: boolean) => this.getAllCommunityLines(),
+      (err: Error) => console.error(err)
     );
   }
 
