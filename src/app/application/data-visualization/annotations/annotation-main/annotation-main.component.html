@@ -4,6 +4,7 @@
     <span class="go-back" (click)="goBack()">[Go back]</span>
   </li>
   <li class="collection-item">
+    <p *ngIf="file"><strong>{{file.filename}}</strong></p>
     <p *ngIf="file"><strong>{{file.creationDate}}</strong></p>
     <p *ngIf="annotation" class="annotation-author">
       by {{annotation.user.firstname}} {{annotation.user.lastname}} on {{annotation.annotationDate | date:'short'}}

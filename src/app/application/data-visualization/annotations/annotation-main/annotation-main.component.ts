@@ -51,10 +51,8 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
       .subscribe(
         (file) => {
           this.file = file;
-        }, err => console.log('load file err', err),
-        () => {
           this.loadTroubleshooting();
-        }
+        }, err => console.log('load file err', err)
       );
   }
 

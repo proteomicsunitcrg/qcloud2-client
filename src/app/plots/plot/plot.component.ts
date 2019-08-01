@@ -18,6 +18,7 @@ import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { generateLayoutShapes, truncateFilename, generateLogo } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
+import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     private thresholdService: ThresholdService,
     private plotService: PlotService,
     private webSocketService: WebsocketService,
-    private annotationService: AnnotationService) { }
+    private annotationService: AnnotationService,
+    private clipboardService: ClipboardService) { }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -414,6 +416,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true });
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
       plot.on('plotly_click', (data) => {
+        this.clipboardService.copyFromContent(this.plotService.getFilenameFromPlotData(data));
         this.plotService.sendClick(data, this.system);
       });
       // Call for annotations

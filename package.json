@@ -37,6 +37,7 @@
     "moment": "^2.24.0",
     "ng2-dragula": "^1.5.0",
     "ng2-right-click-menu": "^1.1.1",
+    "ngx-clipboard": "^12.2.0",
     "pickr-widget": "^0.3.6",
     "plotly.js": "^1.47.4",
     "rxjs": "^6.5.1",
