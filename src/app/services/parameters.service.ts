@@ -26,7 +26,7 @@ export class ParametersService {
     const json = JSON.stringify(param);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Param>(this.parameterUrl, params, {headers: headers});
+    return this.httpClient.post<Param>(this.parameterUrl, params, { headers: headers });
   }
 
   public getAllParams(): Observable<Param[]> {
@@ -41,7 +41,7 @@ export class ParametersService {
     const json = JSON.stringify(param);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<Param>(this.parameterUrl, params, {headers: headers});
+    return this.httpClient.put<Param>(this.parameterUrl, params, { headers: headers });
   }
 
   public getTypeList(): Observable<String[]> {

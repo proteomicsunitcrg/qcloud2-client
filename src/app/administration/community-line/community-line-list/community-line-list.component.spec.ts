@@ -8,9 +8,9 @@ describe('CommunityLineListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityLineListComponent ]
+      declarations: [CommunityLineListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

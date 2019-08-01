@@ -8,9 +8,9 @@ describe('DefaultViewSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DefaultViewSelectorComponent ]
+      declarations: [DefaultViewSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

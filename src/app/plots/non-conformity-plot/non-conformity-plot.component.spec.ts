@@ -8,9 +8,9 @@ describe('NonConformityPlotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NonConformityPlotComponent ]
+      declarations: [NonConformityPlotComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

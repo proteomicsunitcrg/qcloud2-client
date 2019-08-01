@@ -12,9 +12,9 @@ export class CommunityPartnerListComponent implements OnInit {
   constructor(private partnerService: CommunityPartnerService) { }
 
   partners: CommunityPartner[] = [];
-// Output to emit to show new line form
+  // Output to emit to show new line form
   @Output() openForm: EventEmitter<string> = new EventEmitter<string>();
-  
+
   ngOnInit() {
     this.getAll();
   }
@@ -24,7 +24,7 @@ export class CommunityPartnerListComponent implements OnInit {
     this.partnerService.getAll().subscribe(
       result => this.partners = result,
       error => console.error(error)
-    )
+    );
   }
 
   /**

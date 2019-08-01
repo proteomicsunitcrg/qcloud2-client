@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public constructor(private titleService: Title) {}
+  public constructor(private titleService: Title) { }
   title = 'QCloud 2.0';
   ngOnInit() {
     this.setTitle();

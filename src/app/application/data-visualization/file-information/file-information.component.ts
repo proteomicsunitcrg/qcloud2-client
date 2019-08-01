@@ -53,11 +53,11 @@ export class FileInformationComponent implements OnInit, OnDestroy {
       .subscribe(
         (filename) => {
           this.fileService.getFileByFilename(filename)
-          .subscribe(
-            (file) => {
-              this.file = file;
-            }
-          );
+            .subscribe(
+              (file) => {
+                this.file = file;
+              }
+            );
         }
       );
   }

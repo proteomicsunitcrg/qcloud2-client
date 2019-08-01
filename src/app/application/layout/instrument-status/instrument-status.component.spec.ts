@@ -8,9 +8,9 @@ describe('InstrumentStatusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InstrumentStatusComponent ]
+      declarations: [InstrumentStatusComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

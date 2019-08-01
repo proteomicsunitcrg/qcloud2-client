@@ -26,7 +26,7 @@ export class HelpService {
   public downloadFile(filename: string): Observable<HttpResponse<Blob>> {
     filename = filename + '.pdf';
     const headers = new HttpHeaders().set('Accept', 'application/pdf');
-    return this.httpClient.get(this.helpUrl + filename, { headers: headers, observe: 'response', responseType: 'blob'});
+    return this.httpClient.get(this.helpUrl + filename, { headers: headers, observe: 'response', responseType: 'blob' });
   }
 
 

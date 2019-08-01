@@ -8,9 +8,9 @@ describe('PeptideDetailFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeptideDetailFormComponent ]
+      declarations: [PeptideDetailFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

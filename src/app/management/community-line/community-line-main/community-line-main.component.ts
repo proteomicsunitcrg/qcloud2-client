@@ -19,18 +19,18 @@ export class CommunityLineMainComponent implements OnInit {
     this.getAllLinesForNode();
   }
 
-  private getAllLinesForNode ():void {
-    this.communityService.getCommunityLinesByNode().subscribe((result)=>{
+  private getAllLinesForNode(): void {
+    this.communityService.getCommunityLinesByNode().subscribe((result) => {
       console.log(result);
-      
+
       this.communityLines = result;
-    }, (error)=> {
+    }, (error) => {
       console.error(error);
-      
+
     });
   }
 
-  public updateActive (communityLineRelation: CommunityLineNode) {
+  public updateActive(communityLineRelation: CommunityLineNode) {
     this.communityService.updateActive(communityLineRelation).subscribe(
       (result) => {
         console.log(result);
@@ -39,7 +39,7 @@ export class CommunityLineMainComponent implements OnInit {
         console.error(error);
       }
     );
-    
+
   }
 
 }

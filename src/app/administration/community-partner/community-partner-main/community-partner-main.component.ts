@@ -10,7 +10,7 @@ export class CommunityPartnerMainComponent implements OnInit {
   constructor() { }
 
 
-  newCommunityPartner: boolean = false;
+  newCommunityPartner = false;
 
   editId: String;
   ngOnInit() {
@@ -21,7 +21,7 @@ export class CommunityPartnerMainComponent implements OnInit {
    */
   open(id): void {
     console.log(id);
-    this.editId = id
+    this.editId = id;
     this.newCommunityPartner = true;
   }
   /**

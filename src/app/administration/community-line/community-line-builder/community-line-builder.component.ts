@@ -55,9 +55,9 @@ export class CommunityLineBuilderComponent implements OnInit {
 
   collapsibleInstance: any;
 
-  useSameCSColor: boolean = false;
+  useSameCSColor = false;
 
-  showWarning: boolean = false;
+  showWarning = false;
 
 
   // Output to emit close the form
@@ -150,7 +150,7 @@ export class CommunityLineBuilderComponent implements OnInit {
   * @access private
   */
   private getCVs(): void {
-    this.categoryService.getCategoryByName("Mass spectrometer").subscribe(
+    this.categoryService.getCategoryByName('Mass spectrometer').subscribe(
       (cat) => {
         this.cvService.getAllEnabledCVByCategory(cat).subscribe(
           (cvs) => {
@@ -161,7 +161,7 @@ export class CommunityLineBuilderComponent implements OnInit {
           }
         );
       }, error => console.error(error)
-    )
+    );
   }
 
   /**
@@ -185,8 +185,8 @@ export class CommunityLineBuilderComponent implements OnInit {
   */
   private onSubmit(): void {
     console.log(this.communityLine);
-    if(this.communityLine.traceColor === null) {
-      alert("Select a color");
+    if (this.communityLine.traceColor === null) {
+      alert('Select a color');
     }
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
       (response) => {
@@ -199,7 +199,7 @@ export class CommunityLineBuilderComponent implements OnInit {
    * Emits to the parent to close the editor
    */
   public closeForm(): void {
-    this.closeFormOutput.emit("close");
+    this.closeFormOutput.emit('close');
   }
 
   private loadTraceColors(): void {
@@ -215,15 +215,15 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.changePlotTraceColor(traceColor.mainColor);
   }
 
-  private useCSColor (): void {
-    if(!this.useSameCSColor) {
+  private useCSColor(): void {
+    if (!this.useSameCSColor) {
       this.showWarning = false;
       this.changePlotTraceColor('rgb(0, 98, 255)');
       return;
     }
     console.log(this.communityLine.contextSource.traceColor);
-    
-    if(this.communityLine.contextSource.traceColor.mainColor === null) {
+
+    if (this.communityLine.contextSource.traceColor.mainColor === null) {
       this.showWarning = true;
     } else {
       this.showWarning = false;
@@ -243,7 +243,7 @@ export class CommunityLineBuilderComponent implements OnInit {
       y: [12, 12],
       type: 'scatter',
       mode: 'lines',
-      line: {dash: 'dot', color: color}
+      line: { dash: 'dot', color: color }
     };
     const data = [trace1, trace2];
     Plotly.react('plot', data);
@@ -260,7 +260,7 @@ export class CommunityLineBuilderComponent implements OnInit {
       y: [12, 12],
       type: 'scatter',
       mode: 'lines',
-      line: {dash: 'dot', color: 'rgb(0, 98, 255)'}
+      line: { dash: 'dot', color: 'rgb(0, 98, 255)' }
     };
     const data = [trace1, trace2];
     Plotly.newPlot('plot', data);

@@ -37,7 +37,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
           this.loadPlotData();
         }, err => console.log('err', err)
       );
-      this.loadPlotData();
+    this.loadPlotData();
   }
 
   private loadPlotData(): void {

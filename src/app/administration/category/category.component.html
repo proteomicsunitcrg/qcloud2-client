@@ -41,8 +41,8 @@
         <form (ngSubmit)="onSubmit(); newCategory.reset()" #newCategory="ngForm" ngNativeValidate autocomplete="off">
           <h5>Add new category</h5>
           <div class="input-field">
-            <input #categoryNameBox type="text" name="name" [(ngModel)]="category.name" class="validate" id="name" minlength="4" validate
-              required>
+            <input #categoryNameBox type="text" name="name" [(ngModel)]="category.name" class="validate" id="name"
+              minlength="4" validate required>
             <label for="name">Name</label>
           </div>
           <div class="input-field">

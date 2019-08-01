@@ -8,9 +8,9 @@ describe('BottomModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BottomModalComponent ]
+      declarations: [BottomModalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

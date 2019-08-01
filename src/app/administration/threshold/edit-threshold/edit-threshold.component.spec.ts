@@ -8,9 +8,9 @@ describe('EditThresholdComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditThresholdComponent ]
+      declarations: [EditThresholdComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -32,7 +32,7 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy {
     /**
      * This subscription is used to manage the add/edit peptides
      */
-    this. currentPeptide$ = this.sampleCompositionService.currentPeptide$
+    this.currentPeptide$ = this.sampleCompositionService.currentPeptide$
       .subscribe(
         (peptide) => {
           // fill the sample composition array and send back
@@ -49,7 +49,7 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy {
           this.resetSampleCompositionForm();
           this.loadSampleComposition(sampleCompositions);
         }
-    );
+      );
   }
 
   ngOnDestroy() {
@@ -89,7 +89,7 @@ export class SampleCompositionFormComponent implements OnInit, OnDestroy {
           sampleCompositions.push(sampleComposition);
         }
       });
-      this.sampleCompositionService.sendSampleComposition(sampleCompositions);
+    this.sampleCompositionService.sendSampleComposition(sampleCompositions);
   }
 
 

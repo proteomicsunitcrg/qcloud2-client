@@ -134,7 +134,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
     return (annotation.actions.length === 0 && annotation.problems.length === 0);
   }
 
-  goBack(): void  {
+  goBack(): void {
     this.actionSent.emit(true);
   }
 }

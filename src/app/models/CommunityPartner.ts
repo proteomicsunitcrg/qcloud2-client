@@ -10,6 +10,6 @@ export class CommunityPartner {
         this.id = id;
         this.logo = logo;
         this.name = name;
-        this.webPage = webPage
+        this.webPage = webPage;
     }
 }

@@ -24,24 +24,31 @@
         {{guideSet.sampleType.name}}
       </td>
       <td>
-        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="start" name="startDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
-          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.startDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
-        />
+        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="start"
+          name="startDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
+          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.startDate"
+          attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" />
       </td>
       <td>
-        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="end" name="endDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
-          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.endDate" attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}"
-        />
+        <input type="text" [attr.disabled]="guideSet.isUserDefined==false ? true : null" position="end"
+          name="endDate{{system.apiKey}}-{{guideSet.sampleType.name}}"
+          class="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" [(ngModel)]="guideSet.endDate"
+          attr.data-coord="datepicker-{{system.apiKey}}-{{guideSet.sampleType.name}}" />
       </td>
       <td>
         <ng-container *ngIf="guideSet.isUserDefined==false then buttonAuto else buttonManual"></ng-container>
         <ng-template #buttonAuto>
-          <button type="button" [attr.disabled]="guideSet.labSystemTotalFiles < 20 || editingGuideSet==true ? true : null" (click)="createGuideSet(system, guideSet.sampleType)"
-            class="waves-effect waves-light btn">Create guide set</button>
+          <button type="button"
+            [attr.disabled]="guideSet.labSystemTotalFiles < 20 || editingGuideSet==true ? true : null"
+            (click)="createGuideSet(system, guideSet.sampleType)" class="waves-effect waves-light btn">Create guide
+            set</button>
         </ng-template>
         <ng-template #buttonManual>
-          <button type="button" class="waves-effect waves-light btn" [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set / Update</button>
-          <button type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey" (click)="setGuideSetToAutomatic(system,guideSet)">Automatic</button>
+          <button type="button" class="waves-effect waves-light btn"
+            [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set /
+            Update</button>
+          <button type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey"
+            (click)="setGuideSetToAutomatic(system,guideSet)">Automatic</button>
         </ng-template>
       </td>
       <td>

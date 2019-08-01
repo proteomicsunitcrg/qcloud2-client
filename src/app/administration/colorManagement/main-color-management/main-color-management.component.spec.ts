@@ -8,9 +8,9 @@ describe('MainColorManagementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainColorManagementComponent ]
+      declarations: [MainColorManagementComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

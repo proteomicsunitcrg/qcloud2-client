@@ -8,9 +8,9 @@ describe('DataVisualizationMainWindowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataVisualizationMainWindowComponent ]
+      declarations: [DataVisualizationMainWindowComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

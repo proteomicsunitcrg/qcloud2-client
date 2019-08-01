@@ -8,9 +8,9 @@ describe('ThresholdBuilderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThresholdBuilderComponent ]
+      declarations: [ThresholdBuilderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

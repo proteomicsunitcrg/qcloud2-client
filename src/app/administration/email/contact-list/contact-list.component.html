@@ -10,9 +10,10 @@
     </li>
     <div *ngFor="let user of node.node.users; ">
       <li class="collection-item" *ngIf="user.authorities.length > 1" style="border-bottom: 1px solid #e0e0e0;">
-        <a class="name">{{user.username}}</a> 
+        <a class="name">{{user.username}}</a>
         <label>
-          <input type="checkbox" class="filled-in checkbox" (click)="onSelect(i)" value="{{user.checked}}" [(ngModel)]="user.checked"/>
+          <input type="checkbox" class="filled-in checkbox" (click)="onSelect(i)" value="{{user.checked}}"
+            [(ngModel)]="user.checked" />
           <span style="margin-left: 8px; top: 7px;"></span>
         </label>
       </li>

@@ -8,9 +8,9 @@ describe('IsotopologuePlotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IsotopologuePlotComponent ]
+      declarations: [IsotopologuePlotComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -17,7 +17,7 @@ declare var M: any;
 export class InstrumentSampleFormComponent implements OnInit, OnDestroy {
 
   constructor(private instrumentSampleService: InstrumentSampleService,
-      private modalService: ModalService) {
+    private modalService: ModalService) {
   }
 
   instrumentSample: InstrumentSample = new InstrumentSample(null, '', '', null, null, new TraceColor('rgb(51, 102, 204)', null), 0);

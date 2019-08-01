@@ -8,9 +8,9 @@ describe('TroubleshootingListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TroubleshootingListComponent ]
+      declarations: [TroubleshootingListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

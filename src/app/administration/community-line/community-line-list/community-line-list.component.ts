@@ -45,9 +45,9 @@ export class CommunityLineListComponent implements OnInit {
         this.communityLines = result;
         this.getAllNodes().then(res => {
           this.allNodes = res;
-          for (let communityLine of this.communityLines) {
-            this.getNodesInCommunityLineRelation(communityLine).then((res) => {
-              this.mountSelect(res, communityLine.apiKey);
+          for (const communityLine of this.communityLines) {
+            this.getNodesInCommunityLineRelation(communityLine).then((res2) => {
+              this.mountSelect(res2, communityLine.apiKey);
             });
           }
         });
@@ -66,20 +66,22 @@ export class CommunityLineListComponent implements OnInit {
   * @param lineApiKey apiKey of the linked line
   */
   private mountSelect(nodesInRelation: Node[], lineApiKey: string) {
-    let select = <HTMLSelectElement>document.getElementById(lineApiKey);
-    let copy = this.allNodes;
-    for (let node of nodesInRelation) {
+    const select = <HTMLSelectElement>document.getElementById(lineApiKey);
+    const copy = this.allNodes;
+    for (const node of nodesInRelation) {
       copy.forEach((item, index) => {
-        if (item.name === node.name) copy.splice(index, 1);
+        if (item.name === node.name) {
+          copy.splice(index, 1);
+        }
       });
     }
-    for (let node of nodesInRelation) {
-      let newoption = new Option(node.name, node.apiKey, null, true);
+    for (const node of nodesInRelation) {
+      const newoption = new Option(node.name, node.apiKey, null, true);
       select.add(newoption);
     }
 
-    for (let node of copy) {
-      let newoption = new Option(node.name, node.apiKey, null, false);
+    for (const node of copy) {
+      const newoption = new Option(node.name, node.apiKey, null, false);
       select.add(newoption);
     }
     M.updateTextFields();
@@ -129,7 +131,7 @@ export class CommunityLineListComponent implements OnInit {
   * @author Marc Serret
   * @since 1.0.0
   * @access private
-  * @param 
+  * @param
   * @returns Promise<Node[]> with all nodes related to the commLine
   */
   private getNodesInCommunityLineRelation(commLine: CommunityLine): Promise<any> {

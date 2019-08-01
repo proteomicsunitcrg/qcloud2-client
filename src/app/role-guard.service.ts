@@ -39,7 +39,7 @@ export class RoleGuardService implements CanActivate {
     return true;
   }
 
-  private checkForRole(authoritiesArray: any[], role: string ): boolean {
+  private checkForRole(authoritiesArray: any[], role: string): boolean {
     let match = false;
     authoritiesArray.forEach(element => {
       if (element.authority === role) {

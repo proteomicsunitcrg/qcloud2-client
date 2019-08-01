@@ -34,11 +34,12 @@
       </tfoot>
       <tbody>
         <tr *ngFor="let cv of cvs | cvFilter: filter | slice:(page-1)*limit:page*limit">
-          <td colspan="3" [ngClass]="{'green-background lighten-3': cv.id===selectedCv.id}" (click)="selectCV(cv)">{{cv.name}}</td>
+          <td colspan="3" [ngClass]="{'green-background lighten-3': cv.id===selectedCv.id}" (click)="selectCV(cv)">
+            {{cv.name}}</td>
         </tr>
       </tbody>
     </table>
     <button type="button" class="btn waves-effect waves-light" (click)="doAccept()">Accept</button>
-    <button type="button" class="btn amber   waves-effect waves-light" (click)="doBack()" >Back</button>
+    <button type="button" class="btn amber   waves-effect waves-light" (click)="doBack()">Back</button>
   </div>
 </div>

@@ -33,7 +33,7 @@ export class FileService {
   }
 
   public getSampleTypesByLabSystem(labSystem: System): Observable<SampleType[]> {
-   return this.httpClient.get<SampleType[]>(this.fileUrl + '/sampletypes/' + labSystem.apiKey);
+    return this.httpClient.get<SampleType[]>(this.fileUrl + '/sampletypes/' + labSystem.apiKey);
   }
 
   public getFileByChecksum(checksum: string): Observable<File> {

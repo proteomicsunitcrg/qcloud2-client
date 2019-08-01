@@ -44,7 +44,7 @@ export class PlotService {
   }
 
   private getFileChecksumFromPlotData(data: any): string {
-    return  data['points'][0]['data']['checksums'][data['points'][0]['pointIndex']];
+    return data['points'][0]['data']['checksums'][data['points'][0]['pointIndex']];
   }
 
 }

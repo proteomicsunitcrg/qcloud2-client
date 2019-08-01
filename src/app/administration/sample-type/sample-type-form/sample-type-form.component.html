@@ -2,11 +2,13 @@
   <h5>Add sample type</h5>
   <form (ngSubmit)="onSubmit(); newSampleType.reset()" #newSampleType="ngForm" ngNativeValidate autocomplete="off">
     <div class="input-field">
-      <input #nameBox type="text" name="name" [(ngModel)]="sampleType.name" class="validate" id="name" validate required>
+      <input #nameBox type="text" name="name" [(ngModel)]="sampleType.name" class="validate" id="name" validate
+        required>
       <label for="name">Name</label>
     </div>
     <div class="input-field">
-      <input #qccvBox type="text" name="qccv" [(ngModel)]="sampleType.qualityControlControlledVocabulary" class="validate" id="qccv" validate required>
+      <input #qccvBox type="text" name="qccv" [(ngModel)]="sampleType.qualityControlControlledVocabulary"
+        class="validate" id="qccv" validate required>
       <label for="qccv">QC Controlled vocabulary</label>
     </div>
     <div class="input-field">

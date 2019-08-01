@@ -8,14 +8,15 @@ import { UserViewBuilderComponent } from '../user-view/user-view-builder/user-vi
 import { MainProfileComponent } from '../profile/main-profile/main-profile.component';
 
 const routes: Routes = [
-  {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
-  children: [
-    {path: 'views', component: MainUserViewComponent},
-    {path: 'profile', component: MainProfileComponent},
-    {path: 'builder', component: UserViewBuilderComponent},
-    {path: 'builder/edit/:apiKey', component: UserViewBuilderComponent}
-  ]
-}
+  {
+    path: '', component: MainComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_USER' },
+    children: [
+      { path: 'views', component: MainUserViewComponent },
+      { path: 'profile', component: MainProfileComponent },
+      { path: 'builder', component: UserViewBuilderComponent },
+      { path: 'builder/edit/:apiKey', component: UserViewBuilderComponent }
+    ]
+  }
 ];
 
 @NgModule({

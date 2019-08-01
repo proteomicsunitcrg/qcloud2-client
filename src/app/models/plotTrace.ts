@@ -8,9 +8,10 @@ export class PlotTrace {
     shade: number;
     plotTracePoints: PlotTracePoint[];
     contextSourceId: number;
-    communityPartner: CommunityPartner
+    communityPartner: CommunityPartner;
 
-    constructor(abbreviated: string, traceColor: TraceColor, shade: number, plotTracePoints: PlotTracePoint[], contextSourceId: number, communityPartner: CommunityPartner) {
+    constructor(abbreviated: string, traceColor: TraceColor, shade: number,
+        plotTracePoints: PlotTracePoint[], contextSourceId: number, communityPartner: CommunityPartner) {
         this.abbreviated = abbreviated;
         this.traceColor = traceColor;
         this.shade = shade;

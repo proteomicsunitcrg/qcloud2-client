@@ -14,7 +14,7 @@ declare var M: any;
 export class CvFormComponent implements OnInit, OnDestroy {
 
   constructor(private categoryService: CategoryService,
-      private cvService: CvService) { }
+    private cvService: CvService) { }
 
   selectedCategory$: Subscription;
   selectedCategory: Category;

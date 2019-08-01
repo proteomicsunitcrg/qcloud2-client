@@ -2,36 +2,36 @@
   <i class="material-icons">add</i>
 </a>
 <table>
-<thead>
-  <tr>
-    <th>
-      Name
-    </th>
-    <th>
-      Email
-    </th>
-    <th>
-      Logo
-    </th>
-    <th>
-      Web site
-    </th>
-    <th>
-      Edit
-    </th>
-    <th>
-      Delete
-    </th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let partner of partners">
-    <td>{{partner.name}}</td>
-    <td> <a href="mailto:{{partner.email}}"></a>{{partner.email}}</td>
-    <td><img [src]="partner.logo" [alt]="partner.logo" style="width: 69px; height: 63px;"></td>
-    <td> <a [href]="partner.webPage">{{partner.webPage}}</a></td>
-    <td><i class="material-icons" (click)="openFormEvent(true, partner.id)">create</i></td>
-    <td><i class="material-icons" (click)="deletePartner(partner.id)" >delete_forever</i></td>
-  </tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        Logo
+      </th>
+      <th>
+        Web site
+      </th>
+      <th>
+        Edit
+      </th>
+      <th>
+        Delete
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let partner of partners">
+      <td>{{partner.name}}</td>
+      <td> <a href="mailto:{{partner.email}}"></a>{{partner.email}}</td>
+      <td><img [src]="partner.logo" [alt]="partner.logo" style="width: 69px; height: 63px;"></td>
+      <td> <a [href]="partner.webPage">{{partner.webPage}}</a></td>
+      <td><i class="material-icons" (click)="openFormEvent(true, partner.id)">create</i></td>
+      <td><i class="material-icons" (click)="deletePartner(partner.id)">delete_forever</i></td>
+    </tr>
+  </tbody>
 </table>

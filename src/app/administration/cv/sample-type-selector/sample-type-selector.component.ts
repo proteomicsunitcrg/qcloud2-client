@@ -73,9 +73,9 @@ export class SampleTypeSelectorComponent implements OnInit {
     this.instrumentService.addSampleTypeToCv(this.cv.cvid, this.selectedSampleType)
       .subscribe(
         (res) => {
-          M.toast({html: 'Sample type saved!'});
+          M.toast({ html: 'Sample type saved!' });
         }, err => {
-          M.toast({html: 'Error saving sample type!'});
+          M.toast({ html: 'Error saving sample type!' });
         }
       );
   }

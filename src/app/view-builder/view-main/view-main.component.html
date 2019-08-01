@@ -9,24 +9,29 @@
     <div class="col s10 m10 l10 xl10">
       <div class="row">
         <ng-template #default>
-          <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate autocomplete="off">
+          <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate
+            autocomplete="off">
             <div class="col s10 m10 l10 xl10">
               <input type="text" name="defaultViewName" placeholder="Velos charts" [(ngModel)]="view.name" required />
               <label for="defaultViewName">View name</label>
             </div>
             <div class="col s2 m2 l2 xl2">
-              <button type="submit" [disabled]="!newDefaultView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
+              <button type="submit" [disabled]="!newDefaultView.form.valid"
+                class="btn waves-effect waves-light">{{submitButtonText}}</button>
             </div>
           </form>
         </ng-template>
         <ng-template #user>
-          <form (ngSubmit)="onSubmitUser(); newUserView.reset()" #newUserView="ngForm" ngNativeValidate autocomplete="off">
+          <form (ngSubmit)="onSubmitUser(); newUserView.reset()" #newUserView="ngForm" ngNativeValidate
+            autocomplete="off">
             <div class="col s10 m10 l10 xl10">
-              <input type="text" name="userViewName" placeholder="All retention times" [(ngModel)]="view.name" required />
+              <input type="text" name="userViewName" placeholder="All retention times" [(ngModel)]="view.name"
+                required />
               <label for="userViewName">View name</label>
             </div>
             <div class="col s2 m2 l2 xl2">
-              <button type="submit" [disabled]="!newUserView.form.valid" class="btn waves-effect waves-light">{{submitButtonText}}</button>
+              <button type="submit" [disabled]="!newUserView.form.valid"
+                class="btn waves-effect waves-light">{{submitButtonText}}</button>
             </div>
           </form>
         </ng-template>
@@ -70,10 +75,11 @@
     <div class="col s2 m2 l2 xl2">
       <!-- List labsystems and sample types when user view-->
       <div *ngIf="type=='user'">
-        <app-sample-type-lab-system-selector (selectedLabSystem)="selectLabSystem($event)" (selectedSampleType)="selectSampleType($event)"></app-sample-type-lab-system-selector>
+        <app-sample-type-lab-system-selector (selectedLabSystem)="selectLabSystem($event)"
+          (selectedSampleType)="selectSampleType($event)"></app-sample-type-lab-system-selector>
       </div>
-      
-      
+
+
       <ul class="collection" [dragula]='"first-bag"' id="charts-list">
         <li class="collection-item avatar" id="plotId-{{chart.id}}" *ngFor="let chart of charts">
           <img src="assets/images/tiny_plot.png" alt="" class="circle">

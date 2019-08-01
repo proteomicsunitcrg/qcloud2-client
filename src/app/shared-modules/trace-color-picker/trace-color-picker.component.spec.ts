@@ -8,9 +8,9 @@ describe('TraceColorPickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TraceColorPickerComponent ]
+      declarations: [TraceColorPickerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

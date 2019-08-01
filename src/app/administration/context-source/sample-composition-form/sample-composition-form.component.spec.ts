@@ -8,9 +8,9 @@ describe('SampleCompositionFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SampleCompositionFormComponent ]
+      declarations: [SampleCompositionFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

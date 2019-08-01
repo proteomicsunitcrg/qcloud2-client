@@ -18,9 +18,11 @@
         <tr *ngFor="let threshold of labSystemThreshold.thresholds">
           <td>
             {{threshold.param.name}}
-            <i class="material-icons cursorIcon" *ngIf="threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue"
+            <i class="material-icons cursorIcon"
+              *ngIf="threshold.managerThresholdConstraint.globalInitialValue || threshold.managerThresholdConstraint.globalStepValue"
               (click)="editThreshold(threshold)">create</i>
-            <i class="material-icons cursorIcon" *ngIf="threshold['edditing']" (click)="saveThresholdParams(threshold)">save</i>
+            <i class="material-icons cursorIcon" *ngIf="threshold['edditing']"
+              (click)="saveThresholdParams(threshold)">save</i>
           </td>
           <td>{{threshold.thresholdType}}</td>
           <td>
@@ -28,14 +30,17 @@
           </td>
           <td>
             <ul>
-                <li *ngIf="viewThresholdContextSources !== threshold.apiKey">
-                    <a (click)="viewThresholdContextSources = threshold.apiKey" class="show-context-source-text">Click to view context sources</a></li>
+              <li *ngIf="viewThresholdContextSources !== threshold.apiKey">
+                <a (click)="viewThresholdContextSources = threshold.apiKey" class="show-context-source-text">Click to
+                  view context sources</a></li>
               <li *ngIf="viewThresholdContextSources === threshold.apiKey">
-                  <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context
-                    sources</a></li>
-              <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
-              [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
-                <i class="material-icons cursorIcon tiny" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'" (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>
+                <a (click)="viewThresholdContextSources=null" class="show-context-source-text">Click to hide context
+                  sources</a></li>
+              <li *ngFor="let contextSource of threshold.thresholdParams"
+                [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
+                <i class="material-icons cursorIcon tiny" [ngClass]="(contextSource.isEnabled)?'enabled':'disabled'"
+                  (click)="changeContextSourceStatus(threshold, contextSource, labSystemThreshold)">power_settings_new</i>
                 {{contextSource.contextSource.name}}
               </li>
             </ul>
@@ -45,15 +50,17 @@
             <ng-container *ngIf="threshold.edditing then edit else show"></ng-container>
             <ng-template #show>
               <ul>
-                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
-                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
+                <li *ngFor="let contextSource of threshold.thresholdParams"
+                  [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+                  [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
                   {{contextSource.initialValue}}
                 </li>
               </ul>
             </ng-template>
             <ng-template #edit>
               <div class="input-field col s3">
-                <input id="initialValue" name="initialValue" [(ngModel)]="threshold.globalInitialValue" type="number" class="validate">
+                <input id="initialValue" name="initialValue" [(ngModel)]="threshold.globalInitialValue" type="number"
+                  class="validate">
                 <label for="initialValue">Initial value</label>
               </div>
             </ng-template>
@@ -63,15 +70,17 @@
             <ng-container *ngIf="threshold.edditing then editSV else showSV"></ng-container>
             <ng-template #showSV>
               <ul>
-                <li *ngFor="let contextSource of threshold.thresholdParams" [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
-                [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
+                <li *ngFor="let contextSource of threshold.thresholdParams"
+                  [class.item-visible]="viewThresholdContextSources === threshold.apiKey"
+                  [class.item-hidden]="viewThresholdContextSources !== threshold.apiKey">
                   {{contextSource.stepValue}}
                 </li>
               </ul>
             </ng-template>
             <ng-template #editSV>
               <div class="input-field col s3">
-                <input id="stepValue" name="stepValue" [(ngModel)]="threshold.globalStepValue" type="number" class="validate">
+                <input id="stepValue" name="stepValue" [(ngModel)]="threshold.globalStepValue" type="number"
+                  class="validate">
                 <label for="stepValue">Step value</label>
               </div>
             </ng-template>

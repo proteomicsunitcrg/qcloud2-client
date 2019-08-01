@@ -23,30 +23,34 @@ import { CommunityPartnerMainComponent } from '../community-partner/community-pa
 
 
 const routes: Routes = [
-  {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_ADMIN'},
-  children: [
-    { path: 'category', component: CategoryComponent},
-    { path: 'cvs', component: MainCvComponent},
-    { path: 'context', component: MainContextSourceComponent},
-    { path: 'parameters', component: MainParametersComponent},
-    { path: 'sampletypecategories', component: SampleTypeCategoryComponent},
-    { path: 'sampletypes', component: MainSampleTypeComponent},
-    { path: 'views', component: MainDefaultViewComponent},
-    { path: 'views/cv/:id', component: DefaultViewGeneratorComponent},
-    { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent},
-    { path: 'threshold', component: MainThresholdComponent},
-    { path: 'guideset', component: MainGuideSetComponent},
-    { path: 'color', component: MainColorManagementComponent},
-    { path: 'troubleshooting', component: MainNonConformitiesComponent},
-    { path: 'charts', component: MainChartComponent,
-      children: [
-        { path: 'edit', component: MainChartComponent}
-      ]},
-    { path: 'message', component: MessageComponent},
-    { path: 'email', component: EmailComponent},
-    { path: 'community-line', component: CommunityLineMainComponent },
-    { path: 'community-partner', component: CommunityPartnerMainComponent}
-  ]},
+  {
+    path: '', component: MainComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_ADMIN' },
+    children: [
+      { path: 'category', component: CategoryComponent },
+      { path: 'cvs', component: MainCvComponent },
+      { path: 'context', component: MainContextSourceComponent },
+      { path: 'parameters', component: MainParametersComponent },
+      { path: 'sampletypecategories', component: SampleTypeCategoryComponent },
+      { path: 'sampletypes', component: MainSampleTypeComponent },
+      { path: 'views', component: MainDefaultViewComponent },
+      { path: 'views/cv/:id', component: DefaultViewGeneratorComponent },
+      { path: 'views/cv/:id/:qc', component: DefaultViewGeneratorComponent },
+      { path: 'threshold', component: MainThresholdComponent },
+      { path: 'guideset', component: MainGuideSetComponent },
+      { path: 'color', component: MainColorManagementComponent },
+      { path: 'troubleshooting', component: MainNonConformitiesComponent },
+      {
+        path: 'charts', component: MainChartComponent,
+        children: [
+          { path: 'edit', component: MainChartComponent }
+        ]
+      },
+      { path: 'message', component: MessageComponent },
+      { path: 'email', component: EmailComponent },
+      { path: 'community-line', component: CommunityLineMainComponent },
+      { path: 'community-partner', component: CommunityPartnerMainComponent }
+    ]
+  },
 ];
 
 @NgModule({

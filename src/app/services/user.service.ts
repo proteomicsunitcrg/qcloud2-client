@@ -54,8 +54,8 @@ export class UserService {
   public changeUserPassword(currentPassword: string, newPassword: string): Observable<any> {
     const user = new User(null, null, newPassword, null, null, null);
     const json = JSON.stringify({
-      'currentPassword' : currentPassword,
-      'newPassword' : newPassword
+      'currentPassword': currentPassword,
+      'newPassword': newPassword
     });
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');

@@ -4,8 +4,10 @@
     <th>Sample type</th>
   </thead>
   <tbody>
-      <tr *ngFor="let sampleType of sampleTypes">
-      <td [ngClass]="{'green-background lighten-3': sampleType.qualityControlControlledVocabulary===selectedSampleType.qualityControlControlledVocabulary}" (click)="selectSampleType(sampleType)">{{sampleType.name}}</td>
+    <tr *ngFor="let sampleType of sampleTypes">
+      <td
+        [ngClass]="{'green-background lighten-3': sampleType.qualityControlControlledVocabulary===selectedSampleType.qualityControlControlledVocabulary}"
+        (click)="selectSampleType(sampleType)">{{sampleType.name}}</td>
     </tr>
   </tbody>
 </table>

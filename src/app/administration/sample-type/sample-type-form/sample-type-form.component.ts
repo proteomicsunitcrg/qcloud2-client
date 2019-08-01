@@ -33,9 +33,9 @@ export class SampleTypeFormComponent implements OnInit {
         this.sampleTypeCategories = [];
         res.forEach(c => this.sampleTypeCategories.push(c));
       }, error => console.log(error),
-      () => {
-        delay(1).then(() => this.enableSelect());
-      });
+        () => {
+          delay(1).then(() => this.enableSelect());
+        });
   }
 
 

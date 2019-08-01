@@ -20,8 +20,8 @@ export class LoginFormComponent implements OnInit {
 
   username: string;
   password: string;
-  serverOutput: string = '';
-  isBad: boolean = false;
+  serverOutput = '';
+  isBad = false;
   constructor(private authService: AuthService,
     private router: Router,
     private userDefaultViewService: UserDefaultViewService) { }
@@ -35,7 +35,7 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit(): void {
     this.isBad = false;
-    this.serverOutput = 'Connecting...'
+    this.serverOutput = 'Connecting...';
     this.authService.login(this.username, this.password)
       .subscribe(
         (res) => {

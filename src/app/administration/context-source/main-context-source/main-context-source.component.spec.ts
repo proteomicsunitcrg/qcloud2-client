@@ -8,9 +8,9 @@ describe('MainContextSourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainContextSourceComponent ]
+      declarations: [MainContextSourceComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

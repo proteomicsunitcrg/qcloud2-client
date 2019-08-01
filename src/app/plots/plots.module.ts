@@ -13,8 +13,8 @@ import { WebsocketService } from '../services/websocket.service';
     CommonModule
   ],
   declarations: [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
-  exports : [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
-  providers : [DataService,
+  exports: [PlotComponent, IsotopologuePlotComponent, AutoPlotComponent, NonConformityPlotComponent],
+  providers: [DataService,
     PlotService,
     WebsocketService]
 })

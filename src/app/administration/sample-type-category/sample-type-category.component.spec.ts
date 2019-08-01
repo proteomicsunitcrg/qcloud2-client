@@ -8,9 +8,9 @@ describe('SampleTypeCategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SampleTypeCategoryComponent ]
+      declarations: [SampleTypeCategoryComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

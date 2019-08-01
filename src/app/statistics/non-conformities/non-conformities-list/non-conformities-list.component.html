@@ -20,9 +20,9 @@
     </tr>
   </tfoot>
   <tbody>
-    <tr *ngFor="let thnc of thresholdNonConformities" (click)="selectThresholdNonConformity(thnc)" class="non-conformity"
-    [class.green-background]="selectedThresholdNonConformity===thnc"
-    [class.lighten-4]="selectedThresholdNonConformity===thnc">
+    <tr *ngFor="let thnc of thresholdNonConformities" (click)="selectThresholdNonConformity(thnc)"
+      class="non-conformity" [class.green-background]="selectedThresholdNonConformity===thnc"
+      [class.lighten-4]="selectedThresholdNonConformity===thnc">
       <td>
         <span class="truncate" title="{{thnc.file.filename}}">{{thnc.file.filename}}</span>
       </td>

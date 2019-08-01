@@ -117,9 +117,9 @@ export function truncateFilename(filename: string, fromCharacter: number): strin
 
 export function generateLogo(allLogos: String[], big: boolean): Array<Object> {
   if (big) {
-    let images = [];
-    let x: number = 1.125;
-    for (let logo of allLogos) {
+    const images = [];
+    let x = 1.125;
+    for (const logo of allLogos) {
       x = x - 0.06;
       images.push(
         {
@@ -128,18 +128,18 @@ export function generateLogo(allLogos: String[], big: boolean): Array<Object> {
           sizex: 0.2,
           sizey: 0.2,
           source: logo,
-          xanchor: "right",
-          xref: "paper",
-          yanchor: "bottom",
-          yref: "paper"
+          xanchor: 'right',
+          xref: 'paper',
+          yanchor: 'bottom',
+          yref: 'paper'
         }
       );
     }
     return images;
   } else {
-    let images = [];
-    let x: number = 1.27;
-    for (let logo of allLogos) {
+    const images = [];
+    let x = 1.27;
+    for (const logo of allLogos) {
       x = x - 0.15;
       images.push(
         {
@@ -148,10 +148,10 @@ export function generateLogo(allLogos: String[], big: boolean): Array<Object> {
           sizex: 0.2,
           sizey: 0.2,
           source: logo,
-          xanchor: "right",
-          xref: "paper",
-          yanchor: "bottom",
-          yref: "paper"
+          xanchor: 'right',
+          xref: 'paper',
+          yanchor: 'bottom',
+          yref: 'paper'
         }
       );
     }

@@ -35,27 +35,28 @@
               {{communityLineRelation.communityLine.name}}
             </td>
             <td>
-                {{communityLineRelation.communityLine.param.name}}
+              {{communityLineRelation.communityLine.param.name}}
             </td>
             <td>
               {{communityLineRelation.communityLine.contextSource.name}}
             </td>
             <td>
-                {{communityLineRelation.communityLine.value}}
+              {{communityLineRelation.communityLine.value}}
             </td>
             <td>
-                {{communityLineRelation.communityLine.instrument.name}}
+              {{communityLineRelation.communityLine.instrument.name}}
             </td>
             <td>
-                <div class="switch">
-                    <label>
-                      Off
-                      <input type="checkbox" [checked]="communityLineRelation.active" (change)="updateActive(communityLineRelation)">
-                      <span class="lever"></span>
-                      On
-                    </label>
-                  </div>
-                
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" [checked]="communityLineRelation.active"
+                    (change)="updateActive(communityLineRelation)">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+
             </td>
           </tr>
         </tbody>

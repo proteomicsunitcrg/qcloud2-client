@@ -8,9 +8,9 @@ describe('NonConformitiesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NonConformitiesSelectorComponent ]
+      declarations: [NonConformitiesSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

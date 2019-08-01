@@ -8,9 +8,9 @@ describe('ChartParamComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartParamComponent ]
+      declarations: [ChartParamComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

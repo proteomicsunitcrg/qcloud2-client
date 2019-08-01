@@ -27,7 +27,7 @@ export class EmailService {
     const json = JSON.stringify(email);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<boolean>(this.emailUrl + '/send', params, {headers: headers});
+    return this.httpClient.post<boolean>(this.emailUrl + '/send', params, { headers: headers });
   }
 
   public getAllTemplates(): Observable<Array<String>> {
@@ -35,7 +35,7 @@ export class EmailService {
   }
 
   public loadTemplate(template: String) {
-    return this.httpClient.get(this.emailUrl + '/template/' + template, {responseType: 'text'});
+    return this.httpClient.get(this.emailUrl + '/template/' + template, { responseType: 'text' });
   }
 
 }

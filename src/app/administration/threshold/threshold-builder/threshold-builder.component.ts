@@ -69,8 +69,8 @@ export class ThresholdBuilderComponent implements OnInit {
     this.thresholdService.getAllThresholdTypes()
       .subscribe(
         (types) => this.thresholdTypes = types
-      , err => console.log(err),
-      () => delay(1).then(() => M.AutoInit()));
+        , err => console.log(err),
+        () => delay(1).then(() => M.AutoInit()));
   }
 
   private loadParameters(): void {

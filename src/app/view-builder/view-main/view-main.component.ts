@@ -148,8 +148,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
         (params) => {
           if (params['apiKey'] !== undefined) {
             this.viewService.getUserViewByApiKey(params['apiKey'])
-            .subscribe(
-              (view) => {
+              .subscribe(
+                (view) => {
                   if (view !== null) {
                     this.submitButtonText = 'Update';
                     this.view = view;

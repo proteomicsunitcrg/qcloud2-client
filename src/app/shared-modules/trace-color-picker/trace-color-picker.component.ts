@@ -42,6 +42,6 @@ export class TraceColorPickerComponent implements OnInit {
   private initializeCollapsible(): void {
     const collapsibles = document.querySelectorAll('.collapsible');
     this.collapsibleInstance = M.Collapsible.init(collapsibles, {});
-}
+  }
 
 }

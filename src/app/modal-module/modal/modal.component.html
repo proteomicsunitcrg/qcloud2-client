@@ -1,13 +1,14 @@
 <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>{{modal.modalHeader}}</h4>    
-      <div [innerHtml]="modal.modalText"></div>
-    </div>
-    <div class="modal-footer">
-      <!--<a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
-      <button class="waves-effect waves-green modal-action modal-close btn-flat" (click)="formCancel()">{{modal.modalNo}}</button>
-      <button class="waves-effect waves-green modal-action modal-close btn-flat" (click)="formAction()">{{modal.modalYes}}</button>
-  
-    </div>
+  <div class="modal-content">
+    <h4>{{modal.modalHeader}}</h4>
+    <div [innerHtml]="modal.modalText"></div>
   </div>
-  
+  <div class="modal-footer">
+    <!--<a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
+    <button class="waves-effect waves-green modal-action modal-close btn-flat"
+      (click)="formCancel()">{{modal.modalNo}}</button>
+    <button class="waves-effect waves-green modal-action modal-close btn-flat"
+      (click)="formAction()">{{modal.modalYes}}</button>
+
+  </div>
+</div>

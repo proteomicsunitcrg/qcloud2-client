@@ -8,7 +8,7 @@ const tokenConfiguration: JwtModuleOptions = {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:8083', 'localhost:8080']
     }
-  };
+};
 
-export {tokenConfiguration};
+export { tokenConfiguration };
 

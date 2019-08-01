@@ -8,9 +8,9 @@ describe('FileInformationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileInformationComponent ]
+      declarations: [FileInformationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

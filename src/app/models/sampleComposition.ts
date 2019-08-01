@@ -1,5 +1,5 @@
 import { Peptide } from './peptide';
-import { SampleType} from './sampleType';
+import { SampleType } from './sampleType';
 export class SampleComposition {
     peptide: Peptide;
     sampleType: SampleType;

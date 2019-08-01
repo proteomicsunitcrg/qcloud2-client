@@ -8,9 +8,9 @@ describe('MainCvComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainCvComponent ]
+      declarations: [MainCvComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

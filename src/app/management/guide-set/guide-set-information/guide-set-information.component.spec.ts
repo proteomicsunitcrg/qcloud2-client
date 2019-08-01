@@ -8,9 +8,9 @@ describe('GuideSetInformationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuideSetInformationComponent ]
+      declarations: [GuideSetInformationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

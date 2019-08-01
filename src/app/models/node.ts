@@ -1,4 +1,4 @@
-import { User} from './user';
+import { User } from './user';
 export class Node {
     apiKey: string;
     public name: string;

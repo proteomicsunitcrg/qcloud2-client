@@ -27,16 +27,16 @@ export class Threshold {
         isMonitored: boolean,
         apiKey: string,
         labSystem: System, ) {
-            this.id = id;
-            this.name = name;
-            this.nonConformityDirection = nonConformityDirection;
-            this.steps = steps;
-            this.param = param;
-            this.cv = cv;
-            this.sampleType = sampleType;
-            this.thresholdType = thresholdType;
-            this.isMonitored = isMonitored;
-            this.apiKey = apiKey;
-            this.labSystem = labSystem;
+        this.id = id;
+        this.name = name;
+        this.nonConformityDirection = nonConformityDirection;
+        this.steps = steps;
+        this.param = param;
+        this.cv = cv;
+        this.sampleType = sampleType;
+        this.thresholdType = thresholdType;
+        this.isMonitored = isMonitored;
+        this.apiKey = apiKey;
+        this.labSystem = labSystem;
     }
 }

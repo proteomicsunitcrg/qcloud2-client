@@ -1,5 +1,5 @@
-import { Injectable} from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
@@ -17,12 +17,12 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService,
-    private route: Router) {}
+    private route: Router) { }
 
   private apiPrefix = environment.apiPrefix;
 
   public login(email: string, password: string) {
-    return this.http.post<any>(this.apiPrefix + 'api/auth', {username: email, password: password}, {observe: 'response'});
+    return this.http.post<any>(this.apiPrefix + 'api/auth', { username: email, password: password }, { observe: 'response' });
   }
 
 

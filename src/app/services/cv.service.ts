@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { CV } from '../models/cv';
@@ -58,14 +58,14 @@ export class CvService {
     const json = JSON.stringify(cv);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<CV>(this.cvUrl + '/category/apikey/' + cv.category.apiKey, params, {headers: headers});
+    return this.httpClient.post<CV>(this.cvUrl + '/category/apikey/' + cv.category.apiKey, params, { headers: headers });
   }
 
   public addSampleTypeToCv(instrumentCV: string, sampleType: SampleType): Observable<CV> {
     const json = JSON.stringify(sampleType);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<CV>(this.cvUrl + '/sampletype/' + instrumentCV, params, {headers: headers});
+    return this.httpClient.put<CV>(this.cvUrl + '/sampletype/' + instrumentCV, params, { headers: headers });
   }
 
   errorHandler(error: HttpErrorResponse) {

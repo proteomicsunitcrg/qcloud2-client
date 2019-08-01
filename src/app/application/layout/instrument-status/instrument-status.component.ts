@@ -97,8 +97,8 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
     this.nodeLabSystems.forEach(
       (labSystem) => {
         this.thresholdService.getLabSystemStatus(labSystem.system)
-        .subscribe(
-          (status) => {
+          .subscribe(
+            (status) => {
               status.forEach(
                 (stat) => {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
@@ -107,7 +107,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   } else if (stat.status === 'OFFLINE') {
                     this.getLastFile(labSystem.system.apiKey).then((res) =>
                       labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
-                      this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
+                        this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null))
                     );
                   }
                   this.updateLabSystemLight(labSystem, stat);

@@ -35,7 +35,7 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
     this.loadSampleTypes();
     this.loadPeptides();
     // Observing the incomming peptides from the form
-    this. peptideFromDb$ = this.peptideService.peptideFromDb$
+    this.peptideFromDb$ = this.peptideService.peptideFromDb$
       .subscribe(
         (peptide) => {
           this.peptides = [];
@@ -75,14 +75,14 @@ export class PeptidesListComponent implements OnInit, OnDestroy {
     this.peptides = [];
     if (this.selectedSampleType === 'All') {
       this.peptideService.getAllPeptides()
-      .subscribe((peptides) => {
-        peptides.forEach(peptide => {
-          // get the belongs
-          peptide['belongs'] = null;
-          this.getSampleType(peptide);
-        });
-      },
-        error => console.log(error));
+        .subscribe((peptides) => {
+          peptides.forEach(peptide => {
+            // get the belongs
+            peptide['belongs'] = null;
+            this.getSampleType(peptide);
+          });
+        },
+          error => console.log(error));
     } else {
       const sampleType = this.sampleTypes.find((st) => st.name === this.selectedSampleType);
       this.sampleCompositionService.getAllPeptidesBySampleType(sampleType)

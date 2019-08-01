@@ -8,9 +8,9 @@ describe('DataVisualizationSideMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataVisualizationSideMenuComponent ]
+      declarations: [DataVisualizationSideMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

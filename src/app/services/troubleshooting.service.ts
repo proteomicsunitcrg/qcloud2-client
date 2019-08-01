@@ -28,7 +28,7 @@ export class TroubleshootingService {
   }
 
   public sendItemsToList(type: TroubleshootingType, items: Troubleshooting[]): void {
-    this.itemList.next({type, items});
+    this.itemList.next({ type, items });
   }
 
 }

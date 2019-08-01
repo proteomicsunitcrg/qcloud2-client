@@ -8,9 +8,9 @@ describe('DataSourceGuideSetListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataSourceGuideSetListComponent ]
+      declarations: [DataSourceGuideSetListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

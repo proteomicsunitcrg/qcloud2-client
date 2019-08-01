@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Node } from '../models/node';
 import { Observable, throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { environment } from '../../environments/environment';
 /**
@@ -23,14 +23,14 @@ export class RegistrationService {
     const json = JSON.stringify(node);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.http.post<any>(this.nodeUrl, params, {headers: headers})
+    return this.http.post<any>(this.nodeUrl, params, { headers: headers })
       .pipe(
         catchError(this.errorHandler)
       );
   }
 
   public getToS(): Observable<any> {
-    return this.http.get('assets/documents/newAccount.txt', {responseType: 'text'});
+    return this.http.get('assets/documents/newAccount.txt', { responseType: 'text' });
   }
 
   public getCountries(): Observable<any> {

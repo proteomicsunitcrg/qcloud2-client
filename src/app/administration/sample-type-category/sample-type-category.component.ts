@@ -56,13 +56,13 @@ export class SampleTypeCategoryComponent implements OnInit {
       .subscribe((res) => {
         this.loadSampleTypeCategories();
       },
-      (error) => {
-        this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, null, null));
-      });
-    }
+        (error) => {
+          this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, null, null));
+        });
+  }
 
-    private enableSelects(): void {
-      const elem = document.getElementById('select_complexity');
-      const instance = M.FormSelect.init(elem, {});
-    }
+  private enableSelects(): void {
+    const elem = document.getElementById('select_complexity');
+    const instance = M.FormSelect.init(elem, {});
+  }
 }

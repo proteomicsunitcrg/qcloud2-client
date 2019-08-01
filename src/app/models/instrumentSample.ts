@@ -1,4 +1,4 @@
-import { ContextSource} from './contextSource';
+import { ContextSource } from './contextSource';
 import { TraceColor } from './TraceColor';
 export class InstrumentSample extends ContextSource {
 

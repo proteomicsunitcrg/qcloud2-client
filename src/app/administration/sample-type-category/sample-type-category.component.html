@@ -8,13 +8,16 @@
     <!--FORM-->
     <div class="col s4 m4 l4 xl4">
       <h5>Add sample type category</h5>
-      <form (ngSubmit)="onSubmit(); newSampleTypeCategory.reset()" #newSampleTypeCategory="ngForm" ngNativeValidate autocomplete="off">
+      <form (ngSubmit)="onSubmit(); newSampleTypeCategory.reset()" #newSampleTypeCategory="ngForm" ngNativeValidate
+        autocomplete="off">
         <div class="input-field">
-          <input #nameBox type="text" name="name" [(ngModel)]="sampleTypeCategory.name" class="validate" id="name" validate required>
+          <input #nameBox type="text" name="name" [(ngModel)]="sampleTypeCategory.name" class="validate" id="name"
+            validate required>
           <label for="name">Name</label>
         </div>
         <div class="input-field">
-          <select id="select_complexity" [(ngModel)]="sampleTypeCategory.sampleTypeComplexity" name="selectedComplexity">
+          <select id="select_complexity" [(ngModel)]="sampleTypeCategory.sampleTypeComplexity"
+            name="selectedComplexity">
             <option *ngFor="let sampleComplexity of sampleComplexities" [ngValue]="sampleComplexity">
               {{sampleComplexity}}
             </option>

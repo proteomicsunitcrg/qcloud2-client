@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Peptide } from '../models/peptide';
 import { ContextSource } from '../models/contextSource';
 import { ContextSourceCategory } from '../models/contextSourceCategory';
-import { catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()

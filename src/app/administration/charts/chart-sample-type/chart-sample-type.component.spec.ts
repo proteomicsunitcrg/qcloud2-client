@@ -8,9 +8,9 @@ describe('ChartSampleTypeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartSampleTypeComponent ]
+      declarations: [ChartSampleTypeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

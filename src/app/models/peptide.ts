@@ -1,4 +1,4 @@
-import { ContextSource} from './contextSource';
+import { ContextSource } from './contextSource';
 import { TraceColor } from './TraceColor';
 export class Peptide extends ContextSource {
     sequence: string;

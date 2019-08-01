@@ -8,9 +8,9 @@ describe('AutoPlotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AutoPlotComponent ]
+      declarations: [AutoPlotComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

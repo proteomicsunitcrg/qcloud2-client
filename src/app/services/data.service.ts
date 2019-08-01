@@ -171,12 +171,13 @@ export class DataService {
   public getDataBetweenTwoDates(labSystemApiKey, guideSetSampleTypeName, from, to): Observable<any> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.get(this.dataUrl + `/between/${from}T00:00:00.000+00:00/${to}T23:59:59.000+02:00/
-    ${labSystemApiKey}/${guideSetSampleTypeName}`, {headers: headers});
+    ${labSystemApiKey}/${guideSetSampleTypeName}`, { headers: headers });
   }
 
 
   public getCommunityLinesByChart(chart: Chart): Observable<any> {
-    return this.httpClient.get<any>(`${this.dataUrl}/getCommunityLines/${chart.apiKey}/${this.currentDates[0] + 'T00:00:00.000+02:00'}/${this.currentDates[1] + 'T23:59:59.000+02:00/'}`);
+    return this.httpClient.get<any>(`${this.dataUrl}/getCommunityLines/${chart.apiKey}/${this.currentDates[0] + 'T00:00:00.000+02:00'}
+    /${this.currentDates[1] + 'T23:59:59.000+02:00/'}`);
   }
 
 }

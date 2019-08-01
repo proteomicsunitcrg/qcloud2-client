@@ -13,7 +13,8 @@
     <tr *ngFor="let instrumentSample of instrumentSamples">
       <td>{{instrumentSample.name}}</td>
       <td>{{instrumentSample.abbreviated}}</td>
-      <td><i class="material-icons" [style.color]="instrumentSample.traceColor.shades[instrumentSample.shadeGrade]" *ngIf="instrumentSample.traceColor.mainColor">linear_scale</i></td>
+      <td><i class="material-icons" [style.color]="instrumentSample.traceColor.shades[instrumentSample.shadeGrade]"
+          *ngIf="instrumentSample.traceColor.mainColor">linear_scale</i></td>
       <td>{{instrumentSample.qCCV}}</td>
       <td>
         <i class="material-icons cursorIcon" (click)="deleteContextSource(instrumentSample)">delete_forever</i>

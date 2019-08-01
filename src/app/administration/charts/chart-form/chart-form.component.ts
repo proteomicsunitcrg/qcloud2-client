@@ -232,7 +232,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.chartParamsService.resetComponents();
-          M.toast({html: 'Chart saved!'});
+          M.toast({ html: 'Chart saved!' });
         },
         (error) => {
           this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'newChartParams', null));

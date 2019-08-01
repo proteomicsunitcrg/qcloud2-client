@@ -9,7 +9,7 @@ export class CommunityLineMainComponent implements OnInit {
 
   constructor() { }
   // True: show the new editor, false hide it
-  newCommunityLine: boolean = false;
+  newCommunityLine = false;
 
   ngOnInit() {
   }

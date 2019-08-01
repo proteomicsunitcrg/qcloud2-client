@@ -1,8 +1,8 @@
-<div class="row" *ngIf = "message.show">
+<div class="row" *ngIf="message.show">
   <div class="col s4 offset-s4 z-depth-1" id="panell">
-    <h5 class="title titleWarning" *ngIf = "message.messageType === 'warning'">{{message.title}}</h5>
-    <h5 class="title titleError" *ngIf = "message.messageType === 'error'">{{message.title}}</h5>
-    <h5 class="title titleMessage" *ngIf = "message.messageType === 'message'">{{message.title}}</h5>
+    <h5 class="title titleWarning" *ngIf="message.messageType === 'warning'">{{message.title}}</h5>
+    <h5 class="title titleError" *ngIf="message.messageType === 'error'">{{message.title}}</h5>
+    <h5 class="title titleMessage" *ngIf="message.messageType === 'message'">{{message.title}}</h5>
     <!-- <h5 class="title titleMessage">{{message.title}}</h5> -->
     <p [innerHTML]="message.message" class="messageText"></p>
   </div>
@@ -16,7 +16,7 @@
   <div class="col xl4 s12 m12 l6" *ngFor="let video of videoLinks">
     <div class="card">
       <div class="card-image">
-        <a [href] = "video.link" target="_blank">
+        <a [href]="video.link" target="_blank">
           <img width="560" height="315" [src]="video.img">
         </a>
       </div>
@@ -26,4 +26,3 @@
     </div>
   </div>
 </div>
-

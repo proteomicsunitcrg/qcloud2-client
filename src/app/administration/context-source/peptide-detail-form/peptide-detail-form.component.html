@@ -2,8 +2,8 @@
 <form (ngSubmit)="onSubmit(); peptideForm.reset()" #peptideForm="ngForm" ngNativeValidate autocomplete="off">
   <div class="row">
     <div class="input-field">
-      <input #peptideNameBox type="text" name="name" [(ngModel)]="formData.currentPeptide.name" class="validate" id="name"
-        validate required>
+      <input #peptideNameBox type="text" name="name" [(ngModel)]="formData.currentPeptide.name" class="validate"
+        id="name" validate required>
       <label for="name">Peptide name</label>
     </div>
     <div class="input-field">
@@ -12,18 +12,18 @@
       <label for="sequence">Sequence</label>
     </div>
     <div class="input-field">
-      <input type="text" #abbreviatedSequenceBox name="abbreviatedSequence" [(ngModel)]="formData.currentPeptide.abbreviated"
-        class="validate" id="abbreviatedSequence" validate required>
+      <input type="text" #abbreviatedSequenceBox name="abbreviatedSequence"
+        [(ngModel)]="formData.currentPeptide.abbreviated" class="validate" id="abbreviatedSequence" validate required>
       <label for="abbreviatedSequence">Abbreviated sequence</label>
     </div>
     <div class="input-field">
-      <input type="number" #chargeBox name="charge" [(ngModel)]="formData.currentPeptide.charge" class="validate" id="charge"
-        validate required>
+      <input type="number" #chargeBox name="charge" [(ngModel)]="formData.currentPeptide.charge" class="validate"
+        id="charge" validate required>
       <label for="charge">Charge</label>
     </div>
     <div class="input-field">
-      <input type="number" #mzBox name="mz" step="0.001" [(ngModel)]="formData.currentPeptide.mz" class="validate" id="mz"
-        validate required>
+      <input type="number" #mzBox name="mz" step="0.001" [(ngModel)]="formData.currentPeptide.mz" class="validate"
+        id="mz" validate required>
       <label for="mz">mz</label>
     </div>
     <div class="input-field">

@@ -7,10 +7,8 @@
         <div class="collapsible-body">
           <div class="row" *ngFor="let row of plots">
             <div class="col s{{colsXRow}} m{{colsXRow}} l{{colsXRow}} xl{{colsXRow}}" *ngFor="let col of row">
-              <app-isotopologue-plot [abbreviatedIsotopologueName]="col.abbr" 
-              [cleanedSequence]="col.cleaned" 
-              [file]="file"
-              *ngIf="isCollapsibleOpen"></app-isotopologue-plot>
+              <app-isotopologue-plot [abbreviatedIsotopologueName]="col.abbr" [cleanedSequence]="col.cleaned"
+                [file]="file" *ngIf="isCollapsibleOpen"></app-isotopologue-plot>
             </div>
           </div>
         </div>

@@ -26,8 +26,8 @@ export class PasswordChangeComponent implements OnInit {
       newPassword: ['', Validators.required],
       repeatPassword: ['', Validators.required]
     }, {
-      validator: PasswordValidator.validate.bind(this)
-    });
+        validator: PasswordValidator.validate.bind(this)
+      });
     this.currentPasswordFormGroup = this.formBuilder.group({
       currentPassword: ['', Validators.required],
     });
@@ -35,7 +35,7 @@ export class PasswordChangeComponent implements OnInit {
       currentPasswordFormGroup: this.currentPasswordFormGroup,
       newPasswordFormGroup: this.newPasswordFormGroup
     });
-   }
+  }
 
   currentPassword: string;
 
@@ -55,8 +55,10 @@ export class PasswordChangeComponent implements OnInit {
         .subscribe(
           (res) => {
             // this.newPasswordFormGroup.reset({'repeatPassword' : ''});
-            this.changePasswordFormGroup.reset({newPasswordFormGroup : {
-              'repeatPassword' : ''}
+            this.changePasswordFormGroup.reset({
+              newPasswordFormGroup: {
+                'repeatPassword': ''
+              }
             });
             this.isPasswordChanged = true;
           }, err => {

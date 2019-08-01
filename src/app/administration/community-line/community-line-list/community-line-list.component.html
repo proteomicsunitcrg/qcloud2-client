@@ -38,7 +38,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let communityLine of communityLines">
-      <td><img [src]="communityLine.communityPartner.logo" [alt]="communityLine.communityPartner.name" [title]="communityLine.communityPartner.name"></td>
+      <td><img [src]="communityLine.communityPartner.logo" [alt]="communityLine.communityPartner.name"
+          [title]="communityLine.communityPartner.name"></td>
       <td>{{communityLine.name}}</td>
       <td>{{communityLine.instrument.name}}</td>
       <td>{{communityLine.param.name}}</td>
@@ -46,8 +47,7 @@
       <td>{{communityLine.sampleType.name}}</td>
       <td>{{communityLine.value}}</td>
       <td>
-        <select multiple [id]="communityLine.apiKey" (change)="updateRelation(communityLine)"
-          [(ngModel)]="nodeKey">
+        <select multiple [id]="communityLine.apiKey" (change)="updateRelation(communityLine)" [(ngModel)]="nodeKey">
         </select>
       </td>
       <td><i class="material-icons" (click)="openFormEvent(true, communityLine.id)">create</i></td>

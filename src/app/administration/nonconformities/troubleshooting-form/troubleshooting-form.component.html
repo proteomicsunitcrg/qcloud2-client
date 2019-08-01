@@ -1,17 +1,18 @@
 <div class="row">
-    <form (ngSubmit)="onSubmit(); problemForm.reset()" #problemForm="ngForm" class="cols s12">
-      <div class="input-field col s12 m7">
-        <input type="text" placeholder="Add new problem" name="problemName" [(ngModel)]="problem.name" class="validate"
-          required />
-          <label for="problemName">Name</label>
-      </div>
-      <div class="input-field col s12 m3">
-        <input type="text" placeholder="Add qccv" name="problemQccv" [(ngModel)]="problem.qccv" class="validate"
-          required />
-          <label for="problemQccv">Name</label>
-      </div>
-      <div class="input-field col s12 m2">
-        <button type="submit" class="waves-effect waves-light btn" [disabled]="!problemForm.valid"><i class="material-icons">save</i></button>
-      </div>
-    </form>
+  <form (ngSubmit)="onSubmit(); problemForm.reset()" #problemForm="ngForm" class="cols s12">
+    <div class="input-field col s12 m7">
+      <input type="text" placeholder="Add new problem" name="problemName" [(ngModel)]="problem.name" class="validate"
+        required />
+      <label for="problemName">Name</label>
+    </div>
+    <div class="input-field col s12 m3">
+      <input type="text" placeholder="Add qccv" name="problemQccv" [(ngModel)]="problem.qccv" class="validate"
+        required />
+      <label for="problemQccv">Name</label>
+    </div>
+    <div class="input-field col s12 m2">
+      <button type="submit" class="waves-effect waves-light btn" [disabled]="!problemForm.valid"><i
+          class="material-icons">save</i></button>
+    </div>
+  </form>
 </div>

@@ -8,9 +8,9 @@ describe('CategorySelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategorySelectorComponent ]
+      declarations: [CategorySelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

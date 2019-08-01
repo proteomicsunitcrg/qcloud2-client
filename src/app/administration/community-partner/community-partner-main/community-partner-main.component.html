@@ -6,8 +6,9 @@
   </div>
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
-      <app-community-partner-list (openForm)="open($event)" *ngIf = "!newCommunityPartner"></app-community-partner-list>
-      <app-community-partner-builder [dataFromParent]="editId" (closeForm)="close()" *ngIf = "newCommunityPartner"></app-community-partner-builder>
+      <app-community-partner-list (openForm)="open($event)" *ngIf="!newCommunityPartner"></app-community-partner-list>
+      <app-community-partner-builder [dataFromParent]="editId" (closeForm)="close()" *ngIf="newCommunityPartner">
+      </app-community-partner-builder>
     </div>
   </div>
 </div>

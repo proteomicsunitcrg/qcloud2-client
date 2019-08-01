@@ -4,8 +4,9 @@
     <th>Paramenter</th>
   </thead>
   <tbody>
-      <tr *ngFor="let parameter of parameters">
-      <td [ngClass]="{'green-background lighten-3': parameter.qCCV===selectedParameter.qCCV}" (click)="selectParameter(parameter)">{{parameter.name}}</td>
+    <tr *ngFor="let parameter of parameters">
+      <td [ngClass]="{'green-background lighten-3': parameter.qCCV===selectedParameter.qCCV}"
+        (click)="selectParameter(parameter)">{{parameter.name}}</td>
     </tr>
   </tbody>
 </table>

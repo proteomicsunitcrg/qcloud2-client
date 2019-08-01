@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Modal} from '../../models/modal';
-import { ModalResponse} from '../../models/modalResponse';
+import { Modal } from '../../models/modal';
+import { ModalResponse } from '../../models/modalResponse';
 import { ModalService } from '../../common/modal.service';
 import { Subscription } from 'rxjs';
 declare var M: any;
@@ -40,7 +40,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.selectedModal$ = this.modalService.selectedModal$.subscribe((modal) => {
       this.modal = modal;
       const elem = document.querySelector('.modal');
-      const instance = M.Modal.init(elem, {opacity: 0});
+      const instance = M.Modal.init(elem, { opacity: 0 });
       instance.open();
     });
   }

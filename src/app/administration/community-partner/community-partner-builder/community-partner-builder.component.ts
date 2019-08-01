@@ -35,7 +35,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
       Validators.minLength(10),
       Validators.maxLength(50)
     ])
-  })
+  });
 
   ngOnInit() {
     console.log(this.dataFromParent);
@@ -52,7 +52,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   * @returns {boolean} with true if is edition or false otherwise
   */
   private isEdition(): boolean {
-    if (this.dataFromParent === "noEdit") {
+    if (this.dataFromParent === 'noEdit') {
       return false;
     } else {
       return true;
@@ -82,7 +82,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   }
 
   private submit(): void {
-    let newPartner = new CommunityPartner(this.partnerForm.value.email, null,
+    const newPartner = new CommunityPartner(this.partnerForm.value.email, null,
       this.partnerForm.value.logo, this.partnerForm.value.name, this.partnerForm.value.website);
     if (this.isEdition()) {
       newPartner.id = parseInt(this.dataFromParent);
@@ -99,7 +99,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   }
 
   private closeFormEvent(): void {
-    this.closeForm.emit("emit");
+    this.closeForm.emit('emit');
   }
 
 }

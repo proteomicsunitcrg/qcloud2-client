@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
-import {Message} from '../../models/message';
-import {MessageService} from '../../services/message.service';
+import { Message } from '../../models/message';
+import { MessageService } from '../../services/message.service';
 declare let M: any;
 @Component({
   selector: 'app-message',
@@ -47,10 +47,10 @@ export class MessageComponent implements OnInit {
         if (Array.isArray(msg) && msg.length) {
           this.mountForm(msg[msg.length - 1]);
         } else {
-          M.toast({html: 'Error retrieving the message'});
+          M.toast({ html: 'Error retrieving the message' });
         }
       }, () => {
-        M.toast({html: 'Error retrieving the message'});
+        M.toast({ html: 'Error retrieving the message' });
       }
     );
   }
@@ -82,9 +82,9 @@ export class MessageComponent implements OnInit {
       this.messageForm.value.type, this.messageForm.value.show);
     this.msgService.saveMessage(msg).subscribe(
       () => {
-        M.toast({html: 'Message updated'});
+        M.toast({ html: 'Message updated' });
       }, () => {
-        M.toast({html: 'Error while updating the message'});
+        M.toast({ html: 'Error while updating the message' });
       }
     );
   }

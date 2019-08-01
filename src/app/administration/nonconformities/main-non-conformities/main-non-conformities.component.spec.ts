@@ -8,9 +8,9 @@ describe('MainNonConformitiesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainNonConformitiesComponent ]
+      declarations: [MainNonConformitiesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,7 +14,7 @@ declare var M: any;
 export class TroubleshootingFormComponent implements OnInit {
 
   constructor(private troubleshootingService: TroubleshootingService,
-      private modalService: ModalService) { }
+    private modalService: ModalService) { }
 
   @Input() troubleshootingType: TroubleshootingType;
 

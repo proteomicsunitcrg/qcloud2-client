@@ -8,9 +8,9 @@ describe('MainDefaultViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainDefaultViewComponent ]
+      declarations: [MainDefaultViewComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,9 +8,9 @@ describe('SystemBuilderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SystemBuilderComponent ]
+      declarations: [SystemBuilderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -73,12 +73,12 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
   private loadAutoPlotData(labSystemStatus: LabSystemStatus): void {
     // retrieve data
     this.dataService.getAutoPlotData(labSystemStatus)
-    .subscribe(
-      (dataForPlot) => {
-        this.serverData = loadDataAndDatesArray(dataForPlot);
-        this.loadAutoPlotThreshold(labSystemStatus);
-      }, err => console.log(err)
-    );
+      .subscribe(
+        (dataForPlot) => {
+          this.serverData = loadDataAndDatesArray(dataForPlot);
+          this.loadAutoPlotThreshold(labSystemStatus);
+        }, err => console.log(err)
+      );
   }
 
 

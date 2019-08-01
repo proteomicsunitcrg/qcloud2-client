@@ -57,7 +57,7 @@ import { ShContextMenuModule } from 'ng2-right-click-menu';
     AnnotationSelectorComponent,
     AnnotationListComponent,
     AnnotationListItemComponent
-    ],
+  ],
   providers: [DataService,
     DataSourceService,
     FileService,

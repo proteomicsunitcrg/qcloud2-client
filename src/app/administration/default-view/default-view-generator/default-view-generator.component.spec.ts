@@ -8,9 +8,9 @@ describe('DefaultViewGeneratorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DefaultViewGeneratorComponent ]
+      declarations: [DefaultViewGeneratorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

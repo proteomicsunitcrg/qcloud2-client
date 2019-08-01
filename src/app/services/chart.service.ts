@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Chart } from '../models/chart';
@@ -40,7 +40,7 @@ export class ChartService {
     const json = JSON.stringify(chart);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<Chart>(this.chartUrl, params, {headers: headers});
+    return this.httpClient.post<Chart>(this.chartUrl, params, { headers: headers });
   }
   /**
    * Save or update a chart into the database
@@ -52,9 +52,9 @@ export class ChartService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     if (update) {
-      return this.httpClient.put<Chart>(this.chartUrl, params, {headers: headers});
+      return this.httpClient.put<Chart>(this.chartUrl, params, { headers: headers });
     } else {
-      return this.httpClient.post<Chart>(this.chartUrl, params, {headers: headers});
+      return this.httpClient.post<Chart>(this.chartUrl, params, { headers: headers });
     }
   }
   /**
@@ -68,9 +68,9 @@ export class ChartService {
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     if (update) {
-      return this.httpClient.put<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers});
+      return this.httpClient.put<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers });
     } else {
-      return this.httpClient.post<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers});
+      return this.httpClient.post<ChartParam[]>(this.chartUrl + '/' + chart.apiKey, params, { headers: headers });
     }
   }
 

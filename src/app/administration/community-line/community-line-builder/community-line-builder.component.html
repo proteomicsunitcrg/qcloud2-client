@@ -16,7 +16,7 @@
       </div>
       <!-- param -->
       <div class="input-field col s12">
-        <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)" >
+        <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)">
           <option value="" disabled selected>Choose your option</option>
           <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
         </select>
@@ -47,7 +47,8 @@
       <div class="input-field col s12">
         <select name="cPartner" required [(ngModel)]="communityLine.communityPartner">
           <option value="" disabled selected>Choose your option</option>
-          <option *ngFor="let communityPartner of communityPartners" [ngValue]="communityPartner" [attr.data-icon]="communityPartner.logo">
+          <option *ngFor="let communityPartner of communityPartners" [ngValue]="communityPartner"
+            [attr.data-icon]="communityPartner.logo">
             {{communityPartner.name}}</option>
         </select>
         <label>Community partner</label>
@@ -56,7 +57,8 @@
       <!-- color -->
       <div class="input-field col s12" style="margin-bottom: 40px; margin-top: -10px">
         <label>
-          <input type="checkbox" name="color" id="color" (change) = "useCSColor()" [(ngModel)]="useSameCSColor" [disabled]="communityLine.contextSource===null">
+          <input type="checkbox" name="color" id="color" (change)="useCSColor()" [(ngModel)]="useSameCSColor"
+            [disabled]="communityLine.contextSource===null">
           <span>Use same context source color </span>
         </label>
       </div>
@@ -76,8 +78,8 @@
     </div>
 
     <div class="col s6">
-        <div id="plot"></div>
-  </div>
+      <div id="plot"></div>
+    </div>
   </div>
 
 

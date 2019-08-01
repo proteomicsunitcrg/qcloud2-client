@@ -49,10 +49,10 @@ export class ParametersListComponent implements OnInit, OnDestroy {
   saveParameter(param: Param): void {
     this.paramService.updateParameter(param).subscribe(
       (result) => {
-        M.toast({html: 'Parameter saved!'});
+        M.toast({ html: 'Parameter saved!' });
       },
       (error) => {
-        M.toast({html: 'There was an error!'});
+        M.toast({ html: 'There was an error!' });
       }
     );
     this.stopEditing();

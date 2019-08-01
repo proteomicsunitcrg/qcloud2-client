@@ -24,21 +24,23 @@
           <i class="material-icons cursorIcon" (click)="editDataSource(i)">edit</i>
         </td>
         <td>
-            {{dataSource.serialNumber}}
+          {{dataSource.serialNumber}}
         </td>
       </ng-template>
       <ng-template #edit>
         <ng-container *ngIf="editRow==i then edit else show"></ng-container>
         <ng-template #edit>
           <td>
-            <input type="text" name="instrumentName" [(ngModel)]="dataSource.name" (keyup.enter)="saveDataSource(dataSource)">
+            <input type="text" name="instrumentName" [(ngModel)]="dataSource.name"
+              (keyup.enter)="saveDataSource(dataSource)">
           </td>
           <td>
             <i class="material-icons cursorIcon" (click)="saveDataSource(dataSource)">save</i>
             <i class="material-icons cursorIcon" (click)="cancelEditing(dataSource)">undo</i>
           </td>
           <td>
-            <input type="text" name="instrumentSerialNumber" [(ngModel)]="dataSource.serialNumber" placeholder="Serial number" />
+            <input type="text" name="instrumentSerialNumber" [(ngModel)]="dataSource.serialNumber"
+              placeholder="Serial number" />
           </td>
 
         </ng-template>
@@ -50,7 +52,7 @@
           <td>
             {{dataSource.serialNumber}}
           </td>
-          
+
         </ng-template>
       </ng-template>
       <td>{{dataSource.cv.name}}</td>

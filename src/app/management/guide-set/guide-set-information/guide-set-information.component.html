@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let status of selectedGuideSetStatus" [class.warning]="status.status=='NOT_RECOMENDED'"
-                [class.no-valid]="status.status=='NO_VALID'">
+                    [class.no-valid]="status.status=='NO_VALID'">
                     <td>{{status.param.name}}</td>
                     <td>{{status.contextSource.abbreviated}}</td>
                     <td>{{status.count}}</td>

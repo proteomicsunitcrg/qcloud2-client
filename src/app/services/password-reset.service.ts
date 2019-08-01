@@ -22,14 +22,14 @@ export class PasswordResetService {
     const json = JSON.stringify(user);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<User>(this.passwordResetUrl, params, {headers: headers});
+    return this.httpClient.post<User>(this.passwordResetUrl, params, { headers: headers });
   }
 
   public saveNewPassword(user: User, token: string): Observable<any> {
     const json = JSON.stringify(user);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.put<any>(this.passwordResetUrl + '/reset/' + token, params, {headers: headers});
+    return this.httpClient.put<any>(this.passwordResetUrl + '/reset/' + token, params, { headers: headers });
   }
 
 

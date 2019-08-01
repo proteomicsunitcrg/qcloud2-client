@@ -76,11 +76,11 @@ export class CvSelectorComponent implements OnInit {
       );
     }
   }
-    /**
-   * Get the cvs by param and prepare the
-   * filter and the pagination
-   * @param cvs an array with the cvs to show
-   */
+  /**
+ * Get the cvs by param and prepare the
+ * filter and the pagination
+ * @param cvs an array with the cvs to show
+ */
   private loadCvList(cvs: CV[]): void {
     this.maxPages = cvs.length / 10;
     cvs.forEach(cv => {

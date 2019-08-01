@@ -51,20 +51,20 @@ export class PlotComponent implements OnInit, OnDestroy {
    * Plot is single or double, loads different logo position
    */
   @Input() big: boolean;
-  
+
   currentDates: string[];
   annotations: Annotation[];
-  
+
   dateChangesSubscription$: Subscription;
   hideAnnotationsSubscription$: Subscription;
   webSocketData$: Subscription;
   thresholdFromWebSocket$: Subscription;
-  
+
   /**
    * Annotations will load after the data is displayed
    */
   annotations$: Subscription;
-  
+
   /**
    * This subscriptions will be enabled only if the user is in
    * a default view.
@@ -72,27 +72,27 @@ export class PlotComponent implements OnInit, OnDestroy {
   annotationFromWebSocket$: Subscription;
   deleteAnnotationFromWebSocket$: Subscription;
   updateAnnotationFromWebSocket$: Subscription;
-  
+
   errorMessage: string;
   error: boolean;
   loaded = false;
   noData = true;
-  
+
   // var to control if chart is community
   isCommunity = false;
-  
+
   logosUrl: String[] = [];
-  
+
   layout: any;
-  
+
   serverData: PlotTrace[];
 
   layoutShapes = [];
-  
+
   traceColorsByKey = [];
-  
+
   plotThreshold: PlotThreshold;
-  
+
   ngOnInit() {
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
@@ -116,11 +116,11 @@ export class PlotComponent implements OnInit, OnDestroy {
       // this.updateAnnotationFromWebSocket$.unsubscribe();
     }
   }
-  
+
   private loadData(): void {
     this.dataService.getPlotTraceData(this.chart, this.system)
-    .subscribe(
-      (dataFromServer) => {
+      .subscribe(
+        (dataFromServer) => {
           dataFromServer.sort(this.compare);
           this.serverData = dataFromServer;
           this.enableAnnotationSubscriptions();
@@ -311,7 +311,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.serverData.forEach(
       (plotTrace) => {
         this.isCommunity = false;
-        if (plotTrace.communityPartner != undefined) {
+        if (plotTrace.communityPartner !== undefined) {
           this.logosUrl.push(plotTrace.communityPartner.logo);
           this.isCommunity = true;
         }

@@ -10,6 +10,6 @@ import { ChartFilterPipe } from './chart-filter.pipe';
   declarations: [CvFilterPipe,
     ChartFilterPipe],
   exports: [CvFilterPipe,
-  ChartFilterPipe]
+    ChartFilterPipe]
 })
 export class SharedModule { }

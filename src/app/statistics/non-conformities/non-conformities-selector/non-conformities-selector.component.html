@@ -10,12 +10,13 @@
   </div>
   <!--  Sample type-->
   <div class="input-field col s6" *ngIf="selectedLabSystem">
-      <select [(ngModel)]="selectedSampleType" id="sampleTypeSelect" name="sampleTypeSelect" (change)="selectSampleType()">
-        <!-- <option value="" disabled selected>Select a lab system</option> -->
-        <option [ngValue]="sampleType" *ngFor="let sampleType of sampleTypes">{{sampleType.name}}</option>
-      </select>
-      <label>Sample type</label>
-    </div>
+    <select [(ngModel)]="selectedSampleType" id="sampleTypeSelect" name="sampleTypeSelect"
+      (change)="selectSampleType()">
+      <!-- <option value="" disabled selected>Select a lab system</option> -->
+      <option [ngValue]="sampleType" *ngFor="let sampleType of sampleTypes">{{sampleType.name}}</option>
+    </select>
+    <label>Sample type</label>
+  </div>
 
   <!-- parameter -->
 </form>

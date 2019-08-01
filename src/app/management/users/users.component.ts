@@ -138,7 +138,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   private showModalChangePassword() {
     this.modalService.openModal(new Modal('New user added', `An email was sent to the user with a naive password:
     user's mail plus current year. For instance: for this email john.smith@foo.eu, the password will be john.smith2019`,
-    'Ok', '', null, null));
+      'Ok', '', null, null));
   }
 
   private formAction(action: ModalResponse): void {

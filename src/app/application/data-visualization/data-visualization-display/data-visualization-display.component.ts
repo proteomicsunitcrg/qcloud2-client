@@ -102,17 +102,17 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
       case 'user':
         // load view
         this.viewService.getUserViewByApiKey(systemApiKey)
-            .subscribe(
-              (view) => {
-                this.viewService.getUserDisplayByView(view)
-                  .subscribe(
-                    (userDisplay) => {
-                      this.display = userDisplay;
-                    }, err => console.log(err),
+          .subscribe(
+            (view) => {
+              this.viewService.getUserDisplayByView(view)
+                .subscribe(
+                  (userDisplay) => {
+                    this.display = userDisplay;
+                  }, err => console.log(err),
                   () => {
                     console.log();
                   });
-              });
+            });
 
 
         break;

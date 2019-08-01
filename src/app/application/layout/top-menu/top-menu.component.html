@@ -5,10 +5,10 @@
 </ul> -->
 <ul id="user_views" class="dropdown-content">
   <li *ngFor="let view of userViews">
-    <a *ngIf = "userViews.length != 0" routerLink="view/user/{{view.apiKey}}">{{view.name}}</a>
+    <a *ngIf="userViews.length != 0" routerLink="view/user/{{view.apiKey}}">{{view.name}}</a>
   </li>
-  <li *ngIf = "userViews.length == 0">
-      <a routerLink = "configuration/views">New View</a>
+  <li *ngIf="userViews.length == 0">
+    <a routerLink="configuration/views">New View</a>
   </li>
 </ul>
 <nav>
@@ -29,9 +29,9 @@
         </a>
       </li>
       <li>
-          <a routerLink="/application/statistics/nonconformities">Statistics
-          </a>
-        </li>
+        <a routerLink="/application/statistics/nonconformities">Statistics
+        </a>
+      </li>
       <!-- <li>
         <a class="dropdown-trigger" id="instrumentMenu" (click)="open('instrumentMenu')" data-target="instruments">Instruments
           <i class="material-icons right">arrow_drop_down</i>
@@ -61,7 +61,7 @@
         </a>
       </li>
     </ul>
-    
+
     <ul class="sidenav" id="mobile-demo">
       <!-- <li>
         <a class="dropdown-trigger" href="#!" data-target="instruments">Instruments

@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col s12">
     <h5>{{troubleshootingType}}</h5>
-    <app-troubleshooting-form (saved)="onSaved($event)" [troubleshootingType]="troubleshootingType"></app-troubleshooting-form>
+    <app-troubleshooting-form (saved)="onSaved($event)" [troubleshootingType]="troubleshootingType">
+    </app-troubleshooting-form>
     <table>
       <tbody>
         <tr *ngFor="let problem of problems">

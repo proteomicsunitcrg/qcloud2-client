@@ -8,9 +8,9 @@ describe('ChartContextSourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartContextSourceComponent ]
+      declarations: [ChartContextSourceComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

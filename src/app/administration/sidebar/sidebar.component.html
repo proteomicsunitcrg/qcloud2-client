@@ -1,103 +1,118 @@
-    <!-- ASIDE show only for big screens-->
-    <div class="col s12 m2 l2 xl2 hide-on-med-and-down">
-        <ul class="collapsible z-depth-0" id="menu">
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Nodes</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <!-- <li><a routerLink="/application/administration/nodes" routerLinkActive="active">Manage nodes</a></li> -->
-                        <li>Manage nodes</li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Instruments</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/category" routerLinkActive="active">Manage categories</a></li>
-                        <li><a routerLink="/application/administration/cvs" routerLinkActive="active">Manage controlled vocabulary</a></li>
-                        <li><a routerLink="/application/administration/charts" routerLinkActive="active">Manage instrument charts</a></li>
-                        <li><a routerLink="/application/administration/views" routerLinkActive="active">Manage default views</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Thresholds</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/threshold" routerLinkActive="active">Thresholds</a></li>
-                        <li><a routerLink="/application/administration/guideset" routerLinkActive="active">Automatic guide sets</a></li>
-                        <li><a routerLink="/application/administration/troubleshooting" routerLinkActive="active">Manage troubleshooting</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Data processing</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/context" routerLinkActive="active">Context sources</a></li>
-                        <li><a routerLink="/application/administration/sampletypecategories" routerLinkActive="active">Sample type categories</a></li>
-                        <li><a routerLink="/application/administration/sampletypes" routerLinkActive="active">Sample types</a></li>
-                        <li><a routerLink="/application/administration/parameters" routerLinkActive="active">Parameters</a></li>
-                        <li><a routerLink="/application/administration/color" routerLinkActive="active">Color</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Incidences</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li>No conformities</li>
-                        <li>Errors</li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Messages</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/message" routerLinkActive="active">Manage messages</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Emails</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/email" routerLinkActive="active">Manage emails</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li (click)="open('menu')">
-                <a class="collapsible-header waves-effect waves-cyan">
-                    <span class="nav-headers">Community</span>
-                </a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a routerLink="/application/administration/community-line" routerLinkActive="active">Manage community lines</a></li>
-                    </ul>
-                    <ul>
-                        <li><a routerLink="/application/administration/community-partner" routerLinkActive="active">Manage community partners</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="col s12 m2 l2 xl2 hide-on-med-and-up">
-        <span><i class="material-icons">people</i><i class="material-icons">web</i></span>
+<!-- ASIDE show only for big screens-->
+<div class="col s12 m2 l2 xl2 hide-on-med-and-down">
+    <ul class="collapsible z-depth-0" id="menu">
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Nodes</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <!-- <li><a routerLink="/application/administration/nodes" routerLinkActive="active">Manage nodes</a></li> -->
+                    <li>Manage nodes</li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Instruments</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/category" routerLinkActive="active">Manage
+                            categories</a></li>
+                    <li><a routerLink="/application/administration/cvs" routerLinkActive="active">Manage controlled
+                            vocabulary</a></li>
+                    <li><a routerLink="/application/administration/charts" routerLinkActive="active">Manage instrument
+                            charts</a></li>
+                    <li><a routerLink="/application/administration/views" routerLinkActive="active">Manage default
+                            views</a></li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Thresholds</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/threshold" routerLinkActive="active">Thresholds</a>
+                    </li>
+                    <li><a routerLink="/application/administration/guideset" routerLinkActive="active">Automatic guide
+                            sets</a></li>
+                    <li><a routerLink="/application/administration/troubleshooting" routerLinkActive="active">Manage
+                            troubleshooting</a></li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Data processing</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/context" routerLinkActive="active">Context
+                            sources</a></li>
+                    <li><a routerLink="/application/administration/sampletypecategories"
+                            routerLinkActive="active">Sample type categories</a></li>
+                    <li><a routerLink="/application/administration/sampletypes" routerLinkActive="active">Sample
+                            types</a></li>
+                    <li><a routerLink="/application/administration/parameters" routerLinkActive="active">Parameters</a>
+                    </li>
+                    <li><a routerLink="/application/administration/color" routerLinkActive="active">Color</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Incidences</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li>No conformities</li>
+                    <li>Errors</li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Messages</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/message" routerLinkActive="active">Manage
+                            messages</a></li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Emails</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/email" routerLinkActive="active">Manage emails</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Community</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/community-line" routerLinkActive="active">Manage
+                            community lines</a></li>
+                </ul>
+                <ul>
+                    <li><a routerLink="/application/administration/community-partner" routerLinkActive="active">Manage
+                            community partners</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="col s12 m2 l2 xl2 hide-on-med-and-up">
+    <span><i class="material-icons">people</i><i class="material-icons">web</i></span>
 
-    </div>
+</div>

@@ -8,9 +8,9 @@ describe('SampleTypeSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SampleTypeSelectorComponent ]
+      declarations: [SampleTypeSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

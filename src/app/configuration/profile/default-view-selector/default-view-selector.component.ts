@@ -22,7 +22,7 @@ export class DefaultViewSelectorComponent implements OnInit {
 
   viewsList: { 'name': string, 'apiKey': string }[];
 
-  selectedView: { 'name': string, 'apiKey': string } = {'name': null, 'apiKey': null};
+  selectedView: { 'name': string, 'apiKey': string } = { 'name': null, 'apiKey': null };
 
   labSystems: System[];
   userViews: View[];
@@ -106,7 +106,7 @@ export class DefaultViewSelectorComponent implements OnInit {
       );
   }
 
-   private refresh(): void {
+  private refresh(): void {
     const self = this;
     self.ref.detectChanges();
   }
@@ -126,7 +126,7 @@ export class DefaultViewSelectorComponent implements OnInit {
     this.userDefaultViewService.saveUserDefaultView(userDefaultView)
       .subscribe(
         (res) => {
-          M.toast({html: 'Default view saved!'});
+          M.toast({ html: 'Default view saved!' });
         }, err => console.log('err', err)
       );
   }

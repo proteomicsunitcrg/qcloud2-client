@@ -8,9 +8,9 @@ describe('AllPeptidesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AllPeptidesListComponent ]
+      declarations: [AllPeptidesListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

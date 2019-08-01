@@ -6,10 +6,12 @@ import { MainNonConformitiesComponent } from '../non-conformities/main-non-confo
 import { MainComponent } from '../main/main.component';
 
 const routes: Routes = [
-  {path: '', component: MainComponent, canActivate: [RoleGuard], data: {expectedRole: 'ROLE_USER'},
-  children: [
-    { path: 'nonconformities', component: MainNonConformitiesComponent}
-  ]},
+  {
+    path: '', component: MainComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_USER' },
+    children: [
+      { path: 'nonconformities', component: MainNonConformitiesComponent }
+    ]
+  },
 ];
 
 @NgModule({

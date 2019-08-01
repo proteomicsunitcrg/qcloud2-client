@@ -1,5 +1,5 @@
-import { CommunityLine } from "./CommunityLine";
-import { Node } from "./node";
+import { CommunityLine } from './CommunityLine';
+import { Node } from './node';
 
 export class CommunityLineNode {
     active: boolean;

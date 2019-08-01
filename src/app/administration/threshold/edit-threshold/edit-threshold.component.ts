@@ -27,7 +27,7 @@ export class EditThresholdComponent implements OnInit {
     private paramService: ParametersService,
     private instrumentSampleService: InstrumentSampleService,
     private sampleCompositionService: SampleCompositionService,
-    ) { }
+  ) { }
 
   // tslint:disable-next-line:no-input-rename
   @Input('thresholdToEdit') thresholdToEdit: Threshold;
@@ -111,8 +111,8 @@ export class EditThresholdComponent implements OnInit {
           this.thresholdTypes = types;
           console.log(types);
         }
-      , err => console.log(err),
-      () => delay(1).then(() => M.AutoInit()));
+        , err => console.log(err),
+        () => delay(1).then(() => M.AutoInit()));
   }
 
   private loadParameters(): void {

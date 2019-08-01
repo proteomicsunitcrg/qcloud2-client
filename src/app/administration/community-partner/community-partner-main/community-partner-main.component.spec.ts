@@ -8,9 +8,9 @@ describe('CommunityPartnerMainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityPartnerMainComponent ]
+      declarations: [CommunityPartnerMainComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

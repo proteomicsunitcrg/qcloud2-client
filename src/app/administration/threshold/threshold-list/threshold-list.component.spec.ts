@@ -8,9 +8,9 @@ describe('ThresholdListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThresholdListComponent ]
+      declarations: [ThresholdListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

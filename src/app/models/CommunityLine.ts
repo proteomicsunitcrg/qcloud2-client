@@ -1,9 +1,9 @@
-import { CV } from "./cv";
-import { Param } from "./param";
-import { SampleType } from "./sampleType";
-import { ContextSource } from "./contextSource";
-import { CommunityPartner } from "./CommunityPartner";
-import { TraceColor } from "./TraceColor";
+import { CV } from './cv';
+import { Param } from './param';
+import { SampleType } from './sampleType';
+import { ContextSource } from './contextSource';
+import { CommunityPartner } from './CommunityPartner';
+import { TraceColor } from './TraceColor';
 
 export class CommunityLine {
     id: number;
@@ -17,7 +17,9 @@ export class CommunityLine {
     communityPartner: CommunityPartner;
     traceColor: TraceColor;
 
-    constructor(id: number, apiKey: string, name: string, instrument: CV, param: Param, sampleType: SampleType, contextSource: ContextSource, value: number, communityPartner: CommunityPartner, traceColor: TraceColor) {
+    constructor(id: number, apiKey: string, name: string, instrument: CV, param: Param,
+        sampleType: SampleType, contextSource: ContextSource, value: number,
+        communityPartner: CommunityPartner, traceColor: TraceColor) {
         this.id = id;
         this.apiKey = apiKey;
         this.name = name;
@@ -29,5 +31,4 @@ export class CommunityLine {
         this.communityPartner = communityPartner;
         this.traceColor = traceColor;
     }
-    
 }
