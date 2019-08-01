@@ -10,7 +10,7 @@
         <div class="input-field">
           <input type="password" id="password" [(ngModel)]="password" name="password" required>
           <label for="password">Password</label>
-          <span class="helper-text" data-error="wrong" data-success="right">{{serverOutput}}</span>
+          <span [ngClass]="{'helper-text': isBad}" class="helper-text" data-error="wrong" data-success="right" style="font-size: 15px;">{{serverOutput}}</span>
         </div>
         <button type="submit" class="right waves-effect waves-light btn" id="loginbtn" [disabled]="!loginForm.form.valid">Login</button>
       </form>

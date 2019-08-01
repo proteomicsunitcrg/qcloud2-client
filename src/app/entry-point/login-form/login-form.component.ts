@@ -4,6 +4,7 @@ import { AuthService } from '../../auth.service';
 import * as decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserDefaultViewService } from '../../services/user-default-view.service';
+import { HttpErrorResponse } from '@angular/common/http';
 /**
  * Login component
  * @author Daniel Mancera <daniel.mancera@crg.eu>
@@ -19,7 +20,8 @@ export class LoginFormComponent implements OnInit {
 
   username: string;
   password: string;
-  serverOutput = '';
+  serverOutput: string = '';
+  isBad: boolean = false;
   constructor(private authService: AuthService,
     private router: Router,
     private userDefaultViewService: UserDefaultViewService) { }
@@ -32,18 +34,32 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isBad = false;
+    this.serverOutput = 'Connecting...'
     this.authService.login(this.username, this.password)
       .subscribe(
-      (res) => {
-        this.authService.setSession(res);
-        // this.router.navigate(['application']);
-        this.doNavigation();
-      },
-      (error) => {
-        console.log(error);
-        this.serverOutput = 'Wrong username/password';
-
-      });
+        (res) => {
+          this.authService.setSession(res);
+          // this.router.navigate(['application']);
+          this.doNavigation();
+        },
+        (error: HttpErrorResponse) => {
+          this.isBad = true;
+          switch (error.status) {
+            case 500:
+              this.serverOutput = 'Internal server error';
+              break;
+            case 401:
+              this.serverOutput = 'Wrong userame/password';
+              break;
+            case 408:
+              this.serverOutput = 'Request timeout';
+              break;
+            default:
+              this.serverOutput = `Unable to connect with QCloud2 servers`;
+              break;
+          }
+        });
   }
 
   private doNavigation(): void {
