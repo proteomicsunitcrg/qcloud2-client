@@ -28,6 +28,10 @@ export class TraceColorService {
     return this.httpClient.put<any>(this.traceColorUrl + '/' + traceColor.apiKey, params, { headers: headers });
   }
 
+  public deleteTraceColor(traceColor: TraceColor): Observable<TraceColor> {
+    return this.httpClient.delete<TraceColor>(`${this.traceColorUrl}/${traceColor.apiKey}`);
+  }
+
   public getAllTraceColors(): Observable<TraceColor[]> {
     return this.httpClient.get<TraceColor[]>(this.traceColorUrl).pipe(
       map((traceColors) => {

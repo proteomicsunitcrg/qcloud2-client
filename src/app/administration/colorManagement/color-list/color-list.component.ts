@@ -159,4 +159,13 @@ export class ColorListComponent implements OnInit {
 
   }
 
+  public deleteColor(color: TraceColor) {
+    this.traceColorService.deleteTraceColor(color).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log(err)
+    );
+  }
+
 }
