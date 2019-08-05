@@ -39,7 +39,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   private subscribeToWebSocketMessage(): void {
-    this.messageFromWebSocket$ = this.webSocketService.updateMessageFromWebSocket$
+    this.messageFromWebSocket$ = this.webSocketService.updatemessagefromwebsocket$
       .subscribe((res) => {
         this.message = res.body;
       });
