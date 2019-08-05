@@ -81,7 +81,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     this.partnerForm.controls.website.setValue(result.webPage);
   }
 
-  private submit(): void {
+  public submit(): void {
     const newPartner = new CommunityPartner(this.partnerForm.value.email, null,
       this.partnerForm.value.logo, this.partnerForm.value.name, this.partnerForm.value.website);
     if (this.isEdition()) {
@@ -98,7 +98,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     );
   }
 
-  private closeFormEvent(): void {
+  public closeFormEvent(): void {
     this.closeForm.emit('emit');
   }
 

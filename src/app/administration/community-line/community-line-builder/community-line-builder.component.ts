@@ -181,9 +181,9 @@ export class CommunityLineBuilderComponent implements OnInit {
   * @summary Sends the line to the server to save it
   * @author Marc Serret
   * @since 1.0.0
-  * @access private
+  * @access public
   */
-  private onSubmit(): void {
+  public onSubmit(): void {
     console.log(this.communityLine);
     if (this.communityLine.traceColor === null) {
       alert('Select a color');
@@ -215,7 +215,7 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.changePlotTraceColor(traceColor.mainColor);
   }
 
-  private useCSColor(): void {
+  public useCSColor(): void {
     if (!this.useSameCSColor) {
       this.showWarning = false;
       this.changePlotTraceColor('rgb(0, 98, 255)');
