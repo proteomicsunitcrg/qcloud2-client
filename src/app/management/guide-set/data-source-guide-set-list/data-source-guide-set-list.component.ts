@@ -81,6 +81,9 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
         (systems) => {
           systems.forEach(
             (system) => {
+              if (!system.active) {
+                return;
+              }
               this.systems.push(system);
             }
           );

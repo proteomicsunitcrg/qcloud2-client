@@ -311,7 +311,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.serverData.forEach(
       (plotTrace) => {
         this.isCommunity = false;
-        if (plotTrace.communityPartner !== undefined) {
+        if (plotTrace.communityPartner !== null) {
           this.logosUrl.push(plotTrace.communityPartner.logo);
           this.isCommunity = true;
         }

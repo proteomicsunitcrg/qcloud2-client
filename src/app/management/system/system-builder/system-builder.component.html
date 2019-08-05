@@ -31,12 +31,13 @@
       </div>
     </ng-template>
     <ng-template #edit>
-      <div class="col s12 m12 l12 xl12">
-        <button type="button" class="btn waves-effect waves-light left teal  " id="updateButton"
-          (click)="doUpdate()">Update</button>
-        <button type="button" class="btn waves-effect waves-light right orange lighten-1" id="cancelButton"
-          (click)="doCancel()">Cancel</button>
-      </div>
+
+      <button type="button" class="btn waves-effect waves-light teal" id="updateButton"
+        (click)="doUpdate()">Update</button>
+      <button type="button" class="btn waves-effect waves-light orange lighten-1" id="cancelButton"
+        (click)="doCancel()">Cancel</button>
+      <button type="button" class="btn waves-effect waves-light red lighten-1" id="enableDisable"
+        (click)="enableDisable()">Enable/disable</button>
     </ng-template>
 
   </div>
@@ -46,9 +47,14 @@
     <blockquote>
       <strong>Caution:</strong><br />
       Once you have set your system you will not be able to modify its components. You could change the name, but not
-      the parts.
+      the parts. <br>
+      Disable means that you'll keep the data but this labystem won't be visible at the QCloud website.
     </blockquote>
   </div>
+</div>
+
+<div class="row" *ngIf="!system.active">
+  <a (click)="navigateTo()" class="cursorPointer" style="margin-left: 10px" *ngIf="system.active!=null">Go to historical charts</a>
 </div>
 
 <!--SYSTEM PREVIEW-->

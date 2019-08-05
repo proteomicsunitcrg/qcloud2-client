@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
 import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'app-system-list',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class SystemListComponent implements OnInit, OnDestroy {
 
-  constructor(private systemService: SystemService) { }
+  constructor(private systemService: SystemService, private webSocketService: WebsocketService) { }
 
   nodeSystems: System[] = [];
 
@@ -18,7 +19,7 @@ export class SystemListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadSystems();
-    // this.subscribeToNewSystems();
+    this.subscribeToWebSocketLS();
     this.subscribeToReloadList();
   }
 
@@ -45,6 +46,12 @@ export class SystemListComponent implements OnInit, OnDestroy {
               this.nodeSystems.push(system);
             });
         });
+  }
+
+  private subscribeToWebSocketLS(): void {
+    this.webSocketService.enableDisableLS$.subscribe(
+      () => this.loadSystems()
+    );
   }
 
   onGoView(system: System): void {

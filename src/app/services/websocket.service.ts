@@ -37,7 +37,10 @@ export class WebsocketService {
   deleteAnnotationFromWebSocket$ = this.deleteAnnotationFromWebSocket.asObservable();
 
   updateMessageFromWebSocket = new Subject<WebSocketNotification>();
-  updateMessageFromWebSocket$ = this.updateMessageFromWebSocket.asObservable();
+  updatemessagefromwebsocket$ = this.updateMessageFromWebSocket.asObservable();
+
+  enableDisableLS = new Subject<WebSocketNotification>();
+  enableDisableLS$ = this.enableDisableLS.asObservable();
 
   private apiPrefix = environment.apiPrefix;
   private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
@@ -101,6 +104,11 @@ export class WebsocketService {
         break;
       case 'message':
         this.updateMessageFromWebSocket.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break;
+      case 'enableDisableLS':
+        this.enableDisableLS.next(
           new WebSocketNotification(actionValue, null, null, body)
         );
         break;

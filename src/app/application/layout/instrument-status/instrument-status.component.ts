@@ -40,6 +40,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.subscribeToEnableDisableLS();
     this.loadNodeLabSystems();
     this.subscribeToWebSocket();
     this.subscribeToNewLabSystemFromWebsocket();
@@ -75,14 +76,17 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
    * load the instrument status
    */
   private loadNodeLabSystems(): void {
+    this.nodeLabSystems = [];
     this.systemService.getSystems()
       .subscribe(
         (labSystems) => {
           labSystems.forEach(
             (labSystem) => {
-              this.nodeLabSystems.push(
-                new NodeLabSystemStatus(labSystem, [], new Alert(0, 'OK'))
-              );
+              if (labSystem.active) {
+                this.nodeLabSystems.push(
+                  new NodeLabSystemStatus(labSystem, [], new Alert(0, 'OK'))
+                );
+              }
             }
           );
         }, err => console.log(err),
@@ -193,7 +197,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(labSystem: System): void {
-    this.router.navigate(['application/view/instrument/' + labSystem.apiKey, ]);
+    this.router.navigate(['application/view/instrument/' + labSystem.apiKey,]);
   }
 
   closeAlertList(): void {
@@ -247,6 +251,12 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         return true;
       }
     });
+  }
+
+  private subscribeToEnableDisableLS(): void {
+    this.webSocketService.enableDisableLS$.subscribe(
+      () => this.loadNodeLabSystems()
+    );
   }
 
 

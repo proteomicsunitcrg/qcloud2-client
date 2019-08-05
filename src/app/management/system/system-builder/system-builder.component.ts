@@ -9,7 +9,6 @@ import { SystemService } from '../../../services/system.service';
 import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
-import { WebsocketService } from '../../../services/websocket.service';
 import { ModalResponse } from '../../../models/modalResponse';
 import { Router } from '@angular/router';
 
@@ -26,11 +25,10 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     private dataSourceService: DataSourceService,
     private systemService: SystemService,
     private modalService: ModalService,
-    private webSocketService: WebsocketService,
     private router: Router
   ) { }
 
-  system: System = new System(null, null, null, null, null);
+  system: System = new System(null, null, null, null, null, null);
   private modalSubscription$: Subscription;
 
   categories: Category[];
@@ -87,6 +85,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     this.system.name = system.name;
     this.system.id = system.id;
     this.system.apiKey = system.apiKey;
+    this.system.active = system.active;
     this.updating = true;
     system.dataSources.forEach(
       (dataSource) => {
@@ -278,7 +277,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
                 this.loadNodeDataSources();
                 this.system.dataSources = ds;
                 this.systemService.reloadList();
-                this.system = new System(null, null, null, null, null);
+                this.system = new System(null, null, null, null, null, null);
                 this.updating = false;
               },
               (err) => console.log(err)
@@ -290,7 +289,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
   doCancel(): void {
     this.resetDataSources();
     this.loadNodeDataSources();
-    this.system = new System(null, null, null, null, null);
+    this.system = new System(null, null, null, null, null, null);
     this.updating = false;
 
   }
@@ -302,6 +301,17 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
         this.selectedDataSources[category.apiKey] = [];
       }
     );
+  }
+
+  private enableDisable(): void {
+    this.systemService.enableDisable(this.system).subscribe(
+      () => 
+      err => console.error(err)
+    );
+  }
+
+  private navigateTo(): void {
+    this.router.navigate(['application/view/instrument/' + this.system.apiKey,]);
   }
 
 }
