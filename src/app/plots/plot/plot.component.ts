@@ -19,6 +19,8 @@ import { generateLayoutShapes, truncateFilename, generateLogo } from '../helper/
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
+import { GeneralAnnotation } from '../../models/GeneralAnnotation';
+import { GeneralAnnotationService } from '../../services/general-annotation-service';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     private plotService: PlotService,
     private webSocketService: WebsocketService,
     private annotationService: AnnotationService,
-    private clipboardService: ClipboardService) { }
+    private clipboardService: ClipboardService,
+    private generalAnnotationService: GeneralAnnotationService) { }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -93,7 +96,10 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   plotThreshold: PlotThreshold;
 
+  generalAnnotations: GeneralAnnotation[];
+
   ngOnInit() {
+    this.loadGeneralAnnotations();
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
@@ -303,8 +309,6 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadPlot(): void {
-    console.log(this.serverData);
-
     const minValues = [];
     const maxValues = [];
     const dataForPlot = [];
@@ -422,6 +426,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       // Call for annotations
       if (!this.shownames && this.hideAnnotations === false) {
         delay(100).then(() => this.loadAnnotations());
+        delay(200).then(() => this.drawGeneralAnnotations());
       }
     } else {
       Plotly.purge('plot' + this.chart.id);
@@ -444,6 +449,15 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.drawAnnotations();
         }
       }, err => console.log(err)
+    );
+  }
+
+  private loadGeneralAnnotations(): void {
+    this.generalAnnotationService.getAnnotationsBetweenDates(this.dataService.getCurrentDates()).subscribe(
+      res => {
+        this.generalAnnotations = res;
+      },
+      err => console.error(err)
     );
   }
 
@@ -492,6 +506,61 @@ export class PlotComponent implements OnInit, OnDestroy {
       );
   }
 
+  drawGeneralAnnotations() {
+    if (this.hideAnnotations || this.generalAnnotations.length === 0) {
+      return;
+    }
+    const lines = [];
+    const annotations = [];
+
+    this.generalAnnotations.forEach(
+      ano => {  // (‿|‿)
+        lines.push({
+          type: 'line',
+          x0: ano.date,
+          x1: ano.date,
+          y0: 0,
+          y1: 1,
+          yref: 'paper',
+          line: {
+            width: 1,
+          }
+        });
+        annotations.push({
+          x: ano.date,
+          xref: 'x',
+          yref: 'y',
+          text: ano.description,
+          fullText: 'fulltext',
+          textangle: 270,
+          showarrow: false,
+          arrowhead: 3,
+          arrowwidth: 0.1,
+          arrowcolor: 'white',
+          standoff: 100,
+          xshift: 10,
+          yanchor: 'middle',
+          textposition: 'bottom',
+        });
+      }
+    );
+    const shapesUpdate = this.layout.shapes;
+
+    const annotationsUpdate = this.layout.annotations;
+
+    lines.forEach(l => {
+      shapesUpdate.push(l);
+    });
+
+    annotations.forEach( ano => annotationsUpdate.push(ano) );
+
+    const layoutUpdate = {
+      ...this.layout,
+      shapes: shapesUpdate,
+      annotations: annotationsUpdate
+    };
+    Plotly.relayout('plot' + this.chart.id, layoutUpdate);
+  }
   private drawAnnotations(): void {
     if (this.hideAnnotations) {
       return;
@@ -502,6 +571,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     this.annotations.forEach(
       (annotation) => {
+        console.log(annotation.actions);
+        console.log(annotation.problems);
         let text = '';
         annotation.problems.forEach(p => text += p.name + '-');
         annotation.actions.forEach(p => text += p.name + '-');
@@ -538,9 +609,8 @@ export class PlotComponent implements OnInit, OnDestroy {
           yanchor: 'middle',
           textposition: 'bottom',
         });
-
+        
       });
-
     const shapesUpdate = this.layout.shapes;
 
     lines.forEach(l => {

@@ -1,0 +1,43 @@
+<a class="btn-floating waves-effect waves-light right" (click)="openFormEvent(false)">
+  <i class="material-icons">add</i>
+</a>
+<table>
+  <thead>
+    <tr>
+      <th>
+        Date
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Active
+      </th>
+      <th>
+        Edit
+      </th>
+      <th>
+        Delete
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let annotation of annotations">
+      <td>{{annotation.date}}</td>
+      <td>{{annotation.description}}</td>
+      <td>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" [checked]="annotation.active"
+              (change)="toggleActive(annotation)">
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
+      </td>
+      <td><i class="material-icons cursorIcon" (click)="openFormEvent(true, partner.id)">create</i></td>
+      <td><i class="material-icons cursorIcon" (click)="deletePartner(partner.id)">delete_forever</i></td>
+    </tr>
+  </tbody>
+</table>

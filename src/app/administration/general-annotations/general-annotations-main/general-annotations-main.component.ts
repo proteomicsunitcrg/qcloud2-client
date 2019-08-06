@@ -1,0 +1,21 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-general-annotations-main',
+  templateUrl: './general-annotations-main.component.html',
+  styleUrls: ['./general-annotations-main.component.css']
+})
+export class GeneralAnnotationsMainComponent implements OnInit {
+
+  constructor() { }
+
+  newAnnotation = false;
+
+  ngOnInit() {
+  }
+
+  open(id: number): void {
+    this.newAnnotation = true;
+  }
+
+}

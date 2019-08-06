@@ -1,0 +1,27 @@
+<div class="container">
+  <form [formGroup]="annotationForm">
+
+    <label>
+      Description
+    </label>
+    <input type="text" formControlName="desc" placeholder="Description">
+
+    <label>
+      Date
+    </label>
+    <input type="text" class="datepicker" formControlName="date" placeholder="Date">
+
+  </form>
+
+
+  <div class="row">
+    <div class="col s12 m2 l2 xl2">
+      <button type="button" class="btn waves-effect waves-light" [disabled]="annotationForm.invalid" id="saveButton"
+        (click)="submit()">Save</button>
+    </div>
+    <div class="col s12 m2 l2 xl2">
+      <button style="margin-left: -50px" type="button" class="btn amber waves-effect waves-light"
+        (click)="closeFormEvent()">Go back</button>
+    </div>
+  </div>
+</div>

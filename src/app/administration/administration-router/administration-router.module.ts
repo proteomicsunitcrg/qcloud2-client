@@ -20,6 +20,7 @@ import { MessageComponent } from '../message/message.component';
 import { EmailComponent } from '../email/email.component';
 import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component';
 import { CommunityPartnerMainComponent } from '../community-partner/community-partner-main/community-partner-main.component';
+import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
 
 
 const routes: Routes = [
@@ -48,7 +49,8 @@ const routes: Routes = [
       { path: 'message', component: MessageComponent },
       { path: 'email', component: EmailComponent },
       { path: 'community-line', component: CommunityLineMainComponent },
-      { path: 'community-partner', component: CommunityPartnerMainComponent }
+      { path: 'community-partner', component: CommunityPartnerMainComponent },
+      { path: 'general-annotations', component: GeneralAnnotationsMainComponent }
     ]
   },
 ];
