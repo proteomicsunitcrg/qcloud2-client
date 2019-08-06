@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms/src/model';
+import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import * as decode from 'jwt-decode';
 import { Router } from '@angular/router';

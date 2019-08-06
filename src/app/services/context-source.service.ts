@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Peptide } from '../models/peptide';
 import { ContextSource } from '../models/contextSource';

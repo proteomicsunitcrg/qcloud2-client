@@ -11,11 +11,11 @@ const routes: Routes = [
     path: '', component: MainWindowComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_USER' },
     children: [
       { path: '', component: WelcomeComponent },
-      { path: 'administration', loadChildren: '../../administration/administration.module#AdministrationModule' },
-      { path: 'management', loadChildren: '../../management/management.module#ManagementModule' },
-      { path: 'statistics', loadChildren: '../../statistics/statistics.module#StatisticsModule' },
-      { path: 'configuration', loadChildren: '../../configuration/configuration.module#ConfigurationModule' },
-      { path: 'help', loadChildren: '../../help/help.module#HelpModule' },
+      { path: 'administration', loadChildren: () => import('../../administration/administration.module').then(m => m.AdministrationModule) },
+      { path: 'management', loadChildren: () => import('../../management/management.module').then(m => m.ManagementModule) },
+      { path: 'statistics', loadChildren: () => import('../../statistics/statistics.module').then(m => m.StatisticsModule) },
+      { path: 'configuration', loadChildren: () => import('../../configuration/configuration.module').then(m => m.ConfigurationModule) },
+      { path: 'help', loadChildren: () => import('../../help/help.module').then(m => m.HelpModule) },
       { path: 'view/:type/:apiKey', component: DataVisualizationMainWindowComponent }
     ]
   },

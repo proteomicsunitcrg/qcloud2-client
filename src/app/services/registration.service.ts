@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Node } from '../models/node';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 /**
  * Service for node registration

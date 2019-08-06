@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Node } from '../models/node';
 import { NodeWithTotalFiles } from '../models/nodeWithTotalFiles';
