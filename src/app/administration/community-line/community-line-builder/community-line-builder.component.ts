@@ -190,8 +190,8 @@ export class CommunityLineBuilderComponent implements OnInit {
     }
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
       (response) => {
-        console.log(response);
-      }, error => console.error(error)
+        M.toast({ html: 'Line saved' });
+      }, error => M.toast({ html: 'Error saving the line' })
     );
   }
 

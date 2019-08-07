@@ -99,18 +99,16 @@ export class CommunityLineListComponent implements OnInit {
     if (this.nodeKey.length === 0) {
       this.commService.deleteAllRelations(line.id).subscribe(
         result => {
-          console.log(result);
+          M.toast({ html: 'Relation updated' });
         },
-        error => console.error(error)
+        () => M.toast({ html: 'Error updating the relation' })
       );
     } else {
       this.commService.makeDeleteRelation(this.nodeKey, line).subscribe(
         result => {
-          console.log(result);
+          M.toast({ html: 'Relation updated' });
         },
-        error => {
-          console.log(error);
-        }
+        () => M.toast({ html: 'Error updating the relation' })
       );
     }
   }
@@ -152,10 +150,10 @@ export class CommunityLineListComponent implements OnInit {
   * @access private
   * @returns Promise<Node[]> with all nodes
   */
-  private deleteLine(id: number): void {
+  public deleteLine(id: number): void {
     this.commService.delete(id).subscribe(
       (res: boolean) => this.getAllCommunityLines(),
-      (err: Error) => console.error(err)
+      (err: Error) =>  M.toast({ html: 'Error updating the relation' })
     );
   }
 
