@@ -53,7 +53,7 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
   private loadThresholds(labSystems: System[]): void {
     labSystems.forEach(
       (labSystem) => {
-        if(!labSystem.active) {
+        if (!labSystem.active) {
           return;
         }
         this.thresholdService.getAllThresholdsBySystem(labSystem)

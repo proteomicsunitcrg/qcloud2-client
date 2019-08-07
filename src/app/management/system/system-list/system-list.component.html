@@ -16,7 +16,8 @@
       <tbody>
         <tr *ngFor="let system of nodeSystems">
           <td [class.disabled]="!system.active">{{system.name}}</td>
-          <td><i [class.disabled]="!system.active" class="material-icons cursorClick" (click)="onGoView(system)">remove_red_eye</i></td>
+          <td><i [class.disabled]="!system.active" class="material-icons cursorClick"
+              (click)="onGoView(system)">remove_red_eye</i></td>
         </tr>
       </tbody>
     </table>

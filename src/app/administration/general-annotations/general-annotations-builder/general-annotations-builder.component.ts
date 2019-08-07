@@ -29,7 +29,8 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
   }
 
   public submit() {
-    const annotation =  new GeneralAnnotation(null, null, formatDate(this.annotationForm.value.date, 'yyyy-MM-dd', 'en'), this.annotationForm.value.desc, true);
+    const annotation = new GeneralAnnotation(null, null, formatDate(this.annotationForm.value.date, 'yyyy-MM-dd', 'en')
+      , this.annotationForm.value.desc, true);
     this.generalAnnotationService.saveGeneralAnnotation(annotation).subscribe(
       (res) => {
         console.log(res);

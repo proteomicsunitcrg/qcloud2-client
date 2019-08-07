@@ -197,7 +197,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(labSystem: System): void {
-    this.router.navigate(['application/view/instrument/' + labSystem.apiKey,]);
+    this.router.navigate(['application/view/instrument/' + labSystem.apiKey, ]);
   }
 
   closeAlertList(): void {

@@ -552,7 +552,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       shapesUpdate.push(l);
     });
 
-    annotations.forEach( ano => annotationsUpdate.push(ano) );
+    annotations.forEach(ano => annotationsUpdate.push(ano));
 
     const layoutUpdate = {
       ...this.layout,
@@ -609,7 +609,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           yanchor: 'middle',
           textposition: 'bottom',
         });
-        
+
       });
     const shapesUpdate = this.layout.shapes;
 

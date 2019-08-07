@@ -2,7 +2,7 @@ export class GeneralAnnotation {
     id: number;
     apiKey: string;
     date: string;
-    description: string
+    description: string;
     active: boolean;
 
     constructor(id: number, apiKey: string, date: string, description: string, active: boolean) {

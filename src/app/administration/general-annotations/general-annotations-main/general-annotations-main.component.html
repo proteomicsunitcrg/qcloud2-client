@@ -7,7 +7,7 @@
   <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
       <app-general-annotations-list (openForm)="open($event)" *ngIf="!newAnnotation"></app-general-annotations-list>
-      <app-general-annotations-builder  (closeForm)="close()" *ngIf="newAnnotation">
+      <app-general-annotations-builder (closeForm)="close()" *ngIf="newAnnotation">
       </app-general-annotations-builder>
     </div>
   </div>

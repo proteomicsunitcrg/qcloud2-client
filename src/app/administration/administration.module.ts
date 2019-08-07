@@ -76,7 +76,9 @@ import { CommunityPartnerListComponent } from './community-partner/community-par
 import { CommunityPartnerBuilderComponent } from './community-partner/community-partner-builder/community-partner-builder.component';
 import { GeneralAnnotationsMainComponent } from './general-annotations/general-annotations-main/general-annotations-main.component';
 import { GeneralAnnotationsListComponent } from './general-annotations/general-annotations-list/general-annotations-list.component';
-import { GeneralAnnotationsBuilderComponent } from './general-annotations/general-annotations-builder/general-annotations-builder.component';
+import {
+  GeneralAnnotationsBuilderComponent
+} from './general-annotations/general-annotations-builder/general-annotations-builder.component';
 @NgModule({
   imports: [
     CommonModule,

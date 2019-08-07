@@ -305,13 +305,13 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
 
   private enableDisable(): void {
     this.systemService.enableDisable(this.system).subscribe(
-      () => 
-      err => console.error(err)
+      () =>
+        err => console.error(err)
     );
   }
 
   private navigateTo(): void {
-    this.router.navigate(['application/view/instrument/' + this.system.apiKey,]);
+    this.router.navigate(['application/view/instrument/' + this.system.apiKey, ]);
   }
 
 }

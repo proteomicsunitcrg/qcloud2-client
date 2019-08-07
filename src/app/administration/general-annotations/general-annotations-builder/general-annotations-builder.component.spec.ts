@@ -8,9 +8,9 @@ describe('GeneralAnnotationsBuilderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneralAnnotationsBuilderComponent ]
+      declarations: [GeneralAnnotationsBuilderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

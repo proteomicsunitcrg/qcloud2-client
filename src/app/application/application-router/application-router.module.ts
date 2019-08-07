@@ -11,7 +11,10 @@ const routes: Routes = [
     path: '', component: MainWindowComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_USER' },
     children: [
       { path: '', component: WelcomeComponent },
-      { path: 'administration', loadChildren: () => import('../../administration/administration.module').then(m => m.AdministrationModule) },
+      {
+        path: 'administration', loadChildren: () => import('../../administration/administration.module')
+          .then(m => m.AdministrationModule)
+      },
       { path: 'management', loadChildren: () => import('../../management/management.module').then(m => m.ManagementModule) },
       { path: 'statistics', loadChildren: () => import('../../statistics/statistics.module').then(m => m.StatisticsModule) },
       { path: 'configuration', loadChildren: () => import('../../configuration/configuration.module').then(m => m.ConfigurationModule) },
