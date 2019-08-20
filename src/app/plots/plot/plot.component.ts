@@ -18,7 +18,7 @@ import { HtmlPlotComponent } from '../helper/html-plot.component';
 import { generateLayoutShapes, truncateFilename, generateLogo } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
-import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
+import { ClipboardService } from 'ngx-clipboard';
 import { GeneralAnnotation } from '../../models/GeneralAnnotation';
 import { GeneralAnnotationService } from '../../services/general-annotation-service';
 
@@ -99,7 +99,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   generalAnnotations: GeneralAnnotation[];
 
   ngOnInit() {
-    this.loadGeneralAnnotations();
+    
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
@@ -127,6 +127,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.dataService.getPlotTraceData(this.chart, this.system)
       .subscribe(
         (dataFromServer) => {
+          this.loadGeneralAnnotations();
           dataFromServer.sort(this.compare);
           this.serverData = dataFromServer;
           this.enableAnnotationSubscriptions();
@@ -353,7 +354,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         const trace = {
           x: dates,
           y: values,
-          type: 'scatter',
+          type: 'scattergl',
           mode: mode,
           marker: {
             color: color,
@@ -453,6 +454,8 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadGeneralAnnotations(): void {
+    console.log("road to general");
+    
     this.generalAnnotationService.getAnnotationsBetweenDates(this.dataService.getCurrentDates()).subscribe(
       res => {
         this.generalAnnotations = res;
