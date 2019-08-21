@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GeneralAnnotationService } from '../../../services/general-annotation-service';
 import { GeneralAnnotation } from '../../../models/GeneralAnnotation';
-
+declare let M: any;
 @Component({
   selector: 'app-general-annotations-list',
   templateUrl: './general-annotations-list.component.html',
@@ -46,6 +46,22 @@ export class GeneralAnnotationsListComponent implements OnInit {
     this.generalAnnotationService.toggleActive(annotation.apiKey).subscribe(
       res => console.log(res),
       err => console.error(err)
+    );
+  }
+
+  public delete(id: number): void {
+    this.generalAnnotationService.deleteGeneralAnnotation(id).subscribe(
+      res => {
+        if (res) {
+          M.toast({ html: 'Annotation deleted' });
+          this.getAllGeneralAnnotations();
+        } else {
+          M.toast({ html: 'Problem deleting the annotation' });
+        }
+      },
+      err => {
+        M.toast({ html: 'Problem deleting the annotation' });
+      }
     );
   }
 

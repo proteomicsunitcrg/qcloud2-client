@@ -43,4 +43,11 @@ export class GeneralAnnotationService {
     return this.httpClient.get<GeneralAnnotation[]>(this.generalAnnotationURL + '/dates/' + currentDates[0] + '/' + currentDates[1]);
   }
 
+  /**
+   * deleteGeneralAnnotation
+   */
+  public deleteGeneralAnnotation(id: number):Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.generalAnnotationURL}/${id}`);
+  }
+
 }
