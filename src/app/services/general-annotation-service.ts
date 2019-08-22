@@ -46,7 +46,7 @@ export class GeneralAnnotationService {
   /**
    * deleteGeneralAnnotation
    */
-  public deleteGeneralAnnotation(id: number):Observable<boolean> {
+  public deleteGeneralAnnotation(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.generalAnnotationURL}/${id}`);
   }
 

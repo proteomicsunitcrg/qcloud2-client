@@ -4,6 +4,8 @@ import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
 import { delay } from 'q';
 import { SampleType } from '../../../models/sampleType';
 import { CvService } from '../../../services/cv.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -21,7 +23,8 @@ export class SampleTypeSelectorComponent implements OnInit {
 
   selectedSampleType: SampleType;
 
-  constructor(private instrumentService: CvService) { }
+  constructor(private instrumentService: CvService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.setSelectedSampleType();
@@ -72,11 +75,8 @@ export class SampleTypeSelectorComponent implements OnInit {
   updateSampleType(): void {
     this.instrumentService.addSampleTypeToCv(this.cv.cvid, this.selectedSampleType)
       .subscribe(
-        (res) => {
-          M.toast({ html: 'Sample type saved!' });
-        }, err => {
-          M.toast({ html: 'Error saving sample type!' });
-        }
+        () => this.toastr.success('Sample type saved', null, TOASTSETTING),
+        () => this.toastr.error('Error saving sample type', null, TOASTSETTING),
       );
   }
 

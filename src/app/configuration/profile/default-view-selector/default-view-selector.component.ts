@@ -6,6 +6,8 @@ import { delay } from 'q';
 import { ViewService } from '../../../services/view.service';
 import { View } from '../../../models/view';
 import { UserDefaultView } from '../../../models/userDefaultView';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, ERROR_MSG, ERROR_TITLE } from '../../../shared/ToastConfig';
 
 declare var M: any;
 
@@ -30,7 +32,8 @@ export class DefaultViewSelectorComponent implements OnInit {
   constructor(private systemService: SystemService,
     private userDefaultViewService: UserDefaultViewService,
     private viewService: ViewService,
-    private ref: ChangeDetectorRef) { }
+    private ref: ChangeDetectorRef,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.defaultView = true;
@@ -125,9 +128,8 @@ export class DefaultViewSelectorComponent implements OnInit {
     const userDefaultView = new UserDefaultView(type, view, null);
     this.userDefaultViewService.saveUserDefaultView(userDefaultView)
       .subscribe(
-        (res) => {
-          M.toast({ html: 'Default view saved!' });
-        }, err => console.log('err', err)
+        () => this.toastr.success('Default view saved', null, TOASTSETTING),
+        () => this.toastr.error(ERROR_TITLE, ERROR_MSG, TOASTSETTING)
       );
   }
 

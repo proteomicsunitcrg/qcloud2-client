@@ -3,6 +3,8 @@ import { CommunityLine } from '../../../models/CommunityLine';
 import { Node } from '../../../models/node';
 import { CommunityService } from '../../../services/community.service';
 import { UserService } from '../../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -12,7 +14,8 @@ declare var M: any;
 })
 export class CommunityLineListComponent implements OnInit {
 
-  constructor(private commService: CommunityService, private nodeService: UserService) { }
+  constructor(private commService: CommunityService, private nodeService: UserService,
+    private toastr: ToastrService) { }
 
   // Array to store all the community lines
   communityLines: CommunityLine[] = [];
@@ -98,17 +101,13 @@ export class CommunityLineListComponent implements OnInit {
     console.log(this.nodeKey);
     if (this.nodeKey.length === 0) {
       this.commService.deleteAllRelations(line.id).subscribe(
-        result => {
-          M.toast({ html: 'Relation updated' });
-        },
-        () => M.toast({ html: 'Error updating the relation' })
+        () => this.toastr.success('Relation updated', null, TOASTSETTING),
+        () => this.toastr.error('Error updating the relation', null, TOASTSETTING)
       );
     } else {
       this.commService.makeDeleteRelation(this.nodeKey, line).subscribe(
-        result => {
-          M.toast({ html: 'Relation updated' });
-        },
-        () => M.toast({ html: 'Error updating the relation' })
+        () => this.toastr.success('Relation updated', null, TOASTSETTING),
+        () => this.toastr.error('Error updating the relation', null, TOASTSETTING)
       );
     }
   }
@@ -152,8 +151,11 @@ export class CommunityLineListComponent implements OnInit {
   */
   public deleteLine(id: number): void {
     this.commService.delete(id).subscribe(
-      (res: boolean) => this.getAllCommunityLines(),
-      (err: Error) =>  M.toast({ html: 'Error updating the relation' })
+      (res: boolean) => {
+        this.getAllCommunityLines();
+        this.toastr.success('Community line deleted', null, TOASTSETTING);
+      },
+      (err: Error) => this.toastr.error('Error deleting the line', null, TOASTSETTING)
     );
   }
 

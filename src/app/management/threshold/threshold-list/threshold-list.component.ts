@@ -12,6 +12,8 @@ import { Threshold } from '../../../models/threshold';
 import { GuideSetService } from '../../../services/guide-set.service';
 import { SystemService } from '../../../services/system.service';
 import { ThresholdService } from '../../../services/threshold.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, ERROR_MSG, ERROR_TITLE } from '../../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -24,7 +26,8 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
   constructor(private thresholdService: ThresholdService,
     private labSystemService: SystemService,
     private modalService: ModalService,
-    private guideSetService: GuideSetService) { }
+    private guideSetService: GuideSetService,
+    private toastr: ToastrService) { }
 
 
   labSystemThresholds: LabSystemThreshold[] = [];
@@ -197,9 +200,8 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
             () => {
               this.guideSetService.resetLabSystemGuideSetByThreshold(modalResponse.objectInstance['threshold'])
                 .subscribe(
-                  (res) => {
-                    M.toast({ 'html': 'Guide set reset to automatic!' });
-                  }, err => console.log('reset', err)
+                  () => this.toastr.success('Guideset reset to automatic', null, TOASTSETTING),
+                  () => this.toastr.error(ERROR_TITLE, ERROR_MSG, TOASTSETTING)
                 );
             }
           );

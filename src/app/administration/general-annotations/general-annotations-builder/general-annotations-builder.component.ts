@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { GeneralAnnotation } from '../../../models/GeneralAnnotation';
 import { GeneralAnnotationService } from '../../../services/general-annotation-service';
-declare var M: any;
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
+declare let M: any;
 @Component({
   selector: 'app-general-annotations-builder',
   templateUrl: './general-annotations-builder.component.html',
@@ -11,7 +13,8 @@ declare var M: any;
 })
 export class GeneralAnnotationsBuilderComponent implements OnInit {
 
-  constructor(private generalAnnotationService: GeneralAnnotationService) { }
+  constructor(private generalAnnotationService: GeneralAnnotationService,
+    private toastr: ToastrService) { }
 
   annotationForm = new FormGroup({
     desc: new FormControl('Description', [
@@ -24,6 +27,8 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
     ])
   });
 
+  @Output() closeForm: EventEmitter<String> = new EventEmitter<String>();
+
   ngOnInit() {
     M.AutoInit();
   }
@@ -32,11 +37,16 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
     const annotation = new GeneralAnnotation(null, null, formatDate(this.annotationForm.value.date, 'yyyy-MM-dd', 'en')
       , this.annotationForm.value.desc, true);
     this.generalAnnotationService.saveGeneralAnnotation(annotation).subscribe(
-      (res) => {
-        console.log(res);
+      () => {
+        this.toastr.success('General annotation saved', null, TOASTSETTING);
+        this.closeFormEvent();
       },
-      (err) => console.error(err)
+      () => this.toastr.error('Error saving the annotation', null, TOASTSETTING)
     );
+  }
+
+  public closeFormEvent(): void {
+    this.closeForm.emit('emit');
   }
 
 }

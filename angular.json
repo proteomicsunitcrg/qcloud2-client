@@ -25,7 +25,8 @@
               "src/styles.css",
               "node_modules/materialize-css/dist/css/materialize.min.css",
               "node_modules/dragula/dist/dragula.css",
-              "node_modules/pickr-widget/dist/pickr.min.css"
+              "node_modules/pickr-widget/dist/pickr.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/materialize-css/dist/js/materialize.min.js",
@@ -116,7 +117,8 @@
             "styles": [
               "src/styles.css",
               "src/app/modifiedMaterialize.min.css",
-              "node_modules/dragula/dist/dragula.css"
+              "node_modules/dragula/dist/dragula.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "assets": [
               "src/assets",

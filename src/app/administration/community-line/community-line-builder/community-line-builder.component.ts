@@ -16,7 +16,8 @@ import { CommunityPartnerService } from '../../../services/community-partner-ser
 import { TraceColorService } from '../../../services/trace-color.service';
 import { TraceColor } from '../../../models/TraceColor';
 import * as Plotly from 'plotly.js/dist/plotly';
-import { ContextSource } from '../../../models/contextSource';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 
 declare var M: any;
 
@@ -31,7 +32,8 @@ export class CommunityLineBuilderComponent implements OnInit {
     private cvService: CvService, private categoryService: CategoryService,
     private sampleCompositionService: SampleCompositionService,
     private instrumentSampleService: InstrumentSampleService, private communityLineService: CommunityService,
-    private partnerService: CommunityPartnerService, private traceColorService: TraceColorService
+    private partnerService: CommunityPartnerService, private traceColorService: TraceColorService,
+    private toast: ToastrService
   ) { }
   // To store all the sample types
   sampleTypes: SampleType[] = [];
@@ -189,9 +191,8 @@ export class CommunityLineBuilderComponent implements OnInit {
       alert('Select a color');
     }
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
-      (response) => {
-        M.toast({ html: 'Line saved' });
-      }, error => M.toast({ html: 'Error saving the line' })
+      () => this.toast.success('Community feature saved', null, TOASTSETTING),
+      () => this.toast.error('Error saving the community line', null, TOASTSETTING),
     );
   }
 

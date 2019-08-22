@@ -18,4 +18,8 @@ export class GeneralAnnotationsMainComponent implements OnInit {
     this.newAnnotation = true;
   }
 
+  public close(): void {
+    this.newAnnotation = false;
+  }
+
 }

@@ -6,6 +6,8 @@ import { FileService } from '../../../../services/file.service';
 import { File } from '../../../../models/file';
 import { AnnotationService } from '../../../../services/annotation.service';
 import { Annotation } from '../../../../models/annotation';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -17,7 +19,8 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
 
   constructor(private plotService: PlotService,
     private fileService: FileService,
-    private annotationService: AnnotationService) { }
+    private annotationService: AnnotationService,
+    private toastr: ToastrService) { }
 
   @Output() actionSent = new EventEmitter<boolean>();
 
@@ -101,7 +104,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
     this.annotationService.addAnnotation(annotation)
       .subscribe(
         (res) => {
-          M.toast({ html: 'Annotation saved!' });
+          this.toastr.success('Annotation saved', null, TOASTSETTING);
           this.actionSent.emit(true);
         }
       );
@@ -110,23 +113,23 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
   private updateAnnotationFromServer(annotation: Annotation): void {
     this.annotationService.updateAnnotation(annotation)
       .subscribe(
-        (res) => {
-          M.toast({ html: 'Annotation updated!' });
+        () => {
+          this.toastr.success('Annotation updated', null, TOASTSETTING);
           this.actionSent.emit(true);
-        }, err => console.log('updateannotacion', err)
+        },
+        () => this.toastr.error('Error', 'Try again later or contact the QCloud team', TOASTSETTING)
       );
   }
 
   private deleteAnnotationFromServer(annotation: Annotation): void {
     this.annotationService.deleteAnnotation(annotation)
       .subscribe(
-        (res) => {
+        () => {
           this.annotation = undefined;
-          M.toast({ html: 'Annotation deleted!' });
+          this.toastr.success('Annotation deleted', null, TOASTSETTING);
           this.actionSent.emit(true);
-        }, err => {
-          console.log('error');
-        }
+        },
+        () => this.toastr.error('Error', 'Try again later or contact the QCloud team', TOASTSETTING)
       );
   }
 

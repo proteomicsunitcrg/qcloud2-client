@@ -13,7 +13,8 @@ import { ModalService } from '../../../common/modal.service';
 import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
 import { ParametersService } from '../../../services/parameters.service';
-import { Param } from '../../../models/param';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 
 /**
@@ -34,7 +35,8 @@ export class ChartFormComponent implements OnInit, OnDestroy {
     private chartParamsService: ChartParamsService,
     private chartService: ChartService,
     private modalService: ModalService,
-    private paramService: ParametersService) { }
+    private paramService: ParametersService,
+    private toastr: ToastrService) { }
 
   selectedCategory: Category;
   cvs: CV[] = [];
@@ -232,7 +234,7 @@ export class ChartFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.chartParamsService.resetComponents();
-          M.toast({ html: 'Chart saved!' });
+          this.toastr.success('Chart saved', null, TOASTSETTING);
         },
         (error) => {
           this.modalService.openModal(new Modal(error.error.error, 'Database error', 'Ok', null, 'newChartParams', null));

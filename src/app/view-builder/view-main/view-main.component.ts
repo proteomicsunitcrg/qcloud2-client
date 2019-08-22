@@ -21,6 +21,8 @@ import { System } from '../../models/system';
 import { UserChart } from '../../models/userChart';
 import { UserView } from '../../models/userView';
 import { SystemService } from '../../services/system.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, ERROR_MSG, ERROR_TITLE } from '../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -38,7 +40,8 @@ export class ViewMainComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private dragulaService: DragulaService,
     private sampleTypeCategoryService: SampleTypeCategoryService,
-    private labSystemService: SystemService) { }
+    private labSystemService: SystemService,
+    private toastr: ToastrService) { }
 
   @Input() type: string;
 
@@ -358,7 +361,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
   }
 
   private navigateBack(action: string): void {
-    M.toast({ html: action });
+    this.toastr.success(action, null, TOASTSETTING);
     if (this.type === 'defaults') {
       this.router.navigate(['/application/administration/views']);
     } else {

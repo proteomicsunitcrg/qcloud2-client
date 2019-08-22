@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GeneralAnnotationService } from '../../../services/general-annotation-service';
 import { GeneralAnnotation } from '../../../models/GeneralAnnotation';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare let M: any;
 @Component({
   selector: 'app-general-annotations-list',
@@ -9,7 +11,8 @@ declare let M: any;
 })
 export class GeneralAnnotationsListComponent implements OnInit {
 
-  constructor(private generalAnnotationService: GeneralAnnotationService) { }
+  constructor(private generalAnnotationService: GeneralAnnotationService,
+    private toastr: ToastrService) { }
 
   @Output() openForm: EventEmitter<string> = new EventEmitter<string>();
 
@@ -21,11 +24,8 @@ export class GeneralAnnotationsListComponent implements OnInit {
 
   private getAllGeneralAnnotations(): void {
     this.generalAnnotationService.getAllGeneralAnnotations().subscribe(
-      (res) => {
-        console.log(res);
-        this.annotations = res;
-      },
-      (err) => console.error(err)
+      res => this.annotations = res,
+      () => this.toastr.error('Error retrieving the data', null, TOASTSETTING)
     );
   }
 
@@ -44,8 +44,8 @@ export class GeneralAnnotationsListComponent implements OnInit {
 
   public toggleActive(annotation: GeneralAnnotation) {
     this.generalAnnotationService.toggleActive(annotation.apiKey).subscribe(
-      res => console.log(res),
-      err => console.error(err)
+      () => this.toastr.success('General annotation toggled', null, TOASTSETTING),
+      () => this.toastr.error('Error toggling the annotation', null, TOASTSETTING)
     );
   }
 
@@ -53,14 +53,14 @@ export class GeneralAnnotationsListComponent implements OnInit {
     this.generalAnnotationService.deleteGeneralAnnotation(id).subscribe(
       res => {
         if (res) {
-          M.toast({ html: 'Annotation deleted' });
+          this.toastr.success('General annotation deleted', null, TOASTSETTING);
           this.getAllGeneralAnnotations();
         } else {
-          M.toast({ html: 'Problem deleting the annotation' });
+          this.toastr.error('Problem deleting the annotation', null, TOASTSETTING);
         }
       },
-      err => {
-        M.toast({ html: 'Problem deleting the annotation' });
+      () => {
+        this.toastr.error('Problem deleting the annotation', null, TOASTSETTING);
       }
     );
   }

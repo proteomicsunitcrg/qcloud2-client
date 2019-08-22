@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CvService } from '../../../services/cv.service';
 import { ChartService } from '../../../services/chart.service';
-import { CV } from '../../../models/cv';
 import { Chart } from '../../../models/chart';
 import { ChartParamsService } from '../../../services/chart-params.service';
 import { Subscription } from 'rxjs';
 import { SampleType } from '../../../models/sampleType';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 
 /**
@@ -23,7 +24,8 @@ export class ChartListComponent implements OnInit, OnDestroy {
 
   constructor(private cvService: CvService,
     private chartService: ChartService,
-    private chartParamsService: ChartParamsService) { }
+    private chartParamsService: ChartParamsService,
+    private toastr: ToastrService) { }
 
   resetComponent$: Subscription;
   selectedChartCv$: Subscription;
@@ -124,11 +126,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
     // update chart
     this.chartService.chartToDatabase(chart, true)
       .subscribe(
-        (res) => {
-          M.toast({
-            html: 'Chart updated!'
-          });
-        },
+        () => this.toastr.success('Chart updated', null, TOASTSETTING),
         err => console.log(err)
       );
   }

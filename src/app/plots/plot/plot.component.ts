@@ -99,7 +99,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   generalAnnotations: GeneralAnnotation[];
 
   ngOnInit() {
-    
+
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
@@ -454,8 +454,6 @@ export class PlotComponent implements OnInit, OnDestroy {
   }
 
   private loadGeneralAnnotations(): void {
-    console.log("road to general");
-    
     this.generalAnnotationService.getAnnotationsBetweenDates(this.dataService.getCurrentDates()).subscribe(
       res => {
         this.generalAnnotations = res;

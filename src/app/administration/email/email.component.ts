@@ -4,6 +4,8 @@ import { Email } from '../../models/email';
 import { EmailService } from '../../services/email.service';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { TemplateListComponent } from './template-list/template-list.component';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../shared/ToastConfig';
 declare let M: any;
 
 @Component({
@@ -42,7 +44,7 @@ export class EmailComponent {
     ])
   });
 
-  constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService, private toastr: ToastrService) { }
   /**
   * @summary Get all the selected users from the event
   * @author Marc Serret
@@ -72,18 +74,17 @@ export class EmailComponent {
   * @access public
   */
   submit(): void {
-    M.toast({ html: 'Sending the email' });
+    this.toastr.info('Sending the email', null, TOASTSETTING);
     const email = new Email('qcloud@crg.eu', this.selectedUsers, this.emailForm.value.title, this.emailForm.value.body);
     this.emailService.sendEmail(email).subscribe(
       (result) => {
         if (result) {
-          M.toast({ html: 'Email send' });
+          this.toastr.success('Email send', null, TOASTSETTING);
         } else {
-          M.toast({ html: 'Error sending the email' });
+          this.toastr.error('Error sending the email', null, TOASTSETTING);
         }
-      }, (error) => {
-        M.toast({ html: 'Error sending the email' });
-      }
+      },
+      () => this.toastr.error('Error sending the email', null, TOASTSETTING)
     );
   }
 

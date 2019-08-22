@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Param } from '../../../models/param';
 import { ParametersService } from '../../../services/parameters.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 import { delay } from 'q';
 @Component({
@@ -10,8 +12,11 @@ import { delay } from 'q';
 })
 export class ParametersFormComponent implements OnInit {
 
-  constructor(private parameterService: ParametersService,
-    private ref: ChangeDetectorRef) { }
+  constructor(
+    private parameterService: ParametersService,
+    private ref: ChangeDetectorRef,
+    private toastr: ToastrService
+  ) { }
 
   newParam: Param = new Param(null, '', '', '', '', null);
 
@@ -67,7 +72,7 @@ export class ParametersFormComponent implements OnInit {
       .subscribe(
         (result) => {
           // Send to list
-          M.toast({ html: 'Parameter saved!' });
+          this.toastr.success('Parameter saved', null, TOASTSETTING);
           this.parameterService.sendParamToList(result);
           // Reset selectors
           this.newParam = new Param(null, '', '', '', '', true);
@@ -75,9 +80,7 @@ export class ParametersFormComponent implements OnInit {
           this.enableSelect('selectFor');
           this.enableSelect('isZeroNoDataSelect');
         },
-        (error) => {
-          console.log(error);
-        }
+        () => this.toastr.error('Parameter not saved', null, TOASTSETTING)
       );
   }
 

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametersService } from '../../../services/parameters.service';
 import { Param } from '../../../models/param';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -11,7 +13,7 @@ declare var M: any;
 })
 export class ParametersListComponent implements OnInit, OnDestroy {
 
-  constructor(private paramService: ParametersService) { }
+  constructor(private paramService: ParametersService, private toastr: ToastrService) { }
   editingParameter = false;
   editRow = -1;
   parameterName = '';
@@ -48,12 +50,8 @@ export class ParametersListComponent implements OnInit, OnDestroy {
 
   saveParameter(param: Param): void {
     this.paramService.updateParameter(param).subscribe(
-      (result) => {
-        M.toast({ html: 'Parameter saved!' });
-      },
-      (error) => {
-        M.toast({ html: 'There was an error!' });
-      }
+      () => this.toastr.success('Parameter saved', null, TOASTSETTING),
+      () => this.toastr.error('Parameter not saved', null, TOASTSETTING)
     );
     this.stopEditing();
   }

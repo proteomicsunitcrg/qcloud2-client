@@ -11,6 +11,8 @@ import { Modal } from '../../../models/modal';
 import { Subscription } from 'rxjs';
 import { ModalResponse } from '../../../models/modalResponse';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, ERROR_MSG, ERROR_TITLE } from '../../../shared/ToastConfig';
 
 
 declare var M: any;
@@ -25,7 +27,8 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     private dataSourceService: DataSourceService,
     private systemService: SystemService,
     private modalService: ModalService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   system: System = new System(null, null, null, null, null, null);
@@ -240,11 +243,9 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
           this.systemService.reloadList();
           this.loadNodeDataSources();
           this.doCancel();
-          M.toast({ html: 'System updated!' });
+          this.toastr.success('System updated', null, TOASTSETTING);
         },
-        (err) => {
-          console.log(err);
-        }
+        () => this.toastr.error(ERROR_TITLE, ERROR_MSG, TOASTSETTING)
       );
   }
 
@@ -273,14 +274,14 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
             .subscribe(
               () => {
                 // toast and reset form
-                M.toast({ html: 'System saved' });
-                this.loadNodeDataSources();
+                this.toastr.success('System saved', null, TOASTSETTING),
+                  this.loadNodeDataSources();
                 this.system.dataSources = ds;
                 this.systemService.reloadList();
                 this.system = new System(null, null, null, null, null, null);
                 this.updating = false;
               },
-              (err) => console.log(err)
+              () => this.toastr.error(ERROR_TITLE, ERROR_MSG, TOASTSETTING)
             );
         }
       );

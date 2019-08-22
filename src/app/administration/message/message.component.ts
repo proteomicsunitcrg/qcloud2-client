@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Message } from '../../models/message';
 import { MessageService } from '../../services/message.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from '../../shared/ToastConfig';
 declare let M: any;
 @Component({
   selector: 'app-message',
@@ -26,7 +28,7 @@ export class MessageComponent implements OnInit {
       Validators.required
     ])
   });
-  constructor(private msgService: MessageService) { }
+  constructor(private msgService: MessageService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.enableSelect();
@@ -47,11 +49,10 @@ export class MessageComponent implements OnInit {
         if (Array.isArray(msg) && msg.length) {
           this.mountForm(msg[msg.length - 1]);
         } else {
-          M.toast({ html: 'Error retrieving the message' });
+          this.toastr.error('Error retrieving the message', null, TOASTSETTING);
         }
-      }, () => {
-        M.toast({ html: 'Error retrieving the message' });
-      }
+      },
+      () => this.toastr.error('Error retrieving the message', null, TOASTSETTING)
     );
   }
 
@@ -81,11 +82,8 @@ export class MessageComponent implements OnInit {
     const msg = new Message(this.messageForm.value.title, this.messageForm.value.message,
       this.messageForm.value.type, this.messageForm.value.show);
     this.msgService.saveMessage(msg).subscribe(
-      () => {
-        M.toast({ html: 'Message updated' });
-      }, () => {
-        M.toast({ html: 'Error while updating the message' });
-      }
+      () => this.toastr.success('Message updated', null, TOASTSETTING),
+      () => this.toastr.error('Error while updating the message', null, TOASTSETTING),
     );
   }
 
