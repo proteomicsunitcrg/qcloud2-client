@@ -10,12 +10,16 @@ export class GeneralAnnotationsMainComponent implements OnInit {
   constructor() { }
 
   newAnnotation = false;
+  id: String;
 
   ngOnInit() {
   }
 
-  open(id: number): void {
+  open(id: String): void {
+    console.log(id);
+    
     this.newAnnotation = true;
+    this.id = id;
   }
 
   public close(): void {

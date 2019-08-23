@@ -50,4 +50,11 @@ export class GeneralAnnotationService {
     return this.httpClient.delete<boolean>(`${this.generalAnnotationURL}/${id}`);
   }
 
+  /**
+   * getGeneralAnnotationById
+   */
+  public getGeneralAnnotationById(id: number): Observable<GeneralAnnotation> {
+    return this.httpClient.get<GeneralAnnotation>(`${this.generalAnnotationURL}/${id}`);
+  }
+
 }

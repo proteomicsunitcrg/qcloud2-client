@@ -33,13 +33,13 @@ export class GeneralAnnotationsListComponent implements OnInit {
    * Emits the output to show the annotation builder
    */
   public openFormEvent(edit: boolean, id?: number): void {
-    // if (edit) {
-    //   this.openForm.emit(id.toString());
-    //   console.log('edit');
-    // } else {
+    if (edit) {
+      this.openForm.emit(id.toString());
+      console.log('edit');
+    } else {
     this.openForm.emit('noEdit');
     console.log('noEdit');
-    // }
+    }
   }
 
   public toggleActive(annotation: GeneralAnnotation) {
