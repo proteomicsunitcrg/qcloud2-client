@@ -357,7 +357,6 @@ export class PlotComponent implements OnInit, OnDestroy {
           type: 'scattergl',
           mode: mode,
           marker: {
-            color: color,
             size: 5,
             symbol: symbol
           },
