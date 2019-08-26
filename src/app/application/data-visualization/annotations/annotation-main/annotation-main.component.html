@@ -4,8 +4,9 @@
     <span class="go-back" (click)="goBack()">[Go back]</span>
   </li>
   <li class="collection-item">
-    <p *ngIf="file"><strong>{{file.filename}}</strong></p>
+    <p *ngIf="file" title="{{file.filename}}"><strong>{{file.filename}}</strong></p>
     <p *ngIf="file"><strong>{{file.creationDate}}</strong></p>
+    <button class="btn-small" (click)="copyToClipboard()"><i class="material-icons cursorIcon left">file_copy</i>Copy to clipboard</button>
     <p *ngIf="annotation" class="annotation-author">
       by {{annotation.user.firstname}} {{annotation.user.lastname}} on {{annotation.annotationDate | date:'short'}}
     </p>

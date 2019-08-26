@@ -6,6 +6,7 @@ import { FileService } from '../../../../services/file.service';
 import { File } from '../../../../models/file';
 import { AnnotationService } from '../../../../services/annotation.service';
 import { Annotation } from '../../../../models/annotation';
+import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING } from '../../../../shared/ToastConfig';
 declare var M: any;
@@ -20,7 +21,8 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
   constructor(private plotService: PlotService,
     private fileService: FileService,
     private annotationService: AnnotationService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private clipboard: ClipboardService) { }
 
   @Output() actionSent = new EventEmitter<boolean>();
 
@@ -139,5 +141,9 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.actionSent.emit(true);
+  }
+
+  public copyToClipboard(): void {
+    this.clipboard.copyFromContent(this.file.filename);
   }
 }
