@@ -10,9 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "transpile": "ng build --prod --build-optimizer --aot",
-    "transpile:dev": "ng build --prod --build-optimizer --configuration=dev --aot --base-href /qcloud2/",
-    "transpile:test": "ng build --prod --build-optimizer --configuration=test --aot",
+    "transpile:prod": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=production",
+    "transpile:dev": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=dev",
+    "transpile:test": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=test",
     "compodoc": "npx compodoc -p src/tsconfig.app.json"
   },
   "private": true,
