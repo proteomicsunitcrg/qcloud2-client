@@ -22,14 +22,35 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(30)
     ]),
-    date: new FormControl(formatDate(new Date(), 'MMM dd, yyyy', 'en'), [
-      // Validators.required
-    ])
+    day: new FormControl(new Date().getDate(), [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(31)
+    ]),
+    month: new FormControl(new Date().getMonth() + 1, [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(12)
+    ]),
+    year: new FormControl(new Date().getFullYear(), [
+      Validators.required,
+      Validators.min(1970),
+      Validators.max(new Date().getFullYear())
+    ]),
+    hour: new FormControl(new Date().getHours(), [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(23)
+    ]),
+    minute: new FormControl(new Date().getMinutes(), [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(59)
+    ]),
   });
 
   @Input() dataFromParent: string;
   @Output() closeForm: EventEmitter<String> = new EventEmitter<String>();
-  cacaca;
 
   updateMode = false;
 
@@ -60,12 +81,13 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
   }
 
   public submit() {
-    const annotation = new GeneralAnnotation(null, null, formatDate(this.annotationForm.value.date, 'yyyy-MM-dd', 'en')
-      , this.annotationForm.value.desc, true);
-      console.log(this.annotationForm.value.date);
-      console.log(this.cacaca);
-      
-      console.log(this.annotationForm.value.desc);
+    const date = `${this.annotationForm.value.year}-${this.annotationForm.value.month }-${this.annotationForm.value.day} ${this.annotationForm.value.hour}:${this.annotationForm.value.minute}`;
+    // date.setFullYear(this.annotationForm.value.year, this.annotationForm.value.month-1, this.annotationForm.value.day);
+    // date.setHours(this.annotationForm.value.hour, this.annotationForm.value.minute, 30);
+    console.log(date.toString());
+    
+    // return;
+    const annotation = new GeneralAnnotation(null, null, date, this.annotationForm.value.desc, true);
     this.generalAnnotationService.saveGeneralAnnotation(annotation).subscribe(
       () => {
         this.toastr.success('General annotation saved', null, TOASTSETTING);

@@ -4,12 +4,41 @@
     <label>
       Description
     </label>
-    <input type="text"  placeholder="Description" name="desc">
+    <input type="text" placeholder="Description" name="desc">
+    <div class="row">
+      <div class="col s2">
+        <label>
+          Day
+        </label>
+        <input type="number" placeholder="01" name="day" formControlName="day">
+      </div>
+      <div class="col s2">
+        <label>
+          Month
+        </label>
+        <input type="number" placeholder="01" name="month" formControlName="month">
+      </div>
+      <div class="col s2">
+        <label>
+          Year
+        </label>
+        <input type="number" placeholder="01" name="year" formControlName="year">
+      </div>
+      <div class="col s2">
+        <label>
+          Hours
+        </label>
+        <input type="number" placeholder="01" name="hour" formControlName="hour">
+      </div>
+      <div class="col s2">
+        <label>
+          Minutes
+        </label>
+        <input type="number" placeholder="01" name="minutes" formControlName="minute">
+      </div>
+    </div>
 
-    <label>
-      Date
-    </label>
-    <input type="text" class="datepicker" formControlName="date" placeholder="Date" name="datepick" [(ngModel)]="cacaca">
+
 
   </form>
 
