@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TraceColor } from '../../../models/TraceColor';
 import { TraceColorService } from '../../../services/trace-color.service';
+import { ToastrService } from 'ngx-toastr';
+import {TOASTSETTING} from '../../../shared/ToastConfig'
 
 declare var Pickr: any;
 
@@ -12,7 +14,8 @@ declare var Pickr: any;
 export class ColorListComponent implements OnInit {
 
   constructor(private ref: ChangeDetectorRef,
-    private traceColorService: TraceColorService) { }
+    private traceColorService: TraceColorService,
+    private toast: ToastrService) { }
 
   traceColors: TraceColor[] = [];
 
@@ -31,6 +34,7 @@ export class ColorListComponent implements OnInit {
    * @access private
    */
   private loadTraceColors(): void {
+    this.traceColors = [];
     this.traceColorService.getAllTraceColors()
       .subscribe(
         traceColors => this.addTraceColorsToArray(traceColors),
@@ -145,15 +149,19 @@ export class ColorListComponent implements OnInit {
       this.traceColorService.addNewTraceColor(traceColor)
         .subscribe(
           (res) => {
-            console.log('res', res);
-          }
+            this.refresh();
+            this.loadTraceColors();
+            this.toast.success('Color saved', null, TOASTSETTING);
+          },
+          () => this.toast.error('Error saving the trace', null, TOASTSETTING)
         );
     } else {
       this.traceColorService.updateTraceColor(traceColor)
         .subscribe(
           (res) => {
-            console.log('res', res);
-          }
+            this.toast.success('Color updated', null, TOASTSETTING);
+          },
+          () => this.toast.error('Error saving the trace', null, TOASTSETTING)
         );
     }
 
@@ -162,9 +170,10 @@ export class ColorListComponent implements OnInit {
   public deleteColor(color: TraceColor) {
     this.traceColorService.deleteTraceColor(color).subscribe(
       (res) => {
-        console.log(res);
+        this.toast.success('Color deleted', null, TOASTSETTING);
+        this.loadTraceColors();
       },
-      (err) => console.log(err)
+      (err) => this.toast.error('Error deleting the trace', null, TOASTSETTING)
     );
   }
 
