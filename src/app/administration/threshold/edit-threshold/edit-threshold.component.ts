@@ -59,8 +59,10 @@ export class EditThresholdComponent implements OnInit {
     this.loadParameters();
     this.loadThresholdDirections();
     this.loadParam(this.thresholdNew.param);
-
+    this.selectedThresholdParams = this.thresholdToEdit.thresholdParams;
+    
   }
+
   private loadThresholdDirections(): void {
     this.thresholdService.getAllThresholdDirections()
       .subscribe(
@@ -70,19 +72,12 @@ export class EditThresholdComponent implements OnInit {
       );
   }
   onSubmit(): void {
-    console.log(this.thresholdNew);
-    // this.thresholdNew.thresholdParams = this.selectedThresholdParams;
-    // return;
     this.thresholdService.editThreshold(this.thresholdNew)
       .subscribe(
         (threshold) => {
-          console.log(threshold);
-
-          // save the threshold params
           this.saveThresholdParams(threshold);
         },
         (error) => {
-          // this.modalService.openModal(new Modal('Error', error.error.message, 'Ok', null, 'newThreshold', null));
         }
       );
   }
@@ -109,7 +104,6 @@ export class EditThresholdComponent implements OnInit {
       .subscribe(
         (types) => {
           this.thresholdTypes = types;
-          console.log(types);
         }
         , err => console.log(err),
         () => delay(1).then(() => M.AutoInit()));
@@ -141,8 +135,6 @@ export class EditThresholdComponent implements OnInit {
     this.thresholdService.getThresholdConstraints(thresholdType)
       .subscribe(
         (constraint) => {
-          console.log(constraint);
-
           this.thresholdConstraint = constraint;
           delay(1).then(() => {
             M.updateTextFields();

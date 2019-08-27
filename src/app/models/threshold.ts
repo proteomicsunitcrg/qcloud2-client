@@ -2,6 +2,7 @@ import { Param } from './param';
 import { CV } from './cv';
 import { SampleType } from './sampleType';
 import { System } from './system';
+import { ThresholdParam } from './thresholdParams';
 
 export class Threshold {
     id: number;
@@ -15,6 +16,7 @@ export class Threshold {
     isMonitored: boolean;
     apiKey: string;
     labSystem: System;
+    thresholdParams: ThresholdParam[];
 
     constructor(id: number,
         name: string,
