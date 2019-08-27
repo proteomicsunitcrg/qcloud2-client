@@ -49,6 +49,7 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
     ]),
   });
 
+  generalAno: GeneralAnnotation;
   @Input() dataFromParent: string;
   @Output() closeForm: EventEmitter<String> = new EventEmitter<String>();
 
@@ -69,9 +70,14 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
   }
 
   private mountForm(annotation: GeneralAnnotation): void {
-    console.log(annotation);
+    this.generalAno = annotation;
     this.annotationForm.controls.desc.setValue(annotation.description);
-    this.annotationForm.controls.date.setValue(formatDate(annotation.date, 'MMM dd, yyyy', 'en'));
+    const date = new Date(annotation.date);
+    this.annotationForm.controls.year.setValue(date.getFullYear());
+    this.annotationForm.controls.month.setValue(date.getMonth());
+    this.annotationForm.controls.day.setValue(date.getDate());
+    this.annotationForm.controls.hour.setValue(date.getHours());
+    this.annotationForm.controls.minute.setValue(date.getMinutes());
   }
 
   private isEdit(): void {
@@ -82,12 +88,11 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
 
   public submit() {
     const date = `${this.annotationForm.value.year}-${this.annotationForm.value.month }-${this.annotationForm.value.day} ${this.annotationForm.value.hour}:${this.annotationForm.value.minute}`;
-    // date.setFullYear(this.annotationForm.value.year, this.annotationForm.value.month-1, this.annotationForm.value.day);
-    // date.setHours(this.annotationForm.value.hour, this.annotationForm.value.minute, 30);
-    console.log(date.toString());
-    
-    // return;
+    console.log(this.annotationForm.value.desc);
     const annotation = new GeneralAnnotation(null, null, date, this.annotationForm.value.desc, true);
+    if(this.updateMode) {
+      annotation.id = this.generalAno.id;
+    }
     this.generalAnnotationService.saveGeneralAnnotation(annotation).subscribe(
       () => {
         this.toastr.success('General annotation saved', null, TOASTSETTING);
