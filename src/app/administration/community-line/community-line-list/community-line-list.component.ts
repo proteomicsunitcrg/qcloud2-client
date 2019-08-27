@@ -29,7 +29,6 @@ export class CommunityLineListComponent implements OnInit {
   nodeKey: any[];
 
   ngOnInit() {
-    // this.getAllNodes();
     this.getAllCommunityLines();
     M.updateTextFields();
     M.AutoInit();
@@ -138,8 +137,12 @@ export class CommunityLineListComponent implements OnInit {
   /**
    * Emits the output to show the new line builder
    */
-  openForm(): void {
-    this.openThreshold.emit('fale');
+  openFormEvent(isEdition: boolean, id?: string): void {
+    if (isEdition) {
+      this.openThreshold.emit(id);
+    } else {
+      this.openThreshold.emit("noEdit");
+    }
   }
 
   /**

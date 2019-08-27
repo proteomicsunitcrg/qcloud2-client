@@ -1,4 +1,4 @@
-<a class="btn-floating waves-effect waves-light right" (click)="openForm()">
+<a class="btn-floating waves-effect waves-light right" (click)="openFormEvent(false)">
   <i class="material-icons">add</i>
 </a>
 <table>
@@ -47,7 +47,7 @@
       <td>{{communityLine.sampleType.name}}</td>
       <td>{{communityLine.value}}</td>
       <td>
-        <select multiple [id]="communityLine.apiKey" (change)="updateRelation(communityLine)" [(ngModel)]="nodeKey">
+        <select multiple [id]="communityLine.apiKey" (change)="updateRelation(true ,communityLine)" [(ngModel)]="nodeKey">
         </select>
       </td>
       <td><i class="material-icons" (click)="openFormEvent(true, communityLine.id)">create</i></td>

@@ -64,4 +64,8 @@ export class CommunityService {
     return this.httpClient.get<boolean>(`${this.communityUrl}/deleteAllRelations/${id}`);
   }
 
+  public getById(id: number): Observable<CommunityLine> {
+    return this.httpClient.get<CommunityLine>(`${this.communityUrl}/${id}`);
+  }
+
 }

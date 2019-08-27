@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { delay } from 'q';
 import { CommunityLine } from '../../../models/CommunityLine';
 import { CV } from '../../../models/cv';
@@ -35,6 +35,8 @@ export class CommunityLineBuilderComponent implements OnInit {
     private partnerService: CommunityPartnerService, private traceColorService: TraceColorService,
     private toast: ToastrService
   ) { }
+
+  @Input() dataFromParent: string;
   // To store all the sample types
   sampleTypes: SampleType[] = [];
 
@@ -74,6 +76,9 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.getCVs();
     this.loadTraceColors();
     this.drawPlot();
+    if(this.dataFromParent !== 'noEdit') {
+      this.findById(+this.dataFromParent);
+    }
   }
 
   /**
@@ -104,8 +109,6 @@ export class CommunityLineBuilderComponent implements OnInit {
       .subscribe(
         (params) => {
           this.params = params;
-          console.log(params);
-
         }, error => console.log(error),
         () => delay(1).then(() => M.AutoInit())
       );
@@ -125,7 +128,6 @@ export class CommunityLineBuilderComponent implements OnInit {
           .subscribe(
             (peptides) => {
               this.contextSources = peptides;
-              console.log(this.contextSources);
             }, error => console.log(error),
             () => delay(1).then(() => M.AutoInit())
 
@@ -222,8 +224,6 @@ export class CommunityLineBuilderComponent implements OnInit {
       this.changePlotTraceColor('rgb(0, 98, 255)');
       return;
     }
-    console.log(this.communityLine.contextSource.traceColor);
-
     if (this.communityLine.contextSource.traceColor.mainColor === null) {
       this.showWarning = true;
     } else {
@@ -265,5 +265,15 @@ export class CommunityLineBuilderComponent implements OnInit {
     };
     const data = [trace1, trace2];
     Plotly.newPlot('plot', data);
+  }
+
+  private findById(id: number): void {
+    this.communityLineService.getById(id).subscribe(
+      res => {
+        this.communityLine = res;
+        this.toast.info('Although the selects are empty they have the value well', 'Angular 8 template bug', TOASTSETTING);
+      },
+      () => this.toast.error('Error getting the line', null, TOASTSETTING)
+    );
   }
 }
