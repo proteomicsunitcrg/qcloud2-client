@@ -96,8 +96,7 @@ export class CommunityLineListComponent implements OnInit {
    * and the API endpoint its different
    * @param line CommunityLine related to update
    */
-  private updateRelation(line: CommunityLine) {
-    console.log(this.nodeKey);
+  public updateRelation(line: CommunityLine) {
     if (this.nodeKey.length === 0) {
       this.commService.deleteAllRelations(line.id).subscribe(
         () => this.toastr.success('Relation updated', null, TOASTSETTING),
@@ -156,7 +155,7 @@ export class CommunityLineListComponent implements OnInit {
     this.commService.delete(id).subscribe(
       (res: boolean) => {
         this.getAllCommunityLines();
-        this.toastr.success('Community line deleted', null, TOASTSETTING);
+        this.toastr.success('Community threshold deleted', null, TOASTSETTING);
       },
       (err: Error) => this.toastr.error('Error deleting the line', null, TOASTSETTING)
     );

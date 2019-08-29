@@ -18,7 +18,7 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   partnerForm = new FormGroup({
     name: new FormControl('Name', [
       Validators.required,
-      Validators.minLength(5),
+      Validators.minLength(3),
       Validators.maxLength(30)
     ]),
     email: new FormControl('Email', [

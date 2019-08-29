@@ -194,7 +194,7 @@ export class CommunityLineBuilderComponent implements OnInit {
     }
     this.communityLineService.saveCommunityLine(this.communityLine).subscribe(
       () => this.toast.success('Community feature saved', null, TOASTSETTING),
-      () => this.toast.error('Error saving the community line', null, TOASTSETTING),
+      () => this.toast.error('Error saving the community threshold', null, TOASTSETTING),
     );
   }
 

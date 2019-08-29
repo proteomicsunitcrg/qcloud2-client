@@ -1,7 +1,7 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
   <div class="row z-depth-0 green-background  ">
     <div class="col s12 m12 l12 xl12">
-      <h4>Community line management</h4>
+      <h4>Community threshold management</h4>
     </div>
   </div>
   <div class="row z-depth-0">
@@ -9,6 +9,9 @@
       <table>
         <thead>
           <tr>
+            <th>
+              Logo
+            </th>
             <th>
               Name
             </th>
@@ -31,6 +34,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let communityLineRelation of communityLines">
+            <td>
+              <a [href]="communityLineRelation.communityLine.communityPartner.webPage"><img [title]="communityLineRelation.communityLine.communityPartner.name" [src]="communityLineRelation.communityLine.communityPartner.logo" [alt]="communityLineRelation.communityLine.communityPartner.name" ></a>
+            </td>
             <td>
               {{communityLineRelation.communityLine.name}}
             </td>
