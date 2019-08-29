@@ -99,7 +99,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   generalAnnotations: GeneralAnnotation[];
 
   ngOnInit() {
-
+    this.testPurgue()
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
@@ -110,6 +110,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
+    // this.testPurgue();
   }
 
   ngOnDestroy() {
@@ -121,6 +122,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       // this.deleteAnnotationFromWebSocket$.unsubscribe();
       // this.updateAnnotationFromWebSocket$.unsubscribe();
     }
+    this.testPurgue()
   }
 
   private loadData(): void {
@@ -354,10 +356,11 @@ export class PlotComponent implements OnInit, OnDestroy {
         const trace = {
           x: dates,
           y: values,
-          type: 'scattergl',
+          type: 'scatter',
           mode: mode,
           marker: {
             size: 5,
+            color: color,
             symbol: symbol
           },
           line: {
@@ -455,6 +458,7 @@ export class PlotComponent implements OnInit, OnDestroy {
   private loadGeneralAnnotations(): void {
     this.generalAnnotationService.getAnnotationsBetweenDates(this.dataService.getCurrentDates()).subscribe(
       res => {
+        console.log(res);
         this.generalAnnotations = res;
       },
       err => console.error(err)
@@ -512,7 +516,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     const lines = [];
     const annotations = [];
-
     this.generalAnnotations.forEach(
       ano => {  // (‿|‿)
         lines.push({
@@ -545,19 +548,18 @@ export class PlotComponent implements OnInit, OnDestroy {
       }
     );
     const shapesUpdate = this.layout.shapes;
-
-    const annotationsUpdate = this.layout.annotations;
-
     lines.forEach(l => {
       shapesUpdate.push(l);
     });
-
-    annotations.forEach(ano => annotationsUpdate.push(ano));
-
+    if(this.layout.annotations !== undefined) {
+      this.layout.annotations.forEach((ano: any) => {
+        annotations.push(ano)
+      });
+    }
     const layoutUpdate = {
       ...this.layout,
       shapes: shapesUpdate,
-      annotations: annotationsUpdate
+      annotations: annotations
     };
     Plotly.relayout('plot' + this.chart.id, layoutUpdate);
   }
@@ -571,8 +573,6 @@ export class PlotComponent implements OnInit, OnDestroy {
 
     this.annotations.forEach(
       (annotation) => {
-        console.log(annotation.actions);
-        console.log(annotation.problems);
         let text = '';
         annotation.problems.forEach(p => text += p.name + '-');
         annotation.actions.forEach(p => text += p.name + '-');
@@ -580,7 +580,8 @@ export class PlotComponent implements OnInit, OnDestroy {
         if (text.split('-').length > 2) {
           text = 'Click on any point to see the annotations.';
         }
-
+        console.log(annotation.date);
+        
         lines.push({
           type: 'line',
           x0: annotation.date,
@@ -616,6 +617,12 @@ export class PlotComponent implements OnInit, OnDestroy {
     lines.forEach(l => {
       shapesUpdate.push(l);
     });
+
+    if(this.layout.annotations !== undefined) {
+      this.layout.annotations.forEach(ano => {
+        annotations.push(ano);
+      });
+    }
 
     const layoutUpdate = {
       ...this.layout,
@@ -720,6 +727,15 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadData();
         }
       );
+  }
+
+  private testPurgue() {
+    let caca:NodeListOf<HTMLElement> = document.getElementsByName('plot');
+    for (let caco of caca as any) {
+      if(caco.id !== '') {
+        Plotly.purge(caco.id);
+      }
+    }
   }
 
 }
