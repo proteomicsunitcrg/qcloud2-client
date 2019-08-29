@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
+import { CommunityService } from '../../services/community.service';
 declare var M: any;
 @Component({
   selector: 'app-sidebar',
@@ -8,13 +9,16 @@ declare var M: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService,
+              private communityService: CommunityService) { }
 
   categories = [];
+  showCommunity: boolean;
 
   ngOnInit() {
     // get the categories for the menu
     this.getCategories();
+    this.getCommunityLines();
 
   }
 
@@ -31,5 +35,18 @@ export class SidebarComponent implements OnInit {
   open(item): void {
     const elem = document.getElementById(item);
     const instance = M.Collapsible.init(elem);
+  }
+
+  public getCommunityLines(): void {
+    this.communityService.getCommunityLinesByNode().subscribe(
+      res => {
+        if(res.length >= 1) {
+          this.showCommunity = true;
+        } else {
+          this.showCommunity = false;
+        }
+      },
+      () => this.showCommunity = false
+    );
   }
 }

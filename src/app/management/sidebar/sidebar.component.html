@@ -35,13 +35,13 @@
                 </ul>
             </div>
         </li>
-        <li (click)="open('menu')">
+        <li (click)="open('menu')" *ngIf="showCommunity">
             <a class="collapsible-header green-background   waves-effect waves-cyan">
                 <span class="nav-headers">Community</span>
             </a>
             <div class="collapsible-body">
                 <ul>
-                    <li><a routerLink="/application/management/community">Manage community lines</a></li>
+                    <li><a routerLink="/application/management/community">Manage community thresholds</a></li>
                 </ul>
             </div>
         </li>
