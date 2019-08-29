@@ -76,7 +76,7 @@ export class CommunityLineBuilderComponent implements OnInit {
     this.getCVs();
     this.loadTraceColors();
     this.drawPlot();
-    if(this.dataFromParent !== 'noEdit') {
+    if (this.dataFromParent !== 'noEdit') {
       this.findById(+this.dataFromParent);
     }
   }
@@ -188,7 +188,6 @@ export class CommunityLineBuilderComponent implements OnInit {
   * @access public
   */
   public onSubmit(): void {
-    console.log(this.communityLine);
     if (this.communityLine.traceColor === null) {
       alert('Select a color');
     }

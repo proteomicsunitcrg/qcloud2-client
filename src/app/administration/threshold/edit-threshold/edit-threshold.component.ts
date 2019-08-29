@@ -52,7 +52,6 @@ export class EditThresholdComponent implements OnInit {
   ngOnInit() {
     this.onThresholdTypeChange(this.thresholdToEdit.thresholdType);
     this.thresholdNew = this.thresholdToEdit;
-    console.log(this.thresholdToEdit);
     M.updateTextFields();
     this.loadThresholdTypes();
     this.loadSampleTypes();
@@ -60,7 +59,7 @@ export class EditThresholdComponent implements OnInit {
     this.loadThresholdDirections();
     this.loadParam(this.thresholdNew.param);
     this.selectedThresholdParams = this.thresholdToEdit.thresholdParams;
-    
+
   }
 
   private loadThresholdDirections(): void {
@@ -91,8 +90,6 @@ export class EditThresholdComponent implements OnInit {
     this.thresholdService.saveThresholdParams(this.selectedThresholdParams)
       .subscribe(
         (result) => {
-          console.log(result);
-          // go back
           this.thresholdService.resetBuilder();
         },
         (err) => console.log(err)

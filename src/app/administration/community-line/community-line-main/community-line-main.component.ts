@@ -19,7 +19,6 @@ export class CommunityLineMainComponent implements OnInit {
    * Sets newCommunityLine to true to show the new form
    */
   open($event): void {
-    console.log($event);
     this.editId = $event;
     this.newCommunityLine = true;
   }

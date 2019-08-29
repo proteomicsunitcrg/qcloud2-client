@@ -10,7 +10,7 @@ declare var M: any;
 export class SidebarComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
-              private communityService: CommunityService) { }
+    private communityService: CommunityService) { }
 
   categories = [];
   showCommunity: boolean;
@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
   public getCommunityLines(): void {
     this.communityService.getCommunityLinesByNode().subscribe(
       res => {
-        if(res.length >= 1) {
+        if (res.length >= 1) {
           this.showCommunity = true;
         } else {
           this.showCommunity = false;

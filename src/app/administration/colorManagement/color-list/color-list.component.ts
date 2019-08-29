@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TraceColor } from '../../../models/TraceColor';
 import { TraceColorService } from '../../../services/trace-color.service';
 import { ToastrService } from 'ngx-toastr';
-import {TOASTSETTING} from '../../../shared/ToastConfig'
+import { TOASTSETTING } from '../../../shared/ToastConfig';
 
 declare var Pickr: any;
 

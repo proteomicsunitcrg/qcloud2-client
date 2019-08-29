@@ -20,7 +20,6 @@ export class CommunityPartnerMainComponent implements OnInit {
    * Sets newCommunityLine to true to show the new form
    */
   open(id): void {
-    console.log(id);
     this.editId = id;
     this.newCommunityPartner = true;
   }

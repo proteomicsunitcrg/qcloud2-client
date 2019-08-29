@@ -35,7 +35,10 @@
         <tbody>
           <tr *ngFor="let communityLineRelation of communityLines">
             <td>
-              <a [href]="communityLineRelation.communityLine.communityPartner.webPage"><img [title]="communityLineRelation.communityLine.communityPartner.name" [src]="communityLineRelation.communityLine.communityPartner.logo" [alt]="communityLineRelation.communityLine.communityPartner.name" ></a>
+              <a [href]="communityLineRelation.communityLine.communityPartner.webPage"><img
+                  [title]="communityLineRelation.communityLine.communityPartner.name"
+                  [src]="communityLineRelation.communityLine.communityPartner.logo"
+                  [alt]="communityLineRelation.communityLine.communityPartner.name"></a>
             </td>
             <td>
               {{communityLineRelation.communityLine.name}}

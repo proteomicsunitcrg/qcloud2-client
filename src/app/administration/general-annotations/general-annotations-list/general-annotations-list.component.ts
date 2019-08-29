@@ -37,8 +37,8 @@ export class GeneralAnnotationsListComponent implements OnInit {
       this.openForm.emit(id.toString());
       console.log('edit');
     } else {
-    this.openForm.emit('noEdit');
-    console.log('noEdit');
+      this.openForm.emit('noEdit');
+      console.log('noEdit');
     }
   }
 

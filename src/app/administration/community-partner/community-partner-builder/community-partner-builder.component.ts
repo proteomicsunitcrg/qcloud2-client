@@ -38,7 +38,6 @@ export class CommunityPartnerBuilderComponent implements OnInit {
   });
 
   ngOnInit() {
-    console.log(this.dataFromParent);
     if (this.isEdition()) {
       this.getDataToEdit();
     }
@@ -69,7 +68,6 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     this.partnerService.getDataToEdit(parseInt(this.dataFromParent)).subscribe(
       result => {
         this.mountForm(result);
-        console.log(result);
       },
       err => console.error(err)
     );
@@ -87,10 +85,8 @@ export class CommunityPartnerBuilderComponent implements OnInit {
     if (this.isEdition()) {
       newPartner.id = parseInt(this.dataFromParent);
     }
-    console.log(newPartner);
     this.partnerService.createNew(newPartner).subscribe(
       result => {
-        console.log(result);
       },
       error => {
         console.error(error);

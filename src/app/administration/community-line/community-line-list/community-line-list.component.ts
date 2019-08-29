@@ -140,7 +140,7 @@ export class CommunityLineListComponent implements OnInit {
     if (isEdition) {
       this.openThreshold.emit(id);
     } else {
-      this.openThreshold.emit("noEdit");
+      this.openThreshold.emit('noEdit');
     }
   }
 

@@ -16,8 +16,6 @@ export class GeneralAnnotationsMainComponent implements OnInit {
   }
 
   open(id: String): void {
-    console.log(id);
-    
     this.newAnnotation = true;
     this.id = id;
   }
