@@ -18,7 +18,7 @@ export class MessageComponent implements OnInit {
     title: new FormControl('Message title', [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(30),
+      Validators.maxLength(60),
     ]),
     message: new FormControl('Message text. Type &lt;/br&gt;</br>to breakline'),
     type: new FormControl(null, [
