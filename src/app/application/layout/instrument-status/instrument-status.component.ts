@@ -81,10 +81,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
       .subscribe(
         (labSystems) => {
           let sortedLs = labSystems;
-          console.log(sortedLs);
-          
           sortedLs = sortedLs.sort((a, b) => a.name.localeCompare(b.name));
-          console.log(sortedLs);
           labSystems.forEach(
             (labSystem) => {
               if (labSystem.active) {
