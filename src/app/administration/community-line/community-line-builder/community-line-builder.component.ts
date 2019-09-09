@@ -53,7 +53,7 @@ export class CommunityLineBuilderComponent implements OnInit {
   communityPartners: CommunityPartner[] = [];
 
   // Community Line to build
-  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null, null);
+  communityLine: CommunityLine = new CommunityLine(null, null, null, null, null, null, null, null, null, null, null);
 
   traceColors: TraceColor[] = [];
 

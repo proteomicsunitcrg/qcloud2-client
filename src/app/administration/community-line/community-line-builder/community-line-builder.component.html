@@ -14,6 +14,11 @@
         <input type="text" name="name" id="nameInput" [(ngModel)]="communityLine.name" required>
         <label>Line name</label>
       </div>
+      <!-- alias -->
+      <div class="input-field col s12">
+        <input type="text" name="alias" id="aliasInput" [(ngModel)]="communityLine.alias" required>
+        <label>Line alias</label>
+      </div>
       <!-- param -->
       <div class="input-field col s12">
         <select name="param" required [(ngModel)]="communityLine.param" (ngModelChange)="onParamChange($event)">

@@ -16,10 +16,11 @@ export class CommunityLine {
     value: number;
     communityPartner: CommunityPartner;
     traceColor: TraceColor;
+    alias: string;
 
     constructor(id: number, apiKey: string, name: string, instrument: CV, param: Param,
         sampleType: SampleType, contextSource: ContextSource, value: number,
-        communityPartner: CommunityPartner, traceColor: TraceColor) {
+        communityPartner: CommunityPartner, traceColor: TraceColor, alias: string) {
         this.id = id;
         this.apiKey = apiKey;
         this.name = name;
@@ -30,5 +31,6 @@ export class CommunityLine {
         this.value = value;
         this.communityPartner = communityPartner;
         this.traceColor = traceColor;
+        this.alias = alias;
     }
 }
