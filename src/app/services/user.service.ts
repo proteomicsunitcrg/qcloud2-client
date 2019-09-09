@@ -62,6 +62,10 @@ export class UserService {
     return this.httpClient.put<User>(this.nodeUrl + '/user/password', params, { headers: headers, observe: 'response' });
   }
 
+  public getUserTelegramURL(): Observable<string> {
+    return this.httpClient.get(`${this.nodeUrl}/telegram`, { responseType: 'text' });
+  }
+
   errorHandler(error: HttpErrorResponse) {
     // console.log(error);
     return throwError(error || 'Server Error');

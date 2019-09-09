@@ -14,6 +14,7 @@ import { PasswordChangeComponent } from './profile/password-change/password-chan
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultViewSelectorComponent } from './profile/default-view-selector/default-view-selector.component';
 import { UserDefaultViewService } from '../services/user-default-view.service';
+import { ProfileTelegramComponent } from './profile/profile-telegram/profile-telegram.component';
 /**
  * Module for user configuration like profile and user views
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -35,7 +36,8 @@ import { UserDefaultViewService } from '../services/user-default-view.service';
     MainProfileComponent,
     ProfileManagementComponent,
     PasswordChangeComponent,
-    DefaultViewSelectorComponent],
+    DefaultViewSelectorComponent,
+    ProfileTelegramComponent],
   providers: [
     UserDefaultViewService
   ]
