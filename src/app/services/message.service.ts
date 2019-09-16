@@ -55,4 +55,11 @@ export class MessageService {
     return this.httpClient.post<Message>(this.messageUrl + '/last', { headers: headers });
   }
 
+  /**
+   * showNotification
+   */
+  public showNotification(): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.messageUrl}/showNotification`);
+  }
+
 }

@@ -10,6 +10,10 @@ import { SystemService } from '../../../services/system.service';
 import { delay } from 'q';
 import { Subscription } from 'rxjs';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
+import { MessageService } from '../../../services/message.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, NOTI_MSG, NOTI_TITLE } from '../../../shared/ToastConfig';
+
 declare var M: any;
 
 @Component({
@@ -22,7 +26,10 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   constructor(private viewService: ViewService,
     private dataSourceService: DataSourceService,
     private route: ActivatedRoute,
-    private systemService: SystemService) { }
+    private systemService: SystemService,
+    private messageService: MessageService,
+    private toastr: ToastrService)
+    {}
 
   display: Display = new Display(null);
 
@@ -49,6 +56,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();
     this.subscribeToRoute();
+    this.checkNotification();
   }
   ngOnDestroy() {
     this.selectedDataSourceForDisplay$.unsubscribe();
@@ -166,5 +174,16 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     if (this.loadedViews.find(viewId => viewId === view.id) === undefined) {
       this.loadDefaultChartsByView(view);
     }
+  }
+
+  private checkNotification() {
+    this.messageService.showNotification().subscribe(
+      res => {
+        if (res) {
+          this.toastr.info(NOTI_MSG, NOTI_TITLE, TOASTSETTING);
+        }
+      },
+      err => console.error(err)
+    );
   }
 }

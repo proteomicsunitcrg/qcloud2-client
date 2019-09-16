@@ -31,7 +31,7 @@ export class WelcomeComponent implements OnInit {
       img: this.imgUrl + 'Thres.png'
     },
   ];
-  message = new Message('title', 'text', 'error', false);
+  message = new Message('title', 'text', 'error', false, null);
   messageFromWebSocket$: Subscription;
   ngOnInit() {
     this.retrieveMsg();
