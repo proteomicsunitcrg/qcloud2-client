@@ -192,8 +192,12 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     // check if there is a name, and at least one data source of each category
     let formOk = true;
     let categoriesText = '';
-    if (this.system.name === '' || this.system.name == null) {
+    if (this.system.name == null) {
       formOk = false;
+    } else {
+      if (this.system.name.trim() === '') {
+        formOk = false;
+      }
     }
 
     this.categories.forEach(
@@ -217,7 +221,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
           'Now you should check the Instrument Cards in order to know how you must prepare your quality control samples for the QCloud.',
           'Go to help page', 'Close', 'go', null
         ));
-      }, 500);
+      }, 1500);
     }
   }
   private subscribeToModal(): void {
@@ -304,7 +308,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     );
   }
 
-  private enableDisable(): void {
+  public enableDisable(): void {
     this.systemService.enableDisable(this.system).subscribe(
       () =>
         err => console.error(err)

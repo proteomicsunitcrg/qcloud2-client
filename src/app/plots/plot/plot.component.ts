@@ -99,7 +99,6 @@ export class PlotComponent implements OnInit, OnDestroy {
   generalAnnotations: GeneralAnnotation[];
 
   ngOnInit() {
-    this.testPurgue();
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
@@ -110,7 +109,6 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
-    // this.testPurgue();
   }
 
   ngOnDestroy() {
@@ -122,7 +120,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       // this.deleteAnnotationFromWebSocket$.unsubscribe();
       // this.updateAnnotationFromWebSocket$.unsubscribe();
     }
-    this.testPurgue();
   }
 
   private loadData(): void {
@@ -420,7 +417,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loaded = true;
     this.noData = true;
     if (this.serverData.length > 0) {
-      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true });
+      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true, responsive: true });
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
       plot.on('plotly_click', (data) => {
         this.clipboardService.copyFromContent(this.plotService.getFilenameFromPlotData(data));
@@ -725,14 +722,4 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       );
   }
-
-  private testPurgue() {
-    const caca: NodeListOf<HTMLElement> = document.getElementsByName('plot');
-    for (const caco of caca as any) {
-      if (caco.id !== '') {
-        Plotly.purge(caco.id);
-      }
-    }
-  }
-
 }
