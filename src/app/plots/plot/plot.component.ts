@@ -417,7 +417,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loaded = true;
     this.noData = true;
     if (this.serverData.length > 0) {
-      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true, responsive: true });
+      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true });
       const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
       plot.on('plotly_click', (data) => {
         this.clipboardService.copyFromContent(this.plotService.getFilenameFromPlotData(data));
