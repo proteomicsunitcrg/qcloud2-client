@@ -64,7 +64,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   open(dropdown): void {
     const elem = document.getElementById(dropdown);
-    const instance = M.Dropdown.init(elem, { constrainWidth: false });
+    const instance = M.Dropdown.init(elem, { constrainWidth: false, alignment: 'bottom', coverTrigger: false, hover: false });
     instance.open();
   }
 
