@@ -19,7 +19,9 @@
 .OFFLINE {
   color: grey;
 }
-
+.NO_THRESHOLD {
+  color: blue;
+}
 button {
   margin-left: 5px;
 }

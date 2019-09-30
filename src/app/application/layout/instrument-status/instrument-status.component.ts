@@ -110,7 +110,8 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
-                  } else if (stat.status === 'OFFLINE') {
+                  }
+                  else if (stat.status === 'OFFLINE' || stat.status === 'NO_THRESHOLD') {
                     this.getLastFile(labSystem.system.apiKey).then((res) =>
                       {
                         if (res == null || res === undefined) {
@@ -173,6 +174,9 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
         case 'OFFLINE':
           labSystem.alerts.severity = 'OFFLINE';
           labSystem.status.length = 0;
+          break;
+        case 'NO_THRESHOLD':
+          labSystem.alerts.severity = 'NO_THRESHOLD';
           break;
       }
     }
