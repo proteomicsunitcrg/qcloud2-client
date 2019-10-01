@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { File } from '../../models/file';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js/dist/plotly';
+import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-isotopologue-plot',
@@ -45,6 +46,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
     this.dataService.getIsotopologuePlotData(this.file, this.abbreviatedIsotopologueName)
       .subscribe(
         (data) => {
+
           Object.keys(data).forEach(
             (key) => {
               Object.keys(data[key]).forEach(
@@ -105,7 +107,8 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
     }
     this.layout = {
       title: this.cleanedSequence,
-      shapes: [],
+      // shapes: [this.drawDiagonal(dataArray)],
+      shapes: [this.drawConnectedLines(dataArray)],
       hovermode: 'closest',
       xaxis: {
         type: 'category'
@@ -114,8 +117,35 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
         // type: 'linear',
       },
       currentDiv: 'plot'
-    };
+    };    
     Plotly.react('isoplot' + this.abbreviatedIsotopologueName, dataForPlot, this.layout);
+  }
+
+  private drawConnectedLines(dataArray) {
+    Object.keys(dataArray).forEach((key) => {
+      console.log(dataArray[key])
+      
+
+    });
+    
+  }
+  private drawDiagonal(dataArray: any) {
+    const num100 = dataArray['100.0'][0];
+    const shape = {
+      type: 'line',
+      x0: -22.5,
+      y0: 20,
+      x1: '100.0',
+      y1: num100.value,
+      fillcolor: 'red',
+      opacity: 1,
+      line: {
+        color: 'red',
+        width: 3
+      },
+      layer: 'above'
+    };
+    return shape;
   }
 
   ngOnDestroy() {
