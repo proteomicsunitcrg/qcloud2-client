@@ -71,4 +71,9 @@ export class UserService {
     return throwError(error || 'Server Error');
   }
 
+  public resetTelegramCode(): Observable<string> {
+    // const headers = new HttpHeaders().set('Content-type', 'text/plain');
+    return this.httpClient.put(`${this.nodeUrl}/telegram`, null, { responseType: 'text'});
+  }
+
 }

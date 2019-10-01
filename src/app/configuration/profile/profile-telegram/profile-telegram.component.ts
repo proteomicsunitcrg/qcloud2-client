@@ -18,9 +18,25 @@ export class ProfileTelegramComponent implements OnInit {
 
   private getTelegramURL(): void {
     this.userService.getUserTelegramURL().subscribe(
-      res => this.telegramURL = `https://t.me/vesperon51TestBot?start=${res}`,
+      res => {
+        this.telegramURL = res
+      },
       err => console.error(err)
     );
+  }
+
+  public resetTelegramCode(): void {
+    if (confirm('Your telegram password will be reseted and the session of your mobile device will be closed. Are you sure?')) {
+      this.userService.resetTelegramCode().subscribe(
+        (res) => {
+          this.telegramURL = res
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
+    
   }
 
 }
