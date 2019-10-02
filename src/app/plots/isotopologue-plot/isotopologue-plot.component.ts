@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PlotService } from '../../services/plot.service';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { File } from '../../models/file';
 import { DataService } from '../../services/data.service';
 import * as Plotly from 'plotly.js/dist/plotly';
-import { OverlayKeyboardDispatcher } from '@angular/cdk/overlay';
-
 @Component({
   selector: 'app-isotopologue-plot',
   templateUrl: './isotopologue-plot.component.html',
@@ -85,12 +83,12 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
       const k = [];
       const v = [];
       v.push(values[key]);
-      k.push(key);
+      k.push(parseFloat(key));
       const trace = {
         x: k,
         y: v,
         type: 'scatter',
-        mode: 'lines+markers',
+        mode: 'markers',
         marker: {
           size: 5
         },
@@ -107,41 +105,76 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
     }
     this.layout = {
       title: this.cleanedSequence,
-      // shapes: [this.drawDiagonal(dataArray)],
-      shapes: [this.drawConnectedLines(dataArray)],
+      shapes: this.getAllShapes(dataArray),
       hovermode: 'closest',
       xaxis: {
-        type: 'category'
+        type: 'log'
       },
       yaxis: {
         // type: 'linear',
       },
       currentDiv: 'plot'
-    };    
+    };
     Plotly.react('isoplot' + this.abbreviatedIsotopologueName, dataForPlot, this.layout);
   }
 
-  private drawConnectedLines(dataArray) {
-    Object.keys(dataArray).forEach((key) => {
-      console.log(dataArray[key])
-      
-
-    });
-    
+  private getAllShapes(dataArray) {
+    const shapes = this.drawConnectedLines(dataArray);
+    shapes.push(this.drawDiagonal(dataArray));
+    return shapes;
   }
+
+  private drawConnectedLines(dataObject) {
+    let previous = [];
+    let allShaperinos = [];
+    for (let key in dataObject) {
+      if (key === 'filename') {
+        continue;
+      }
+      if (previous.length != 0) {
+        if (dataObject[key][0]['value'] == "NaN") {
+          continue;
+        }
+        allShaperinos.push(this.drawLinerino(previous, dataObject[key][0]['value'], key));
+        previous =  [];
+      }
+      previous.push(dataObject[key][0]['value'])
+      previous.push(key)
+    }
+    return allShaperinos;
+  }
+  private drawLinerino(previous: any[], valueNow: string, keyNow: string) {
+    const shape = {
+      type: 'line',
+      x0: previous[1],
+      y0: previous[0],
+      x1: keyNow,
+      y1: valueNow,
+      fillcolor: 'blue',
+      opacity: 1,
+      line: {
+        color: 'blue',
+        width: 1,
+        dash: 'dot'
+      },
+      layer: 'below'
+    };    
+    return shape;
+  }
+  
   private drawDiagonal(dataArray: any) {
     const num100 = dataArray['100.0'][0];
     const shape = {
       type: 'line',
-      x0: -22.5,
-      y0: 20,
-      x1: '100.0',
-      y1: num100.value,
-      fillcolor: 'red',
+      x0: 0.1,
+      y0: 0.1 + num100.value - 100,
+      x1: 100.0,  // punt
+      y1: num100.value, // punt
+      fillcolor: 'grey',
       opacity: 1,
       line: {
-        color: 'red',
-        width: 3
+        color: 'grey',
+        width: 1
       },
       layer: 'above'
     };
