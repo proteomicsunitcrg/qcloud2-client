@@ -142,9 +142,6 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
         continue;
       }
     }
-
-    console.log(allShaperinos);
-    
     return allShaperinos;
   }
   private drawLinerino(previous: any[], valueNow: string, keyNow: string) {
@@ -171,7 +168,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
     const logi = Math.log10(0.1 + num100.value - 100)
     
     // const logi = 20.87
-    console.log(logi);
+    // console.log(logi);
     const shape = {
       type: 'line',
       x0: (0.1),
