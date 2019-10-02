@@ -111,7 +111,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
         type: 'log'
       },
       yaxis: {
-        // type: 'linear',
+        type: 'linear',
       },
       currentDiv: 'plot'
     };
@@ -120,7 +120,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
 
   private getAllShapes(dataArray) {
     const shapes = this.drawConnectedLines(dataArray);
-    shapes.push(this.drawDiagonal(dataArray));
+    // shapes.push(this.drawDiagonal(dataArray));
     return shapes;
   }
 
@@ -131,16 +131,20 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
       if (key === 'filename') {
         continue;
       }
-      if (previous.length != 0) {
-        if (dataObject[key][0]['value'] == "NaN") {
-          continue;
+      if (dataObject[key][0]['value'] != "NaN") {
+        if (previous.length != 0) {
+          allShaperinos.push(this.drawLinerino(previous, dataObject[key][0]['value'], key));
+          previous =  [];
         }
-        allShaperinos.push(this.drawLinerino(previous, dataObject[key][0]['value'], key));
-        previous =  [];
+        previous.push(dataObject[key][0]['value'])
+        previous.push(key)
+      } else {
+        continue;
       }
-      previous.push(dataObject[key][0]['value'])
-      previous.push(key)
     }
+
+    console.log(allShaperinos);
+    
     return allShaperinos;
   }
   private drawLinerino(previous: any[], valueNow: string, keyNow: string) {
@@ -164,12 +168,16 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
   
   private drawDiagonal(dataArray: any) {
     const num100 = dataArray['100.0'][0];
+    const logi = Math.log10(0.1 + num100.value - 100)
+    
+    // const logi = 20.87
+    console.log(logi);
     const shape = {
       type: 'line',
-      x0: 0.1,
-      y0: 0.1 + num100.value - 100,
-      x1: 100.0,  // punt
-      y1: num100.value, // punt
+      x0: (0.1),
+      y0: logi,
+      x1: (100.0),  // punt
+      y1: Math.log10(num100.value), // punt
       fillcolor: 'grey',
       opacity: 1,
       line: {

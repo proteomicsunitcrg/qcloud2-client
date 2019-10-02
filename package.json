@@ -1,6 +1,6 @@
 {
   "name": "qcloud2-client",
-  "version": "1.0.13.5",
+  "version": "1.0.14DEV",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
