@@ -69,7 +69,7 @@ export class CommunityLineListComponent implements OnInit {
   */
   private mountSelect(nodesInRelation: Node[], lineApiKey: string) {
     const select = <HTMLSelectElement>document.getElementById(lineApiKey);
-    const copy = this.allNodes;
+    const copy = [...this.allNodes];
     for (const node of nodesInRelation) {
       copy.forEach((item, index) => {
         if (item.name === node.name) {
