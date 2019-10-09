@@ -144,11 +144,12 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       this.serverData.data[key].forEach(
         (element, index) => {
           let marker = 'circle';
-          const color = getPointColor(element['nc']);
+          let color = 'blue'; // client issue #35: Now all the points are blue minus the last one
           const elementText = element['value'];
           const value = element['value'];
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
+            color = getPointColor(element['nc'])
           }
           values.push(value);
           colorsForLine[index] = color;
