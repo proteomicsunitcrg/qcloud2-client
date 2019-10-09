@@ -79,6 +79,7 @@ import { GeneralAnnotationsListComponent } from './general-annotations/general-a
 import {
   GeneralAnnotationsBuilderComponent
 } from './general-annotations/general-annotations-builder/general-annotations-builder.component';
+import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -160,6 +161,7 @@ import {
     CommunityPartnerBuilderComponent,
     GeneralAnnotationsMainComponent,
     GeneralAnnotationsListComponent,
-    GeneralAnnotationsBuilderComponent]
+    GeneralAnnotationsBuilderComponent,
+    ThresholdPipe]
 })
 export class AdministrationModule { }
