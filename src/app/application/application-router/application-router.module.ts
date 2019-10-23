@@ -15,6 +15,7 @@ const routes: Routes = [
         path: 'administration', loadChildren: () => import('../../administration/administration.module')
           .then(m => m.AdministrationModule)
       },
+      { path: 'intranet', loadChildren: () => import('../../intranet/intranet.module').then(m => m.IntranetModule) },
       { path: 'management', loadChildren: () => import('../../management/management.module').then(m => m.ManagementModule) },
       { path: 'statistics', loadChildren: () => import('../../statistics/statistics.module').then(m => m.StatisticsModule) },
       { path: 'configuration', loadChildren: () => import('../../configuration/configuration.module').then(m => m.ConfigurationModule) },
