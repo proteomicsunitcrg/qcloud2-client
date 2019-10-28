@@ -1,1 +1,114 @@
-<p>files-list works!</p>
+<div class="row">
+    <div class="input-field col s2">
+        <input id="name" type="text" [(ngModel)]="name">
+        <label for="name">Name</label>
+    </div>
+    <div class="input-field col s2">
+        <input id="checksum" type="text" [(ngModel)]="checksum">
+        <label for="checksum">Checksum</label>
+    </div>
+    <div class="input-field col s2">
+        <input id="node" type="text">
+        <label for="node">Node</label>
+    </div>
+    <div class="input-field col s2">
+        <input id="labsystem" type="text" [(ngModel)]="labsystem">
+        <label for="labsystem">Labsystem</label>
+    </div>
+    <div class="input-field col s2">
+        <select [(ngModel)]="sampleType" name="sampleType" required>
+            <option value="" selected>All</option>
+            <option value="QC:0000005">BSA</option>
+            <option value="QC:0000006">Hela</option>
+            <option value="QC:0000009">QC4L</option>
+        </select>
+        <label>Sample type</label>
+    </div>
+</div>
+<div class="row">
+    <!-- <div class="col s3"> -->
+    <button class="btn" (click)="getPage(0)" style="margin-left: 10px;">Find</button>
+    <!-- </div>
+    <div class="col s1"> -->
+    <button class="btn" (click)="getPage(0)" style="margin-left: 10px;">JSON</button>
+    <!-- </div>
+    <div class="col s1"> -->
+    <button class="btn" (click)="getPage(0)" style="margin-left: 10px;">CSV</button>
+    <!-- </div> -->
+</div>
+<!-- <div class="row">
+    <div class="input-field col s2">
+        <input id="dateStart" type="text" class="datepicker" [(ngModel)]="dateStart">
+        <label for="dateStart">Start date</label>
+    </div>
+    <div class="input-field col s2">
+            <input id="dateEnd" type="text" class="datepicker" [(ngModel)]="dateEnd">
+            <label for="dateEnd">End date</label>
+        </div>
+</div> -->
+<div class="row">
+    <div class="col s4">
+        <p>Files found: {{config.totalItems}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col s4">
+        <p>Items in page: <a class="clickable" (click)="stateNumberOfElementsPerPage(5)">5</a>|<a class="clickable"
+                (click)="stateNumberOfElementsPerPage(10)">10</a>|<a class="clickable"
+                (click)="stateNumberOfElementsPerPage(100)">100</a></p>
+    </div>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Checksum
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Labsystem
+            </th>
+            <th>
+                Sample type
+            </th>
+            <th>
+                Data
+            </th>
+            <th>
+                Remove
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--| FilePipe: name -->
+        <tr *ngFor="let file of collection.data  | paginate: config">
+            <td>
+                {{file.filename}}
+            </td>
+            <td>
+                {{file.checksum}}
+            </td>
+            <td>
+                {{file.creationDate}}
+            </td>
+            <td (click)="[labsystem = file.labSystem.name, getPage(1)]">
+                <a class="clickable">{{file.labSystem.name}}</a>
+            </td>
+            <td (click)="sampleType = file.sampleType.qualityControlControlledVocabulary">
+                {{file.sampleType.name}}
+            </td>
+            <td>
+                <button class="btn">View</button>
+            </td>
+            <td>
+                <button class="btn" (click)="deleteFile(file.checksum)">Remove</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
