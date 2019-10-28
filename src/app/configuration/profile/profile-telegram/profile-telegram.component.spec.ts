@@ -8,9 +8,9 @@ describe('ProfileTelegramComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileTelegramComponent ]
+      declarations: [ProfileTelegramComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

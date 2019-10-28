@@ -1,39 +1,39 @@
-.videoTitle{
-    font-size: 2em;
+.videoTitle {
+  font-size: 2em;
 }
 
 .card {
-    width: 560px;
+  width: 560px;
 }
 
 .card-image {
-    height: 315px;
+  height: 315px;
 }
 
 #panell {
-	margin-top: 50px;
-	padding: 0px;
+  margin-top: 50px;
+  padding: 0px;
 }
 
 .title {
-	color: white;
-	padding: 8px;
-	margin-top: 0px
+  color: white;
+  padding: 8px;
+  margin-top: 0px;
 }
 
 .titleWarning {
-	background-color: #ffc107;
-	color: rgba(0,0,0,0.87);
+  background-color: #ffc107;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .titleError {
-	background-color: #dc3545;
+  background-color: #dc3545;
 }
 
 .titleMessage {
-	background-color: #5c8d89;
+  background-color: #5c8d89;
 }
 
 .messageText {
-    margin-left: 10px;
+  margin-left: 10px;
 }

@@ -126,18 +126,18 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
 
   private drawConnectedLines(dataObject) {
     let previous = [];
-    let allShaperinos = [];
-    for (let key in dataObject) {
+    const allShaperinos = [];
+    for (const key in dataObject) {
       if (key === 'filename') {
         continue;
       }
-      if (dataObject[key][0]['value'] != "NaN") {
-        if (previous.length != 0) {
+      if (dataObject[key][0]['value'] !== 'NaN') {
+        if (previous.length !== 0) {
           allShaperinos.push(this.drawLinerino(previous, dataObject[key][0]['value'], key));
-          previous =  [];
+          previous = [];
         }
-        previous.push(dataObject[key][0]['value'])
-        previous.push(key)
+        previous.push(dataObject[key][0]['value']);
+        previous.push(key);
       } else {
         continue;
       }
@@ -159,14 +159,13 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
         dash: 'dot'
       },
       layer: 'below'
-    };    
+    };
     return shape;
   }
-  
+
   private drawDiagonal(dataArray: any) {
     const num100 = dataArray['100.0'][0];
-    const logi = Math.log10(0.1 + num100.value - 100)
-    
+    const logi = Math.log10(0.1 + num100.value - 100);
     // const logi = 20.87
     // console.log(logi);
     const shape = {

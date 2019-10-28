@@ -90,7 +90,6 @@ export class GeneralAnnotationsBuilderComponent implements OnInit {
     const date = `${this.annotationForm.value.year}-${this.annotationForm.value.month}-${this.annotationForm.value.day}\
     ${this.annotationForm.value.hour}:${this.annotationForm.value.minute}`;
     const annotation = new GeneralAnnotation(null, null, date, this.annotationForm.value.desc, true);
-    
     if (this.updateMode) {
       annotation.id = this.generalAno.id;
     }

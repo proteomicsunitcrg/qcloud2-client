@@ -8,7 +8,7 @@ import { MainFilesComponent } from './files/main-files/main-files.component';
 import { FilesListComponent } from './files/files-list/files-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterIntranetFile } from '../shared/filter-intranet-file.pipe';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({

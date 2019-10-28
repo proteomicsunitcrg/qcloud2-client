@@ -28,8 +28,9 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private systemService: SystemService,
     private messageService: MessageService,
-    private toastr: ToastrService)
-    {}
+    private toastr: ToastrService) {
+
+  }
 
   display: Display = new Display(null);
 

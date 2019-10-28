@@ -26,7 +26,7 @@ export class ThresholdListComponent implements OnInit {
   showForm: boolean;
 
   selectedCV: CV;
-  
+
   searchTerm: string;
 
   thresholdDirections: string[] = [];
@@ -46,8 +46,6 @@ export class ThresholdListComponent implements OnInit {
     this.thresholdService.getAllThresholds()
       .subscribe(
         (thresholds) => {
-          console.log(thresholds);
-          
           thresholds.forEach((threshold) => {
             threshold['editing'] = false;
           });

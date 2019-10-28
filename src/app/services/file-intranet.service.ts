@@ -32,12 +32,12 @@ export class FileIntranetService {
 
   public getPage(pageToRequest: number, filter: any, exact: number = 0, numberOfElements: number): Observable<any> {
     let params = new HttpParams();
-    params = params.set("page", pageToRequest.toString()).set("size", numberOfElements.toString()); // Pagination params
-    params = params.set("checksum", filter.checksum);
-    params = params.set("name", filter.name);
-    params = params.set("labsystemName", filter.labsystem);
-    params = params.set("sampleTypeId", filter.sampleType);
-    params = params.set("exact", exact.toString());
+    params = params.set('page', pageToRequest.toString()).set('size', numberOfElements.toString()); // Pagination params
+    params = params.set('checksum', filter.checksum);
+    params = params.set('name', filter.name);
+    params = params.set('labsystemName', filter.labsystem);
+    params = params.set('sampleTypeId', filter.sampleType);
+    params = params.set('exact', exact.toString());
     return this.httpClient.get<any>(`${this.fileURL}/getPage`, { params: params });
   }
 

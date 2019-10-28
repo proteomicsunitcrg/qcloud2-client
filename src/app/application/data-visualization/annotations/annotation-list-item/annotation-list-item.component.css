@@ -1,17 +1,17 @@
 .chop {
-    /* background-color: grey; */
-    border-radius: 16px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 10px;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    font-size: 10px;
-    margin-right: 5px;
+  /* background-color: grey; */
+  border-radius: 16px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  font-size: 10px;
+  margin-right: 5px;
 }
 .ACTION {
-    background-color: #f1f8e9;
+  background-color: #f1f8e9;
 }
 .PROBLEM {
-    background-color: #ffebee;
+  background-color: #ffebee;
 }

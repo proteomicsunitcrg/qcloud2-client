@@ -12,7 +12,8 @@
   color: orange;
 }
 
-.DANGER, .NO_DATA {
+.DANGER,
+.NO_DATA {
   color: red;
 }
 
@@ -44,5 +45,4 @@ a {
 
 .wrapper {
   background-color: #a7d7c5;
-  
 }

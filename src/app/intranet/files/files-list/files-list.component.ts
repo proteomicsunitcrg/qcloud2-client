@@ -19,7 +19,7 @@ export class FilesListComponent implements OnInit {
   ) { }
 
   // Variable to host the number in items in the page
-  private numberOfElements: number = 10;
+  private numberOfElements = 10;
   // The event emmiter to track this var changes
   numberOfElementsEmitter: EventEmitter<number> = new EventEmitter();
   /**
@@ -69,20 +69,21 @@ export class FilesListComponent implements OnInit {
   * @param number = -1 Determines if the labsystem is a like SQL search or a normal one.
   */
   public getPage(exact: number = -1): void { // if exact is -1 means that we should mamtain the same value 4 exact
-    if (exact != -1) {
+    if (exact !== -1) {
       this.exact = exact;
     }
     this.prepareParams();
-    this.fileService.getPage(this.config.currentPage - 1, this.filter, this.exact, this.numberOfElements).subscribe( // page -1 because at server-side the first page is the 0
+    this.fileService.getPage(this.config.currentPage - 1, this.filter, this.exact, this.numberOfElements).subscribe(
+      // page -1 because at server-side the first page is the 0
       res => {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
-        this.config.totalItems = res.totalElements
+        this.config.totalItems = res.totalElements;
       },
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   /**
@@ -107,22 +108,22 @@ export class FilesListComponent implements OnInit {
   */
   private prepareParams(): void {
     if (this.name.trim() === '') {
-      this.filter.name = 'null'
+      this.filter.name = 'null';
     } else {
       this.filter.name = this.name;
     }
     if (this.checksum.trim() === '') {
-      this.filter.checksum = 'null'
+      this.filter.checksum = 'null';
     } else {
       this.filter.checksum = this.checksum;
     }
     if (this.labsystem.trim() === '') {
-      this.filter.labsystem = 'null'
+      this.filter.labsystem = 'null';
     } else {
       this.filter.labsystem = this.labsystem;
     }
     if (this.sampleType.trim() === '') {
-      this.filter.sampleType = 'null'
+      this.filter.sampleType = 'null';
     } else {
       this.filter.sampleType = this.sampleType;
     }

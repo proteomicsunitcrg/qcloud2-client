@@ -1,43 +1,43 @@
 #panell {
-	margin-top: 100px;
-	padding: 0px;
+  margin-top: 100px;
+  padding: 0px;
 }
 
 #loginbtn {
-	margin-bottom: 10px;
-	margin-right: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 #regbtn {
-	margin-bottom: 10px;
-	margin-left: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 #title {
-	background-color: #a7d7c5;
-	color: black;
-	padding: 8px;
-	margin-top: 0px
+  background-color: #a7d7c5;
+  color: black;
+  padding: 8px;
+  margin-top: 0px;
 }
 
 form {
-	padding: 0px;
-	border-radius: 3px;
-	box-sizing: border-box;
+  padding: 0px;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 .input-field {
-	margin-left: 20px;
-	margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #checkbox {
-	margin-left: 30px;
+  margin-left: 30px;
 }
-.helper-text{
-	color:red;
+.helper-text {
+  color: red;
 }
 
 .greenLink {
-	color: #7dc4a9;
+  color: #7dc4a9;
 }

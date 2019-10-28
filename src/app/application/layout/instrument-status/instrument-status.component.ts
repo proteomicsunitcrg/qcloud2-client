@@ -110,16 +110,14 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
-                  }
-                  else if (stat.status === 'OFFLINE' || stat.status === 'NO_THRESHOLD') {
-                    this.getLastFile(labSystem.system.apiKey).then((res) =>
-                      {
-                        if (res == null || res === undefined) {
-                          return;
-                        }
-                        labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
-                        this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null));
+                  } else if (stat.status === 'OFFLINE' || stat.status === 'NO_THRESHOLD') {
+                    this.getLastFile(labSystem.system.apiKey).then((res) => {
+                      if (res == null || res === undefined) {
+                        return;
                       }
+                      labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
+                        this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null));
+                    }
                     );
                   }
                   this.updateLabSystemLight(labSystem, stat);
