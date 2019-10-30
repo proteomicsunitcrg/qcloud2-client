@@ -62,13 +62,16 @@ export class FilesListComponent implements OnInit {
   collection = { count: 0, data: [] };
   // Var to store the tooltip node
   nodeTooltip: string = '';
-
+  // Tooltip options
   tooltipOptions = {
     display: true,
     placement: 'top',
     "content-type": 'html'
   };
-  autoCompleteInstance
+  // var to handle the autocompletion
+  autoCompleteInstance: any;
+  // If true skip the request to get the nodes (faster)
+  highPerformance = true;
   ngOnInit() {
     this.getPage();
     M.AutoInit();
@@ -93,12 +96,22 @@ export class FilesListComponent implements OnInit {
     }
     this.prepareParams();
     this.fileService.getPage(this.config.currentPage - 1, this.filter, this.exact, this.numberOfElements).subscribe(
-      
-      // page -1 because at server-side the first page is the 0
-      res => {
-        this.collection.data = res.content;
-        this.collection.count = res.totalElements;
-        this.config.totalItems = res.totalElements;
+      pageFile => {
+        if (!this.highPerformance) {
+          for(const file of pageFile.content)
+          this.fileService.getNodeByDataSourceApiKey(file.labSystem.dataSources[1].apiKey).subscribe(
+            node => {
+              file.labSystem.node = node.name;
+              this.collection.data = pageFile.content;
+              this.collection.count = pageFile.totalElements;
+              this.config.totalItems = pageFile.totalElements;
+            }
+          );
+        } else {
+              this.collection.data = pageFile.content;
+              this.collection.count = pageFile.totalElements;
+              this.config.totalItems = pageFile.totalElements;
+        }
       },
       err => {
         console.error(err);

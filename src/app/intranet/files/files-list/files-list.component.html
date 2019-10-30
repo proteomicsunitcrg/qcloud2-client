@@ -25,9 +25,9 @@
         <label>Sample type</label>
     </div>
     <div class="input-field col s2">
-            <input id="email" type="text" [(ngModel)]="email" (keyup)="getUsers()" class="autocomplete">
-            <label for="email">Email</label>
-        </div>
+        <input id="email" type="text" [(ngModel)]="email" (keyup)="getUsers()" class="autocomplete">
+        <label for="email">Email</label>
+    </div>
 </div>
 <div class="row">
     <!-- <div class="col s3"> -->
@@ -51,15 +51,21 @@
         </div>
 </div> -->
 <div class="row">
-    <div class="col s4">
+    <div class="col s2">
         <p>Files found: {{config.totalItems}}</p>
     </div>
 </div>
 <div class="row">
-    <div class="col s4">
+    <div class="col s2">
         <p>Items in page: <a class="clickable" (click)="stateNumberOfElementsPerPage(5)">5</a>|<a class="clickable"
                 (click)="stateNumberOfElementsPerPage(10)">10</a>|<a class="clickable"
                 (click)="stateNumberOfElementsPerPage(100)">100</a></p>
+    </div>
+    <div class="col s4">
+        <label>
+            <input type="checkbox" [(ngModel)]="highPerformance"/>
+            <span>Ultra high performance</span>
+        </label>
     </div>
 </div>
 <table>
@@ -77,9 +83,9 @@
             <th>
                 Labsystem
             </th>
-            <!-- <th>
+            <th>
                 Node
-            </th> -->
+            </th>
             <th>
                 Sample type
             </th>
@@ -113,8 +119,9 @@
                     (events)="handleTooltipEvents($event.type, file.labSystem.dataSources[0].apiKey)">{{file.labSystem.name}}
                 </a>
             </td>
-            <!-- <td>
-            </td> -->
+            <td>
+                {{file.labSystem.node}}
+            </td>
             <td (click)="sampleType = file.sampleType.qualityControlControlledVocabulary">
                 {{file.sampleType.name}}
             </td>
