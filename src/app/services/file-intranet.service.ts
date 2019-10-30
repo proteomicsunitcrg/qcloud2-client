@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Node } from '../models/node';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,8 +38,18 @@ export class FileIntranetService {
     params = params.set('name', filter.name);
     params = params.set('labsystemName', filter.labsystem);
     params = params.set('sampleTypeId', filter.sampleType);
+    params = params.set('node', filter.node);
     params = params.set('exact', exact.toString());
     return this.httpClient.get<any>(`${this.fileURL}/getPage`, { params: params });
   }
 
+  public getNodeByDataSourceApiKey(apiKey: string): Observable<Node> {
+    let params = new HttpParams().set('apiKey', apiKey);
+    return this.httpClient.get<Node>(`${this.fileURL}/getNode`, {params: params});
+  }
+
+  public getFileData(checksum: string): Observable<any> {
+    let params = new HttpParams().set('checksum', checksum);
+    return this.httpClient.get<any>(`${this.fileURL}/data`, {params: params});
+  }
 }

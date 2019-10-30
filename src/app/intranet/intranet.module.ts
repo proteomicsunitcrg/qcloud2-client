@@ -1,14 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { IntranetRouterModule } from './intranet-router/intranet-router.module';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { MainFilesComponent } from './files/main-files/main-files.component';
-import { FilesListComponent } from './files/files-list/files-list.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterIntranetFile } from '../shared/filter-intranet-file.pipe';
-import { FormsModule } from '@angular/forms';
+import { FilesListComponent } from './files/files-list/files-list.component';
+import { MainFilesComponent } from './files/main-files/main-files.component';
+import { IntranetRouterModule } from './intranet-router/intranet-router.module';
+import { MainComponent } from './main/main.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     IntranetRouterModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    TooltipModule,
+    NgxSmartModalModule.forChild()
   ]
 })
 export class IntranetModule { }

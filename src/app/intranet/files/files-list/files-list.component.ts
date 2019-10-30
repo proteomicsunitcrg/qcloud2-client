@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FileIntranetService } from '../../../services/file-intranet.service';
 import { TOASTSETTING } from '../../../shared/ToastConfig';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 
 declare var M: any;
@@ -15,7 +16,8 @@ export class FilesListComponent implements OnInit {
 
   constructor(
     private fileService: FileIntranetService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    public ngxSmartModalService: NgxSmartModalService
   ) { }
 
   // Variable to host the number in items in the page
@@ -29,6 +31,7 @@ export class FilesListComponent implements OnInit {
   checksum = '';
   labsystem = '';
   sampleType = '';
+  node = '';
   exact = 0; // 0 = labsystem name is a like; 1 = labsystem name is ===
   // dateStart = moment().format('YYYY-MM-DD');
   // dateEnd = moment().format('YYYY-MM-DD');
@@ -47,12 +50,22 @@ export class FilesListComponent implements OnInit {
     name: '',
     checksum: '',
     labsystem: '',
-    sampleType: ''
+    sampleType: '',
+    node: ''
   };
+  fileData = [];
   /**
    * Data to populate the paginator
    */
   collection = { count: 0, data: [] };
+  // Var to store the tooltip node
+  nodeTooltip: string = '';
+
+  tooltipOptions = {
+    display: true,
+    placement: 'top',
+    "content-type": 'html'
+  };
 
   ngOnInit() {
     this.getPage();
@@ -74,8 +87,10 @@ export class FilesListComponent implements OnInit {
     }
     this.prepareParams();
     this.fileService.getPage(this.config.currentPage - 1, this.filter, this.exact, this.numberOfElements).subscribe(
+      
       // page -1 because at server-side the first page is the 0
       res => {
+        console.log(res);
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;
@@ -127,6 +142,11 @@ export class FilesListComponent implements OnInit {
     } else {
       this.filter.sampleType = this.sampleType;
     }
+    if (this.node.trim() === '') {
+      this.filter.node = 'null';
+    } else {
+      this.filter.node = this.node;
+    }
   }
 
   /**
@@ -174,7 +194,30 @@ export class FilesListComponent implements OnInit {
   */
   public stateNumberOfElementsPerPage(val: number) {
     this.numberOfElements = val;
+    this.config.itemsPerPage = val;
     this.numberOfElementsEmitter.emit(this.numberOfElements);
+  }
+
+  public handleTooltipEvents(event: any, msApiKey: string): void {
+    if (event !== 'show') {
+      return;
+    }
+    this.fileService.getNodeByDataSourceApiKey(msApiKey).subscribe(
+      (res) => {
+        this.nodeTooltip = res.name;
+      },
+      () => this.toast.error('', 'Error getting the node')
+    );
+  }
+
+  public viewData(checksum: string): void {
+    console.log(checksum);
+    this.fileService.getFileData(checksum).subscribe(
+      res => {
+        this.fileData = res;
+      },
+      err => console.error(err)
+    );
   }
 
 }

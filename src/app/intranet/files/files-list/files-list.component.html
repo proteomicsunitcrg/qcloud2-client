@@ -8,7 +8,7 @@
         <label for="checksum">Checksum</label>
     </div>
     <div class="input-field col s2">
-        <input id="node" type="text">
+        <input id="node" type="text" [(ngModel)]="node">
         <label for="node">Node</label>
     </div>
     <div class="input-field col s2">
@@ -73,6 +73,9 @@
             <th>
                 Labsystem
             </th>
+            <!-- <th>
+                Node
+            </th> -->
             <th>
                 Sample type
             </th>
@@ -97,13 +100,23 @@
                 {{file.creationDate}}
             </td>
             <td (click)="[labsystem = file.labSystem.name, getPage(1)]">
-                <a class="clickable">{{file.labSystem.name}}</a>
+                <a class="clickable" [options]="tooltipOptions" tooltip=" 
+                    <ul>
+                        <li>{{nodeTooltip}}</li>
+                        <li>{{file.labSystem.dataSources[0].name}}</li>
+                        <li>{{file.labSystem.dataSources[1].name}}</li>
+                    </ul>"
+                    (events)="handleTooltipEvents($event.type, file.labSystem.dataSources[0].apiKey)">{{file.labSystem.name}}
+                </a>
             </td>
+            <!-- <td>
+            </td> -->
             <td (click)="sampleType = file.sampleType.qualityControlControlledVocabulary">
                 {{file.sampleType.name}}
             </td>
             <td>
-                <button class="btn">View</button>
+                <button class="btn"
+                    (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button>
             </td>
             <td>
                 <button class="btn" (click)="deleteFile(file.checksum)">Remove</button>
@@ -112,3 +125,43 @@
     </tbody>
 </table>
 <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
+    <table>
+        <thead>
+            <th>
+                Calculated value
+            </th>
+            <th>
+                Value
+            </th>
+            <th>
+                Param
+            </th>
+            <th>
+                Context source
+            </th>
+            <th>
+                Status
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of fileData">
+                <td>
+                    {{data.value}}
+                </td>
+                <td>
+                        {{data.calculatedValue}}
+                </td>
+                <td>
+                        {{data.param.name}}
+                </td>
+                <td>
+                        {{data.contextSource.name}}
+                </td>
+                <td>
+                        {{data.nonConformityStatus}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ngx-smart-modal>
