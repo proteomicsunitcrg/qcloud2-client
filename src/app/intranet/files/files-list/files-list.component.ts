@@ -32,6 +32,7 @@ export class FilesListComponent implements OnInit {
   labsystem = '';
   sampleType = '';
   node = '';
+  email = '';
   exact = 0; // 0 = labsystem name is a like; 1 = labsystem name is ===
   // dateStart = moment().format('YYYY-MM-DD');
   // dateEnd = moment().format('YYYY-MM-DD');
@@ -51,7 +52,8 @@ export class FilesListComponent implements OnInit {
     checksum: '',
     labsystem: '',
     sampleType: '',
-    node: ''
+    node: '',
+    email: ''
   };
   fileData = [];
   /**
@@ -66,12 +68,16 @@ export class FilesListComponent implements OnInit {
     placement: 'top',
     "content-type": 'html'
   };
-
+  autoCompleteInstance
   ngOnInit() {
     this.getPage();
     M.AutoInit();
     M.updateTextFields();
     this.subscribeToElementsPage();
+    const elems = document.querySelectorAll('.autocomplete');
+    M.Autocomplete.init(elems, {minLength: 3});
+    this.autoCompleteInstance = M.Autocomplete.getInstance(elems[0]);
+
   }
 
   /**
@@ -90,7 +96,6 @@ export class FilesListComponent implements OnInit {
       
       // page -1 because at server-side the first page is the 0
       res => {
-        console.log(res);
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;
@@ -146,6 +151,11 @@ export class FilesListComponent implements OnInit {
       this.filter.node = 'null';
     } else {
       this.filter.node = this.node;
+    }
+    if ((<HTMLInputElement>document.getElementById('email')).value === '') {
+      this.filter.email = 'null';
+    } else {
+      this.filter.email = (<HTMLInputElement>document.getElementById('email')).value;
     }
   }
 
@@ -219,5 +229,20 @@ export class FilesListComponent implements OnInit {
       err => console.error(err)
     );
   }
-
+  public getUsers(): void {
+    if (this.email.trim().length >= 3) {
+      this.fileService.getUsers(this.email).subscribe(
+        res => {
+          let data = {}
+          for (const user of res) {
+            data[user.email] = null;
+          }
+          this.autoCompleteInstance.updateData(data);
+        },
+        err => console.error(err)
+      );
+    } else {
+      this.autoCompleteInstance.updateData({});
+    }
+  }
 }

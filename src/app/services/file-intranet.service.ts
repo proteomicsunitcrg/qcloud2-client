@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Node } from '../models/node';
+import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +40,7 @@ export class FileIntranetService {
     params = params.set('labsystemName', filter.labsystem);
     params = params.set('sampleTypeId', filter.sampleType);
     params = params.set('node', filter.node);
+    params = params.set('email', filter.email);
     params = params.set('exact', exact.toString());
     return this.httpClient.get<any>(`${this.fileURL}/getPage`, { params: params });
   }
@@ -51,5 +53,10 @@ export class FileIntranetService {
   public getFileData(checksum: string): Observable<any> {
     let params = new HttpParams().set('checksum', checksum);
     return this.httpClient.get<any>(`${this.fileURL}/data`, {params: params});
+  }
+
+  public getUsers(email: string): Observable<User[]> {
+    let params = new HttpParams().set('email', email);
+    return this.httpClient.get<User[]>(`${this.fileURL}/user`, {params: params});
   }
 }
