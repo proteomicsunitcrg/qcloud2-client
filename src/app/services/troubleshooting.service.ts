@@ -31,4 +31,8 @@ export class TroubleshootingService {
     this.itemList.next({ type, items });
   }
 
+  public enableDisable(apiKey: string): Observable<Troubleshooting> {
+    return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}enableDisable/${apiKey}`, apiKey);
+  }
+
 }

@@ -20,7 +20,7 @@ export class TroubleshootingFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter<Troubleshooting>();
 
-  problem = new Troubleshooting(null, null, null, null);
+  problem = new Troubleshooting(null, null, null, null, true);
 
   ngOnInit() {
     this.enableText();
