@@ -81,7 +81,11 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit, OnCha
     this.troubleshootingService.getAllTroubleshootingByType(this.troubleshootingType)
       .subscribe(
         (troubleshootings) => {
-          troubleshootings.forEach(p => this.troubleshootings.push(p));
+          troubleshootings.forEach(p => {
+            if (p.active) {
+              this.troubleshootings.push(p) 
+            }
+          });          
         }, err => console.log('load ts', err), () => this.enableSelects()
       );
   }
