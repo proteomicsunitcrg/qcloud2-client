@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FileIntranetService } from '../../../services/file-intranet.service';
 import { TOASTSETTING } from '../../../shared/ToastConfig';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import * as moment from 'moment';
 
 
 declare var M: any;
@@ -257,5 +258,25 @@ export class FilesListComponent implements OnInit {
     } else {
       this.autoCompleteInstance.updateData({});
     }
+  }
+
+  public getJSON(): void {
+    this.prepareParams();
+    this.fileService.getJSON(this.filter, this.exact).subscribe(
+      res => {
+        this.mountDownload(res, `${moment().format('YYYY-MM-DD_HH-mm-ss')}_search.json`);
+      },
+      err => console.error(err)
+    )
+  }
+
+  private mountDownload(res: File[], name: string): void {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(res));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', name);
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
   }
 }

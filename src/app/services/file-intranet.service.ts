@@ -59,4 +59,16 @@ export class FileIntranetService {
     let params = new HttpParams().set('email', email);
     return this.httpClient.get<User[]>(`${this.fileURL}/user`, {params: params});
   }
+
+  public getJSON(filter: any, exact: number = 0): Observable<File[]>{
+    let params = new HttpParams();
+    params = params.set('checksum', filter.checksum);
+    params = params.set('name', filter.name);
+    params = params.set('labsystemName', filter.labsystem);
+    params = params.set('sampleTypeId', filter.sampleType);
+    params = params.set('node', filter.node);
+    params = params.set('email', filter.email);
+    params = params.set('exact', exact.toString());
+    return this.httpClient.get<File[]>(`${this.fileURL}/fullData`, {params: params});
+  }
 }
