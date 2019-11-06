@@ -315,7 +315,7 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
     );
   }
 
-  private navigateTo(): void {
+  public navigateTo(): void {
     this.router.navigate(['application/view/instrument/' + this.system.apiKey, ]);
   }
 
