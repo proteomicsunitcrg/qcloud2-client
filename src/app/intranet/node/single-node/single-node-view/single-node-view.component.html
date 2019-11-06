@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col s3">
+        <p>Node: {{node.name}}</p>
+        <p>Country: {{node.country}}</p>
+        <p>ApiKey: {{node.apiKey}}</p>
+    </div>
+    <div class="col s6">
+        <ul>
+            <li *ngFor="let ls of labsystems" (click)="open('menu')">
+                <a class="collapsible-header green-background waves-effect waves-cyan">
+                    <span class="nav-headers">{{ls.name}}</span>
+                </a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a>Oye mira</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

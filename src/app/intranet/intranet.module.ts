@@ -11,10 +11,14 @@ import { IntranetRouterModule } from './intranet-router/intranet-router.module';
 import { MainComponent } from './main/main.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NodeMainComponent } from './node/node-main/node-main.component';
+import { NodeListComponent } from './node/node-list/node-list.component';
+import { SingleNodeMainComponent } from './node/single-node/single-node-main/single-node-main.component';
+import { SingleNodeViewComponent } from './node/single-node/single-node-view/single-node-view.component';
 
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile],
+  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent],
   imports: [
     CommonModule,
     RouterModule,
