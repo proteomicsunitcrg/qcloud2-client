@@ -1,3 +1,42 @@
-<ul>
-    <li *ngFor="let node of allNodes"><a (click)="navigateTo(node.apiKey)">{{node.name}}</a></li>
-</ul>
+<div class="row">
+    <div class="col s6">
+        <h5>Node list</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Files last week
+                    </th>
+                    <th>
+                        View
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let node of allNodes">
+                    <td>
+                        {{node.node.name}}
+                    </td>
+                    <td>
+                        {{node.filesLastWeek}}
+                    </td>
+                    <td>
+                        <button class="btn" (click)="navigateTo(node.node.apiKey)">View</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col s3">
+        <h5>QCloud2 stadistics</h5>
+        <p>Total files: {{generalStats.totalFiles}}</p>
+        <p>Files 6 months ago: {{generalStats.filesLast6Months}}</p>
+        <p>Nodes with files last 6 months: {{generalStats.nodesWithFiles6Months}}</p>
+        <p>Users with files last 6 months: {{generalStats.usersWithFiles6Months}}</p>
+        <p>Countries with files last 6 months: {{generalStats.countriesWithFilesLast6Months}}</p>
+        <p>Labsystems with files: {{generalStats.labSystemsWithFiles}}</p>
+    </div>
+</div>

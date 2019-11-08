@@ -6,6 +6,8 @@ import { Node } from '../models/node';
 import { System } from '../models/system';
 import { LsStats } from '../models/LsStats';
 import { NodeStats } from '../models/NodeStats';
+import { NodeAndStats } from '../models/NodeAndStats';
+import { GeneralStats } from '../models/GeneralStats';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +22,8 @@ export class NodeIntranetService {
   // The message URL
   nodeIntranetUrl = this.apiPrefix + 'api/intranet/node';
   
-  public getAllNodes(): Observable<Node[]> {
-    return this.httpClient.get<Node[]>(`${this.nodeIntranetUrl}/getAll`);
+  public getAllNodes(): Observable<NodeAndStats[]> {
+    return this.httpClient.get<NodeAndStats[]>(`${this.nodeIntranetUrl}/getAll`);
   }
   
     public getNodeByApiKey(apiKey: string): Observable<Node> {
@@ -42,5 +44,9 @@ export class NodeIntranetService {
     public getNodeStats(nodeApiKey: string): Observable<NodeStats> {
       let params = new HttpParams().set('apiKey', nodeApiKey)
       return this.httpClient.get<NodeStats>(`${this.nodeIntranetUrl}/statsNode`, {params: params});
+    }
+
+    public getGeneralStats(): Observable<GeneralStats> {
+      return this.httpClient.get<GeneralStats>(`${this.nodeIntranetUrl}/generalStats`);
     }
 }
