@@ -4,6 +4,7 @@ import { FileIntranetService } from '../../../services/file-intranet.service';
 import { TOASTSETTING } from '../../../shared/ToastConfig';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 
 declare var M: any;
@@ -18,7 +19,8 @@ export class FilesListComponent implements OnInit {
   constructor(
     private fileService: FileIntranetService,
     private toast: ToastrService,
-    public ngxSmartModalService: NgxSmartModalService
+    public ngxSmartModalService: NgxSmartModalService,
+    private router: Router,
   ) { }
 
   // Variable to host the number in items in the page
@@ -103,6 +105,7 @@ export class FilesListComponent implements OnInit {
           this.fileService.getNodeByDataSourceApiKey(file.labSystem.dataSources[1].apiKey).subscribe(
             node => {
               file.labSystem.node = node.name;
+              file.labSystem.nodeApiKey = node.apiKey;
               this.collection.data = pageFile.content;
               this.collection.count = pageFile.totalElements;
               this.config.totalItems = pageFile.totalElements;
@@ -278,5 +281,10 @@ export class FilesListComponent implements OnInit {
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+  }
+
+  public navigateTo(nodeApiKey): void {
+    console.log(nodeApiKey);
+    this.router.navigate(['/application/intranet/node', nodeApiKey]);
   }
 }

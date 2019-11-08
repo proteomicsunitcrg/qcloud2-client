@@ -120,7 +120,7 @@
                 </a>
             </td>
             <td>
-                {{file.labSystem.node}}
+                <span class="clickable" (click)="navigateTo(file.labSystem.nodeApiKey)">{{file.labSystem.node}}</span>
             </td>
             <td (click)="sampleType = file.sampleType.qualityControlControlledVocabulary">
                 {{file.sampleType.name}}
