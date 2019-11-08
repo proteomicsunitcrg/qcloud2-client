@@ -246,6 +246,7 @@ export class FilesListComponent implements OnInit {
       err => console.error(err)
     );
   }
+
   public getUsers(): void {
     if (this.email.trim().length >= 3) {
       this.fileService.getUsers(this.email).subscribe(

@@ -15,10 +15,11 @@ import { NodeMainComponent } from './node/node-main/node-main.component';
 import { NodeListComponent } from './node/node-list/node-list.component';
 import { SingleNodeMainComponent } from './node/single-node/single-node-main/single-node-main.component';
 import { SingleNodeViewComponent } from './node/single-node/single-node-view/single-node-view.component';
+import { GeneralStatsComponent } from './node/general-stats/general-stats.component';
 
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent],
+  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent],
   imports: [
     CommonModule,
     RouterModule,
