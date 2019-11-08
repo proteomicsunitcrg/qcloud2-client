@@ -5,15 +5,31 @@
         <p>ApiKey: {{node.apiKey}}</p>
     </div>
     <div class="col s6">
-        <ul>
-            <li *ngFor="let ls of labsystems" (click)="open('menu')">
-                <a class="collapsible-header green-background waves-effect waves-cyan">
-                    <span class="nav-headers">{{ls.name}}</span>
-                </a>
+        <ul class="collapsible">
+            <li *ngFor="let ls of labsystems">
+                <div class="collapsible-header" (click)="showInfo=true">
+                    {{ls.name}}
+                </div>
                 <div class="collapsible-body">
-                    <ul>
-                        <li><a>Oye mira</a></li>
-                    </ul>
+                    <button class="btn" (click)="hideLsInfoAndGetLsStats(ls.apiKey)">
+                        Toggle
+                    </button>
+                    <div *ngIf="showInfo">
+                        <p>LabSystem API Key: {{ls.apiKey}}</p>
+                        <div *ngFor="let dataSource of ls.dataSources; let i = index">
+                            <p>Data source ({{i+1}}) name: {{dataSource.name}}</p>
+                            <p>Data source ({{i+1}}) API key: {{dataSource.apiKey}}</p>
+                            <p>Data source ({{i+1}}) CV name: {{dataSource.cv.name}}</p>
+                            <p>Data source ({{i+1}}) CV id: {{dataSource.cv.cvid}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="!showInfo">
+                        <p>
+                            Total files: {{statsLs.totalFiles}}
+                        </p>
+                        <p> Files send last month {{statsLs.filesLastMonths}}
+                        </p>
+                    </div>
                 </div>
             </li>
         </ul>

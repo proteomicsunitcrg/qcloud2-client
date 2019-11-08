@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Node } from '../models/node';
 import { System } from '../models/system';
+import { LsStats } from '../models/LsStats';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,10 @@ export class NodeIntranetService {
     public getLabsystemsByNodeApiKey(nodeApiKey: string): Observable<System[]> {
       let params = new HttpParams().set('apiKey', nodeApiKey);
       return this.httpClient.get<System[]>(`${this.nodeIntranetUrl}/getLS`, {params: params});
+    }
+
+    public getLsStats(lsApiKey: string): Observable<LsStats> {
+      let params = new HttpParams().set('apiKey', lsApiKey);
+      return this.httpClient.get<LsStats>(`${this.nodeIntranetUrl}/stats`, {params: params});
     }
 }

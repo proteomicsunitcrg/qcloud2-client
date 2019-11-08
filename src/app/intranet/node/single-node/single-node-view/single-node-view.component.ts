@@ -4,6 +4,7 @@ import { NodeIntranetService } from '../../../../services/node-intranet.service'
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING } from '../../../../shared/ToastConfig';
 import { Node } from '../../../../models/node';
+import { LsStats } from '../../../../models/LsStats';
 declare var M: any;
 
 @Component({
@@ -22,9 +23,16 @@ export class SingleNodeViewComponent implements OnInit {
   node = new Node (null, null, null, null);
 
   labsystems = [];
-
+  statsLs = new LsStats(null, null);
+  showInfo = true;
   ngOnInit() {
     this.subscribeToRoute();
+    this.initializeCollapsible();
+  }
+
+  private initializeCollapsible(): void {
+    const elems = document.querySelectorAll('.collapsible');
+    const instances = M.Collapsible.init(elems);
   }
 
   private subscribeToRoute(): void {
@@ -52,6 +60,7 @@ export class SingleNodeViewComponent implements OnInit {
   private getNodeLS(nodeApiKey: string): void {
     this.intrService.getLabsystemsByNodeApiKey(nodeApiKey).subscribe(
       res => {
+        console.log(res);
         this.labsystems = res
       },
       err => {
@@ -60,10 +69,27 @@ export class SingleNodeViewComponent implements OnInit {
     );
   }
 
+  public getLsStats(lsApiKey: string): void {
+    this.intrService.getLsStats(lsApiKey).subscribe(
+      res => {
+        this.statsLs = res;
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
 
-  open(item): void {
+  public hideLsInfoAndGetLsStats(apiKey: string): void {
+    this.showInfo = !this.showInfo;
+    if (!this.showInfo) {
+      this.getLsStats(apiKey);
+    }
+  }
+
+  public open(item): void {    
     const elem = document.getElementById(item);
-    const instance = M.Collapsible.init(elem);
+    const instance = M.Collapsible.init(elem);    
   }
 
 }
