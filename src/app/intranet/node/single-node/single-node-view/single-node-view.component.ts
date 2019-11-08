@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NodeIntranetService } from '../../../../services/node-intranet.service';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING } from '../../../../shared/ToastConfig';
 import { Node } from '../../../../models/node';
 import { LsStats } from '../../../../models/LsStats';
+import { NodeStats } from '../../../../models/NodeStats';
 declare var M: any;
 
 @Component({
@@ -17,11 +18,12 @@ export class SingleNodeViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private intrService: NodeIntranetService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private router: Router,
   ) { }
 
   node = new Node (null, null, null, null);
-
+  nodeStats = new NodeStats(0, 0, 0, 0);
   labsystems = [];
   statsLs = new LsStats(null, null);
   showInfo = true;
@@ -39,16 +41,17 @@ export class SingleNodeViewComponent implements OnInit {
     this.route.paramMap.subscribe(
       (param)=> {
         // const apiKey = param.get('apiKey'); 
-        this.getNodeByApiKey(param.get('apiKey'))
+        this.getNodeByApiKey(param.get('apiKey'));
       }
-    );
-  }
-
-  private getNodeByApiKey(apiKey: string): void {
-    this.intrService.getNodeByApiKey(apiKey).subscribe(
-      res => {
-        this.node = res;
-        this.getNodeLS(this.node.apiKey);
+      );
+    }
+    
+    private getNodeByApiKey(apiKey: string): void {
+      this.intrService.getNodeByApiKey(apiKey).subscribe(
+        res => {
+          this.node = res;
+          this.getNodeStats(this.node.apiKey);
+          this.getNodeLS(this.node.apiKey);
       },
       err => {
         this.toast.error(err.error.message, 'Node not found', TOASTSETTING);
@@ -80,6 +83,17 @@ export class SingleNodeViewComponent implements OnInit {
     )
   }
 
+  private getNodeStats(nodeApiKey: string): void {
+    this.intrService.getNodeStats(nodeApiKey).subscribe(
+      res => {
+        this.nodeStats = res;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
   public hideLsInfoAndGetLsStats(apiKey: string): void {
     this.showInfo = !this.showInfo;
     if (!this.showInfo) {
@@ -87,9 +101,7 @@ export class SingleNodeViewComponent implements OnInit {
     }
   }
 
-  public open(item): void {    
-    const elem = document.getElementById(item);
-    const instance = M.Collapsible.init(elem);    
+  public goBack() {
+    this.router.navigate(['/application/intranet/nodes']);
   }
-
 }
