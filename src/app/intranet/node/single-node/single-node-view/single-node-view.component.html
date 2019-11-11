@@ -1,47 +1,7 @@
-<div class="row">
-    <div class="col s3">
-        <p>Node: {{node.name}}</p>
-        <p>Country: {{node.country}}</p>
-        <p>ApiKey: {{node.apiKey}}</p>
-        <p>Total files: {{nodeStats.totalFiles}}</p>
-        <p>Files 6 moths: {{nodeStats.files6Month}}</p>
-        <p>Files last moth: {{nodeStats.files1Month}}</p>
-        <p>Files last week: {{nodeStats.files1Week}}</p>
-    </div>
-    <div class="col s6">
-        <ul class="collapsible">
-            <li *ngFor="let ls of labsystems">
-                <div class="collapsible-header" (click)="showInfo=true">
-                    {{ls.name}}
-                </div>
-                <div class="collapsible-body">
-                    <button class="btn" (click)="hideLsInfoAndGetLsStats(ls.apiKey)">
-                        Info/stats
-                    </button>
-                    <div *ngIf="showInfo">
-                        <p>LabSystem API Key: {{ls.apiKey}}</p>
-                        <div *ngFor="let dataSource of ls.dataSources; let i = index">
-                            <p>Data source ({{i+1}}) name: {{dataSource.name}}</p>
-                            <p>Data source ({{i+1}}) API key: {{dataSource.apiKey}}</p>
-                            <p>Data source ({{i+1}}) CV name: {{dataSource.cv.name}}</p>
-                            <p>Data source ({{i+1}}) CV id: {{dataSource.cv.cvid}}</p>
-                        </div>
-                    </div>
-                    <div *ngIf="!showInfo">
-                        <p>
-                            Total files: {{statsLs.totalFiles}}
-                        </p>
-                        <p> 
-                            Files sent last month {{statsLs.filesLastMonths}}
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="col s3">
-        <button class="btn" (click)="goBack()">Go back</button>
-    </div>
-</div>
+<p>Node: {{node.name}}</p>
+<p>Country: {{node.country}}</p>
+<p>ApiKey: {{node.apiKey}}</p>
+<p>Total files: {{nodeStats.totalFiles}}</p>
+<p>Files 6 moths: {{nodeStats.files6Month}}</p>
+<p>Files last moth: {{nodeStats.files1Month}}</p>
+<p>Files last week: {{nodeStats.files1Week}}</p>

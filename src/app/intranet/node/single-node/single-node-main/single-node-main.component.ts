@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-node-main',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleNodeMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
+  routeUrl: string;
   ngOnInit() {
+    this.subscribeToRoute();
+
   }
+
+  private subscribeToRoute(): void {
+    this.route.paramMap.subscribe(
+      (param)=> {
+        this.routeUrl = param.get('apiKey');
+      }
+      );
+    }
+
+    public goBack() {
+      this.router.navigate(['/application/intranet/nodes']);
+    }
 
 }
