@@ -4,7 +4,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,6 +23,12 @@ export class UserService {
 
   public getUsersByNode(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.nodeUrl + '/users');
+  }
+
+  public getUsersByNodeApiKey(nodeApiKey: string): Observable<User[]> {
+    let params = new HttpParams();
+    params = params.set('apiKey', nodeApiKey);
+    return this.httpClient.get<User[]>(this.nodeUrl + '/usersByNodeApiKey', {params : params});
   }
 
   public getAllNodes(): Observable<NodeWithTotalFiles[]> {
@@ -73,7 +79,7 @@ export class UserService {
 
   public resetTelegramCode(): Observable<string> {
     // const headers = new HttpHeaders().set('Content-type', 'text/plain');
-    return this.httpClient.put(`${this.nodeUrl}/telegram`, null, { responseType: 'text'});
+    return this.httpClient.put(`${this.nodeUrl}/telegram`, null, { responseType: 'text' });
   }
 
 }

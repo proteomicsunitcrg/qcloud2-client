@@ -19,7 +19,7 @@ export class ProfileTelegramComponent implements OnInit {
   private getTelegramURL(): void {
     this.userService.getUserTelegramURL().subscribe(
       res => {
-        this.telegramURL = res
+        this.telegramURL = res;
       },
       err => console.error(err)
     );
@@ -29,14 +29,13 @@ export class ProfileTelegramComponent implements OnInit {
     if (confirm('Your telegram password will be reseted and the session of your mobile device will be closed. Are you sure?')) {
       this.userService.resetTelegramCode().subscribe(
         (res) => {
-          this.telegramURL = res
+          this.telegramURL = res;
         },
         (err) => {
           console.error(err);
         }
       );
     }
-    
   }
 
 }

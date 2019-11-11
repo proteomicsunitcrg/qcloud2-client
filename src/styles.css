@@ -2,6 +2,8 @@
 
 /* Some elements here are global ant other are from libs. The lib elements only can be modified in this file */
 @import "@angular/cdk/overlay-prebuilt.css";
+/* NgxSmartModal */
+@import "../node_modules/ngx-smart-modal/ngx-smart-modal.css";
 .green-background {
     background-color: #f4f9f4;
     color: black;
@@ -38,4 +40,9 @@ button[type="button"] {
 
 .btn-flat.datepicker-done.waves-effect {
     margin-left: 10px !important;
+}
+
+/* Modal */
+.nsm-dialog {
+    max-width: 2000px !important;
 }

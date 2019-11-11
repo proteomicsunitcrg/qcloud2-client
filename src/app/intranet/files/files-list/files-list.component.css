@@ -1,0 +1,13 @@
+.clickable {
+  cursor: pointer;
+  color: #26a69a;
+}
+.modalClass {
+  background-color: red !important;
+  width: 1400px !important;
+  max-width: 1400px !important;
+}
+.nsm-dialog {
+  width: 1400px !important;
+  max-width: 1400px !important;
+}

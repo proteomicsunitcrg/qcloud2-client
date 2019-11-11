@@ -24,6 +24,10 @@
         <a routerLink="/application/administration">Administration
         </a>
       </li>
+      <li *ngIf="isAdmin">
+        <a routerLink="/application/intranet">Intranet
+        </a>
+      </li>
       <li *ngIf="isManager">
         <a routerLink="/application/management">Management
         </a>

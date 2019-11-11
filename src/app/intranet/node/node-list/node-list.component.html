@@ -1,0 +1,35 @@
+<div class="col s6 z-depth-2" style="margin-left: 3vh;">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h5>Node list</h5>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Files last week
+                </th>
+                <th>
+                    View
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let node of allNodes">
+                <td>
+                    {{node.node.name}}
+                </td>
+                <td>
+                    {{node.filesLastWeek}}
+                </td>
+                <td>
+                    <button class="btn" (click)="navigateTo(node.node.apiKey)">View</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

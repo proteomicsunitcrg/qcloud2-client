@@ -1,0 +1,29 @@
+<ul class="collapsible">
+    <li *ngFor="let ls of labsystems">
+        <div class="collapsible-header" (click)="showInfo=true">
+            {{ls.name}}
+        </div>
+        <div class="collapsible-body">
+            <button class="btn" (click)="hideLsInfoAndGetLsStats(ls.apiKey)">
+                Info/stats
+            </button>
+            <div *ngIf="showInfo">
+                <p>LabSystem API Key: {{ls.apiKey}}</p>
+                <div *ngFor="let dataSource of ls.dataSources; let i = index">
+                    <p>Data source ({{i+1}}) name: {{dataSource.name}}</p>
+                    <p>Data source ({{i+1}}) API key: {{dataSource.apiKey}}</p>
+                    <p>Data source ({{i+1}}) CV name: {{dataSource.cv.name}}</p>
+                    <p>Data source ({{i+1}}) CV id: {{dataSource.cv.cvid}}</p>
+                </div>
+            </div>
+            <div *ngIf="!showInfo">
+                <p>
+                    Total files: {{statsLs.totalFiles}}
+                </p>
+                <p>
+                    Files sent last month {{statsLs.filesLastMonths}}
+                </p>
+            </div>
+        </div>
+    </li>
+</ul>

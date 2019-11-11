@@ -133,7 +133,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
           );
       }
     );
-  }
+}
 
   private parseDate(date: Date): string {
     const date1 = new Date(date).getTime();

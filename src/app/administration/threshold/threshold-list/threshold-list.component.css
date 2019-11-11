@@ -1,9 +1,9 @@
 .item-visible {
-    display: block;
+  display: block;
 }
 .item-hidden {
-    display: none;
+  display: none;
 }
 .show-context-source-text {
-    cursor: pointer;
+  cursor: pointer;
 }

@@ -1,10 +1,9 @@
 .nav-headers {
-    color: black;
+  color: black;
 }
 .collapsible-header {
-    background-color: #f4f9f4;
-
+  background-color: #f4f9f4;
 }
 .cursorIcon {
-    cursor: pointer;
+  cursor: pointer;
 }

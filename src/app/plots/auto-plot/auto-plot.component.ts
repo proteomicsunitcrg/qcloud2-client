@@ -149,7 +149,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
           const value = element['value'];
           if (index === this.serverData.data[key].length - 1) {
             marker = 'diamond-cross';
-            color = getPointColor(element['nc'])
+            color = getPointColor(element['nc']);
           }
           values.push(value);
           colorsForLine[index] = color;

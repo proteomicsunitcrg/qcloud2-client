@@ -80,7 +80,7 @@ export class MessageComponent implements OnInit {
    */
   public submit(): void {
     const msg = new Message(this.messageForm.value.title, this.messageForm.value.message,
-      this.messageForm.value.type, this.messageForm.value.show, null)
+      this.messageForm.value.type, this.messageForm.value.show, null);
     console.log(msg);
     this.msgService.saveMessage(msg).subscribe(
       () => this.toastr.success('Message updated', null, TOASTSETTING),

@@ -6,16 +6,16 @@
 }
 
 .action:hover {
-    color: #4e4e4e;
+  color: #4e4e4e;
 }
 
 .show-action {
-    visibility: visible;
+  visibility: visible;
 }
 
 .hide-action {
-    visibility: hidden;
+  visibility: hidden;
 }
 .qccv {
-    font-size: 0.7rem;
+  font-size: 0.7rem;
 }
