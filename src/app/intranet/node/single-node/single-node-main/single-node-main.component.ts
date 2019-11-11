@@ -13,6 +13,7 @@ export class SingleNodeMainComponent implements OnInit {
     private router: Router,
   ) { }
 
+  showLabsystems = true;
   routeUrl: string;
   ngOnInit() {
     this.subscribeToRoute();

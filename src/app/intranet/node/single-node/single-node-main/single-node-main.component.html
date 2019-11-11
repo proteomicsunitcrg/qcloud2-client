@@ -1,34 +1,38 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
-    <div class="row z-depth-0 green-background  ">
-      <div class="col s12 m12 l12 xl12">
-        <h4>Node view</h4>
-      </div>
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Node view</h4>
     </div>
-    <div class="row z-depth-0">
-      <div class="col s12 m12 l12 xl12">
-        <div class="row">
-          <div class="col s3 z-depth-2" style="margin-left: 3vh;">
-              <div class="row z-depth-0 green-background  ">
-                  <div class="col s12 m12 l12 xl12">
-                      <h5>Node statistics</h5>
-                  </div>
-              </div>
-            <app-single-node-view [nodeApiKey]="routeUrl"></app-single-node-view>
-          </div>
-          <div class="col s6 z-depth-2" style="margin-left: 3vh;">
-              <div class="row z-depth-0 green-background  ">
-                  <div class="col s12 m12 l12 xl12">
-                      <h5>Labsystems</h5>
-                  </div>
-              </div>
-            <app-single-node-ls [nodeApiKey]="routeUrl"></app-single-node-ls>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col s3">
-                <button class="btn" (click)="goBack()">Go back</button>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <div class="row">
+        <div class="col s3 z-depth-2" style="margin-left: 3vh;">
+          <div class="row z-depth-0 green-background  ">
+            <div class="col s12 m12 l12 xl12">
+              <h5>Node statistics</h5>
             </div>
+          </div>
+          <app-single-node-view [nodeApiKey]="routeUrl"></app-single-node-view>
+        </div>
+        <div class="col s6 z-depth-2" style="margin-left: 3vh;">
+          <div class="row z-depth-0 green-background">
+            <div class="col s10">
+              <h5>Labsystems/Users</h5>
+            </div>
+            <div class="col s2">
+              <button class="btn" (click)="showLabsystems=!showLabsystems" style="margin-top: 1vh;">Switch</button>
+            </div>
+          </div>
+          <app-single-node-ls [nodeApiKey]="routeUrl" *ngIf="showLabsystems"></app-single-node-ls>
+          <app-single-node-users [nodeApiKey]="routeUrl" *ngIf="!showLabsystems"></app-single-node-users>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3" >
+          <button class="btn"(click)="goBack()">Go back</button>
         </div>
       </div>
     </div>
   </div>
+</div>

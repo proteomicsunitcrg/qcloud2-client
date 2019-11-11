@@ -17,10 +17,11 @@ import { SingleNodeMainComponent } from './node/single-node/single-node-main/sin
 import { SingleNodeViewComponent } from './node/single-node/single-node-view/single-node-view.component';
 import { GeneralStatsComponent } from './node/general-stats/general-stats.component';
 import { SingleNodeLsComponent } from './node/single-node/single-node-ls/single-node-ls.component';
+import { SingleNodeUsersComponent } from './node/single-node/single-node-users/single-node-users.component';
 
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent, SingleNodeLsComponent],
+  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent, SingleNodeLsComponent, SingleNodeUsersComponent],
   imports: [
     CommonModule,
     RouterModule,
