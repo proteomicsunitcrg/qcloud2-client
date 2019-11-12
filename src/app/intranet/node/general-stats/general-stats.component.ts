@@ -13,7 +13,7 @@ export class GeneralStatsComponent implements OnInit {
     private nodeIntrService: NodeIntranetService,
   ) { }
 
-  generalStats = new GeneralStats(0,0,0,0,0,0);
+  generalStats = new GeneralStats(0,0,0,0,0,0,0);
 
   ngOnInit() {
     this.getGeneralStats();
@@ -21,6 +21,8 @@ export class GeneralStatsComponent implements OnInit {
   private getGeneralStats(): void {
     this.nodeIntrService.getGeneralStats().subscribe(
       res => {
+        console.log(res);
+        
         this.generalStats = res;
       },
       err => {

@@ -1,3 +1,4 @@
+<p>Users in this node: {{users.length}}</p>
 <table>
     <thead>
 
@@ -15,18 +16,18 @@
         </th>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngFor="let user of users">
             <td>
-                user.username
+                {{user.username}}
             </td>
             <td>
-                user.firstname
+                {{user.firstname}}
             </td>
             <td>
-                user.lastname
+                {{user.lastname}}
             </td>
             <td>
-                user.apiKey
+                {{user.apiKey}}
             </td>
         </tr>
     </tbody>

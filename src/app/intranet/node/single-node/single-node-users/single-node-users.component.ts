@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NodeIntranetService } from '../../../../services/node-intranet.service';
 import { UserService } from '../../../../services/user.service';
+import { User } from '../../../../models/user';
 
 @Component({
   selector: 'app-single-node-users',
@@ -10,19 +11,21 @@ import { UserService } from '../../../../services/user.service';
 export class SingleNodeUsersComponent implements OnInit {
 
   constructor(
-    private intranetService: NodeIntranetService,
     private userService: UserService
   ) { }
 
   @Input('nodeApiKey') nodeApiKey: string;
 
+  users: User[] = [];
+
   ngOnInit() {
+    this.getUsers()
   }
 
   private getUsers(): void {
     this.userService.getUsersByNodeApiKey(this.nodeApiKey).subscribe(
       res => {
-        console.log(res);
+        this.users = res;
       },
       err => console.error(err)
     );
