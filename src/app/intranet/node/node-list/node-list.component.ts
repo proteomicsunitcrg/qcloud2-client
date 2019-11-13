@@ -13,6 +13,7 @@ export class NodeListComponent implements OnInit {
   constructor(
     private nodeIntrService: NodeIntranetService,
     private router: Router,
+
   ) { }
 
   allNodes: NodeAndStats[];

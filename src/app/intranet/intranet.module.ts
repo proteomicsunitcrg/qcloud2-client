@@ -18,6 +18,7 @@ import { SingleNodeViewComponent } from './node/single-node/single-node-view/sin
 import { GeneralStatsComponent } from './node/general-stats/general-stats.component';
 import { SingleNodeLsComponent } from './node/single-node/single-node-ls/single-node-ls.component';
 import { SingleNodeUsersComponent } from './node/single-node/single-node-users/single-node-users.component';
+import { PreviousRouteService } from '../services/PreviousRoute.service';
 
 
 @NgModule({
@@ -30,6 +31,9 @@ import { SingleNodeUsersComponent } from './node/single-node/single-node-users/s
     FormsModule,
     TooltipModule,
     NgxSmartModalModule.forChild()
+  ],
+  providers: [
+    PreviousRouteService
   ]
 })
 export class IntranetModule { }

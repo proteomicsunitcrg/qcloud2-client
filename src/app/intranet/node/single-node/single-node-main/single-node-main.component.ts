@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PreviousRouteService } from '../../../../services/PreviousRoute.service';
 
 @Component({
   selector: 'app-single-node-main',
@@ -10,6 +11,7 @@ export class SingleNodeMainComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private previousRouteService: PreviousRouteService,
     private router: Router,
   ) { }
 
@@ -17,7 +19,7 @@ export class SingleNodeMainComponent implements OnInit {
   routeUrl: string;
   ngOnInit() {
     this.subscribeToRoute();
-
+    console.log(this.previousRouteService.getPreviousUrl());
   }
 
   private subscribeToRoute(): void {
@@ -29,7 +31,12 @@ export class SingleNodeMainComponent implements OnInit {
     }
 
     public goBack() {
-      this.router.navigate(['/application/intranet/nodes']);
+      if (this.previousRouteService.getPreviousUrl() === this.previousRouteService.getCurrentUrl()) {
+        this.router.navigate(['/application/intranet/nodes']);
+        
+      } else {
+        this.router.navigate([this.previousRouteService.getPreviousUrl()]);
+      }
     }
 
 }
