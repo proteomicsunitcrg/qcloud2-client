@@ -29,7 +29,11 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
     // Check if token already exists
     if (this.authService.isLoggedIn()) {
-      this.doNavigation();
+      if (this.checkAdmin()) {
+        this.doNavigationAdmin();
+      } else {
+        this.doNavigation();
+      }
     }
   }
 
@@ -40,8 +44,11 @@ export class LoginFormComponent implements OnInit {
       .subscribe(
         (res) => {
           this.authService.setSession(res);
-          // this.router.navigate(['application']);
-          this.doNavigation();
+          if (this.checkAdmin()) {
+            this.doNavigationAdmin();
+          } else {
+            this.doNavigation();
+          }
         },
         (error: HttpErrorResponse) => {
           this.isBad = true;
@@ -62,6 +69,10 @@ export class LoginFormComponent implements OnInit {
         });
   }
 
+  private checkAdmin(): boolean {
+    return this.authService.checkIfAdmin();
+  }
+
   private doNavigation(): void {
     this.userDefaultViewService.findDefaultView()
       .subscribe(
@@ -77,6 +88,10 @@ export class LoginFormComponent implements OnInit {
           }
         }
       );
+  }
+
+  private doNavigationAdmin(): void {
+    this.router.navigate(['/application/intranet/files']);
   }
 
   doLogout(): void {

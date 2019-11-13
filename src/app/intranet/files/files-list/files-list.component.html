@@ -30,26 +30,11 @@
     </div>
 </div>
 <div class="row">
-    <!-- <div class="col s3"> -->
     <button class="btn" (click)="getPage(0)" style="margin-left: 10px;">Find</button>
-    <!-- </div>
-    <div class="col s1"> -->
     <button class="btn" (click)="getJSON()" style="margin-left: 10px;">JSON</button>
-    <!-- </div>
-    <div class="col s1"> -->
-    <button class="btn" (click)="getPage(0)" style="margin-left: 10px;">CSV</button>
-    <!-- </div> -->
+    <button class="btn" (click)="cleanFilters()" style="margin-left: 10px;">Clean filters</button>
 </div>
-<!-- <div class="row">
-    <div class="input-field col s2">
-        <input id="dateStart" type="text" class="datepicker" [(ngModel)]="dateStart">
-        <label for="dateStart">Start date</label>
-    </div>
-    <div class="input-field col s2">
-            <input id="dateEnd" type="text" class="datepicker" [(ngModel)]="dateEnd">
-            <label for="dateEnd">End date</label>
-        </div>
-</div> -->
+
 <div class="row">
     <div class="col s2">
         <p>Files found: {{config.totalItems}}</p>

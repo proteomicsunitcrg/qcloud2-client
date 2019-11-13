@@ -74,7 +74,7 @@ export class FilesListComponent implements OnInit {
   // var to handle the autocompletion
   autoCompleteInstance: any;
   // If true skip the request to get the nodes (faster)
-  highPerformance = true;
+  highPerformance = false;
   ngOnInit() {
     this.getPage();
     M.AutoInit();
@@ -287,5 +287,14 @@ export class FilesListComponent implements OnInit {
   public navigateTo(nodeApiKey): void {
     console.log(nodeApiKey);
     this.router.navigate(['/application/intranet/node', nodeApiKey]);
+  }
+
+  public cleanFilters(): void {
+    this.name = '';
+    this.checksum = '';
+    this.node = '';
+    this.labsystem = '';
+    this.sampleType = '';
+    this.email = '';
   }
 }
