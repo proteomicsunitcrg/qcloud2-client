@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private loggedUser;
 
-  user: User = new User('', '', '', '', '', '');
+  user: User = new User('', '', '', '', '', '', null);
 
   ngOnInit() {
     const inputs = Array.from(document.querySelectorAll('select'));

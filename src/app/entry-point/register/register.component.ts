@@ -23,7 +23,7 @@ declare var M: any;
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  user: User = new User('', '', '', '', '', '');
+  user: User = new User('', '', '', '', '', '', null);
 
   node: Node = new Node('', '', [this.user], null);
 

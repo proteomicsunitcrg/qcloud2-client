@@ -58,7 +58,7 @@ export class UserService {
   }
 
   public changeUserPassword(currentPassword: string, newPassword: string): Observable<any> {
-    const user = new User(null, null, newPassword, null, null, null);
+    const user = new User(null, null, newPassword, null, null, null, null);
     const json = JSON.stringify({
       'currentPassword': currentPassword,
       'newPassword': newPassword
@@ -82,4 +82,15 @@ export class UserService {
     return this.httpClient.put(`${this.nodeUrl}/telegram`, null, { responseType: 'text' });
   }
 
+  public enableDisableUser(apiKey: string): Observable<User> {
+    let params = new HttpParams();
+    params = params.set('apiKey', apiKey);
+    return this.httpClient.patch<User>(`${this.nodeUrl}/enableDisableUser`, apiKey,{params: params});
+  }
+
+  public resetPassword(apiKey: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('apiKey', apiKey);
+    return this.httpClient.patch(`${this.nodeUrl}/hardResetPassword`, apiKey, {params: params, responseType: 'text'});
+  }
 }
