@@ -28,7 +28,7 @@ export class UserService {
   public getUsersByNodeApiKey(nodeApiKey: string): Observable<User[]> {
     let params = new HttpParams();
     params = params.set('apiKey', nodeApiKey);
-    return this.httpClient.get<User[]>(this.nodeUrl + '/usersByNodeApiKey', {params : params});
+    return this.httpClient.get<User[]>(this.nodeUrl + '/usersByNodeApiKey', { params: params });
   }
 
   public getAllNodes(): Observable<NodeWithTotalFiles[]> {
@@ -85,12 +85,12 @@ export class UserService {
   public enableDisableUser(apiKey: string): Observable<User> {
     let params = new HttpParams();
     params = params.set('apiKey', apiKey);
-    return this.httpClient.patch<User>(`${this.nodeUrl}/enableDisableUser`, apiKey,{params: params});
+    return this.httpClient.patch<User>(`${this.nodeUrl}/enableDisableUser`, apiKey, { params: params });
   }
 
   public resetPassword(apiKey: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('apiKey', apiKey);
-    return this.httpClient.patch(`${this.nodeUrl}/hardResetPassword`, apiKey, {params: params, responseType: 'text'});
+    return this.httpClient.patch(`${this.nodeUrl}/hardResetPassword`, apiKey, { params: params, responseType: 'text' });
   }
 }

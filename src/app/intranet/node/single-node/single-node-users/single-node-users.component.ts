@@ -13,7 +13,7 @@ import { TOASTSETTING } from '../../../../shared/ToastConfig';
   styleUrls: ['./single-node-users.component.css']
 })
 export class SingleNodeUsersComponent implements OnInit {
-  usersEnabled: number = 0;
+  usersEnabled = 0;
 
   constructor(
     private userService: UserService,
@@ -21,19 +21,19 @@ export class SingleNodeUsersComponent implements OnInit {
     private toast: ToastrService
   ) { }
 
-  @Input('nodeApiKey') nodeApiKey: string;
+  @Input('nodeApiKey') nodeKey: string;
 
   users: User[] = [];
 
   ngOnInit() {
-    this.getUsers()
+    this.getUsers();
   }
 
   private getUsers(): void {
-    this.userService.getUsersByNodeApiKey(this.nodeApiKey).subscribe(
+    this.userService.getUsersByNodeApiKey(this.nodeKey).subscribe(
       res => {
         this.usersEnabled = res.filter((user: User) => user.enabled).length;
-        this.users = res.sort((a,b) => a.enabled < b.enabled ? 1 : -1);
+        this.users = res.sort((a, b) => a.enabled < b.enabled ? 1 : -1);
       },
       err => console.error(err)
     );
@@ -53,7 +53,6 @@ export class SingleNodeUsersComponent implements OnInit {
   public resetPassword(user: User): void {
     this.userService.resetPassword(user.apiKey).subscribe(
       res => {
-        console.log(res);
         if (confirm(`New password ${res}, send email?`)) {
           this.sendEmail(user, res);
         }
@@ -65,11 +64,12 @@ export class SingleNodeUsersComponent implements OnInit {
   }
 
   private sendEmail(user: User, password: string): void {
-    let users: String[] = [user.email];
-    const email = new Email('qcloud@crg.eu',  users, 'TEST IGNORE THIS:::::QCloud 2 password change', `<p>Dear QCloud user</p><p>Your passsord has been changed to: <b>${password}</b></p><p>Thanks you</p>`);
+    const users: String[] = [user.email];
+    const email = new Email('qcloud@crg.eu', users, 'TEST IGNORE THIS:::::QCloud 2 password change'
+      , `<p>Dear QCloud user</p><p>Your passsord has been changed to: <b>${password}</b></p><p>Thanks you</p>`);
     this.emailService.sendEmail(email).subscribe(
       res => {
-        if(res) {
+        if (res) {
           this.toast.success('Email send', null, TOASTSETTING);
         } else {
           this.toast.error('Email not send', null, TOASTSETTING);
@@ -78,7 +78,7 @@ export class SingleNodeUsersComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
 }

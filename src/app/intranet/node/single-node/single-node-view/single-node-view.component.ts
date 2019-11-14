@@ -20,21 +20,20 @@ export class SingleNodeViewComponent implements OnInit {
   node = new Node(null, null, null, null);
   nodeStats = new NodeStats(0, 0, 0, 0);
 
-  @Input('nodeApiKey') nodeApiKey: string;
+  @Input('nodeApiKey') nodeKey: string;
 
   ngOnInit() {
     this.getNodeByApiKey();
   }
 
   private getNodeByApiKey(): void {
-    this.intrService.getNodeByApiKey(this.nodeApiKey).subscribe(
+    this.intrService.getNodeByApiKey(this.nodeKey).subscribe(
       res => {
         this.node = res;
         this.getNodeStats(this.node.apiKey);
       },
       err => {
         this.toast.error(err.error.message, 'Node not found', TOASTSETTING);
-        console.log(err);
       }
     );
   }

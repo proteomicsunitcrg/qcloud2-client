@@ -64,12 +64,12 @@ export class FilesListComponent implements OnInit {
    */
   collection = { count: 0, data: [] };
   // Var to store the tooltip node
-  nodeTooltip: string = '';
+  nodeTooltip = '';
   // Tooltip options
   tooltipOptions = {
     display: true,
     placement: 'top',
-    "content-type": 'html'
+    'content-type': 'html'
   };
   // var to handle the autocompletion
   autoCompleteInstance: any;
@@ -81,7 +81,7 @@ export class FilesListComponent implements OnInit {
     M.updateTextFields();
     this.subscribeToElementsPage();
     const elems = document.querySelectorAll('.autocomplete');
-    M.Autocomplete.init(elems, {minLength: 3});
+    M.Autocomplete.init(elems, { minLength: 3 });
     this.autoCompleteInstance = M.Autocomplete.getInstance(elems[0]);
 
   }
@@ -101,20 +101,21 @@ export class FilesListComponent implements OnInit {
     this.fileService.getPage(this.config.currentPage - 1, this.filter, this.exact, this.numberOfElements).subscribe(
       pageFile => {
         if (!this.highPerformance) {
-          for(const file of pageFile.content)
-          this.fileService.getNodeByDataSourceApiKey(file.labSystem.dataSources[1].apiKey).subscribe(
-            node => {
-              file.labSystem.node = node.name;
-              file.labSystem.nodeApiKey = node.apiKey;
-              this.collection.data = pageFile.content;
-              this.collection.count = pageFile.totalElements;
-              this.config.totalItems = pageFile.totalElements;
-            }
-          );
+          for (const file of pageFile.content) {
+            this.fileService.getNodeByDataSourceApiKey(file.labSystem.dataSources[1].apiKey).subscribe(
+              node => {
+                file.labSystem.node = node.name;
+                file.labSystem.nodeApiKey = node.apiKey;
+                this.collection.data = pageFile.content;
+                this.collection.count = pageFile.totalElements;
+                this.config.totalItems = pageFile.totalElements;
+              }
+            );
+          }
         } else {
-              this.collection.data = pageFile.content;
-              this.collection.count = pageFile.totalElements;
-              this.config.totalItems = pageFile.totalElements;
+          this.collection.data = pageFile.content;
+          this.collection.count = pageFile.totalElements;
+          this.config.totalItems = pageFile.totalElements;
         }
       },
       err => {
@@ -238,7 +239,6 @@ export class FilesListComponent implements OnInit {
   }
 
   public viewData(checksum: string): void {
-    console.log(checksum);
     this.fileService.getFileData(checksum).subscribe(
       res => {
         this.fileData = res;
@@ -251,7 +251,7 @@ export class FilesListComponent implements OnInit {
     if (this.email.trim().length >= 3) {
       this.fileService.getUsers(this.email).subscribe(
         res => {
-          let data = {}
+          const data = {};
           for (const user of res) {
             data[user.email] = null;
           }
@@ -271,7 +271,7 @@ export class FilesListComponent implements OnInit {
         this.mountDownload(res, `${moment().format('YYYY-MM-DD_HH-mm-ss')}_search.json`);
       },
       err => console.error(err)
-    )
+    );
   }
 
   private mountDownload(res: File[], name: string): void {
@@ -285,7 +285,6 @@ export class FilesListComponent implements OnInit {
   }
 
   public navigateTo(nodeApiKey): void {
-    console.log(nodeApiKey);
     this.router.navigate(['/application/intranet/node', nodeApiKey]);
   }
 

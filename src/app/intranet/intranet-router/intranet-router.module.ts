@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '', component: MainComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_ADMIN' }, children: [
       { path: 'files', component: MainFilesComponent },
       { path: 'nodes', component: NodeMainComponent },
-      { path: 'node/:apiKey', component: SingleNodeMainComponent},
+      { path: 'node/:apiKey', component: SingleNodeMainComponent },
       // { path: 'systems', component: MainSystemComponent},
       // { path: 'thresholds', component: MainThresholdComponent}
     ]

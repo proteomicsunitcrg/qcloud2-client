@@ -19,24 +19,22 @@ export class SingleNodeMainComponent implements OnInit {
   routeUrl: string;
   ngOnInit() {
     this.subscribeToRoute();
-    console.log(this.previousRouteService.getPreviousUrl());
   }
 
   private subscribeToRoute(): void {
     this.route.paramMap.subscribe(
-      (param)=> {
+      (param) => {
         this.routeUrl = param.get('apiKey');
       }
-      );
-    }
+    );
+  }
 
-    public goBack() {
-      if (this.previousRouteService.getPreviousUrl() === this.previousRouteService.getCurrentUrl()) {
-        this.router.navigate(['/application/intranet/nodes']);
-        
-      } else {
-        this.router.navigate([this.previousRouteService.getPreviousUrl()]);
-      }
+  public goBack() {
+    if (this.previousRouteService.getPreviousUrl() === this.previousRouteService.getCurrentUrl()) {
+      this.router.navigate(['/application/intranet/nodes']);
+    } else {
+      this.router.navigate([this.previousRouteService.getPreviousUrl()]);
     }
+  }
 
 }

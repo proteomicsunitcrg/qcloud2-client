@@ -8,9 +8,9 @@ describe('SingleNodeViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleNodeViewComponent ]
+      declarations: [SingleNodeViewComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

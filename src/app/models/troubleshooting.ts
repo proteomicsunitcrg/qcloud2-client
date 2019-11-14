@@ -4,7 +4,7 @@ export class Troubleshooting {
     description: string;
     qccv: string;
     apiKey: string;
-    active: boolean
+    active: boolean;
     constructor(name: string, description: string, qccv: string, apiKey: string, active: boolean) {
         this.name = name;
         this.description = description;

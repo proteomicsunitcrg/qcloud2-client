@@ -8,9 +8,9 @@ describe('SingleNodeMainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleNodeMainComponent ]
+      declarations: [SingleNodeMainComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

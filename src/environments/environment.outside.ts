@@ -3,5 +3,3 @@ export const environment = {
     apiPrefix: 'http://localhost:8181/',
     name: 'ZA WARUDO'
   };
-  
-  

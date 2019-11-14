@@ -9,7 +9,7 @@ export class User {
     email: string;
     authorities: Authority[];
     role: string;
-    enabled: boolean
+    enabled: boolean;
 
     constructor(apikey: string, username: string, password: string, firstname: string, lastname: string, email: string, enabled: boolean) {
         this.apiKey = apikey;

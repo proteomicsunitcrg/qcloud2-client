@@ -24,7 +24,7 @@ export class NodeListComponent implements OnInit {
 
   private getNodes(): void {
     this.nodeIntrService.getAllNodes().subscribe(
-      res => this.allNodes = res.sort((a,b) => a.filesLastWeek < b.filesLastWeek ? 1 : -1),
+      res => this.allNodes = res.sort((a: NodeAndStats, b: NodeAndStats) => a.filesLastWeek < b.filesLastWeek ? 1 : -1),
       err => console.error(err)
     );
   }

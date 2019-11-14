@@ -128,10 +128,10 @@
       "kebab-case"
     ],
     "no-output-on-prefix": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
+    "no-input-rename": false,
+    "no-output-rename": false,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true    
   }
 }

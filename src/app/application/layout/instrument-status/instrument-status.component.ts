@@ -110,19 +110,18 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
                   if (stat.status === 'DANGER' || stat.status === 'WARNING') {
                     stat.labSystemApikey = labSystem.system.apiKey;
                     labSystem.status.push(stat);
-                  }
-                  else if (stat.status === 'OFFLINE') {
-                    this.getLastFile(labSystem.system.apiKey).then((res) =>
-                      {
-                        if (res == null || res === undefined) {
-                          return;
-                        }
-                        labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
-                        this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null));
+                  } else if (stat.status === 'OFFLINE') {
+                    this.getLastFile(labSystem.system.apiKey).then((res) => {
+                      if (res == null || res === undefined) {
+                        return;
                       }
+                      labSystem.status.push(new LabSystemStatus(null, null, 'OFFLINE', 'Last QC01 file: ' +
+                        this.parseDate(res.creationDate), labSystem.system.apiKey, 'TIME', null));
+                    }
                     );
                   } else if (stat.status === 'NO_THRESHOLD') {
-                    labSystem.status.push(new LabSystemStatus(null, null, 'NO_THRESHOLD', 'No threshold defined', labSystem.system.apiKey, 'TIME',null));
+                    labSystem.status.push(new LabSystemStatus(null, null, 'NO_THRESHOLD',
+                      'No threshold defined', labSystem.system.apiKey, 'TIME', null));
                   }
                   this.updateLabSystemLight(labSystem, stat);
                 }
@@ -133,7 +132,7 @@ export class InstrumentStatusComponent implements OnInit, OnDestroy {
           );
       }
     );
-}
+  }
 
   private parseDate(date: Date): string {
     const date1 = new Date(date).getTime();

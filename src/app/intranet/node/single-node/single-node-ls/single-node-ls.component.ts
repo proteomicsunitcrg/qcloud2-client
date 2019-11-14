@@ -12,7 +12,7 @@ export class SingleNodeLsComponent implements OnInit {
   constructor(
     private intrService: NodeIntranetService,
   ) { }
-  @Input('nodeApiKey') nodeApiKey: string;
+  @Input('nodeApiKey') nodeKey: string;
   labsystems = [];
   statsLs = new LsStats(null, null);
   showInfo = true;
@@ -23,10 +23,9 @@ export class SingleNodeLsComponent implements OnInit {
   }
 
   private getNodeLS(): void {
-    this.intrService.getLabsystemsByNodeApiKey(this.nodeApiKey).subscribe(
+    this.intrService.getLabsystemsByNodeApiKey(this.nodeKey).subscribe(
       res => {
-        console.log(res);
-        this.labsystems = res
+        this.labsystems = res;
       },
       err => {
         console.error(err);
@@ -48,7 +47,7 @@ export class SingleNodeLsComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   private initializeCollapsible(): void {

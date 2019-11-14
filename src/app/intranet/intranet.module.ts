@@ -22,7 +22,11 @@ import { PreviousRouteService } from '../services/PreviousRoute.service';
 
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, FilesListComponent, MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent, NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent, SingleNodeLsComponent, SingleNodeUsersComponent],
+  declarations: [MainComponent, SidebarComponent, FilesListComponent,
+    MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent,
+    NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent,
+    SingleNodeLsComponent, SingleNodeUsersComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

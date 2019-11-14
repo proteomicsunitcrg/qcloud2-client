@@ -46,21 +46,21 @@ export class FileIntranetService {
   }
 
   public getNodeByDataSourceApiKey(apiKey: string): Observable<Node> {
-    let params = new HttpParams().set('apiKey', apiKey);
-    return this.httpClient.get<Node>(`${this.fileURL}/getNode`, {params: params});
+    const params = new HttpParams().set('apiKey', apiKey);
+    return this.httpClient.get<Node>(`${this.fileURL}/getNode`, { params: params });
   }
 
   public getFileData(checksum: string): Observable<any> {
-    let params = new HttpParams().set('checksum', checksum);
-    return this.httpClient.get<any>(`${this.fileURL}/data`, {params: params});
+    const params = new HttpParams().set('checksum', checksum);
+    return this.httpClient.get<any>(`${this.fileURL}/data`, { params: params });
   }
 
   public getUsers(email: string): Observable<User[]> {
-    let params = new HttpParams().set('email', email);
-    return this.httpClient.get<User[]>(`${this.fileURL}/user`, {params: params});
+    const params = new HttpParams().set('email', email);
+    return this.httpClient.get<User[]>(`${this.fileURL}/user`, { params: params });
   }
 
-  public getJSON(filter: any, exact: number = 0): Observable<File[]>{
+  public getJSON(filter: any, exact: number = 0): Observable<File[]> {
     let params = new HttpParams();
     params = params.set('checksum', filter.checksum);
     params = params.set('name', filter.name);
@@ -69,6 +69,6 @@ export class FileIntranetService {
     params = params.set('node', filter.node);
     params = params.set('email', filter.email);
     params = params.set('exact', exact.toString());
-    return this.httpClient.get<File[]>(`${this.fileURL}/fullData`, {params: params});
+    return this.httpClient.get<File[]>(`${this.fileURL}/fullData`, { params: params });
   }
 }

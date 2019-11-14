@@ -29,7 +29,6 @@ export class EditThresholdComponent implements OnInit {
     private sampleCompositionService: SampleCompositionService,
   ) { }
 
-  // tslint:disable-next-line:no-input-rename
   @Input('thresholdToEdit') thresholdToEdit: Threshold;
   thresholdNew: Threshold;
 

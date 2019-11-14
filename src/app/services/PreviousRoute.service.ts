@@ -10,10 +10,10 @@ export class PreviousRouteService {
   constructor(private router: Router) {
     this.currentUrl = this.router.url;
     router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {        
+      if (event instanceof NavigationEnd) {
         this.previousUrl = this.currentUrl;
         this.currentUrl = event.url;
-      };
+      }
     });
   }
 
@@ -22,5 +22,5 @@ export class PreviousRouteService {
   }
   public getCurrentUrl() {
     return this.currentUrl;
-  }    
+  }
 }

@@ -9,7 +9,7 @@ export class GeneralStats {
     public nodesWithFiles6Months: number;
 
     constructor(totalFiles: number, filesLast6Months: number, nodesWithFiles6Months: number, usersWithFiles6Months: number,
-            nodesWithGuidesets: number, labSystemsWithFiles: number, countriesWithFilesLast6Months: number) {
+        nodesWithGuidesets: number, labSystemsWithFiles: number, countriesWithFilesLast6Months: number) {
         this.totalFiles = totalFiles;
         this.filesLast6Months = filesLast6Months;
         this.nodesWithFiles6Months = nodesWithFiles6Months;
