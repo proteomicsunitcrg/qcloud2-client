@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NodeIntranetService } from '../../../../services/node-intranet.service';
 import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/user';
 import { EmailService } from '../../../../services/email.service';
@@ -20,7 +19,6 @@ export class SingleNodeUsersComponent implements OnInit {
     private emailService: EmailService,
     private toast: ToastrService
   ) { }
-
   @Input('nodeApiKey') nodeKey: string;
 
   users: User[] = [];
@@ -28,7 +26,7 @@ export class SingleNodeUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
   }
-
+  
   private getUsers(): void {
     this.userService.getUsersByNodeApiKey(this.nodeKey).subscribe(
       res => {
@@ -81,4 +79,15 @@ export class SingleNodeUsersComponent implements OnInit {
     );
   }
 
+  public giveRemoveAdmin(apiKey: string): void {
+    this.userService.giveRemoveAdmin(apiKey).subscribe(
+      res => {
+        this.toast.success(`${res.firstname} upgraded or downgraded`, null, TOASTSETTING);
+        this.getUsers();
+      },
+      err => {
+        this.toast.error(err.error.message, err.error.error, TOASTSETTING); //error inception
+      }
+    );
+  }
 }

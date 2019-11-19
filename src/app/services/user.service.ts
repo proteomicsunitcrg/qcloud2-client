@@ -93,4 +93,10 @@ export class UserService {
     params = params.set('apiKey', apiKey);
     return this.httpClient.patch(`${this.nodeUrl}/hardResetPassword`, apiKey, { params: params, responseType: 'text' });
   }
+
+  public giveRemoveAdmin(apiKey: string): Observable<User> {
+    const params = new HttpParams().set('apiKey', apiKey);
+    return this.httpClient.patch<User>(`${this.nodeUrl}/user/giveRemoveAdmin`, apiKey, { params: params });
+  }
+
 }

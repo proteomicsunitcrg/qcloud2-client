@@ -21,6 +21,9 @@
         <th>
             Reset password
         </th>
+        <th>
+            Admin
+        </th>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
@@ -39,8 +42,12 @@
             <td class="isLink cursorIcon" (click)="enableDisableUser(user.apiKey)">
                 {{user.enabled}}
             </td>
+            <td style="position: relative;">
+                <button class="btn" (click)="resetPassword(user)">Reset</button>
+            </td>
             <td>
-                <button class="btn" (click)="resetPassword(user)">Reset password</button>
+                <button class="btn" *ngIf="user.authorities.length === 3" (click)="giveRemoveAdmin(user.apiKey)">To normal</button>
+                <button class="btn" *ngIf="user.authorities.length !== 3" (click)="giveRemoveAdmin(user.apiKey)">To admin</button>
             </td>
         </tr>
     </tbody>
