@@ -13,7 +13,7 @@
 </ul>
 <nav>
   <div class="nav-wrapper">
-    <a routerLink="/application" class="brand-logo" id="qcloudlogoA">
+    <a (click)="goToHomePage()" class="brand-logo clickable" id="qcloudlogoA">
       <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud.png" />
     </a>
     <a (click)="openMobile()" data-target="mobile-demo" class="sidenav-trigger hide-on-large-only">

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../auth.service';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
@@ -20,7 +21,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private systemService: SystemService,
-    private viewService: ViewService) { }
+    private viewService: ViewService,
+    private route: Router) { }
 
   isAdmin = false;
   isManager = false;
@@ -76,6 +78,14 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   doLogout(): void {
     this.authService.logout();
 
+  }
+
+  public goToHomePage(): void {
+    if(this.isAdmin) {
+      this.route.navigate(['/application/intranet/files',]);  
+    } else {
+      this.route.navigate(['/application',]);
+    }
   }
 
   private subscribeToNewUserView(): void {
