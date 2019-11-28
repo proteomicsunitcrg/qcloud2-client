@@ -102,10 +102,11 @@ export class FilesListComponent implements OnInit {
       pageFile => {
         if (!this.highPerformance) {
           for (const file of pageFile.content) {
-            this.fileService.getNodeByDataSourceApiKey(file.labSystem.dataSources[1].apiKey).subscribe(
-              node => {
-                file.labSystem.node = node.name;
-                file.labSystem.nodeApiKey = node.apiKey;
+            this.fileService.getNodeAndFileStatusByDataSourceApiKeyAndFileApiKey(file.labSystem.dataSources[1].apiKey, file.checksum).subscribe(
+              res => {
+                file.labSystem.node = res.node.name;
+                file.labSystem.isOk = res.dataOk;
+                file.labSystem.nodeApiKey = res.node.apiKey;
                 this.collection.data = pageFile.content;
                 this.collection.count = pageFile.totalElements;
                 this.config.totalItems = pageFile.totalElements;

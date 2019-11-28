@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Node } from '../models/node';
+import { NodeAndFileInfo } from '../models/NodeAndFileInfo';
 import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,12 @@ export class FileIntranetService {
   public getNodeByDataSourceApiKey(apiKey: string): Observable<Node> {
     const params = new HttpParams().set('apiKey', apiKey);
     return this.httpClient.get<Node>(`${this.fileURL}/getNode`, { params: params });
+  }
+
+  public getNodeAndFileStatusByDataSourceApiKeyAndFileApiKey(dataSourceApiKey: string, fileChecksum: string): Observable<NodeAndFileInfo> {
+    let params = new HttpParams().set('dataSourceApiKey', dataSourceApiKey);
+    params = params.set('fileChecksum', fileChecksum);
+    return this.httpClient.get<NodeAndFileInfo>(`${this.fileURL}/getNodeAndFileInfo`, { params: params });
   }
 
   public getFileData(checksum: string): Observable<any> {

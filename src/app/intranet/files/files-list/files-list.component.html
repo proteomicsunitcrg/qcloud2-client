@@ -75,6 +75,9 @@
                 Sample type
             </th>
             <th>
+                Ok
+            </th>
+            <th>
                 Data
             </th>
             <th>
@@ -111,6 +114,9 @@
                 {{file.sampleType.name}}
             </td>
             <td>
+                {{file.labSystem.isOk}}
+            </td>
+            <td>
                 <button class="btn"
                     (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button>
             </td>
@@ -125,10 +131,10 @@
     <table>
         <thead>
             <th>
-                Calculated value
+                Value
             </th>
             <th>
-                Value
+                Calculated value
             </th>
             <th>
                 Param

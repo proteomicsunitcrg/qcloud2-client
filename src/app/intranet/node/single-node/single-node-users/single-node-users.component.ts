@@ -63,7 +63,7 @@ export class SingleNodeUsersComponent implements OnInit {
 
   private sendEmail(user: User, password: string): void {
     const users: String[] = [user.email];
-    const email = new Email('qcloud@crg.eu', users, 'TEST IGNORE THIS:::::QCloud 2 password change'
+    const email = new Email('qcloud@crg.eu', users, 'QCloud 2 password change'
       , `<p>Dear QCloud user</p><p>Your passsord has been changed to: <b>${password}</b></p><p>Thanks you</p>`);
     this.emailService.sendEmail(email).subscribe(
       res => {
