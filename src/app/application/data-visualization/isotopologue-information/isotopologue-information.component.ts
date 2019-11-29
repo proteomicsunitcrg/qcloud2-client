@@ -104,7 +104,7 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
       .subscribe(
         (checksum) => {
           console.log(checksum);
-          this.file = new File(null, null, null, null, null, checksum);
+          this.file = new File(null, null, null, null, null, checksum, null);
           this.loadIsotopologues();
         }, err => console.log('err', err)
       );

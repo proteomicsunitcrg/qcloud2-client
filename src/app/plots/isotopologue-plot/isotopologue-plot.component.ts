@@ -32,7 +32,7 @@ export class IsotopologuePlotComponent implements OnInit, OnDestroy {
     this.fileChecksum$ = this.plotService.fileChecksum$
       .subscribe(
         (checksum) => {
-          this.file = new File(null, null, null, null, null, checksum);
+          this.file = new File(null, null, null, null, null, checksum, null);
           this.loadPlotData();
         }, err => console.log('err', err)
       );

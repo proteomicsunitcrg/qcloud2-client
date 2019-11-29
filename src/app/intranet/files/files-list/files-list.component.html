@@ -63,7 +63,10 @@
                 Checksum
             </th>
             <th>
-                Date
+                Adquisition date
+            </th>
+            <th>
+                Insert date
             </th>
             <th>
                 Labsystem
@@ -96,6 +99,9 @@
             </td>
             <td>
                 {{file.creationDate}}
+            </td>
+            <td>
+                {{file.insertDate}}
             </td>
             <td (click)="[labsystem = file.labSystem.name, getPage(1)]">
                 <a class="clickable" [options]="tooltipOptions" tooltip=" 
