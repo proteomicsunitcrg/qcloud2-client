@@ -1,7 +1,11 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
   <div class="row z-depth-0 green-background  ">
     <div class="col s12 m12 l12 xl12">
-      <h4>QCloud2 files</h4>
+      <h4>
+        QCloud2 files 
+        <img src="assets/icons/alarm.svg" alt="Pipeline bad" style="width: 2%;" *ngIf="!pipelineOk">
+        <img src="assets/icons/award.svg" alt="Pipeline good" style="width: 2%;" *ngIf="pipelineOk">
+      </h4>
     </div>
   </div>
   <div class="row z-depth-0">

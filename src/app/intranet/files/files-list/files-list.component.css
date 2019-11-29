@@ -11,3 +11,6 @@
   width: 1400px !important;
   max-width: 1400px !important;
 }
+.reverse {
+  transform: rotate(180deg);
+}

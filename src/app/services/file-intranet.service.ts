@@ -78,4 +78,8 @@ export class FileIntranetService {
     params = params.set('exact', exact.toString());
     return this.httpClient.get<File[]>(`${this.fileURL}/fullData`, { params: params });
   }
+
+  public getPipelineStatus(): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.fileURL}/pipelineStatus`);
+  }
 }

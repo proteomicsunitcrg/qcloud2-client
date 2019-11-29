@@ -120,7 +120,7 @@
                 {{file.sampleType.name}}
             </td>
             <td>
-                {{file.labSystem.isOk}}
+                <img src="assets/icons/thumbs.svg" alt="Ok" [class.reverse]="file.labSystem.isOk===false">
             </td>
             <td>
                 <button class="btn"
