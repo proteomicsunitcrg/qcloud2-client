@@ -35,6 +35,8 @@ java -jar QCloudXXX.jar
 Move all the Angular compiled code to ```/var/www/html/qcloud2```
 *Be carefull and dont delete the .htaccess file please*
 
+To deploy the jar ans use a file config outside the jar use ``` --spring.config.location=file:///home/mserret/Desktop/caca.yml```
+
 ## Notes
 
 Before the deploy make a database backup

@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiPrefix: 'http://localhost:8089/',
+    apiPrefix: 'http://qcloud2.crg.eu:8089/',
     name: 'LOCAL'
   };
