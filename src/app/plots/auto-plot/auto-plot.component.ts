@@ -7,7 +7,7 @@ import { PlotThreshold } from '../../models/plotThreshold';
 import { ThresholdParam } from '../../models/thresholdParams';
 import { DataService } from '../../services/data.service';
 import { ThresholdService } from '../../services/threshold.service';
-import { calculateMean, generateLayoutShapes, getPointColor, loadDataAndDatesArray, truncateFilename } from '../helper/plotUtilities';
+import { calculateMean, generateLayoutShapes, getPointColor, loadDataAndDatesArray, truncateString } from '../helper/plotUtilities';
 import * as traceColor from '../plot/traceColors';
 
 
@@ -154,7 +154,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
-          textArray[index] = elementText + '<br>' + truncateFilename(this.serverData.data['filename'][index], 50);
+          textArray[index] = elementText + '<br>' + truncateString(this.serverData.data['filename'][index], 50);
         }
       );
       minValues.push(Math.min.apply(null, values.filter((n) => !isNaN(n))));

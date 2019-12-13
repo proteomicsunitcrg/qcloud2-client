@@ -15,7 +15,7 @@ import { PlotService } from '../../services/plot.service';
 import { ThresholdService } from '../../services/threshold.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { generateLayoutShapes, truncateFilename, generateLogo } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateString, generateLogo } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 import { ClipboardService } from 'ngx-clipboard';
@@ -203,7 +203,7 @@ export class PlotComponent implements OnInit, OnDestroy {
                   yValues.push([websocketTrace.plotTracePoints[0].value]);
                   color.push([this.getPointColorFromTracePointColors(websocketTrace.traceColor, websocketTrace.shade, status)]);
                   text.push([yValues[yValues.length - 1] + '<br>' +
-                    truncateFilename(websocketTrace.plotTracePoints[0].file.filename, 50)]);
+                  truncateString(websocketTrace.plotTracePoints[0].file.filename, 50)]);
                 }
               );
               Plotly.extendTraces('plot' + this.chart.id, {
@@ -294,7 +294,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       );
     }
   }
-garu = true;
   private loadErrorPlot(error: any): void {
     this.error = true;
     this.noData = true;
@@ -329,10 +328,6 @@ garu = true;
         const checksums = [];
         plotTrace.plotTracePoints.forEach(
           (plotTracePoint) => {
-            if (this.garu) {
-              console.log(plotTracePoint);
-              this.garu = false;
-            }
             values.push(plotTracePoint.value);
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
@@ -340,11 +335,10 @@ garu = true;
             // const status = plotTracePoint.nonConformityStatus;
             color.push(this.getPointColorFromTracePointColors(plotTrace.traceColor, plotTrace.shade, status));
             if (plotTrace.abbreviated === 'ERROR') {
-              text.push('File error <br>' + truncateFilename(plotTracePoint.file.filename, 50));
+              text.push('File error <br>' + truncateString(plotTracePoint.file.filename, 50));
               mode = 'markers';
             } else {
-              text.push(plotTracePoint.value + `<br>Insert date: ${plotTracePoint.file.insertDate}
-              <br>Adquisition date:${plotTracePoint.file.creationDate}<br>${truncateFilename(plotTracePoint.file.filename, 50)}`);
+              text.push(plotTracePoint.value + `<br>Insert date: ${plotTracePoint.file.insertDate}<br>Adquisition date:${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);
           }
@@ -375,6 +369,7 @@ garu = true;
           description: 'number of ' + plotTrace.abbreviated,
           filenames: filenames,
           hoverinfo: 'x+text',
+          // hovertext: text,
           hovertemplate: text,
           checksums: checksums
         };
@@ -575,6 +570,9 @@ garu = true;
     this.annotations.forEach(
       (annotation) => {
         let text = '';
+        if (annotation.description != null) {
+          text = truncateString(annotation.description, 10) + '-';
+        }
         annotation.problems.forEach(p => text += p.name + '-');
         annotation.actions.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);

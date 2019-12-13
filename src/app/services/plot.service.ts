@@ -38,8 +38,8 @@ export class PlotService {
   }
 
   public getFilenameFromPlotData(data: any): string {
-    let filename: string = data['points'][0]['hovertext'];
-    filename = filename.substring(filename.indexOf('<br>') + 4);
+    let filename: string = data['points'][0]['hovertemplate'];
+    filename = filename.split('<br>').pop();
     return filename;
   }
 
