@@ -294,7 +294,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       );
     }
   }
-
+garu = true;
   private loadErrorPlot(error: any): void {
     this.error = true;
     this.noData = true;
@@ -329,6 +329,10 @@ export class PlotComponent implements OnInit, OnDestroy {
         const checksums = [];
         plotTrace.plotTracePoints.forEach(
           (plotTracePoint) => {
+            if (this.garu) {
+              console.log(plotTracePoint);
+              this.garu = false;
+            }
             values.push(plotTracePoint.value);
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
@@ -339,7 +343,8 @@ export class PlotComponent implements OnInit, OnDestroy {
               text.push('File error <br>' + truncateFilename(plotTracePoint.file.filename, 50));
               mode = 'markers';
             } else {
-              text.push(plotTracePoint.value + '<br>' + truncateFilename(plotTracePoint.file.filename, 50));
+              text.push(plotTracePoint.value + `<br>Insert date: ${plotTracePoint.file.insertDate}
+              <br>Adquisition date:${plotTracePoint.file.creationDate}<br>${truncateFilename(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);
           }
@@ -370,7 +375,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           description: 'number of ' + plotTrace.abbreviated,
           filenames: filenames,
           hoverinfo: 'x+text',
-          hovertext: text,
+          hovertemplate: text,
           checksums: checksums
         };
         if (this.isCommunity) {
