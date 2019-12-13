@@ -338,7 +338,7 @@ export class PlotComponent implements OnInit, OnDestroy {
               text.push('File error <br>' + truncateString(plotTracePoint.file.filename, 50));
               mode = 'markers';
             } else {
-              text.push(plotTracePoint.value + `<br>Insert date: ${plotTracePoint.file.insertDate}<br>Adquisition date:${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
+              text.push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);
           }
