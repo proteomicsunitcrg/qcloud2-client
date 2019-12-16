@@ -56,6 +56,10 @@ export class ViewService {
     return this.httpClient.get<View[]>(this.defaultViewsUrl + '/' + cvId);
   }
 
+  public getDefaultViewsByCVIdAndLsApiKey(cvId: string, labsystemApiKey: string): Observable<View[]> {
+    return this.httpClient.get<View[]>(this.defaultViewsUrl + '/check/' + cvId + '/' + labsystemApiKey);
+  }
+
   public getDefaultDisplayByView(view: View): Observable<Display> {
     return this.httpClient.get<any>(this.defaultViewsUrl + '/view/' + view.apiKey)
       .pipe(map(
