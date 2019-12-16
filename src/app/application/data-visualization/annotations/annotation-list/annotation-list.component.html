@@ -1,10 +1,10 @@
 <div class="row" *ngIf="annotation">
-  <div class="col s12">
-    <input type="text" name="description" id="description" [(ngModel)]="annotation.description" />
-    <label for="description">Additional information</label>
+  <div class="input-field col s12">
+    <input type="text" name="description" id="description" [(ngModel)]="annotation.description" style="margin-left: 13px; width: 14vw;"/>
+    <label for="description" style="margin-left: 10px;">Additional information</label>
   </div>
 </div>
-<div class="row">
+<div class="row" style="margin-left: -3px;">
   <div class="col s12">
     <button type="button" class="waves-effect waves-light btn" [disabled]="itemListLength()===0"
       (click)="saveTroubleshooting()" *ngIf="!updating">save</button>
@@ -13,7 +13,7 @@
       (click)="updateTroubleshooting()" *ngIf="updating">Update</button>
 
     <button type="button" class="waves-effect waves-light btn" (click)="deleteTroubleshooting()"
-      *ngIf="updating">Delete</button>
+      *ngIf="updating" style="margin-left: 10px;">Delete</button>
   </div>
 </div>
 <div class="row" *ngFor="let item of items | keyvalue">

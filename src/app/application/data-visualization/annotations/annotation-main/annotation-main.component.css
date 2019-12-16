@@ -1,8 +1,12 @@
 .annotation-author {
-  font-size: 0.7rem;
+  font-size: 1.0rem;
 }
 .go-back {
   font-size: 0.6rem;
   color: blue;
   cursor: pointer;
+}
+
+.bold{
+  font-weight: bold;
 }

@@ -36,6 +36,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
 
   file: File;
 
+  elapsedTime: any;
   ngOnInit() {
     this.subscribeToPlotChecksum();
   }
@@ -56,6 +57,12 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
       .subscribe(
         (file) => {
           this.file = file;
+          if (file.insertDate != null) {
+            const diffMiliseconds = (new Date(file.insertDate).getTime() - new Date(file.creationDate).getTime());
+            this.elapsedTime = this.toHHMMSS(diffMiliseconds);
+          } else {
+            this.elapsedTime = 0;
+          }
           this.loadTroubleshooting();
         }, err => console.log('load file err', err)
       );
@@ -145,5 +152,30 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
 
   public copyToClipboard(): void {
     this.clipboard.copyFromContent(this.file.filename);
+  }
+
+  private toHHMMSS(milis: any) {
+    let sec_num = milis / 1000;
+    let days = Math.floor(sec_num / 86400);
+    let hours = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (days > 0) {
+      hours = hours - (24 * days);
+      return days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
+    } else if (hours == 1) {
+      return hours + ' hour ' + minutes + ' minutes ' + seconds + ' seconds';
+    } else if (hours > 0) {
+      return hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
+    } else if (minutes > 0) {
+      return minutes + ' minutes ' + seconds + ' seconds';
+    } else if (seconds > 0) {
+      return seconds + ' seconds';
+    } else if (seconds == 0) {
+      return this + ' Milliseconds (not enough for seconds!)';
+    } else {
+      return days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
+    }
   }
 }
