@@ -61,7 +61,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
             const diffMiliseconds = (new Date(file.insertDate).getTime() - new Date(file.creationDate).getTime());
             this.elapsedTime = this.toHHMMSS(diffMiliseconds);
           } else {
-            this.elapsedTime = 0;
+            this.elapsedTime = "Not available";
           }
           this.loadTroubleshooting();
         }, err => console.log('load file err', err)

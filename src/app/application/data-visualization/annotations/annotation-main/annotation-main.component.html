@@ -14,7 +14,8 @@
       </div>
       <div *ngIf="file" title="{{file.filename}}">
         <p class="bold">QCloud publication date:</p>
-        <p>{{file.insertDate}}</p>
+        <p *ngIf="file.insertDate">{{file.insertDate}}</p>
+        <p *ngIf="!file.insertDate">Not available</p>
       </div>
       <div *ngIf="file" title="{{file.filename}}">
         <p class="bold">Time elapsed:</p>
