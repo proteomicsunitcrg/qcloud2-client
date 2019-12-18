@@ -81,8 +81,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   public goToHomePage(): void {
-    if(this.isAdmin) {
-      this.route.navigate(['/application/intranet/files',]);  
+    if (this.isAdmin) {
+      this.route.navigate(['/application/intranet/files',]);
     } else {
       this.route.navigate(['/application',]);
     }
@@ -95,6 +95,16 @@ export class TopMenuComponent implements OnInit, OnDestroy {
           this.loadUserViews();
         }
       );
+  }
+
+  public isXmas() {
+    const today = Date.parse(new Date().toString());
+    const from = Date.parse('12/15/' + new Date().getFullYear());
+    const to = Date.parse('06/01/' + new Date().getFullYear() + 1);
+    if ((today <= to && today >= from)) {
+      return true;
+    }      
+    return false;
   }
 
 }
