@@ -19,8 +19,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let node of allNodes">
+            <tr *ngFor="let node of allNodes; let i = index">
                 <td>
+                    <img src="assets/icons/trophy.svg" alt="Gold" style="width: 5%;" *ngIf="i === 0">
+                    <img src="assets/icons/silver-medal.svg" alt="Silver" style="width: 5%;" *ngIf="i === 1">
+                    <img src="assets/icons/bronze-medal.svg" alt="Bronze" style="width: 5%;" *ngIf="i === 2">
                     {{node.node.name}}
                 </td>
                 <td>

@@ -2,7 +2,9 @@
 <p>Users in this node: {{users.length}}</p>
 <table>
     <thead>
-
+        <th>
+            Role
+        </th>
         <th>
             Email
         </th>
@@ -22,11 +24,16 @@
             Reset password
         </th>
         <th>
-            Admin
+            Convert to
         </th>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
+            <td>
+                <img src="assets/icons/god.svg" alt="Admin" style="width: 25%;" *ngIf="user.authorities.length === 3">
+                <img src="assets/icons/ruby.svg" alt="Manager" style="width: 25%;" *ngIf="user.authorities.length === 2">
+                <img src="assets/icons/coal.svg" alt="" style="width: 25%;" *ngIf="user.authorities.length === 1">
+            </td>
             <td>
                 {{user.username}}
             </td>
@@ -46,8 +53,8 @@
                 <button class="btn" (click)="resetPassword(user)">Reset</button>
             </td>
             <td>
-                <button class="btn" *ngIf="user.authorities.length === 3" (click)="giveRemoveAdmin(user.apiKey)">To normal</button>
-                <button class="btn" *ngIf="user.authorities.length !== 3" (click)="giveRemoveAdmin(user.apiKey)">To admin</button>
+                <button class="btn" *ngIf="user.authorities.length === 3" (click)="giveRemoveAdmin(user.apiKey)">Normal</button>
+                <button class="btn" *ngIf="user.authorities.length !== 3" (click)="giveRemoveAdmin(user.apiKey)">Admin</button>
             </td>
         </tr>
     </tbody>
