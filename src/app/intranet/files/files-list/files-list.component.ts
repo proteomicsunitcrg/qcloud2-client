@@ -5,6 +5,7 @@ import { TOASTSETTING } from '../../../shared/ToastConfig';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { WebsocketService } from '../../../services/websocket.service';
 
 
 declare var M: any;
@@ -17,6 +18,7 @@ declare var M: any;
 export class FilesListComponent implements OnInit {
 
   constructor(
+    private webSocketService: WebsocketService,
     private fileService: FileIntranetService,
     private toast: ToastrService,
     public ngxSmartModalService: NgxSmartModalService,
@@ -75,6 +77,7 @@ export class FilesListComponent implements OnInit {
   autoCompleteInstance: any;
   // If true skip the request to get the nodes (faster)
   highPerformance = false;
+  webSocket = true;
   ngOnInit() {
     this.getPage();
     M.AutoInit();
@@ -83,7 +86,7 @@ export class FilesListComponent implements OnInit {
     const elems = document.querySelectorAll('.autocomplete');
     M.Autocomplete.init(elems, { minLength: 3 });
     this.autoCompleteInstance = M.Autocomplete.getInstance(elems[0]);
-
+    this.subscribeToWebSocket();
   }
 
   /**
@@ -284,6 +287,30 @@ export class FilesListComponent implements OnInit {
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
   }
+
+  private subscribeToWebSocket() {
+    this.webSocketService.updateIntranet$.subscribe(
+      () => {
+        if (this.webSocket) {
+          this.getPage();
+        }
+      },
+      (err) => console.error(err)
+    );
+  }
+
+  /**
+   * Method just to check the webSocket
+   * 
+   */
+  // public trySocket() {
+  //   this.fileService.trySocket().subscribe(
+  //     () => {
+  //       this.getPage();
+  //     },
+  //     err => console.error(err)
+  //   );
+  // }
 
   public navigateTo(nodeApiKey): void {
     this.router.navigate(['/application/intranet/node', nodeApiKey]);

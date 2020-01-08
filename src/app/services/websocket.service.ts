@@ -42,6 +42,9 @@ export class WebsocketService {
   enableDisableLS = new Subject<WebSocketNotification>();
   enableDisableLS$ = this.enableDisableLS.asObservable();
 
+  updateIntranet = new Subject<WebSocketNotification>();
+  updateIntranet$ = this.updateIntranet.asObservable();
+
   private apiPrefix = environment.apiPrefix;
   private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
 
@@ -109,6 +112,11 @@ export class WebsocketService {
         break;
       case 'enableDisableLS':
         this.enableDisableLS.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break;
+      case 'fileIntranet':
+        this.updateIntranet.next(
           new WebSocketNotification(actionValue, null, null, body)
         );
         break;

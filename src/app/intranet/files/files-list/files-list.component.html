@@ -46,12 +46,22 @@
                 (click)="stateNumberOfElementsPerPage(10)">10</a>|<a class="clickable"
                 (click)="stateNumberOfElementsPerPage(100)">100</a></p>
     </div>
-    <div class="col s4">
+    <div class="col s2">
         <label>
             <input type="checkbox" [(ngModel)]="highPerformance" />
             <span>Ultra high performance</span>
         </label>
     </div>
+    <div class="col s2">
+        <label>
+            <input type="checkbox" [(ngModel)]="webSocket" />
+            <span>Websocket</span>
+        </label>
+    </div>
+
+    <!-- <div class="col s4">
+        <button (click)="trySocket()" class="btn">Try webSocket</button>
+    </div> -->
 </div>
 <table>
     <thead>
