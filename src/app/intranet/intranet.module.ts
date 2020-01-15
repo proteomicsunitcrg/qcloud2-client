@@ -19,13 +19,15 @@ import { GeneralStatsComponent } from './node/general-stats/general-stats.compon
 import { SingleNodeLsComponent } from './node/single-node/single-node-ls/single-node-ls.component';
 import { SingleNodeUsersComponent } from './node/single-node/single-node-users/single-node-users.component';
 import { PreviousRouteService } from '../services/PreviousRoute.service';
+import { MapsMainComponent } from './node/maps/maps-main/maps-main.component';
+import { MapsMapComponent } from './node/maps/maps-map/maps-map.component';
 
 
 @NgModule({
   declarations: [MainComponent, SidebarComponent, FilesListComponent,
     MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent,
     NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent,
-    SingleNodeLsComponent, SingleNodeUsersComponent
+    SingleNodeLsComponent, SingleNodeUsersComponent, MapsMainComponent, MapsMapComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,7 @@ import { PreviousRouteService } from '../services/PreviousRoute.service';
     NgxPaginationModule,
     FormsModule,
     TooltipModule,
-    NgxSmartModalModule.forChild()
+    NgxSmartModalModule.forChild(),
   ],
   providers: [
     PreviousRouteService
