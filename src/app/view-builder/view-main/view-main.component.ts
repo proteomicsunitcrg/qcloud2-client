@@ -280,35 +280,47 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       );
   }
 
-  private prepareViewDisplayArray(view: View): void {
-    this.chartDisplay.forEach(
-      (row, index) => {
-        this.viewDisplay[index] = [];
-        row.forEach(
-          (cell, colIndex) => {
-            const chart = this.charts.filter(c => c.id === Number(cell));
-            if (this.type === 'defaults') {
-              this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
-            } else {
-              this.viewDisplay[index].push(new UserView(null, chart[0], view, index, colIndex, chart[0].labSystem));
+  private prepareViewDisplayArray(view: View): any {
+    try {
+      this.chartDisplay.forEach(
+        (row, index) => {
+          this.viewDisplay[index] = [];
+          row.forEach(
+            (cell, colIndex) => {
+              const chart = this.charts.filter(c => c.id === Number(cell));
+              if (this.type === 'defaults') {
+                this.viewDisplay[index].push(new ViewDisplay(null, chart[0], view, index, colIndex));
+              } else {
+                this.viewDisplay[index].push(new UserView(null, chart[0], view, index, colIndex, chart[0].labSystem));
+              }
             }
-          }
-        );
-      }
-    );
-    if (this.submitButtonText === 'Save') {
-      if (this.type === 'defaults') {
-        this.saveDefaultViewDisplay();
+          );
+        }
+      );
+      if (this.submitButtonText === 'Save') {
+        if (this.type === 'defaults') {
+          this.saveDefaultViewDisplay();
+        } else {
+          this.saveUserViewDisplay();
+        }
       } else {
-        this.saveUserViewDisplay();
+        if (this.type === 'defaults') {
+          this.updateViewDisplay();
+        } else {
+          this.updateUserViewDisplay();
+        }
       }
-    } else {
-      if (this.type === 'defaults') {
-        this.updateViewDisplay();
-      } else {
-        this.updateUserViewDisplay();
-      }
+    } catch (error) {
+      this.viewService.deleteView(view).subscribe(
+        res => {
+          this.toastr.error('You must use all columns', 'Error', TOASTSETTING);
+        },
+        err => {
+          console.error(err);
+        }
+      )
     }
+    
   }
 
   private updateUserViewDisplay(): void {
@@ -347,7 +359,7 @@ export class ViewMainComponent implements OnInit, OnDestroy {
       );
   }
 
-  private saveUserViewDisplay(): void {
+  private saveUserViewDisplay(): void {    
     this.viewService.addLayoutToUserView(this.viewDisplay)
       .subscribe(
         (display) => {
