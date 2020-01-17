@@ -46,3 +46,7 @@ button[type="button"] {
 .nsm-dialog {
     max-width: 2000px !important;
 }
+
+.collection {
+    overflow: visible !important;
+}
