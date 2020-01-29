@@ -9,6 +9,77 @@
     <div class="col s10 m10 l10 xl10">
       <div class="row">
         <ng-template #default>
+          <div class="col s10 m10 l10 xl10">
+            <input type="text" name="defaultViewName" placeholder="Velos charts" [(ngModel)]="view.name" required>
+            <label for="defaultViewName">View name</label>
+          </div>
+          <div class="col s2 m2 l2 xl2">
+            <button class="btn waves-effect waves-light" (click)="submitClick()">{{buttonText()}}</button>
+          </div>
+        </ng-template>
+        <ng-template #user>
+          <div class="col s10 m10 l10 xl10">
+            <input type="text" userViewName="userViewName" placeholder="Velos charts" [(ngModel)]="view.name" required>
+            <label for="defaultViewName">View name</label>
+          </div>
+          <div class="col s2 m2 l2 xl2">
+            <button class="btn waves-effect waves-light" (click)="submitClick()">Submit user</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col s2 m2 l2 xl2" *ngIf="type=='user'">
+      <app-sample-type-lab-system-selector (selectedLabSystem)="selectLabSystem($event)"
+      (selectedSampleType)="selectSampleType($event)"></app-sample-type-lab-system-selector>
+    </div>
+  </div>
+  <div class="row" *ngFor="let row of display; let r = index">
+    <ng-container *ngIf="row.length==1 then single else double"></ng-container>
+    <ng-template #single>
+      <div class="col s12 m12 l12 xl12" *ngFor="let charts of row; let c = index">
+        <div class="input-field">
+          <select id="select{{r}};{{c}}" name="selectFor" class="selector" (change)="onChange($event.target.value, r, c)">
+            <option *ngFor="let chart of nodeCharts" value="{{chart.id}}">
+              {{chart.name}}
+            </option>
+            <option value="no" selected >Chart selection</option>
+          </select>
+          <label>Chart</label>
+        </div>
+      </div>
+
+    </ng-template>
+    <ng-template #double>
+      <div class="col s12 m6 l6 xl6" *ngFor="let charts of row; let c = index">
+        <div class="input-field">
+          <select id="select{{r}};{{c}}" name="selectFor" class="selector" (change)="onChange($event.target.value, r, c)">
+            <option *ngFor="let chart of nodeCharts" value="{{chart.id}}">
+              {{chart.name}}
+            </option>
+            <option value="no" selected >Chart selection</option>
+          </select>
+          <label>Chart</label>
+        </div>
+      </div>
+    </ng-template>
+    <div class="row">
+      <div class="container">
+        <div class="col s12 m12 l12 xl12 center">
+          <span class="delete-row" (click)="deleteRow(r)">Delete row</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m12 l12 xl12">
+      <button type="button" class="btn waves-effect btn-large" (click)="addRow()">Add row</button>
+    </div>
+  </div>
+  <!-- <ng-container *ngIf="type=='defaults' then default else user"></ng-container>
+  <div class="row">
+    <div class="col s10 m10 l10 xl10">
+      <div class="row">
+        <ng-template #default>
           <form (ngSubmit)="onSubmit(); newDefaultView.reset()" #newDefaultView="ngForm" ngNativeValidate
             autocomplete="off">
             <div class="col s10 m10 l10 xl10">
@@ -35,7 +106,7 @@
             </div>
           </form>
         </ng-template>
-      </div>
+      </div> 
 
       <div class="row" *ngFor="let row of display; let r = index">
         <ng-container *ngIf="row.length==1 then single else double"></ng-container>
@@ -73,8 +144,8 @@
       </div>
     </div>
     <div class="col s2 m2 l2 xl2">
-      <!-- List labsystems and sample types when user view-->
-      <div *ngIf="type=='user'">
+      List labsystems and sample types when user view-->
+      <!--<div *ngIf="type=='user'">
         <app-sample-type-lab-system-selector (selectedLabSystem)="selectLabSystem($event)"
           (selectedSampleType)="selectSampleType($event)"></app-sample-type-lab-system-selector>
       </div>
@@ -88,5 +159,5 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div> -->
 </div>
