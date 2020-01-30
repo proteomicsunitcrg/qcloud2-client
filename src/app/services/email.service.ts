@@ -30,6 +30,20 @@ export class EmailService {
     return this.httpClient.post<boolean>(this.emailUrl + '/send', params, { headers: headers });
   }
 
+  public sendSpam(email: Email): Observable<boolean> {
+    const json = JSON.stringify(email);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<boolean>(this.emailUrl + '/spamAll', params, { headers: headers });
+  }
+
+  public sendSpamManagers(email: Email): Observable<boolean> {
+    const json = JSON.stringify(email);
+    const params = json;
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<boolean>(this.emailUrl + '/spamAllManagers', params, { headers: headers });
+  }
+
   public getAllTemplates(): Observable<Array<String>> {
     return this.httpClient.get<Array<String>>(this.emailUrl + '/templates');
   }

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Message } from '../../models/message';
 import { MessageService } from '../../services/message.service';
+import { EmailService } from '../../services/email.service';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING } from '../../shared/ToastConfig';
+import { Email } from 'src/app/models/email';
 declare let M: any;
 @Component({
   selector: 'app-message',
@@ -28,7 +30,8 @@ export class MessageComponent implements OnInit {
       Validators.required
     ])
   });
-  constructor(private msgService: MessageService, private toastr: ToastrService) { }
+  constructor(private msgService: MessageService, private toastr: ToastrService,
+    private mailService: EmailService,) { }
 
   ngOnInit() {
     this.enableSelect();
@@ -85,6 +88,37 @@ export class MessageComponent implements OnInit {
     this.msgService.saveMessage(msg).subscribe(
       () => this.toastr.success('Message updated', null, TOASTSETTING),
       () => this.toastr.error('Error while updating the message', null, TOASTSETTING),
+    );
+  }
+  /**
+   * @summary Send the new message all users as spam
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access public
+   */
+  public spamAll(): void {
+    const email = new Email('qcloud2@crg.eu', null,
+    this.messageForm.value.title, this.messageForm.value.message);    
+    this.mailService.sendSpam(email).subscribe(
+      () => this.toastr.success('Message send to all users', 'Success', TOASTSETTING),
+      () => this.toastr.error('Error while sending the message', 'Error', TOASTSETTING)
+    );
+  }
+
+  /**
+   * @summary Send the new message all users as spam
+   *
+   * @author Marc Serret
+   * @since 1.0.0
+   * @access public
+   */
+  public spamAllManagers(): void {
+    const email = new Email('qcloud2@crg.eu', null,
+    this.messageForm.value.title, this.messageForm.value.message);    
+    this.mailService.sendSpamManagers(email).subscribe(
+      () => this.toastr.success('Message send to all managers', 'Success', TOASTSETTING),
+      () => this.toastr.error('Error while sending the message', 'Error', TOASTSETTING)
     );
   }
 

@@ -46,5 +46,9 @@
     </div>
     <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="saveButton"
       (click)="submit()">Save</button>
+      <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="spamAll"
+      (click)="spamAll()" style="margin: 20px;">Spam all</button>
+      <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="spamManagers"
+      (click)="spamAllManagers()">Spam all managers</button>
   </div>
 </div>
