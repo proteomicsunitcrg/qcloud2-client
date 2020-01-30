@@ -10,8 +10,9 @@ export class User {
     authorities: Authority[];
     role: string;
     enabled: boolean;
+    spam: boolean;
 
-    constructor(apikey: string, username: string, password: string, firstname: string, lastname: string, email: string, enabled: boolean) {
+    constructor(apikey: string, username: string, password: string, firstname: string, lastname: string, email: string, enabled: boolean, spam: boolean) {
         this.apiKey = apikey;
         this.username = username;
         this.password = password;
@@ -19,5 +20,6 @@ export class User {
         this.lastname = lastname;
         this.email = email;
         this.enabled = enabled;
+        this.spam = spam;
     }
 }

@@ -58,7 +58,6 @@ export class UserService {
   }
 
   public changeUserPassword(currentPassword: string, newPassword: string): Observable<any> {
-    const user = new User(null, null, newPassword, null, null, null, null);
     const json = JSON.stringify({
       'currentPassword': currentPassword,
       'newPassword': newPassword
@@ -97,6 +96,14 @@ export class UserService {
   public giveRemoveAdmin(apiKey: string): Observable<User> {
     const params = new HttpParams().set('apiKey', apiKey);
     return this.httpClient.patch<User>(`${this.nodeUrl}/user/giveRemoveAdmin`, apiKey, { params: params });
+  }
+
+  public getSubscribedToMailList(): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.nodeUrl}/user/subscribed`);
+  }
+
+  public updateSubscribed():Observable<User> {
+    return this.httpClient.patch<User>(`${this.nodeUrl}/user/updateSubscribed`, null);
   }
 
 }

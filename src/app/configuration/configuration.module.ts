@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultViewSelectorComponent } from './profile/default-view-selector/default-view-selector.component';
 import { UserDefaultViewService } from '../services/user-default-view.service';
 import { ProfileTelegramComponent } from './profile/profile-telegram/profile-telegram.component';
+import { ProfileUnsubscribeComponent } from './profile/profile-unsubscribe/profile-unsubscribe.component';
 /**
  * Module for user configuration like profile and user views
  * @author Daniel Mancera<daniel.mancera@crg.eu>
@@ -37,7 +38,8 @@ import { ProfileTelegramComponent } from './profile/profile-telegram/profile-tel
     ProfileManagementComponent,
     PasswordChangeComponent,
     DefaultViewSelectorComponent,
-    ProfileTelegramComponent],
+    ProfileTelegramComponent,
+    ProfileUnsubscribeComponent],
   providers: [
     UserDefaultViewService
   ]
