@@ -88,7 +88,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
         this.systemService.getSystemByApikey(systemApiKey)
           .subscribe(
             (res) => {
-              this.system = res;              
+              this.system = res;
               res.dataSources.forEach(
                 (ds) => {
                   if (ds.cv.category.mainDataSource === true) {

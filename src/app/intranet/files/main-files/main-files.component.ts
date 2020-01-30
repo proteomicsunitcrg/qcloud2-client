@@ -8,7 +8,7 @@ import { FileIntranetService } from '../../../services/file-intranet.service';
 })
 export class MainFilesComponent implements OnInit {
 
-  constructor(private fileService: FileIntranetService,) { }
+  constructor(private fileService: FileIntranetService, ) { }
 
   pipelineOk: boolean;
 

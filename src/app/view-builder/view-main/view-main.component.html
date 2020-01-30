@@ -12,7 +12,8 @@
           <label for="defaultViewName">View name</label>
         </div>
         <div class="col s2 m2 l2 xl2">
-          <button class="btn waves-effect waves-light" (click)="submitClick()" [disabled]="view.name.trim() == ''">{{buttonText()}}</button>
+          <button class="btn waves-effect waves-light" (click)="submitClick()"
+            [disabled]="view.name.trim() == ''">{{buttonText()}}</button>
         </div>
       </div>
     </div>

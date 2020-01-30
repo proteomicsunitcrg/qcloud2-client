@@ -26,12 +26,12 @@ export class SingleNodeUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
   }
-  
+
   private getUsers(): void {
     this.userService.getUsersByNodeApiKey(this.nodeKey).subscribe(
       res => {
         console.log(res);
-        
+
         this.usersEnabled = res.filter((user: User) => user.enabled).length;
         this.users = res.sort((a, b) => a.enabled < b.enabled ? 1 : -1);
       },
@@ -88,7 +88,7 @@ export class SingleNodeUsersComponent implements OnInit {
         this.getUsers();
       },
       err => {
-        this.toast.error(err.error.message, err.error.error, TOASTSETTING); //error inception
+        this.toast.error(err.error.message, err.error.error, TOASTSETTING); // error inception
       }
     );
   }

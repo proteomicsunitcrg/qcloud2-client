@@ -105,7 +105,8 @@ export class FilesListComponent implements OnInit {
       pageFile => {
         if (!this.highPerformance) {
           for (const file of pageFile.content) {
-            this.fileService.getNodeAndFileStatusByDataSourceApiKeyAndFileApiKey(file.labSystem.dataSources[1].apiKey, file.checksum).subscribe(
+            this.fileService.getNodeAndFileStatusByDataSourceApiKeyAndFileApiKey(file.labSystem.dataSources[1].apiKey, file.checksum)
+            .subscribe(
               res => {
                 file.labSystem.node = res.node.name;
                 file.labSystem.isOk = res.dataOk;
@@ -301,7 +302,7 @@ export class FilesListComponent implements OnInit {
 
   /**
    * Method just to check the webSocket
-   * 
+   *
    */
   // public trySocket() {
   //   this.fileService.trySocket().subscribe(

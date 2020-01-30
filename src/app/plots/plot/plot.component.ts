@@ -203,7 +203,7 @@ export class PlotComponent implements OnInit, OnDestroy {
                   yValues.push([websocketTrace.plotTracePoints[0].value]);
                   color.push([this.getPointColorFromTracePointColors(websocketTrace.traceColor, websocketTrace.shade, status)]);
                   text.push([yValues[yValues.length - 1] + '<br>' +
-                  truncateString(websocketTrace.plotTracePoints[0].file.filename, 50)]);
+                    truncateString(websocketTrace.plotTracePoints[0].file.filename, 50)]);
                 }
               );
               Plotly.extendTraces('plot' + this.chart.id, {
@@ -338,7 +338,8 @@ export class PlotComponent implements OnInit, OnDestroy {
               text.push('File error <br>' + truncateString(plotTracePoint.file.filename, 50));
               mode = 'markers';
             } else {
-              text.push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
+              text.
+              push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);
           }

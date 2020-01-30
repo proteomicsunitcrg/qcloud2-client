@@ -86,8 +86,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
               }
               this.systems.push(system);
             }
-            );
-            this.systems.sort((n1,n2) => n1.id - n2.id);
+          );
+          this.systems.sort((n1, n2) => n1.id - n2.id);
         }, err => console.log(err),
         () => this.enableDatePickersOnUserDefinedGuideSets()
       );

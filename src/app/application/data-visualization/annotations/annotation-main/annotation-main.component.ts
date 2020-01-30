@@ -61,7 +61,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
             const diffMiliseconds = (new Date(file.insertDate).getTime() - new Date(file.creationDate).getTime());
             this.elapsedTime = this.toHHMMSS(diffMiliseconds);
           } else {
-            this.elapsedTime = "Not available";
+            this.elapsedTime = 'Not available';
           }
           this.loadTroubleshooting();
         }, err => console.log('load file err', err)
@@ -155,16 +155,16 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
   }
 
   private toHHMMSS(milis: any) {
-    let sec_num = milis / 1000;
-    let days = Math.floor(sec_num / 86400);
+    const sec_num = milis / 1000;
+    const days = Math.floor(sec_num / 86400);
     let hours = Math.floor(sec_num / 3600);
-    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    const minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    const seconds = sec_num - (hours * 3600) - (minutes * 60);
 
     if (days > 0) {
       hours = hours - (24 * days);
       return days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
-    } else if (hours == 1) {
+    } else if (hours === 1) {
       return hours + ' hour ' + minutes + ' minutes ' + seconds + ' seconds';
     } else if (hours > 0) {
       return hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
@@ -172,7 +172,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
       return minutes + ' minutes ' + seconds + ' seconds';
     } else if (seconds > 0) {
       return seconds + ' seconds';
-    } else if (seconds == 0) {
+    } else if (seconds === 0) {
       return this + ' Milliseconds (not enough for seconds!)';
     } else {
       return days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';

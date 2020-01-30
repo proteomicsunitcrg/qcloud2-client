@@ -31,7 +31,7 @@ export class MessageComponent implements OnInit {
     ])
   });
   constructor(private msgService: MessageService, private toastr: ToastrService,
-    private mailService: EmailService,) { }
+    private mailService: EmailService, ) { }
 
   ngOnInit() {
     this.enableSelect();
@@ -99,7 +99,7 @@ export class MessageComponent implements OnInit {
    */
   public spamAll(): void {
     const email = new Email('qcloud2@crg.eu', null,
-    this.messageForm.value.title, this.messageForm.value.message);    
+      this.messageForm.value.title, this.messageForm.value.message);
     this.mailService.sendSpam(email).subscribe(
       () => this.toastr.success('Message send to all users', 'Success', TOASTSETTING),
       () => this.toastr.error('Error while sending the message', 'Error', TOASTSETTING)
@@ -115,7 +115,7 @@ export class MessageComponent implements OnInit {
    */
   public spamAllManagers(): void {
     const email = new Email('qcloud2@crg.eu', null,
-    this.messageForm.value.title, this.messageForm.value.message);    
+      this.messageForm.value.title, this.messageForm.value.message);
     this.mailService.sendSpamManagers(email).subscribe(
       () => this.toastr.success('Message send to all managers', 'Success', TOASTSETTING),
       () => this.toastr.error('Error while sending the message', 'Error', TOASTSETTING)

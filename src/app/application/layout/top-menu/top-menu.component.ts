@@ -82,9 +82,9 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   public goToHomePage(): void {
     if (this.isAdmin) {
-      this.route.navigate(['/application/intranet/files',]);
+      this.route.navigate(['/application/intranet/files', ]);
     } else {
-      this.route.navigate(['/application',]);
+      this.route.navigate(['/application', ]);
     }
   }
 
@@ -103,7 +103,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     const to = Date.parse('06/01/' + new Date().getFullYear() + 1);
     if ((today <= to && today >= from)) {
       return true;
-    }      
+    }
     return false;
   }
 

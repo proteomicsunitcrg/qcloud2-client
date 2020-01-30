@@ -359,7 +359,7 @@ declare var M: any;
 //       );
 //   }
 
-//   private saveUserViewDisplay(): void {    
+//   private saveUserViewDisplay(): void {
 //     this.viewService.addLayoutToUserView(this.viewDisplay)
 //       .subscribe(
 //         (display) => {
@@ -528,11 +528,11 @@ declare var M: any;
 //     this.selectedBottomModalAction$.unsubscribe();
 //   }
 
-  // selectSampleType(sampleType: SampleType): void {
-  //   this.selectedSampleType = sampleType;
-  //   this.filterCharts();
+// selectSampleType(sampleType: SampleType): void {
+//   this.selectedSampleType = sampleType;
+//   this.filterCharts();
 
-  // }
+// }
 
 //   selectLabSystem(labSystem: System): void {
 //     this.selectedLabSystem = labSystem;
@@ -543,7 +543,8 @@ declare var M: any;
 //     if (this.selectedLabSystem === undefined && this.selectedSampleType !== undefined) {
 //       // only by sample type
 //       this.charts = this.nodeCharts.filter(c => {
-//         return (c.sampleType.qualityControlControlledVocabulary === this.selectedSampleType.qualityControlControlledVocabulary || c.placed);
+//         return (c.sampleType.qualityControlControlledVocabulary ===
+// this.selectedSampleType.qualityControlControlledVocabulary || c.placed);
 //       });
 //     } else if (this.selectedLabSystem !== undefined && this.selectedSampleType === undefined) {
 //       // only by lab system
@@ -752,7 +753,7 @@ export class ViewMainComponent implements OnInit {
         this.cvService.getCvByCvId(params['id']).subscribe(
           cv => {
             this.view.cv = cv;
-            this.cv = cv
+            this.cv = cv;
             this.loadSampleTypeCategory(params['qc']);
             this.sendCVToList(cv, params['qc']);
             this.viewService.getDefaultViewNameByCVAndSampleTypeCategory(this.cv, params['qc']).subscribe(
@@ -768,20 +769,20 @@ export class ViewMainComponent implements OnInit {
 
                     errDisplay => {
                       this.toastr.error('Error getting the default view display', 'ERROR', TOASTSETTING);
-                      console.error(errDisplay)
+                      console.error(errDisplay);
                     }
                   );
                 }
               },
               errGetView => {
                 this.toastr.error('Error getting the default view', 'ERROR', TOASTSETTING);
-                console.error(errGetView)
+                console.error(errGetView);
               }
             );
           },
           errCV => {
             this.toastr.error('Error getting the URL params', 'ERROR', TOASTSETTING);
-            console.error(errCV)
+            console.error(errCV);
           }
         );
       }
@@ -875,28 +876,28 @@ export class ViewMainComponent implements OnInit {
   private checkAndLoadUserView() {
     this.route.params.subscribe(
       params => {
-        if (params['apiKey'] != undefined) {
+        if (params['apiKey'] !== undefined) {
           this.updating = true;
           this.viewService.getUserViewByApiKey(params['apiKey']).subscribe(
             view => {
               this.view = view;
               this.viewService.getUserDisplayByView(view).subscribe(
                 display => {
-                  this.loadDisplayView(display)
+                  this.loadDisplayView(display);
                   delay(1000).then(() => M.AutoInit());
                 },
                 error => {
                   this.toastr.error('Error getting the user view display', 'ERROR', TOASTSETTING);
                 }
-              )
+              );
             },
             error => {
               this.toastr.error('Error getting the user view', 'ERROR', TOASTSETTING);
             }
-          )
+          );
         }
       }
-    )
+    );
   }
 
   private saveUserViewDisplay(): void {
@@ -921,13 +922,13 @@ export class ViewMainComponent implements OnInit {
   public buttonText(): string {
     if (this.type === 'defaults') {
       if (this.updating) {
-        return 'Update default view'
+        return 'Update default view';
       } else {
         return 'Create default view';
       }
     } else {
       if (this.updating) {
-        return 'Update user view'
+        return 'Update user view';
       } else {
         return 'Create user view';
       }
@@ -981,19 +982,19 @@ export class ViewMainComponent implements OnInit {
   }
 
   private getChartName(id: any): any {
-    for (let chart of this.nodeCharts) {
-      if (chart.id == id) {
+    for (const chart of this.nodeCharts) {
+      if (chart.id === id) {
         return chart.name;
       }
     }
   }
 
   private checkEmptyCells() {
-    if (this.chartDisplay == null || this.chartDisplay == undefined || this.chartDisplay.length == 0) {
+    if (this.chartDisplay === null || this.chartDisplay === undefined || this.chartDisplay.length === 0) {
       return false;
     }
     for (const row of this.chartDisplay) {
-      if (row.length == 2) {
+      if (row.length === 2) {
         if (row[0] == null || row[1] == null || isNaN(row[0]) || isNaN(row[1])) {
           return false;
         }
@@ -1007,8 +1008,8 @@ export class ViewMainComponent implements OnInit {
   }
 
   public getName(row, column): any {
-    if (this.chartDisplay[row][column] == undefined) {
-      return this.nodeCharts
+    if (this.chartDisplay[row][column] === undefined) {
+      return this.nodeCharts;
     } else {
       return this.AllCharts;
     }
@@ -1031,7 +1032,7 @@ export class ViewMainComponent implements OnInit {
         row.forEach(
           (cell, colIndex) => {
             let chart: UserChart[];
-            if (this.type == 'user') {
+            if (this.type === 'user') {
               chart = this.AllCharts.filter(c => c.id === Number(cell));
             } else {
               chart = this.nodeCharts.filter(c => c.id === Number(cell));
@@ -1112,12 +1113,12 @@ export class ViewMainComponent implements OnInit {
         (row, indexRow) => {
           row.forEach(
             (chartId, indexColumn) => {
-              let select = <HTMLSelectElement>document.getElementById(`select${indexRow};${indexColumn}`);
+              const select = <HTMLSelectElement>document.getElementById(`select${indexRow};${indexColumn}`);
               const newoption = new Option(this.getChartName(chartId) + '(current)', chartId, null, true);
               select.add(newoption);
             });
         }
-      )
+      );
       M.AutoInit();
     }, 1000);
     this.loadedViewDisplay = charts;
@@ -1169,8 +1170,8 @@ export class ViewMainComponent implements OnInit {
 
   public onChange(chartId, row, column): void {
     this.addChartIntoDisplay(Number(chartId), row, column);
-    for (let chart of this.nodeCharts) {
-      if (chart.id == chartId) {
+    for (const chart of this.nodeCharts) {
+      if (chart.id === chartId) {
         chart.placed = true;
         break;
       }

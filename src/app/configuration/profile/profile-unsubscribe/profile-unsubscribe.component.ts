@@ -25,7 +25,7 @@ export class ProfileUnsubscribeComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   private getSubscribedToMailList(): void {

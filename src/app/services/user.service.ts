@@ -102,7 +102,7 @@ export class UserService {
     return this.httpClient.get<boolean>(`${this.nodeUrl}/user/subscribed`);
   }
 
-  public updateSubscribed():Observable<User> {
+  public updateSubscribed(): Observable<User> {
     return this.httpClient.patch<User>(`${this.nodeUrl}/user/updateSubscribed`, null);
   }
 

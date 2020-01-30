@@ -12,7 +12,8 @@ export class User {
     enabled: boolean;
     spam: boolean;
 
-    constructor(apikey: string, username: string, password: string, firstname: string, lastname: string, email: string, enabled: boolean, spam: boolean) {
+    constructor(apikey: string, username: string, password: string, firstname: string,
+        lastname: string, email: string, enabled: boolean, spam: boolean) {
         this.apiKey = apikey;
         this.username = username;
         this.password = password;

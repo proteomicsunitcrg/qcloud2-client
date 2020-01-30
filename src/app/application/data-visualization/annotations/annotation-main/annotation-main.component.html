@@ -1,28 +1,28 @@
 <ul class="collection z-depth-1">
-    <li class="collection-item">
-      <h5>File info</h5>
-    </li>
-    <li class="collection-item">
-      <div *ngIf="file" title="{{file.filename}}">
-        <p class="bold">File name:</p>
-        <p>{{file.filename}}</p>
-      </div>
-      <button class="btn-small" (click)="copyToClipboard()">Copy file name to clipboard</button>
-      <div *ngIf="file" title="{{file.filename}}">
-        <p class="bold">Acquisition start date:</p>
-        <p>{{file.creationDate}}</p>
-      </div>
-      <div *ngIf="file" title="{{file.filename}}">
-        <p class="bold">QCloud publication date:</p>
-        <p *ngIf="file.insertDate">{{file.insertDate}}</p>
-        <p *ngIf="!file.insertDate">Not available</p>
-      </div>
-      <div *ngIf="file" title="{{file.filename}}">
-        <p class="bold">Time elapsed:</p>
-        <p>{{elapsedTime}}</p>
-      </div>
-    </li>
-    </ul>
+  <li class="collection-item">
+    <h5>File info</h5>
+  </li>
+  <li class="collection-item">
+    <div *ngIf="file" title="{{file.filename}}">
+      <p class="bold">File name:</p>
+      <p>{{file.filename}}</p>
+    </div>
+    <button class="btn-small" (click)="copyToClipboard()">Copy file name to clipboard</button>
+    <div *ngIf="file" title="{{file.filename}}">
+      <p class="bold">Acquisition start date:</p>
+      <p>{{file.creationDate}}</p>
+    </div>
+    <div *ngIf="file" title="{{file.filename}}">
+      <p class="bold">QCloud publication date:</p>
+      <p *ngIf="file.insertDate">{{file.insertDate}}</p>
+      <p *ngIf="!file.insertDate">Not available</p>
+    </div>
+    <div *ngIf="file" title="{{file.filename}}">
+      <p class="bold">Time elapsed:</p>
+      <p>{{elapsedTime}}</p>
+    </div>
+  </li>
+</ul>
 <ul class="collection z-depth-1">
   <li class="collection-item">
     <h5>Annotation</h5>
@@ -41,4 +41,3 @@
     </app-annotation-list>
   </li>
 </ul>
-

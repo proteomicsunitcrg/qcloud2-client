@@ -10,7 +10,8 @@ export class File {
     checksum: string;
     insertDate: Date;
 
-    constructor(id: number, sampleType: SampleType, system: System, creationDate: Date, filename: string, checksum: string, insertDate: Date) {
+    constructor(id: number, sampleType: SampleType, system: System,
+        creationDate: Date, filename: string, checksum: string, insertDate: Date) {
         this.id = id;
         this.sampleType = sampleType;
         this.labSystem = system;
