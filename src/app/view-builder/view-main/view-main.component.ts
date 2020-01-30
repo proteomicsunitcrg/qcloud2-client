@@ -528,11 +528,11 @@ declare var M: any;
 //     this.selectedBottomModalAction$.unsubscribe();
 //   }
 
-//   selectSampleType(sampleType: SampleType): void {
-//     this.selectedSampleType = sampleType;
-//     this.filterCharts();
+  // selectSampleType(sampleType: SampleType): void {
+  //   this.selectedSampleType = sampleType;
+  //   this.filterCharts();
 
-//   }
+  // }
 
 //   selectLabSystem(labSystem: System): void {
 //     this.selectedLabSystem = labSystem;
@@ -920,9 +920,17 @@ export class ViewMainComponent implements OnInit {
 
   public buttonText(): string {
     if (this.type === 'defaults') {
-      return 'Save default view';
+      if (this.updating) {
+        return 'Update default view'
+      } else {
+        return 'Create default view';
+      }
     } else {
-      return 'Save user view';
+      if (this.updating) {
+        return 'Update user view'
+      } else {
+        return 'Create user view';
+      }
     }
   }
 
@@ -981,7 +989,10 @@ export class ViewMainComponent implements OnInit {
   }
 
   private checkEmptyCells() {
-    for (let row of this.chartDisplay) {
+    if (this.chartDisplay == null || this.chartDisplay == undefined || this.chartDisplay.length == 0) {
+      return false;
+    }
+    for (const row of this.chartDisplay) {
       if (row.length == 2) {
         if (row[0] == null || row[1] == null || isNaN(row[0]) || isNaN(row[1])) {
           return false;
@@ -994,6 +1005,7 @@ export class ViewMainComponent implements OnInit {
     }
     return true;
   }
+
   public getName(row, column): any {
     if (this.chartDisplay[row][column] == undefined) {
       return this.nodeCharts
@@ -1018,7 +1030,13 @@ export class ViewMainComponent implements OnInit {
         this.viewDisplay[index] = [];
         row.forEach(
           (cell, colIndex) => {
-            const chart = this.nodeCharts.filter(c => c.id === Number(cell));
+            let chart: UserChart[];
+            if (this.type == 'user') {
+              chart = this.AllCharts.filter(c => c.id === Number(cell));
+            } else {
+              chart = this.nodeCharts.filter(c => c.id === Number(cell));
+            }
+            console.log(chart, index, view, colIndex);
             if (this.type === 'user') {
               this.viewDisplay[index].push(new UserView(null, chart[0], view, index, colIndex, chart[0].labSystem));
             } else {
@@ -1116,6 +1134,12 @@ export class ViewMainComponent implements OnInit {
     this.filterCharts();
   }
 
+  selectSampleType(sampleType: SampleType): void {
+    this.selectedSampleType = sampleType;
+    this.filterCharts();
+
+  }
+
   private filterCharts(): void {
     if (this.selectedLabSystem === undefined && this.selectedSampleType !== undefined) {
       // only by sample type
@@ -1124,7 +1148,6 @@ export class ViewMainComponent implements OnInit {
       });
     } else if (this.selectedLabSystem !== undefined && this.selectedSampleType === undefined) {
       // only by lab system
-
       this.nodeCharts = this.AllCharts.filter(c => {
         return (c.labSystem.apiKey === this.selectedLabSystem.apiKey || c.placed);
       });
