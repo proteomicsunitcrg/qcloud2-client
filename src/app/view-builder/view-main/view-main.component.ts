@@ -1138,7 +1138,6 @@ export class ViewMainComponent implements OnInit {
   selectSampleType(sampleType: SampleType): void {
     this.selectedSampleType = sampleType;
     this.filterCharts();
-
   }
 
   private filterCharts(): void {
@@ -1168,10 +1167,10 @@ export class ViewMainComponent implements OnInit {
   // EVENT METHODS //
   // ************* //
 
-  public onChange(chartId, row, column): void {
+  public onChange(chartId: string, row: string, column: string): void {
     this.addChartIntoDisplay(Number(chartId), row, column);
     for (const chart of this.nodeCharts) {
-      if (chart.id === chartId) {
+      if (chart.id === Number(chartId)) {
         chart.placed = true;
         break;
       }
@@ -1227,8 +1226,4 @@ export class ViewMainComponent implements OnInit {
       }
     }
   }
-
-
-
-
 }
