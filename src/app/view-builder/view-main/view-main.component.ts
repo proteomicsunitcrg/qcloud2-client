@@ -981,15 +981,23 @@ export class ViewMainComponent implements OnInit {
     this.chartDisplay[row][column] = chartId;
   }
 
-  private getChartName(id: any): any {
+  private getChartName(id: any, lsApiKey: any): any {
     for (const chart of this.nodeCharts) {
-      if (chart.id === id) {
-        return chart.name;
+      if (this.type === 'user') {
+        if (chart.id === id && chart.labSystem.apiKey === lsApiKey) {
+          return chart.name;
+        }
+      } else {
+        if (chart.id === id) {
+          return chart.name;
+        }
       }
     }
   }
 
-  private checkEmptyCells() {
+  private checkEmptyCells() { // TODO: arreglar aixo al nou model de dades
+    console.log(this.chartDisplay);
+    return true;
     if (this.chartDisplay === null || this.chartDisplay === undefined || this.chartDisplay.length === 0) {
       return false;
     }
@@ -1033,11 +1041,10 @@ export class ViewMainComponent implements OnInit {
           (cell, colIndex) => {
             let chart: UserChart[];
             if (this.type === 'user') {
-              chart = this.AllCharts.filter(c => c.id === Number(cell));
+              chart = this.AllCharts.filter(c => c.id === Number(cell.chartId) && c.labSystem.apiKey === cell.lsApiKey);
             } else {
-              chart = this.nodeCharts.filter(c => c.id === Number(cell));
+              chart = this.nodeCharts.filter(c => c.id === Number(cell.chartId));
             }
-            console.log(chart, index, view, colIndex);
             if (this.type === 'user') {
               this.viewDisplay[index].push(new UserView(null, chart[0], view, index, colIndex, chart[0].labSystem));
             } else {
@@ -1065,7 +1072,6 @@ export class ViewMainComponent implements OnInit {
   private sendCVToList(cv: CV, sampleTypeCategoryApiKey: string): void {
     // get the cv from server
     this.loadChartsByCVAndSampleTypeCategoryApiKey(cv, sampleTypeCategoryApiKey);
-
     // add to the view object
     this.view.cv = cv;
   }
@@ -1101,7 +1107,11 @@ export class ViewMainComponent implements OnInit {
             if (col['chart'] === null) {
               this.chartDisplay[index].push(null);
             } else {
-              this.chartDisplay[index].push(col['chart'].id);
+              if (this.type === 'user') {
+                this.chartDisplay[index].push({ chartId: col['chart'].id, lsApiKey: col['labSystem'].apiKey });
+              } else {
+                this.chartDisplay[index].push({ chartId: col['chart'].id });
+              }
               charts.push(col);
             }
           }
@@ -1112,9 +1122,10 @@ export class ViewMainComponent implements OnInit {
       this.chartDisplay.forEach(
         (row, indexRow) => {
           row.forEach(
-            (chartId, indexColumn) => {
+            (chart, indexColumn) => {
               const select = <HTMLSelectElement>document.getElementById(`select${indexRow};${indexColumn}`);
-              const newoption = new Option(this.getChartName(chartId) + '(current)', chartId, null, true);
+              const newoption = new Option(this.getChartName(chart.chartId, chart.lsApiKey) + '(current)',
+              `${chart.chartId};${chart.lsApiKey}`, null, true);
               select.add(newoption);
             });
         }
@@ -1167,10 +1178,14 @@ export class ViewMainComponent implements OnInit {
   // EVENT METHODS //
   // ************* //
 
-  public onChange(chartId: string, row: string, column: string): void {
-    this.addChartIntoDisplay(Number(chartId), row, column);
+  public onChange(chartIdAndApiKey: string, row: string, column: string): void {
+    const idAndKey = chartIdAndApiKey.split(';');
+    const chartId = Number(idAndKey[0]);
+    const lsApiKey = idAndKey[1];
+    const objectinho = { 'chartId': chartId, 'lsApiKey': lsApiKey };
+    this.addChartIntoDisplay(objectinho, row, column);
     for (const chart of this.nodeCharts) {
-      if (chart.id === Number(chartId)) {
+      if (chart.id === objectinho.chartId) {
         chart.placed = true;
         break;
       }

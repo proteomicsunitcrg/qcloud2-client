@@ -28,7 +28,14 @@
       <div class="col s12 m12 l12 xl12" *ngFor="let charts of row; let c = index">
         <div class="input-field">
           <select id="select{{r}};{{c}}" name="selectFor" class="selector"
-            (change)="onChange($event.target.value, r, c)">
+            (change)="onChange($event.target.value, r, c)" *ngIf="type=='user'">
+            <option *ngFor="let chart of nodeCharts" value="{{chart.id}};{{chart.labSystem.apiKey}}">
+              {{chart.name}}
+            </option>
+            <option value="no" selected>Chart selection</option>
+          </select>
+          <select id="select{{r}};{{c}}" name="selectFor" class="selector"
+            (change)="onChange($event.target.value, r, c)" *ngIf="type=='defaults'">
             <option *ngFor="let chart of nodeCharts" value="{{chart.id}}">
               {{chart.name}}
             </option>
@@ -43,7 +50,14 @@
       <div class="col s12 m6 l6 xl6" *ngFor="let charts of row; let c = index">
         <div class="input-field">
           <select id="select{{r}};{{c}}" name="selectFor" class="selector"
-            (change)="onChange($event.target.value, r, c)">
+            (change)="onChange($event.target.value, r, c)" *ngIf="type=='user'">
+            <option *ngFor="let chart of nodeCharts" value="{{chart.id}};{{chart.labSystem.apiKey}}">
+              {{chart.name}}
+            </option>
+            <option value="no" selected>Chart selection</option>
+          </select>
+          <select id="select{{r}};{{c}}" name="selectFor" class="selector"
+            (change)="onChange($event.target.value, r, c)" *ngIf="type=='defaults'">
             <option *ngFor="let chart of nodeCharts" value="{{chart.id}}">
               {{chart.name}}
             </option>
