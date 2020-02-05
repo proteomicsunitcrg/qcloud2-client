@@ -1,23 +1,20 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
   <div class="row z-depth-0 green-background  ">
     <div class="col s12 m12 l12 xl12">
-      <h4>Troubleshooting management</h4>
+      <h4>Troubleshooting parent management</h4>
     </div>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col s12 m6 l6 xl6">
       <app-troubleshooting-list [troubleshootingType]="'PROBLEM'"></app-troubleshooting-list>
     </div>
     <div class="col s12 m6 l6 xl6">
       <app-troubleshooting-list [troubleshootingType]="'ACTION'"></app-troubleshooting-list>
     </div>
-  </div>
+  </div> -->
   <div class="row">
-    <div class="col s12 m6 l6 xl6">
-      <app-troubleshooting-list [troubleshootingType]="'TEST'"></app-troubleshooting-list>
-    </div>
-    <div class="col s12 m6 l6 xl6">
-      <app-troubleshooting-list [troubleshootingType]="'CAUSE'"></app-troubleshooting-list>
+    <div class="col s12 m12 l12 xl12">
+      <app-troubleshooting-parent-main></app-troubleshooting-parent-main>
     </div>
   </div>
 </div>

@@ -80,6 +80,13 @@ import {
   GeneralAnnotationsBuilderComponent
 } from './general-annotations/general-annotations-builder/general-annotations-builder.component';
 import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
+import { ProblemService } from '../services/problem.service';
+import { ActionService } from '../services/action.service';
+import { TroubleshootingParentMainComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-main/troubleshooting-parent-main.component';
+import { TroubleshootingParentListComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-list/troubleshooting-parent-list.component';
+import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
+import { TroubleshootingItemComponent } from './nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
+// import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -103,7 +110,11 @@ import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
     ChartService,
     SampleTypeCategoryService,
     ThresholdService,
-    TraceColorService],
+    TraceColorService,
+    ProblemService,
+    ActionService,
+    TroubleshootingParentService
+  ],
   declarations: [MainComponent,
     SidebarComponent,
     CategoryComponent,
@@ -162,6 +173,11 @@ import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
     GeneralAnnotationsMainComponent,
     GeneralAnnotationsListComponent,
     GeneralAnnotationsBuilderComponent,
-    ThresholdPipe]
+    ThresholdPipe,
+    TroubleshootingParentMainComponent,
+    TroubleshootingParentListComponent,
+    TroubleshootingItemComponent,
+    // TroubleshootingMainComponent
+  ]
 })
 export class AdministrationModule { }

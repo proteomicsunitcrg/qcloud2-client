@@ -21,7 +21,7 @@ import { EmailComponent } from '../email/email.component';
 import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component';
 import { CommunityPartnerMainComponent } from '../community-partner/community-partner-main/community-partner-main.component';
 import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
-
+import { TroubleshootingItemComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
 
 const routes: Routes = [
   {
@@ -40,6 +40,7 @@ const routes: Routes = [
       { path: 'guideset', component: MainGuideSetComponent },
       { path: 'color', component: MainColorManagementComponent },
       { path: 'troubleshooting', component: MainNonConformitiesComponent },
+      { path: 'troubleshooting/parent/:apiKey', component: TroubleshootingItemComponent },
       {
         path: 'charts', component: MainChartComponent,
         children: [

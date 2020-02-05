@@ -1,0 +1,16 @@
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>QCCV</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let parent of troubleshootingParents" class="clickable" (click) = "goToParent(parent)">
+            <td>{{parent.name}}</td>
+            <td>{{parent.description}}</td>
+            <td>{{parent.qccv}}</td>
+        </tr>
+    </tbody>
+</table>

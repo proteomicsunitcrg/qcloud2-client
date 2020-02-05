@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TroubleshootingService } from '../../../services/troubleshooting.service';
+import { ProblemService } from '../../../services/problem.service';
 import { Troubleshooting } from '../../../models/troubleshooting';
 import { TroubleshootingType } from '../../../models/troubleshootingType';
+import { ActionService } from '../../../services/action.service';
 
 @Component({
   selector: 'app-troubleshooting-list',
@@ -10,28 +11,45 @@ import { TroubleshootingType } from '../../../models/troubleshootingType';
 })
 export class TroubleshootingListComponent implements OnInit {
 
-  constructor(private troubleshootingService: TroubleshootingService) { }
+  constructor(private problemService: ProblemService, private actionService: ActionService) { }
 
-  problems: Troubleshooting[] = [];
+  troubles: Troubleshooting[] = [];
 
   @Input() troubleshootingType: TroubleshootingType;
 
   ngOnInit() {
-    // load current problems
-    this.loadProblems();
+    // load current problems    
+    this.loadTrouble();
+  }
+
+  private loadTrouble(): void {
+    if (this.troubleshootingType === 'PROBLEM') {
+      this.loadProblems();
+    } else if (this.troubleshootingType === 'ACTION') {
+      this.loadActions();
+    }
   }
 
   private loadProblems(): void {
-    this.troubleshootingService.getAllTroubleshootingByType(this.troubleshootingType)
+    this.problemService.getAllProblems()
       .subscribe(
         (problems) => {
-          problems.forEach(p => this.problems.push(p));
+          problems.forEach(p => this.troubles.push(p));          
+        }
+      );
+  }
+
+  private loadActions(): void {
+    this.actionService.getAllActions()
+      .subscribe(
+        (actions) => {
+          actions.forEach(p => this.troubles.push(p));
         }
       );
   }
 
   onSaved(troubleshooting: Troubleshooting): void {
-    this.problems.push(troubleshooting);
+    this.troubles.push(troubleshooting);
   }
 
 }
