@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Troubleshooting } from '../models/troubleshooting';
 import { TroubleshootingType } from '../models/troubleshootingType';
@@ -15,12 +15,40 @@ export class TroubleshootingParentService {
   private apiPrefix = environment.apiPrefix;
   private troubleshootingUrl = this.apiPrefix + 'api/troubleshooting/parent';
 
-  private itemList = new Subject<ItemList>();
-  itemList$ = this.itemList.asObservable();
-
   public getAllParents(): Observable<TroubleShootingParent[]> {
     return this.httpClient.get<TroubleShootingParent[]>(this.troubleshootingUrl);
   }
 
+  public getParentByParentApiKey(apiKey: string): Observable<TroubleShootingParent> {
+    return this.httpClient.get<TroubleShootingParent>(`${this.troubleshootingUrl}/getByApiKey/${apiKey}`);
+  }
+
+  public unlinkAction(actionApiKey: string, parentApiKey: string): Observable<TroubleShootingParent> {
+    let params = new HttpParams();
+    params = params.set('actionApiKey', actionApiKey);
+    params = params.set('parentApiKey', parentApiKey);
+    return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/unlinkAction`, params);
+  }
+
+  public unlinkProblem(actionApiKey: string, parentApiKey: string): Observable<TroubleShootingParent> {
+    let params = new HttpParams();
+    params = params.set('problemApiKey', actionApiKey);
+    params = params.set('parentApiKey', parentApiKey);
+    return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/unlinkProblem`, params);
+  }
+
+  public linkAnction(actionApiKey: string, parentApiKey: string): Observable<TroubleShootingParent> {
+    let params = new HttpParams();
+    params = params.set('actionApiKey', actionApiKey);
+    params = params.set('parentApiKey', parentApiKey);
+    return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/linkAction`, params);
+  }
+
+  public linkProblem(actionApiKey: string, parentApiKey: string): Observable<TroubleShootingParent> {
+    let params = new HttpParams();
+    params = params.set('problemApiKey', actionApiKey);
+    params = params.set('parentApiKey', parentApiKey);
+    return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/linkProblem`, params);
+  }
 
 }

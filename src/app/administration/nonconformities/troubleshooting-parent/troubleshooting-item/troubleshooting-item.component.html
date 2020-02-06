@@ -1,1 +1,64 @@
-<p>troubleshooting-item works!</p>
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+      <div class="col s12 m12 l12 xl12">
+        <h4>Manage {{troubleParent.name}}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l12 xl12">
+          <h5>{{troubleParent.name}}</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>QCCV</th>
+                    <th>Unlink</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="this.isAction">
+                <tr *ngFor="let action of troubleParent.action">
+                    <td>{{action.name}}</td>
+                    <td>{{action.description}}</td>
+                    <td>{{action.qccv}}</td>
+                    <td><button class="waves-effect waves-light btn green-background" (click)="unlink(action.apiKey, 'action')">Unlink</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-field col s12">
+                            <select name="addAction" id="addAction" class="browser-default" [(ngModel)]="actionSelected">
+                                <option (value)="action.apiKey" [ngValue]="action" *ngFor="let action of filteredActions">{{action.name}}</option>
+                                <!-- <option value="cac" >caca</option> -->
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="waves-effect waves-light btn green-background" (click)="addAction()">Add action</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="this.isProblem">
+                <tr *ngFor="let problem of troubleParent.problem">
+                    <td>{{problem.name}}</td>
+                    <td>{{problem.description}}</td>
+                    <td>{{problem.qccv}}</td>
+                    <td><button class="waves-effect waves-light btn green-background" (click)="unlink(problem.apiKey, 'problem')">Unlink</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-field col s12">
+                            <select name="addProblem" id="addProblem" class="browser-default" [(ngModel)]="problemSelected">
+                                <option (value)="problem.apiKey" [ngValue]="problem" *ngFor="let problem of filteredProblems">{{problem.name}}</option>
+                                <!-- <option value="cac" >caca</option> -->
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="waves-effect waves-light btn green-background" (click)="addProblem()">Add problem</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
