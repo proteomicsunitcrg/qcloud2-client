@@ -19,6 +19,10 @@ export class TroubleshootingParentService {
     return this.httpClient.get<TroubleShootingParent[]>(this.troubleshootingUrl);
   }
 
+  public getAllParentsWithActions(): Observable<TroubleShootingParent[]> {
+    return this.httpClient.get<TroubleShootingParent[]>(`${this.troubleshootingUrl}/getOnlyWithActions`);
+  }
+
   public getParentByParentApiKey(apiKey: string): Observable<TroubleShootingParent> {
     return this.httpClient.get<TroubleShootingParent>(`${this.troubleshootingUrl}/getByApiKey/${apiKey}`);
   }

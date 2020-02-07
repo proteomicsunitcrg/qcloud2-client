@@ -5,7 +5,7 @@
   <li class="collection-item">
     <div *ngIf="file" title="{{file.filename}}">
       <p class="bold">File name:</p>
-      <p>{{file.filename}}</p>
+      <p style="overflow: hidden;">{{file.filename}}</p>
     </div>
     <button class="btn-small" (click)="copyToClipboard()">Copy file name to clipboard</button>
     <div *ngIf="file" title="{{file.filename}}">
@@ -33,8 +33,14 @@
       by {{annotation.user.firstname}} {{annotation.user.lastname}} on {{annotation.annotationDate | date:'short'}}
     </p>
   </li>
-  <li *ngFor="let type of troubleshootingTypes()">
+  <!-- <li *ngFor="let type of troubleshootingTypes()">
     <app-annotation-selector [troubleshootingType]="type" [annotation]="annotation"></app-annotation-selector>
+  </li> -->
+  <li>
+    <app-annotation-selector-problems ></app-annotation-selector-problems>
+  </li>
+  <li>
+    <app-annotation-selector-actions [annotation]="annotation"></app-annotation-selector-actions>
   </li>
   <li>
     <app-annotation-list [file]="file" [annotation]="annotation" (annotationAction)="onAction($event)">

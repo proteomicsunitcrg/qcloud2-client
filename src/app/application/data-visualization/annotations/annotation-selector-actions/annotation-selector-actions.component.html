@@ -1,0 +1,14 @@
+<div class="input-field col s12">
+    <select [(ngModel)]="selectedParent" (change)="updateList()">
+      <option *ngFor="let action of parentActions" [ngValue]="action">{{action.name}}
+      </option>
+    </select>
+    <label>Pick your action/s</label>
+</div>
+<div class="input-field col s12">
+  <select (change)="updateList()" [disabled]="selectedParent.apiKey == null">
+    <option *ngFor="let action of selectedParent.action">{{action.name}}
+    </option>
+  </select>
+  <label>Pick your action/s child</label>
+</div>

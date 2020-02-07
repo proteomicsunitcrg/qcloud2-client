@@ -35,6 +35,11 @@ import { AnnotationListComponent } from './data-visualization/annotations/annota
 import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
 import { AnnotationService } from '../services/annotation.service';
 import { ShContextMenuModule } from 'ng2-right-click-menu';
+import { AnnotationSelectorActionsComponent } from './data-visualization/annotations/annotation-selector-actions/annotation-selector-actions.component';
+import { AnnotationSelectorProblemsComponent } from './data-visualization/annotations/annotation-selector-problems/annotation-selector-problems.component';
+import { ProblemService } from '../services/problem.service';
+import { ActionService } from '../services/action.service';
+import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
 
 @NgModule({
   imports: [
@@ -56,7 +61,9 @@ import { ShContextMenuModule } from 'ng2-right-click-menu';
     AnnotationMainComponent,
     AnnotationSelectorComponent,
     AnnotationListComponent,
-    AnnotationListItemComponent
+    AnnotationListItemComponent,
+    AnnotationSelectorActionsComponent,
+    AnnotationSelectorProblemsComponent
   ],
   providers: [DataService,
     DataSourceService,
@@ -65,6 +72,9 @@ import { ShContextMenuModule } from 'ng2-right-click-menu';
     PlotService,
     SampleCompositionService,
     AnnotationService,
+    ProblemService,
+    ActionService,
+    TroubleshootingParentService
   ]
 })
 export class ApplicationModule { }
