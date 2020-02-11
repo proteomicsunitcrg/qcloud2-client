@@ -445,6 +445,8 @@ export class PlotComponent implements OnInit, OnDestroy {
   private loadAnnotations(): void {
     this.annotations$ = this.annotationService.annotations$.subscribe(
       (annotations) => {
+        console.log(annotations);
+        
         this.annotations = annotations;
         if (annotations.length > 0) {
           this.drawAnnotations();

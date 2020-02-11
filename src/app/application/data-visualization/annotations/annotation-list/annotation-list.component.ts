@@ -6,6 +6,8 @@ import { TroubleshootingType } from '../../../../models/troubleshootingType';
 import { File } from '../../../../models/file';
 import * as moment from 'moment';
 import { ItemList } from '../../../../models/itemList';
+import { TroubleshootingParentService } from '../../../../services/troubleshooting-parent.service';
+import { ItemList2 } from '../../../../models/itemList2';
 declare var M: any;
 
 @Component({
@@ -15,7 +17,7 @@ declare var M: any;
 })
 export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
-  constructor(private troubleshootingService: TroubleshootingService) { }
+  constructor(private troubleshootingService: TroubleshootingService, private troubleParentService: TroubleshootingParentService) { }
 
   private itemList$: Subscription;
 
@@ -31,8 +33,12 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
   items: { [key: string]: any } = {};
 
+  caca = [];
+
 
   ngOnInit() {
+    console.log('inito');
+    
     this.subscribeToItemList();
   }
 
@@ -53,7 +59,7 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.updating = false;
       this.items = {};
-      this.annotation = new Annotation(null, null, null, [], [], [], null, null, null);
+      this.annotation = new Annotation(null, null, null, [], [], null, null, null);
     }
   }
 
@@ -84,19 +90,35 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private subscribeToItemList(): void {
-    this.itemList$ = this.troubleshootingService.itemList$
+    console.log('subscribing');
+    
+    this.itemList$ = this.troubleParentService.itemList$
       .subscribe(
         (list) => {
+          console.log(list);
+          
           this.fillItemList(list);
         }
-      );
+      ),
+      (err) => {
+        console.log(err);
+        
+      };
   }
 
-  private fillItemList(list: ItemList): void {
+  private fillItemList(list: ItemList2): void {
+    // console.log(list);
     this.items[list.type] = list.items;
+    // console.log(this.items);
+    
     if (this.items[list.type].length === 0) {
       this.items[list.type] = [];
     }
+    // console.log(this.items);
+    this.caca.push(list)
+    console.log(this.caca);
+    
+
   }
 
   itemListLength(): number {
@@ -105,19 +127,22 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
   saveTroubleshooting(): void {
     this.fillAnnotation();
+    console.log(this.annotation);
+    
     this.annotationAction.emit({ action: 'save', annotation: this.annotation });
   }
 
   private fillAnnotation(): void {
     this.annotation.date = this.prepareDate();
     this.annotation.labSystem = this.file.labSystem;
-    for (const key of Object.keys(this.items)) {
-      switch (key) {
-        case TroubleshootingType.ACTION:
-          this.annotation.actions = this.items[key];
+    for (const item of this.caca) {
+      
+      switch (item.type) {
+        case 'action':
+          this.annotation.actions.push(item.items);
           break;
-        case TroubleshootingType.PROBLEM:
-          this.annotation.problems = this.items[key];
+          case 'problem':
+            this.annotation.problems.push(item.items);
           break;
       }
     }

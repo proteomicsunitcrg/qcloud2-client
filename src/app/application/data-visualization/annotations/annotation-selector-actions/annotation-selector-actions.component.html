@@ -6,9 +6,10 @@
     <label>Pick your action/s</label>
 </div>
 <div class="input-field col s12">
-  <select (change)="updateList()" [disabled]="selectedParent.apiKey == null">
-    <option *ngFor="let action of selectedParent.action">{{action.name}}
+  <select (change)="updateList()" [disabled]="selectedParent.apiKey == null" [(ngModel)]="action">
+    <option *ngFor="let action of selectedParent.action" [ngValue]="action">{{action.name}}
     </option>
   </select>
   <label>Pick your action/s child</label>
 </div>
+<button class="btn" (click)="saveAction()">Add</button>

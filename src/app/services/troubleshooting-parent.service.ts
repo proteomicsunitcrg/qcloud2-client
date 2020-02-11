@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Troubleshooting } from '../models/troubleshooting';
 import { TroubleshootingType } from '../models/troubleshootingType';
-import { ItemList } from '../models/itemList';
+import { ItemList2 } from '../models/itemList2';
 import { TroubleShootingParent } from '../models/troubleShootingParent';
 
 @Injectable()
@@ -15,12 +15,19 @@ export class TroubleshootingParentService {
   private apiPrefix = environment.apiPrefix;
   private troubleshootingUrl = this.apiPrefix + 'api/troubleshooting/parent';
 
+  private itemList = new Subject<ItemList2>();
+  itemList$ = this.itemList.asObservable();
+
   public getAllParents(): Observable<TroubleShootingParent[]> {
     return this.httpClient.get<TroubleShootingParent[]>(this.troubleshootingUrl);
   }
 
   public getAllParentsWithActions(): Observable<TroubleShootingParent[]> {
     return this.httpClient.get<TroubleShootingParent[]>(`${this.troubleshootingUrl}/getOnlyWithActions`);
+  }
+
+  public getAllParentsWithProblems(): Observable<TroubleShootingParent[]> {
+    return this.httpClient.get<TroubleShootingParent[]>(`${this.troubleshootingUrl}/getOnlyWithProblems`);
   }
 
   public getParentByParentApiKey(apiKey: string): Observable<TroubleShootingParent> {
@@ -53,6 +60,10 @@ export class TroubleshootingParentService {
     params = params.set('problemApiKey', actionApiKey);
     params = params.set('parentApiKey', parentApiKey);
     return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/linkProblem`, params);
+  }
+
+  public sendItemsToList(type: string, items: any): void {
+    this.itemList.next({ type, items });
   }
 
 }

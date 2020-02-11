@@ -1,7 +1,15 @@
 <div class="input-field col s12">
-    <select multiple>
-      <!-- <option *ngFor="let troubleshooting of troubleshootings" [ngValue]="troubleshooting">{{troubleshooting.name}}
-      </option> -->
-    </select>
-    <label>Pick your problems/s</label>
-  </div>
+  <select [(ngModel)]="selectedParent" (change)="updateList()">
+    <option *ngFor="let problems of parentActions" [ngValue]="problems">{{problems.name}}
+    </option>
+  </select>
+  <label>Pick your problems/s</label>
+</div>
+<div class="input-field col s12">
+<select (change)="updateList()" [disabled]="selectedParent.apiKey == null" [(ngModel)]="problem">
+  <option *ngFor="let problem of selectedParent.problem" [ngValue]="problem">{{problem.name}}
+  </option>
+</select>
+<label>Pick your problems/s child</label>
+</div>
+<button class="btn" (click)="saveProblem()">Add</button>

@@ -4,6 +4,7 @@ import { ProblemService } from '../../../../services/problem.service';
 import { TroubleshootingParentService } from '../../../../services/troubleshooting-parent.service';
 import { TroubleShootingParent } from '../../../../models/troubleShootingParent';
 import { delay } from 'q';
+import { Action } from '../../../../models/action';
 declare var M: any;
 @Component({
   selector: 'app-annotation-selector-actions',
@@ -19,6 +20,8 @@ export class AnnotationSelectorActionsComponent implements OnInit {
   parentActions: TroubleShootingParent[];
 
   selectedParent: TroubleShootingParent = new TroubleShootingParent(null,null,null,null,null,null,null);
+
+  action: Action
 
   ngOnInit() {
     this.loadParentsWithActions();    
@@ -63,6 +66,10 @@ export class AnnotationSelectorActionsComponent implements OnInit {
         M.FormSelect.init(elems, {});
       }
     );
+  }
+
+  public saveAction(): void {
+    this.parentService.sendItemsToList('action', this.action);
   }
 
 }

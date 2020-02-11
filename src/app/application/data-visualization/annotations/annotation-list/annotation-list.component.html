@@ -17,9 +17,10 @@
       style="margin-left: 10px;">Delete</button>
   </div>
 </div>
-<div class="row" *ngFor="let item of items | keyvalue">
+<div class="row" *ngFor="let item of caca">
   <div class="col s12">
-    <app-annotation-list-item *ngFor="let troubleshooting of item.value" [troubleshooting]="troubleshooting"
-      [type]="item.key"></app-annotation-list-item>
+    <!-- <app-annotation-list-item *ngFor="let troubleshooting of item.items" [troubleshooting]="troubleshooting"
+      [type]="item.key"></app-annotation-list-item> -->
+      <p>{{item.items.name}}</p>
   </div>
 </div>
