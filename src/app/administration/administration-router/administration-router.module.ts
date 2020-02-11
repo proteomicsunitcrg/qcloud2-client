@@ -22,6 +22,7 @@ import { CommunityLineMainComponent } from '../community-line/community-line-mai
 import { CommunityPartnerMainComponent } from '../community-partner/community-partner-main/community-partner-main.component';
 import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
 import { TroubleshootingItemComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
+import { TroubleshootingParentBuilderComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,8 @@ const routes: Routes = [
       { path: 'email', component: EmailComponent },
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },
-      { path: 'general-annotations', component: GeneralAnnotationsMainComponent }
+      { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
+      { path: 'troubleshooting/parentbuilder', component: TroubleshootingParentBuilderComponent }
     ]
   },
 ];

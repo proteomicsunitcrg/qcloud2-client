@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { Troubleshooting } from '../models/troubleshooting';
-import { TroubleshootingType } from '../models/troubleshootingType';
 import { ItemList2 } from '../models/itemList2';
 import { TroubleShootingParent } from '../models/troubleShootingParent';
 
@@ -17,6 +15,12 @@ export class TroubleshootingParentService {
 
   private itemList = new Subject<ItemList2>();
   itemList$ = this.itemList.asObservable();
+
+  public saveParent(parent: TroubleShootingParent): Observable<TroubleShootingParent> {
+    const params = JSON.stringify(parent);
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<TroubleShootingParent>(this.troubleshootingUrl, params, {headers: headers});
+  }
 
   public getAllParents(): Observable<TroubleShootingParent[]> {
     return this.httpClient.get<TroubleShootingParent[]>(this.troubleshootingUrl);

@@ -86,6 +86,7 @@ import { TroubleshootingParentMainComponent } from './nonconformities/troublesho
 import { TroubleshootingParentListComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-list/troubleshooting-parent-list.component';
 import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
 import { TroubleshootingItemComponent } from './nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
+import { TroubleshootingParentBuilderComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
 // import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 @NgModule({
   imports: [
@@ -177,6 +178,7 @@ import { TroubleshootingItemComponent } from './nonconformities/troubleshooting-
     TroubleshootingParentMainComponent,
     TroubleshootingParentListComponent,
     TroubleshootingItemComponent,
+    TroubleshootingParentBuilderComponent,
     // TroubleshootingMainComponent
   ]
 })

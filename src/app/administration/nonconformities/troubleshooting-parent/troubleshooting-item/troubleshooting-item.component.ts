@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TroubleshootingParentService } from '../../../../services/troubleshooting-parent.service';
 import { TroubleShootingParent } from '../../../../models/troubleShootingParent';
 import { ActionService } from '../../../../services/action.service';
@@ -15,7 +15,8 @@ declare var M: any;
 export class TroubleshootingItemComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private parentTroubleService: TroubleshootingParentService,
-    private actionService: ActionService, private problemService: ProblemService) { }
+    private actionService: ActionService, private problemService: ProblemService,
+    private router: Router) { }
 
   troubleParent: TroubleShootingParent = new TroubleShootingParent(null, null, null, null, null, null, null);
 
@@ -139,7 +140,7 @@ export class TroubleshootingItemComponent implements OnInit {
     }
   }
 
-  public addAction() {
+  public addAction(): void {
     this.parentTroubleService.linkAnction(this.actionSelected.apiKey, this.troubleParent.apiKey).subscribe(
       res => {
         this.getTroubleParentByApiKey(this.troubleParent.apiKey);
@@ -150,7 +151,7 @@ export class TroubleshootingItemComponent implements OnInit {
     )
   }
 
-  public addProblem() {
+  public addProblem(): void {
     this.parentTroubleService.linkProblem(this.problemSelected.apiKey, this.troubleParent.apiKey).subscribe(
       res => {
         this.getTroubleParentByApiKey(this.troubleParent.apiKey);
@@ -159,6 +160,10 @@ export class TroubleshootingItemComponent implements OnInit {
         console.error(err);
       }
     )
+  }
+
+  public close(): void {
+    this.router.navigate(['/application/administration/troubleshooting']);
   }
 
 }
