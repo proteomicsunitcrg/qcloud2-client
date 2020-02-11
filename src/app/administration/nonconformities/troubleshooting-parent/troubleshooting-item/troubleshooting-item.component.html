@@ -6,8 +6,8 @@
     </div>
     <div class="row">
       <div class="col s12 m12 l12 xl12">
-          <h5>{{troubleParent.name}}</h5>
-        <table>
+          <h5>{{troubleParent.name}} <a *ngIf="isProblem" style="color: black;">problem</a><a style="color: black;" *ngIf="isAction">action</a></h5>
+        <table *ngIf="!new">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -28,7 +28,6 @@
                         <div class="input-field col s12">
                             <select name="addAction" id="addAction" class="browser-default" [(ngModel)]="actionSelected">
                                 <option (value)="action.apiKey" [ngValue]="action" *ngFor="let action of filteredActions">{{action.name}}</option>
-                                <!-- <option value="cac" >caca</option> -->
                             </select>
                         </div>
                     </td>
@@ -59,10 +58,16 @@
                 </tr>
             </tbody>
         </table>
+        <div *ngIf="new">
+            <button class="waves-effect waves-light btn green-background" (click)="new = false; isAction = true; getAllActions()">Action</button>
+            <button class="waves-effect waves-light btn green-background" (click)="new = false; isProblem = true; getAllProblems()" style="margin-left: 10px;">Problem</button>
+        </div>
       </div>
       <div class="col s12 m2 l2 xl2">
         <button style="margin-top: 20px" type="button" class="btn amber waves-effect waves-light"
           (click)="close()">Go back</button>
+          <button style="margin-top: 20px; margin-left: 10px;" type="button" class="btn red waves-effect waves-light"
+          (click)="remove()">Remove</button>
       </div>
     </div>
   </div>

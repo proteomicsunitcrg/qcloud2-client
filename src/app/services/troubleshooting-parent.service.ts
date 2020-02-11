@@ -22,6 +22,10 @@ export class TroubleshootingParentService {
     return this.httpClient.post<TroubleShootingParent>(this.troubleshootingUrl, params, {headers: headers});
   }
 
+  public removeParent(parent: TroubleShootingParent): Observable<any> {
+    return this.httpClient.delete<any>(`${this.troubleshootingUrl}/${parent.apiKey}`,);
+  }
+
   public getAllParents(): Observable<TroubleShootingParent[]> {
     return this.httpClient.get<TroubleShootingParent[]>(this.troubleshootingUrl);
   }
