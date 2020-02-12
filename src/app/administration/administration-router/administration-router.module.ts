@@ -23,6 +23,8 @@ import { CommunityPartnerMainComponent } from '../community-partner/community-pa
 import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
 import { TroubleshootingItemComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
 import { TroubleshootingParentBuilderComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
+import { ActionMainComponent } from '../nonconformities/troubleshooting/action/action-main/action-main.component';
+import { ActionBuilderComponent } from '../nonconformities/troubleshooting/action/action-builder/action-builder.component';
 
 const routes: Routes = [
   {
@@ -53,7 +55,9 @@ const routes: Routes = [
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },
       { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
-      { path: 'troubleshooting/parentbuilder/:apiKey', component: TroubleshootingParentBuilderComponent }
+      { path: 'troubleshooting/parentbuilder/:apiKey', component: TroubleshootingParentBuilderComponent },
+      { path: 'troubleshooting/action', component: ActionMainComponent},
+      { path: 'troubleshooting/actionbuilder/:apiKey', component: ActionBuilderComponent},
     ]
   },
 ];

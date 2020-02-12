@@ -1,0 +1,48 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+      <div class="col s12 m12 l12 xl12">
+        <h4>Actions management</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l12 xl12">
+        <a class="btn-floating waves-effect waves-light right" (click)="newAction()">
+          <i class="material-icons">add</i>
+        </a>
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        QCCV
+                    </th>
+                    <th>
+                        Enabled
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let action of allActions" (click)="edit(action.apiKey)" style="cursor: pointer;">
+                    <td>
+                        {{action.name}}
+                    </td>
+                    <td>
+                        {{action.description}}
+                    </td>
+                    <td>
+                        {{action.qccv}}
+                    </td>
+                    <td>
+                        {{action.active}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

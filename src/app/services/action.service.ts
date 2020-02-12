@@ -32,4 +32,19 @@ export class ActionService {
     return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}enableDisable/${apiKey}`, apiKey);
   }
 
+  public saveAction(action: Action): Observable<Action> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.post<Action>(this.troubleshootingUrl, JSON.stringify(action), {headers: headers});
+
+  }
+
+  public updateAction(action: Action, apiKey: string): Observable<Action> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.patch<Action>(`${this.troubleshootingUrl}/${apiKey}`, JSON.stringify(action), {headers: headers});
+  }
+
+  public getActionByApiKey(actionApiKey: string): Observable<Action> {
+    return this.httpClient.get<Action>(`${this.troubleshootingUrl}/${actionApiKey}`);
+  }
+
 }
