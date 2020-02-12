@@ -25,6 +25,8 @@ import { TroubleshootingItemComponent } from '../nonconformities/troubleshooting
 import { TroubleshootingParentBuilderComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
 import { ActionMainComponent } from '../nonconformities/troubleshooting/action/action-main/action-main.component';
 import { ActionBuilderComponent } from '../nonconformities/troubleshooting/action/action-builder/action-builder.component';
+import { ProblemMainComponent } from '../nonconformities/troubleshooting/problem/problem-main/problem-main.component';
+import { ProblemBuilderComponent } from '../nonconformities/troubleshooting/problem/problem-builder/problem-builder.component';
 
 const routes: Routes = [
   {
@@ -57,7 +59,9 @@ const routes: Routes = [
       { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
       { path: 'troubleshooting/parentbuilder/:apiKey', component: TroubleshootingParentBuilderComponent },
       { path: 'troubleshooting/action', component: ActionMainComponent},
+      { path: 'troubleshooting/problem', component: ProblemMainComponent},
       { path: 'troubleshooting/actionbuilder/:apiKey', component: ActionBuilderComponent},
+      { path: 'troubleshooting/problembuilder/:apiKey', component: ProblemBuilderComponent},
     ]
   },
 ];
