@@ -63,11 +63,13 @@
             <button class="waves-effect waves-light btn green-background" (click)="new = false; isProblem = true; getAllProblems()" style="margin-left: 10px;">Problem</button>
         </div>
       </div>
-      <div class="col s12 m2 l2 xl2">
+      <div class="col s12 m12 l12 xl12">
         <button style="margin-top: 20px" type="button" class="btn amber waves-effect waves-light"
           (click)="close()">Go back</button>
           <button style="margin-top: 20px; margin-left: 10px;" type="button" class="btn red waves-effect waves-light"
-          (click)="remove()">Remove</button>
+          (click)="remove()" [disabled]="troubleParent.action.length !== 0 || troubleParent.problem.length !== 0 ">Remove</button>
+          <button style="margin-top: 20px; margin-left: 10px;" type="button" class="btn deep-purple accent-1 waves-effect waves-light"
+          (click)="edit()">Edit</button>
       </div>
     </div>
   </div>

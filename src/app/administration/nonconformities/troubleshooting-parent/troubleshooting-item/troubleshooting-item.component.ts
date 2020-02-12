@@ -7,7 +7,7 @@ import { Action } from '../../../../models/action';
 import { ProblemService } from '../../../../services/problem.service';
 import { Problem } from '../../../../models/problem';
 import { ToastrService } from 'ngx-toastr';
-import { TOASTSETTING, TOASTSETTINGLONG } from '../../../../shared/ToastConfig';
+import { TOASTSETTING } from '../../../../shared/ToastConfig';
 
 declare var M: any;
 @Component({
@@ -21,7 +21,7 @@ export class TroubleshootingItemComponent implements OnInit {
     private actionService: ActionService, private problemService: ProblemService,
     private router: Router, private toast: ToastrService) { }
 
-  troubleParent: TroubleShootingParent = new TroubleShootingParent(null, null, null, null, null, null, null);
+  troubleParent: TroubleShootingParent = new TroubleShootingParent(null, null, null, null, null, [], []);
 
   allActions: Action[] = [];
 
@@ -41,6 +41,8 @@ export class TroubleshootingItemComponent implements OnInit {
 
   new = false;
 
+  apiKey: string;
+
   ngOnInit() {
     this.loadTroubleParent();
   }
@@ -49,6 +51,7 @@ export class TroubleshootingItemComponent implements OnInit {
     this.route.params.subscribe(
       (params) => {
         if (params.apiKey !== null && params.apiKey !== undefined) {
+          this.apiKey = params.apiKey;
           this.getTroubleParentByApiKey(params.apiKey);
         } else {
           console.log('no api Key');
@@ -140,7 +143,7 @@ export class TroubleshootingItemComponent implements OnInit {
           console.error(err);
         }
       );
-    }else if (typeOfTrouble === 'problem'){
+    } else if (typeOfTrouble === 'problem'){
       this.parentTroubleService.unlinkProblem(apiKey, this.troubleParent.apiKey).subscribe(
         res => {
           this.getTroubleParentByApiKey(this.troubleParent.apiKey);
@@ -192,6 +195,10 @@ export class TroubleshootingItemComponent implements OnInit {
 
   public close(): void {
     this.router.navigate(['/application/administration/troubleshooting']);
+  }
+
+  public edit(): void {
+    this.router.navigate(['/application/administration/troubleshooting/parentbuilder', this.apiKey])
   }
 
 }

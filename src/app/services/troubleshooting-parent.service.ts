@@ -22,6 +22,11 @@ export class TroubleshootingParentService {
     return this.httpClient.post<TroubleShootingParent>(this.troubleshootingUrl, params, {headers: headers});
   }
 
+  public updateParent(parent: TroubleShootingParent, toUpdateApiKey: string): Observable<TroubleShootingParent> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.patch<TroubleShootingParent>(`${this.troubleshootingUrl}/${toUpdateApiKey}`, JSON.stringify(parent), {headers: headers});
+  }
+
   public removeParent(parent: TroubleShootingParent): Observable<any> {
     return this.httpClient.delete<any>(`${this.troubleshootingUrl}/${parent.apiKey}`,);
   }

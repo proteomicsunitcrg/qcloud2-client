@@ -53,7 +53,7 @@ const routes: Routes = [
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },
       { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
-      { path: 'troubleshooting/parentbuilder', component: TroubleshootingParentBuilderComponent }
+      { path: 'troubleshooting/parentbuilder/:apiKey', component: TroubleshootingParentBuilderComponent }
     ]
   },
 ];

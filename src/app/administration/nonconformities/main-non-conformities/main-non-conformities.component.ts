@@ -15,7 +15,7 @@ export class MainNonConformitiesComponent implements OnInit {
   }
 
   public navigateToParentCreator(): void {
-    this.router.navigate(['/application/administration/troubleshooting/parentbuilder'])
+    this.router.navigate(['/application/administration/troubleshooting/parentbuilder', 'new'])
   }
 
 }
