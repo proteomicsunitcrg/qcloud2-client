@@ -5,8 +5,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col s12 m12 l12 xl12">
-            <div class="container">
+        <div class="col s6 m6 l6 xl6">
+            <!-- <div class="container"> -->
                 <form [formGroup]="builderForm">
                     <label>
                         Name
@@ -33,7 +33,50 @@
                             (click)="goBack()">Go back</button>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
+        </div>
+        <div class="col s6 m6 l6 xl6">
+            <h5>
+                Related actions
+            </h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            NCCV
+                        </th>
+                        <th>
+                            Related
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let action of allActions">
+                        <td>
+                            {{action.name}}
+                        </td>
+                        <td>
+                            {{action.description}}
+                        </td>
+                        <td>
+                            {{action.qccv}}
+                        </td>
+                        <td>
+                            <label> 
+                                <input type="checkbox" [(ngModel)]="action.checked" [checked]="action.checked" (change)="cac()">
+                                <span></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
         </div>
     </div>
 </div>

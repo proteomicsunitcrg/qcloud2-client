@@ -4,6 +4,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>QCCV</th>
+            <th>Type</th>
         </tr>
     </thead>
     <tbody>
@@ -11,6 +12,9 @@
             <td>{{parent.name}}</td>
             <td>{{parent.description}}</td>
             <td>{{parent.qccv}}</td>
+            <td *ngIf="parent.action.length !== 0">Action</td>
+            <td *ngIf="parent.problem.length !== 0">Problem</td>
+            <td *ngIf="parent.problem.length === 0 && parent.action.length === 0">Unnasigned</td>
         </tr>
     </tbody>
 </table>

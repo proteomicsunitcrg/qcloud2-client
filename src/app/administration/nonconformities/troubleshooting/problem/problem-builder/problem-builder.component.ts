@@ -2,19 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TOASTSETTING } from 'src/app/shared/ToastConfig';
-import { ProblemService } from 'src/app/services/problem.service';
-import { Problem } from 'src/app/models/problem';
+import { TOASTSETTING } from '../../../../../shared/ToastConfig';
+import { ProblemService } from '../../../../../services/problem.service';
+import { Problem } from '../../../../../models/problem';
+import { ActionService } from '../../../../../services/action.service';
+import { Action } from '../../../../../models/action';
+declare var M: any
 
 @Component({
   selector: 'app-problem-builder',
   templateUrl: './problem-builder.component.html',
-  styleUrls: ['./problem-builder.component.css']
+  styleUrls: ['./problem-builder.component.css'],
 })
 export class ProblemBuilderComponent implements OnInit {
 
   constructor(private problemService: ProblemService, private activeRouter: ActivatedRoute,
-    private toast: ToastrService, private route: Router) { }
+    private toast: ToastrService, private route: Router, private actionService: ActionService) { }
 
   builderForm = new FormGroup({
     name: new FormControl('', [
@@ -32,6 +35,12 @@ export class ProblemBuilderComponent implements OnInit {
 
   apiKey: string;
 
+  allActions: Action[];
+
+  problem: Problem;
+
+  counterTst = 0;
+
   ngOnInit() {
     this.activeRouter.params.subscribe(
       params => {
@@ -44,6 +53,7 @@ export class ProblemBuilderComponent implements OnInit {
         }
       }
     );
+    this.getAllActions();
   }
 
   public save(): void {
@@ -71,6 +81,7 @@ export class ProblemBuilderComponent implements OnInit {
   private retrieveInfo(apiKey: string): void {
     this.problemService.getProblemByApiKey(apiKey).subscribe(
       res => {
+        this.problem = res;
         this.mountForm(res);
       }, 
       err => {
@@ -80,8 +91,13 @@ export class ProblemBuilderComponent implements OnInit {
   }
 
   private constructObject(): Problem {
-    return new Problem(this.builderForm.value.name,
-      this.builderForm.value.description, this.builderForm.value.qccv, null, true);
+    let caca = new Problem(this.builderForm.value.name,
+      this.builderForm.value.description, this.builderForm.value.qccv, null, true, []);
+    caca.relatedActions = this.allActions.filter(
+      caca => caca['checked'] === true
+    );
+    console.log(caca);
+    return caca;
   }
 
   private mountForm(problem: Problem): void {
@@ -92,5 +108,37 @@ export class ProblemBuilderComponent implements OnInit {
 
   public goBack(): void {
     this.route.navigate(['application/administration/troubleshooting/problem']);
+  }
+
+  private getAllActions(): void {
+    this.actionService.getAllActions().subscribe(
+      res => {
+        this.allActions = res;
+        if (this.problem !== undefined) {
+          for (let action of this.allActions) {
+            action['checked'] = this.checkIfChecked(action); 
+          }
+        }
+        M.AutoInit();
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+  
+  public checkIfChecked(action: Action): boolean {
+    this.counterTst = this.counterTst + 1;
+    for (const actionInProblem of this.problem.relatedActions) {
+      if (actionInProblem.apiKey === action.apiKey) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public cac() {
+    console.log(this.allActions);
+    
   }
 }
