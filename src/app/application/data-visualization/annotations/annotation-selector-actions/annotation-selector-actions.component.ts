@@ -23,29 +23,25 @@ export class AnnotationSelectorActionsComponent implements OnInit {
 
   action: Action
 
+  parentChildActions: Action[];
+
+
+  currentDropdownInstance: any = null;
+
+  currentStatus: string = null;
+
+  dropDownDefaultId = 'dropDownParentAction';
+
   ngOnInit() {
     this.loadParentsWithActions();    
   }
-
-  // private loadProblems(): void {
-  //   this.prob.getAllTroubleshootingByType(this.troubleshootingType)
-  //     .subscribe(
-  //       (troubleshootings) => {
-  //         troubleshootings.forEach(p => {
-  //           if (p.active) {
-  //             this.troubleshootings.push(p);
-  //           }
-  //         });
-  //       }, err => console.log('load ts', err), () => this.enableSelects()
-  //     );
-  // }
 
   private loadParentsWithActions(): void {
     this.parentService.getAllParentsWithActions().subscribe(
       res => {
         console.log(res);
         this.parentActions = res;
-        this.enableSelects();
+        this.enableDropdonws();
       },
       err => {
         console.error(err);
@@ -53,23 +49,46 @@ export class AnnotationSelectorActionsComponent implements OnInit {
     )
   }
 
-  public updateList(): void {
-    console.log(this.selectedParent);
-    this.enableSelects();
-    
-  }
-
-  private enableSelects(): void {
+  private enableDropdonws(): void {
     delay(100).then(
       () => {
-        const elems = document.querySelectorAll('select');
+        const elems = document.querySelectorAll('.dropdown-button');
         M.FormSelect.init(elems, {});
       }
     );
   }
 
-  public saveAction(): void {
-    this.parentService.sendItemsToList('action', this.action);
+  public addAction(action: Action): void {
+    this.parentService.sendItemsToList('action', action);
+  }
+
+  public open(): void {
+    this.currentStatus = "open";
+    delay(1).then(
+      () => {
+        const elem = document.getElementById(this.dropDownDefaultId);
+        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
+        this.currentDropdownInstance.open();
+      }
+    );
+  }
+
+  public openChild(childs: Action[], parentApiKey: string): void {
+    this.parentChildActions = childs;
+    delay(1).then(
+      () => {
+        const elem = document.getElementById(parentApiKey);
+        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
+        this.currentDropdownInstance.open();
+      }
+    );
+  }
+
+  public closeAlertList(): void {
+    this.currentStatus = null;
+    const elem = document.getElementById(this.dropDownDefaultId);
+    this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
+    this.currentDropdownInstance.close();
   }
 
 }

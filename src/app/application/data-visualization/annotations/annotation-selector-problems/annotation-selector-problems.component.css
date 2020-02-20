@@ -1,0 +1,9 @@
+.dropdown-content {
+   overflow-y: visible;
+   overflow-x: visible;
+   width: 200px !important;
+}
+
+.dropdown-content .dropdown-content {
+   margin-left: 150% !important;
+}

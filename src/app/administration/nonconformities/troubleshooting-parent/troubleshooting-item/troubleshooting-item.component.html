@@ -48,12 +48,13 @@
                         <div class="input-field col s12">
                             <select name="addProblem" id="addProblem" class="browser-default" [(ngModel)]="problemSelected">
                                 <option (value)="problem.apiKey" [ngValue]="problem" *ngFor="let problem of filteredProblems">{{problem.name}}</option>
+                                <option value="0" selected>Select</option>
                                 <!-- <option value="cac" >caca</option> -->
                             </select>
                         </div>
                     </td>
                     <td>
-                        <button class="waves-effect waves-light btn green-background" (click)="addProblem()">Add problem</button>
+                        <button class="waves-effect waves-light btn green-background" (click)="addProblem()" [disabled]="problemSelected.apiKey==null">Add problem</button>
                     </td>
                 </tr>
             </tbody>

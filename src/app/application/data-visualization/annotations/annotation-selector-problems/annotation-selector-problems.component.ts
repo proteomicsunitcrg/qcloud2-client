@@ -5,6 +5,7 @@ import { TroubleshootingParentService } from '../../../../services/troubleshooti
 import { TroubleShootingParent } from '../../../../models/troubleShootingParent';
 import { delay } from 'q';
 import { Problem } from '../../../../models/problem';
+import { Action } from '../../../../models/action';
 declare var M: any;
 @Component({
   selector: 'app-annotation-selector-problems',
@@ -19,33 +20,35 @@ export class AnnotationSelectorProblemsComponent implements OnInit {
 
   parentActions: TroubleShootingParent[];
 
-  selectedParent: TroubleShootingParent = new TroubleShootingParent(null,null,null,null,null,null,null);
+  selectedParent: TroubleShootingParent = new TroubleShootingParent(null, null, null, null, null, null, null);
 
-  problem: Problem
+  parentChildProblems: Problem[];
+
+  selectedProblem: Problem;
+
+  problem: Problem = new Problem(null, null, null, null, null, []);
+
+  related: Action[] = [];
+  relatedSelected: Action[] = [];
+
+  currentDropdownInstance: any = null;
+
+  currentStatus: string = null;
+
+  dropDownDefaultId = 'dropDownParent';
+
+
 
   ngOnInit() {
-    this.loadParentsWithActions();    
+    this.loadParentsWithActions();
   }
-
-  // private loadProblems(): void {
-  //   this.prob.getAllTroubleshootingByType(this.troubleshootingType)
-  //     .subscribe(
-  //       (troubleshootings) => {
-  //         troubleshootings.forEach(p => {
-  //           if (p.active) {
-  //             this.troubleshootings.push(p);
-  //           }
-  //         });
-  //       }, err => console.log('load ts', err), () => this.enableSelects()
-  //     );
-  // }
 
   private loadParentsWithActions(): void {
     this.parentService.getAllParentsWithProblems().subscribe(
       res => {
         console.log(res);
         this.parentActions = res;
-        this.enableSelects();
+        this.enableDropdonws();
       },
       err => {
         console.error(err);
@@ -53,24 +56,47 @@ export class AnnotationSelectorProblemsComponent implements OnInit {
     )
   }
 
-  public updateList(): void {
-    console.log(this.selectedParent);
-    this.enableSelects();
-    
-  }
-
-  private enableSelects(): void {
+  private enableDropdonws(): void {
     delay(100).then(
       () => {
-        const elems = document.querySelectorAll('select');
+        const elems = document.querySelectorAll('.dropdown-button');
         M.FormSelect.init(elems, {});
       }
     );
   }
 
-  public saveProblem(): void {
-    this.parentService.sendItemsToList('problem', this.problem);
-    
+  public addProblem(child: Problem): void {
+    this.parentService.sendItemsToList('problem', child);
   }
+
+  public open(): void {
+    this.currentStatus = "open";
+    delay(1).then(
+      () => {
+        const elem = document.getElementById(this.dropDownDefaultId);
+        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'left' });
+        this.currentDropdownInstance.open();
+      }
+    );
+  }
+
+  public openChild(childs: Problem[], parentApiKey: string): void {
+    this.parentChildProblems = childs;
+    delay(1).then(
+      () => {
+        const elem = document.getElementById(parentApiKey);
+        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'left' });
+        this.currentDropdownInstance.open();
+      }
+    );
+  }
+
+  public closeAlertList(): void {
+    this.currentStatus = null;
+    const elem = document.getElementById(this.dropDownDefaultId);
+    this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'left' });
+    this.currentDropdownInstance.close();
+  }
+
 
 }

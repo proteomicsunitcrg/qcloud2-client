@@ -81,7 +81,7 @@ export class TroubleshootingParentBuilderComponent implements OnInit {
         this.toast.success('Group saved', 'Success', TOASTSETTING);
       },
       err => {
-        this.toast.success(`Error`, 'Error', TOASTSETTING);
+        this.toast.error(`Error`, 'Error', TOASTSETTING);
       }
     );
   }

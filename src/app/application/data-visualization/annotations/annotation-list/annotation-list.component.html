@@ -21,6 +21,9 @@
   <div class="col s12">
     <!-- <app-annotation-list-item *ngFor="let troubleshooting of item.items" [troubleshooting]="troubleshooting"
       [type]="item.key"></app-annotation-list-item> -->
-      <p>{{item.items.name}}</p>
+      <div class="chip">
+        {{item.items.name}}
+        <i class="close material-icons" (click)="removeFromList(item.items)">close</i>
+      </div>
   </div>
 </div>

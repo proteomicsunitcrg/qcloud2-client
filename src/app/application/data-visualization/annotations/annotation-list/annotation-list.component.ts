@@ -64,6 +64,10 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private fillItems(): void {
+    console.log(this.annotation, 'holi');
+    // if (this.annotation == []) {
+
+    // }
     if (this.annotation === undefined) {
       return;
     }
@@ -95,30 +99,27 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
     this.itemList$ = this.troubleParentService.itemList$
       .subscribe(
         (list) => {
-          console.log(list);
-          
           this.fillItemList(list);
         }
       ),
       (err) => {
         console.log(err);
-        
       };
   }
 
   private fillItemList(list: ItemList2): void {
-    // console.log(list);
-    this.items[list.type] = list.items;
-    // console.log(this.items);
+    console.log(list);
     
+    for(let item of this.caca) {
+      if (item.items.apiKey == list.items.apiKey) {
+        return;
+      }
+    }
+    this.items[list.type] = list.items;
     if (this.items[list.type].length === 0) {
       this.items[list.type] = [];
     }
-    // console.log(this.items);
     this.caca.push(list)
-    console.log(this.caca);
-    
-
   }
 
   itemListLength(): number {
@@ -157,6 +158,17 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   deleteTroubleshooting(): void {
     this.annotationAction.emit({ action: 'delete', annotation: this.annotation });
     this.annotation = undefined;
+  }
+
+  public removeFromList(trouble): void{
+    console.log(this.caca);
+    this.caca.forEach((item, index) => {
+      if (item.items.apiKey === trouble.apiKey) {
+        this.caca.splice(index, 1);
+      }
+    });
+    console.log(trouble);
+      
   }
 
 

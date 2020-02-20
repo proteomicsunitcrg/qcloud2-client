@@ -33,7 +33,7 @@ export class TroubleshootingItemComponent implements OnInit {
 
   filteredProblems: Problem[] = [];
 
-  problemSelected: Problem;
+  problemSelected: Problem = new Problem(null, null, null, null, null, []);
 
   isAction: boolean;
 
@@ -170,6 +170,7 @@ export class TroubleshootingItemComponent implements OnInit {
     this.parentTroubleService.linkProblem(this.problemSelected.apiKey, this.troubleParent.apiKey).subscribe(
       res => {
         this.getTroubleParentByApiKey(this.troubleParent.apiKey);
+        this.problemSelected = new Problem(null, null, null, null, null, []);
       },
       err => {
         console.error(err);

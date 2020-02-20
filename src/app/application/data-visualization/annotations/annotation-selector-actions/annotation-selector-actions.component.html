@@ -1,15 +1,16 @@
-<div class="input-field col s12">
-    <select [(ngModel)]="selectedParent" (change)="updateList()">
-      <option *ngFor="let action of parentActions" [ngValue]="action">{{action.name}}
-      </option>
-    </select>
-    <label>Pick your action/s</label>
-</div>
-<div class="input-field col s12">
-  <select (change)="updateList()" [disabled]="selectedParent.apiKey == null" [(ngModel)]="action">
-    <option *ngFor="let action of selectedParent.action" [ngValue]="action">{{action.name}}
-    </option>
-  </select>
-  <label>Pick your action/s child</label>
-</div>
-<button class="btn" (click)="saveAction()">Add</button>
+<ul id="contentAction" class="dropdown-content" (mouseleave)="closeAlertList()">
+  <li *ngFor="let parent of parentActions">
+    <a data-target="contentChildAction" class="dropdown-trigger" [id]="parent.apiKey"
+      (mouseenter)="openChild(parent.action, parent.apiKey)">{{parent.name}}</a>
+  </li>
+</ul>
+
+<ul id="contentChildAction" class="dropdown-content">
+  <li *ngFor="let child of parentChildActions">
+    <a (click)="addAction(child)">{{child.name}}</a>
+  </li>
+</ul>
+
+
+<a class="btn dropdown-trigger" [id]="dropDownDefaultId" (mouseenter)="open()" data-target="contentAction" style="margin-left: 7px; margin-top: 10px; margin-bottom: 10px;">Actions
+</a>
