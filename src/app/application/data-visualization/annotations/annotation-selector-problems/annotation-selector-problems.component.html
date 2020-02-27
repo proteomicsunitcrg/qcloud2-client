@@ -1,16 +1,12 @@
-<ul id="contentProblem" class="dropdown-content" (mouseleave)="closeAlertList()">
-  <li *ngFor="let parent of parentActions">
-    <a data-target="contentChild" class="dropdown-trigger" [id]="parent.apiKey"
-      (mouseenter)="openChild(parent.problem, parent.apiKey)">{{parent.name}}</a>
-  </li>
-</ul>
+<mat-menu #main_menu="matMenu">
+  <ng-container *ngFor="let parent of parentActions">
+    <button mat-menu-item [matMenuTriggerFor]="sub_menu">{{parent.name}}</button>
+    <mat-menu #sub_menu="matMenu">
+      <button *ngFor="let subItem of parent.problem" mat-menu-item (click)="addProblem(subItem)">{{ subItem.name }}</button>
+   </mat-menu>
+  </ng-container>
+</mat-menu>
 
-<ul id="contentChild" class="dropdown-content">
-  <li *ngFor="let child of parentChildProblems">
-    <a (click)="addProblem(child)">{{child.name}}</a>
-  </li>
-</ul>
-
-
-<a class="btn dropdown-trigger" [id]="dropDownDefaultId" (mouseenter)="open()" data-target="contentProblem" style="width: 200px ;margin-left: 7px; margin-top: 10px; margin-bottom: 10px;">Problems
-</a>
+<button class="btn waves-effect waves-light" style="margin-top: 10px; margin-left: 7px;" [matMenuTriggerFor]="main_menu">
+  Problems
+</button>

@@ -41,7 +41,6 @@ export class AnnotationSelectorActionsComponent implements OnInit {
       res => {
         console.log(res);
         this.parentActions = res;
-        this.enableDropdonws();
       },
       err => {
         console.error(err);
@@ -49,46 +48,8 @@ export class AnnotationSelectorActionsComponent implements OnInit {
     )
   }
 
-  private enableDropdonws(): void {
-    delay(100).then(
-      () => {
-        const elems = document.querySelectorAll('.dropdown-button');
-        M.FormSelect.init(elems, {});
-      }
-    );
-  }
-
   public addAction(action: Action): void {
     this.parentService.sendItemsToList('action', action);
-  }
-
-  public open(): void {
-    this.currentStatus = "open";
-    delay(1).then(
-      () => {
-        const elem = document.getElementById(this.dropDownDefaultId);
-        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
-        this.currentDropdownInstance.open();
-      }
-    );
-  }
-
-  public openChild(childs: Action[], parentApiKey: string): void {
-    this.parentChildActions = childs;
-    delay(1).then(
-      () => {
-        const elem = document.getElementById(parentApiKey);
-        this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
-        this.currentDropdownInstance.open();
-      }
-    );
-  }
-
-  public closeAlertList(): void {
-    this.currentStatus = null;
-    const elem = document.getElementById(this.dropDownDefaultId);
-    this.currentDropdownInstance = M.Dropdown.init(elem, { constrainWidth: false, coverTrigger: false, alignment: 'right' });
-    this.currentDropdownInstance.close();
   }
 
 }

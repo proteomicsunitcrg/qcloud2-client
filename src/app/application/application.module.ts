@@ -41,13 +41,17 @@ import { ProblemService } from '../services/problem.service';
 import { ActionService } from '../services/action.service';
 import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
 
+import { MatIconModule } from '@angular/material/icon'; 
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
   imports: [
     CommonModule,
     PlotsModule,
     ApplicationRouterModule,
     FormsModule,
-    ShContextMenuModule],
+    ShContextMenuModule,
+    MatMenuModule,
+    MatIconModule],
   declarations: [MainWindowComponent,
     TopMenuComponent,
     InstrumentStatusComponent,
@@ -63,7 +67,8 @@ import { TroubleshootingParentService } from '../services/troubleshooting-parent
     AnnotationListComponent,
     AnnotationListItemComponent,
     AnnotationSelectorActionsComponent,
-    AnnotationSelectorProblemsComponent
+    AnnotationSelectorProblemsComponent,
+    
   ],
   providers: [DataService,
     DataSourceService,

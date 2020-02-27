@@ -1,9 +1,6 @@
-.dropdown-content {
-   overflow-y: visible;
-   overflow-x: visible;
-   width: 200px !important;
-}
-
-.dropdown-content .dropdown-content {
-   margin-left: 150% !important;
-}
+.cdk-focused {
+   background-color: #ffffff !important; /* Note: You could also use a custom theme */
+ }
+ .cdk-focused:hover {
+   background-color: #f5f5f5 !important; /* Note: You could also use a custom theme */
+ }
