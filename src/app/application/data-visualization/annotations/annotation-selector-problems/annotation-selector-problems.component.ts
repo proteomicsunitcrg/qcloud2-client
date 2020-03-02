@@ -56,7 +56,11 @@ export class AnnotationSelectorProblemsComponent implements OnInit {
   }
 
   public addProblem(child: Problem): void {
-    this.parentService.sendItemsToList('problem', child);
+    this.parentService.sendItemsToList('problem', [child]);
+  }
+
+  public addParent(parent: TroubleShootingParent): void {
+    this.parentService.sendItemsToList('parent', [parent]);
   }
 
 

@@ -49,7 +49,11 @@ export class AnnotationSelectorActionsComponent implements OnInit {
   }
 
   public addAction(action: Action): void {
-    this.parentService.sendItemsToList('action', action);
+    this.parentService.sendItemsToList('action', [action]);
+  }
+  
+  public addParent(parent: TroubleShootingParent): void {
+    this.parentService.sendItemsToList('parent', [parent]);
   }
 
 }

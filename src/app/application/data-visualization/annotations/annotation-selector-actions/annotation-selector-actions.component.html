@@ -1,6 +1,6 @@
 <mat-menu #main_menu="matMenu">
   <ng-container *ngFor="let parent of parentActions">
-    <button mat-menu-item [matMenuTriggerFor]="sub_menu">{{parent.name}}</button>
+    <button mat-menu-item [matMenuTriggerFor]="sub_menu" (click)="addParent(parent)">{{parent.name}}</button>
     <mat-menu #sub_menu="matMenu">
       <button *ngFor="let subItem of parent.action" mat-menu-item (click)="addAction(subItem)">{{ subItem.name }}</button>
    </mat-menu>

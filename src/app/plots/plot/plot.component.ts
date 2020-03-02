@@ -480,6 +480,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.deleteAnnotationFromWebSocket$ = this.webSocketService.deleteAnnotationFromWebSocket$
       .subscribe(
         (annotation) => {
+          this.drawAnnotations();
           if (this.serverData.length > 0) {
             const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body);
             if (annotationIndex !== -1) {
@@ -576,6 +577,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
         annotation.problems.forEach(p => text += p.name + '-');
         annotation.actions.forEach(p => text += p.name + '-');
+        annotation.troubleshootingParent.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);
         if (text.split('-').length > 2) {
           text = 'Click on any point to see the annotations.';

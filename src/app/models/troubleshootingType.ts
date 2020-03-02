@@ -1,6 +1,7 @@
 export enum TroubleshootingType {
-    PROBLEM = 'PROBLEM',
-    ACTION = 'ACTION',
+    PROBLEM = 'problem',
+    ACTION = 'action',
+    PARENT = 'parent'
     // TEST = 'TEST',
     // CAUSE = 'CAUSE',
 }

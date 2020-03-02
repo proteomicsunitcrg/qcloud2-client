@@ -23,9 +23,9 @@ export class TroubleshootingListComponent implements OnInit {
   }
 
   private loadTrouble(): void {
-    if (this.troubleshootingType === 'PROBLEM') {
+    if (this.troubleshootingType === 'problem') {
       this.loadProblems();
-    } else if (this.troubleshootingType === 'ACTION') {
+    } else if (this.troubleshootingType === 'action') {
       this.loadActions();
     }
   }

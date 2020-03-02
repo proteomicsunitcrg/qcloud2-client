@@ -37,8 +37,6 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
 
   ngOnInit() {
-    console.log('inito');
-    
     this.subscribeToItemList();
   }
 
@@ -47,6 +45,9 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
+    console.log(this.annotation);
+    
+    this.caca = [];
     if (this.annotation !== undefined) {
       this.annotation.date = this.prepareDate();
       this.annotation.labSystem = this.file.labSystem;
@@ -59,15 +60,13 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.updating = false;
       this.items = {};
-      this.annotation = new Annotation(null, null, null, [], [], null, null, null);
+      this.annotation = new Annotation(null, null, null, [], [], [],null, null, null);
     }
+    console.log(this.updating);
+    
   }
 
   private fillItems(): void {
-    console.log(this.annotation, 'holi');
-    // if (this.annotation == []) {
-
-    // }
     if (this.annotation === undefined) {
       return;
     }
@@ -86,6 +85,14 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
       });
     } else {
       this.annotation.problems = [];
+    }
+    if (this.annotation.troubleshootingParent.length > 0) {
+      this.fillItemList({
+        type: TroubleshootingType.PARENT,
+        items: this.annotation.troubleshootingParent
+      });
+    } else {
+      this.annotation.troubleshootingParent = [];
     }
   }
 
@@ -108,18 +115,37 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private fillItemList(list: ItemList2): void {
-    console.log(list);
-    
     for(let item of this.caca) {
-      if (item.items.apiKey == list.items.apiKey) {
-        return;
+      for(let item2 of list.items) {
+        if (item.apiKey === item2.apiKey) {
+          return;
+        }
       }
     }
     this.items[list.type] = list.items;
     if (this.items[list.type].length === 0) {
       this.items[list.type] = [];
     }
-    this.caca.push(list)
+    if(list.items.length > 0) {
+      console.log(list);
+      
+      for (let item of list.items) {
+        switch (list.type) {
+          case 'action':
+            item['type'] = list.type;
+            break;
+          case 'problem':
+            item['type'] = list.type;
+            break;
+          case 'parent':
+            item['type'] = list.type;
+            break;
+        }
+        console.log(item);
+        
+        this.caca.push(item)
+      }
+    }
   }
 
   itemListLength(): number {
@@ -129,21 +155,25 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   saveTroubleshooting(): void {
     this.fillAnnotation();
     console.log(this.annotation);
-    
     this.annotationAction.emit({ action: 'save', annotation: this.annotation });
   }
 
   private fillAnnotation(): void {
     this.annotation.date = this.prepareDate();
     this.annotation.labSystem = this.file.labSystem;
+    console.log(this.caca);
+    console.log(this.items);
+    
     for (const item of this.caca) {
-      
       switch (item.type) {
         case 'action':
-          this.annotation.actions.push(item.items);
+          this.annotation.actions.push(item);
           break;
           case 'problem':
-            this.annotation.problems.push(item.items);
+            this.annotation.problems.push(item);
+          break;
+          case 'parent':
+            this.annotation.troubleshootingParent.push(item);
           break;
       }
     }
@@ -161,14 +191,14 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   public removeFromList(trouble): void{
+    console.log(trouble);
+    
     console.log(this.caca);
     this.caca.forEach((item, index) => {
-      if (item.items.apiKey === trouble.apiKey) {
+      if (item.apiKey === trouble.apiKey) {
         this.caca.splice(index, 1);
       }
     });
-    console.log(trouble);
-      
   }
 
 
