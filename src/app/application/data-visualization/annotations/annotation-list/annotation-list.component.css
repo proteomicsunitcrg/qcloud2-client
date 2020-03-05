@@ -1,0 +1,11 @@
+.isAction {
+    background-color: #f1f8e9;
+}
+
+.isProblem {
+    background-color: #ffebee;
+}
+
+.isParent {
+    background-color: #e9f8f8;
+}

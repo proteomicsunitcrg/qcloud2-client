@@ -29,15 +29,8 @@ export class AnnotationSelectorProblemsComponent implements OnInit {
   problem: Problem = new Problem(null, null, null, null, null, []);
 
   related: Action[] = [];
-  relatedSelected: Action[] = [];
 
-  currentDropdownInstance: any = null;
-
-  currentStatus: string = null;
-
-  dropDownDefaultId = 'dropDownParent';
-
-
+  showRelated = false;
 
   ngOnInit() {
     this.loadParentsWithActions();
@@ -56,6 +49,12 @@ export class AnnotationSelectorProblemsComponent implements OnInit {
   }
 
   public addProblem(child: Problem): void {
+    if (child.relatedActions.length !== 0) {
+      this.showRelated = true;
+      this.related = child.relatedActions;
+    } else {
+      this.showRelated = false;
+    }
     this.parentService.sendItemsToList('problem', [child]);
   }
 

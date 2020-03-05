@@ -7,6 +7,8 @@ import { ProblemService } from '../../../../../services/problem.service';
 import { Problem } from '../../../../../models/problem';
 import { ActionService } from '../../../../../services/action.service';
 import { Action } from '../../../../../models/action';
+import { delay } from 'q';
+
 declare var M: any
 
 @Component({
@@ -53,7 +55,9 @@ export class ProblemBuilderComponent implements OnInit {
         }
       }
     );
-    this.getAllActions();
+    setTimeout(() => {  // The timeout is necessary because the save system func updates the view and the modal dissapears
+      this.getAllActions();
+    }, 300);
   }
 
   public save(): void {
@@ -81,6 +85,7 @@ export class ProblemBuilderComponent implements OnInit {
   private retrieveInfo(apiKey: string): void {
     this.problemService.getProblemByApiKey(apiKey).subscribe(
       res => {
+        console.log(res);
         this.problem = res;
         this.mountForm(res);
       }, 
@@ -135,10 +140,5 @@ export class ProblemBuilderComponent implements OnInit {
       }
     }
     return false;
-  }
-
-  public cac() {
-    console.log(this.allActions);
-    
   }
 }

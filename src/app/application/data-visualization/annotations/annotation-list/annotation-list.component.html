@@ -19,7 +19,7 @@
 </div>
 <div class="row" *ngFor="let item of caca">
   <div class="col s12">
-      <div class="chip">
+      <div class="chip" [ngClass]="{'isAction': item.type=='action', 'isProblem':item.type=='problem', 'isParent':item.type=='parent'}">
         {{item.name}}
         <i class="close material-icons" (click)="removeFromList(item)">close</i>
       </div>
