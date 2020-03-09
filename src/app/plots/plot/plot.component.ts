@@ -98,6 +98,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   generalAnnotations: GeneralAnnotation[];
 
+  randString = "";
+
   ngOnInit() {
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
@@ -105,6 +107,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loadCurrentDates();
     this.subscribeToDateChanges();
     if (this.chart != null) {
+      this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
       this.loadData();
     }
     this.subscribeToWebSocketData();
@@ -171,7 +174,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             this.plotThreshold = res.body;
             this.drawThreshold();
             // relayout the plot
-            Plotly.relayout('plot' + this.chart.id, {
+            Plotly.relayout('plot' + this.chart, {
               shapes: this.layoutShapes
             });
           }
@@ -187,7 +190,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             res.apiKey === this.system.apiKey &&
             res.qccv === this.chart.sampleType.qualityControlControlledVocabulary) {
             if (this.noData) {
-              const plot = document.getElementById('plot' + this.chart.id);
+              const plot = document.getElementById('plot' + this.randString);
               const color = [];
               const text = [];
               const yValues = [];
@@ -206,7 +209,7 @@ export class PlotComponent implements OnInit, OnDestroy {
                     truncateString(websocketTrace.plotTracePoints[0].file.filename, 50)]);
                 }
               );
-              Plotly.extendTraces('plot' + this.chart.id, {
+              Plotly.extendTraces('plot' + this.randString, {
                 'marker.color': color,
                 y: yValues,
                 x: xValues,
@@ -418,8 +421,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loaded = true;
     this.noData = true;
     if (this.serverData.length > 0) {
-      Plotly.react('plot' + this.chart.id, dataForPlot, this.layout, { showLink: true });
-      const plot = <HtmlPlotComponent>document.getElementById('plot' + this.chart.id);
+      Plotly.react('plot' + this.randString, dataForPlot, this.layout, { showLink: true });
+      const plot = <HtmlPlotComponent>document.getElementById('plot' + this.randString);
       plot.on('plotly_click', (data) => {
         this.clipboardService.copyFromContent(this.plotService.getFilenameFromPlotData(data));
         this.plotService.sendClick(data, this.system);
@@ -430,7 +433,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         delay(200).then(() => this.drawGeneralAnnotations());
       }
     } else {
-      Plotly.purge('plot' + this.chart.id);
+      Plotly.purge('plot' + this.randString);
       this.noData = false;
     }
     this.logosUrl = this.removeDuplicated(this.logosUrl);
@@ -559,7 +562,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       shapes: shapesUpdate,
       annotations: annotations
     };
-    Plotly.relayout('plot' + this.chart.id, layoutUpdate);
+    Plotly.relayout('plot' + this.randString, layoutUpdate);
   }
   private drawAnnotations(): void {
     if (this.hideAnnotations) {
@@ -630,7 +633,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       annotations: annotations
     };
 
-    Plotly.relayout('plot' + this.chart.id, layoutUpdate);
+    Plotly.relayout('plot' + this.randString, layoutUpdate);
   }
 
   private getChartName(): string {
