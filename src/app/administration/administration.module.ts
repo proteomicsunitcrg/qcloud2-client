@@ -60,8 +60,8 @@ import { ColorListComponent } from './colorManagement/color-list/color-list.comp
 import { TraceColorService } from '../services/trace-color.service';
 import { MainNonConformitiesComponent } from './nonconformities/main-non-conformities/main-non-conformities.component';
 import { ProblemComponent } from './nonconformities/problem/problem.component';
-import { TroubleshootingFormComponent } from './nonconformities/troubleshooting-form/troubleshooting-form.component';
-import { TroubleshootingListComponent } from './nonconformities/troubleshooting-list/troubleshooting-list.component';
+import { TroubleshootingFormComponent } from './nonconformities/troubleshooting/troubleshooting-form/troubleshooting-form.component';
+import { TroubleshootingListComponent } from './nonconformities/troubleshooting/troubleshooting-list/troubleshooting-list.component';
 import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-type-selector.component';
 import { MessageComponent } from './message/message.component';
 import { ContactListComponent } from './email/contact-list/contact-list.component';
@@ -82,15 +82,15 @@ import {
 import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
 import { ProblemService } from '../services/problem.service';
 import { ActionService } from '../services/action.service';
-import { TroubleshootingParentMainComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-main/troubleshooting-parent-main.component';
-import { TroubleshootingParentListComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-list/troubleshooting-parent-list.component';
 import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
-import { TroubleshootingItemComponent } from './nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
-import { TroubleshootingParentBuilderComponent } from './nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
 import { ActionMainComponent } from './nonconformities/troubleshooting/action/action-main/action-main.component';
 import { ActionBuilderComponent } from './nonconformities/troubleshooting/action/action-builder/action-builder.component';
 import { ProblemMainComponent } from './nonconformities/troubleshooting/problem/problem-main/problem-main.component';
 import { ProblemBuilderComponent } from './nonconformities/troubleshooting/problem/problem-builder/problem-builder.component';
+import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
+import { TroubleshootingItemComponent } from './nonconformities/troubleshooting/troubleshooting-item/troubleshooting-item.component';
+import { TroubleshootingEditorComponent } from './nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
+import { TroubleshootingRelationComponent } from './nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
 // import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 @NgModule({
   imports: [
@@ -179,14 +179,14 @@ import { ProblemBuilderComponent } from './nonconformities/troubleshooting/probl
     GeneralAnnotationsListComponent,
     GeneralAnnotationsBuilderComponent,
     ThresholdPipe,
-    TroubleshootingParentMainComponent,
-    TroubleshootingParentListComponent,
-    TroubleshootingItemComponent,
-    TroubleshootingParentBuilderComponent,
     ActionMainComponent,
     ActionBuilderComponent,
     ProblemMainComponent,
     ProblemBuilderComponent,
+    TroubleshootingMainComponent,
+    TroubleshootingItemComponent,
+    TroubleshootingEditorComponent,
+    TroubleshootingRelationComponent,
     // TroubleshootingMainComponent
   ]
 })

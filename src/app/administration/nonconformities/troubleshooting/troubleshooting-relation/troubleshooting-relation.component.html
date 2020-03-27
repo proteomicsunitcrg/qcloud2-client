@@ -1,0 +1,56 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h4>Troubleshooting childs</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12 xl12">
+            <div class="" *ngIf="trouble != undefined">
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>QCCV</th>
+                        <th>Edit</th>
+                        <th>Unlink</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let child of trouble.childs">
+                            <td>
+                                {{child.name}}
+                            </td>
+                            <td>
+                                {{child.description}}
+                            </td>
+                            <td>
+                                {{child.qccv}}
+                            </td>
+                            <td>
+                                <button class="btn" (click)="goToChild(child.apiKey)">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn" (click)="unlinkTrouble(child)">Unlink</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="caca" id="caca" [(ngModel)] = "selectedChild">
+                                    <option value="null" disabled>Select {{trouble.type.toLowerCase()}}</option>
+                                    <option *ngFor = "let tr of troublesNoParent" [ngValue]="tr">{{tr.name}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn" (click) = "linkChild()" [disabled]="selectedChild == undefined">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
+                        <button class="waves-effect waves-teal btn">Update</button>
+                        <button style="margin-left: 10px;" class="waves-effect waves-teal btn" (click) = "goToChild(trouble.apiKey)">Go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

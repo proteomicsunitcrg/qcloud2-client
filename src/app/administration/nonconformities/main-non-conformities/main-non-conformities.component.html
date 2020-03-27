@@ -1,15 +1,17 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
   <div class="row z-depth-0 green-background  ">
     <div class="col s12 m12 l12 xl12">
-      <h4>Troubleshooting parent management</h4>
+      <h4>
+        Troubleshooting management (beta)
+      </h4>
     </div>
   </div>
-  <div class="row">
+  <a class="btn-floating waves-effect waves-light right" (click)="navigateToTroubleshootingCreator()">
+    <i class="material-icons">add</i>
+  </a>
+  <div class="row z-depth-0">
     <div class="col s12 m12 l12 xl12">
-      <a class="btn-floating waves-effect waves-light right" (click)="navigateToParentCreator()">
-        <i class="material-icons">add</i>
-      </a>
-        <app-troubleshooting-parent-main></app-troubleshooting-parent-main>
+      <app-troubleshooting-main></app-troubleshooting-main>
     </div>
   </div>
 </div>

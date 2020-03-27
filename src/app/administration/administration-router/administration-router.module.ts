@@ -21,12 +21,12 @@ import { EmailComponent } from '../email/email.component';
 import { CommunityLineMainComponent } from '../community-line/community-line-main/community-line-main.component';
 import { CommunityPartnerMainComponent } from '../community-partner/community-partner-main/community-partner-main.component';
 import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
-import { TroubleshootingItemComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-item/troubleshooting-item.component';
-import { TroubleshootingParentBuilderComponent } from '../nonconformities/troubleshooting-parent/troubleshooting-parent-builder/troubleshooting-parent-builder.component';
-import { ActionMainComponent } from '../nonconformities/troubleshooting/action/action-main/action-main.component';
 import { ActionBuilderComponent } from '../nonconformities/troubleshooting/action/action-builder/action-builder.component';
 import { ProblemMainComponent } from '../nonconformities/troubleshooting/problem/problem-main/problem-main.component';
 import { ProblemBuilderComponent } from '../nonconformities/troubleshooting/problem/problem-builder/problem-builder.component';
+import { TroubleshootingFormComponent } from '../nonconformities/troubleshooting/troubleshooting-form/troubleshooting-form.component';
+import { TroubleshootingEditorComponent } from '../nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
+import { TroubleshootingRelationComponent } from '../nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
 
 const routes: Routes = [
   {
@@ -45,7 +45,6 @@ const routes: Routes = [
       { path: 'guideset', component: MainGuideSetComponent },
       { path: 'color', component: MainColorManagementComponent },
       { path: 'troubleshooting', component: MainNonConformitiesComponent },
-      { path: 'troubleshooting/parent/:apiKey', component: TroubleshootingItemComponent },
       {
         path: 'charts', component: MainChartComponent,
         children: [
@@ -57,8 +56,9 @@ const routes: Routes = [
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },
       { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
-      { path: 'troubleshooting/parentbuilder/:apiKey', component: TroubleshootingParentBuilderComponent },
-      { path: 'troubleshooting/action', component: ActionMainComponent},
+      { path: 'troubleshooting/new', component: TroubleshootingFormComponent},
+      { path: 'troubleshooting/editor/:apiKey', component: TroubleshootingEditorComponent},
+      { path: 'troubleshooting/relation/:apiKey', component: TroubleshootingRelationComponent},
       { path: 'troubleshooting/problem', component: ProblemMainComponent},
       { path: 'troubleshooting/actionbuilder/:apiKey', component: ActionBuilderComponent},
       { path: 'troubleshooting/problembuilder/:apiKey', component: ProblemBuilderComponent},

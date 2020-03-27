@@ -1,0 +1,26 @@
+<table class="highlight">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>QCCV</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trouble of troubles" (click)="editTrouble(trouble)" class="cursorClick">
+      <td>
+        {{trouble.name}}
+      </td>
+      <td>
+        {{trouble.description}}
+      </td>
+      <td>
+        {{trouble.qccv}}
+      </td>
+      <td>
+        {{trouble.type}}
+      </td>
+    </tr>
+  </tbody>
+</table>
