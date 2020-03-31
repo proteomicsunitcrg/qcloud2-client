@@ -143,7 +143,7 @@ export class AnnotationMainComponent implements OnInit, OnDestroy {
   }
 
   private checkIfNoTroubleshootingOnAnnotation(annotation: Annotation): boolean {
-    return (annotation.actions.length === 0 && annotation.problems.length === 0);
+    return (annotation.troubleshootings.length === 0);
   }
 
   goBack(): void {

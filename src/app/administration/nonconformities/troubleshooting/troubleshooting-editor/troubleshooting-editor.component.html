@@ -23,7 +23,7 @@
                 </form>
                 <div class="row">
                         <button class="waves-effect waves-teal btn"
-                            [disabled]="!problemForm.valid">Update</button>
+                            [disabled]="!problemForm.valid" (click)="update()">Update</button>
                         <button style="margin-left: 10px;" class="waves-effect waves-teal btn" (click) = "goToRelations()">Relations</button>
                         <button style="margin-left: 10px;" class="btn amber waves-effect waves-light"
                             (click)="goBack()">Go back</button>

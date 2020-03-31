@@ -16,11 +16,12 @@ export class TroubleshootingEditorComponent implements OnInit {
     private toast: ToastrService, private router: Router) { }
 
   trouble: Troubleshooting;
+
   ngOnInit() {
     this.activeRouter.params.subscribe(
       params => {
         if (params.apiKey !== null && params.apiKey !== undefined) {
-            this.retrieveInfo(params.apiKey);
+          this.retrieveInfo(params.apiKey);
         }
       }
     );
@@ -29,11 +30,22 @@ export class TroubleshootingEditorComponent implements OnInit {
   private retrieveInfo(apiKey: string): void {
     this.troubleshootingService.getTroubleshootingByApiKey(apiKey).subscribe(
       res => {
-        console.log(res);
         this.trouble = res;
-      }, 
+      },
       err => {
         this.toast.error('Error retrieving the action', 'ERROR', TOASTSETTING);
+      }
+    );
+  }
+
+  public update(): void {
+    console.log(this.trouble);
+    this.troubleshootingService.updateTroubleshooting(this.trouble).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.error(err);
       }
     );
   }

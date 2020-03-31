@@ -81,12 +81,6 @@ import {
 } from './general-annotations/general-annotations-builder/general-annotations-builder.component';
 import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
 import { ProblemService } from '../services/problem.service';
-import { ActionService } from '../services/action.service';
-import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
-import { ActionMainComponent } from './nonconformities/troubleshooting/action/action-main/action-main.component';
-import { ActionBuilderComponent } from './nonconformities/troubleshooting/action/action-builder/action-builder.component';
-import { ProblemMainComponent } from './nonconformities/troubleshooting/problem/problem-main/problem-main.component';
-import { ProblemBuilderComponent } from './nonconformities/troubleshooting/problem/problem-builder/problem-builder.component';
 import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 import { TroubleshootingItemComponent } from './nonconformities/troubleshooting/troubleshooting-item/troubleshooting-item.component';
 import { TroubleshootingEditorComponent } from './nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
@@ -117,8 +111,6 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     ThresholdService,
     TraceColorService,
     ProblemService,
-    ActionService,
-    TroubleshootingParentService
   ],
   declarations: [MainComponent,
     SidebarComponent,
@@ -179,10 +171,6 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     GeneralAnnotationsListComponent,
     GeneralAnnotationsBuilderComponent,
     ThresholdPipe,
-    ActionMainComponent,
-    ActionBuilderComponent,
-    ProblemMainComponent,
-    ProblemBuilderComponent,
     TroubleshootingMainComponent,
     TroubleshootingItemComponent,
     TroubleshootingEditorComponent,

@@ -15,7 +15,7 @@ export class TroubleshootingService {
   private apiPrefix = environment.apiPrefix;
   private troubleshootingUrl = this.apiPrefix + 'api/troubleshooting/';
   
-  private itemList = new Subject<ItemList>();
+  private itemList = new Subject<Troubleshooting>();
   itemList$ = this.itemList.asObservable();
   
   public getAllTroubleshootingByType(type: string): Observable<Troubleshooting[]> {
@@ -32,12 +32,17 @@ export class TroubleshootingService {
     return this.httpClient.post<Troubleshooting>(this.troubleshootingUrl, json, { headers: headers });
   }
 
+  public updateTroubleshooting(troubleshooting: Troubleshooting): Observable<Troubleshooting> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}${troubleshooting.apiKey}`, JSON.stringify(troubleshooting), {headers: headers});
+  }
+
   public unLink(child: Troubleshooting): Observable<Troubleshooting> {
     return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}unlink/${child.apiKey}`, child.apiKey);
   }
 
-  public sendItemsToList(type: TroubleshootingType, items: Troubleshooting[]): void {
-    this.itemList.next({ type, items });
+  public sendItemsToList(items: Troubleshooting): void {
+    this.itemList.next(items);
   }
 
   public enableDisable(apiKey: string): Observable<Troubleshooting> {
@@ -54,6 +59,10 @@ export class TroubleshootingService {
 
   public getByParentNullChildsNullAndType(type: string): Observable<Troubleshooting[]> {
     return this.httpClient.get<Troubleshooting[]>(`${this.troubleshootingUrl}parentNullChildsNull/${type}`);
+  }
+
+  public getParentsByType(type: string): Observable<Troubleshooting[]> {
+    return this.httpClient.get<Troubleshooting[]>(`${this.troubleshootingUrl}parentsByType/${type}`);
   }
 
   public linkChild(parentApiKey: string, child: Troubleshooting): Observable<Troubleshooting> {

@@ -35,14 +35,11 @@ import { AnnotationListComponent } from './data-visualization/annotations/annota
 import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
 import { AnnotationService } from '../services/annotation.service';
 import { ShContextMenuModule } from 'ng2-right-click-menu';
-import { AnnotationSelectorActionsComponent } from './data-visualization/annotations/annotation-selector-actions/annotation-selector-actions.component';
-import { AnnotationSelectorProblemsComponent } from './data-visualization/annotations/annotation-selector-problems/annotation-selector-problems.component';
 import { ProblemService } from '../services/problem.service';
-import { ActionService } from '../services/action.service';
-import { TroubleshootingParentService } from '../services/troubleshooting-parent.service';
-
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatMenuModule } from '@angular/material/menu';
+import { AnnotationSelectorDropdownComponent } from './data-visualization/annotations/annotation-selector-dropdown/annotation-selector-dropdown.component';
+import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotations/annotation-selector-sub-menu/annotation-selector-sub-menu.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -66,8 +63,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AnnotationSelectorComponent,
     AnnotationListComponent,
     AnnotationListItemComponent,
-    AnnotationSelectorActionsComponent,
-    AnnotationSelectorProblemsComponent,
+    AnnotationSelectorDropdownComponent,
+    AnnotationSelectorSubMenuComponent,
     
   ],
   providers: [DataService,
@@ -78,8 +75,6 @@ import { MatMenuModule } from '@angular/material/menu';
     SampleCompositionService,
     AnnotationService,
     ProblemService,
-    ActionService,
-    TroubleshootingParentService
   ]
 })
 export class ApplicationModule { }

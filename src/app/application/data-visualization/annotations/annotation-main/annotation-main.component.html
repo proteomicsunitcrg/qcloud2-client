@@ -33,14 +33,11 @@
       by {{annotation.user.firstname}} {{annotation.user.lastname}} on {{annotation.annotationDate | date:'short'}}
     </p>
   </li>
-  <!-- <li *ngFor="let type of troubleshootingTypes()">
-    <app-annotation-selector [troubleshootingType]="type" [annotation]="annotation"></app-annotation-selector>
-  </li> -->
   <li>
-    <app-annotation-selector-problems ></app-annotation-selector-problems>
+    <app-annotation-selector-dropdown [type]="'ACTION'"></app-annotation-selector-dropdown>
   </li>
   <li>
-    <app-annotation-selector-actions [annotation]="annotation"></app-annotation-selector-actions>
+    <app-annotation-selector-dropdown [type]="'PROBLEM'"></app-annotation-selector-dropdown>
   </li>
   <li>
     <app-annotation-list [file]="file" [annotation]="annotation" (annotationAction)="onAction($event)">

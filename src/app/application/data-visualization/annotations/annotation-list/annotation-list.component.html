@@ -1,4 +1,4 @@
-<div class="row" *ngIf="annotation">
+<div class="row" *ngIf="annotation" style="margin-top: 15px;">
   <div class="input-field col s12">
     <input type="text" name="description" id="description" [(ngModel)]="annotation.description"
       style="margin-left: 13px; width: 14vw;" />
@@ -17,9 +17,9 @@
       style="margin-left: 10px;">Delete</button>
   </div>
 </div>
-<div class="row" *ngFor="let item of caca">
+<div class="row" *ngFor="let item of troubleList">
   <div class="col s12">
-      <div class="chip" [ngClass]="{'isAction': item.type=='action', 'isProblem':item.type=='problem', 'isParent':item.type=='parent'}">
+      <div class="chip" [ngClass]="{'isAction': item.type=='ACTION', 'isProblem':item.type=='PROBLEM'}">
         {{item.name}}
         <i class="close material-icons" (click)="removeFromList(item)">close</i>
       </div>

@@ -570,17 +570,13 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     const lines = [];
     const annotations = [];
-
-
     this.annotations.forEach(
       (annotation) => {
         let text = '';
         if (annotation.description != null) {
           text = truncateString(annotation.description, 10) + '-';
         }
-        annotation.problems.forEach(p => text += p.name + '-');
-        annotation.actions.forEach(p => text += p.name + '-');
-        annotation.troubleshootingParent.forEach(p => text += p.name + '-');
+        annotation.troubleshootings.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);
         if (text.split('-').length > 2) {
           text = 'Click on any point to see the annotations.';

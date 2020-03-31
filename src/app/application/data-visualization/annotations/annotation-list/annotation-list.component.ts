@@ -5,9 +5,7 @@ import { Annotation } from '../../../../models/annotation';
 import { TroubleshootingType } from '../../../../models/troubleshootingType';
 import { File } from '../../../../models/file';
 import * as moment from 'moment';
-import { ItemList } from '../../../../models/itemList';
-import { TroubleshootingParentService } from '../../../../services/troubleshooting-parent.service';
-import { ItemList2 } from '../../../../models/itemList2';
+import { Troubleshooting } from '../../../../models/troubleshooting';
 declare var M: any;
 
 @Component({
@@ -17,7 +15,7 @@ declare var M: any;
 })
 export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
-  constructor(private troubleshootingService: TroubleshootingService, private troubleParentService: TroubleshootingParentService) { }
+  constructor(private troubleshootingService: TroubleshootingService) { }
 
   private itemList$: Subscription;
 
@@ -29,11 +27,7 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
   updating = false;
 
-  // annotation = new Annotation(null, null, null, [], [], [], null, null);
-
-  items: { [key: string]: any } = {};
-
-  caca = [];
+  troubleList: Troubleshooting[] = [];
 
 
   ngOnInit() {
@@ -45,55 +39,22 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.annotation);
-    
-    this.caca = [];
+    this.troubleList = [];
     if (this.annotation !== undefined) {
       this.annotation.date = this.prepareDate();
       this.annotation.labSystem = this.file.labSystem;
-      this.fillItems();
       if (this.annotation.apiKey === null) {
         this.updating = false;
       } else {
         this.updating = true;
+        this.troubleList = this.annotation.troubleshootings ;
       }
     } else {
       this.updating = false;
-      this.items = {};
-      this.annotation = new Annotation(null, null, null, [], [], [],null, null, null);
+      this.annotation = new Annotation(null, null, null, [], null, null, null);
     }
     console.log(this.updating);
     
-  }
-
-  private fillItems(): void {
-    if (this.annotation === undefined) {
-      return;
-    }
-    if (this.annotation.actions.length > 0) {
-      this.fillItemList({
-        type: TroubleshootingType.ACTION,
-        items: this.annotation.actions
-      });
-    } else {
-      this.annotation.actions = [];
-    }
-    if (this.annotation.problems.length > 0) {
-      this.fillItemList({
-        type: TroubleshootingType.PROBLEM,
-        items: this.annotation.problems
-      });
-    } else {
-      this.annotation.problems = [];
-    }
-    if (this.annotation.troubleshootingParent.length > 0) {
-      this.fillItemList({
-        type: TroubleshootingType.PARENT,
-        items: this.annotation.troubleshootingParent
-      });
-    } else {
-      this.annotation.troubleshootingParent = [];
-    }
   }
 
   private prepareDate(): Date {
@@ -101,9 +62,7 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private subscribeToItemList(): void {
-    console.log('subscribing');
-    
-    this.itemList$ = this.troubleParentService.itemList$
+    this.itemList$ = this.troubleshootingService.itemList$
       .subscribe(
         (list) => {
           this.fillItemList(list);
@@ -114,42 +73,16 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
       };
   }
 
-  private fillItemList(list: ItemList2): void {
-    for(let item of this.caca) {
-      for(let item2 of list.items) {
-        if (item.apiKey === item2.apiKey) {
-          return;
-        }
+  private fillItemList(tr: Troubleshooting): void {
+    for (let element of this.troubleList) {
+      if (element.apiKey == tr.apiKey) {
+        return;
       }
     }
-    this.items[list.type] = list.items;
-    if (this.items[list.type].length === 0) {
-      this.items[list.type] = [];
-    }
-    if(list.items.length > 0) {
-      console.log(list);
-      
-      for (let item of list.items) {
-        switch (list.type) {
-          case 'action':
-            item['type'] = list.type;
-            break;
-          case 'problem':
-            item['type'] = list.type;
-            break;
-          case 'parent':
-            item['type'] = list.type;
-            break;
-        }
-        console.log(item);
-        
-        this.caca.push(item)
-      }
-    }
-  }
-
-  itemListLength(): number {
-    return Object.keys(this.items).length;
+    this.troubleList.push(tr);
+    console.log(this.troubleList);
+    
+    
   }
 
   saveTroubleshooting(): void {
@@ -161,26 +94,13 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   private fillAnnotation(): void {
     this.annotation.date = this.prepareDate();
     this.annotation.labSystem = this.file.labSystem;
-    console.log(this.caca);
-    console.log(this.items);
-    
-    for (const item of this.caca) {
-      switch (item.type) {
-        case 'action':
-          this.annotation.actions.push(item);
-          break;
-          case 'problem':
-            this.annotation.problems.push(item);
-          break;
-          case 'parent':
-            this.annotation.troubleshootingParent.push(item);
-          break;
-      }
-    }
+    this.annotation.troubleshootings = this.troubleList;
   }
 
   updateTroubleshooting(): void {
     this.fillAnnotation();
+    console.log(this.annotation);
+    // return
     this.annotationAction.emit({ action: 'update', annotation: this.annotation });
     this.annotation = undefined;
   }
@@ -191,12 +111,9 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   public removeFromList(trouble): void{
-    console.log(trouble);
-    
-    console.log(this.caca);
-    this.caca.forEach((item, index) => {
+    this.troubleList.forEach((item, index) => {
       if (item.apiKey === trouble.apiKey) {
-        this.caca.splice(index, 1);
+        this.troubleList.splice(index, 1);
       }
     });
   }
