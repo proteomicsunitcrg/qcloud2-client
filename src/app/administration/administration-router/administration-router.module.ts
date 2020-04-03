@@ -23,6 +23,7 @@ import { CommunityPartnerMainComponent } from '../community-partner/community-pa
 import { GeneralAnnotationsMainComponent } from '../general-annotations/general-annotations-main/general-annotations-main.component';
 import { TroubleshootingFormComponent } from '../nonconformities/troubleshooting/troubleshooting-form/troubleshooting-form.component';
 import { TroubleshootingEditorComponent } from '../nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
+// tslint:disable-next-line:max-line-length
 import { TroubleshootingRelationComponent } from '../nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
 
 const routes: Routes = [
@@ -53,9 +54,9 @@ const routes: Routes = [
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },
       { path: 'general-annotations', component: GeneralAnnotationsMainComponent },
-      { path: 'troubleshooting/new', component: TroubleshootingFormComponent},
-      { path: 'troubleshooting/editor/:apiKey', component: TroubleshootingEditorComponent},
-      { path: 'troubleshooting/relation/:apiKey', component: TroubleshootingRelationComponent},
+      { path: 'troubleshooting/new', component: TroubleshootingFormComponent },
+      { path: 'troubleshooting/editor/:apiKey', component: TroubleshootingEditorComponent },
+      { path: 'troubleshooting/relation/:apiKey', component: TroubleshootingRelationComponent },
     ]
   },
 ];

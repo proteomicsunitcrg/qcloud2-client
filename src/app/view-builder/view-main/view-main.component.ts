@@ -1125,7 +1125,7 @@ export class ViewMainComponent implements OnInit {
             (chart, indexColumn) => {
               const select = <HTMLSelectElement>document.getElementById(`select${indexRow};${indexColumn}`);
               const newoption = new Option(this.getChartName(chart.chartId, chart.lsApiKey) + '(current)',
-              `${chart.chartId};${chart.lsApiKey}`, null, true);
+                `${chart.chartId};${chart.lsApiKey}`, null, true);
               select.add(newoption);
             });
         }

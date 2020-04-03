@@ -8,23 +8,22 @@
     <div class="col s12 m12 l12 xl12">
       <div class="container">
         <form #problemForm="ngForm" class="cols s12">
-            <input type="text" placeholder="Name" name="name" [(ngModel)]="problem.name" class="validate"
-              required />
-            <input type="text" placeholder="Description" name="description" [(ngModel)]="problem.description" class="validate"
-              required />
-            <input type="text" placeholder="QCCV" name="qccv" [(ngModel)]="problem.qccv" class="validate"
-              required />
-            <select name="type" id="type" [(ngModel)]="problem.type">
-              <option value="null" selected disabled>Type</option>
-              <option value="PROBLEM">Problem</option>
-              <option value="ACTION">Action</option>
-            </select>
-            <button (click)="save()" class="waves-effect waves-light btn" [disabled]="!problemForm.valid || problem.type==null">Save</button>
-            <button (click)="goBack()" class="waves-effect waves-light btn" style="margin-left: 10px;">Go back</button>
+          <input type="text" placeholder="Name" name="name" [(ngModel)]="problem.name" class="validate" required />
+          <input type="text" placeholder="Description" name="description" [(ngModel)]="problem.description"
+            class="validate" required />
+          <input type="text" placeholder="QCCV" name="qccv" [(ngModel)]="problem.qccv" class="validate" required />
+          <select name="type" id="type" [(ngModel)]="problem.type">
+            <option value="null" selected disabled>Type</option>
+            <option value="PROBLEM">Problem</option>
+            <option value="ACTION">Action</option>
+          </select>
+          <button (click)="save()" class="waves-effect waves-light btn"
+            [disabled]="!problemForm.valid || problem.type==null">Save</button>
+          <button (click)="goBack()" class="waves-effect waves-light btn" style="margin-left: 10px;">Go back</button>
         </form>
       </div>
     </div>
-    
+
   </div>
 
 </div>

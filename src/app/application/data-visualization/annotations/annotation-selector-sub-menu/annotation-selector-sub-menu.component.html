@@ -2,7 +2,8 @@
     <ng-container *ngFor="let item of items">
         <!-- Handle main menu items -->
         <ng-container *ngIf="item.childs.length != 0">
-            <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.buildMenu" (click)="addTroubleshooting(item)">
+            <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.buildMenu"
+                (click)="addTroubleshooting(item)">
                 {{item.name}}
             </button>
             <app-annotation-selector-sub-menu #menu [items]="item.childs"></app-annotation-selector-sub-menu>

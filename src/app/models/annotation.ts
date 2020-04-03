@@ -9,9 +9,10 @@ export class Annotation {
     description: string;
     labSystem: System;
     user: User;
-    troubleshootings: Troubleshooting[]
+    troubleshootings: Troubleshooting[];
 
-    constructor(id: number, date: Date, apiKey: string, troubleshooting: Troubleshooting[], description: string, labSystem: System, user: User) {
+    constructor(id: number, date: Date, apiKey: string, troubleshooting: Troubleshooting[],
+        description: string, labSystem: System, user: User) {
         this.id = id;
         this.date = date;
         this.apiKey = apiKey;

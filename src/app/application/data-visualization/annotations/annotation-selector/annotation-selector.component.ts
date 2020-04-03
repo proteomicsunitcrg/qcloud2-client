@@ -33,11 +33,11 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit, OnCha
   }
 
   ngOnChanges() {
-    if (this.annotation !== undefined) {
-      this.updateSelector();
-    } else {
-      this.resetSelector();
-    }
+    // if (this.annotation !== undefined) {
+    //   this.updateSelector();
+    // } else {
+    //   this.resetSelector();
+    // }
   }
 
   private resetSelector(): void {
@@ -45,28 +45,28 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit, OnCha
     this.enableSelects();
   }
 
-  private updateSelector(): void {
-    const found = [];
-    switch (this.troubleshootingType) {
-      case TroubleshootingType.ACTION:
-        this.annotation.actions.forEach(
-          (action) => {
-            found.push(this.troubleshootings.find(ts => ts.apiKey === action.apiKey));
-            this.selectedTroubleshooting = found;
-          }
-        );
-        break;
-      case TroubleshootingType.PROBLEM:
-        this.annotation.problems.forEach(
-          (problem) => {
-            found.push(this.troubleshootings.find(ts => ts.apiKey === problem.apiKey));
-            this.selectedTroubleshooting = found;
-          }
-        );
-        break;
-    }
-    this.enableSelects();
-  }
+  // private updateSelector(): void {
+  //   const found = [];
+  //   switch (this.troubleshootingType) {
+  //     case TroubleshootingType.ACTION:
+  //       this.annotation.actions.forEach(
+  //         (action) => {
+  //           found.push(this.troubleshootings.find(ts => ts.apiKey === action.apiKey));
+  //           this.selectedTroubleshooting = found;
+  //         }
+  //       );
+  //       break;
+  //     case TroubleshootingType.PROBLEM:
+  //       this.annotation.problems.forEach(
+  //         (problem) => {
+  //           found.push(this.troubleshootings.find(ts => ts.apiKey === problem.apiKey));
+  //           this.selectedTroubleshooting = found;
+  //         }
+  //       );
+  //       break;
+  //   }
+  //   this.enableSelects();
+  // }
 
   private enableSelects(): void {
     delay(100).then(
@@ -82,14 +82,14 @@ export class AnnotationSelectorComponent implements OnInit, AfterViewInit, OnCha
       .subscribe(
         (troubleshootings) => {
           troubleshootings.forEach(p => {
-              this.troubleshootings.push(p);
+            this.troubleshootings.push(p);
           });
         }, err => console.log('load ts', err), () => this.enableSelects()
       );
   }
 
-  updateList(): void {
-    this.troubleshootingService.sendItemsToList(this.troubleshootingType, this.selectedTroubleshooting);
-  }
+  // updateList(): void {
+  //   this.troubleshootingService.sendItemsToList(this.troubleshootingType, this.selectedTroubleshooting);
+  // }
 
 }

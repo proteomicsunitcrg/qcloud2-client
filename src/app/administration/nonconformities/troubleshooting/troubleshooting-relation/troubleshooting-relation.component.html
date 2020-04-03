@@ -35,20 +35,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <select name="caca" id="caca" [(ngModel)] = "selectedChild">
+                                <select name="caca" id="caca" [(ngModel)]="selectedChild">
                                     <option value="null" disabled>Select {{trouble.type.toLowerCase()}}</option>
-                                    <option *ngFor = "let tr of troublesNoParent" [ngValue]="tr">{{tr.name}}</option>
+                                    <option *ngFor="let tr of troublesNoParent" [ngValue]="tr">{{tr.name}}</option>
                                 </select>
                             </td>
                             <td>
-                                <button class="btn" (click) = "linkChild()" [disabled]="selectedChild == undefined">Add</button>
+                                <button class="btn" (click)="linkChild()"
+                                    [disabled]="selectedChild == undefined">Add</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="row" style="margin-top: 20px; margin-left: 20px;">
-                        <button class="waves-effect waves-teal btn">Update</button>
-                        <button style="margin-left: 10px;" class="waves-effect waves-teal btn" (click) = "goToChild(trouble.apiKey)">Go back</button>
+                    <button class="waves-effect waves-teal btn">Update</button>
+                    <button style="margin-left: 10px;" class="waves-effect waves-teal btn"
+                        (click)="goToChild(trouble.apiKey)">Go back</button>
                 </div>
             </div>
         </div>

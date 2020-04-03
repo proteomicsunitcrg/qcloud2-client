@@ -47,14 +47,14 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
         this.updating = false;
       } else {
         this.updating = true;
-        this.troubleList = this.annotation.troubleshootings ;
+        this.troubleList = this.annotation.troubleshootings;
       }
     } else {
       this.updating = false;
       this.annotation = new Annotation(null, null, null, [], null, null, null);
     }
     console.log(this.updating);
-    
+
   }
 
   private prepareDate(): Date {
@@ -67,22 +67,19 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
         (list) => {
           this.fillItemList(list);
         }
-      ),
-      (err) => {
-        console.log(err);
-      };
+      );
   }
 
   private fillItemList(tr: Troubleshooting): void {
-    for (let element of this.troubleList) {
-      if (element.apiKey == tr.apiKey) {
+    for (const element of this.troubleList) {
+      if (element.apiKey === tr.apiKey) {
         return;
       }
     }
     this.troubleList.push(tr);
     console.log(this.troubleList);
-    
-    
+
+
   }
 
   saveTroubleshooting(): void {
@@ -110,7 +107,7 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
     this.annotation = undefined;
   }
 
-  public removeFromList(trouble): void{
+  public removeFromList(trouble): void {
     this.troubleList.forEach((item, index) => {
       if (item.apiKey === trouble.apiKey) {
         this.troubleList.splice(index, 1);

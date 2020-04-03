@@ -15,7 +15,7 @@ export class TroubleshootingItemComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.troubleshooting);
-    
+
   }
 
 }

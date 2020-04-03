@@ -51,7 +51,7 @@ export class TroubleshootingEditorComponent implements OnInit {
   }
 
   public goBack(): void {
-    this.router.navigate(['/application/administration/troubleshooting'])
+    this.router.navigate(['/application/administration/troubleshooting']);
   }
 
   public goToRelations(): void {

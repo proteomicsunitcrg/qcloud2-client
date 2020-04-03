@@ -8,9 +8,9 @@ describe('AnnotationSelectorSubMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnnotationSelectorSubMenuComponent ]
+      declarations: [AnnotationSelectorSubMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

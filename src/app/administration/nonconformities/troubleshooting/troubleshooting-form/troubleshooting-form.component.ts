@@ -6,7 +6,7 @@ import { ModalService } from '../../../../common/modal.service';
 import { Modal } from '../../../../models/modal';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TOASTSETTING} from '../../../../shared/ToastConfig';
+import { TOASTSETTING } from '../../../../shared/ToastConfig';
 import { TOASTSETTINGLONG } from '../../../../shared/ToastConfig';
 declare var M: any;
 
@@ -41,7 +41,7 @@ export class TroubleshootingFormComponent implements OnInit {
   }
 
   public goBack(): void {
-    this.router.navigate(['/application/administration/troubleshooting'])
+    this.router.navigate(['/application/administration/troubleshooting']);
   }
 
   private enableText(): void {

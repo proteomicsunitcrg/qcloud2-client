@@ -8,9 +8,9 @@ describe('AnnotationSelectorDropdownComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnnotationSelectorDropdownComponent ]
+      declarations: [AnnotationSelectorDropdownComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

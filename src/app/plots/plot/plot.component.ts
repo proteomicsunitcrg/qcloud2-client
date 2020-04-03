@@ -98,7 +98,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   generalAnnotations: GeneralAnnotation[];
 
-  randString = "";
+  randString = '';
 
   ngOnInit() {
     this.subscribeHideAnnotations();
@@ -107,7 +107,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.loadCurrentDates();
     this.subscribeToDateChanges();
     if (this.chart != null) {
-      this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+      this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       this.loadData();
     }
     this.subscribeToWebSocketData();
@@ -342,6 +342,7 @@ export class PlotComponent implements OnInit, OnDestroy {
               mode = 'markers';
             } else {
               text.
+              // tslint:disable-next-line:max-line-length
               push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);

@@ -8,20 +8,20 @@ import { ItemList } from '../models/itemList';
 
 @Injectable()
 export class TroubleshootingService {
-  
-  
+
+
   constructor(private httpClient: HttpClient) { }
-  
+
   private apiPrefix = environment.apiPrefix;
   private troubleshootingUrl = this.apiPrefix + 'api/troubleshooting/';
-  
+
   private itemList = new Subject<Troubleshooting>();
   itemList$ = this.itemList.asObservable();
-  
+
   public getAllTroubleshootingByType(type: string): Observable<Troubleshooting[]> {
     return this.httpClient.get<Troubleshooting[]>(this.troubleshootingUrl + type);
   }
-  
+
   public getTroubleshootingByApiKey(apiKey: string): Observable<Troubleshooting> {
     return this.httpClient.get<Troubleshooting>(`${this.troubleshootingUrl}${apiKey}`);
   }
@@ -34,7 +34,8 @@ export class TroubleshootingService {
 
   public updateTroubleshooting(troubleshooting: Troubleshooting): Observable<Troubleshooting> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}${troubleshooting.apiKey}`, JSON.stringify(troubleshooting), {headers: headers});
+    return this.httpClient.patch<Troubleshooting>(`${this.troubleshootingUrl}${troubleshooting.apiKey}`,
+      JSON.stringify(troubleshooting), { headers: headers });
   }
 
   public unLink(child: Troubleshooting): Observable<Troubleshooting> {

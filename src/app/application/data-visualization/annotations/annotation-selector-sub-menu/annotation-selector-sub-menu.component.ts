@@ -11,7 +11,7 @@ export class AnnotationSelectorSubMenuComponent implements OnInit {
 
 
   @Input() items: any[];
-  @ViewChild('buildMenu', {static: true}) public buildMenu;
+  @ViewChild('buildMenu', { static: true }) public buildMenu;
 
   constructor(private troubleService: TroubleshootingService) { }
 

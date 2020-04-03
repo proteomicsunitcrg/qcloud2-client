@@ -15,7 +15,7 @@ export class MainNonConformitiesComponent implements OnInit {
   }
 
   public navigateToTroubleshootingCreator(): void {
-    this.router.navigate(['/application/administration/troubleshooting/new'])
+    this.router.navigate(['/application/administration/troubleshooting/new']);
   }
 
 }

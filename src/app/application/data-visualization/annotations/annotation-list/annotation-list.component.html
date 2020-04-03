@@ -19,9 +19,9 @@
 </div>
 <div class="row" *ngFor="let item of troubleList">
   <div class="col s12">
-      <div class="chip" [ngClass]="{'isAction': item.type=='ACTION', 'isProblem':item.type=='PROBLEM'}">
-        {{item.name}}
-        <i class="close material-icons" (click)="removeFromList(item)">close</i>
-      </div>
+    <div class="chip" [ngClass]="{'isAction': item.type=='ACTION', 'isProblem':item.type=='PROBLEM'}">
+      {{item.name}}
+      <i class="close material-icons" (click)="removeFromList(item)">close</i>
+    </div>
   </div>
 </div>

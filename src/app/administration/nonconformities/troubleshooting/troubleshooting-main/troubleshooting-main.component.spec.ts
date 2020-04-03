@@ -8,9 +8,9 @@ describe('TroubleshootingMainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TroubleshootingMainComponent ]
+      declarations: [TroubleshootingMainComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

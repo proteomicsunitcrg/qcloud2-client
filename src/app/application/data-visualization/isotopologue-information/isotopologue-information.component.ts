@@ -155,7 +155,7 @@ export class IsotopologueInformationComponent implements OnInit, OnDestroy {
           }
           for (let i = 0; i < this.rows; i++) {
             this.plots[i] = [];
-            for (let j = 0, k = i * this.cols; j < this.cols; j++ , k++) {
+            for (let j = 0, k = i * this.cols; j < this.cols; j++, k++) {
               this.plots[i][j] = { 'abbr': distinctAbbreviated[k], 'cleaned': distinctCleanedSequence[k] };
             }
           }

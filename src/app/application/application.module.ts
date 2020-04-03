@@ -35,10 +35,11 @@ import { AnnotationListComponent } from './data-visualization/annotations/annota
 import { AnnotationListItemComponent } from './data-visualization/annotations/annotation-list-item/annotation-list-item.component';
 import { AnnotationService } from '../services/annotation.service';
 import { ShContextMenuModule } from 'ng2-right-click-menu';
-import { ProblemService } from '../services/problem.service';
-import { MatIconModule } from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+// tslint:disable-next-line:max-line-length
 import { AnnotationSelectorDropdownComponent } from './data-visualization/annotations/annotation-selector-dropdown/annotation-selector-dropdown.component';
+// tslint:disable-next-line:max-line-length
 import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotations/annotation-selector-sub-menu/annotation-selector-sub-menu.component';
 @NgModule({
   imports: [
@@ -65,7 +66,7 @@ import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotat
     AnnotationListItemComponent,
     AnnotationSelectorDropdownComponent,
     AnnotationSelectorSubMenuComponent,
-    
+
   ],
   providers: [DataService,
     DataSourceService,
@@ -74,7 +75,6 @@ import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotat
     PlotService,
     SampleCompositionService,
     AnnotationService,
-    ProblemService,
   ]
 })
 export class ApplicationModule { }

@@ -80,12 +80,12 @@ import {
   GeneralAnnotationsBuilderComponent
 } from './general-annotations/general-annotations-builder/general-annotations-builder.component';
 import { ThresholdPipe } from './threshold/threshold-list/threshold.pipe';
-import { ProblemService } from '../services/problem.service';
 import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 import { TroubleshootingItemComponent } from './nonconformities/troubleshooting/troubleshooting-item/troubleshooting-item.component';
+// tslint:disable-next-line:max-line-length
 import { TroubleshootingEditorComponent } from './nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
+// tslint:disable-next-line:max-line-length
 import { TroubleshootingRelationComponent } from './nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
-// import { TroubleshootingMainComponent } from './nonconformities/troubleshooting/troubleshooting-main/troubleshooting-main.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -110,7 +110,6 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     SampleTypeCategoryService,
     ThresholdService,
     TraceColorService,
-    ProblemService,
   ],
   declarations: [MainComponent,
     SidebarComponent,

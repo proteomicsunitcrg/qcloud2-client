@@ -15,18 +15,18 @@ export class TroubleshootingRelationComponent implements OnInit {
   constructor(private activeRouter: ActivatedRoute, private troubleshootingService: TroubleshootingService,
     private toast: ToastrService, private router: Router) { }
 
-    trouble: Troubleshooting;
+  trouble: Troubleshooting;
 
-    troublesNoParent: Troubleshooting[];
+  troublesNoParent: Troubleshooting[];
 
-    selectedChild: Troubleshooting;
+  selectedChild: Troubleshooting;
 
   ngOnInit() {
     this.activeRouter.params.subscribe(
       params => {
         if (params.apiKey !== null && params.apiKey !== undefined) {
-            this.loadChilds(params.apiKey);
-            // this.loadTroubleshootingsWithoutParent();
+          this.loadChilds(params.apiKey);
+          // this.loadTroubleshootingsWithoutParent();
         }
       }
     );
@@ -49,7 +49,7 @@ export class TroubleshootingRelationComponent implements OnInit {
     this.troubleshootingService.getByParentNullChildsNullAndType(this.trouble.type).subscribe(
       res => {
         res.forEach((item, index) => {
-          if (item.apiKey == this.trouble.apiKey) {
+          if (item.apiKey === this.trouble.apiKey) {
             res.splice(index, 1);
           }
         });
@@ -66,7 +66,7 @@ export class TroubleshootingRelationComponent implements OnInit {
   }
 
   public goToChild(apiKey: string): void {
-    this.router.navigate(['/application/administration/troubleshooting/editor', apiKey]);    
+    this.router.navigate(['/application/administration/troubleshooting/editor', apiKey]);
   }
 
   public unlinkTrouble(child: Troubleshooting): void {
