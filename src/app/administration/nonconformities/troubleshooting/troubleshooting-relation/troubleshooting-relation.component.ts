@@ -83,7 +83,6 @@ export class TroubleshootingRelationComponent implements OnInit {
   }
 
   public linkChild(): void {
-    console.log(this.selectedChild);
     this.troubleshootingService.linkChild(this.trouble.apiKey, this.selectedChild).subscribe(
       res => {
         console.log(res);

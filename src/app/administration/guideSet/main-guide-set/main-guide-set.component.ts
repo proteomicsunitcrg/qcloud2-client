@@ -25,7 +25,6 @@ export class MainGuideSetComponent implements OnInit {
 
   doSetAutomaticGuideSet(): void {
     const gs = new AutomaticGuideSet(null, null, null, null, null, null, null, null, null, this.files);
-    console.log(gs);
     this.guideSetService.setAutomaticGuideSet(gs)
       .subscribe(
         (autoGs) => {

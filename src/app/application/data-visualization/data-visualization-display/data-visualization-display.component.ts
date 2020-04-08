@@ -117,10 +117,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
                 .subscribe(
                   (userDisplay) => {
                     this.display = userDisplay;
-                  }, err => console.log(err),
-                  () => {
-                    console.log();
-                  });
+                  }, err => console.log(err)
+                );
             });
 
 

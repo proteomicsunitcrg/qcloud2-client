@@ -59,7 +59,6 @@ import { MainColorManagementComponent } from './colorManagement/main-color-manag
 import { ColorListComponent } from './colorManagement/color-list/color-list.component';
 import { TraceColorService } from '../services/trace-color.service';
 import { MainNonConformitiesComponent } from './nonconformities/main-non-conformities/main-non-conformities.component';
-import { ProblemComponent } from './nonconformities/problem/problem.component';
 import { TroubleshootingFormComponent } from './nonconformities/troubleshooting/troubleshooting-form/troubleshooting-form.component';
 import { TroubleshootingListComponent } from './nonconformities/troubleshooting/troubleshooting-list/troubleshooting-list.component';
 import { SampleTypeSelectorComponent } from './cv/sample-type-selector/sample-type-selector.component';
@@ -151,7 +150,6 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     MainColorManagementComponent,
     ColorListComponent,
     MainNonConformitiesComponent,
-    ProblemComponent,
     TroubleshootingFormComponent,
     TroubleshootingListComponent,
     SampleTypeSelectorComponent,

@@ -30,8 +30,6 @@ export class SingleNodeUsersComponent implements OnInit {
   private getUsers(): void {
     this.userService.getUsersByNodeApiKey(this.nodeKey).subscribe(
       res => {
-        console.log(res);
-
         this.usersEnabled = res.filter((user: User) => user.enabled).length;
         this.users = res.sort((a, b) => a.enabled < b.enabled ? 1 : -1);
       },

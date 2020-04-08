@@ -23,8 +23,6 @@ export class EditThresholdComponent implements OnInit {
 
   constructor(
     private thresholdService: ThresholdService,
-    private sampleTypeService: SampleTypeService,
-    private paramService: ParametersService,
     private instrumentSampleService: InstrumentSampleService,
     private sampleCompositionService: SampleCompositionService,
   ) { }
@@ -34,12 +32,7 @@ export class EditThresholdComponent implements OnInit {
 
   thresholdTypes: string[] = [];
 
-  sampleTypes: SampleType[] = [];
-
   selectedThresholdParams: ThresholdParam[] = [];
-
-
-  params: Param[] = [];
 
   thresholdConstraint: ThresholdConstraint;
 
@@ -49,16 +42,13 @@ export class EditThresholdComponent implements OnInit {
 
 
   ngOnInit() {
-    this.onThresholdTypeChange(this.thresholdToEdit.thresholdType);
+    this.loadConstraint(this.thresholdToEdit.thresholdType);
     this.thresholdNew = this.thresholdToEdit;
     M.updateTextFields();
     this.loadThresholdTypes();
-    this.loadSampleTypes();
-    this.loadParameters();
     this.loadThresholdDirections();
-    this.loadParam(this.thresholdNew.param);
+    // this.loadParam(this.thresholdNew.param);
     this.selectedThresholdParams = this.thresholdToEdit.thresholdParams;
-
   }
 
   private loadThresholdDirections(): void {
@@ -76,17 +66,13 @@ export class EditThresholdComponent implements OnInit {
           this.saveThresholdParams(threshold);
         },
         (error) => {
+          console.error(error);
         }
       );
   }
 
   private saveThresholdParams(threshold: Threshold): void {
-    this.selectedThresholdParams.forEach(
-      (thresholdParam) => {
-        thresholdParam.threshold = threshold;
-      }
-    );
-    this.thresholdService.saveThresholdParams(this.selectedThresholdParams)
+    this.thresholdService.saveThresholdParams(threshold.thresholdParams, threshold)
       .subscribe(
         (result) => {
           this.thresholdService.resetBuilder();
@@ -105,29 +91,7 @@ export class EditThresholdComponent implements OnInit {
         () => delay(1).then(() => M.AutoInit()));
   }
 
-  private loadParameters(): void {
-    this.paramService.getAllParams()
-      .subscribe(
-        (params) => {
-          this.params = params;
-        }, error => console.log(error),
-        () => delay(1).then(() => M.AutoInit())
-      );
-  }
-
-  private loadSampleTypes(): void {
-    this.sampleTypeService.getSamplesTypes()
-      .subscribe(
-        (sampleTypes) => {
-          this.sampleTypes = sampleTypes;
-        }, error => console.log(error),
-        () => {
-          delay(1).then(() => M.AutoInit());
-        }
-      );
-  }
-
-  onThresholdTypeChange(thresholdType: string): void {
+  public loadConstraint(thresholdType: string): void {
     this.thresholdService.getThresholdConstraints(thresholdType)
       .subscribe(
         (constraint) => {
@@ -141,8 +105,7 @@ export class EditThresholdComponent implements OnInit {
   }
 
   onGlobalInitialValueChange(value: number): void {
-    // return;
-    this.thresholdParams.forEach(
+    this.thresholdNew.thresholdParams.forEach(
       (tp) => {
         tp.initialValue = value;
       }
@@ -150,73 +113,29 @@ export class EditThresholdComponent implements OnInit {
   }
 
   onGlobalStepValueChange(value: number): void {
-    // return;
-    this.thresholdParams.forEach(
+    this.thresholdNew.thresholdParams.forEach(
       (tp) => {
         tp.stepValue = value;
       }
     );
   }
 
-  loadParam(event: Param) {
-    // load contexts sources by sampletype and event
-    switch (event.isFor) {
-      case 'Peptide':
-        this.sampleCompositionService.getAllPeptidesBySampleType(this.thresholdNew.sampleType)
-          .subscribe(
-            (peptides) => {
-              this.thresholdParams = [];
-              peptides.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0, true))
-              );
-            }
-          );
-        break;
-      case 'InstrumentSample':
-        this.instrumentSampleService.getAllInstrumentSample()
-          .subscribe(
-            (instrumentSamples) => {
-              this.thresholdParams = [];
-              instrumentSamples.forEach(
-                (p) => this.thresholdParams.push(new ThresholdParam(null, p, 0, 0, true))
-              );
-            }, err => console.log(err)
-          );
-        break;
-      default:
-        console.log(event.isFor);
-    }
-  }
-
-  isChecked(thresholdParam: ThresholdParam): boolean {
-    return this.selectedThresholdParams.find(tp => tp.contextSource.apiKey === thresholdParam.contextSource.apiKey) !== undefined;
-  }
-
-  toggleEditable(event: any, thresholdParam: ThresholdParam) {
-    if (event.target.checked) {
-      this.addThresholdParam(thresholdParam);
-    } else {
-      this.removeThresholdParam(thresholdParam);
-    }
-  }
-
-  private addThresholdParam(thresholdParam: ThresholdParam): void {
-    this.selectedThresholdParams.push(thresholdParam);
-  }
-
-  private removeThresholdParam(thresholdParam: ThresholdParam): void {
-    this.selectedThresholdParams = this.selectedThresholdParams.filter(tp => tp.contextSource.id !== thresholdParam.contextSource.id);
-  }
-
-  selectAll(all: boolean): void {
-    if (all) {
-      this.thresholdParams.forEach(
+  public selectUnselectAll(select: string): void {
+    if ('select') {
+      this.thresholdNew.thresholdParams.forEach(
         (thresholdParam) => {
-          this.addThresholdParam(thresholdParam);
+          thresholdParam.isEnabled = true;
         });
     } else {
-      this.selectedThresholdParams = [];
+      this.thresholdNew.thresholdParams.forEach(
+        (thresholdParam) => {
+          thresholdParam.isEnabled = false;
+        });
     }
+  }
+
+  public selectOrUnselect(thresholdParam: ThresholdParam): void {
+    thresholdParam.isEnabled = !thresholdParam.isEnabled;
   }
 
 }

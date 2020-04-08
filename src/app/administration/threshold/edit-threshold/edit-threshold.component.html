@@ -3,7 +3,7 @@
 </h6>
 <div class="input-field col s12">
   <select name="type" id="type" [(ngModel)]="thresholdNew.thresholdType"
-    (ngModelChange)="onThresholdTypeChange($event)">
+    (ngModelChange)="loadConstraint($event)">
     <option value="" disabled>Choose your option</option>
     <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
   </select>
@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col s12 m12 l12 xl12">
       <button type="submit" class="waves-effect waves-teal btn"
-        [disabled]="!thresholdForm.form.valid || selectedThresholdParams.length==0">Save threshold</button>
+        [disabled]="!thresholdForm.form.valid || thresholdNew.thresholdParams.length==0">Save threshold</button>
     </div>
   </div>
   <div class="row">
@@ -61,10 +61,10 @@
   </div>
   <!-- RIGHT -->
   <div class="col s12 m6 l6 xl6">
-    <div id="selectAll" *ngIf="thresholdParams.length>0">
-      <span class="selector" (click)="selectAll(true)">Select all</span>
+    <div id="selectAll" *ngIf="thresholdNew.thresholdParams.length>0">
+      <span class="selector" (click)="selectUnselectAll('select')">Select all</span>
       <span> / </span>
-      <span class="selector" (click)="selectAll(false)">Unselect all</span>
+      <span class="selector" (click)="selectUnselectAll('unSelect')">Unselect all</span>
     </div>
     <table class="highlight">
       <thead>
@@ -72,14 +72,13 @@
         <th>Initial value</th>
         <th>Step value</th>
       </thead>
-      <tbody>
-        <tr *ngFor="let thresholdParam of thresholdParams; let i = index">
+      <tbody *ngIf="thresholdConstraint">
+        <tr *ngFor="let thresholdParam of thresholdNew.thresholdParams; let i = index">
           <ng-container *ngIf="thresholdConstraint.singleContextSource==true then radio else checkbox"></ng-container>
           <ng-template #checkbox>
             <td>
               <label>
-                <input type="checkbox" [checked]="isChecked(thresholdParam)"
-                  (change)="toggleEditable($event,thresholdParam)" />
+                <input type="checkbox" [checked]="thresholdParam.isEnabled" (change)="selectOrUnselect(thresholdParam)"/>
                 <span>{{thresholdParam.contextSource.name}}</span>
               </label>
             </td>
@@ -87,7 +86,7 @@
           <ng-template #radio>
             <td>
               <label>
-                <input type="radio" (change)="toggleEditable($event,thresholdParam)" name="radio-contextsource" />
+                <input type="radio"name="radio-contextsource" />
                 <span>{{thresholdParam.contextSource.name}}</span>
               </label>
             </td>
@@ -102,7 +101,7 @@
           </td>
           <td>
             <label>
-              <input placeholder="step value" id="stepValue" type="number" class="validate" name="stepValue"
+              <input placeholder="step value" id="stepValue{{i}}" type="number" class="validate" name="stepValue"
                 [(ngModel)]="thresholdParam.stepValue" [attr.disabled]="!thresholdConstraint.stepValueEditable?'':null">
               <label for="initialValue{{i}}">Step value</label>
             </label>

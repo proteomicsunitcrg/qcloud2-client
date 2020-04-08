@@ -95,10 +95,6 @@ export class ThresholdBuilderComponent implements OnInit {
       );
   }
 
-  show(): void {
-    console.log(this.selectedThresholdParams);
-  }
-
   onParamChange(event: Param) {
     // load contexts sources by sampletype and event
     switch (event.isFor) {
@@ -154,11 +150,9 @@ export class ThresholdBuilderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.threshold);
     this.thresholdService.saveThreshold(this.threshold)
       .subscribe(
         (threshold) => {
-          // save the threshold params
           this.saveThresholdParams(threshold);
         },
         (error) => {
@@ -173,11 +167,9 @@ export class ThresholdBuilderComponent implements OnInit {
         thresholdParam.threshold = threshold;
       }
     );
-    this.thresholdService.saveThresholdParams(this.selectedThresholdParams)
+    this.thresholdService.saveThresholdParams(this.selectedThresholdParams, threshold)
       .subscribe(
         (result) => {
-          console.log(result);
-          // go back
           this.thresholdService.resetBuilder();
         },
         (err) => console.log(err)

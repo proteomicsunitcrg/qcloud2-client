@@ -19,7 +19,6 @@ export class AnnotationSelectorSubMenuComponent implements OnInit {
   }
 
   public addTroubleshooting(trouble: Troubleshooting): void {
-    console.log(trouble);
     this.troubleService.sendItemsToList(trouble);
   }
 

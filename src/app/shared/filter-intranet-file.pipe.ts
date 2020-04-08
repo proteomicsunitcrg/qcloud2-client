@@ -7,7 +7,6 @@ import { File } from '../models/file';
 export class FilterIntranetFile implements PipeTransform {
     transform(items: File[], name: string) {
         if (name === '' || !name) {
-            console.log('yoo');
             return items;
         }
         items = items.filter(item => item.filename.toLowerCase().indexOf(name.toLowerCase()) !== -1);

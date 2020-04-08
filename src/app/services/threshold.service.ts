@@ -49,11 +49,11 @@ export class ThresholdService {
     return this.httpClient.post<Threshold>(this.thresholdUrl + '/' + threshold.thresholdType, params, { headers: headers });
   }
 
-  public saveThresholdParams(thresholdParams: ThresholdParam[]): Observable<any> {
+  public saveThresholdParams(thresholdParams: ThresholdParam[], threshold: Threshold): Observable<any> {
     const json = JSON.stringify(thresholdParams);
     const params = json;
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.post<ThresholdParam[]>(this.thresholdUrl + '/params', params, { headers: headers });
+    return this.httpClient.post<ThresholdParam[]>(`${this.thresholdUrl}/params/${threshold.apiKey}`, params, { headers: headers });
   }
 
   public editThreshold(threshold: Threshold): Observable<any> {

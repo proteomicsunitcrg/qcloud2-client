@@ -21,8 +21,6 @@ export class CommunityLineMainComponent implements OnInit {
 
   private getAllLinesForNode(): void {
     this.communityService.getCommunityLinesByNode().subscribe((result) => {
-      console.log(result);
-
       this.communityLines = result;
     }, (error) => {
       console.error(error);

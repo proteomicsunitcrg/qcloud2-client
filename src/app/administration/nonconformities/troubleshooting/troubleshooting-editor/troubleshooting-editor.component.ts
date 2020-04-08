@@ -39,13 +39,10 @@ export class TroubleshootingEditorComponent implements OnInit {
   }
 
   public update(): void {
-    console.log(this.trouble);
     this.troubleshootingService.updateTroubleshooting(this.trouble).subscribe(
       res => {
-        console.log(res);
       },
       err => {
-        console.error(err);
       }
     );
   }

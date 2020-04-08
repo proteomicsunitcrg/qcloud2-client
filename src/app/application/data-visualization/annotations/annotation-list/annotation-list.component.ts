@@ -53,8 +53,6 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
       this.updating = false;
       this.annotation = new Annotation(null, null, null, [], null, null, null);
     }
-    console.log(this.updating);
-
   }
 
   private prepareDate(): Date {
@@ -77,14 +75,10 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
     this.troubleList.push(tr);
-    console.log(this.troubleList);
-
-
   }
 
   saveTroubleshooting(): void {
     this.fillAnnotation();
-    console.log(this.annotation);
     this.annotationAction.emit({ action: 'save', annotation: this.annotation });
   }
 
@@ -96,8 +90,6 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
 
   updateTroubleshooting(): void {
     this.fillAnnotation();
-    console.log(this.annotation);
-    // return
     this.annotationAction.emit({ action: 'update', annotation: this.annotation });
     this.annotation = undefined;
   }
