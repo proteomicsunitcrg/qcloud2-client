@@ -27,6 +27,9 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   isAdmin = false;
   isManager = false;
 
+  isXmasVar = false;
+  isSantJordiVar = false;
+
   newUserView$: Subscription;
 
   ngOnInit() {
@@ -39,6 +42,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.loadNodeSystems();
     this.loadUserViews();
     this.subscribeToNewUserView();
+    this.isXmas();
+    this.isSantJordi();
   }
 
   ngOnDestroy() {
@@ -97,14 +102,29 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       );
   }
 
-  public isXmas() {
+  public isXmas(): void {
     const today = Date.parse(new Date().toString());
     const from = Date.parse('12/15/' + new Date().getFullYear());
     const to = Date.parse('06/01/' + new Date().getFullYear() + 1);
     if ((today <= to && today >= from)) {
-      return true;
+      this.isXmasVar = true;
+    } else {
+      this.isXmasVar = false;
     }
-    return false;
+
+  }
+
+  public isSantJordi() {
+    const today = Date.parse(new Date().toString());
+    const from = Date.parse('22/04/' + new Date().getFullYear());
+    const to = Date.parse('25/04/' + new Date().getFullYear() + 1);
+    if ((today <= to && today >= from)) {
+      console.log('caca');
+      this.isSantJordiVar = true;
+    } else {
+      this.isSantJordiVar = true;
+      console.log('no');
+    }
   }
 
 }
