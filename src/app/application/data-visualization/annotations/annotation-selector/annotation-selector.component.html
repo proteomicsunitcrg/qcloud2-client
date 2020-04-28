@@ -1,5 +1,5 @@
 <div class="input-field col s12">
-  <select multiple [(ngModel)]="selectedTroubleshooting" (change)="updateList()">
+  <select multiple [(ngModel)]="selectedTroubleshooting">
     <option *ngFor="let troubleshooting of troubleshootings" [ngValue]="troubleshooting">{{troubleshooting.name}}
     </option>
   </select>

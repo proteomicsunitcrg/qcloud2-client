@@ -111,17 +111,16 @@ export class FilesListComponent implements OnInit {
                   file.labSystem.node = res.node.name;
                   file.labSystem.isOk = res.dataOk;
                   file.labSystem.nodeApiKey = res.node.apiKey;
-                  this.collection.data = pageFile.content;
-                  this.collection.count = pageFile.totalElements;
-                  this.config.totalItems = pageFile.totalElements;
+                },
+                err => {
+                  console.error(err)                  
                 }
               );
           }
-        } else {
+        }
           this.collection.data = pageFile.content;
           this.collection.count = pageFile.totalElements;
           this.config.totalItems = pageFile.totalElements;
-        }
       },
       err => {
         console.error(err);
