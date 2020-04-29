@@ -100,6 +100,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   randString = '';
 
+  thresholdShapes;
+
   ngOnInit() {
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
@@ -418,6 +420,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     };
     if (dataForPlot.length > 0) {
       this.layout.shapes = this.layoutShapes;
+      this.thresholdShapes = this.layout.shapes;
     }
     this.loaded = true;
     this.noData = true;
@@ -482,8 +485,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private subscribeToWebSocketDeleteAnnotations(): void {
     this.deleteAnnotationFromWebSocket$ = this.webSocketService.deleteAnnotationFromWebSocket$
-      .subscribe(
-        (annotation) => {
+    .subscribe(
+      (annotation) => {
           this.drawAnnotations();
           if (this.serverData.length > 0) {
             const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body);
@@ -498,8 +501,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private subscribeToWebSocketUpdateAnnotations(): void {
     this.updateAnnotationFromWebSocket$ = this.webSocketService.updateAnnotationFromWebSocket$
-      .subscribe(
-        (annotation) => {
+    .subscribe(
+      (annotation) => {
           if (this.serverData.length > 0 && this.system.apiKey === annotation.body.labSystem.apiKey) {
             const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body.apiKey);
             if (annotationIndex !== -1) {
@@ -563,6 +566,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       shapes: shapesUpdate,
       annotations: annotations
     };
+    
     Plotly.relayout('plot' + this.randString, layoutUpdate);
   }
   private drawAnnotations(): void {
@@ -571,6 +575,14 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     const lines = [];
     const annotations = [];
+    let onlyThresholdsShapes = this.thresholdShapes.filter(ele =>
+      ele.type != 'line'
+    );
+    Plotly.relayout('plot' + this.randString, {
+      ...this.layout,
+      shapes: onlyThresholdsShapes,
+      annotations: annotations
+    });
     this.annotations.forEach(
       (annotation) => {
         let text = '';
@@ -612,8 +624,9 @@ export class PlotComponent implements OnInit, OnDestroy {
         });
 
       });
+    this.layout.shapes = [];
+    this.layout.shapes =  onlyThresholdsShapes;
     const shapesUpdate = this.layout.shapes;
-
     lines.forEach(l => {
       shapesUpdate.push(l);
     });
@@ -629,7 +642,6 @@ export class PlotComponent implements OnInit, OnDestroy {
       shapes: shapesUpdate,
       annotations: annotations
     };
-
     Plotly.relayout('plot' + this.randString, layoutUpdate);
   }
 
