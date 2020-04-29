@@ -2,10 +2,10 @@
     <ng-container *ngFor="let item of troubles">
         <!-- Handle main menu items here -->
         <ng-container *ngIf="item.childs.length != 0">
-            <button mat-menu-item [matMenuTriggerFor]="menu.buildMenu" (click)="addTroubleshooting(item)">
+            <button mat-menu-item [matMenuTriggerFor]="menu.buildMenu" (click)="addTroubleshooting(item)" >
                 {{item.name}}
             </button>
-            <app-annotation-selector-sub-menu #menu [items]="item.childs"></app-annotation-selector-sub-menu>
+            <app-annotation-selector-sub-menu #menu [items]="item.childs"  (closeMenuEvent)="handleEventCloseMenu($event)"></app-annotation-selector-sub-menu>
         </ng-container>
         <!-- Leaf sub menu items here -->
         <ng-container *ngIf="item.childs.length == 0">
@@ -17,6 +17,6 @@
 </mat-menu>
 
 <button class="btn waves-effect waves-light" style="margin-top: 10px; margin-left: 7px;"
-    [matMenuTriggerFor]="main_menu">
+    [matMenuTriggerFor]="main_menu" #clickHoverMenuTrigger="matMenuTrigger">
     {{type}}
 </button>
