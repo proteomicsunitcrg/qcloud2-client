@@ -107,8 +107,6 @@ export class LoginFormComponent implements OnInit {
   doInternalTest(): void {
     const token = localStorage.getItem('id_token');
     const decoded = decode(token);
-    console.log(decoded);
-    console.log(this.authService.isAuthenticated());
   }
 
 }

@@ -592,7 +592,7 @@ export class PlotComponent implements OnInit, OnDestroy {
         annotation.troubleshootings.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);
         if (text.split('-').length > 2) {
-          text = 'Click on any point to see the annotations.';
+          text = 'Click on the data point to see the annotations.';
         }
         lines.push({
           type: 'line',

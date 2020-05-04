@@ -26,7 +26,6 @@ export class TroubleshootingRelationComponent implements OnInit {
       params => {
         if (params.apiKey !== null && params.apiKey !== undefined) {
           this.loadChilds(params.apiKey);
-          // this.loadTroubleshootingsWithoutParent();
         }
       }
     );
@@ -36,7 +35,6 @@ export class TroubleshootingRelationComponent implements OnInit {
     this.troubleshootingService.getTroubleshootingByApiKey(apiKey).subscribe(
       res => {
         this.trouble = res;
-        console.log(res);
         this.loadTroubleshootingsWithoutParent();
       },
       err => {
@@ -53,7 +51,6 @@ export class TroubleshootingRelationComponent implements OnInit {
             res.splice(index, 1);
           }
         });
-        console.log(res);
         this.troublesNoParent = res;
         setTimeout(() => {  // The timeout is necessary because the checkbox isnt instant
           M.AutoInit();
@@ -85,7 +82,6 @@ export class TroubleshootingRelationComponent implements OnInit {
   public linkChild(): void {
     this.troubleshootingService.linkChild(this.trouble.apiKey, this.selectedChild).subscribe(
       res => {
-        console.log(res);
         this.loadChilds(this.trouble.apiKey);
         this.loadTroubleshootingsWithoutParent();
         this.selectedChild = undefined;

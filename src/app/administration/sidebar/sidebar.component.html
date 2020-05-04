@@ -121,6 +121,19 @@
                 </ul>
             </div>
         </li>
+        <li (click)="open('menu')">
+            <a class="collapsible-header waves-effect waves-cyan">
+                <span class="nav-headers">Misc</span>
+            </a>
+            <div class="collapsible-body">
+                <ul>
+                    <li><a routerLink="/application/administration/logo" routerLinkActive="active">Manage logo</a></li>
+                </ul>
+                <ul>
+                    <li><a routerLink="/application/administration/links" routerLinkActive="active">Manage QCrawler links</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </div>
 <div class="col s12 m2 l2 xl2 hide-on-med-and-up">

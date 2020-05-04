@@ -122,7 +122,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       console.log('caca');
       this.isSantJordiVar = true;
     } else {
-      this.isSantJordiVar = true;
+      this.isSantJordiVar = false;
       console.log('no');
     }
   }
