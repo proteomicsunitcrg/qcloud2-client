@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
    * @author Marc Serret
    */
   setTitle() {
-    if (environment.name !== 'prod') {
+    if (environment.name !== 'prod' && environment.name !== 'outside') {
       this.titleService.setTitle(environment.name + this.titleService.getTitle());
     }
   }
