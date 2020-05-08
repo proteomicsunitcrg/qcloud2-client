@@ -1,0 +1,28 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h4>Link editor</h4>
+        </div>
+    </div>
+    <div class="row z-depth-0">
+        <div class="col s12 m12 l12 xl12">
+            <div class="container">
+                <form [formGroup]="linkForm">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" placeholder="Name">
+
+                    <label>Url</label>
+                    <input type="text" formControlName="url" placeholder="Url">
+                </form>
+
+
+                <div class="row">
+                    <button class="btn waves-effect waves-light" [disabled]="linkForm.invalid"
+                        (click)="update()">Update</button>
+                    <button style="margin-left: 10px" type="button" class="btn amber waves-effect waves-light"
+                        (click)="closeForm()">Go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,6 @@ import { Logo } from '../../models/Logo';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
-import { Message } from '../../models/message';
 
 
 @Component({

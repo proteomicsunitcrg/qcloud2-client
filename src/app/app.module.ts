@@ -36,6 +36,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { ShContextMenuModule } from 'ng2-right-click-menu';
 import { LogoService } from './services/logo.service'
+import { LinkService } from './services/links.service'
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -74,7 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
     ViewService,
     WebsocketService,
     TroubleshootingService,
-    LogoService],
+    LogoService,
+    LinkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

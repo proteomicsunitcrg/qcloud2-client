@@ -88,6 +88,9 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
 import { LogoComponent } from './logo/logo.component';
 import { LogoEditorComponent } from './logo/logo-editor/logo-editor.component';
 import { LogoNewComponent } from './logo/logo-new/logo-new.component';
+import { LinksComponent } from './links/links.component';
+import { LinksEditorComponent } from './links/links-editor/links-editor.component';
+import { LinksBuilderComponent } from './links/links-builder/links-builder.component';
 
 @NgModule({
   imports: [
@@ -179,6 +182,9 @@ import { LogoNewComponent } from './logo/logo-new/logo-new.component';
     LogoComponent,
     LogoEditorComponent,
     LogoNewComponent,
+    LinksComponent,
+    LinksEditorComponent,
+    LinksBuilderComponent,
     // TroubleshootingMainComponent
   ]
 })

@@ -1,0 +1,39 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h4>Links management</h4>
+        </div>
+    </div>
+    <div class="row z-depth-0">
+        <div class="col s12 m12 l12 xl12">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let link of allLinks" class="">
+                        <td>
+                            {{link.name}}
+                        </td>
+                        <td>
+                            <a [href]="link.url" target="_blank">{{link.url}}</a>
+                        </td>
+                        <td class="cursorPointer">
+                            <i class="material-icons cursorIcon" (click)="updateLink(link)">edit</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

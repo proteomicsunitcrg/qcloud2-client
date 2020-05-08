@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpService } from '../../services/help.service';
 import { saveAs } from 'file-saver';
+import { LinkService } from '../../services/links.service';
+import { Link } from '../../models/Link';
 declare var M: any;
 @Component({
   selector: 'app-sidebar',
@@ -9,11 +11,14 @@ declare var M: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private helpService: HelpService) { }
+  constructor(private helpService: HelpService, private linkService: LinkService) { }
+
+  allLinks: Link[];
 
   categories = [];
 
   ngOnInit() {
+    this.getQCrawlerLinks();
 
   }
 
@@ -33,6 +38,15 @@ export class SidebarComponent implements OnInit {
         this.saveFile(response.body, filename);
       }, () => {
       }
+    );
+  }
+
+  private getQCrawlerLinks(): void {
+    this.linkService.getAllLinks().subscribe(
+      res => {
+        this.allLinks = res;
+      },
+      err => console.error(err)
     );
   }
 }

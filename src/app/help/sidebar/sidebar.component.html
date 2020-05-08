@@ -28,14 +28,13 @@
                 <span class="nav-headers">QCrawler</span>
             </a>
             <div class="collapsible-body">
-                <ul>
-                    <li><a class="cursorIcon" href="https://www.dropbox.com/s/9f0gfqlfhymn5d3/QCrawler0191.exe">Download</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li><a class="cursorIcon"
-                            href="https://www.dropbox.com/s/cwlf08ofx7u1z2n/Qcrawler_for%20Qcloud_2.1.pdf">Manual</a></li>
-                </ul>
+                <div *ngFor="let link of allLinks">
+                    <ul>
+                        <li>
+                            <a class="cursorIcon" [href]="link.url" target="_blank">{{link.name}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </li>
         <li (click)="open('menu')">

@@ -28,6 +28,9 @@ import { TroubleshootingRelationComponent } from '../nonconformities/troubleshoo
 import { LogoComponent } from '../logo/logo.component';
 import { LogoEditorComponent } from '../logo/logo-editor/logo-editor.component';
 import { LogoNewComponent } from '../logo/logo-new/logo-new.component';
+import { LinksComponent } from '../links/links.component';
+import { LinksEditorComponent } from '../links/links-editor/links-editor.component';
+import { LinksBuilderComponent } from '../links/links-builder/links-builder.component';
 
 
 const routes: Routes = [
@@ -64,6 +67,9 @@ const routes: Routes = [
       { path: 'logo', component: LogoComponent },
       { path: 'logo/editor/:apiKey', component: LogoEditorComponent },
       { path: 'logo/new', component: LogoNewComponent },
+      { path: 'links', component: LinksComponent },
+      { path: 'links/editor/:apiKey', component: LinksEditorComponent },
+      { path: 'links/new', component: LinksBuilderComponent },
     ]
   },
 ];
