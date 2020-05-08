@@ -14,9 +14,7 @@
 <nav>
   <div class="nav-wrapper">
     <a (click)="goToHomePage()" class="brand-logo clickable" id="qcloudlogoA">
-      <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud.png" *ngIf="!isXmasVar && !isSantJordiVar" />
-      <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud-xmas.png" *ngIf="isXmasVar" />
-      <img class="responsive-img" id="qcloudlogo" src="assets/images/logo-qcloud-rose.png" *ngIf="isSantJordiVar" />
+      <img [src]="enabledLogo.url" [alt]="enabledLogo.name" class="qcloudLogo responsive-img" [title]="enabledLogo.alt">
     </a>
     <a (click)="openMobile()" data-target="mobile-demo" class="sidenav-trigger hide-on-large-only">
       <i class="material-icons">menu</i>

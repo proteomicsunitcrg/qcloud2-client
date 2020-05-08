@@ -7,6 +7,8 @@ import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 declare var M: any;
 import { Subscription } from 'rxjs';
+import { LogoService } from '../../../services/logo.service';
+import { Logo } from '../../../models/Logo';
 
 @Component({
   selector: 'app-top-menu',
@@ -19,20 +21,21 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   userViews: View[] = [];
 
+  enabledLogo = new Logo(null, null, 'assets/images/logo-qcloud.png', 'QCloud default logo', 'QCloud Logo', null);
+
   constructor(private authService: AuthService,
     private systemService: SystemService,
     private viewService: ViewService,
-    private route: Router) { }
+    private route: Router,
+    private logoService: LogoService) { }
 
   isAdmin = false;
   isManager = false;
 
-  isXmasVar = false;
-  isSantJordiVar = false;
-
   newUserView$: Subscription;
 
   ngOnInit() {
+    this.getLogo();
     if (this.authService.checkIfAdmin()) {
       this.isAdmin = true;
     }
@@ -42,8 +45,6 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.loadNodeSystems();
     this.loadUserViews();
     this.subscribeToNewUserView();
-    this.isXmas();
-    this.isSantJordi();
   }
 
   ngOnDestroy() {
@@ -102,29 +103,15 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       );
   }
 
-  public isXmas(): void {
-    const today = Date.parse(new Date().toString());
-    const from = Date.parse('12/15/' + new Date().getFullYear());
-    const to = Date.parse('06/01/' + new Date().getFullYear() + 1);
-    if ((today <= to && today >= from)) {
-      this.isXmasVar = true;
-    } else {
-      this.isXmasVar = false;
-    }
-
-  }
-
-  public isSantJordi() {
-    const today = Date.parse(new Date().toString());
-    const from = Date.parse('22/04/' + new Date().getFullYear());
-    const to = Date.parse('25/04/' + new Date().getFullYear() + 1);
-    if ((today <= to && today >= from)) {
-      console.log('caca');
-      this.isSantJordiVar = true;
-    } else {
-      this.isSantJordiVar = false;
-      console.log('no');
-    }
+  private getLogo(): void {
+    this.logoService.getEnabledLogo().subscribe(
+      res => {
+        this.enabledLogo = res;
+      },
+      err => {
+        console.log('Logo not found');
+      }
+    );
   }
 
 }

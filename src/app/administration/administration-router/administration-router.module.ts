@@ -25,6 +25,10 @@ import { TroubleshootingFormComponent } from '../nonconformities/troubleshooting
 import { TroubleshootingEditorComponent } from '../nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
 // tslint:disable-next-line:max-line-length
 import { TroubleshootingRelationComponent } from '../nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
+import { LogoComponent } from '../logo/logo.component';
+import { LogoEditorComponent } from '../logo/logo-editor/logo-editor.component';
+import { LogoNewComponent } from '../logo/logo-new/logo-new.component';
+
 
 const routes: Routes = [
   {
@@ -57,6 +61,9 @@ const routes: Routes = [
       { path: 'troubleshooting/new', component: TroubleshootingFormComponent },
       { path: 'troubleshooting/editor/:apiKey', component: TroubleshootingEditorComponent },
       { path: 'troubleshooting/relation/:apiKey', component: TroubleshootingRelationComponent },
+      { path: 'logo', component: LogoComponent },
+      { path: 'logo/editor/:apiKey', component: LogoEditorComponent },
+      { path: 'logo/new', component: LogoNewComponent },
     ]
   },
 ];

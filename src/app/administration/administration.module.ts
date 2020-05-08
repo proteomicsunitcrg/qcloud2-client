@@ -85,6 +85,10 @@ import { TroubleshootingItemComponent } from './nonconformities/troubleshooting/
 import { TroubleshootingEditorComponent } from './nonconformities/troubleshooting/troubleshooting-editor/troubleshooting-editor.component';
 // tslint:disable-next-line:max-line-length
 import { TroubleshootingRelationComponent } from './nonconformities/troubleshooting/troubleshooting-relation/troubleshooting-relation.component';
+import { LogoComponent } from './logo/logo.component';
+import { LogoEditorComponent } from './logo/logo-editor/logo-editor.component';
+import { LogoNewComponent } from './logo/logo-new/logo-new.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -94,7 +98,7 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     ReactiveFormsModule,
     SharedModule,
     ViewBuilderModule,
-    SharedModulesModule
+    SharedModulesModule,
   ],
   providers: [CategoryService,
     CvService,
@@ -172,6 +176,9 @@ import { TroubleshootingRelationComponent } from './nonconformities/troubleshoot
     TroubleshootingItemComponent,
     TroubleshootingEditorComponent,
     TroubleshootingRelationComponent,
+    LogoComponent,
+    LogoEditorComponent,
+    LogoNewComponent,
     // TroubleshootingMainComponent
   ]
 })

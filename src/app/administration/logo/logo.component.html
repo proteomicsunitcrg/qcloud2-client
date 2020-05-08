@@ -1,0 +1,67 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h4>Logo management</h4>
+        </div>
+    </div>
+    <div class="row z-depth-0">
+        <div class="col s12 m12 l12 xl12">
+            <a class="btn-floating waves-effect waves-light right" (click)="newLogo()">
+                <i class="material-icons">add</i>
+            </a>
+            <table  class="highlight">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Alt
+                        </th>
+                        <th>
+                            Active
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let logo of allLogos" class="">
+                        <td>
+                            {{logo.name}}
+                        </td>
+                        <td>
+                            <img [src]="logo.url" style="width: 200px;">
+                        </td>
+                        <td>
+                            {{logo.alt}}
+                        </td>
+                        <td>
+                            <div class="switch">
+                                <label>
+                                    Off
+                                    <input type="checkbox" [(ngModel)]="logo.active" (change)="enableDisable(logo, $event)">
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <i class="material-icons cursorIcon" (click)="delete(logo, $event)">delete_forever</i>
+                        </td>
+                        <td>
+                            <i class="material-icons cursorIcon" (click)="updateLogo(logo)">edit</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
