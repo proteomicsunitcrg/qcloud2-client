@@ -2,8 +2,7 @@
   <strong>{{thresholdToEdit.name}}</strong>
 </h6>
 <div class="input-field col s12">
-  <select name="type" id="type" [(ngModel)]="thresholdNew.thresholdType"
-    (ngModelChange)="loadConstraint($event)">
+  <select name="type" id="type" [(ngModel)]="thresholdNew.thresholdType" (ngModelChange)="loadConstraint($event)">
     <option value="" disabled>Choose your option</option>
     <option *ngFor="let thresholdType of thresholdTypes" [ngValue]="thresholdType">{{thresholdType}}</option>
   </select>
@@ -78,7 +77,8 @@
           <ng-template #checkbox>
             <td>
               <label>
-                <input type="checkbox" [checked]="thresholdParam.isEnabled" (change)="selectOrUnselect(thresholdParam)"/>
+                <input type="checkbox" [checked]="thresholdParam.isEnabled"
+                  (change)="selectOrUnselect(thresholdParam)" />
                 <span>{{thresholdParam.contextSource.name}}</span>
               </label>
             </td>
@@ -86,7 +86,7 @@
           <ng-template #radio>
             <td>
               <label>
-                <input type="radio"name="radio-contextsource" />
+                <input type="radio" name="radio-contextsource" />
                 <span>{{thresholdParam.contextSource.name}}</span>
               </label>
             </td>

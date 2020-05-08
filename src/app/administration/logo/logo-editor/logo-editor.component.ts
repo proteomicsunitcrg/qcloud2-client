@@ -14,7 +14,12 @@ declare var M;
 })
 export class LogoEditorComponent implements OnInit {
 
-  constructor(private logoService: LogoService, private toast: ToastrService, private router: Router, private activeRouter: ActivatedRoute) { }
+  constructor(
+    private logoService: LogoService,
+    private toast: ToastrService,
+    private router: Router,
+    private activeRouter: ActivatedRoute
+  ) { }
   logo: Logo;
   logoForm = new FormGroup({
     name: new FormControl('', [
@@ -36,23 +41,24 @@ export class LogoEditorComponent implements OnInit {
         if (params.apiKey !== null && params.apiKey !== undefined) {
           this.retrieveInfo(params.apiKey);
         } else {
-          this.router.navigate(['/application/administration/logo'])
+          this.router.navigate(['/application/administration/logo']);
         }
       }
     );
-    M.AutoInit()
+    M.AutoInit();
   }
 
   public update(): void {
-    this.logoService.updateLogo(new Logo(this.logo.id, this.logo.apiKey, this.logoForm.value.url, this.logoForm.value.alt, this.logoForm.value.name, this.logo.active)).subscribe(
-      res => {
-        this.toast.success('Logo updated', 'Success!', TOASTSETTING);
-      },
-      err => {
-        console.error(err);
-        this.toast.error(err.error.error, 'Error!', TOASTSETTINGLONG);
-      }
-    );
+    this.logoService.updateLogo(new Logo(this.logo.id, this.logo.apiKey, this.logoForm.value.url, this.logoForm.value.alt,
+      this.logoForm.value.name, this.logo.active)).subscribe(
+        res => {
+          this.toast.success('Logo updated', 'Success!', TOASTSETTING);
+        },
+        err => {
+          console.error(err);
+          this.toast.error(err.error.error, 'Error!', TOASTSETTINGLONG);
+        }
+      );
   }
 
   private retrieveInfo(apiKey: String): void {
@@ -66,11 +72,11 @@ export class LogoEditorComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   public closeForm(): void {
-    this.router.navigate(['/application/administration/logo',]);
+    this.router.navigate(['/application/administration/logo', ]);
   }
 
 }

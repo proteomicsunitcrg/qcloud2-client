@@ -14,7 +14,7 @@ export class LinksComponent implements OnInit {
 
   constructor(private linkService: LinkService, private router: Router, private toast: ToastrService) { }
 
-  allLinks: Link[]
+  allLinks: Link[];
 
   ngOnInit() {
     this.getAllLinks();
@@ -30,7 +30,7 @@ export class LinksComponent implements OnInit {
   }
 
   public updateLink(link: Link): void {
-    this.router.navigate(['/application/administration/links/editor', link.apiKey])
+    this.router.navigate(['/application/administration/links/editor', link.apiKey]);
   }
 
 }

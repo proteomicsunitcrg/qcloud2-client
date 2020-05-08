@@ -13,7 +13,7 @@ export class AnnotationSelectorSubMenuComponent implements OnInit {
 
   @Input() items: any[];
   @ViewChild('buildMenu', { static: true }) public buildMenu;
-  
+
   @Output() closeMenuEvent = new EventEmitter<boolean>();
 
   constructor(private troubleService: TroubleshootingService) { }

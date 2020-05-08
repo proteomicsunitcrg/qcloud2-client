@@ -344,8 +344,8 @@ export class PlotComponent implements OnInit, OnDestroy {
               mode = 'markers';
             } else {
               text.
-              // tslint:disable-next-line:max-line-length
-              push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
+                // tslint:disable-next-line:max-line-length
+                push(`${plotTracePoint.value}<br>${plotTracePoint.file.creationDate}<br>${truncateString(plotTracePoint.file.filename, 50)}`);
             }
             checksums.push(plotTracePoint.file.checksum);
           }
@@ -485,8 +485,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private subscribeToWebSocketDeleteAnnotations(): void {
     this.deleteAnnotationFromWebSocket$ = this.webSocketService.deleteAnnotationFromWebSocket$
-    .subscribe(
-      (annotation) => {
+      .subscribe(
+        (annotation) => {
           this.drawAnnotations();
           if (this.serverData.length > 0) {
             const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body);
@@ -501,8 +501,8 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private subscribeToWebSocketUpdateAnnotations(): void {
     this.updateAnnotationFromWebSocket$ = this.webSocketService.updateAnnotationFromWebSocket$
-    .subscribe(
-      (annotation) => {
+      .subscribe(
+        (annotation) => {
           if (this.serverData.length > 0 && this.system.apiKey === annotation.body.labSystem.apiKey) {
             const annotationIndex = this.annotations.findIndex(a => a.apiKey === annotation.body.apiKey);
             if (annotationIndex !== -1) {
@@ -566,7 +566,7 @@ export class PlotComponent implements OnInit, OnDestroy {
       shapes: shapesUpdate,
       annotations: annotations
     };
-    
+
     Plotly.relayout('plot' + this.randString, layoutUpdate);
   }
   private drawAnnotations(): void {
@@ -575,8 +575,8 @@ export class PlotComponent implements OnInit, OnDestroy {
     }
     const lines = [];
     const annotations = [];
-    let onlyThresholdsShapes = this.thresholdShapes.filter(ele =>
-      ele.type != 'line'
+    const onlyThresholdsShapes = this.thresholdShapes.filter(ele =>
+      ele.type !== 'line'
     );
     Plotly.relayout('plot' + this.randString, {
       ...this.layout,
@@ -625,7 +625,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
       });
     this.layout.shapes = [];
-    this.layout.shapes =  onlyThresholdsShapes;
+    this.layout.shapes = onlyThresholdsShapes;
     const shapesUpdate = this.layout.shapes;
     lines.forEach(l => {
       shapesUpdate.push(l);

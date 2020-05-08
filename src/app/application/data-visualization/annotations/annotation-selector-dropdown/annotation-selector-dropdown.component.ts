@@ -37,7 +37,7 @@ export class AnnotationSelectorDropdownComponent implements OnInit {
     this.clickHoverMenuTrigger.closeMenu();
     this.troubleService.sendItemsToList(trouble);
   }
-  
+
   public handleEventCloseMenu(event: boolean): void {
     this.clickHoverMenuTrigger.closeMenu();
   }

@@ -35,8 +35,8 @@ import { TroubleshootingService } from './services/troubleshooting.service';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { ShContextMenuModule } from 'ng2-right-click-menu';
-import { LogoService } from './services/logo.service'
-import { LinkService } from './services/links.service'
+import { LogoService } from './services/logo.service';
+import { LinkService } from './services/links.service';
 
 import { ToastrModule } from 'ngx-toastr';
 

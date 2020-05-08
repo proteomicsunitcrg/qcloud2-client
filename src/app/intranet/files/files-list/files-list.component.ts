@@ -113,14 +113,14 @@ export class FilesListComponent implements OnInit {
                   file.labSystem.nodeApiKey = res.node.apiKey;
                 },
                 err => {
-                  console.error(err)                  
+                  console.error(err);
                 }
               );
           }
         }
-          this.collection.data = pageFile.content;
-          this.collection.count = pageFile.totalElements;
-          this.config.totalItems = pageFile.totalElements;
+        this.collection.data = pageFile.content;
+        this.collection.count = pageFile.totalElements;
+        this.config.totalItems = pageFile.totalElements;
       },
       err => {
         console.error(err);

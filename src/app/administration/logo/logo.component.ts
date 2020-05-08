@@ -15,7 +15,7 @@ export class LogoComponent implements OnInit {
 
   constructor(private logoService: LogoService, private router: Router, private toast: ToastrService) { }
 
-  allLogos: Logo[]
+  allLogos: Logo[];
 
   ngOnInit() {
     this.getAllLogos();
@@ -39,12 +39,12 @@ export class LogoComponent implements OnInit {
     this.logoService.enableDisable(logo).subscribe(
       res => {
         this.toast.success('Logo updated', 'Success!', TOASTSETTING);
-        this.getAllLogos()
+        this.getAllLogos();
       },
       err => {
         this.toast.error(err.error.message, err.error.error, TOASTSETTINGLONG);
         console.error(err);
-        this.getAllLogos()
+        this.getAllLogos();
       },
     );
   }
@@ -59,13 +59,13 @@ export class LogoComponent implements OnInit {
       err => {
         this.toast.error(err.error.message, err.error.error, TOASTSETTINGLONG);
         console.error(err);
-        this.getAllLogos()
+        this.getAllLogos();
       }
     );
   }
 
   public updateLogo(logo: Logo): void {
-    this.router.navigate(['/application/administration/logo/editor', logo.apiKey])
+    this.router.navigate(['/application/administration/logo/editor', logo.apiKey]);
   }
 
 }

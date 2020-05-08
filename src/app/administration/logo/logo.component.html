@@ -9,7 +9,7 @@
             <a class="btn-floating waves-effect waves-light right" (click)="newLogo()">
                 <i class="material-icons">add</i>
             </a>
-            <table  class="highlight">
+            <table class="highlight">
                 <thead>
                     <tr>
                         <th>
@@ -47,7 +47,8 @@
                             <div class="switch">
                                 <label>
                                     Off
-                                    <input type="checkbox" [(ngModel)]="logo.active" (change)="enableDisable(logo, $event)">
+                                    <input type="checkbox" [(ngModel)]="logo.active"
+                                        (change)="enableDisable(logo, $event)">
                                     <span class="lever"></span>
                                     On
                                 </label>

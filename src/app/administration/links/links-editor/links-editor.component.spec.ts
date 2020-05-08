@@ -8,9 +8,9 @@ describe('LinksEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinksEditorComponent ]
+      declarations: [LinksEditorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

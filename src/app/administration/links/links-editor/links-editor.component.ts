@@ -13,7 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LinksEditorComponent implements OnInit {
 
-  constructor(private linkService: LinkService, private toast: ToastrService, private router: Router, private activeRouter: ActivatedRoute) { }
+  constructor(
+    private linkService: LinkService,
+    private toast: ToastrService,
+    private router: Router,
+    private activeRouter: ActivatedRoute
+  ) { }
   link: Link;
 
   linkForm = new FormGroup({
@@ -33,7 +38,7 @@ export class LinksEditorComponent implements OnInit {
         if (params.apiKey !== null && params.apiKey !== undefined) {
           this.retrieveInfo(params.apiKey);
         } else {
-          this.router.navigate(['/application/administration/links'])
+          this.router.navigate(['/application/administration/links']);
         }
       }
     );
@@ -49,11 +54,11 @@ export class LinksEditorComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   public update(): void {
-    this.linkService.updateLink(new Link(this.link.id, this.link.apiKey, this.linkForm.value.url,  this.linkForm.value.name)).subscribe(
+    this.linkService.updateLink(new Link(this.link.id, this.link.apiKey, this.linkForm.value.url, this.linkForm.value.name)).subscribe(
       res => {
         this.toast.success('Link updated', 'Success!', TOASTSETTING);
       },
@@ -65,7 +70,7 @@ export class LinksEditorComponent implements OnInit {
   }
 
   public closeForm(): void {
-    this.router.navigate(['/application/administration/links',]);
+    this.router.navigate(['/application/administration/links', ]);
   }
 
 }

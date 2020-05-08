@@ -31,23 +31,24 @@ export class LogoNewComponent implements OnInit {
   });
 
   ngOnInit() {
-    M.AutoInit()
+    M.AutoInit();
   }
 
   public save(): void {
-    this.logoService.saveLogo(new Logo(null, null, this.logoForm.value.url, this.logoForm.value.alt, this.logoForm.value.name, false)).subscribe(
-      res => {
-        this.toast.success('New logo added', 'Success!', TOASTSETTING);
-      },
-      err => {
-        console.error(err);
-        this.toast.error(err.error.error, 'Error!', TOASTSETTINGLONG);
-      }
-    );
+    this.logoService.saveLogo(new Logo(null, null, this.logoForm.value.url, this.logoForm.value.alt, this.logoForm.value.name, false))
+      .subscribe(
+        res => {
+          this.toast.success('New logo added', 'Success!', TOASTSETTING);
+        },
+        err => {
+          console.error(err);
+          this.toast.error(err.error.error, 'Error!', TOASTSETTINGLONG);
+        }
+      );
   }
 
   public closeForm(): void {
-    this.router.navigate(['/application/administration/logo',]);
+    this.router.navigate(['/application/administration/logo', ]);
   }
 
 }

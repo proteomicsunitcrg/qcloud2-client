@@ -44,7 +44,7 @@ export class LogoService {
 
   public enableDisable(logo: Logo): Observable<Logo> {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
-    return this.httpClient.patch<Logo>(`${this.logoUrl}/enableDisable`, JSON.stringify(logo), {headers: headers});
+    return this.httpClient.patch<Logo>(`${this.logoUrl}/enableDisable`, JSON.stringify(logo), { headers: headers });
   }
 
   public deleteLogo(logo: Logo): Observable<Logo> {
