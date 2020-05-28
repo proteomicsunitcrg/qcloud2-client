@@ -21,7 +21,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   userViews: View[] = [];
 
-  enabledLogo = new Logo(null, null, 'assets/images/logo-qcloud.png', 'QCloud default logo', 'QCloud Logo', null);
+  enabledLogo = new Logo(null, null, 'assets/images/logo-qcloud.png', 'QCloud logo', 'QCloud Logo', null);
 
   constructor(private authService: AuthService,
     private systemService: SystemService,

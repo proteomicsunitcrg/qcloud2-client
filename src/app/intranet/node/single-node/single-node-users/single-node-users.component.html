@@ -18,6 +18,9 @@
             Api Key
         </th>
         <th>
+            QCrawler last login
+        </th>
+        <th>
             Enabled
         </th>
         <th>
@@ -30,10 +33,10 @@
     <tbody>
         <tr *ngFor="let user of users">
             <td>
-                <img src="assets/icons/god.svg" alt="Admin" style="width: 25%;" *ngIf="user.authorities.length === 3">
-                <img src="assets/icons/ruby.svg" alt="Manager" style="width: 25%;"
+                <img src="assets/icons/god.svg" alt="Admin" style="width: 40px;" *ngIf="user.authorities.length === 3">
+                <img src="assets/icons/ruby.svg" alt="Manager" style="width: 40px;"
                     *ngIf="user.authorities.length === 2">
-                <img src="assets/icons/coal.svg" alt="" style="width: 25%;" *ngIf="user.authorities.length === 1">
+                <img src="assets/icons/coal.svg" alt="" style="width: 40px;" *ngIf="user.authorities.length === 1">
             </td>
             <td>
                 {{user.username}}
@@ -46,6 +49,9 @@
             </td>
             <td>
                 {{user.apiKey}}
+            </td>
+            <td>
+                {{user.lastQcrawlerLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
             </td>
             <td class="isLink cursorIcon" (click)="enableDisableUser(user.apiKey)">
                 {{user.enabled}}
