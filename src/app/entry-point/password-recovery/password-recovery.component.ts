@@ -18,7 +18,7 @@ export class PasswordRecoveryComponent implements OnInit, OnDestroy {
     private passwordResetService: PasswordResetService,
     private modalService: ModalService) { }
 
-  user = new User(null, null, null, null, null, null, null, null, null);
+  user = new User(null, null, null, null, null, null, null, null, null, null);
 
   isTokenPresent = false;
 

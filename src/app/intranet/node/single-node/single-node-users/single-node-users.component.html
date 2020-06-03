@@ -18,6 +18,9 @@
             Api Key
         </th>
         <th>
+            QCloud last login
+        </th>
+        <th>
             QCrawler last login
         </th>
         <th>
@@ -52,6 +55,9 @@
             </td>
             <td>
                 {{user.lastQcrawlerLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
+            </td>
+            <td>
+                {{user.lastQCloudLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
             </td>
             <td class="isLink cursorIcon" (click)="enableDisableUser(user.apiKey)">
                 {{user.enabled}}

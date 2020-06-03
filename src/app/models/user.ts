@@ -12,9 +12,10 @@ export class User {
     enabled: boolean;
     spam: boolean;
     lastQcrawlerLoginDate: string;
+    lastQCloudLoginDate: string;
 
     constructor(apikey: string, username: string, password: string, firstname: string,
-        lastname: string, email: string, enabled: boolean, spam: boolean, lastQcrawlerLoginDate: string) {
+        lastname: string, email: string, enabled: boolean, spam: boolean, lastQcrawlerLoginDate: string, lastQCloudLoginDate: string) {
         this.apiKey = apikey;
         this.username = username;
         this.password = password;
@@ -24,5 +25,6 @@ export class User {
         this.enabled = enabled;
         this.spam = spam;
         this.lastQcrawlerLoginDate = lastQcrawlerLoginDate;
+        this.lastQCloudLoginDate = lastQCloudLoginDate;
     }
 }
