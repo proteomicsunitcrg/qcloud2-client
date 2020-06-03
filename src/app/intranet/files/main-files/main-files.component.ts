@@ -12,13 +12,23 @@ export class MainFilesComponent implements OnInit {
 
   pipelineOk: boolean;
 
+  apiOK: boolean;
+
   ngOnInit() {
     this.getPipelineStatus();
+    this.getAPIStatus();
   }
 
   private getPipelineStatus(): void {
     this.fileService.getPipelineStatus().subscribe(
       res => this.pipelineOk = res,
+      err => console.error(err)
+    );
+  }
+
+  private getAPIStatus(): void {
+    this.fileService.getAPIStatus().subscribe(
+      res => this.apiOK = res,
       err => console.error(err)
     );
   }

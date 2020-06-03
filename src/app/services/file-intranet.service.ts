@@ -83,6 +83,10 @@ export class FileIntranetService {
     return this.httpClient.get<boolean>(`${this.fileURL}/pipelineStatus`);
   }
 
+  public getAPIStatus(): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.fileURL}/checkAPI`);
+  }
+
   // public trySocket(): Observable<boolean> {
   //   return this.httpClient.get<boolean>(this.fileURL + '/socketTry');
   // }
