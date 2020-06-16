@@ -54,10 +54,10 @@
                 {{user.apiKey}}
             </td>
             <td>
-                {{user.lastQcrawlerLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
+                {{user.lastQCloudLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
             </td>
             <td>
-                {{user.lastQCloudLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
+                {{user.lastQcrawlerLoginDate | date: 'yyyy-MM-dd HH:mm:ss.SSS GGGG'}}
             </td>
             <td class="isLink cursorIcon" (click)="enableDisableUser(user.apiKey)">
                 {{user.enabled}}
