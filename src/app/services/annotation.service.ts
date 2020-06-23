@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, from } from 'rxjs';
 import { Annotation } from '../models/annotation';
@@ -50,6 +50,15 @@ export class AnnotationService {
   public updateAnnotation(annotation: Annotation): Observable<Annotation> {
     const json = JSON.stringify(annotation);
     return this.httpClient.put<Annotation>(this.annotationUrl + '/' + annotation.apiKey, json, { headers: this.headers });
+  }
+
+  public getPage(pageToRequest: number, numberOfElements: number, selectedLsApiKey: string, startDate: any, endDate: any): Observable<any>{
+    let params = new HttpParams();
+    params = params.set('page', pageToRequest.toString()).set('size', numberOfElements.toString()); // paginator options
+    params = params.set('lsApiKey', selectedLsApiKey);
+    params = params.set('startDate', startDate);
+    params = params.set('endDate', endDate);
+    return this.httpClient.get<any>(`${this.annotationUrl}/getPage`, {params: params});
   }
 
 }

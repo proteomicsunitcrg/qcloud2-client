@@ -12,6 +12,8 @@ import { ThresholdNonConformityService } from '../services/threshold-non-conform
 // tslint:disable-next-line:max-line-length
 import { NonConformitiesInformationComponent } from './non-conformities/non-conformities-information/non-conformities-information.component';
 import { PlotsModule } from '../plots/plots.module';
+import { AnnotationsMainComponent } from './annotations/annotations-main/annotations-main.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -20,14 +22,16 @@ import { PlotsModule } from '../plots/plots.module';
     StatisticsRouterModule,
     RouterModule,
     FormsModule,
-    PlotsModule
+    PlotsModule,
+    NgxPaginationModule
   ],
   declarations: [MainComponent,
     SideMenuComponent,
     MainNonConformitiesComponent,
     NonConformitiesSelectorComponent,
     NonConformitiesListComponent,
-    NonConformitiesInformationComponent],
+    NonConformitiesInformationComponent,
+    AnnotationsMainComponent],
   providers: [ThresholdNonConformityService]
 })
 export class StatisticsModule { }

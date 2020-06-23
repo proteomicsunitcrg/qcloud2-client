@@ -1,0 +1,75 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+    <div class="row z-depth-0 green-background  ">
+        <div class="col s12 m12 l12 xl12">
+            <h4>Annotations</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            <select name="lsName" [(ngModel)]="selectedLs">
+                <option *ngFor="let system of allLs" [value]="system.apiKey">{{system.name}}</option>
+            </select>
+            <label>LabSystem</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            <span style="color: #9E9E9E; font-size: .8rem;">Start date</span>
+            <input id="startDate" type="text" class="datepicker" [(ngModel)]="startDate">
+        </div>
+        <div class="input-field col s2">
+            <span style="color: #9E9E9E; font-size: .8rem;">End date</span>
+            <input  id="endDate" type="text" class="datepicker" [(ngModel)]="endDate">
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn" (click)="getPage()" style="margin-left: 10px;">Find</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Annotation Date
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Labsystem
+                </th>
+                <th>
+                    Troubleshootings
+                </th>
+                <th>
+                    Additional information
+                </th>
+                <th>
+                    Created by
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let annot of collection.data  | paginate: config">
+                <td>
+                    {{annot.annotationDate | date: 'yyyy-MM-dd HH:mm:ss'}}
+                </td>
+                <td>
+                    {{annot.date | date: 'yyyy-MM-dd HH:mm:ss'}}
+                </td>
+                <td>
+                    {{annot.labSystem.name}}
+                </td>
+                <td>
+                    <a *ngFor="let trouble of annot.troubleshootings" style="color: black;">{{trouble.name}}<br></a>
+                </td>
+                <td>
+                    {{annot.description}}
+                </td>
+                <td>
+                    {{annot.user.username}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
