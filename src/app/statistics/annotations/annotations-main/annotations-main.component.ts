@@ -18,6 +18,12 @@ export class AnnotationsMainComponent implements OnInit {
     this.getUserLs();
   }
 
+  tooltipOptions = {
+    display: true,
+    placement: 'top',
+    'content-type': 'html'
+  };
+
   allLs: System[] = [];
 
   selectedLs = null;

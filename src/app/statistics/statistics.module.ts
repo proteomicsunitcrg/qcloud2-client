@@ -14,6 +14,8 @@ import { NonConformitiesInformationComponent } from './non-conformities/non-conf
 import { PlotsModule } from '../plots/plots.module';
 import { AnnotationsMainComponent } from './annotations/annotations-main/annotations-main.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TooltipModule } from 'ng2-tooltip-directive';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule,
     FormsModule,
     PlotsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TooltipModule
   ],
   declarations: [MainComponent,
     SideMenuComponent,

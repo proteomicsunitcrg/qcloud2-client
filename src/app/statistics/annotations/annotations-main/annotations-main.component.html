@@ -15,11 +15,11 @@
     <div class="row">
         <div class="input-field col s2">
             <span style="color: #9E9E9E; font-size: .8rem;">Start date</span>
-            <input id="startDate" type="text" class="datepicker" [(ngModel)]="startDate">
+            <input id="endDate" type="text" class="datepicker" [(ngModel)]="endDate">
         </div>
         <div class="input-field col s2">
             <span style="color: #9E9E9E; font-size: .8rem;">End date</span>
-            <input  id="endDate" type="text" class="datepicker" [(ngModel)]="endDate">
+            <input id="startDate" type="text" class="datepicker" [(ngModel)]="startDate">
         </div>
     </div>
     <div class="row">
@@ -29,10 +29,16 @@
         <thead>
             <tr>
                 <th>
-                    Annotation Date
+                    Creation Date
+                    <span class="material-icons" [options]="tooltipOptions" tooltip="Date the annotation was created">
+                        help
+                    </span>
                 </th>
                 <th>
-                    Date
+                    Annotation Date
+                    <span class="material-icons" [options]="tooltipOptions" tooltip="File date">
+                        help
+                    </span>
                 </th>
                 <th>
                     Labsystem
