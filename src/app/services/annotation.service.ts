@@ -52,12 +52,13 @@ export class AnnotationService {
     return this.httpClient.put<Annotation>(this.annotationUrl + '/' + annotation.apiKey, json, { headers: this.headers });
   }
 
-  public getPage(pageToRequest: number, numberOfElements: number, selectedLsApiKey: string, startDate: any, endDate: any): Observable<any>{
+  public getPage(pageToRequest: number, numberOfElements: number, selectedLsApiKey: string, startDate: any, endDate: any, troubleshootingName: string): Observable<any>{
     let params = new HttpParams();
     params = params.set('page', pageToRequest.toString()).set('size', numberOfElements.toString()); // paginator options
     params = params.set('lsApiKey', selectedLsApiKey);
     params = params.set('startDate', startDate);
     params = params.set('endDate', endDate);
+    params = params.set('troubleshootingName', troubleshootingName);
     return this.httpClient.get<any>(`${this.annotationUrl}/getPage`, {params: params});
   }
 

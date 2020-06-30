@@ -140,6 +140,7 @@ export class WebsocketService {
         Authorization: localStorage.getItem('id_token')
       };
       stompClient.connect(headers, (frame) => {
+        console.log('connected');
         _this.connectionAttemps = 0;
         stompClient.subscribe('/user/queue/reply', function (greeting) {
           const response = JSON.parse(greeting.body);

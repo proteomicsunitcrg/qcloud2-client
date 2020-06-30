@@ -32,6 +32,8 @@ export class AnnotationsMainComponent implements OnInit {
 
   endDate;
 
+  troubleText: string = '';
+
   collection = { count: 0, data: [] };
 
   config = {
@@ -40,7 +42,7 @@ export class AnnotationsMainComponent implements OnInit {
     totalItems: 0
   };
 
-  private getPage(): void {
+  public getPage(): void {
     this.startDate = document.getElementById("startDate")['value'];
     this.endDate = document.getElementById("endDate")['value'];
     let dateToSendStart = this.startDate;
@@ -56,7 +58,7 @@ export class AnnotationsMainComponent implements OnInit {
       dateToSendEnd = new Date(dateToSendEnd).toISOString();
     }
 
-    this.annotationService.getPage(this.config.currentPage - 1, 10, this.selectedLs, dateToSendStart,dateToSendEnd).subscribe(
+    this.annotationService.getPage(this.config.currentPage - 1, 10, this.selectedLs, dateToSendStart, dateToSendEnd, this.troubleText).subscribe(
       res => {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
