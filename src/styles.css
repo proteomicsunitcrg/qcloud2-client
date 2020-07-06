@@ -16,7 +16,6 @@
 }
 .collapsible-header span {
     color: black !important;
-    
 }
 button[type="submit"] {
     background-color: #a7d7c5;
@@ -52,3 +51,7 @@ button[type="button"] {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.tabs .indicator {
+    background-color: #a7d7c5 !important;
+}
