@@ -33,16 +33,10 @@
         <thead>
             <tr>
                 <th>
-                    Creation Date
-                    <span class="material-icons" [options]="tooltipOptions" tooltip="Date the annotation was created">
+                    File insert date
+                    <!-- <span class="material-icons" [options]="tooltipOptions" tooltip="File date">
                         help
-                    </span>
-                </th>
-                <th>
-                    Annotation Date
-                    <span class="material-icons" [options]="tooltipOptions" tooltip="File date">
-                        help
-                    </span>
+                    </span> -->
                 </th>
                 <th>
                     Labsystem
@@ -60,9 +54,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let annot of collection.data  | paginate: config">
-                <td>
-                    {{annot.annotationDate | date: 'yyyy-MM-dd HH:mm:ss'}}
-                </td>
                 <td>
                     {{annot.date | date: 'yyyy-MM-dd HH:mm:ss'}}
                 </td>
