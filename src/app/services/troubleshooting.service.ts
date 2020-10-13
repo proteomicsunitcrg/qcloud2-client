@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Troubleshooting } from '../models/troubleshooting';
 import { TroubleshootingType } from '../models/troubleshootingType';
 import { ItemList } from '../models/itemList';
+import { System } from '../models/system';
 
 @Injectable()
 export class TroubleshootingService {
@@ -70,6 +71,10 @@ export class TroubleshootingService {
     const json = JSON.stringify(child);
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     return this.httpClient.post<Troubleshooting>(`${this.troubleshootingUrl}linkChild/${parentApiKey}`, json, { headers: headers });
+  }
+
+  public getForParetto(labsystemApiKey: System): Observable<any> {
+    return  this.httpClient.get<any>(`${this.troubleshootingUrl}paretto/${labsystemApiKey}`);
   }
 
 }

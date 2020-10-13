@@ -15,6 +15,7 @@ import { PlotsModule } from '../plots/plots.module';
 import { AnnotationsMainComponent } from './annotations/annotations-main/annotations-main.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { ParettoComponent } from './paretto/paretto.component';
 
 
 
@@ -34,7 +35,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     NonConformitiesSelectorComponent,
     NonConformitiesListComponent,
     NonConformitiesInformationComponent,
-    AnnotationsMainComponent],
+    AnnotationsMainComponent,
+    ParettoComponent],
   providers: [ThresholdNonConformityService]
 })
 export class StatisticsModule { }
