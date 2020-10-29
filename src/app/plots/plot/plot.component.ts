@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import * as Plotly from 'plotly.js/dist/plotly';
+import * as moment from 'moment';
 import { delay } from 'q';
 import { Subscription } from 'rxjs';
 import { Annotation } from '../../models/annotation';
@@ -21,7 +22,10 @@ import * as traceColor from './traceColors';
 import { ClipboardService } from 'ngx-clipboard';
 import { GeneralAnnotation } from '../../models/GeneralAnnotation';
 import { GeneralAnnotationService } from '../../services/general-annotation-service';
-
+import { ActivatedRoute } from '@angular/router';
+import { FileService } from '../../services/file.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
 
 @Component({
   selector: 'app-plot',
@@ -37,7 +41,12 @@ export class PlotComponent implements OnInit, OnDestroy {
     private webSocketService: WebsocketService,
     private annotationService: AnnotationService,
     private clipboardService: ClipboardService,
-    private generalAnnotationService: GeneralAnnotationService) { }
+    private generalAnnotationService: GeneralAnnotationService,
+    private activatedRoute: ActivatedRoute,
+    private fileService: FileService,
+    private toast: ToastrService) {
+
+    }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -106,12 +115,34 @@ export class PlotComponent implements OnInit, OnDestroy {
     this.subscribeHideAnnotations();
     this.loadHideAnnotations();
     this.error = false;
-    this.loadCurrentDates();
+    this.activatedRoute.queryParams.subscribe(params => {
+      let checksum = params['checksum'];
+      if (checksum === undefined) {
+        this.loadCurrentDates();
+        if (this.chart != null) {
+          this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+          this.loadData();
+        }
+      } else {
+        if (this.chart != null) {
+          this.fileService.getFileByChecksum(checksum).subscribe(
+            res => {
+              const from = moment(res.creationDate).add(5, 'days').format('YYYY-MM-DD');
+              const to = moment(res.creationDate).subtract(5, 'days').format('YYYY-MM-DD');
+              this.dataService.selectDates([to, from]);
+              this.loadData();
+            },
+            err => {
+              this.toast.error('Unable to load the selected file', 'Error', TOASTSETTING);
+              console.log(err);
+            }
+          );
+          this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+          this.loadData();
+        }
+      }
+  });
     this.subscribeToDateChanges();
-    if (this.chart != null) {
-      this.randString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      this.loadData();
-    }
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
   }

@@ -54,6 +54,8 @@ export class DataService {
   }
 
   public getPlotTraceData(chart: Chart, system: System): Observable<PlotTrace[]> {
+    console.log(this.currentDates);
+
     return this.httpClient.get<PlotTrace[]>(this.dataUrl + '/traces/' +
       this.currentDates[0] + 'T00:00:00.000+02:00/' +
       this.currentDates[1] + 'T23:59:59.000+02:00/' +
