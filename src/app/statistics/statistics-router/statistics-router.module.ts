@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'nonconformities', component: MainNonConformitiesComponent },
       { path: 'annotations', component: AnnotationsMainComponent },
-      { path: 'paretto', component: ParettoComponent}
+      { path: 'pareto', component: ParettoComponent}
 
     ]
   },

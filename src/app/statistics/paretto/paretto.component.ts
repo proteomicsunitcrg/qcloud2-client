@@ -40,25 +40,38 @@ export class ParettoComponent implements OnInit {
   }
 
   public changeLs(event): void {
+    // Plotly.deleteTraces('plot1', 0);
+    // Plotly.deleteTraces('plot2', 0);
     this.serverData = [];
-    this.trService.getForParetto(this.selectedLs).subscribe(
+    this.trService.getForParetto(this.selectedLs, 'PROBLEM').subscribe(
       res => {
         this.serverData = res;
-        this.loadPlot();
+        this.loadPlot('plot1', 'problems');
         console.log(res);
       },
       err => {
         console.error(err);
       }
-    )
+    );
+    this.trService.getForParetto(this.selectedLs, 'ACTION').subscribe(
+      res => {
+        this.serverData = res;
+        this.loadPlot('plot2', 'actions');
+        console.log(res);
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 
-  private loadPlot() {
+  private loadPlot(plotDiv: string, type: string) {
     let trace1 = {
       name: 'Problems',
       type: 'bar',
       x: this.serverData.map(element => element.troubleShootingName),
       y: this.serverData.map(element => element.value),
+      yaxis: 'y1'
     };
     let trace2 = {
       name: 'Cumulative',
@@ -68,11 +81,12 @@ export class ParettoComponent implements OnInit {
       x: this.serverData.map(element => element.troubleShootingName),
       y: this.serverData.map(element => element.cumulative),
       autobinx: true,
-      autobiny: true
+      autobiny: true,
+      yaxis: 'y2'
     }
     let data = [trace1, trace2];
     let layout = {
-      title: 'Common problems',
+      title: `Common ${type}`,
       shapes: [],
       // colorway: traceColor.colorRange,
       hovermode: 'closest',
@@ -81,11 +95,43 @@ export class ParettoComponent implements OnInit {
       },
       yaxis: {
         type: 'linear',
+        ticks: '',
+        mirror: false,
+        nticks: 0,
+        ticklen: 6,
+        showgrid: true,
+
+        tickmode: 'auto',
+
+        autorange: true,
+        // gridcolor: '#add8e6',
+        // gridwidth: 1,
+        rangemode: 'normal',
+        tickangle: 'auto',
+        tickcolor: 'rgba(0, 0, 0, 0)',
+        ticksuffix: '',
+        showexponent: 'all',
+        zerolinecolor: '#444',
+        zerolinewidth: 1,
+        exponentformat: 'B',
+        showticklabels: true
+      },
+      yaxis2: {
+        side: 'right',
+        type: 'linear',
+        anchor: 'x',
+
+        autorange: true,
+        // gridcolor: 'blue',
+        // gridwidth: 1,
+        overlaying: 'y',
+        ticksuffix: '%',
+        showticklabels: true
       },
 
-      currentDiv: 'plot'
+      currentDiv: plotDiv
     };
-    Plotly.plot('plot', {
+    Plotly.newPlot(plotDiv, {
       data: data,
       layout: layout
     });
