@@ -1,15 +1,7 @@
 <div class="col s12 m10 l10 xl10 z-depth-2">
     <div class="row z-depth-0 green-background  ">
         <div class="col s12 m12 l12 xl12">
-            <h4>Annotations</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s2">
-            <select name="lsName" [(ngModel)]="selectedLs" (change)="changeLs($event)">
-                <option *ngFor="let system of allLs" [value]="system.apiKey">{{system.name}}</option>
-            </select>
-            <label>LabSystem</label>
+            <h4>Common problems and solutions</h4>
         </div>
     </div>
     <div class="row">

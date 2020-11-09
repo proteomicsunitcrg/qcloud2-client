@@ -73,7 +73,7 @@ export class TroubleshootingService {
     return this.httpClient.post<Troubleshooting>(`${this.troubleshootingUrl}linkChild/${parentApiKey}`, json, { headers: headers });
   }
 
-  public getForParetto(labsystemApiKey: System, type: string): Observable<any> {
+  public getForParetto(labsystemApiKey: string, type: string): Observable<any> {
     return  this.httpClient.get<any>(`${this.troubleshootingUrl}paretto/${labsystemApiKey}/${type}`);
   }
 

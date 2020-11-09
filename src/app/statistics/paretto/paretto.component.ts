@@ -4,6 +4,7 @@ import { System } from '../../models/system';
 declare var M: any;
 import * as Plotly from 'plotly.js/dist/plotly';
 import { TroubleshootingService } from '../../services/troubleshooting.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-paretto',
@@ -12,38 +13,26 @@ import { TroubleshootingService } from '../../services/troubleshooting.service';
 })
 export class ParettoComponent implements OnInit {
 
-  constructor(private lsService: SystemService, private trService: TroubleshootingService) { }
-
-  allLs: System[] = [];
+  constructor(private trService: TroubleshootingService, private route: ActivatedRoute) { }
 
   selectedLs: System;
 
   serverData: any[];
 
+  lsApiKey: string;
+
   ngOnInit() {
-    this.getUserLs();
-  }
-
-
-  private getUserLs(): void {
-    this.lsService.getSystems().subscribe(
-      res => {
-        this.allLs = res;
-        setTimeout(() => {  // The timeout is necessary because the select isnt instant
-          M.AutoInit();
-        }, 1000);
-      },
-        err => {
-          console.error(err);
-        }
+    this.route.params.subscribe(
+      (params) => {
+        this.lsApiKey = params.apiKey;
+        this.loadData();
+      }
     );
   }
 
-  public changeLs(event): void {
-    // Plotly.deleteTraces('plot1', 0);
-    // Plotly.deleteTraces('plot2', 0);
+  public loadData(): void {
     this.serverData = [];
-    this.trService.getForParetto(this.selectedLs, 'PROBLEM').subscribe(
+    this.trService.getForParetto(this.lsApiKey, 'PROBLEM').subscribe(
       res => {
         this.serverData = res;
         this.loadPlot('plot1', 'problems');
@@ -53,7 +42,7 @@ export class ParettoComponent implements OnInit {
         console.error(err);
       }
     );
-    this.trService.getForParetto(this.selectedLs, 'ACTION').subscribe(
+    this.trService.getForParetto(this.lsApiKey, 'ACTION').subscribe(
       res => {
         this.serverData = res;
         this.loadPlot('plot2', 'actions');
