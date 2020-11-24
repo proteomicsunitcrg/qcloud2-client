@@ -1,11 +1,3 @@
-<div class="row">
-  <div class="col s12 m12 l12 xl12">
-    <blockquote>
-      <p>Your start and end date should include <b>{{minFiles}}</b> valid data points per each context source.</p>
-      <!-- <p>At least <b>{{minValidContextSource}}</b> valid context sources points are needed per param to set up a manual guide set.</p> -->
-    </blockquote>
-  </div>
-</div>
 <table>
   <tbody *ngFor="let system of systems">
     <tr>
@@ -42,11 +34,11 @@
             (click)="createGuideSet(system, guideSet.sampleType)" class="waves-effect waves-light btn">Create guide
             set</button>
         </ng-template>
-        <ng-template #buttonManual>
-          <button type="button" class="waves-effect waves-light btn"
+        <ng-template #buttonManual >
+          <button style="margin-left: 10px;" type="button" class="waves-effect waves-light btn"
             [attr.disabled]="validGuideSet == false ? true: null" (click)="updateSystemGuideSet(system,guideSet)">Set /
             Update</button>
-          <button type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey"
+          <button style="margin-left: 10px;" type="button" class="waves-effect waves-light btn" *ngIf="guideSet.apiKey"
             (click)="setGuideSetToAutomatic(system,guideSet)">Automatic</button>
         </ng-template>
       </td>

@@ -210,7 +210,12 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
           console.log(res);
           system = res;
           this.editingGuideSet = false;
-        }, err => console.log(err)
+          alert('Guideset saved');
+
+        }, err => {
+          console.log(err)
+          alert(err.error.message)
+        }
       );
   }
 
