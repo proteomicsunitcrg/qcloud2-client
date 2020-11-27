@@ -48,8 +48,10 @@ export class WelcomeComponent implements OnInit {
   private retrieveMsg(): void {
     this.msgService.getLastMessage().subscribe(
       (msg: any) => {
-        delete msg.id;
-        this.message = msg;
+        if (msg !== null) {
+          delete msg.id;
+          this.message = msg;
+        }
       },
       (err) => {
 
