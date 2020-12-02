@@ -57,7 +57,7 @@ export class LoginFormComponent implements OnInit {
               this.serverOutput = 'Internal server error';
               break;
             case 401:
-              this.serverOutput = 'Wrong userame/password';
+              this.serverOutput = 'Wrong username/password';
               break;
             case 408:
               this.serverOutput = 'Request timeout';
