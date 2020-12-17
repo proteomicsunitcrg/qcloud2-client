@@ -14,6 +14,7 @@
     "transpile:dev": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=dev",
     "transpile:test": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=test",
     "transpile:outside": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=outside",
+    "transpile:demo": "node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=demo",
     "compodoc": "npx compodoc -p src/tsconfig.app.json"
   },
   "private": true,
