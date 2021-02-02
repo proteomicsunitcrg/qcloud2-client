@@ -1,29 +1,53 @@
 <div class="container">
-  <div class="row">
-    <div class="col s6 offset-s3 z-depth-1" id="panell">
-      <img class="responsive-img" src="assets/images/logo-qcloud.png" alt="" srcset=""
-        style="background-color: #ffffff;">
-      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" ngNativeValidate>
-        <div class="input-field">
-          <input type="text" name="username" [(ngModel)]="username" id="username" required>
-          <label for="username">Username</label>
+    <div class="row">
+        <div class="col s6 offset-s3 z-depth-1" id="panell">
+            <img class="responsive-img" src="assets/images/logo-qcloud.png" alt="" srcset=""
+                style="background-color: #ffffff;">
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm" ngNativeValidate>
+                <div class="input-field">
+                    <input type="text" name="username" [(ngModel)]="username" id="username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password" [(ngModel)]="password" name="password" required>
+                    <label for="password">Password</label>
+                    <span [ngClass]="{'helper-text': isBad}" class="helper-text" data-error="wrong" data-success="right"
+                        style="font-size: 15px;">{{serverOutput}}</span>
+                </div>
+                <button type="submit" class="right waves-effect waves-light btn" id="loginbtn"
+                    [disabled]="!loginForm.form.valid">Login</button>
+            </form>
         </div>
-        <div class="input-field">
-          <input type="password" id="password" [(ngModel)]="password" name="password" required>
-          <label for="password">Password</label>
-          <span [ngClass]="{'helper-text': isBad}" class="helper-text" data-error="wrong" data-success="right"
-            style="font-size: 15px;">{{serverOutput}}</span>
+    </div>
+    <div class="row">
+        <div class="col s6 offset-s3 z-depth-0">
+            <a routerLink="/register" id="registerLink" class="left greenLink">Sign up</a>
+            <a href="https://demo.qcloud2.crg.eu" class="col s4 offset-s4 greenLink" target="_blank">Demo version</a>
+            <a id="recoverLink" routerLink="/recovery" class="right greenLink">Password recovery</a>
         </div>
-        <button type="submit" class="right waves-effect waves-light btn" id="loginbtn"
-          [disabled]="!loginForm.form.valid">Login</button>
-      </form>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s6 offset-s3 z-depth-0">
-      <a routerLink="/register" id="registerLink" class="left greenLink">Sign up</a>
-      <a href="https://demo.qcloud2.crg.eu" class="col s4 offset-s4 greenLink" target="_blank">Demo version</a>
-      <a id="recoverLink" routerLink="/recovery" class="right greenLink">Password recovery</a>
+</div>
+
+<div class="row" style="margin-bottom: 50px;">
+    <div class="col s4 offset-s4 z-depth-1" id="panell">
+        <h5 class="title titleMessage"><img src="assets/icons/cite.svg" alt="Pipeline good" style="width: 4%;">
+            Featured articles</h5>
+        <p class="messageText">
+            Nevan J., Krogan, et al. "Comparative host-coronavirus protein interaction networks reveal pan-viral disease
+            mechanisms"
+            <a style="color: #5c8d89; text-decoration: none" target="_blank"
+                href="https://science.sciencemag.org/content/370/6521/eabe9403">Science 04 Dec 2020: Vol. 370, Issue
+                6521, eabe9403</a>.
+        </p>
+        <p class="messageText">
+            Nevan J., Krogan, et al. "A SARS-CoV-2 protein interaction map reveals targets for drug repurposing"
+            <a style="color: #5c8d89; text-decoration: none" target="_blank"
+                href="https://www.nature.com/articles/s41586-020-2286-9">Nature 583, 459–468 (2020)</a>.
+        </p>
+        <p class="messageText">
+          Other references:
+          <a style="color: #5c8d89; text-decoration: none" target="_blank"
+              href="https://scholar.google.com/scholar?oi=bibs&hl=ca&cites=4313415652389631231">Google Schoolar</a>.
+      </p>
     </div>
-  </div>
 </div>
