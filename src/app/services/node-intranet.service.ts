@@ -49,4 +49,8 @@ export class NodeIntranetService {
   public getGeneralStats(): Observable<GeneralStats> {
     return this.httpClient.get<GeneralStats>(`${this.nodeIntranetUrl}/generalStats`);
   }
+
+  public getHomePageStats(): Observable<any> {
+    return this.httpClient.get<any>(`${this.nodeIntranetUrl}/homePageStats`);
+  }
 }

@@ -5,6 +5,8 @@ import * as decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserDefaultViewService } from '../../services/user-default-view.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NodeIntranetService } from '../../services/node-intranet.service';
+import { GeneralStats } from '../../models/GeneralStats';
 /**
  * Login component
  * @author Daniel Mancera <daniel.mancera@crg.eu>
@@ -22,9 +24,16 @@ export class LoginFormComponent implements OnInit {
   password: string;
   serverOutput = '';
   isBad = false;
+  generalStats = new GeneralStats(0, 0, 0, 0, 0, 0, 0);
+  difference = 2527 // This is because making sql count with the files is to slow
+  // so i get the last id and make the difference
+  public number: number = 1000;
+
   constructor(private authService: AuthService,
     private router: Router,
-    private userDefaultViewService: UserDefaultViewService) { }
+    private userDefaultViewService: UserDefaultViewService,
+    private nodeIntrService: NodeIntranetService,
+  ) { }
 
   ngOnInit() {
     // Check if token already exists
@@ -35,6 +44,8 @@ export class LoginFormComponent implements OnInit {
         this.doNavigation();
       }
     }
+    this.homePageStats();
+
   }
 
   onSubmit(): void {
@@ -107,6 +118,21 @@ export class LoginFormComponent implements OnInit {
   doInternalTest(): void {
     const token = localStorage.getItem('id_token');
     const decoded = decode(token);
+  }
+
+  private homePageStats(): void {
+    console.log('caca');
+
+    this.nodeIntrService.getHomePageStats().subscribe(
+      res => {
+        console.log(res);
+
+        this.generalStats = res;
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 
 }

@@ -57,7 +57,8 @@ import { ToastrModule } from 'ngx-toastr';
     DragulaModule,
     NgProgressModule,
     NgProgressHttpModule,
-    JwtModule.forRoot(tokenConfiguration)
+    JwtModule.forRoot(tokenConfiguration),
+
   ],
   providers: [AuthService,
     {
