@@ -30,7 +30,7 @@
     </div>
 
     <div class="row" style="margin-top: 50px;">
-      <div class="col s8 offset-s2 panell">
+      <div class="col s8 offset-s2 panell" *ngIf="generalStats">
         <a class="titleNumbers">
           QCloud2 in numbers
         </a>
@@ -63,7 +63,7 @@
                 {{generalStats.totalLs}}
               </a>
               <br>
-              <a class="underNumber">systems</a>
+              <a class="underNumber">instruments</a>
             </p>
           </div>
         </div>
@@ -89,7 +89,7 @@
           <p class="messageText">
             Other references:
             <a style="color: #5c8d89; text-decoration: none" target="_blank"
-            href="https://scholar.google.com/scholar?oi=bibs&hl=ca&cites=4313415652389631231">Google Schoolar</a>.
+            href="https://scholar.google.com/scholar?oi=bibs&hl=ca&cites=4313415652389631231">Google Scholar</a>.
           </p>
         </div>
       </div>

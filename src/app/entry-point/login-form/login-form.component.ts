@@ -24,7 +24,7 @@ export class LoginFormComponent implements OnInit {
   password: string;
   serverOutput = '';
   isBad = false;
-  generalStats = new GeneralStats(0, 0, 0, 0, 0, 0, 0);
+  generalStats: any;
   difference = 2527 // This is because making sql count with the files is to slow
   // so i get the last id and make the difference
   public number: number = 1000;
@@ -121,8 +121,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   private homePageStats(): void {
-    console.log('caca');
-
     this.nodeIntrService.getHomePageStats().subscribe(
       res => {
         console.log(res);
