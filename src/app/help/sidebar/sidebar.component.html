@@ -25,20 +25,6 @@
         </li>
         <li (click)="open('menu')">
             <a class="collapsible-header green-background   waves-effect waves-cyan">
-                <span class="nav-headers">QCrawler</span>
-            </a>
-            <div class="collapsible-body">
-                <div *ngFor="let link of allLinks">
-                    <ul>
-                        <li>
-                            <a class="cursorIcon" [href]="link.url" target="_blank">{{link.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li (click)="open('menu')">
-            <a class="collapsible-header green-background   waves-effect waves-cyan">
                 <span class="nav-headers">Instruments Cards</span>
             </a>
             <div class="collapsible-body">

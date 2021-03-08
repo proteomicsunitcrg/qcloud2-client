@@ -16,7 +16,7 @@ export class MainFilesComponent implements OnInit {
 
   ngOnInit() {
     this.getPipelineStatus();
-    this.getAPIStatus();
+    // this.getAPIStatus();
   }
 
   private getPipelineStatus(): void {
