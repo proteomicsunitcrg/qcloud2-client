@@ -41,6 +41,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AnnotationSelectorDropdownComponent } from './data-visualization/annotations/annotation-selector-dropdown/annotation-selector-dropdown.component';
 // tslint:disable-next-line:max-line-length
 import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotations/annotation-selector-sub-menu/annotation-selector-sub-menu.component';
+import { DashboardComponent } from './layout/welcome/dashboard/dashboard.component';
+import { MessagesComponent } from './layout/welcome/messages/messages.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -66,6 +68,8 @@ import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotat
     AnnotationListItemComponent,
     AnnotationSelectorDropdownComponent,
     AnnotationSelectorSubMenuComponent,
+    DashboardComponent,
+    MessagesComponent,
 
   ],
   providers: [DataService,
