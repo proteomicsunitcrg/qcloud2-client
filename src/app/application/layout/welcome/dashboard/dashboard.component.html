@@ -44,7 +44,9 @@
         Sample type
       </th>
       <th>
-        Fast check
+        Fast check <span class="material-icons pointer tooltipped" data-position="bottom" data-tooltip="A fast check to assess if the raw file has equal or more than 6 QC01 peptides detected (thumbs up).">
+          help_outline
+          </span>
       </th>
       <th>
         Data
@@ -52,7 +54,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let file of collection.data">
+    <tr *ngFor="let file of collection.data | paginate: config">
       <td>
         {{file.filename}}
       </td>
@@ -66,11 +68,55 @@
         {{file.sampleType.name}}
       </td>
       <td>
-        Okk
+        <img src="assets/icons/thumbs-up.svg" alt="Ok" [class.reverse]="file.isOk===false" class="isOk">
       </td>
       <td>
-        <button class="btn">View</button>
+        <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button>
       </td>
     </tr>
   </tbody>
 </table>
+<pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+
+<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
+  <table>
+      <thead>
+          <th>
+              Value
+          </th>
+          <th>
+              Calculated value
+          </th>
+          <th>
+              Param
+          </th>
+          <th>
+              Context source
+          </th>
+          <th>
+              Status
+          </th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let data of fileData">
+              <td>
+                  {{data.value}}
+              </td>
+              <td>
+                  {{data.calculatedValue}}
+              </td>
+              <td>
+                  {{data.param.name}}
+              </td>
+              <td>
+                  {{data.contextSource.name}}
+              </td>
+              <td>
+                  {{data.nonConformityStatus}}
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</ngx-smart-modal>
+
+

@@ -41,6 +41,7 @@ import { LinkService } from './services/links.service';
 import { ToastrModule } from 'ngx-toastr';
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -58,7 +59,6 @@ import { ToastrModule } from 'ngx-toastr';
     NgProgressModule,
     NgProgressHttpModule,
     JwtModule.forRoot(tokenConfiguration),
-
   ],
   providers: [AuthService,
     {

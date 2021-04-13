@@ -40,6 +40,10 @@ export class FileService {
     return this.httpClient.get<File>(this.fileUrl + '/checksum/' + checksum);
   }
 
+  public getFileStatusByChecksum(checksum: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.fileUrl}/fileStatus/${checksum}`);
+  }
+
   public getAllFilesByNode(page: number, numberOfElements: number, filename: string, labsystemApiKey: string, sampleTypeQCCV: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('page', page.toString()).set('size', numberOfElements.toString()); // Pagination params

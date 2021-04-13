@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { System } from '../../../../models/system';
 import { SystemService } from '../../../../services/system.service';
 import { FileService } from '../../../../services/file.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
+import { FileIntranetService } from '../../../../services/file-intranet.service';
+
 declare var M: any;
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +13,9 @@ declare var M: any;
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private fileService: FileService, private systemService: SystemService) { }
+  constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
+    private fileIntranetService: FileIntranetService
+    ) { }
 
   config = {
     itemsPerPage: 10,
@@ -26,6 +31,9 @@ export class DashboardComponent implements OnInit {
 
   labSystems: System[] = [];
 
+  fileData = [];
+
+
 
   ngOnInit() {
     this.getNodeLs();
@@ -33,12 +41,21 @@ export class DashboardComponent implements OnInit {
   }
 
   public getPage(): void {
-    console.log(this.labsystem);
     this.fileService.getAllFilesByNode(this.config.currentPage - 1, this.config.itemsPerPage, this.filename, this.labsystem, this.sampleType).subscribe(
       res => {
-        console.log(res);
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
+        this.config.totalItems = res.totalElements;
+        for (const file of this.collection.data) {
+          this.fileService.getFileStatusByChecksum(file.checksum).subscribe(
+            res => {
+              file.isOk = res;
+            },
+            err => {
+              console.error(err);
+            }
+          );
+        }
       },
       err => {
         console.error(err);
@@ -50,7 +67,6 @@ export class DashboardComponent implements OnInit {
     this.systemService.getSystems().subscribe(
       res => {
         this.labSystems = res.filter(item => item.active);
-        console.log(this.labSystems);
         setTimeout(() => {  // The timeout is necessary because the select isnt instant
           M.AutoInit();
         }, 500);
@@ -64,5 +80,28 @@ export class DashboardComponent implements OnInit {
   public cleanFilters(): void {
     this.filename = '';
   }
+
+  /**
+* @summary The event launched when the user changes a page
+* @author Marc Serret
+* @since 1.0.0
+* @access public
+* @param number the new page to display
+*/
+  public pageChanged(event: number) {
+    this.config.currentPage = event;
+    this.getPage();
+  }
+
+
+  public viewData(checksum: string): void {
+    this.fileIntranetService.getFileData(checksum).subscribe(
+      res => {
+        this.fileData = res;
+      },
+      err => console.error(err)
+    );
+  }
+
 
 }
