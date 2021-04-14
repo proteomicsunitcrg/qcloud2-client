@@ -34,6 +34,7 @@ import { PreviousRouteService } from '../services/PreviousRoute.service';
     NgxPaginationModule,
     FormsModule,
     TooltipModule,
+    NgxSmartModalModule
   ],
   providers: [
     PreviousRouteService
