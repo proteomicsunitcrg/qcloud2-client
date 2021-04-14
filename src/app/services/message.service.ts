@@ -55,6 +55,10 @@ export class MessageService {
     return this.httpClient.post<Message>(this.messageUrl + '/last', { headers: headers });
   }
 
+  public deleteMessage(message: Message): Observable<any> {
+    return this.httpClient.delete<any>(`${this.messageUrl}/${message.id}`);
+  }
+
   /**
    * showNotification
    */
