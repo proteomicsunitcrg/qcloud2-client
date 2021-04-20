@@ -74,7 +74,7 @@
         (click)="spamAll()" style="margin: 20px;">Spam all</button>
       <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid" id="spamManagers"
         (click)="spamAllManagers()" style="margin: 20px;">Spam all managers</button>
-      <button type="button" class="btn waves-effect waves-light red" [disabled]="currentMessage == undefined" id="deleteMSG"
+      <button type="button" class="btn waves-effect waves-light red" [disabled]="currentMessage == undefined || messageForm.value.show === true" id="deleteMSG"
       (click)="deleteMSG()">Delete</button>
     </div>
   </div>
