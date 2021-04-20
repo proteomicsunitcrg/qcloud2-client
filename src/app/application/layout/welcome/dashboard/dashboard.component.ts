@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { System } from '../../../../models/system';
 import { SystemService } from '../../../../services/system.service';
 import { FileService } from '../../../../services/file.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FileIntranetService } from '../../../../services/file-intranet.service';
+import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../../services/websocket.service';
 
 declare var M: any;
 @Component({
@@ -11,10 +13,10 @@ declare var M: any;
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
-    private fileIntranetService: FileIntranetService
+    private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService
     ) { }
 
   config = {
@@ -33,11 +35,18 @@ export class DashboardComponent implements OnInit {
 
   fileData = [];
 
+  dashboardSubscription: Subscription;
+
 
 
   ngOnInit() {
     this.getNodeLs();
     this.getPage();
+    this.subscribeToDashboardIntranet();
+  }
+
+  ngOnDestroy() {
+    this.dashboardSubscription.unsubscribe();
   }
 
   public getPage(): void {
@@ -103,5 +112,14 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-
+  private subscribeToDashboardIntranet(): void {
+    this.dashboardSubscription = this.webSocketService.updateDashboard$.subscribe(
+      res => {
+        this.getPage();
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 }
