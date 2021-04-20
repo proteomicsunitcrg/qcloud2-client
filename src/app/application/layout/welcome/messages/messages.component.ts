@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { WebsocketService } from '../../../../services/websocket.service';
 import { Message } from '../../../../models/message';
 import { MessageService } from '../../../../services/message.service';
 
@@ -7,14 +9,22 @@ import { MessageService } from '../../../../services/message.service';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnDestroy {
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private webSocketService: WebsocketService) { }
 
   allMessages: Message[] = []
 
+  messageFromWebSocket$: Subscription;
+
+
   ngOnInit() {
     this.getActiveMessages();
+    this.subscribeToWebSocketMessage();
+  }
+
+  ngOnDestroy() {
+    this.messageFromWebSocket$.unsubscribe();
   }
 
   private getActiveMessages(): void {
@@ -27,6 +37,13 @@ export class MessagesComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+
+  private subscribeToWebSocketMessage(): void {
+    this.messageFromWebSocket$ = this.webSocketService.updatemessagefromwebsocket$
+      .subscribe((res) => {
+        this.allMessages = res.body;
+      });
   }
 
 }
