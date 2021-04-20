@@ -28,6 +28,9 @@ export class MessageComponent implements OnInit {
     ]),
     show: new FormControl(false, [
       Validators.required
+    ]),
+    priority: new FormControl(0, [
+      Validators.required,
     ])
   });
 
@@ -75,11 +78,12 @@ export class MessageComponent implements OnInit {
    * @access private
    * @param {object} msg The message retrieved from the database
    */
-  private mountForm(msg: any): void {
+  private mountForm(msg: Message): void {
     this.messageForm.controls.title.setValue(msg.title);
     this.messageForm.controls.message.setValue(msg.message);
-    this.messageForm.controls.type.setValue(msg.messageType);
+    this.messageForm.controls.type.setValue(msg.type);
     this.messageForm.controls.show.setValue(msg.show);
+    this.messageForm.controls.priority.setValue(msg.priority);
   }
 
   /**
@@ -92,11 +96,11 @@ export class MessageComponent implements OnInit {
   public submit(): void {
     const msg = new Message(this.messageForm.value.title, this.messageForm.value.message,
       this.messageForm.value.type, this.messageForm.value.show, null);
+    msg.priority = this.messageForm.value.priority;
     console.log(msg);
     if (this.currentMessage != undefined) {
       msg.id = this.currentMessage.id;
     }
-    msg.priority = 1;
     this.msgService.saveMessage(msg).subscribe(
       () => {
         this.toastr.success('Message updated', null, TOASTSETTING);
@@ -154,6 +158,7 @@ export class MessageComponent implements OnInit {
     this.messageForm.controls.message.setValue('');
     this.messageForm.controls.type.setValue('');
     this.messageForm.controls.show.setValue(false);
+    this.messageForm.controls.priority.setValue(0);
   }
 
   public goToMessage(msg: Message): void {

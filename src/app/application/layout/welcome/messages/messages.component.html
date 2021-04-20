@@ -1,15 +1,10 @@
-<div class="row" style="margin-right: 50px; margin-left: 50px;">
-  <div class=" z-depth-1" id="panell">
-    <h5 class="title titleWarning" >Alo presidente</h5>
-    <p class="messageText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia velit ac orci interdum, in eleifend mi cursus. Praesent blandit ex et purus elementum, quis mattis nisl bibendum. In pretium a metus et auctor. Proin lacinia, dui consequat ullamcorper lacinia, odio metus sodales libero, eu feugiat massa leo id purus. Vestibulum quis ipsum ultrices, ornare ipsum quis, consequat metus. Cras congue suscipit lectus. Curabitur ullamcorper scelerisque ante sit amet laoreet. In facilisis porta justo eu venenatis. Curabitur diam odio, mattis quis orci eget, egestas hendrerit sem. Nam egestas semper laoreet.
-
-      Nam euismod, lectus id dapibus efficitur, urna nunc facilisis neque, non viverra purus nisl semper mauris. In hac habitasse platea dictumst. Quisque purus ex, maximus vel posuere ut, vulputate et odio. Donec eleifend sem eget eleifend cursus. Aliquam diam lectus, malesuada quis condimentum eget, tincidunt eget arcu. Nam et pellentesque felis, at commodo sem. Pellentesque tempor, libero tincidunt gravida blandit, turpis tortor malesuada felis, vitae tincidunt purus lorem et nulla. Maecenas vel posuere est, sed pharetra nunc. Curabitur odio est, accumsan sed rutrum eu, commodo sit amet ex. Ut auctor enim accumsan, tincidunt ante vitae, congue odio. Nunc id enim porttitor, facilisis odio quis, volutpat risus. Aliquam in nisl mollis, consectetur ligula eget, laoreet eros. Nam aliquam, eros vel ullamcorper lacinia, mi enim vulputate orci, et maximus libero velit eu tortor. Proin venenatis nunc et aliquet ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+<ng-container *ngFor="let message of allMessages">
+  <div class="row" style="margin-right: 50px; margin-left: 50px;">
+    <div class=" z-depth-1" id="panell">
+      <h5 class="title titleWarning" *ngIf="message.type === 'warning'">{{message.title}}</h5>
+      <h5 class="title titleError" *ngIf="message.type === 'error'">{{message.title}}</h5>
+      <h5 class="title titleMessage" *ngIf="message.type === 'message'">{{message.title}}</h5>
+      <p [innerHTML]="message.message" class="messageText"></p>
+    </div>
   </div>
-</div>
-<div class="row" style="margin-bottom: 50px;margin-right: 50px; margin-left: 50px;">
-  <div class="z-depth-1" id="panell">
-    <h5 class="title titleMessage"><img src="assets/icons/cite.svg" alt="Pipeline good" style="width: 4%;"> Check out the resources!</h5>
-    <p class="messageText">
-      Dont't forget to check out the resources to get the instrument cards, the QCrawler manual and download.</p>
-  </div>
-</div>
+</ng-container>

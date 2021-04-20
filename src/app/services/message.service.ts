@@ -66,4 +66,8 @@ export class MessageService {
     return this.httpClient.get<boolean>(`${this.messageUrl}/showNotification`);
   }
 
+  public getActiveMessages(): Observable<Message[]> {
+    return this.httpClient.get<Message[]>(`${this.messageUrl}/getActive`);
+  }
+
 }
