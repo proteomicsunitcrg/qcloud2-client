@@ -6,6 +6,11 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FileIntranetService } from '../../../../services/file-intranet.service';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../../../services/websocket.service';
+import { Router } from '@angular/router';
+import { File } from '../../../../models/file';
+import { ContextSourceService } from '../../../../services/context-source.service';
+import { SampleCompositionService } from '../../../../services/sample-composition.service';
+import { Summary } from 'src/app/models/summary';
 
 declare var M: any;
 @Component({
@@ -16,8 +21,9 @@ declare var M: any;
 export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
-    private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService
-    ) { }
+    private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService, private routerService: Router, private contextSourceService: ContextSourceService,
+    private sampleCompositionService: SampleCompositionService
+  ) { }
 
   config = {
     itemsPerPage: 10,
@@ -37,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   dashboardSubscription: Subscription;
 
-
+  summaries: Summary[] = [];
 
   ngOnInit() {
     this.getNodeLs();
@@ -55,16 +61,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;
-        for (const file of this.collection.data) {
-          this.fileService.getFileStatusByChecksum(file.checksum).subscribe(
-            res => {
-              file.isOk = res;
-            },
-            err => {
-              console.error(err);
-            }
-          );
-        }
+        // for (const file of this.collection.data) {
+        //   this.fileService.getFileStatusByChecksum(file.checksum).subscribe(
+        //     res => {
+        //       file.isOk = res;
+        //     },
+        //     err => {
+        //       console.error(err);
+        //     }
+        //   );
+        // }
       },
       err => {
         console.error(err);
@@ -122,4 +128,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  public goToPlot(file: File): void {
+    this.routerService.navigate([`/application/view/instrument/`, file.labSystem.apiKey], { queryParams: { checksum: file.checksum } });
+  }
+
+  public goToResults(file: File): void {
+    this.fileService.getSummary(file.checksum).subscribe(
+      res => {
+        this.summaries = res;
+        this.ngxSmartModalService.getModal('dataModal').open()
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
 }

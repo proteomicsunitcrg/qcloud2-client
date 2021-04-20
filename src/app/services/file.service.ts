@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { SampleType } from '../models/sampleType';
 import { File } from '../models/file';
 import { System } from '../models/system';
+import { Summary } from '../models/summary';
 
 @Injectable()
 export class FileService {
@@ -49,6 +50,10 @@ export class FileService {
     params = params.set('page', page.toString()).set('size', numberOfElements.toString()); // Pagination params
     params = params.set('filename', filename).set('labsystemApiKey', labsystemApiKey).set('sampleTypeQCCV', sampleTypeQCCV); // Filter params
     return this.httpClient.get<any>(`${this.fileUrl}/dashboard`, { params });
+  }
+
+  public getSummary(checksum: string): Observable<Summary[]> {
+    return this.httpClient.get<Summary[]>(`${this.fileUrl}/summary/${checksum}`);
   }
 
 }

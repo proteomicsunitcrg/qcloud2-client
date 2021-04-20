@@ -44,12 +44,10 @@
         Sample type
       </th>
       <th>
-        Fast check <span class="material-icons pointer tooltipped" data-position="bottom" data-tooltip="A fast check to assess if the raw file has equal or more than 6 QC01 peptides detected (thumbs up).">
-          help_outline
-          </span>
+        View
       </th>
       <th>
-        Data
+        Results
       </th>
     </tr>
   </thead>
@@ -68,10 +66,11 @@
         {{file.sampleType.name}}
       </td>
       <td>
-        <img src="assets/icons/thumbs-up.svg" alt="Ok" [class.reverse]="file.isOk===false" class="isOk">
+        <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
+        <button class="btn" (click)="goToPlot(file)">View</button>
       </td>
       <td>
-        <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button>
+        <button class="btn" (click)="goToResults(file)">Results</button>
       </td>
     </tr>
   </tbody>
@@ -82,37 +81,31 @@
   <table>
       <thead>
           <th>
-              Value
+              Sequence
           </th>
           <th>
-              Calculated value
-          </th>
-          <th>
-              Param
-          </th>
-          <th>
-              Context source
-          </th>
-          <th>
-              Status
-          </th>
+            Peak area
+        </th>
+        <th>
+          Mass accuracy
+      </th>
+      <th>
+        Retention time
+    </th>
       </thead>
       <tbody>
-          <tr *ngFor="let data of fileData">
+          <tr *ngFor="let summary of summaries">
               <td>
-                  {{data.value}}
+                {{summary.sequence}}
               </td>
               <td>
-                  {{data.calculatedValue}}
+                {{summary.values[0].calculatedValue}}
               </td>
               <td>
-                  {{data.param.name}}
+                {{summary.values[1].calculatedValue}}
               </td>
               <td>
-                  {{data.contextSource.name}}
-              </td>
-              <td>
-                  {{data.nonConformityStatus}}
+                {{summary.values[2].calculatedValue}}
               </td>
           </tr>
       </tbody>
