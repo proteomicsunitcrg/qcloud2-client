@@ -24,6 +24,18 @@
             </div>
 
         </li>
+        <li (click)="open('menu')">
+          <a class="collapsible-header green-background   waves-effect waves-cyan">
+              <span class="nav-headers">Api key</span>
+          </a>
+          <div class="collapsible-body">
+              <ul>
+                  <li><a routerLink="/application/intranet/api-key/node" routerLinkActive="active" class="cursorIcon">Node</a></li>
+                  <li><a routerLink="/application/intranet/api-key/ls" routerLinkActive="active" class="cursorIcon">Labsystem</a></li>
+              </ul>
+          </div>
+
+      </li>
     </ul>
 </div>
 <div class="col s12 m2 l2 xl2 hide-on-med-and-up">

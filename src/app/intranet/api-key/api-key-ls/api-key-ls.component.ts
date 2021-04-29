@@ -9,13 +9,14 @@ import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING, TOASTSETTINGLONG } from '../../../shared/ToastConfig';
 
 @Component({
-  selector: 'app-api-key-node',
-  templateUrl: './api-key-node.component.html',
-  styleUrls: ['./api-key-node.component.css']
+  selector: 'app-api-key-ls',
+  templateUrl: './api-key-ls.component.html',
+  styleUrls: ['./api-key-ls.component.css']
 })
-export class ApiKeyNodeComponent implements OnInit {
+export class ApiKeyLsComponent implements OnInit {
 
-  constructor(private nodeService: NodeIntranetService, private router: Router, private toast: ToastrService) { }
+  constructor(private nodeService: NodeIntranetService, private router: Router, private toast: ToastrService
+    ) { }
 
   apiKey: string;
 
@@ -34,14 +35,26 @@ export class ApiKeyNodeComponent implements OnInit {
   }
 
   public find(): void {
-    this.nodeService.getNodeByApiKey(this.apiKeyForm.controls['apiKeyInput'].value).subscribe(
+    this.nodeService.getLs(this.apiKeyForm.controls['apiKeyInput'].value).subscribe(
       res => {
-        this.router.navigate(['/application/intranet/node/', res.apiKey]);
+        console.log(res);
+        this.nodeService.getNodeByLsApiKey(res.apiKey).subscribe(
+          resNode => {
+            this.router.navigate(['/application/intranet/node/', resNode.apiKey], { queryParams: { lsApiKey: res.apiKey } });
+          },
+          errNode => {
+            this.toast.error('Node not found', null, TOASTSETTINGLONG);
+
+          }
+        );
       },
       err => {
-        this.toast.error('Node not found', null, TOASTSETTINGLONG);
+        this.toast.error('Labsystem not found', null, TOASTSETTINGLONG);
+        console.error(err);
       }
     );
   }
+
+
 
 }
