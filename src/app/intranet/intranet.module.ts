@@ -21,13 +21,14 @@ import { SingleNodeUsersComponent } from './node/single-node/single-node-users/s
 import { PreviousRouteService } from '../services/PreviousRoute.service';
 import { ApiKeyNodeComponent } from './api-key/api-key-node/api-key-node.component';
 import { ApiKeyLsComponent } from './api-key/api-key-ls/api-key-ls.component';
+import { ApiKeyUserComponent } from './api-key/api-key-user/api-key-user.component';
 
 
 @NgModule({
   declarations: [MainComponent, SidebarComponent, FilesListComponent,
     MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent,
     NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent,
-    SingleNodeLsComponent, SingleNodeUsersComponent, ApiKeyNodeComponent, ApiKeyLsComponent
+    SingleNodeLsComponent, SingleNodeUsersComponent, ApiKeyNodeComponent, ApiKeyLsComponent, ApiKeyUserComponent
   ],
   imports: [
     CommonModule,

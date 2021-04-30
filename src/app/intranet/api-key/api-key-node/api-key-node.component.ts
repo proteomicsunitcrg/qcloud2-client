@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { System } from '../../../../app/models/system';
 import { Node } from '../../../../app/models/node';
-import { NodeIntranetService } from 'src/app/services/node-intranet.service';
+import { NodeIntranetService } from '../../../../app/services/node-intranet.service';
 import { APIKEYREGEX } from '../api-key-utils';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

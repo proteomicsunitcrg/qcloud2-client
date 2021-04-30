@@ -13,12 +13,14 @@ export class SingleNodeMainComponent implements OnInit {
     private route: ActivatedRoute,
     private previousRouteService: PreviousRouteService,
     private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   showLabsystems = true;
   routeUrl: string;
   ngOnInit() {
     this.subscribeToRoute();
+    this.subscribeToShowUser();
   }
 
   private subscribeToRoute(): void {
@@ -35,6 +37,25 @@ export class SingleNodeMainComponent implements OnInit {
     } else {
       this.router.navigate([this.previousRouteService.getPreviousUrl()]);
     }
+  }
+
+  private subscribeToShowUser() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      let userApiKey = params['userApiKey'];
+      if (userApiKey === undefined) {
+        console.log('NADA USER');
+      } else {
+        this.showLabsystems = false;
+        setTimeout(() => {
+          const item = document.getElementById(userApiKey);
+          if (item != null) {
+            item.style.setProperty('background-color', 'red');
+            item.scrollIntoView({behavior: 'smooth', block: 'center'});
+          }
+        }, 1000);
+
+      }
+    });
   }
 
 }
