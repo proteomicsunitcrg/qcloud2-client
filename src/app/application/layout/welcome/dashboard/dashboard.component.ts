@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { File } from '../../../../models/file';
 import { ContextSourceService } from '../../../../services/context-source.service';
 import { SampleCompositionService } from '../../../../services/sample-composition.service';
-import { Summary } from 'src/app/models/summary';
+import { Summary } from '../../../../models/summary';
 
 declare var M: any;
 @Component({
@@ -143,6 +143,45 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     );
+  }
+
+  public downloadData(file: File): void {
+    this.fileService.getSummary(file.checksum).subscribe(
+      res => {
+        this.downloadCSV(this.mountCSV(res), file);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  private mountCSV(summary: Summary[]): string {
+    const separator = ';';
+    const headers = `sequence${separator}peak_area${separator}mass_accuracy${separator}retention_time\n`;
+    let csvText = '';
+    for (const peptide of summary) {
+      csvText += `${peptide.sequence}${separator}${this.getDataFromParam(peptide.values, 'Peak area')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Mass accuracy')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Retention time')['calculatedValue']}\n`;
+    }
+    return headers + csvText;
+  }
+
+  private downloadCSV(csv: string, file: File) {
+    const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', `${file.filename}.csv`);
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+  private getDataFromParam(valueList: any[], target: string): any {
+    for (const value of valueList) {
+      if (value['param']['name'] === target) {
+        return value;
+      }
+    }
   }
 
 }

@@ -49,6 +49,9 @@
       <th>
         Results
       </th>
+      <th>
+        CSV
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -67,10 +70,13 @@
       </td>
       <td>
         <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
-        <button class="btn" (click)="goToPlot(file)">View</button>
+        <button class="btn" (click)="goToPlot(file)">Plot</button>
       </td>
       <td>
         <button class="btn" (click)="goToResults(file)">Results</button>
+      </td>
+      <td>
+        <button class="btn" (click)="downloadData(file)">Download</button>
       </td>
     </tr>
   </tbody>
