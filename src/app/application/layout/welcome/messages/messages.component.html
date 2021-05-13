@@ -4,7 +4,7 @@
       <h5 class="title titleWarning" *ngIf="message.type === 'warning'">{{message.title}}</h5>
       <h5 class="title titleError" *ngIf="message.type === 'error'">{{message.title}}</h5>
       <h5 class="title titleMessage" *ngIf="message.type === 'message'">{{message.title}}</h5>
-      <p [innerHTML]="message.message" class="messageText"></p>
+      <p [innerHTML]="message.message" class="messageText" style="margin-left: 10px; margin-right: 10px; margin-bottom: 10px;"></p>
     </div>
   </div>
 </ng-container>

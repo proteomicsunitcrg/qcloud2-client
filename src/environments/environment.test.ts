@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiPrefix: 'http://qcloud2.crg.eu:8081/',
+  apiPrefix: 'http://qcloud2.crg.eu:8090/',
   name: 'test'
 };
 
