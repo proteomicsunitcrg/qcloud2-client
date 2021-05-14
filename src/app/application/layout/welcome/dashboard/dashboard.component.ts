@@ -157,8 +157,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private mountCSV(summary: Summary[]): string {
-    const separator = ';';
-    const headers = `sequence${separator}peak_area${separator}mass_accuracy${separator}retention_time\n`;
+    const separator = ',';
+    const headers = `sequence${separator}peak_area(au)${separator}mass_accuracy(ppm)${separator}retention_time(sec)\n`;
     let csvText = '';
     for (const peptide of summary) {
       csvText += `${peptide.sequence}${separator}${this.getDataFromParam(peptide.values, 'Peak area')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Mass accuracy')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Retention time')['calculatedValue']}\n`;
