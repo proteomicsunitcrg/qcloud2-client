@@ -48,7 +48,7 @@
     z-index: 10000 !important;
 }
 .collapsible-header {
-    background-color: #f4f9f4 !important;
+    background-color: #f4f9f4;
 }
 .collapsible-header span {
     color: black !important;

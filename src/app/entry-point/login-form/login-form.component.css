@@ -1,5 +1,5 @@
-#panell {
-  margin-top: 100px;
+.panell {
+  /* margin-top: 100px; */
   padding: 0px;
 }
 
@@ -81,3 +81,63 @@ form {
 .messageText {
   margin-left: 10px;
 }
+<<<<<<< HEAD
+=======
+
+.imagerino {
+  display: block;
+  margin: auto;
+  max-height: 72px;
+  vertical-align: middle;
+}
+
+.page-footer  {
+  background-color: #a7d7c5;
+}
+
+.texte {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: large;
+}
+
+
+.content {
+  min-height: calc(100vh - 120px);
+}
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.containerFooter {
+  flex: 1;    /* same as flex-grow: 1; */
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.bignum {
+  font-size: 200%;
+  color: #7dc4a9;
+
+}
+
+.panellNumbers {
+  background-color: #F2F5F6;
+}
+
+.underNumber {
+  color: #636363;
+}
+
+.titleNumbers {
+  color: #636363;
+  font-size: 1.5rem;
+}
+>>>>>>> master

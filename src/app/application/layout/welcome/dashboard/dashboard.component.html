@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="input-field col s2">
+    <input id="filename" type="text" [(ngModel)]="filename">
+    <label for="filename">Filename</label>
+  </div>
+  <div class="input-field col s2">
+    <select [(ngModel)]="labsystem" name="labsystem">
+      <option value="" selected>None</option>
+      <option [value]="ls.apiKey" *ngFor="let ls of labSystems">{{ls.name}}</option>
+    </select>
+    <label>Labsystem</label>
+  </div>
+  <div class="input-field col s2">
+    <select [(ngModel)]="sampleType" name="sampleType">
+      <option value="" selected>All</option>
+      <option value="QC:0000005">BSA</option>
+      <option value="QC:0000006">Hela</option>
+      <option value="QC:0000009">QC4L</option>
+    </select>
+    <label>Sample type</label>
+  </div>
+  <div class="col s1" style="margin-top: 20px;">
+    <button class="btn" (click)="getPage()">Find</button>
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col s2" style="margin-top: 20px;">
+    <button class="btn" (click)="cleanFilters()">Clean filters</button>
+  </div>
+</div> -->
+<table>
+  <thead>
+    <tr>
+      <th>
+        Filename
+      </th>
+      <th>
+        Acquisition date
+      </th>
+      <th>
+        Labsystem
+      </th>
+      <th>
+        Sample type
+      </th>
+      <th>
+        View
+      </th>
+      <th>
+        Results
+      </th>
+      <th>
+        CSV
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let file of collection.data | paginate: config">
+      <td>
+        {{file.filename}}
+      </td>
+      <td>
+        {{file.creationDate}}
+      </td>
+      <td>
+        {{file.labSystem.name}}
+      </td>
+      <td>
+        {{file.sampleType.name}}
+      </td>
+      <td>
+        <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
+        <button class="btn" (click)="goToPlot(file)">Plot</button>
+      </td>
+      <td>
+        <button class="btn" (click)="goToResults(file)">Results</button>
+      </td>
+      <td>
+        <button class="btn" (click)="downloadData(file)">Download</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+
+<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
+  <table>
+      <thead>
+          <th>
+              Sequence
+          </th>
+          <th>
+            Peak area
+        </th>
+        <th>
+          Mass accuracy (ppm)
+      </th>
+      <th>
+        Retention time (sec)
+    </th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let summary of summaries">
+              <td>
+                {{summary.sequence}}
+              </td>
+              <td>
+                {{summary.values[0].calculatedValue}}
+              </td>
+              <td>
+                {{summary.values[1].calculatedValue}}
+              </td>
+              <td>
+                {{summary.values[2].calculatedValue}}
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</ngx-smart-modal>
+
+

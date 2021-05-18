@@ -1,3 +1,4 @@
+<div *ngIf="errorInRow >= 5">WARNING CHECK THE PIPELINE</div>
 <div class="row">
     <div class="input-field col s2">
         <input id="name" type="text" [(ngModel)]="name">
@@ -114,7 +115,7 @@
                 {{file.insertDate}}
             </td>
             <td (click)="[labsystem = file.labSystem.name, getPage(1)]">
-                <a class="clickable" [options]="tooltipOptions" tooltip=" 
+                <a class="clickable" [options]="tooltipOptions" tooltip="
                     <ul>
                         <li>{{nodeTooltip}}</li>
                         <li>{{file.labSystem.dataSources[0].name}}</li>

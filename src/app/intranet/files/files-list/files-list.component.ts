@@ -61,6 +61,7 @@ export class FilesListComponent implements OnInit {
     email: ''
   };
   fileData = [];
+  errorInRow = 0;
   /**
    * Data to populate the paginator
    */
@@ -73,6 +74,8 @@ export class FilesListComponent implements OnInit {
     placement: 'top',
     'content-type': 'html'
   };
+
+  first5Files = [];
   // var to handle the autocompletion
   autoCompleteInstance: any;
   // If true skip the request to get the nodes (faster)
@@ -108,6 +111,12 @@ export class FilesListComponent implements OnInit {
             this.fileService.getNodeAndFileStatusByDataSourceApiKeyAndFileApiKey(file.labSystem.dataSources[1].apiKey, file.checksum)
               .subscribe(
                 res => {
+                  if (this.first5Files.length < 5) {
+                    this.first5Files.push(res)
+                    if (!res.dataOk) {
+                      this.errorInRow += 1;
+                    }
+                  }
                   file.labSystem.node = res.node.name;
                   file.labSystem.isOk = res.dataOk;
                   file.labSystem.nodeApiKey = res.node.apiKey;

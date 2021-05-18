@@ -39,6 +39,9 @@ import { LogoService } from './services/logo.service';
 import { LinkService } from './services/links.service';
 
 import { ToastrModule } from 'ngx-toastr';
+import { ContextSourceService } from './services/context-source.service';
+import { SampleCompositionService } from './services/sample-composition.service';
+
 
 
 @NgModule({
@@ -57,7 +60,7 @@ import { ToastrModule } from 'ngx-toastr';
     DragulaModule,
     NgProgressModule,
     NgProgressHttpModule,
-    JwtModule.forRoot(tokenConfiguration)
+    JwtModule.forRoot(tokenConfiguration),
   ],
   providers: [AuthService,
     {
@@ -76,6 +79,8 @@ import { ToastrModule } from 'ngx-toastr';
     WebsocketService,
     TroubleshootingService,
     LogoService,
+    ContextSourceService,
+    SampleCompositionService,
     LinkService],
   bootstrap: [AppComponent]
 })

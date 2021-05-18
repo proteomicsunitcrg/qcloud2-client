@@ -41,6 +41,16 @@ export class NodeIntranetService {
     const params = new HttpParams().set('apiKey', lsApiKey);
     return this.httpClient.get<LsStats>(`${this.nodeIntranetUrl}/stats`, { params: params });
   }
+
+  public getLs(lsApiKey: string): Observable<System> {
+    const params = new HttpParams().set('apiKey', lsApiKey);
+    return this.httpClient.get<System>(`${this.nodeIntranetUrl}/system`, { params: params });
+  }
+
+  public getNodeByLsApiKey(lsApiKey: string): Observable<Node> {
+    const params = new HttpParams().set('apiKey', lsApiKey);
+    return this.httpClient.get<Node>(`${this.nodeIntranetUrl}/getNodeByLsApiKey`, { params: params });
+  }
   public getNodeStats(nodeApiKey: string): Observable<NodeStats> {
     const params = new HttpParams().set('apiKey', nodeApiKey);
     return this.httpClient.get<NodeStats>(`${this.nodeIntranetUrl}/statsNode`, { params: params });
@@ -48,5 +58,9 @@ export class NodeIntranetService {
 
   public getGeneralStats(): Observable<GeneralStats> {
     return this.httpClient.get<GeneralStats>(`${this.nodeIntranetUrl}/generalStats`);
+  }
+
+  public getHomePageStats(): Observable<any> {
+    return this.httpClient.get<any>(`${this.nodeIntranetUrl}/homePageStats`);
   }
 }
