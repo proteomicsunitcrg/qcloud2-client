@@ -7,6 +7,7 @@ export class ContextSource {
     apiKey: string;
     traceColor: TraceColor;
     shadeGrade: number;
+    mz: number;
 
     constructor(id: number, name: string, abbreviated: string, apiKey: string, traceColor: TraceColor, shadeGrade: number) {
         this.id = id;

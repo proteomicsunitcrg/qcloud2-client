@@ -13,6 +13,7 @@ import { LabSystemStatus } from '../../../models/labsystemstatus';
 import { MessageService } from '../../../services/message.service';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING, NOTI_MSG, NOTI_TITLE } from '../../../shared/ToastConfig';
+import { DataService } from '../../../services/data.service';
 
 declare var M: any;
 
@@ -28,7 +29,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private systemService: SystemService,
     private messageService: MessageService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private dataService: DataService) {
 
   }
 
@@ -170,6 +172,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
    * @param view
    */
   loadTab(view: View): void {
+    this.dataService.sendSelectedQC(view.sampleTypeCategory.name);
     if (this.loadedViews.find(viewId => viewId === view.id) === undefined) {
       this.loadDefaultChartsByView(view);
     }

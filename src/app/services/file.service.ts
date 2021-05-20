@@ -56,4 +56,5 @@ export class FileService {
     return this.httpClient.get<Summary[]>(`${this.fileUrl}/summary/${checksum}`);
   }
 
+
 }
