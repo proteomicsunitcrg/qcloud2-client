@@ -181,8 +181,8 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     const csList = ["LVNELTEFAK", "HLVDEPQNLIK", "VPQVSTPTLVEVSR", "EAC(Carbamidomethyl)FAVEGPK", "EYEATLEEC(Carbamidomethyl)C(Carbamidomethyl)AK", "EC(Carbamidomethyl)C(Carbamidomethyl)HGDLLEC(Carbamidomethyl)ADDR",
       "SLHTLFGDELC(Carbamidomethyl)K", "TC(Carbamidomethyl)VADESHAGC(Carbamidomethyl)EK", "YIC(Carbamidomethyl)DNQDTISSK", "NEC(Carbamidomethyl)FLSHK"];
     let csvString = '';
-    const separator = ';';
-    const headers = `acquisition_date${separator}filename${separator}annotation${separator}sequence${separator}mz${separator}rt_sec${separator}peptide_area${separator}mass_accuracy_ppm\n`;
+    const separator = '\t';
+    const headers = `Creation_date${separator}Filename${separator}Op_annotation${separator}Peptide_sequence${separator}MZ${separator}RT_sec${separator}Peptide_area${separator}Mass_accuracy_ppm\n`;
     for (let file of res) {
       const filename = file.data[0].file.filename;
       const adquisition_date = file.data[0].file.creationDate;
@@ -213,7 +213,7 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
-    downloadAnchorNode.setAttribute('download', `${this.instrumentApiKey}-${this.dataService.getCurrentDates()}.csv`);
+    downloadAnchorNode.setAttribute('download', `${this.instrumentApiKey}-${this.dataService.getCurrentDates()}.tsv`);
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
