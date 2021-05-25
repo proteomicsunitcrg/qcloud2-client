@@ -138,6 +138,12 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     const startDate = this.datePickers[0].toString();
     const endDate = this.datePickers[1].toString();
     this.dataService.selectDates([startDate, endDate]);
+    const diff = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
+    if (diff >= 90) {
+      this.hideAnnotations = true;
+      this.emitAnnotations();
+    }
+
     this.loadAnnotations([startDate, endDate]);
   }
 
@@ -182,7 +188,7 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
       "SLHTLFGDELC(Carbamidomethyl)K", "TC(Carbamidomethyl)VADESHAGC(Carbamidomethyl)EK", "YIC(Carbamidomethyl)DNQDTISSK", "NEC(Carbamidomethyl)FLSHK"];
     let csvString = '';
     const separator = '\t';
-    const headers = `Creation_date${separator}Filename${separator}Op_annotation${separator}Peptide_sequence${separator}MZ${separator}RT_sec${separator}Peptide_area${separator}Mass_accuracy_ppm\n`;
+    const headers = `Creation_date${separator}Filename${separator}Op_annotation${separator}Peptide_sequence${separator}MZ${separator}RT_drift_min${separator}Peptide_area${separator}Mass_accuracy_ppm\n`;
     for (let file of res) {
       const filename = file.data[0].file.filename;
       const adquisition_date = file.data[0].file.creationDate;
