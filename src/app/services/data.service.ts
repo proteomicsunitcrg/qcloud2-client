@@ -91,9 +91,9 @@ export class DataService {
       );
   }
 
-  public getDataForCSV(systemApiKey: string): Observable<any> {
+  public getDataForCSV(systemApiKey: string, startDate: Date, endDate: Date): Observable<any> {
     let params = new HttpParams;
-    params = params.set('startDate', this.currentDates[0] + 'T00:00:00.000-02:00').set('endDate', this.currentDates[1] + 'T00:00:00.000-02:00'); // paginator options
+    params = params.set('startDate', startDate.toISOString()).set('endDate', endDate.toISOString()); // paginator options
     return this.httpClient.get<any>(`${this.fileUrl}/summaryByDates/${systemApiKey}`, {params})
   }
 

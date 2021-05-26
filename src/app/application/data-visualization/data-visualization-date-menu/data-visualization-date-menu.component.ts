@@ -56,6 +56,8 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
 
   userView = false;
 
+
+
   ngOnInit() {
     this.selectedDateRange = this.dateRanges[0];
     this.loadDatesArray();
@@ -137,10 +139,11 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     this.websocketService.dateRangeAllowNewData = false;
     const startDate = this.datePickers[0].toString();
     const endDate = this.datePickers[1].toString();
-    this.dataService.selectDates([startDate, endDate]);
     const diff = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
+    this.dataService.selectDates([startDate, endDate]);
     if (diff >= 90) {
       this.hideAnnotations = true;
+      this.showDownloadCSV = false;
       this.emitAnnotations();
     }
 
@@ -173,7 +176,14 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
   }
 
   public csv(): void {
-    this.dataService.getDataForCSV(this.instrumentApiKey).subscribe(
+    const startDate = new Date(this.datePickers[0].date);
+    const endDate = new Date(this.datePickers[1].date);
+    const diff = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
+    if (diff >= 90) {
+      alert("Limit 90 days");
+      return;
+    }
+    this.dataService.getDataForCSV(this.instrumentApiKey, startDate, endDate).subscribe(
       res => {
         this.downloadCSV(this.mountCSV(res));
       },
@@ -190,6 +200,9 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     const separator = '\t';
     const headers = `Creation_date${separator}Filename${separator}Op_annotation${separator}Peptide_sequence${separator}MZ${separator}RT_drift_min${separator}Peptide_area${separator}Mass_accuracy_ppm\n`;
     for (let file of res) {
+      if (file.data.length === 0) { //skip files with errors
+        continue;
+      }
       const filename = file.data[0].file.filename;
       const adquisition_date = file.data[0].file.creationDate;
       let annotation = '';
@@ -206,6 +219,9 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
         const csData = this.getBySeq(file.data, cs);
         // console.log(csData);
         const peakArea = this.getByParam(csData, "Peak area");
+        if (peakArea == undefined) {
+          continue;
+        }
         const mz = peakArea.contextSource.mz;
         const massAcc = this.getByParam(csData, 'Mass accuracy');
         const rt = this.getByParam(csData, 'Retention time');
