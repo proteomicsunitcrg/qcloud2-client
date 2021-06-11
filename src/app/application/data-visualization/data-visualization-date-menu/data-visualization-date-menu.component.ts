@@ -180,7 +180,7 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
     const endDate = new Date(this.datePickers[1].date);
     const diff = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
     if (diff >= 90) {
-      alert("Limit 90 days");
+      alert("If you want to download a longer time window, please use the QCloud API");
       return;
     }
     this.dataService.getDataForCSV(this.instrumentApiKey, startDate, endDate).subscribe(
