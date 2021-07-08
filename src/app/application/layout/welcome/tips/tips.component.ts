@@ -20,7 +20,7 @@ export class TipsComponent implements OnInit {
   private getActiveTips(): void {
     this.tipService.getAllActiveTips().subscribe(
       res => {
-        console.log(res);
+        this.allTips = res;
       },
       err => {
         console.error(err);
