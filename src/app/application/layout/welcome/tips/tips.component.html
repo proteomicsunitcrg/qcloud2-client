@@ -1,0 +1,8 @@
+<ng-container *ngFor="let tip of allTips">
+  <div class="row" style="margin-right: 50px; margin-left: 50px;">
+    <div class=" z-depth-1" id="panell">
+      <h5 class="title titleTip">{{tip.title}}</h5>
+      <p [innerHTML]="tip.message" class="messageText" style="margin-left: 10px; margin-right: 10px; margin-bottom: 10px;"></p>
+    </div>
+  </div>
+</ng-container>

@@ -44,6 +44,11 @@ export class TipService {
     return this.httpClient.get<Tip[]>(this.tipUrl, { headers: headers });
   }
 
+  public getAllActiveTips(): Observable<Tip[]> {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.httpClient.get<Tip[]>(`${this.tipUrl}/active`, { headers: headers });
+  }
+
   public deleteTip(tip: Tip): Observable<any> {
     return this.httpClient.delete<any>(`${this.tipUrl}/${tip.id}`);
   }
