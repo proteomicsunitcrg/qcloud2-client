@@ -85,6 +85,17 @@
             </div>
         </li>
         <li (click)="open('menu')">
+          <a class="collapsible-header waves-effect waves-cyan">
+              <span class="nav-headers">Tip of the week</span>
+          </a>
+          <div class="collapsible-body">
+              <ul>
+                  <li><a routerLink="/application/administration/tip" routerLinkActive="active">Manage
+                          tip of the week</a></li>
+              </ul>
+          </div>
+      </li>
+        <li (click)="open('menu')">
             <a class="collapsible-header waves-effect waves-cyan">
                 <span class="nav-headers">Emails</span>
             </a>

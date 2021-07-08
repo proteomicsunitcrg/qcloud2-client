@@ -1,0 +1,45 @@
+#panell {
+  margin-top: 50px;
+  padding: 0px;
+}
+
+.title {
+  color: white;
+  padding: 8px;
+  margin-top: 0px;
+}
+
+.titleWarning {
+  background-color: #ffc107;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.titleError {
+  background-color: #dc3545;
+}
+
+.titleMessage {
+  background-color: #5c8d89;
+}
+
+.titleTip {
+  background-color: rgb(18, 136, 145);
+}
+
+.messageText {
+  margin-left: 10px;
+}
+
+#saveButton {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.cursor {
+  cursor: pointer;
+
+}
+
+.cursor:hover {
+  background-color: gainsboro;
+}
