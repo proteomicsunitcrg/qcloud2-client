@@ -59,7 +59,7 @@ export class DataVisualizationDateMenuComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.selectedDateRange = this.dateRanges[1];
+    this.selectedDateRange = this.dateRanges[0];
     this.loadDatesArray();
     this.enableDatePickers();
     this.subscribeToRoute();

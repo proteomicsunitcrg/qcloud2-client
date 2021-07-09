@@ -58,8 +58,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    alert('Method not enabled in demo version');
-    return;
     this.node.users[0].username = this.node.users[0].email;
     this.registrationService.getToS().subscribe((text) => {
       this.modalService.openModal(new Modal('Terms of Use', text, 'Accept', 'Reject', 'terms', null));

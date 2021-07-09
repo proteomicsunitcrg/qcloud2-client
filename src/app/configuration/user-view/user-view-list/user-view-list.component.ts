@@ -34,14 +34,10 @@ export class UserViewListComponent implements OnInit {
   }
 
   editView(view: View): void {
-    alert('Method not enabled in demo version');
-    return;
     this.router.navigate(['application/configuration/builder/edit', view.apiKey]);
   }
 
   deleteView(view: View): void {
-    alert('Method not enabled in demo version');
-    return;
     this.viewService.deleteView(view).subscribe(
       (result) => {
         this.loadUserViews();
