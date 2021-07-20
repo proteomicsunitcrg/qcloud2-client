@@ -25,7 +25,7 @@ import { GeneralAnnotationService } from '../../services/general-annotation-serv
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../services/file.service';
 import { ToastrService } from 'ngx-toastr';
-import { TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
+import { INCONGRUENCIA_MSG, TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
 
 @Component({
   selector: 'app-plot',
@@ -367,7 +367,7 @@ export class PlotComponent implements OnInit, OnDestroy {
             if (index === plotTrace.plotTracePoints.length - 1) {
               if (plotTracePoint.nonConformityStatus !== PointColor[this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value)]) {
                 console.log('incongruencia', plotTracePoint.file, this.chart.name);
-                this.toast.warning('Incongruencia', 'Warning', TOASTSETTINGLONG);
+                this.toast.warning(INCONGRUENCIA_MSG, 'Warning', TOASTSETTINGLONG);
               }
             }
             values.push(plotTracePoint.value);
