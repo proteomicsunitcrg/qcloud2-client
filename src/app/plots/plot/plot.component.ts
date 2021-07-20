@@ -46,7 +46,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     private fileService: FileService,
     private toast: ToastrService) {
 
-    }
+  }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -141,7 +141,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadData();
         }
       }
-  });
+    });
     this.subscribeToDateChanges();
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
@@ -363,7 +363,13 @@ export class PlotComponent implements OnInit, OnDestroy {
         let symbol = 'dot';
         const checksums = [];
         plotTrace.plotTracePoints.forEach(
-          (plotTracePoint) => {
+          (plotTracePoint, index) => {
+            if (index === plotTrace.plotTracePoints.length - 1) {
+              if (plotTracePoint.nonConformityStatus !== PointColor[this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value)]) {
+                console.log('incongruencia', plotTracePoint.file, this.chart.name);
+                this.toast.warning('Incongruencia', 'Warning', TOASTSETTINGLONG);
+              }
+            }
             values.push(plotTracePoint.value);
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
