@@ -48,6 +48,9 @@ export class WebsocketService {
   updateDashboard = new Subject<WebSocketNotification>();
   updateDashboard$ = this.updateDashboard.asObservable();
 
+  updateSharedViews = new Subject<WebSocketNotification>();
+  updateSharedViews$ = this.updateSharedViews.asObservable();
+
   private apiPrefix = environment.apiPrefix;
   private websocketUrl = this.apiPrefix + 'api/gs-guide-websocket';
 
@@ -128,6 +131,11 @@ export class WebsocketService {
           new WebSocketNotification(actionValue, null, null, body)
         );
         break;
+      case 'updateCustomViews':
+        this.updateSharedViews.next(
+          new WebSocketNotification(actionValue, null, null, body)
+        );
+        break
       default:
         console.log(actionFromWebSocket);
         break;
