@@ -18,4 +18,4 @@ export const NOTI_TITLE = 'New important message!';
 
 export const NOTI_MSG = 'Please, go to the homepage in order to see it';
 
-export const INCONGRUENCIA_MSG = `there's an inconsistency between the color of this point and the corresponding at the traffic light (above). This is due to a QCloud limitation in the computation of automatic thresholds. To avoid this inconsistency you should configure your manual instrument guide sets [link] as soon as possible.`;
+export const INCONGRUENCIA_MSG = `there's an inconsistency between the color of this point and the corresponding at the traffic light (above). This is due to a QCloud limitation in the computation of automatic thresholds. To avoid this inconsistency you should configure your manual instrument guide sets as soon as possible.`;
