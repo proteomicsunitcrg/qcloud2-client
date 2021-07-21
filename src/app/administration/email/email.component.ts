@@ -79,7 +79,7 @@ export class EmailComponent {
     this.emailService.sendEmail(email).subscribe(
       (result) => {
         if (result) {
-          this.toastr.success('Email send', null, TOASTSETTING);
+          this.toastr.success('Email sent', null, TOASTSETTING);
         } else {
           this.toastr.error('Error sending the email', null, TOASTSETTING);
         }

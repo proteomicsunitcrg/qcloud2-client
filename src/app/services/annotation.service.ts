@@ -39,6 +39,13 @@ export class AnnotationService {
       );
   }
 
+  public getAnnotationsBetweenDates2(datesArray: string[], labSystemApiKey: string): Observable<Annotation[]> {
+    const currentDates = [];
+    currentDates[0] = datesArray[0] + 'T00:00:00.000+02:00';
+    currentDates[1] = datesArray[1] + 'T23:59:59.000+02:00';
+    return this.httpClient.get<Annotation[]>(this.annotationUrl + '/dates/' + currentDates[0] + '/' + currentDates[1] + '/' + labSystemApiKey);
+  }
+
   public getAnnotationByLabSystemApiKeyAndDate(labSystemApiKey: string, date: Date): Observable<Annotation> {
     return this.httpClient.get<Annotation>(this.annotationUrl + '/labsystem/' + labSystemApiKey + '/' + date.toUTCString());
   }

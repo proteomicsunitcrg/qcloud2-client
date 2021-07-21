@@ -25,7 +25,7 @@ import { GeneralAnnotationService } from '../../services/general-annotation-serv
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../services/file.service';
 import { ToastrService } from 'ngx-toastr';
-import { TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
+import { INCONGRUENCIA_MSG, TOASTSETTING, TOASTSETTINGLONG } from '../../shared/ToastConfig';
 
 @Component({
   selector: 'app-plot',
@@ -46,7 +46,7 @@ export class PlotComponent implements OnInit, OnDestroy {
     private fileService: FileService,
     private toast: ToastrService) {
 
-    }
+  }
 
   @Input() chart: Chart;
   @Input() system: System;
@@ -141,7 +141,7 @@ export class PlotComponent implements OnInit, OnDestroy {
           this.loadData();
         }
       }
-  });
+    });
     this.subscribeToDateChanges();
     this.subscribeToWebSocketData();
     this.subscribeToWebSocketThreshold();
@@ -363,7 +363,13 @@ export class PlotComponent implements OnInit, OnDestroy {
         let symbol = 'dot';
         const checksums = [];
         plotTrace.plotTracePoints.forEach(
-          (plotTracePoint) => {
+          (plotTracePoint, index) => {
+            if (index === plotTrace.plotTracePoints.length - 1) {
+              if (plotTracePoint.nonConformityStatus !== PointColor[this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value)]) {
+                console.log('incongruencia', plotTracePoint.file, this.chart.name);
+                this.toast.warning(INCONGRUENCIA_MSG, 'Warning', TOASTSETTINGLONG);
+              }
+            }
             values.push(plotTracePoint.value);
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
@@ -463,9 +469,12 @@ export class PlotComponent implements OnInit, OnDestroy {
         this.plotService.sendClick(data, this.system);
       });
       // Call for annotations
-      if (!this.shownames && this.hideAnnotations === false) {
+      if (!this.shownames && this.hideAnnotations === false) { // means default view
         delay(100).then(() => this.loadAnnotations());
         delay(200).then(() => this.drawGeneralAnnotations());
+      }
+      if (this.shownames) {
+        delay(100).then(() => this.loadAnnotationsCustomView());
       }
     } else {
       Plotly.purge('plot' + this.randString);
@@ -489,6 +498,21 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
       }, err => console.log(err)
     );
+  }
+
+  private loadAnnotationsCustomView(): void {
+    this.annotationService.getAnnotationsBetweenDates2(this.currentDates, this.system.apiKey).subscribe(
+      res => {
+        if (res.length > 0) {
+          this.annotations = res;
+          this.drawAnnotations();
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+
   }
 
   private loadGeneralAnnotations(): void {

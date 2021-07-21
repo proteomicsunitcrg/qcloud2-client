@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteMember(user: User) {
+  deleteMember(user: User) {;
     this.modalService.openModal(new Modal('Delete user',
       'Are you sure?', 'Yes', 'No', 'deleteMember', user));
   }

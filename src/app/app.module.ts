@@ -41,6 +41,7 @@ import { LinkService } from './services/links.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ContextSourceService } from './services/context-source.service';
 import { SampleCompositionService } from './services/sample-composition.service';
+import { TipService } from './services/tip.service';
 
 
 
@@ -81,7 +82,8 @@ import { SampleCompositionService } from './services/sample-composition.service'
     LogoService,
     ContextSourceService,
     SampleCompositionService,
-    LinkService],
+    LinkService,
+    TipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -45,6 +45,7 @@ import { DashboardComponent } from './layout/welcome/dashboard/dashboard.compone
 import { MessagesComponent } from './layout/welcome/messages/messages.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { TipsComponent } from './layout/welcome/tips/tips.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     AnnotationSelectorSubMenuComponent,
     DashboardComponent,
     MessagesComponent,
+    TipsComponent,
 
 
   ],

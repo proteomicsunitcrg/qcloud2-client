@@ -31,7 +31,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.messageService.getActiveMessages().subscribe(
       res => {
         this.allMessages = res;
-        console.log(res);
       },
       err => {
         console.error(err);
