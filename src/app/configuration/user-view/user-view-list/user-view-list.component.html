@@ -9,6 +9,7 @@
       <th>Name</th>
       <th>Edit</th>
       <th>Delete</th>
+      <th *ngIf="isManager">Share</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,10 @@
       </td>
       <td>
         <i class="material-icons cursorIcon" (click)="deleteView(view)">delete</i>
+      </td>
+      <td *ngIf="isManager">
+        <i class="material-icons cursorIcon" (click)="updateShare(view)" *ngIf="!view.isShared">share</i>
+        <i class="material-icons cursorIcon" (click)="updateShare(view)" *ngIf="view.isShared" style="color: gray;">share</i>
       </td>
     </tr>
   </tbody>

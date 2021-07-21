@@ -44,6 +44,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
     this.loadNodeSystems();
     this.loadUserViews();
+    this.loadNodeViews();
     this.subscribeToNewUserView();
   }
 
@@ -59,6 +60,17 @@ export class TopMenuComponent implements OnInit, OnDestroy {
           this.userViews = views;
         }
       );
+  }
+
+  private loadNodeViews(): void {
+    this.viewService.getNodeViews().subscribe(
+      res => {
+        this.userViews = this.userViews.concat(res);
+      }, 
+      err => {
+        console.error(err);
+      }
+    );
   }
 
   private loadNodeSystems(): void {

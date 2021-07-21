@@ -219,4 +219,13 @@ export class ViewService {
     return this.httpClient.delete<View>(this.mainViewsUrl + '/views', options);
   }
 
+  public updateShare(view: View): Observable<View> {
+    return this.httpClient.patch<View>(`${this.userViewsUrl}/${view.apiKey}`, view.apiKey);
+  }
+
+  public getNodeViews(): Observable<View[]> {
+    return this.httpClient.get<View[]>(`${this.userViewsUrl}/node`);
+
+  }
+
 }

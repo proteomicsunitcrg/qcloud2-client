@@ -7,6 +7,7 @@ export class View {
     user: User;
     cv: CV;
     isDefault: boolean;
+    isShared: boolean;
     sampleTypeCategory: SampleTypeCategory;
     apiKey: string;
 
