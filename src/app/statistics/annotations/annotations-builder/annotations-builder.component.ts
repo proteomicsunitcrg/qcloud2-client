@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SystemService } from '../../../services/system.service';
 import { Annotation } from '../../../models/annotation';
@@ -8,6 +8,8 @@ import { Troubleshooting } from '../../../models/troubleshooting';
 import { TroubleshootingService } from '../../../services/troubleshooting.service';
 import { System } from '../../../models/system';
 import { AnnotationService } from '../../../services/annotation.service';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from 'src/app/shared/ToastConfig';
 declare var M: any;
 
 @Component({
@@ -18,7 +20,7 @@ declare var M: any;
 export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   constructor(private activeRoute: ActivatedRoute, private troubleshootingService: TroubleshootingService, private lsService: SystemService,
-    private annoService: AnnotationService
+    private annoService: AnnotationService, private toast: ToastrService, private router: Router
     ) { }
 
   isEdit = false;
@@ -32,7 +34,7 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   selectedLsApiKey: string = null;
 
-
+  editingAnno: Annotation = null;
 
 
   annotationForm = new FormGroup({
@@ -49,15 +51,16 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
       params => {
         if (params.apiKey !== 'new') { // editing
           this.isEdit = true;
+          this.getAnnotation(params.apiKey);
         } else { //Creating
           this.isEdit = false;
+          this.getUserLs();
         }
       },
       err => {
         console.error(err);
       }
     );
-    this.getUserLs();
     this.subscribeToItemList();
     this.enableDatePickers();
     this.enableTimePickers();
@@ -66,6 +69,25 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.itemList$.unsubscribe();
+  }
+
+  private getAnnotation(apiKey: string): void {
+    this.annoService.getAnnotationByApiKey(apiKey).subscribe(
+      res => {
+        this.editingAnno = res;
+        this.mountFormEdit(res);
+      },
+      err => {
+        this.toast.error('Annotation not found', 'Error', TOASTSETTING);
+        this.router.navigate(['/application/statistics/annotations']);
+      }
+    );
+  }
+
+  private mountFormEdit(annotation: Annotation) {
+    this.annotationForm.controls.additional.setValue(annotation.description);
+    this.troubleList = annotation.troubleshootings;
+    this.selectedLsApiKey = annotation.apiKey;
   }
 
   private getUserLs(): void {
@@ -142,9 +164,6 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
       hour = this.datePickers[1].hours;
     }
     date.setHours(hour, min);
-    console.log(
-      date
-    );
     let selectedLs: System;
     for (const ls of this.allLs) {
       if (ls.apiKey == this.selectedLsApiKey) {
@@ -153,16 +172,35 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
       }
     }
     const annotation = new Annotation(null, date, null, this.troubleList, this.annotationForm.value.additional, selectedLs, null);
-    console.log(annotation);
     this.annoService.addAnnotation(annotation).subscribe(
       res => {
-        console.log(res);
+        this.toast.success('Annotation saved', 'Success', TOASTSETTING);
+        this.router.navigate(['/application/statistics/annotations']);
       },
       err => {
+        this.toast.error('Error saving the annotation, contact the admins', 'Error', TOASTSETTING);
         console.error(err);
       }
     );
+  }
 
+  public update(): void {
+    this.editingAnno.description = this.annotationForm.value.additional;
+    this.editingAnno.troubleshootings = this.troubleList;
+    this.annoService.addAnnotation(this.editingAnno).subscribe(
+      res => {
+        this.toast.success('Annotation updated', 'Success', TOASTSETTING);
+        this.router.navigate(['/application/statistics/annotations']);
+      },
+      err => {
+        this.toast.error('Error updating the annotation, contact the admins', 'Error', TOASTSETTING);
+        console.error(err);
+      }
+    );
+  }
+
+  public goBack(): void {
+    this.router.navigate(['/application/statistics/annotations']);
   }
 
 }

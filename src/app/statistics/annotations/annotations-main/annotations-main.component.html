@@ -53,6 +53,12 @@
                 <th>
                     Created by
                 </th>
+                <th>
+                  Edit
+                </th>
+                <th>
+                  Remove
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -71,6 +77,12 @@
                 </td>
                 <td>
                     {{annot.user.username}}
+                </td>
+                <td>
+                  <i class="material-icons cursorIcon" (click)="editAnno(annot)">edit</i>
+                </td>
+                <td>
+                  <i class="material-icons cursorIcon" (click)="deleteAnno(annot)">delete</i>
                 </td>
             </tr>
         </tbody>
