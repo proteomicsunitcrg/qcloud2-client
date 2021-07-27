@@ -364,12 +364,12 @@ export class PlotComponent implements OnInit, OnDestroy {
         const checksums = [];
         plotTrace.plotTracePoints.forEach(
           (plotTracePoint, index) => {
-            if (index === plotTrace.plotTracePoints.length - 1) {
-              if (plotTracePoint.nonConformityStatus !== PointColor[this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value)]) {
-                console.log('incongruencia', plotTracePoint.file, this.chart.name);
-                this.toast.warning(INCONGRUENCIA_MSG, 'Warning', TOASTSETTINGLONG);
-              }
-            }
+            // if (index === plotTrace.plotTracePoints.length - 1) {
+            //   if (plotTracePoint.nonConformityStatus !== PointColor[this.calculatePointColor(plotTrace.abbreviated, plotTracePoint.value)]) {
+            //     console.log('incongruencia', plotTracePoint.file, this.chart.name);
+            //     this.toast.warning(INCONGRUENCIA_MSG, 'Warning', TOASTSETTINGLONG);
+            //   }
+            // }
             values.push(plotTracePoint.value);
             filenames.push(plotTracePoint.file.filename);
             dates.push(plotTracePoint.file.creationDate);
