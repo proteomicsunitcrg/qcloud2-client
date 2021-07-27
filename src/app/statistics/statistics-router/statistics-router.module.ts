@@ -6,6 +6,7 @@ import { MainNonConformitiesComponent } from '../non-conformities/main-non-confo
 import { MainComponent } from '../main/main.component';
 import { AnnotationsMainComponent } from '../annotations/annotations-main/annotations-main.component';
 import { ParettoComponent } from '../paretto/paretto.component';
+import { AnnotationsBuilderComponent } from '../annotations/annotations-builder/annotations-builder.component';
 
 const routes: Routes = [
   {
@@ -13,8 +14,8 @@ const routes: Routes = [
     children: [
       { path: 'nonconformities', component: MainNonConformitiesComponent },
       { path: 'annotations', component: AnnotationsMainComponent },
+      { path: 'annotations/builder/:apiKey', component: AnnotationsBuilderComponent},
       { path: 'pareto/:apiKey', component: ParettoComponent}
-
     ]
   },
 ];

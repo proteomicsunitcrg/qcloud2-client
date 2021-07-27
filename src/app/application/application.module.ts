@@ -46,6 +46,7 @@ import { MessagesComponent } from './layout/welcome/messages/messages.component'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { TipsComponent } from './layout/welcome/tips/tips.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { TipsComponent } from './layout/welcome/tips/tips.component';
     MatMenuModule,
     MatIconModule,
     NgxPaginationModule,
-    NgxSmartModalModule.forChild()
+    NgxSmartModalModule.forChild(),
+    SharedModule
   ],
   declarations: [MainWindowComponent,
     TopMenuComponent,
@@ -73,8 +75,8 @@ import { TipsComponent } from './layout/welcome/tips/tips.component';
     AnnotationSelectorComponent,
     AnnotationListComponent,
     AnnotationListItemComponent,
-    AnnotationSelectorDropdownComponent,
-    AnnotationSelectorSubMenuComponent,
+    // AnnotationSelectorDropdownComponent,
+    // AnnotationSelectorSubMenuComponent,
     DashboardComponent,
     MessagesComponent,
     TipsComponent,

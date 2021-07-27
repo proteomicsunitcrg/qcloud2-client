@@ -3,6 +3,7 @@ import { AnnotationService } from '../../../services/annotation.service';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 declare var M: any;
 @Component({
   selector: 'app-annotations-main',
@@ -11,7 +12,7 @@ declare var M: any;
 })
 export class AnnotationsMainComponent implements OnInit {
 
-  constructor(private annotationService: AnnotationService, private lsService: SystemService) { }
+  constructor(private annotationService: AnnotationService, private lsService: SystemService, private router: Router) { }
 
   ngOnInit() {
     this.getPage();
@@ -95,6 +96,10 @@ export class AnnotationsMainComponent implements OnInit {
   public pageChanged(event: number) {
     this.config.currentPage = event;
     this.getPage();
+  }
+
+  public newAnnotation(): void {
+    this.router.navigate(['/application/statistics/annotations/builder/', 'new']);
   }
 
 }

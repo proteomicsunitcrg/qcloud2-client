@@ -91,14 +91,12 @@ export class TipOfTheWeekComponent implements OnInit {
     }
     const instance = M.Datepicker.init(datePickers, options);
     this.datePickers.push(instance);
-
   }
 
   private enableTimePickers(): void {
     const timePicker = document.getElementById('hour');
     const instance = M.Timepicker.init(timePicker);
     this.datePickers.push(instance, { twelveHour: false });
-
   }
 
   private findAllTips(): void {

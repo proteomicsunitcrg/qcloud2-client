@@ -1,0 +1,50 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4 *ngIf="!isEdit">New annotation</h4>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="input-field col s2">
+      <select name="lsName" [(ngModel)]="selectedLsApiKey" id="lsSelector">
+        <option *ngFor="let system of allLs" [value]="system.apiKey">{{system.name}}</option>
+      </select>
+      <label>LabSystem</label>
+    </div>
+  </div>
+  <div class="row">
+    <app-annotation-selector-dropdown [type]="'PROBLEM'"></app-annotation-selector-dropdown>
+    <app-annotation-selector-dropdown [type]="'ACTION'"></app-annotation-selector-dropdown>
+
+  </div>
+  <div class="row" *ngFor="let item of troubleList">
+    <div class="col s12">
+      <div class="chip" [ngClass]="{'isAction': item.type=='ACTION', 'isProblem':item.type=='PROBLEM'}">
+        {{item.name}}
+        <i class="close material-icons" (click)="removeFromList(item)">close</i>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  </div>
+  <form [formGroup]="annotationForm">
+    <label>
+      Additional information
+    </label>
+    <input type="text" formControlName="additional" placeholder="Additional information">
+  </form>
+  <label class="label">Publish date</label>
+  <br>
+  <input type="text" name="date" class="datepicker" style="width: 10%;" id="date" />
+  <br>
+  <label class="label">Publish hour</label>
+  <br>
+  <input type="text" name="hour" class="timepicker" style="width: 10%;" id="hour" />
+  <br>
+  <button type="button" class="btn waves-effect waves-light"
+    [disabled]="annotationForm.invalid || this.datePickers[0].date == null || this.datePickers[1].hours == null || this.selectedLsApiKey == null"
+    id="saveButton" (click)="submit()" style=" margin-bottom: 10px; margin-top: 20px;">Save</button>
+  <button type="button" class="btn waves-effect waves-light red" [disabled]="currentTip == undefined" id="deleteMSG"
+    (click)="deleteTip()" style="margin-left: 10px; margin-bottom: 10px; margin-top: 20px;">Delete</button>
+</div>
