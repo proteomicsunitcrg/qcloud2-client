@@ -18,6 +18,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 import { ParettoComponent } from './paretto/paretto.component';
 import { AnnotationsBuilderComponent } from './annotations/annotations-builder/annotations-builder.component';
 import { SharedModule } from '../shared/shared.module';
+import { SingleFileViewMainComponent } from './single-file-view/single-file-view-main/single-file-view-main.component';
+import { SingleFileViewPlotComponent } from './single-file-view/single-file-view-plot/single-file-view-plot.component';
 
 
 
@@ -42,7 +44,9 @@ import { SharedModule } from '../shared/shared.module';
     NonConformitiesInformationComponent,
     AnnotationsMainComponent,
     ParettoComponent,
-    AnnotationsBuilderComponent],
+    AnnotationsBuilderComponent,
+    SingleFileViewMainComponent,
+    SingleFileViewPlotComponent],
   providers: [ThresholdNonConformityService]
 })
 export class StatisticsModule { }

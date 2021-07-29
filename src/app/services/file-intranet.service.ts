@@ -67,7 +67,7 @@ export class FileIntranetService {
     return this.httpClient.get<User[]>(`${this.fileURL}/user`, { params: params });
   }
 
-  public getJSON(filter: any, exact: number = 0): Observable<File[]> {
+  public getJSON(filter: any, exact: number = 0): Observable<any[]> {
     let params = new HttpParams();
     params = params.set('checksum', filter.checksum);
     params = params.set('name', filter.name);
@@ -76,7 +76,7 @@ export class FileIntranetService {
     params = params.set('node', filter.node);
     params = params.set('email', filter.email);
     params = params.set('exact', exact.toString());
-    return this.httpClient.get<File[]>(`${this.fileURL}/fullData`, { params: params });
+    return this.httpClient.get<any[]>(`${this.fileURL}/fullData`, { params: params });
   }
 
   public getPipelineStatus(): Observable<boolean> {

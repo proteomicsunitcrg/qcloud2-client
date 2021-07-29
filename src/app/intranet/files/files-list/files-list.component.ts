@@ -6,6 +6,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../../../services/websocket.service';
+import { File } from 'src/app/models/file';
 
 
 declare var M: any;
@@ -323,6 +324,10 @@ export class FilesListComponent implements OnInit {
 
   public navigateTo(nodeApiKey): void {
     this.router.navigate(['/application/intranet/node', nodeApiKey]);
+  }
+
+  public goToSingleFileView(file: File): void {
+    this.router.navigate(['/application/statistics/single-file', file.checksum]);
   }
 
   public cleanFilters(): void {
