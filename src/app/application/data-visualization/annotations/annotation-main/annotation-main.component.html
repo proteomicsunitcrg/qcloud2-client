@@ -14,7 +14,7 @@
     </div>
     <div *ngIf="file" title="{{file.filename}}">
       <p class="bold">QCloud publication date:</p>
-      <p *ngIf="file.insertDate">{{file.insertDate}}</p>
+      <p *ngIf="file.insertDate">{{file.nginsertDate}}</p>
       <p *ngIf="!file.insertDate">Not available</p>
     </div>
     <!-- <div *ngIf="file" title="{{file.filename}}">
@@ -26,7 +26,7 @@
 <ul class="collection z-depth-1">
   <li class="collection-item">
     <h5>Annotation</h5>
-    <span class="go-back" (click)="goBack()">[Go back]</span>
+    <button class="btn-small" (click)="goBack()">Go back</button>
   </li>
   <li class="collection-item">
     <p *ngIf="annotation" class="annotation-author">

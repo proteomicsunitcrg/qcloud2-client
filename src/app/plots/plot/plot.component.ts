@@ -646,6 +646,9 @@ export class PlotComponent implements OnInit, OnDestroy {
         }
         annotation.troubleshootings.forEach(p => text += p.name + '-');
         text = text.slice(0, -1);
+        if (text.split('-').length > 2) {
+          text = 'Check annotation panel.';
+        }
         lines.push({
           type: 'line',
           x0: annotation.date,
