@@ -39,7 +39,6 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   annotationForm = new FormGroup({
     additional: new FormControl('', [
-      Validators.required,
       Validators.maxLength(1000),
     ]),
   });
