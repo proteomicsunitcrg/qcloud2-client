@@ -25,6 +25,11 @@ export class TipOfTheWeekComponent implements OnInit {
       Validators.required
     ]),
     twitter: new FormControl(false),
+    twitterText: new FormControl('Twitter text', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(280)
+    ])
   });
 
   datePickers: any[] = [];
@@ -65,7 +70,8 @@ export class TipOfTheWeekComponent implements OnInit {
     if (this.messageForm.value.twitter == null) {
       this.messageForm.value.twitter = false;
     }
-    const tip = new Tip(this.messageForm.value.title, this.messageForm.value.message, date, this.messageForm.value.show, this.messageForm.value.twitter);
+    const tip = new Tip(this.messageForm.value.title, this.messageForm.value.message, date, this.messageForm.value.show,
+      this.messageForm.value.twitter, this.messageForm.value.twitterText);
     if (this.currentTip != undefined) {
       tip.id = this.currentTip.id;
     }
