@@ -13,6 +13,7 @@ import { SharedModulesModule } from '../shared-modules/shared-modules.module';
 import { ParametersService } from '../services/parameters.service';
 import { ChartService } from '../services/chart.service';
 import { GuideSetService } from '../services/guide-set.service';
+import { HelpResumeComponent } from './help-resume/help-resume.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { GuideSetService } from '../services/guide-set.service';
   ],
   declarations: [
     MainComponent,
-    SidebarComponent
+    SidebarComponent,
+    HelpResumeComponent
   ],
   providers: [CategoryService,
     CvService,

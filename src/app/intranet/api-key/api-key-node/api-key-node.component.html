@@ -1,0 +1,23 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>
+        Node api key finder
+      </h4>
+    </div>
+  </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <div class="container">
+        <form [formGroup]="apiKeyForm">
+          <div class="input-field col s12">
+            <input placeholder="253fba28-203f-4665-3ffd-173fe93fc93f" id="api_key" type="text" class="validate" formControlName="apiKeyInput">
+            <span class="helper-text invalid" style="color: red" *ngIf="apiKeyForm.controls['apiKeyInput'].invalid && (apiKeyForm.controls['apiKeyInput'].dirty || apiKeyForm.controls['apiKeyInput'].touched)">Bad format</span>
+            <label for="api_key">Api key</label>
+          </div>
+          <button class="btn" (click)="find()" [disabled]="apiKeyForm.invalid">Find</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

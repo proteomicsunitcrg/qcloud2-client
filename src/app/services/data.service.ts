@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Chart } from '../models/chart';
@@ -18,6 +18,20 @@ export class DataService {
   private apiPrefix = environment.apiPrefix;
 
   dataUrl = this.apiPrefix + 'api/data';
+
+  fileUrl = this.apiPrefix + 'api/file';
+
+  public selectedQC = new BehaviorSubject<string>("QC01");
+  selectedQC$ = this.selectedQC.asObservable();
+
+  public sendSelectedQC(value: string) {
+    this.selectedQC.next(value);
+  }
+
+  public getSelectedQC(): Observable<any> {
+    return this.selectedQC.asObservable();
+  }
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,8 +68,6 @@ export class DataService {
   }
 
   public getPlotTraceData(chart: Chart, system: System): Observable<PlotTrace[]> {
-    console.log(this.currentDates);
-
     return this.httpClient.get<PlotTrace[]>(this.dataUrl + '/traces/' +
       this.currentDates[0] + 'T00:00:00.000+02:00/' +
       this.currentDates[1] + 'T23:59:59.000+02:00/' +
@@ -77,6 +89,12 @@ export class DataService {
           throw err;
         })
       );
+  }
+
+  public getDataForCSV(systemApiKey: string, startDate: Date, endDate: Date): Observable<any> {
+    let params = new HttpParams;
+    params = params.set('startDate', startDate.toISOString()).set('endDate', endDate.toISOString()); // paginator options
+    return this.httpClient.get<any>(`${this.fileUrl}/summaryByDates/${systemApiKey}`, {params})
   }
 
   public getAutoPlotData(ls: LabSystemStatus): Observable<MiniData[]> {

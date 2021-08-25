@@ -3,6 +3,10 @@ import { AnnotationService } from '../../../services/annotation.service';
 import { SystemService } from '../../../services/system.service';
 import { System } from '../../../models/system';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { Annotation } from '../../../models/annotation';
+import { ToastrService } from 'ngx-toastr';
+import { TOASTSETTING } from 'src/app/shared/ToastConfig';
 declare var M: any;
 @Component({
   selector: 'app-annotations-main',
@@ -11,7 +15,8 @@ declare var M: any;
 })
 export class AnnotationsMainComponent implements OnInit {
 
-  constructor(private annotationService: AnnotationService, private lsService: SystemService) { }
+  constructor(private annotationService: AnnotationService, private lsService: SystemService, private router: Router,
+    private toast: ToastrService) { }
 
   ngOnInit() {
     this.getPage();
@@ -97,4 +102,24 @@ export class AnnotationsMainComponent implements OnInit {
     this.getPage();
   }
 
+  public newAnnotation(): void {
+    this.router.navigate(['/application/statistics/annotations/builder/', 'new']);
+  }
+
+  public editAnno(anno: Annotation): void {
+    this.router.navigate(['/application/statistics/annotations/builder/', anno.apiKey]);
+  }
+
+  public deleteAnno(anno: Annotation): void {
+    if (confirm('Are you sure?')){
+      this.annotationService.deleteAnnotation(anno).subscribe(
+        res => {
+          this.toast.success('Annotation removed', 'Success', TOASTSETTING);
+          this.getPage();
+        },
+        err =>
+        this.toast.error('Error removing the annotation, contact the admins', 'Error', TOASTSETTING)
+      );
+    }
+  }
 }

@@ -1,44 +1,27 @@
-<div class="row" *ngIf="message.show">
-  <div class="col s4 offset-s4 z-depth-1" id="panell">
-    <h5 class="title titleWarning" *ngIf="message.messageType === 'warning'">{{message.title}}</h5>
-    <h5 class="title titleError" *ngIf="message.messageType === 'error'">{{message.title}}</h5>
-    <h5 class="title titleMessage" *ngIf="message.messageType === 'message'">{{message.title}}</h5>
-    <!-- <h5 class="title titleMessage">{{message.title}}</h5> -->
-    <p [innerHTML]="message.message" class="messageText"></p>
-  </div>
+<div class="col s12 m12 l4 xl4">
+  <app-messages></app-messages>
+  <app-tips></app-tips>
 </div>
-<div class="row" style="margin-bottom: 50px;">
-  <div class="col s4 offset-s4 z-depth-1" id="panell">
-    <h5 class="title titleMessage"><img src="assets/icons/cite.svg" alt="Pipeline good" style="width: 4%;"> Check out the resources!</h5>
-    <p class="messageText">
-      Dont't forget to check out the resources to get the instrument cards, the QCrawler manual and download.</p>
+<!-- <div class="col s4 offset-s4 z-depth-1" id="panell">
+  <h5 class="title titleMessage"><img src="assets/icons/cite.svg" alt="Pipeline good" style="width: 4%;"> Demo version
+  </h5>
+  <p class="messageText">
+    This is a demo version of QCloud2 and some functions have been blocked to guarantee its proper operation. <br>
+    Every day at 24h all the data is restored. <br>
+    This demo website could be accessed by multiple users at the same time.</p>
+</div> -->
+<div class="col s12 m12 l8 xl8 z-depth-2 right">
+  <div class="row z-depth-0 green-background">
+    <div class="col s12 m12 l12 xl12 ">
+      <h4>
+        Dashboard
+      </h4>
+    </div>
+
   </div>
-</div>
-<div class="row" style="margin-bottom: 50px;">
-  <div class="col s4 offset-s4 z-depth-1" id="panell">
-    <h5 class="title titleMessage"><img src="assets/icons/cite.svg" alt="Pipeline good" style="width: 4%;"> How to cite
-      QCloud?</h5>
-    <p class="messageText">
-      If you want to cite QCloud, please add to methods section: <a style="font-style: italic; color: #000;">QCloud has
-        been used to control instrument longitudinal performance
-        during the project. [Ref1]</a><br>
-      [Ref1] Chiva, Cristina, et al. "QCloud: A cloud-based quality control system for mass spectrometry-based
-      proteomics laboratories." <a style="color: #5c8d89; text-decoration: none" target="_blank"
-        href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0189209">PloS one 13.1 (2018):
-        e0189209</a>. </p>
-  </div>
-</div>
-<div class="row" style="margin-left: 23px;">
-  <div class="col xl4 s12 m12 l6" *ngFor="let video of videoLinks">
-    <div class="card">
-      <div class="card-image">
-        <a [href]="video.link" target="_blank">
-          <img width="560" height="315" [src]="video.img">
-        </a>
-      </div>
-      <div class="card-action">
-        <p href="#" class="videoTitle">{{video.title}}</p>
-      </div>
+  <div class="row z-depth-0">
+    <div class="col s12 m12 l12 xl12">
+      <app-dashboard></app-dashboard>
     </div>
   </div>
 </div>

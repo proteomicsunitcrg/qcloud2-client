@@ -39,6 +39,10 @@ import { LogoService } from './services/logo.service';
 import { LinkService } from './services/links.service';
 
 import { ToastrModule } from 'ngx-toastr';
+import { ContextSourceService } from './services/context-source.service';
+import { SampleCompositionService } from './services/sample-composition.service';
+import { TipService } from './services/tip.service';
+
 
 
 @NgModule({
@@ -58,7 +62,6 @@ import { ToastrModule } from 'ngx-toastr';
     NgProgressModule,
     NgProgressHttpModule,
     JwtModule.forRoot(tokenConfiguration),
-
   ],
   providers: [AuthService,
     {
@@ -77,7 +80,10 @@ import { ToastrModule } from 'ngx-toastr';
     WebsocketService,
     TroubleshootingService,
     LogoService,
-    LinkService],
+    ContextSourceService,
+    SampleCompositionService,
+    LinkService,
+    TipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

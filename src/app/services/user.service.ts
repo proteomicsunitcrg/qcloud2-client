@@ -106,4 +106,10 @@ export class UserService {
     return this.httpClient.patch<User>(`${this.nodeUrl}/user/updateSubscribed`, null);
   }
 
+  public getUserByApiKey(apiKey: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('apiKey', apiKey);
+    return this.httpClient.get<any>(`${this.nodeUrl}/user/getByApiKey`, { params })
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NodeIntranetService } from '../../../../services/node-intranet.service';
 import { LsStats } from '../../../../models/LsStats';
+import { ActivatedRoute } from '@angular/router';
 declare var M: any;
 @Component({
   selector: 'app-single-node-ls',
@@ -10,8 +11,7 @@ declare var M: any;
 export class SingleNodeLsComponent implements OnInit {
 
   constructor(
-    private intrService: NodeIntranetService,
-  ) { }
+    private intrService: NodeIntranetService, private activatedRoute: ActivatedRoute  ) { }
   @Input('nodeApiKey') nodeKey: string;
   labsystems = [];
   statsLs = new LsStats(null, null);
@@ -19,13 +19,14 @@ export class SingleNodeLsComponent implements OnInit {
 
   ngOnInit() {
     this.getNodeLS();
-    this.initializeCollapsible();
   }
 
   private getNodeLS(): void {
     this.intrService.getLabsystemsByNodeApiKey(this.nodeKey).subscribe(
       res => {
         this.labsystems = res;
+        this.initializeCollapsible();
+        this.getRoute();
       },
       err => {
         console.error(err);
@@ -53,5 +54,21 @@ export class SingleNodeLsComponent implements OnInit {
   private initializeCollapsible(): void {
     const elems = document.querySelectorAll('.collapsible');
     const instances = M.Collapsible.init(elems);
+  }
+
+  private getRoute(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      let lsApiKey = params['lsApiKey'];
+      if (lsApiKey === undefined) {
+        console.log('NADA');
+      } else {
+        setTimeout(() => {
+          const item = document.getElementById(`collapsible${lsApiKey}`);
+          console.log(item);
+          item.style.setProperty('background-color', 'red');
+        }, 1000);
+
+      }
+    });
   }
 }

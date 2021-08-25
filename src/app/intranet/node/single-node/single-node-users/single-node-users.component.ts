@@ -5,6 +5,7 @@ import { EmailService } from '../../../../services/email.service';
 import { Email } from '../../../../models/email';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING } from '../../../../shared/ToastConfig';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-single-node-users',
@@ -17,7 +18,8 @@ export class SingleNodeUsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private emailService: EmailService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) { }
   @Input('nodeApiKey') nodeKey: string;
 
@@ -25,6 +27,7 @@ export class SingleNodeUsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.subscribeToShowUser();
   }
 
   private getUsers(): void {
@@ -64,13 +67,13 @@ export class SingleNodeUsersComponent implements OnInit {
   private sendEmail(user: User, password: string): void {
     const users: String[] = [user.email];
     const email = new Email('qcloud@crg.eu', users, 'QCloud 2 password change'
-      , `<p>Dear QCloud user</p><p>Your passsord has been changed to: <b>${password}</b></p><p>Thanks you</p>`);
+      , `<p>Dear QCloud user</p><p>Your passsord has been changed to: <b>${password}</b></p><p>Thank you</p>`);
     this.emailService.sendEmail(email).subscribe(
       res => {
         if (res) {
-          this.toast.success('Email send', null, TOASTSETTING);
+          this.toast.success('Email sent', null, TOASTSETTING);
         } else {
-          this.toast.error('Email not send', null, TOASTSETTING);
+          this.toast.error('Email not sent', null, TOASTSETTING);
         }
       },
       err => {
@@ -89,5 +92,16 @@ export class SingleNodeUsersComponent implements OnInit {
         this.toast.error(err.error.message, err.error.error, TOASTSETTING); // error inception
       }
     );
+  }
+
+  private subscribeToShowUser() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      let userApiKey = params['userApiKey'];
+      if (userApiKey === undefined) {
+        console.log('NADA USER');
+      } else {
+        const element = document.getElementById(`${userApiKey}`); // I NEED A TIMEOUT
+      }
+    });
   }
 }

@@ -31,6 +31,7 @@ import { LogoNewComponent } from '../logo/logo-new/logo-new.component';
 import { LinksComponent } from '../links/links.component';
 import { LinksEditorComponent } from '../links/links-editor/links-editor.component';
 import { LinksBuilderComponent } from '../links/links-builder/links-builder.component';
+import { TipOfTheWeekComponent } from '../tip-of-the-week/tip-of-the-week.component';
 
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
         ]
       },
       { path: 'message', component: MessageComponent },
+      { path: 'tip', component: TipOfTheWeekComponent },
       { path: 'email', component: EmailComponent },
       { path: 'community-line', component: CommunityLineMainComponent },
       { path: 'community-partner', component: CommunityPartnerMainComponent },

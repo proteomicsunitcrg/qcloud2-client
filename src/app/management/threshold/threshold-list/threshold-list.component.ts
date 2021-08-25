@@ -110,8 +110,6 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
   }
 
   editThreshold(threshold: Threshold): void {
-    threshold['globalInitialValue'] = threshold.thresholdParams[0].initialValue;
-    threshold['globalStepValue'] = threshold.thresholdParams[0].stepValue;
     threshold['edditing'] = !threshold['edditing'];
     delay(1).then(() => M.updateTextFields());
   }

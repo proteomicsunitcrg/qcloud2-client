@@ -5,7 +5,10 @@
 </ul> -->
 <ul id="user_views" class="dropdown-content">
   <li *ngFor="let view of userViews">
-    <a *ngIf="userViews.length != 0" routerLink="view/user/{{view.apiKey}}">{{view.name}}</a>
+    <a *ngIf="userViews.length != 0" routerLink="view/user/{{view.apiKey}}">
+      {{view.name}}                
+      <i class="material-icons" *ngIf="view.isShared">share</i>
+    </a>
   </li>
   <li *ngIf="userViews.length == 0">
     <a routerLink="configuration/views">New View</a>

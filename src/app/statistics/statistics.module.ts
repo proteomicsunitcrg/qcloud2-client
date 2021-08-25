@@ -6,7 +6,7 @@ import { MainNonConformitiesComponent } from './non-conformities/main-non-confor
 import { RouterModule } from '@angular/router';
 import { StatisticsRouterModule } from './statistics-router/statistics-router.module';
 import { NonConformitiesSelectorComponent } from './non-conformities/non-conformities-selector/non-conformities-selector.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NonConformitiesListComponent } from './non-conformities/non-conformities-list/non-conformities-list.component';
 import { ThresholdNonConformityService } from '../services/threshold-non-conformity.service';
 // tslint:disable-next-line:max-line-length
@@ -16,6 +16,9 @@ import { AnnotationsMainComponent } from './annotations/annotations-main/annotat
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { ParettoComponent } from './paretto/paretto.component';
+import { AnnotationsBuilderComponent } from './annotations/annotations-builder/annotations-builder.component';
+import { SharedModule } from '../shared/shared.module';
+
 
 
 
@@ -25,9 +28,11 @@ import { ParettoComponent } from './paretto/paretto.component';
     StatisticsRouterModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     PlotsModule,
     NgxPaginationModule,
-    TooltipModule
+    TooltipModule,
+    SharedModule
   ],
   declarations: [MainComponent,
     SideMenuComponent,
@@ -36,7 +41,8 @@ import { ParettoComponent } from './paretto/paretto.component';
     NonConformitiesListComponent,
     NonConformitiesInformationComponent,
     AnnotationsMainComponent,
-    ParettoComponent],
+    ParettoComponent,
+    AnnotationsBuilderComponent],
   providers: [ThresholdNonConformityService]
 })
 export class StatisticsModule { }

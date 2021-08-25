@@ -55,11 +55,19 @@ export class MessageService {
     return this.httpClient.post<Message>(this.messageUrl + '/last', { headers: headers });
   }
 
+  public deleteMessage(message: Message): Observable<any> {
+    return this.httpClient.delete<any>(`${this.messageUrl}/${message.id}`);
+  }
+
   /**
    * showNotification
    */
   public showNotification(): Observable<boolean> {
     return this.httpClient.get<boolean>(`${this.messageUrl}/showNotification`);
+  }
+
+  public getActiveMessages(): Observable<Message[]> {
+    return this.httpClient.get<Message[]>(`${this.messageUrl}/getActive`);
   }
 
 }

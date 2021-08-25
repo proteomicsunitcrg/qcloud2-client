@@ -28,8 +28,16 @@ export class MessageComponent implements OnInit {
     ]),
     show: new FormControl(false, [
       Validators.required
+    ]),
+    priority: new FormControl(0, [
+      Validators.required,
     ])
   });
+
+  allMessages: Message[] = [];
+
+  currentMessage: Message;
+
   constructor(private msgService: MessageService, private toastr: ToastrService,
     private mailService: EmailService, ) { }
 
@@ -50,7 +58,10 @@ export class MessageComponent implements OnInit {
     this.msgService.getAllMessages().subscribe(
       (msg) => {
         if (Array.isArray(msg) && msg.length) {
-          this.mountForm(msg[msg.length - 1]);
+          this.allMessages = msg;
+          console.log(msg);
+          this.currentMessage = msg[0];
+          this.mountForm(msg[0]);
         } else {
           this.toastr.error('Error retrieving the message', null, TOASTSETTING);
         }
@@ -67,11 +78,12 @@ export class MessageComponent implements OnInit {
    * @access private
    * @param {object} msg The message retrieved from the database
    */
-  private mountForm(msg: any): void {
+  private mountForm(msg: Message): void {
     this.messageForm.controls.title.setValue(msg.title);
     this.messageForm.controls.message.setValue(msg.message);
-    this.messageForm.controls.type.setValue(msg.messageType);
+    this.messageForm.controls.type.setValue(msg.type);
     this.messageForm.controls.show.setValue(msg.show);
+    this.messageForm.controls.priority.setValue(msg.priority);
   }
 
   /**
@@ -84,9 +96,16 @@ export class MessageComponent implements OnInit {
   public submit(): void {
     const msg = new Message(this.messageForm.value.title, this.messageForm.value.message,
       this.messageForm.value.type, this.messageForm.value.show, null);
+    msg.priority = this.messageForm.value.priority;
     console.log(msg);
+    if (this.currentMessage != undefined) {
+      msg.id = this.currentMessage.id;
+    }
     this.msgService.saveMessage(msg).subscribe(
-      () => this.toastr.success('Message updated', null, TOASTSETTING),
+      () => {
+        this.toastr.success('Message updated', null, TOASTSETTING);
+        this.subscribeToMessage();
+      },
       () => this.toastr.error('Error while updating the message', null, TOASTSETTING),
     );
   }
@@ -131,6 +150,37 @@ export class MessageComponent implements OnInit {
    */
   private enableSelect(): void {
     M.FormSelect.init(document.getElementById('typeMsg'), {});
+  }
+
+  public newMsg(): void {
+    this.currentMessage = undefined;
+    this.messageForm.controls.title.setValue('');
+    this.messageForm.controls.message.setValue('');
+    this.messageForm.controls.type.setValue('');
+    this.messageForm.controls.show.setValue(false);
+    this.messageForm.controls.priority.setValue(0);
+  }
+
+  public goToMessage(msg: Message): void {
+    this.currentMessage = msg;
+    this.mountForm(msg);
+  }
+
+  public deleteMSG(): void {
+    console.log(this.currentMessage);
+    this.msgService.deleteMessage(this.currentMessage).subscribe(
+      res => {
+        if(res) {
+          this.toastr.success('Message deleted', 'Success', TOASTSETTING);
+          this.subscribeToMessage();
+        } else {
+          this.toastr.success('Error deleting the message', 'Error', TOASTSETTING);
+        }
+      },
+      err => {
+        this.toastr.success('Error deleting the message', 'Error', TOASTSETTING);
+      }
+    );
   }
 
 }

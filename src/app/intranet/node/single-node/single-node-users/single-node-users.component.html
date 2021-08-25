@@ -34,7 +34,7 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of users" [id]="user.apiKey" class="rowerino">
             <td>
                 <img src="assets/icons/god.svg" alt="Admin" style="width: 40px;" *ngIf="user.authorities.length === 3">
                 <img src="assets/icons/ruby.svg" alt="Manager" style="width: 40px;"

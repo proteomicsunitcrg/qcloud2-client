@@ -41,6 +41,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AnnotationSelectorDropdownComponent } from './data-visualization/annotations/annotation-selector-dropdown/annotation-selector-dropdown.component';
 // tslint:disable-next-line:max-line-length
 import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotations/annotation-selector-sub-menu/annotation-selector-sub-menu.component';
+import { DashboardComponent } from './layout/welcome/dashboard/dashboard.component';
+import { MessagesComponent } from './layout/welcome/messages/messages.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { TipsComponent } from './layout/welcome/tips/tips.component';
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -49,7 +56,11 @@ import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotat
     FormsModule,
     ShContextMenuModule,
     MatMenuModule,
-    MatIconModule],
+    MatIconModule,
+    NgxPaginationModule,
+    NgxSmartModalModule.forChild(),
+    SharedModule
+  ],
   declarations: [MainWindowComponent,
     TopMenuComponent,
     InstrumentStatusComponent,
@@ -64,8 +75,12 @@ import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotat
     AnnotationSelectorComponent,
     AnnotationListComponent,
     AnnotationListItemComponent,
-    AnnotationSelectorDropdownComponent,
-    AnnotationSelectorSubMenuComponent,
+    // AnnotationSelectorDropdownComponent,
+    // AnnotationSelectorSubMenuComponent,
+    DashboardComponent,
+    MessagesComponent,
+    TipsComponent,
+
 
   ],
   providers: [DataService,

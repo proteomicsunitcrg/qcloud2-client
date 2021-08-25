@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -19,13 +19,16 @@ import { GeneralStatsComponent } from './node/general-stats/general-stats.compon
 import { SingleNodeLsComponent } from './node/single-node/single-node-ls/single-node-ls.component';
 import { SingleNodeUsersComponent } from './node/single-node/single-node-users/single-node-users.component';
 import { PreviousRouteService } from '../services/PreviousRoute.service';
+import { ApiKeyNodeComponent } from './api-key/api-key-node/api-key-node.component';
+import { ApiKeyLsComponent } from './api-key/api-key-ls/api-key-ls.component';
+import { ApiKeyUserComponent } from './api-key/api-key-user/api-key-user.component';
 
 
 @NgModule({
   declarations: [MainComponent, SidebarComponent, FilesListComponent,
     MainFilesComponent, FilesListComponent, FilterIntranetFile, NodeMainComponent,
     NodeListComponent, SingleNodeMainComponent, SingleNodeViewComponent, GeneralStatsComponent,
-    SingleNodeLsComponent, SingleNodeUsersComponent
+    SingleNodeLsComponent, SingleNodeUsersComponent, ApiKeyNodeComponent, ApiKeyLsComponent, ApiKeyUserComponent
   ],
   imports: [
     CommonModule,
@@ -33,8 +36,9 @@ import { PreviousRouteService } from '../services/PreviousRoute.service';
     IntranetRouterModule,
     NgxPaginationModule,
     FormsModule,
+    ReactiveFormsModule,
     TooltipModule,
-    NgxSmartModalModule.forChild()
+    NgxSmartModalModule
   ],
   providers: [
     PreviousRouteService

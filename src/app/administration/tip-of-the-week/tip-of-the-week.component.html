@@ -1,0 +1,84 @@
+<div class="col s12 m10 l10 xl10 z-depth-2">
+  <div class="row z-depth-0 green-background  ">
+    <div class="col s12 m12 l12 xl12">
+      <h4>Manage tips</h4>
+    </div>
+  </div>
+  <a class="btn-floating waves-effect waves-light right" (click)="newTip()">
+    <i class="material-icons">add</i>
+  </a>
+  <div class="row">
+    <div class="col m3 xl3 l3 s3">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Publish date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tiperino of allTips" (click)="goToTip(tiperino)" class="cursor">
+            <td>
+              {{tiperino.title}}
+            </td>
+            <td>
+              <p>
+                {{tiperino.showAt | date: 'dd/MM/yyyy'}}
+              </p>
+              <p>
+                {{tiperino.showAt | date: 'HH:mm'}}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col m9 xl9 l9 s9s">
+      <form [formGroup]="messageForm">
+        <label>
+          Tip title
+        </label>
+        <input type="text" formControlName="title" placeholder="Title">
+        <label>
+          Tip text
+        </label>
+        <textarea formControlName="message" id="msgText" class="materialize-textarea" placeholder="Text"></textarea>
+        <label>
+          Twitter text
+        </label>
+        <textarea formControlName="twitterText" id="twitterText" class="materialize-textarea" placeholder="Text"></textarea>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" formControlName="show">
+            <span class="lever"></span>
+            On
+          </label>
+          <div style="margin-top: 10px; margin-bottom: 10px;">
+            <label >
+              <input type="checkbox" formControlName="twitter"/>
+              <span>Published Twitter. Set on to not publish on Twitter</span>
+            </label>
+          </div>
+        </div>
+      </form>
+      <label class="label">Publish date</label>
+        <br>
+        <input type="text" name="date" class="datepicker" style="width: 10%;" id="date" />
+        <br>
+        <label class="label">Publish hour</label>
+        <br>
+        <input type="text" name="hour" class="timepicker" style="width: 10%;" id="hour"/>
+      <div class="row">
+        <div class="col s6 offset-s3 z-depth-1" id="panell">
+          <h5 class="title titleTip">{{messageForm.value.title}}</h5>
+          <p [innerHTML]="messageForm.value.message" class="messageText"></p>
+        </div>
+      </div>
+      <button type="button" class="btn waves-effect waves-light" [disabled]="messageForm.invalid || this.datePickers[0].date == null || this.datePickers[1].hours == null" id="saveButton"
+        (click)="submit()">Save</button>
+      <button type="button" class="btn waves-effect waves-light red" [disabled]="currentTip == undefined || messageForm.value.show === true" id="deleteMSG"
+      (click)="deleteTip()" style="margin-left: 10px;">Delete</button>
+    </div>
+  </div>
+</div>

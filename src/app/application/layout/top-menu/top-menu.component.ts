@@ -9,6 +9,7 @@ declare var M: any;
 import { Subscription } from 'rxjs';
 import { LogoService } from '../../../services/logo.service';
 import { Logo } from '../../../models/Logo';
+import { WebsocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -27,12 +28,16 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private viewService: ViewService,
     private route: Router,
-    private logoService: LogoService) { }
+    private logoService: LogoService,
+    private webSocketService: WebsocketService) { }
 
   isAdmin = false;
   isManager = false;
 
   newUserView$: Subscription;
+
+  private updateSharedViews$: Subscription;
+
 
   ngOnInit() {
     this.getLogo();
@@ -44,11 +49,14 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
     this.loadNodeSystems();
     this.loadUserViews();
+    this.loadNodeViews();
     this.subscribeToNewUserView();
+    this.subscribeToNewSharedView();
   }
 
   ngOnDestroy() {
     this.newUserView$.unsubscribe();
+    this.updateSharedViews$.unsubscribe();
   }
 
   private loadUserViews(): void {
@@ -56,9 +64,20 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.viewService.getUserViews()
       .subscribe(
         (views) => {
-          this.userViews = views;
+          this.userViews = this.userViews.concat(views);
         }
       );
+  }
+
+  private loadNodeViews(): void {    
+    this.viewService.getNodeViews().subscribe(
+      res => {
+        this.userViews = this.userViews.concat(res);
+      }, 
+      err => {
+        console.error(err);
+      }
+    );
   }
 
   private loadNodeSystems(): void {
@@ -110,6 +129,16 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       },
       err => {
         console.log('Logo not found');
+      }
+    );
+  }
+
+  private subscribeToNewSharedView(): void {
+    this.updateSharedViews$ = this.webSocketService.updateSharedViews$.subscribe(
+      () => {
+        this.userViews = [];
+        this.loadUserViews();
+        this.loadNodeViews();
       }
     );
   }

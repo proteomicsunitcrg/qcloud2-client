@@ -1,6 +1,6 @@
 <ul class="collapsible">
-    <li *ngFor="let ls of labsystems">
-        <div class="collapsible-header" (click)="showInfo=true">
+    <li *ngFor="let ls of labsystems"  class="collapse">
+        <div class="collapsible-header" (click)="showInfo=true" [id]="'collapsible'+ls.apiKey">
             {{ls.name}}
         </div>
         <div class="collapsible-body">

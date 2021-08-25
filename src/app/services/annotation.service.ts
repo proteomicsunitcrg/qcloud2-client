@@ -39,6 +39,13 @@ export class AnnotationService {
       );
   }
 
+  public getAnnotationsBetweenDates2(datesArray: string[], labSystemApiKey: string): Observable<Annotation[]> {
+    const currentDates = [];
+    currentDates[0] = datesArray[0] + 'T00:00:00.000+02:00';
+    currentDates[1] = datesArray[1] + 'T23:59:59.000+02:00';
+    return this.httpClient.get<Annotation[]>(this.annotationUrl + '/dates/' + currentDates[0] + '/' + currentDates[1] + '/' + labSystemApiKey);
+  }
+
   public getAnnotationByLabSystemApiKeyAndDate(labSystemApiKey: string, date: Date): Observable<Annotation> {
     return this.httpClient.get<Annotation>(this.annotationUrl + '/labsystem/' + labSystemApiKey + '/' + date.toUTCString());
   }
@@ -50,6 +57,10 @@ export class AnnotationService {
   public updateAnnotation(annotation: Annotation): Observable<Annotation> {
     const json = JSON.stringify(annotation);
     return this.httpClient.put<Annotation>(this.annotationUrl + '/' + annotation.apiKey, json, { headers: this.headers });
+  }
+
+  public getAnnotationByApiKey(apiKey: string): Observable<Annotation> {
+    return this.httpClient.get<Annotation>(`${this.annotationUrl}/${apiKey}`);
   }
 
   public getPage(pageToRequest: number, numberOfElements: number, selectedLsApiKey: string, startDate: any, endDate: any, troubleshootingName: string): Observable<any>{

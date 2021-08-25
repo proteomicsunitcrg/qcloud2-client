@@ -91,6 +91,7 @@ import { LogoNewComponent } from './logo/logo-new/logo-new.component';
 import { LinksComponent } from './links/links.component';
 import { LinksEditorComponent } from './links/links-editor/links-editor.component';
 import { LinksBuilderComponent } from './links/links-builder/links-builder.component';
+import { TipOfTheWeekComponent } from './tip-of-the-week/tip-of-the-week.component';
 
 @NgModule({
   imports: [
@@ -105,9 +106,9 @@ import { LinksBuilderComponent } from './links/links-builder/links-builder.compo
   ],
   providers: [CategoryService,
     CvService,
-    ContextSourceService,
+    // ContextSourceService,
     SampleTypeService,
-    SampleCompositionService,
+    // SampleCompositionService,
     InstrumentSampleService,
     PeptideService,
     ParametersService,
@@ -185,6 +186,7 @@ import { LinksBuilderComponent } from './links/links-builder/links-builder.compo
     LinksComponent,
     LinksEditorComponent,
     LinksBuilderComponent,
+    TipOfTheWeekComponent,
     // TroubleshootingMainComponent
   ]
 })
