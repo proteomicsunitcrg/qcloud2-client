@@ -84,7 +84,7 @@
                 </ul>
             </div>
         </li>
-        <li (click)="open('menu')">
+        <li (click)="open('menu')" *ngIf="showCommunity">
           <a class="collapsible-header waves-effect waves-cyan">
               <span class="nav-headers">Tip of the week</span>
           </a>
