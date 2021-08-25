@@ -95,6 +95,8 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
    * @param cv
    */
   changeStatus(threshold: Threshold) {
+    alert('Method not enabled in demo version');
+    return;
     this.thresholdService.changeEnabled(threshold.apiKey)
       .subscribe(
         (res) => {
@@ -110,11 +112,15 @@ export class ThresholdListComponent implements OnInit, OnDestroy {
   }
 
   editThreshold(threshold: Threshold): void {
+    alert('Method not enabled in demo version');
+    return;
     threshold['edditing'] = !threshold['edditing'];
     delay(1).then(() => M.updateTextFields());
   }
 
   saveThresholdParams(threshold: Threshold): void {
+    alert('Method not enabled in demo version');
+    return;
     threshold['thresholdParams'].forEach(
       (param) => {
         param['initialValue'] = threshold['globalInitialValue'];

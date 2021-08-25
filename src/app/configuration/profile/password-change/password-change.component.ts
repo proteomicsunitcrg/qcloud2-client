@@ -47,6 +47,8 @@ export class PasswordChangeComponent implements OnInit {
   }
 
   onSubmit(): void {
+    alert('Method not enabled in demo version');
+    return;
     const currentPassword = this.currentPasswordFormGroup.controls.currentPassword.value;
     const newPassword = this.newPasswordFormGroup.controls.newPassword.value;
     const repeatPassword = this.newPasswordFormGroup.controls.repeatPassword.value;

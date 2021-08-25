@@ -309,6 +309,8 @@ export class SystemBuilderComponent implements OnInit, OnDestroy {
   }
 
   public enableDisable(): void {
+    alert('Method not enabled in demo version');
+    return;
     this.systemService.enableDisable(this.system).subscribe(
       () =>
         err => console.error(err)

@@ -204,6 +204,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
   }
 
   updateSystemGuideSet(system: System, guideSet: GuideSet): void {
+    alert('Method not enabled in demo version');
+    return;
     this.systemService.saveGuideSet(system, guideSet)
       .subscribe(
         (res) => {
@@ -220,6 +222,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
   }
 
   createGuideSet(system: System, sampleType: SampleType): void {
+    alert('Method not enabled in demo version');
+    return;
     this.editingGuideSet = true;
     const index = system.enabledGuideSets.findIndex(gs => {
       return gs.sampleType.qualityControlControlledVocabulary === sampleType.qualityControlControlledVocabulary;
@@ -234,6 +238,8 @@ export class DataSourceGuideSetListComponent implements OnInit, OnDestroy {
   }
 
   setGuideSetToAutomatic(labSystem: System, guideSet: GuideSet): void {
+    alert('Method not enabled in demo version');
+    return;
     this.guideSetService.resetLabSystemGuideSetBySampleType(labSystem.apiKey, guideSet.sampleType)
       .subscribe(
         (res) => {

@@ -26,6 +26,8 @@ export class ProfileTelegramComponent implements OnInit {
   }
 
   public resetTelegramCode(): void {
+    alert('Method not enabled in demo version');
+    return;
     if (confirm('Your telegram password will be reseted and the session of your mobile device will be closed. Are you sure?')) {
       this.userService.resetTelegramCode().subscribe(
         (res) => {

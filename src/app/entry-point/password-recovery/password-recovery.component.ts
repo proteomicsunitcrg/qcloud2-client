@@ -57,6 +57,8 @@ export class PasswordRecoveryComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    alert('Method not enabled in demo version');
+    return;
     if (this.user.password === null) {
       if (this.user.username !== undefined) {
         this.passwordResetService.askForPasswordReset(this.user)

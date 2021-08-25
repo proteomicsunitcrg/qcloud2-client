@@ -61,6 +61,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   changeRole(user: User) {
+    alert('Method not enabled in demo version');
+    return;
     this.userService.changeMemberRole(user).subscribe(
       (result) => {
         this.loadUsers();
@@ -71,7 +73,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteMember(user: User) {;
+  deleteMember(user: User) {
+    alert('Method not enabled in demo version');
+    return;
     this.modalService.openModal(new Modal('Delete user',
       'Are you sure?', 'Yes', 'No', 'deleteMember', user));
   }
@@ -88,6 +92,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    alert('Method not enabled in demo version');
+    return;
     this.user.username = this.user.email;
     this.firstnameBox.nativeElement.classList.remove('valid');
     this.lastnameBox.nativeElement.classList.remove('valid');
