@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/auth.service';
 import { View } from '../../../models/view';
 import { ViewService } from '../../../services/view.service';
 
@@ -11,11 +13,21 @@ import { ViewService } from '../../../services/view.service';
 export class UserViewListComponent implements OnInit {
 
   constructor(private router: Router,
-    private viewService: ViewService) { }
+    private viewService: ViewService,
+    private authService: AuthService,
+    private toast: ToastrService,
+
+    ) { }
 
   userViews: View[] = [];
 
+  isManager = false;
+
+
   ngOnInit() {
+    if (this.authService.checkRole('ROLE_MANAGER')) {
+      this.isManager = true;
+    }
     this.loadUserViews();
   }
 
