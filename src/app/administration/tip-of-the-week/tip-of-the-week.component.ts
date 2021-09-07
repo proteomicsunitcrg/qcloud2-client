@@ -129,6 +129,7 @@ export class TipOfTheWeekComponent implements OnInit {
     this.messageForm.controls.title.setValue(tip.title);
     this.messageForm.controls.message.setValue(tip.message);
     this.messageForm.controls.show.setValue(tip.display);
+    this.messageForm.controls.twitterText.setValue(tip.twitterText);
     this.messageForm.controls.twitter.setValue(tip.publishedTwitter);
     const endDateInstance = this.datePickers[0];
     endDateInstance.setDate(tip.showAt);
