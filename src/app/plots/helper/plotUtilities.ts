@@ -21,6 +21,23 @@ export function getChartName(): string {
   }
 }
 
+export function getMainCategoryName(input: string): string {
+  switch (input) {
+    case `bsa`:
+      return `QC01`;
+      break;
+    case `hela`:
+      return `QC02`;
+      break;
+    case `qc4l`:
+      return `QC03`;
+      break;
+    default:
+      return `Not set`;
+      break;
+  }
+}
+
 export function generateLayoutShapes(thresholdParam: ThresholdParam, thresholdSteps: number): any[] {
   const shapes: any[] = [];
   let thresholdColors = [];
