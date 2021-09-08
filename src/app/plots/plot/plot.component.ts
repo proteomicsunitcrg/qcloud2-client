@@ -95,7 +95,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   logosUrl: String[] = [];
 
-  layout: any;
+  layout: any = {};
 
   serverData: PlotTrace[];
 
@@ -702,7 +702,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private getChartName(): string {
     if (this.shownames) {
-      return this.system.name + ' ' + this.chart.name + ' ' + this.chart.sampleType.name;
+      return `${this.system.name} - ${this.chart.sampleType.name} - ${this.chart.name}`;
     } else {
       return this.chart.name;
     }
