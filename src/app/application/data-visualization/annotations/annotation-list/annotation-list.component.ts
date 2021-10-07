@@ -51,7 +51,7 @@ export class AnnotationListComponent implements OnInit, OnDestroy, OnChanges {
       }
     } else {
       this.updating = false;
-      this.annotation = new Annotation(null, null, null, [], null, null, null);
+      this.annotation = new Annotation(null, null, null, [], null, null, null, null);
     }
   }
 

@@ -65,6 +65,7 @@ export class AnnotationsMainComponent implements OnInit {
 
     this.annotationService.getPage(this.config.currentPage - 1, 10, this.selectedLs, dateToSendStart, dateToSendEnd, this.troubleText).subscribe(
       res => {
+        console.log(res.content);
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;

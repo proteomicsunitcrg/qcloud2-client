@@ -36,14 +36,14 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   editingAnno: Annotation = null;
 
-
   annotationForm = new FormGroup({
     additional: new FormControl('', [
       Validators.maxLength(1000),
     ]),
+    notes: new FormControl('', [
+      Validators.maxLength(1000),
+    ]),
   });
-
-
 
   ngOnInit() {
         this.activeRoute.params.subscribe(
@@ -85,6 +85,7 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
 
   private mountFormEdit(annotation: Annotation) {
     this.annotationForm.controls.additional.setValue(annotation.description);
+    this.annotationForm.controls.notes.setValue(annotation.note);
     this.troubleList = annotation.troubleshootings;
     this.selectedLsApiKey = annotation.apiKey;
   }
@@ -170,7 +171,9 @@ export class AnnotationsBuilderComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    const annotation = new Annotation(null, date, null, this.troubleList, this.annotationForm.value.additional, selectedLs, null);
+    const annotation = new Annotation(null, date, null, this.troubleList, this.annotationForm.value.additional, selectedLs, null, this.annotationForm.value.notes);
+    console.log(annotation);
+
     this.annoService.addAnnotation(annotation).subscribe(
       res => {
         this.toast.success('Annotation saved', 'Success', TOASTSETTING);
