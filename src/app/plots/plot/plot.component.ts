@@ -16,7 +16,7 @@ import { PlotService } from '../../services/plot.service';
 import { ThresholdService } from '../../services/threshold.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { HtmlPlotComponent } from '../helper/html-plot.component';
-import { generateLayoutShapes, truncateString, generateLogo } from '../helper/plotUtilities';
+import { generateLayoutShapes, truncateString, generateLogo, getMainCategoryName } from '../helper/plotUtilities';
 import { PointColor } from './pointColor';
 import * as traceColor from './traceColors';
 import { ClipboardService } from 'ngx-clipboard';
@@ -95,7 +95,7 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   logosUrl: String[] = [];
 
-  layout: any;
+  layout: any = {};
 
   serverData: PlotTrace[];
 
@@ -702,11 +702,12 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private getChartName(): string {
     if (this.shownames) {
-      return this.system.name + ' ' + this.chart.name + ' ' + this.chart.sampleType.name;
+      return `${this.system.name} - ${getMainCategoryName(this.chart.sampleType.name)} - ${this.chart.name}`;
     } else {
       return this.chart.name;
     }
   }
+
 
   private calculatePointColor(key: string, value: number): PointColor {
     // check if threshold exists
