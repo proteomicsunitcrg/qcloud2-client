@@ -83,7 +83,8 @@ Be sure that the front end is pointing to the correct back end. Check it using t
 
 QCloud2 Client environemts list:
 
-![QCloud2 environments](images/environments.png) https://i.imgur.com/mdJR03n.jpg
+![environments](https://user-images.githubusercontent.com/1679820/137738427-368293fb-55cb-431e-87e7-3c4501164735.png)
+
 
 ---
 
