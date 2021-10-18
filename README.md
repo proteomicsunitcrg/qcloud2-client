@@ -28,7 +28,7 @@ Then run the project with `ng serve` to start the development server with the de
 
 Compile the project clicking at the play button in transpile:prod (or transpile:test, depending on the desired environment).
 
-![Compile Angular](images/compileAngular.png)
+![compileAngular](https://user-images.githubusercontent.com/1679820/137738223-1fec6c6a-647a-42df-b512-0ec4a9fd644e.png)
 
 You can also use:
 
