@@ -1,128 +1,92 @@
-# Qcloud2Client
+# QCloud2 Client
 
-This is the web application client of QCloud 2.0 Quality control for Proteomics on the Cloud.
+## Install and launch the development environment
 
-Clone this repo and the QCloud2.0 backend in your computer in order to run it.
+### Requirements
 
-## How to deploy
+First of all install the latest stable version of **[Node.js](https://nodejs.org/en/about/releases/)**
 
-### Deploy in local server
+Install **[NPM (Node Packet Manager)](https://docs.npmjs.com/cli/v7/commands/npm-install)**. Node.js installs it, check your version with `npm -v`
 
-First install all the dependencies with `npm install` and `npm install -g @angular/cli`
+Install **[Angular CLI](https://angular.io/cli)** with the following command:
 
-If you want to deploy the application in a local server instead of using *Angular Live Development Server* transpile the application with the following command:
+`sudo npm install -g @angular/cli`
 
-`npm run transpile:dev`
+### Environments
 
-If you want to use the *Angular Live Development Server* (better for development) use the following command:
+Angular works with environments to separate prod, dev and test (and qdv, qlv in QCloud2), by default the development server starts with the dev environment. The environments have important variables like the backend URL.
 
-`ng serve`
+### Sarting dev server
 
-The application will appear in the dist folder at the root of the project. Just copy in your server at the **/qcloud2/** path. If you want to use another path change it in the package.json scripts section.
+Clone qcloud2-client
 
-### Deploy test at the server
+Install the needed node modules with `npm install`. This command install all the modules and dependencies that the project needs to work. It can take a while to complete.
 
-To deploy the application in the test server, running with port **8181** you need to use the following command:
+Then run the project with `ng serve` to start the development server with the dev environment active -> http://localhost:4200/login
 
-`npm run transpile:dev`
+## Compile the project
 
-The content generated at the dist folder has to be copied at the java/main/resources/static folder of the backend.
+Compile the project clicking at the play button in transpile:prod (or transpile:test, depending on the desired environment).
 
-Then run the server with `java -jar -Dspring.profiles.active=test QCloud2-1.0.XXX.jar`
+![Compile Angular](images/compileAngular.png)
 
-The frontend will be available at **http://qcloud2.crg.eu:8181**
+You can also use:
 
-### Deploy at production
+`node --max_old_space_size=8196 node_modules/@angular/cli/bin/ng build --configuration=production`
 
-Before replace any file please make a copy of the current applicacion located at /var/www/html/qcloud2
+To achieve the same result.
 
-Use the following command:
+Both methods will create a `dist` folder with the compiled files.
 
-`npm run traspile`
+## Deploy the project
 
-Copy the generated files at dist folder into the **/var/www/html/qcloud2**. Ask users to refresh the application with CONTROL + F5
+Send the compiled files to the server:
 
-## General guide for developing
+`scp -r dist/* admin@10.102.1.26:/home/admin/temp`
 
-Until now the application has been developed into this four modules
+Make a backup of the actual prod files:
 
-* entryPoint
+`cp -r /var/www/html/qcloud2/* /home/admin/backup`
 
-* Application
+And then delete the old prod files and send the new files to the Apache2 folder
 
-    * Management
+`rm -rf /var/www/html/qcloud2/*`
 
-    * Administration
-    
-    * Statistics
+`cp -r /home/admin/temp/* /var/www/html/qcloud2/`
+Be carefull to do not copy qcloud2 folder. Only copy its contents (like in qsample)
 
-    * Configuration
+Sometimes the `.htaccess` file is deleted. In this case just use the one in QSample folder:
 
-    * View builder
+`cp /var/www/html/qsample/.htaccess /var/www/html/qcloud2/`
 
-    * Shared modules
- 
-* Modal Module
+Go to your favorite web browser and test if it works (Remember to clear the cache `Ctrl + shift + r`).
 
-* Plots module
+*Obviously everthing works*
 
-### entryPoint
+## QLV
 
-This module takes care of the login, registration and password recovery.
+Switch the branch to QLV and merge with master. Change the backend URL in `src/environmnents/evironment.outside.ts` and compile with the outside environment.
 
-### Application
-This module holds the layout of the application and the view display and plot logic.
+## QDM
 
-### Management
+Switch the branch to QDM and merge with master, be careful about the QDM restrictions.
 
-This module takes care of the management functionality.
+Compile with the demo environment and deploy it to prod like the normal version. Be aware that the demo version Apache path is different: `/var/www/html/qcloud2demo`
 
-### Administration
+## Errors
 
-This module takes care of the administartion functionality.
+Be sure that the front end is pointing to the correct back end. Check it using the dev tools -> network.
 
-### Statistics
+## References
 
-This module holds the non conformity visualization and is the place where will be the statistics functionality.
+[Getting started with Angular](https://angular.io/start)
 
-### Configuration
+QCloud2 Client environemts list:
 
-User configuration and user view builder
+![QCloud2 environments](images/environments.png) https://i.imgur.com/mdJR03n.jpg
 
-### View builder
+---
 
-This module is for a sort of WYSIWYG for build botht the default views for instruments and the user views.
+Document created by *[Marc](mailto:vesperon51@gmail.com)* with [love](https://i.imgur.com/mdJR03n.jpg).
 
-### Shared modules
-
-This is the place to store some components shared among modules.
-
-### Shared folder
-
-This is a folder holding pipes. It should be merged into shared modules
-
-### Modal module
-
-This module holds the modal functionality. It can trasport object between modal display and modal response for further actions.
-
-### Plots module
-
-This module keeps the plots functionality. There are three different plots.
-
-## Project structure
-
-Aside of the modules folder structure there are the **services** and **models** folder.
-
-### Model folder
-
-This folder contains all the classes used in the application. Almost all the classes are equal in the backend in order to keep the logic. So, if you update the backend you should update the related classes in this folder.
-
-### Services
-
-Every class has its own service connecting to the backend. Please check the source code of the backend.
-
-## Authors
-
-Daniel Mancera <daniel.mancera@crg.eu>
-Roger Olivella <roger.olivella@crg.eu>
-	
+4/10/2021
