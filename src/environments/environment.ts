@@ -8,6 +8,6 @@
  */
 export const environment = {
   production: false,
-  apiPrefix: 'http://localhost:8084/',
+  apiPrefix: 'http://localhost:8089/',
   name: 'dev'
 };
