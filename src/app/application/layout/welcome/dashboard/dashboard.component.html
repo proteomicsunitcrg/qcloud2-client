@@ -14,8 +14,10 @@
     <select [(ngModel)]="sampleType" name="sampleType">
       <option value="" selected>All</option>
       <option value="QC:0000005">BSA</option>
+      <option value="QC:1000005">BSA DIA</option>
       <option value="QC:0000006">Hela</option>
-      <option value="QC:0000009">QC4L</option>
+      <option value="QC:1000006">HeLa DIA</option>
+      <option value="QC:0000009">HeLa + Isotopologues</option>
     </select>
     <label>Sample type</label>
   </div>
@@ -102,16 +104,16 @@
       <tbody>
           <tr *ngFor="let summary of summaries">
               <td>
-                {{summary.sequence}}
+                {{cleanSequence(summary.sequence)}}
               </td>
               <td>
-                {{summary.values[0].calculatedValue}}
+                {{summary.values[0]?.calculatedValue || 'N/A'}}
               </td>
               <td>
-                {{summary.values[1].calculatedValue}}
+                {{summary.values[1]?.calculatedValue || 'N/A'}}
               </td>
               <td>
-                {{summary.values[2].calculatedValue}}
+                {{summary.values[2]?.calculatedValue || 'N/A (no guideset)'}}
               </td>
           </tr>
       </tbody>
