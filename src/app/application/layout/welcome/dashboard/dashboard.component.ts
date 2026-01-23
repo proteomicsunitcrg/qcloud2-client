@@ -148,7 +148,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public downloadData(file: File): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
-        this.downloadCSV(this.mountCSV(res), file);
+        // Generate and download peptide-level data
+        this.downloadCSV(this.mountPeptideCSV(res), file, '_peptide.tsv');
+        
+        // Generate and download totals/summary data
+        this.downloadCSV(this.mountTotalsCSV(res), file, '_totals.tsv');
       },
       err => {
         console.error(err);
@@ -156,21 +160,43 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  private mountCSV(summary: Summary[]): string {
-    const separator = ',';
+  private mountPeptideCSV(summary: Summary[]): string {
+    const separator = '\t';
     const headers = `sequence${separator}peak_area(au)${separator}mass_accuracy(ppm)${separator}retention_time(min)\n`;
     let csvText = '';
     for (const peptide of summary) {
-      csvText += `${peptide.sequence}${separator}${this.getDataFromParam(peptide.values, 'Peak area')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Mass accuracy')['calculatedValue']}${separator}${this.getDataFromParam(peptide.values, 'Retention time')['calculatedValue']}\n`;
+      const peakArea = this.getDataFromParam(peptide.values, 'Peak area');
+      const massAccuracy = this.getDataFromParam(peptide.values, 'Mass accuracy');
+      const retentionTime = this.getDataFromParam(peptide.values, 'Retention time');
+      
+      if (peakArea && massAccuracy && retentionTime) {
+        csvText += `${peptide.sequence}${separator}${peakArea['calculatedValue']}${separator}${massAccuracy['calculatedValue']}${separator}${retentionTime['calculatedValue']}\n`;
+      }
     }
     return headers + csvText;
   }
 
-  private downloadCSV(csv: string, file: File) {
+  private mountTotalsCSV(summary: Summary[]): string {
+    const separator = '\t';
+    const headers = `sequence${separator}parameter${separator}value${separator}calculated_value\n`;
+    let csvText = '';
+    
+    for (const peptide of summary) {
+      for (const value of peptide.values) {
+        const paramName = value['param'] ? value['param']['name'] : 'Unknown';
+        const rawValue = value['value'] !== null && value['value'] !== undefined ? value['value'] : '';
+        const calcValue = value['calculatedValue'] !== null && value['calculatedValue'] !== undefined ? value['calculatedValue'] : '';
+        csvText += `${peptide.sequence}${separator}${paramName}${separator}${rawValue}${separator}${calcValue}\n`;
+      }
+    }
+    return headers + csvText;
+  }
+
+  private downloadCSV(csv: string, file: File, suffix: string) {
     const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
-    downloadAnchorNode.setAttribute('download', `${file.filename}.csv`);
+    downloadAnchorNode.setAttribute('download', `${file.filename}${suffix}`);
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
