@@ -105,13 +105,13 @@
                 {{summary.sequence}}
               </td>
               <td>
-                {{summary.values[0].calculatedValue}}
+                {{summary.values[0]?.calculatedValue !== null && !isNaN(summary.values[0]?.calculatedValue) ? (summary.values[0].calculatedValue | number:'1.2-2') : '-'}}
               </td>
               <td>
-                {{summary.values[1].calculatedValue}}
+                {{summary.values[1]?.calculatedValue !== null && !isNaN(summary.values[1]?.calculatedValue) ? (summary.values[1].calculatedValue | number:'1.2-2') : '-'}}
               </td>
               <td>
-                {{summary.values[2].calculatedValue}}
+                {{summary.values[2]?.calculatedValue !== null && !isNaN(summary.values[2]?.calculatedValue) ? (summary.values[2].calculatedValue | number:'1.2-2') : '-'}}
               </td>
           </tr>
       </tbody>
