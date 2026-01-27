@@ -12,7 +12,7 @@ import { Summary } from '../../../../models/summary';
 declare var M: any;
 
 interface ResultRow {
-  peptideSequence: string;
+  peptideScope: string;
   parameter: string;
   value: any;
 }
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   dashboardSubscription: Subscription;
 
-  // Used both for Results table and TSV export
+  // Shared model for Results table and TSV export
   resultRows: ResultRow[] = [];
 
   /* =========================
@@ -168,22 +168,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         const isPeptide = this.isPeptideMetric(v.param.name);
 
-        const peptideSequence = isPeptide
+        const peptideScope = isPeptide
           ? cleanedPeptide
           : 'TOTAL';
 
         let parameterName: string;
 
         if (isPeptide) {
-          parameterName = v.param.name;
+          parameterName = this.formatParameterName(v.param.name);
         } else if (v.contextSource && v.contextSource.name) {
-          parameterName = v.contextSource.name;
+          parameterName = this.formatParameterName(v.contextSource.name);
         } else {
-          parameterName = v.param.name;
+          parameterName = this.formatParameterName(v.param.name);
         }
 
         rows.push({
-          peptideSequence: peptideSequence,
+          peptideScope: peptideScope,
           parameter: parameterName,
           value: value
         });
@@ -195,10 +195,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private mountUnifiedTSVFromRows(rows: ResultRow[]): string {
     const sep = '\t';
-    let tsv = `peptide_sequence${sep}parameter${sep}value\n`;
+    let tsv = `peptide/scope${sep}parameter${sep}value\n`;
 
     for (const r of rows) {
-      tsv += r.peptideSequence + sep + r.parameter + sep + r.value + '\n';
+      tsv += r.peptideScope + sep + r.parameter + sep + r.value + '\n';
     }
 
     return tsv;
@@ -214,6 +214,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
       paramName === 'Mass accuracy' ||
       paramName === 'Retention time'
     );
+  }
+
+  private formatParameterName(original: string): string {
+    switch (original) {
+      case 'Peak area':
+        return 'Peak area (log2)';
+      case 'Mass accuracy':
+        return 'Mass accuracy (ppm)';
+      case 'Retention time':
+        return 'RT drift (min)';
+      case 'Median IT MS1':
+        return 'Median IT MS1 (ms)';
+      case 'Median IT MS2':
+        return 'Median IT MS2 (ms)';
+      default:
+        return original;
+    }
   }
 
   private cleanPeptideSequence(seq: string): string {

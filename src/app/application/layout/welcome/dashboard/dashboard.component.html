@@ -76,15 +76,15 @@
   <table class="striped">
     <thead>
       <tr>
-        <th>Peptide / Scope</th>
-        <th>Parameter</th>
-        <th>Value</th>
+        <th>peptide/scope</th>
+        <th>parameter</th>
+        <th>value</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let row of resultRows">
-        <td>{{ row.peptideSequence }}</td>
+        <td>{{ row.peptideScope }}</td>
         <td>{{ row.parameter }}</td>
         <td>{{ row.value }}</td>
       </tr>
