@@ -52,6 +52,23 @@
                 }
               ]
             },
+            "preprod": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/./environments/environment.ts",
+                  "with": "src/./environments/environment.preprod.ts"
+                }
+              ]
+            },
             "dev": {
               "optimization": true,
               "outputHashing": "all",
@@ -132,6 +149,9 @@
           "configurations": {
             "production": {
               "browserTarget": "qcloud2-client:build:production"
+            },
+            "preprod": {
+              "browserTarget": "qcloud2-client:build:preprod"
             }
           }
         },
@@ -191,3 +211,4 @@
     }
   }
 }
+
