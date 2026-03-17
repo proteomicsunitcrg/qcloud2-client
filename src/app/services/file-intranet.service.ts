@@ -33,9 +33,15 @@ export class FileIntranetService {
     return this.httpClient.delete<boolean>(`${this.fileURL}/${checksum}`);
   }
 
-  public getPage(pageToRequest: number, filter: any, exact: number = 0, numberOfElements: number): Observable<any> {
+  public getPage(pageToRequest: number, filter: any, exact: number = 0, numberOfElements: number = 100): Observable<any> {
     let params = new HttpParams();
-    params = params.set('page', pageToRequest.toString()).set('size', numberOfElements.toString()); // Pagination params
+
+    const safeSize = Math.min(numberOfElements || 100, 250); 
+
+    params = params
+      .set('page', pageToRequest.toString())
+      .set('size', safeSize.toString());
+
     params = params.set('checksum', filter.checksum);
     params = params.set('name', filter.name);
     params = params.set('labsystemName', filter.labsystem);
@@ -43,8 +49,10 @@ export class FileIntranetService {
     params = params.set('node', filter.node);
     params = params.set('email', filter.email);
     params = params.set('exact', exact.toString());
+
     return this.httpClient.get<any>(`${this.fileURL}/getPage`, { params: params });
   }
+  
 
   public getNodeByDataSourceApiKey(apiKey: string): Observable<Node> {
     const params = new HttpParams().set('apiKey', apiKey);
