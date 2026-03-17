@@ -28,8 +28,8 @@ export class MainFilesComponent implements OnInit {
 
   private getAPIStatus(): void {
     this.fileService.getAPIStatus().subscribe(
-      res => this.apiOK = res,
-      err => console.error(err)
+       _ => this.apiOK = true,
+       _ => this.apiOK = false
     );
   }
 
