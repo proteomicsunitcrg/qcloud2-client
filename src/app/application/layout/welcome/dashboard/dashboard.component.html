@@ -13,9 +13,7 @@
   <div class="input-field col s2">
     <select [(ngModel)]="sampleType" name="sampleType">
       <option value="" selected>All</option>
-      <option value="QC:0000005">BSA</option>
-      <option value="QC:0000006">Hela</option>
-      <option value="QC:0000009">QC4L</option>
+      <option [value]="st.qualityControlControlledVocabulary" *ngFor="let st of sampleTypes">{{st.name}}</option>
     </select>
     <label>Sample type</label>
   </div>
@@ -84,38 +82,48 @@
 <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
-  <table>
+
+  <h5 class="results-section-title">Peptide level metrics</h5>
+  <table class="striped results-table" *ngIf="peptideSummaries.length > 0">
       <thead>
-          <th>
-              Sequence
-          </th>
-          <th>
-            Peak area
-        </th>
-        <th>
-          Mass accuracy (ppm)
-      </th>
-      <th>
-        Retention time (min)
-    </th>
+          <tr>
+            <th>
+                Sequence
+            </th>
+            <th *ngFor="let column of peptideColumns">
+              {{formatColumnHeader(column)}}
+            </th>
+          </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let summary of summaries">
+          <tr *ngFor="let summary of peptideSummaries">
               <td>
                 {{summary.sequence}}
               </td>
-              <td>
-                {{summary.values[0].calculatedValue}}
-              </td>
-              <td>
-                {{summary.values[1].calculatedValue}}
-              </td>
-              <td>
-                {{summary.values[2].calculatedValue}}
+              <td *ngFor="let column of peptideColumns">
+                {{getSummaryValue(summary, column)}}
               </td>
           </tr>
       </tbody>
   </table>
+  <p *ngIf="peptideSummaries.length === 0" class="grey-text">No peptide-level data for this file.</p>
+
+  <h5 class="results-section-title" *ngIf="globalSummaries.length > 0">Global metrics</h5>
+  <table class="striped results-table" *ngIf="globalSummaries.length > 0">
+      <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let summary of globalSummaries">
+              <td>{{summary.sequence}}</td>
+              <td>{{formatGlobalMetric(summary)}}</td>
+          </tr>
+      </tbody>
+  </table>
+
 </ngx-smart-modal>
 
 

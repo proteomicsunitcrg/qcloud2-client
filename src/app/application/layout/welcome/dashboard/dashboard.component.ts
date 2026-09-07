@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { File } from '../../../../models/file';
 import { ContextSourceService } from '../../../../services/context-source.service';
 import { SampleCompositionService } from '../../../../services/sample-composition.service';
+import { SampleTypeService } from '../../../../services/sample-type.service';
+import { SampleType } from '../../../../models/sampleType';
 import { Summary } from '../../../../models/summary';
 
 declare var M: any;
@@ -20,9 +22,26 @@ declare var M: any;
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  // Any context source carrying at least one of these is a peptide, everything
+  // else (Median IT, Sum TIC, FWHM...) is an instrument-level metric.
+  private static readonly PEPTIDE_PARAM_NAMES = ['Peak area', 'Mass accuracy', 'Retention time'];
+
+  // Units must match the chart titles exactly (those rule) - see "Total Ion
+  // Current (sum) x1e10", "Median mass accuracy MS1 (ppm)", "FWHM (sec/scans)".
+  private static readonly PARAM_UNITS: { [paramName: string]: string } = {
+    'Peak area': 'log2',
+    'Mass accuracy': 'ppm',
+    'Retention time': 'min',
+    'Median mass accuracy': 'ppm',
+    'Median IT': 'ms',
+    'Total Ion Current': 'x1e10',
+    'FWHM (scans)': 'scans',
+    'FWHM (sec)': 'sec',
+  };
+
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
     private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService, private routerService: Router, private contextSourceService: ContextSourceService,
-    private sampleCompositionService: SampleCompositionService
+    private sampleCompositionService: SampleCompositionService, private sampleTypeService: SampleTypeService
   ) { }
 
   config = {
@@ -39,16 +58,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   labSystems: System[] = [];
 
+  sampleTypes: SampleType[] = [];
+
   fileData = [];
 
   dashboardSubscription: Subscription;
 
-  summaries: Summary[] = [];
+  peptideSummaries: Summary[] = [];
+
+  peptideColumns: string[] = [];
+
+  globalSummaries: Summary[] = [];
 
   ngOnInit() {
     this.getNodeLs();
+    this.getSampleTypes();
     this.getPage();
     this.subscribeToDashboardIntranet();
+  }
+
+  private getSampleTypes(): void {
+    this.sampleTypeService.getSamplesTypes().subscribe(
+      res => {
+        this.sampleTypes = res;
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -136,7 +173,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public goToResults(file: File): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
-        this.summaries = res;
+        this.peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
+        this.globalSummaries = res.filter(summary => !this.isPeptideSummary(summary));
+        this.peptideColumns = this.computeSummaryColumns(this.peptideSummaries);
         this.ngxSmartModalService.getModal('dataModal').open()
       },
       err => {
@@ -145,14 +184,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
+  private isPeptideSummary(summary: Summary): boolean {
+    return summary.values.some(value =>
+      value.param && DashboardComponent.PEPTIDE_PARAM_NAMES.indexOf(value.param.name) !== -1);
+  }
+
+  // Not every context source has the same set of parameters (e.g. per-peptide
+  // metrics like Peak area/Retention time vs. instrument-level metrics like
+  // Median IT or FWHM) - so the table/TSV columns are derived from whatever
+  // parameters are actually present, instead of assuming a fixed triplet.
+  private computeSummaryColumns(summaries: Summary[]): string[] {
+    const columns: string[] = [];
+    for (const summary of summaries) {
+      for (const value of summary.values) {
+        const paramName = value.param ? value.param.name : null;
+        if (paramName && columns.indexOf(paramName) === -1) {
+          columns.push(paramName);
+        }
+      }
+    }
+    return columns;
+  }
+
+  public getSummaryValue(summary: Summary, paramName: string): any {
+    const data = this.getDataFromParam(summary.values, paramName);
+    return data ? data['calculatedValue'] : null;
+  }
+
+  public formatColumnHeader(paramName: string): string {
+    const unit = DashboardComponent.PARAM_UNITS[paramName];
+    return unit ? `${paramName} (${unit})` : paramName;
+  }
+
+  // Instrument-level metrics have a single value each - shown as "label: value" instead
+  // of another sparse table.
+  public formatGlobalMetric(summary: Summary): string {
+    return summary.values.map(value => {
+      const unit = value.param ? DashboardComponent.PARAM_UNITS[value.param.name] : undefined;
+      return unit ? `${value.calculatedValue} ${unit}` : `${value.calculatedValue}`;
+    }).join(', ');
+  }
+
+  // Mirrors exactly what the "Results" modal shows - same two sections, same params -
+  // so the downloaded files never drift from what's displayed on screen.
   public downloadData(file: File): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
-        // Generate and download peptide-level data
-        this.downloadCSV(this.mountPeptideCSV(res), file, '_peptide.tsv');
-        
-        // Generate and download totals/summary data
-        this.downloadCSV(this.mountTotalsCSV(res), file, '_totals.tsv');
+        const peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
+        const globalSummaries = res.filter(summary => !this.isPeptideSummary(summary));
+        const peptideColumns = this.computeSummaryColumns(peptideSummaries);
+
+        this.downloadCSV(this.mountPeptideCSV(peptideSummaries, peptideColumns), file, '_peptide.tsv');
+        this.downloadCSV(this.mountGlobalCSV(globalSummaries), file, '_global.tsv');
       },
       err => {
         console.error(err);
@@ -160,34 +243,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  private mountPeptideCSV(summary: Summary[]): string {
+  private mountPeptideCSV(summary: Summary[], columns: string[]): string {
     const separator = '\t';
-    const headers = `sequence${separator}peak_area(au)${separator}mass_accuracy(ppm)${separator}retention_time(min)\n`;
+    const headers = `sequence${separator}${columns.map(column => this.formatColumnHeader(column)).join(separator)}\n`;
     let csvText = '';
     for (const peptide of summary) {
-      const peakArea = this.getDataFromParam(peptide.values, 'Peak area');
-      const massAccuracy = this.getDataFromParam(peptide.values, 'Mass accuracy');
-      const retentionTime = this.getDataFromParam(peptide.values, 'Retention time');
-      
-      if (peakArea && massAccuracy && retentionTime) {
-        csvText += `${peptide.sequence}${separator}${peakArea['calculatedValue']}${separator}${massAccuracy['calculatedValue']}${separator}${retentionTime['calculatedValue']}\n`;
-      }
+      const values = columns.map(column => {
+        const data = this.getDataFromParam(peptide.values, column);
+        return data && data['calculatedValue'] !== null && data['calculatedValue'] !== undefined ? data['calculatedValue'] : '';
+      });
+      csvText += `${peptide.sequence}${separator}${values.join(separator)}\n`;
     }
     return headers + csvText;
   }
 
-  private mountTotalsCSV(summary: Summary[]): string {
+  private mountGlobalCSV(summaries: Summary[]): string {
     const separator = '\t';
-    const headers = `sequence${separator}parameter${separator}value${separator}calculated_value\n`;
+    const headers = `metric${separator}value\n`;
     let csvText = '';
-    
-    for (const peptide of summary) {
-      for (const value of peptide.values) {
-        const paramName = value['param'] ? value['param']['name'] : 'Unknown';
-        const rawValue = value['value'] !== null && value['value'] !== undefined ? value['value'] : '';
-        const calcValue = value['calculatedValue'] !== null && value['calculatedValue'] !== undefined ? value['calculatedValue'] : '';
-        csvText += `${peptide.sequence}${separator}${paramName}${separator}${rawValue}${separator}${calcValue}\n`;
-      }
+    for (const summary of summaries) {
+      csvText += `${summary.sequence}${separator}${this.formatGlobalMetric(summary)}\n`;
     }
     return headers + csvText;
   }

@@ -10,3 +10,18 @@
 .pointer {
   cursor: help;
 }
+
+.results-section-title {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.results-table {
+  font-size: 0.9rem;
+}
+
+.results-table tbody tr:hover {
+  background-color: #e0f2f1;
+}
