@@ -7,12 +7,12 @@ import { FileIntranetService } from '../../../../services/file-intranet.service'
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../../../services/websocket.service';
 import { Router } from '@angular/router';
-import { File } from '../../../../models/file';
 import { ContextSourceService } from '../../../../services/context-source.service';
 import { SampleCompositionService } from '../../../../services/sample-composition.service';
 import { SampleTypeService } from '../../../../services/sample-type.service';
 import { SampleType } from '../../../../models/sampleType';
 import { Summary } from '../../../../models/summary';
+import { PipelineFile } from '../../../../models/pipeline-file';
 
 declare var M: any;
 @Component({
@@ -70,6 +70,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   globalSummaries: Summary[] = [];
 
+  selectedErrorFile: PipelineFile = null;
+
   ngOnInit() {
     this.getNodeLs();
     this.getSampleTypes();
@@ -93,26 +95,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   public getPage(): void {
-    this.fileService.getAllFilesByNode(this.config.currentPage - 1, this.config.itemsPerPage, this.filename, this.labsystem, this.sampleType).subscribe(
+    this.fileService.getPipelineFileDashboard(this.config.currentPage - 1, this.config.itemsPerPage, this.filename).subscribe(
       res => {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;
-        // for (const file of this.collection.data) {
-        //   this.fileService.getFileStatusByChecksum(file.checksum).subscribe(
-        //     res => {
-        //       file.isOk = res;
-        //     },
-        //     err => {
-        //       console.error(err);
-        //     }
-        //   );
-        // }
       },
       err => {
         console.error(err);
       }
     );
+  }
+
+  public statusIcon(file: PipelineFile): string {
+    switch (file.status) {
+      case 'PROCESSED': return 'check_circle';
+      case 'ERROR': return 'error';
+      default: return 'hourglass_empty'; // RECEIVED / PROCESSING
+    }
+  }
+
+  public statusColor(file: PipelineFile): string {
+    switch (file.status) {
+      case 'PROCESSED': return 'green';
+      case 'ERROR': return 'red';
+      default: return 'grey';
+    }
+  }
+
+  public goToErrorDetails(file: PipelineFile): void {
+    this.selectedErrorFile = file;
+    this.ngxSmartModalService.getModal('errorModal').open();
   }
 
   private getNodeLs(): void {
@@ -166,11 +179,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  public goToPlot(file: File): void {
+  public goToPlot(file: PipelineFile): void {
     this.routerService.navigate([`/application/view/instrument/`, file.labSystem.apiKey], { queryParams: { checksum: file.checksum } });
   }
 
-  public goToResults(file: File): void {
+  public goToResults(file: PipelineFile): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
         this.peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
@@ -227,7 +240,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   // Mirrors exactly what the "Results" modal shows - same two sections, same params -
   // so the downloaded files never drift from what's displayed on screen.
-  public downloadData(file: File): void {
+  public downloadData(file: PipelineFile): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
         const peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
@@ -267,7 +280,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return headers + csvText;
   }
 
-  private downloadCSV(csv: string, file: File, suffix: string) {
+  private downloadCSV(csv: string, file: PipelineFile, suffix: string) {
     const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);

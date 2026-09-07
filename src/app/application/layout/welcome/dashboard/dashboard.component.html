@@ -30,10 +30,13 @@
   <thead>
     <tr>
       <th>
+        Status
+      </th>
+      <th>
         Filename
       </th>
       <th>
-        Acquisition date
+        Received date
       </th>
       <th>
         Labsystem
@@ -55,26 +58,30 @@
   <tbody>
     <tr *ngFor="let file of collection.data | paginate: config">
       <td>
+        <mat-icon [ngStyle]="{color: statusColor(file)}" [title]="file.status"
+          (click)="file.status === 'ERROR' ? goToErrorDetails(file) : null"
+          [style.cursor]="file.status === 'ERROR' ? 'pointer' : 'default'">{{statusIcon(file)}}</mat-icon>
+      </td>
+      <td>
         {{file.filename}}
       </td>
       <td>
-        {{file.creationDate}}
+        {{file.receivedDate}}
       </td>
       <td>
-        {{file.labSystem.name}}
+        {{file.labSystem?.name}}
       </td>
       <td>
-        {{file.sampleType.name}}
+        {{file.sampleType?.name}}
       </td>
       <td>
-        <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
-        <button class="btn" (click)="goToPlot(file)">Plot</button>
+        <button class="btn" *ngIf="file.status === 'PROCESSED'" (click)="goToPlot(file)">Plot</button>
       </td>
       <td>
-        <button class="btn" (click)="goToResults(file)">Results</button>
+        <button class="btn" *ngIf="file.status === 'PROCESSED'" (click)="goToResults(file)">Results</button>
       </td>
       <td>
-        <button class="btn" (click)="downloadData(file)">Download</button>
+        <button class="btn" *ngIf="file.status === 'PROCESSED'" (click)="downloadData(file)">Download</button>
       </td>
     </tr>
   </tbody>
@@ -126,4 +133,36 @@
 
 </ngx-smart-modal>
 
-
+<ngx-smart-modal #errorModal identifier="errorModal" class="modalClass" [customClass]="'modalClass'">
+  <h5 class="results-section-title">Processing error</h5>
+  <table class="striped results-table" *ngIf="selectedErrorFile">
+    <tbody>
+      <tr>
+        <td>Sample</td>
+        <td>{{selectedErrorFile.sample}}</td>
+      </tr>
+      <tr>
+        <td>QC code</td>
+        <td>{{selectedErrorFile.qcCode}}</td>
+      </tr>
+      <tr>
+        <td>Acquisition date</td>
+        <td>{{selectedErrorFile.acquisitionDate}}</td>
+      </tr>
+      <tr>
+        <td>Instrument UUID</td>
+        <td>{{selectedErrorFile.instrumentUuid}}</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>{{selectedErrorFile.databaseName}}</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>{{selectedErrorFile.sizeMb}} MB</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="results-section-title" *ngIf="selectedErrorFile">Reason</h5>
+  <p *ngIf="selectedErrorFile" style="white-space: pre-wrap;">{{selectedErrorFile.errorReason}}</p>
+</ngx-smart-modal>

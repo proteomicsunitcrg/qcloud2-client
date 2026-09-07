@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SampleType } from '../models/sampleType';
 import { File } from '../models/file';
+import { PipelineFile } from '../models/pipeline-file';
 import { System } from '../models/system';
 import { Summary } from '../models/summary';
 
@@ -56,5 +57,14 @@ export class FileService {
     return this.httpClient.get<Summary[]>(`${this.fileUrl}/summary/${checksum}`);
   }
 
+  // pipeline_file tracks EVERY file the pipeline has seen (received/processing/
+  // processed/error), unlike /api/file/dashboard above which only ever shows
+  // fully successful runs.
+  public getPipelineFileDashboard(page: number, numberOfElements: number, filename: string): Observable<{ content: PipelineFile[], totalElements: number }> {
+    let params = new HttpParams();
+    params = params.set('page', page.toString()).set('size', numberOfElements.toString());
+    params = params.set('filename', filename);
+    return this.httpClient.get<{ content: PipelineFile[], totalElements: number }>(`${this.apiPrefix}api/pipelineFile/dashboard`, { params });
+  }
 
 }
