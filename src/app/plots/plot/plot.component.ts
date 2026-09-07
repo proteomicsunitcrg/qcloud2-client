@@ -318,16 +318,16 @@ export class PlotComponent implements OnInit, OnDestroy {
           });
       }
     } else {
-      this.plotThreshold.thresholdParams.forEach(
-        (thresholdParam) => {
-          if (thresholdParam.isEnabled) {
-            generateLayoutShapes(thresholdParam, this.plotThreshold.steps).forEach(
-              (layoutShape) => {
-                this.layoutShapes.push(layoutShape);
-              });
-          }
-        }
-      );
+      // All context sources of a given threshold always share the same bounds - the app
+      // enforces this on edit (see ThresholdService.updateThresholdParams / checkGlobalInitialValues
+      // / checkGlobalStepValue) - so one enabled thresholdParam's shapes represent all of them.
+      const firstEnabledParam = this.plotThreshold.thresholdParams.find(tp => tp.isEnabled);
+      if (firstEnabledParam !== undefined) {
+        generateLayoutShapes(firstEnabledParam, this.plotThreshold.steps).forEach(
+          (layoutShape) => {
+            this.layoutShapes.push(layoutShape);
+          });
+      }
     }
   }
   private loadErrorPlot(error: any): void {
@@ -711,60 +711,54 @@ export class PlotComponent implements OnInit, OnDestroy {
 
   private calculatePointColor(key: string, value: number): PointColor {
     // check if threshold exists
-    if (this.plotThreshold !== undefined) {
-      const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
-      if (thresholdParam !== undefined && thresholdParam.isEnabled) {
-        switch (this.plotThreshold.nonConformityDirection) {
-          case 'DOWN':
-            // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return PointColor.DANGER;
-              } else if (value > this.layoutShapes[this.layoutShapes.length - 1].y1
-                && value < this.layoutShapes[this.layoutShapes.length - 2].y1) {
-                return PointColor.WARNING;
-              } else {
-                return PointColor.OK;
-              }
-            } else {
-              if (value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-                return PointColor.DANGER;
-              } else {
-                return PointColor.OK;
-              }
-            }
-          case 'UPDOWN':
-            if (value > this.layoutShapes[this.layoutShapes.length - 1].y0 || value < this.layoutShapes[this.layoutShapes.length - 1].y1) {
-              return PointColor.DANGER;
-            } else {
-              return PointColor.OK;
-            }
-          case 'UP':
-            // taking care if the steps is 1
-            if (this.layoutShapes.length > 1) {
-              if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
-                return PointColor.DANGER;
-              } else if (value < this.layoutShapes[this.layoutShapes.length - 1].y0
-                && value > this.layoutShapes[this.layoutShapes.length - 2].y0) {
-                return PointColor.WARNING;
-              } else {
-                return PointColor.OK;
-              }
-            } else {
-              if (value > this.layoutShapes[this.layoutShapes.length - 1].y0) {
-                return PointColor.DANGER;
-              } else {
-                return PointColor.OK;
-              }
-            }
-          default:
-            return null;
-        }
-      } else {
-        return PointColor.OK;
-      }
-    } else {
+    if (this.plotThreshold === undefined) {
       return PointColor.OK;
+    }
+    const thresholdParam: ThresholdParam = this.plotThreshold.thresholdParams.find(th => th.contextSource.abbreviated === key);
+    if (thresholdParam === undefined || !thresholdParam.isEnabled) {
+      return PointColor.OK;
+    }
+    // Compute limits directly from this context source's own thresholdParam - NOT from
+    // this.layoutShapes, which mixes every context source's shapes into one shared array
+    // when there is more than one trace (see drawThreshold()). Using layoutShapes[last]
+    // here compared every point against whichever context source's threshold happened to
+    // be pushed last, regardless of which trace (key) the point actually belongs to.
+    const steps = this.plotThreshold.steps;
+    const upperLimit = thresholdParam.initialValue + (thresholdParam.stepValue * steps);
+    const midUpLimit = thresholdParam.initialValue + (thresholdParam.stepValue * (steps - 1));
+    const lowerLimit = thresholdParam.initialValue - (thresholdParam.stepValue * steps);
+    const midDownLimit = thresholdParam.initialValue - (thresholdParam.stepValue * (steps - 1));
+    switch (this.plotThreshold.nonConformityDirection) {
+      case 'DOWN':
+        // taking care if the steps is 1
+        if (steps > 1) {
+          if (value < lowerLimit) {
+            return PointColor.DANGER;
+          } else if (value >= lowerLimit && value < midDownLimit) {
+            return PointColor.WARNING;
+          } else {
+            return PointColor.OK;
+          }
+        } else {
+          return value < lowerLimit ? PointColor.DANGER : PointColor.OK;
+        }
+      case 'UPDOWN':
+        return (value < lowerLimit || value > upperLimit) ? PointColor.DANGER : PointColor.OK;
+      case 'UP':
+        // taking care if the steps is 1
+        if (steps > 1) {
+          if (value > upperLimit) {
+            return PointColor.DANGER;
+          } else if (value <= upperLimit && value > midUpLimit) {
+            return PointColor.WARNING;
+          } else {
+            return PointColor.OK;
+          }
+        } else {
+          return value > upperLimit ? PointColor.DANGER : PointColor.OK;
+        }
+      default:
+        return null;
     }
   }
 

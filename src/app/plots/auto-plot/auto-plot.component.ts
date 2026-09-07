@@ -18,6 +18,8 @@ import * as traceColor from '../plot/traceColors';
 })
 export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
+  private static readonly VISIBLE_POINTS = 3;
+
   constructor(private thresholdService: ThresholdService,
     private dataService: DataService) { }
 
@@ -76,11 +78,26 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe(
         (dataForPlot) => {
           this.serverData = loadDataAndDatesArray(dataForPlot);
+          this.trimToLastPoints(AutoPlotComponent.VISIBLE_POINTS);
           this.loadAutoPlotThreshold(labSystemStatus);
         }, err => console.log(err)
       );
   }
 
+
+  // Keep only the most recent N points so the last one - the one the traffic light
+  // message refers to - stands out instead of getting lost among older history.
+  private trimToLastPoints(count: number): void {
+    if (this.serverData.dates.length <= count) {
+      return;
+    }
+    this.serverData.dates = this.serverData.dates.slice(-count);
+    Object.keys(this.serverData.data).forEach(
+      (key) => {
+        this.serverData.data[key] = this.serverData.data[key].slice(-count);
+      }
+    );
+  }
 
   private loadAutoPlotThreshold(labSystemStatus: LabSystemStatus): void {
     // tslint:disable-next-line:max-line-length
@@ -136,6 +153,7 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
       const colorsForLine = [];
       const markersForLine = [];
+      const sizesForLine = [];
 
       const mean = calculateMean(this.serverData.data[key]);
 
@@ -143,17 +161,23 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
 
       this.serverData.data[key].forEach(
         (element, index) => {
+          // Every point is evaluated against the same static threshold band shown on this
+          // chart, so every point's color reflects its actual live status - not just the
+          // last one (this used to be hardcoded blue except for the last point, which
+          // disagreed with the band drawn alongside it).
           let marker = 'circle';
-          let color = 'blue'; // client issue #35: Now all the points are blue minus the last one
+          let size = 5;
+          let color = getPointColor(element['nc']);
           const elementText = element['value'];
           const value = element['value'];
           if (index === this.serverData.data[key].length - 1) {
-            marker = 'diamond-cross';
-            color = getPointColor(element['nc']);
+            marker = 'square';
+            size = 10; // last point is what the traffic light message refers to - make it stand out
           }
           values.push(value);
           colorsForLine[index] = color;
           markersForLine[index] = marker;
+          sizesForLine[index] = size;
           textArray[index] = elementText + '<br>' + truncateString(this.serverData.data['filename'][index], 50);
         }
       );
@@ -168,7 +192,11 @@ export class AutoPlotComponent implements OnInit, OnDestroy, OnChanges {
         marker: {
           color: colorsForLine,
           symbol: markersForLine,
-          size: 5
+          size: sizesForLine,
+          opacity: 1,
+          line: {
+            width: 0
+          }
         },
         line: {
           // color: colorsForLine,
