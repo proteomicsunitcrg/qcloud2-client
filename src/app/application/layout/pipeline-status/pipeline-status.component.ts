@@ -157,7 +157,12 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
     const dotIdx = filename.indexOf('.');
     const base = dotIdx === -1 ? filename : filename.substring(0, dotIdx);
     const ext = dotIdx === -1 ? '' : filename.substring(dotIdx + 1).split('.')[0];
-    const cleanBase = base.replace(
+    // QCrawler prefixes the UUID/QC-code/checksum block with a
+    // ___YYYYMMDDHHMMSS acquisition timestamp - strip that first, same as
+    // submit_qcloud.nf's own cleaning logic, or it survives the UUID regex
+    // below untouched.
+    const withoutTimestamp = base.replace(/___[0-9]{14}/, '');
+    const cleanBase = withoutTimestamp.replace(
       /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}.*$/, ''
     );
     return ext ? `${cleanBase}.${ext}` : cleanBase;
