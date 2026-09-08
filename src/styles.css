@@ -91,3 +91,8 @@ body { margin: 0; font-family: 'Roboto', "Helvetica Neue", sans-serif; }
 .tabs .indicator {
     background-color: #a7d7c5 !important;
 }
+
+.ngx-pagination .current {
+    background: #a7d7c5 !important;
+    color: black !important;
+}

@@ -67,4 +67,8 @@ export class FileService {
     return this.httpClient.get<{ content: PipelineFile[], totalElements: number }>(`${this.apiPrefix}api/pipelineFile/dashboard`, { params });
   }
 
+  public getPipelineFileByChecksum(checksum: string): Observable<PipelineFile> {
+    return this.httpClient.get<PipelineFile>(`${this.apiPrefix}api/pipelineFile/checksum/${checksum}`);
+  }
+
 }

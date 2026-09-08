@@ -9,6 +9,7 @@ export class PipelineFile {
     sampleType: SampleType;
     status: string; // 'RECEIVED' | 'PROCESSING' | 'PROCESSED' | 'ERROR'
     receivedDate: Date;
+    processingStartedDate: Date;
     updatedDate: Date;
     sample: string;
     qcCode: string;

@@ -4,7 +4,8 @@ import { SystemService } from '../../../../services/system.service';
 import { FileService } from '../../../../services/file.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FileIntranetService } from '../../../../services/file-intranet.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { WebsocketService } from '../../../../services/websocket.service';
 import { Router } from '@angular/router';
 import { ContextSourceService } from '../../../../services/context-source.service';
@@ -72,11 +73,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   selectedErrorFile: PipelineFile = null;
 
+  private filenameChanges = new Subject<string>();
+  private filenameChangesSubscription: Subscription;
+
   ngOnInit() {
     this.getNodeLs();
     this.getSampleTypes();
     this.getPage();
     this.subscribeToDashboardIntranet();
+    this.subscribeToFilenameChanges();
+  }
+
+  // Live-filters as the user types, once there's enough of a filename to
+  // narrow results meaningfully (3+ chars) - clearing the field back to
+  // empty also re-triggers, to show everything again.
+  private subscribeToFilenameChanges(): void {
+    this.filenameChangesSubscription = this.filenameChanges.pipe(debounceTime(300)).subscribe(value => {
+      if (value.length >= 3 || value.length === 0) {
+        this.config.currentPage = 1;
+        this.getPage();
+      }
+    });
+  }
+
+  public onFilenameChange(value: string): void {
+    this.filenameChanges.next(value);
   }
 
   private getSampleTypes(): void {
@@ -92,6 +113,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dashboardSubscription.unsubscribe();
+    this.filenameChangesSubscription.unsubscribe();
   }
 
   public getPage(): void {
@@ -115,17 +137,84 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  public statusColor(file: PipelineFile): string {
-    switch (file.status) {
-      case 'PROCESSED': return 'green';
-      case 'ERROR': return 'red';
-      default: return 'grey';
-    }
-  }
-
   public goToErrorDetails(file: PipelineFile): void {
     this.selectedErrorFile = file;
     this.ngxSmartModalService.getModal('errorModal').open();
+  }
+
+  // Users only ever care about the sample name they gave the file - the
+  // instrument UUID/QC code/checksum QCloud embeds in the real filename for
+  // internal routing (see report_qcloud.nf's naming convention) are pipeline
+  // internals, not something to show them.
+  public displayFilename(file: PipelineFile): string {
+    return DashboardComponent.cleanFilename(file.filename);
+  }
+
+  private static cleanFilename(filename: string): string {
+    if (!filename) {
+      return filename;
+    }
+    const dotIdx = filename.indexOf('.');
+    const base = dotIdx === -1 ? filename : filename.substring(0, dotIdx);
+    const ext = dotIdx === -1 ? '' : filename.substring(dotIdx + 1).split('.')[0];
+    const cleanBase = base.replace(
+      /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}.*$/, ''
+    );
+    return ext ? `${cleanBase}.${ext}` : cleanBase;
+  }
+
+  // Time from received to shown-as-done - what the user actually perceives
+  // as "how long did this take", not the pipeline's internal compute time.
+  // Pure pipeline compute time - from processingStartedDate (set by the
+  // pipeline itself, MARK_PROCESSING_STARTED) to done, excluding any Slurm
+  // queue wait between being received and actually starting to run. For
+  // files still RECEIVED/PROCESSING this keeps growing - refreshFile() (the
+  // refresh icon) is what re-samples it.
+  public duration(file: PipelineFile): string {
+    if (!file.processingStartedDate) {
+      return file.receivedDate ? 'queued' : '';
+    }
+    const start = new Date(file.processingStartedDate).getTime();
+    const isDone = file.status === 'PROCESSED' || file.status === 'ERROR';
+    const end = isDone ? new Date(file.updatedDate).getTime() : Date.now();
+    const seconds = Math.max(0, Math.round((end - start) / 1000));
+    const formatted = DashboardComponent.formatDuration(seconds);
+    return isDone ? formatted : `${formatted} (ongoing)`;
+  }
+
+  private static formatDuration(totalSeconds: number): string {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    }
+    if (minutes > 0) {
+      return `${minutes}m ${seconds}s`;
+    }
+    return `${seconds}s`;
+  }
+
+  // Re-fetches just this one row (e.g. while it's still RECEIVED/PROCESSING)
+  // instead of making the user reload the whole page/table.
+  public refreshFile(file: PipelineFile): void {
+    this.fileService.getPipelineFileByChecksum(file.checksum).subscribe(
+      res => {
+        const idx = this.collection.data.indexOf(file);
+        if (idx !== -1) {
+          // A new array reference (not an in-place mutation) is required so
+          // the "paginate" pure pipe actually re-evaluates - otherwise it
+          // keeps returning its cached page and stale fields like duration()
+          // never refresh.
+          const updated = [...this.collection.data];
+          updated[idx] = res;
+          this.collection.data = updated;
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 
   private getNodeLs(): void {
