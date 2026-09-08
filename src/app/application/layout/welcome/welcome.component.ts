@@ -5,6 +5,7 @@ import { Message } from '../../../models/message';
 import { WebsocketService } from '../../../services/websocket.service';
 import { Subscription } from 'rxjs';
 
+declare var M: any;
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -36,6 +37,8 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.retrieveMsg();
     this.subscribeToWebSocketMessage();
+    const elem = document.getElementById('dashboard-tabs');
+    M.Tabs.init(elem);
   }
 
   private subscribeToWebSocketMessage(): void {
