@@ -1,6 +1,12 @@
+<div class="col s12 m12 l12 xl12 z-depth-2">
+<div class="row z-depth-0 green-background">
+  <div class="col s12 m12 l12 xl12">
+    <h4>Pipeline Status</h4>
+  </div>
+</div>
 <div class="row">
   <div class="input-field col s2">
-    <input id="filename" type="text" [(ngModel)]="filename">
+    <input id="filename" type="text" [(ngModel)]="filename" (ngModelChange)="onFilenameChange($event)">
     <label for="filename">Filename</label>
   </div>
   <div class="input-field col s2">
@@ -18,7 +24,7 @@
     <label>Sample type</label>
   </div>
   <div class="col s1" style="margin-top: 20px;">
-    <button class="btn" (click)="getPage()">Find</button>
+    <button class="btn dashboard-btn dashboard-btn-find" (click)="getPage()">Find</button>
   </div>
 </div>
 <!-- <div class="row">
@@ -26,14 +32,24 @@
     <button class="btn" (click)="cleanFilters()">Clean filters</button>
   </div>
 </div> -->
-<table>
+<div class="dashboard-table-card">
+<table class="dashboard-table">
   <thead>
     <tr>
+      <th>
+        Status
+      </th>
+      <th>
+        Refresh
+      </th>
       <th>
         Filename
       </th>
       <th>
         Acquisition date
+      </th>
+      <th>
+        Time to process
       </th>
       <th>
         Labsystem
@@ -55,30 +71,42 @@
   <tbody>
     <tr *ngFor="let file of collection.data | paginate: config">
       <td>
-        {{file.filename}}
+        <mat-icon class="status-icon" [title]="file.status"
+          (click)="file.status === 'ERROR' ? goToErrorDetails(file) : null"
+          [style.cursor]="file.status === 'ERROR' ? 'pointer' : 'default'">{{statusIcon(file)}}</mat-icon>
       </td>
       <td>
-        {{file.creationDate}}
+        <mat-icon *ngIf="file.status === 'RECEIVED' || file.status === 'PROCESSING'" class="refresh-icon"
+          title="Refresh status" (click)="refreshFile(file)">refresh</mat-icon>
+      </td>
+      <td [title]="file.filename">
+        {{displayFilename(file)}}
       </td>
       <td>
-        {{file.labSystem.name}}
+        {{file.acquisitionDate || '-'}}
       </td>
       <td>
-        {{file.sampleType.name}}
+        {{duration(file)}}
       </td>
       <td>
-        <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
-        <button class="btn" (click)="goToPlot(file)">Plot</button>
+        {{file.labSystem?.name}}
       </td>
       <td>
-        <button class="btn" (click)="goToResults(file)">Results</button>
+        {{file.sampleType?.name}}
       </td>
       <td>
-        <button class="btn" (click)="downloadData(file)">Download</button>
+        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="goToPlot(file)">Plot</button>
+      </td>
+      <td>
+        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="goToResults(file)">Results</button>
+      </td>
+      <td>
+        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="downloadData(file)">Download</button>
       </td>
     </tr>
   </tbody>
 </table>
+</div>
 <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
@@ -126,4 +154,29 @@
 
 </ngx-smart-modal>
 
+<ngx-smart-modal #errorModal identifier="errorModal" [customClass]="'error-modal'" [closable]="false">
+  <div class="error-modal-body" *ngIf="selectedErrorFile">
+    <div class="error-modal-header">
+      <mat-icon class="error-modal-icon">error</mat-icon>
+      <h5 class="error-modal-title">Processing error</h5>
+    </div>
 
+    <div class="error-modal-facts">
+      <div class="error-modal-fact"><span>Sample</span><span>{{selectedErrorFile.sample}}</span></div>
+      <div class="error-modal-fact"><span>QC code</span><span>{{selectedErrorFile.qcCode}}</span></div>
+      <div class="error-modal-fact"><span>Acquisition date</span><span>{{selectedErrorFile.acquisitionDate}}</span></div>
+      <div class="error-modal-fact"><span>Database</span><span>{{selectedErrorFile.databaseName}}</span></div>
+      <div class="error-modal-fact"><span>Size</span><span>{{selectedErrorFile.sizeMb}} MB</span></div>
+    </div>
+
+    <div class="error-modal-reason">
+      <div class="error-modal-reason-label">Reason</div>
+      <p>{{selectedErrorFile.errorReason}}</p>
+    </div>
+
+    <div class="error-modal-footer">
+      <button class="btn error-modal-accept" (click)="ngxSmartModalService.getModal('errorModal').close()">Accept</button>
+    </div>
+  </div>
+</ngx-smart-modal>
+</div>

@@ -1,26 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { System } from '../../../../models/system';
-import { SystemService } from '../../../../services/system.service';
-import { FileService } from '../../../../services/file.service';
+import { System } from '../../../models/system';
+import { SystemService } from '../../../services/system.service';
+import { FileService } from '../../../services/file.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { FileIntranetService } from '../../../../services/file-intranet.service';
-import { Subscription } from 'rxjs';
-import { WebsocketService } from '../../../../services/websocket.service';
+import { FileIntranetService } from '../../../services/file-intranet.service';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { WebsocketService } from '../../../services/websocket.service';
 import { Router } from '@angular/router';
-import { File } from '../../../../models/file';
-import { ContextSourceService } from '../../../../services/context-source.service';
-import { SampleCompositionService } from '../../../../services/sample-composition.service';
-import { SampleTypeService } from '../../../../services/sample-type.service';
-import { SampleType } from '../../../../models/sampleType';
-import { Summary } from '../../../../models/summary';
+import { ContextSourceService } from '../../../services/context-source.service';
+import { SampleCompositionService } from '../../../services/sample-composition.service';
+import { SampleTypeService } from '../../../services/sample-type.service';
+import { SampleType } from '../../../models/sampleType';
+import { Summary } from '../../../models/summary';
+import { PipelineFile } from '../../../models/pipeline-file';
 
 declare var M: any;
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-pipeline-status',
+  templateUrl: './pipeline-status.component.html',
+  styleUrls: ['./pipeline-status.component.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class PipelineStatusComponent implements OnInit, OnDestroy {
 
   // Any context source carrying at least one of these is a peptide, everything
   // else (Median IT, Sum TIC, FWHM...) is an instrument-level metric.
@@ -70,11 +71,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   globalSummaries: Summary[] = [];
 
+  selectedErrorFile: PipelineFile = null;
+
+  private filenameChanges = new Subject<string>();
+  private filenameChangesSubscription: Subscription;
+
   ngOnInit() {
     this.getNodeLs();
     this.getSampleTypes();
     this.getPage();
     this.subscribeToDashboardIntranet();
+    this.subscribeToFilenameChanges();
+  }
+
+  // Live-filters as the user types, once there's enough of a filename to
+  // narrow results meaningfully (3+ chars) - clearing the field back to
+  // empty also re-triggers, to show everything again.
+  private subscribeToFilenameChanges(): void {
+    this.filenameChangesSubscription = this.filenameChanges.pipe(debounceTime(300)).subscribe(value => {
+      if (value.length >= 3 || value.length === 0) {
+        this.config.currentPage = 1;
+        this.getPage();
+      }
+    });
+  }
+
+  public onFilenameChange(value: string): void {
+    this.filenameChanges.next(value);
   }
 
   private getSampleTypes(): void {
@@ -90,24 +113,103 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dashboardSubscription.unsubscribe();
+    this.filenameChangesSubscription.unsubscribe();
   }
 
   public getPage(): void {
-    this.fileService.getAllFilesByNode(this.config.currentPage - 1, this.config.itemsPerPage, this.filename, this.labsystem, this.sampleType).subscribe(
+    this.fileService.getPipelineFileDashboard(this.config.currentPage - 1, this.config.itemsPerPage, this.filename).subscribe(
       res => {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;
         this.config.totalItems = res.totalElements;
-        // for (const file of this.collection.data) {
-        //   this.fileService.getFileStatusByChecksum(file.checksum).subscribe(
-        //     res => {
-        //       file.isOk = res;
-        //     },
-        //     err => {
-        //       console.error(err);
-        //     }
-        //   );
-        // }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  public statusIcon(file: PipelineFile): string {
+    switch (file.status) {
+      case 'PROCESSED': return 'check_circle';
+      case 'ERROR': return 'error';
+      default: return 'hourglass_empty'; // RECEIVED / PROCESSING
+    }
+  }
+
+  public goToErrorDetails(file: PipelineFile): void {
+    this.selectedErrorFile = file;
+    this.ngxSmartModalService.getModal('errorModal').open();
+  }
+
+  // Users only ever care about the sample name they gave the file - the
+  // instrument UUID/QC code/checksum QCloud embeds in the real filename for
+  // internal routing (see report_qcloud.nf's naming convention) are pipeline
+  // internals, not something to show them.
+  public displayFilename(file: PipelineFile): string {
+    return PipelineStatusComponent.cleanFilename(file.filename);
+  }
+
+  private static cleanFilename(filename: string): string {
+    if (!filename) {
+      return filename;
+    }
+    const dotIdx = filename.indexOf('.');
+    const base = dotIdx === -1 ? filename : filename.substring(0, dotIdx);
+    const ext = dotIdx === -1 ? '' : filename.substring(dotIdx + 1).split('.')[0];
+    const cleanBase = base.replace(
+      /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}.*$/, ''
+    );
+    return ext ? `${cleanBase}.${ext}` : cleanBase;
+  }
+
+  // Time from received to shown-as-done - what the user actually perceives
+  // as "how long did this take", not the pipeline's internal compute time.
+  // Pure pipeline compute time - from processingStartedDate (set by the
+  // pipeline itself, MARK_PROCESSING_STARTED) to done, excluding any Slurm
+  // queue wait between being received and actually starting to run. For
+  // files still RECEIVED/PROCESSING this keeps growing - refreshFile() (the
+  // refresh icon) is what re-samples it.
+  public duration(file: PipelineFile): string {
+    if (!file.processingStartedDate) {
+      return file.receivedDate ? 'queued' : '';
+    }
+    const start = new Date(file.processingStartedDate).getTime();
+    const isDone = file.status === 'PROCESSED' || file.status === 'ERROR';
+    const end = isDone ? new Date(file.updatedDate).getTime() : Date.now();
+    const seconds = Math.max(0, Math.round((end - start) / 1000));
+    const formatted = PipelineStatusComponent.formatDuration(seconds);
+    return isDone ? formatted : `${formatted} (ongoing)`;
+  }
+
+  private static formatDuration(totalSeconds: number): string {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    }
+    if (minutes > 0) {
+      return `${minutes}m ${seconds}s`;
+    }
+    return `${seconds}s`;
+  }
+
+  // Re-fetches just this one row (e.g. while it's still RECEIVED/PROCESSING)
+  // instead of making the user reload the whole page/table.
+  public refreshFile(file: PipelineFile): void {
+    this.fileService.getPipelineFileByChecksum(file.checksum).subscribe(
+      res => {
+        const idx = this.collection.data.indexOf(file);
+        if (idx !== -1) {
+          // A new array reference (not an in-place mutation) is required so
+          // the "paginate" pure pipe actually re-evaluates - otherwise it
+          // keeps returning its cached page and stale fields like duration()
+          // never refresh.
+          const updated = [...this.collection.data];
+          updated[idx] = res;
+          this.collection.data = updated;
+        }
       },
       err => {
         console.error(err);
@@ -166,11 +268,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  public goToPlot(file: File): void {
+  public goToPlot(file: PipelineFile): void {
     this.routerService.navigate([`/application/view/instrument/`, file.labSystem.apiKey], { queryParams: { checksum: file.checksum } });
   }
 
-  public goToResults(file: File): void {
+  public goToResults(file: PipelineFile): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
         this.peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
@@ -186,7 +288,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private isPeptideSummary(summary: Summary): boolean {
     return summary.values.some(value =>
-      value.param && DashboardComponent.PEPTIDE_PARAM_NAMES.indexOf(value.param.name) !== -1);
+      value.param && PipelineStatusComponent.PEPTIDE_PARAM_NAMES.indexOf(value.param.name) !== -1);
   }
 
   // Not every context source has the same set of parameters (e.g. per-peptide
@@ -212,7 +314,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   public formatColumnHeader(paramName: string): string {
-    const unit = DashboardComponent.PARAM_UNITS[paramName];
+    const unit = PipelineStatusComponent.PARAM_UNITS[paramName];
     return unit ? `${paramName} (${unit})` : paramName;
   }
 
@@ -220,14 +322,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // of another sparse table.
   public formatGlobalMetric(summary: Summary): string {
     return summary.values.map(value => {
-      const unit = value.param ? DashboardComponent.PARAM_UNITS[value.param.name] : undefined;
+      const unit = value.param ? PipelineStatusComponent.PARAM_UNITS[value.param.name] : undefined;
       return unit ? `${value.calculatedValue} ${unit}` : `${value.calculatedValue}`;
     }).join(', ');
   }
 
   // Mirrors exactly what the "Results" modal shows - same two sections, same params -
   // so the downloaded files never drift from what's displayed on screen.
-  public downloadData(file: File): void {
+  public downloadData(file: PipelineFile): void {
     this.fileService.getSummary(file.checksum).subscribe(
       res => {
         const peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
@@ -267,7 +369,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return headers + csvText;
   }
 
-  private downloadCSV(csv: string, file: File, suffix: string) {
+  private downloadCSV(csv: string, file: PipelineFile, suffix: string) {
     const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);

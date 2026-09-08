@@ -6,6 +6,7 @@ import { RoleGuardService as RoleGuard } from '../../role-guard.service';
 // tslint:disable-next-line:max-line-length
 import { DataVisualizationMainWindowComponent } from '../data-visualization/data-visualization-main-window/data-visualization-main-window.component';
 import { WelcomeComponent } from '../layout/welcome/welcome.component';
+import { PipelineStatusComponent } from '../layout/pipeline-status/pipeline-status.component';
 const routes: Routes = [
   {
     path: '', component: MainWindowComponent, canActivate: [RoleGuard], data: { expectedRole: 'ROLE_USER' },
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: 'statistics', loadChildren: () => import('../../statistics/statistics.module').then(m => m.StatisticsModule) },
       { path: 'configuration', loadChildren: () => import('../../configuration/configuration.module').then(m => m.ConfigurationModule) },
       { path: 'help', loadChildren: () => import('../../help/help.module').then(m => m.HelpModule) },
-      { path: 'view/:type/:apiKey', component: DataVisualizationMainWindowComponent }
+      { path: 'view/:type/:apiKey', component: DataVisualizationMainWindowComponent },
+      { path: 'pipeline-status', component: PipelineStatusComponent }
     ]
   },
 ];

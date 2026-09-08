@@ -42,6 +42,7 @@ import { AnnotationSelectorDropdownComponent } from './data-visualization/annota
 // tslint:disable-next-line:max-line-length
 import { AnnotationSelectorSubMenuComponent } from './data-visualization/annotations/annotation-selector-sub-menu/annotation-selector-sub-menu.component';
 import { DashboardComponent } from './layout/welcome/dashboard/dashboard.component';
+import { PipelineStatusComponent } from './layout/pipeline-status/pipeline-status.component';
 import { MessagesComponent } from './layout/welcome/messages/messages.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
@@ -78,6 +79,7 @@ import { SharedModule } from '../shared/shared.module';
     // AnnotationSelectorDropdownComponent,
     // AnnotationSelectorSubMenuComponent,
     DashboardComponent,
+    PipelineStatusComponent,
     MessagesComponent,
     TipsComponent,
 
