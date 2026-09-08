@@ -91,9 +91,16 @@ body { margin: 0; font-family: 'Roboto', "Helvetica Neue", sans-serif; }
 .tabs .indicator {
     background-color: #a7d7c5 !important;
 }
+.tabs .tab a {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
 .tabs .tab a:hover,
 .tabs .tab a.active {
     color: #3f9e78 !important;
+}
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+    background-color: rgba(167, 215, 197, 0.2) !important;
 }
 
 .ngx-pagination .current {
