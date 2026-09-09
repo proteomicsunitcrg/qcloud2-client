@@ -158,24 +158,15 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
   // refresh icon) is what re-samples it.
   public duration(file: PipelineFile): string {
     const isDone = file.status === 'PROCESSED' || file.status === 'ERROR';
-    if (!file.processingStartedDate) {
-      // status is the source of truth - processingStartedDate is only set by
-      // a fire-and-forget call from the pipeline (qcloud.nf/qcloud_diann.nf)
-      // that can silently fail, leaving this null even for a file that went
-      // on to finish (PROCESSED/ERROR) normally. When that happens, fall
-      // back to the total received->done time instead of pure compute time,
-      // so there's still a number rather than a bare status word.
-      if (isDone) {
-        return file.receivedDate
-          ? PipelineStatusComponent.formatDuration(PipelineStatusComponent.elapsedSeconds(file.receivedDate, file.updatedDate))
-          : '';
-      }
-      if (file.status === 'PROCESSING') {
-        return 'processing';
-      }
+    // processingStartedDate is only set by a fire-and-forget call from the
+    // pipeline (qcloud.nf/qcloud_diann.nf) that can silently fail - once the
+    // file is at least PROCESSING, fall back to received->now/done instead
+    // of pure compute time, so there's always a real number on screen.
+    const start = file.processingStartedDate || (file.status === 'PROCESSING' || isDone ? file.receivedDate : null);
+    if (!start) {
       return file.receivedDate ? 'queued' : '';
     }
-    const seconds = PipelineStatusComponent.elapsedSeconds(file.processingStartedDate, isDone ? file.updatedDate : new Date());
+    const seconds = PipelineStatusComponent.elapsedSeconds(start, isDone ? file.updatedDate : new Date());
     const formatted = PipelineStatusComponent.formatDuration(seconds);
     return isDone ? formatted : `${formatted} (ongoing)`;
   }
