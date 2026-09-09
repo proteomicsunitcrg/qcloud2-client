@@ -7,12 +7,10 @@ import { FileIntranetService } from '../../../services/file-intranet.service';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { WebsocketService } from '../../../services/websocket.service';
-import { Router } from '@angular/router';
 import { ContextSourceService } from '../../../services/context-source.service';
 import { SampleCompositionService } from '../../../services/sample-composition.service';
 import { SampleTypeService } from '../../../services/sample-type.service';
 import { SampleType } from '../../../models/sampleType';
-import { Summary } from '../../../models/summary';
 import { PipelineFile } from '../../../models/pipeline-file';
 
 declare var M: any;
@@ -23,25 +21,8 @@ declare var M: any;
 })
 export class PipelineStatusComponent implements OnInit, OnDestroy {
 
-  // Any context source carrying at least one of these is a peptide, everything
-  // else (Median IT, Sum TIC, FWHM...) is an instrument-level metric.
-  private static readonly PEPTIDE_PARAM_NAMES = ['Peak area', 'Mass accuracy', 'Retention time'];
-
-  // Units must match the chart titles exactly (those rule) - see "Total Ion
-  // Current (sum) x1e10", "Median mass accuracy MS1 (ppm)", "FWHM (sec/scans)".
-  private static readonly PARAM_UNITS: { [paramName: string]: string } = {
-    'Peak area': 'log2',
-    'Mass accuracy': 'ppm',
-    'Retention time': 'min',
-    'Median mass accuracy': 'ppm',
-    'Median IT': 'ms',
-    'Total Ion Current': 'x1e10',
-    'FWHM (scans)': 'scans',
-    'FWHM (sec)': 'sec',
-  };
-
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
-    private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService, private routerService: Router, private contextSourceService: ContextSourceService,
+    private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService, private contextSourceService: ContextSourceService,
     private sampleCompositionService: SampleCompositionService, private sampleTypeService: SampleTypeService
   ) { }
 
@@ -70,12 +51,6 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
   fileData = [];
 
   dashboardSubscription: Subscription;
-
-  peptideSummaries: Summary[] = [];
-
-  peptideColumns: string[] = [];
-
-  globalSummaries: Summary[] = [];
 
   selectedErrorFile: PipelineFile = null;
 
@@ -277,125 +252,6 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     );
-  }
-
-  public goToPlot(file: PipelineFile): void {
-    this.routerService.navigate([`/application/view/instrument/`, file.labSystem.apiKey], { queryParams: { checksum: file.checksum } });
-  }
-
-  public goToResults(file: PipelineFile): void {
-    this.fileService.getSummary(file.checksum).subscribe(
-      res => {
-        this.peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
-        this.globalSummaries = res.filter(summary => !this.isPeptideSummary(summary));
-        this.peptideColumns = this.computeSummaryColumns(this.peptideSummaries);
-        this.ngxSmartModalService.getModal('pipelineDataModal').open()
-      },
-      err => {
-        console.error(err);
-      }
-    );
-  }
-
-  private isPeptideSummary(summary: Summary): boolean {
-    return summary.values.some(value =>
-      value.param && PipelineStatusComponent.PEPTIDE_PARAM_NAMES.indexOf(value.param.name) !== -1);
-  }
-
-  // Not every context source has the same set of parameters (e.g. per-peptide
-  // metrics like Peak area/Retention time vs. instrument-level metrics like
-  // Median IT or FWHM) - so the table/TSV columns are derived from whatever
-  // parameters are actually present, instead of assuming a fixed triplet.
-  private computeSummaryColumns(summaries: Summary[]): string[] {
-    const columns: string[] = [];
-    for (const summary of summaries) {
-      for (const value of summary.values) {
-        const paramName = value.param ? value.param.name : null;
-        if (paramName && columns.indexOf(paramName) === -1) {
-          columns.push(paramName);
-        }
-      }
-    }
-    return columns;
-  }
-
-  public getSummaryValue(summary: Summary, paramName: string): any {
-    const data = this.getDataFromParam(summary.values, paramName);
-    return data ? data['calculatedValue'] : null;
-  }
-
-  public formatColumnHeader(paramName: string): string {
-    const unit = PipelineStatusComponent.PARAM_UNITS[paramName];
-    return unit ? `${paramName} (${unit})` : paramName;
-  }
-
-  // Instrument-level metrics have a single value each - shown as "label: value" instead
-  // of another sparse table.
-  public formatGlobalMetric(summary: Summary): string {
-    return summary.values.map(value => {
-      const unit = value.param ? PipelineStatusComponent.PARAM_UNITS[value.param.name] : undefined;
-      return unit ? `${value.calculatedValue} ${unit}` : `${value.calculatedValue}`;
-    }).join(', ');
-  }
-
-  // Mirrors exactly what the "Results" modal shows - same two sections, same params -
-  // so the downloaded files never drift from what's displayed on screen.
-  public downloadData(file: PipelineFile): void {
-    this.fileService.getSummary(file.checksum).subscribe(
-      res => {
-        const peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
-        const globalSummaries = res.filter(summary => !this.isPeptideSummary(summary));
-        const peptideColumns = this.computeSummaryColumns(peptideSummaries);
-
-        this.downloadCSV(this.mountPeptideCSV(peptideSummaries, peptideColumns), file, '_peptide.tsv');
-        this.downloadCSV(this.mountGlobalCSV(globalSummaries), file, '_global.tsv');
-      },
-      err => {
-        console.error(err);
-      }
-    );
-  }
-
-  private mountPeptideCSV(summary: Summary[], columns: string[]): string {
-    const separator = '\t';
-    const headers = `sequence${separator}${columns.map(column => this.formatColumnHeader(column)).join(separator)}\n`;
-    let csvText = '';
-    for (const peptide of summary) {
-      const values = columns.map(column => {
-        const data = this.getDataFromParam(peptide.values, column);
-        return data && data['calculatedValue'] !== null && data['calculatedValue'] !== undefined ? data['calculatedValue'] : '';
-      });
-      csvText += `${peptide.sequence}${separator}${values.join(separator)}\n`;
-    }
-    return headers + csvText;
-  }
-
-  private mountGlobalCSV(summaries: Summary[]): string {
-    const separator = '\t';
-    const headers = `metric${separator}value\n`;
-    let csvText = '';
-    for (const summary of summaries) {
-      csvText += `${summary.sequence}${separator}${this.formatGlobalMetric(summary)}\n`;
-    }
-    return headers + csvText;
-  }
-
-  private downloadCSV(csv: string, file: PipelineFile, suffix: string) {
-    const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute('href', dataStr);
-    downloadAnchorNode.setAttribute('download', `${file.filename}${suffix}`);
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-  }
-
-  private getDataFromParam(valueList: any[], target: string): any {
-    for (const value of valueList) {
-      if (value['param']['name'] === target) {
-        return value;
-      }
-    }
   }
 
 }

@@ -17,8 +17,9 @@
     </select>
     <label>Sample type</label>
   </div>
-  <div class="col s1" style="margin-top: 20px;">
+  <div class="col s2" style="margin-top: 20px;">
     <button class="btn dashboard-btn dashboard-btn-find" (click)="getPage()">Find</button>
+    <button class="btn dashboard-btn dashboard-btn-find" (click)="getPage()">Reload</button>
   </div>
 </div>
 <!-- <div class="row">
@@ -51,15 +52,6 @@
       <th>
         Sample type
       </th>
-      <th>
-        View
-      </th>
-      <th>
-        Results
-      </th>
-      <th>
-        TSV
-      </th>
     </tr>
   </thead>
   <tbody>
@@ -88,78 +80,11 @@
       <td>
         {{file.sampleType?.name}}
       </td>
-      <td>
-        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="goToPlot(file)">Plot</button>
-      </td>
-      <td>
-        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="goToResults(file)">Results</button>
-      </td>
-      <td>
-        <button class="btn dashboard-btn" *ngIf="file.status === 'PROCESSED'" (click)="downloadData(file)">Download</button>
-      </td>
     </tr>
   </tbody>
 </table>
 </div>
 <pagination-controls id="pipelineStatusPagination" style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
-
-<!-- Own identifier, distinct from dashboard.component's "dataModal" - both
-     components live in the DOM at once (Materialize tabs only toggle CSS
-     visibility, not *ngIf), so a shared identifier makes NgxSmartModalService
-     confuse the two and pop up the wrong one. -->
-<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass results-modal'" [closable]="false">
-
-  <div class="results-modal-header">
-    <mat-icon class="results-modal-icon">assessment</mat-icon>
-    <h5 class="results-modal-title">Results</h5>
-  </div>
-
-  <h5 class="results-section-title">Peptide level metrics</h5>
-  <table class="striped results-table" *ngIf="peptideSummaries.length > 0">
-      <thead>
-          <tr>
-            <th>
-                Sequence
-            </th>
-            <th *ngFor="let column of peptideColumns">
-              {{formatColumnHeader(column)}}
-            </th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let summary of peptideSummaries">
-              <td>
-                {{summary.sequence}}
-              </td>
-              <td *ngFor="let column of peptideColumns">
-                {{getSummaryValue(summary, column)}}
-              </td>
-          </tr>
-      </tbody>
-  </table>
-  <p *ngIf="peptideSummaries.length === 0" class="grey-text">No peptide-level data for this file.</p>
-
-  <h5 class="results-section-title" *ngIf="globalSummaries.length > 0">Global metrics</h5>
-  <table class="striped results-table" *ngIf="globalSummaries.length > 0">
-      <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Value</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let summary of globalSummaries">
-              <td>{{summary.sequence}}</td>
-              <td>{{formatGlobalMetric(summary)}}</td>
-          </tr>
-      </tbody>
-  </table>
-
-  <div class="results-modal-footer">
-    <button class="btn results-modal-accept" (click)="ngxSmartModalService.getModal('pipelineDataModal').close()">Accept</button>
-  </div>
-
-</ngx-smart-modal>
 
 <ngx-smart-modal #errorModal identifier="errorModal" [customClass]="'error-modal'" [closable]="false">
   <div class="error-modal-body" *ngIf="selectedErrorFile">
