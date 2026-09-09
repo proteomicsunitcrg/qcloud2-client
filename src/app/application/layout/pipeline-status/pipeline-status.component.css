@@ -99,7 +99,13 @@
   background-color: #e0f2f1;
 }
 
-/* Results modal - same rounded/header language as the error modal below. */
+/* Results modal - same rounded/header/no-legacy-X language as the error
+   modal below, narrower than the 2000px global default (.modalClass). */
+::ng-deep .nsm-dialog.results-modal {
+  max-width: 640px !important;
+  width: 90vw !important;
+}
+
 ::ng-deep .nsm-dialog.results-modal .nsm-content {
   border-radius: 12px !important;
 }
@@ -120,6 +126,21 @@
   font-size: 1.15rem;
   font-weight: 500;
   color: #333;
+}
+
+.results-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.results-modal-accept {
+  background-color: #a7d7c5 !important;
+  color: black;
+  border-radius: 20px;
+  padding: 0 24px;
 }
 
 /* Error modal - compact, rounded, no legacy X (see errorModalClass) */

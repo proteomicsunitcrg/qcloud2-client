@@ -107,7 +107,7 @@
      components live in the DOM at once (Materialize tabs only toggle CSS
      visibility, not *ngIf), so a shared identifier makes NgxSmartModalService
      confuse the two and pop up the wrong one. -->
-<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass results-modal'">
+<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass results-modal'" [closable]="false">
 
   <div class="results-modal-header">
     <mat-icon class="results-modal-icon">assessment</mat-icon>
@@ -154,6 +154,10 @@
           </tr>
       </tbody>
   </table>
+
+  <div class="results-modal-footer">
+    <button class="btn results-modal-accept" (click)="ngxSmartModalService.getModal('pipelineDataModal').close()">Accept</button>
+  </div>
 
 </ngx-smart-modal>
 

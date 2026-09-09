@@ -83,7 +83,7 @@
 </div>
 <pagination-controls id="filesPagination" style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
-<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass results-modal'">
+<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass results-modal'" [closable]="false">
 
   <div class="results-modal-header">
     <mat-icon class="results-modal-icon">assessment</mat-icon>
@@ -130,6 +130,10 @@
           </tr>
       </tbody>
   </table>
+
+  <div class="results-modal-footer">
+    <button class="btn results-modal-accept" (click)="ngxSmartModalService.getModal('dataModal').close()">Accept</button>
+  </div>
 
 </ngx-smart-modal>
 
