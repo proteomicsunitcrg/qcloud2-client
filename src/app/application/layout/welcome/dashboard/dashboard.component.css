@@ -20,6 +20,9 @@
 
 .results-table {
   font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .results-table tbody tr:hover {
