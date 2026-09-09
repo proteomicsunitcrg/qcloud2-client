@@ -97,7 +97,9 @@
       <div class="error-modal-fact"><span>Sample</span><span>{{selectedErrorFile.sample}}</span></div>
       <div class="error-modal-fact"><span>QC code</span><span>{{selectedErrorFile.qcCode}}</span></div>
       <div class="error-modal-fact"><span>Acquisition date</span><span>{{selectedErrorFile.acquisitionDate}}</span></div>
-      <div class="error-modal-fact"><span>Size</span><span>{{selectedErrorFile.sizeMb}} MB</span></div>
+      <div class="error-modal-fact"><span>Labsystem</span><span>{{selectedErrorFile.labSystem?.name}}</span></div>
+      <div class="error-modal-fact"><span>Sample type</span><span>{{selectedErrorFile.sampleType?.name}}</span></div>
+      <div class="error-modal-fact"><span>Checksum</span><span>{{selectedErrorFile.checksum}}</span></div>
     </div>
 
     <div class="error-modal-reason">
