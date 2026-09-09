@@ -160,10 +160,13 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
     if (!file.processingStartedDate) {
       // status is the source of truth - processingStartedDate is only set by
       // a fire-and-forget call from the pipeline (qcloud.nf/qcloud_diann.nf)
-      // that can silently fail, leaving this null even while the file is
-      // genuinely PROCESSING.
+      // that can silently fail, leaving this null even for a file that went
+      // on to finish (PROCESSED/ERROR) normally.
       if (file.status === 'PROCESSING') {
         return 'processing';
+      }
+      if (file.status === 'PROCESSED' || file.status === 'ERROR') {
+        return 'done';
       }
       return file.receivedDate ? 'queued' : '';
     }
