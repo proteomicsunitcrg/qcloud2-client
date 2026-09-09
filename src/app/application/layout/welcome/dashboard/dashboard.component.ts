@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // read "Retention time drift" to avoid implying an absolute retention time.
   private static readonly DISPLAY_NAMES: { [paramName: string]: string } = {
     'Retention time': 'Retention time drift',
+    'Peak area': 'Peptide area',
   };
 
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
