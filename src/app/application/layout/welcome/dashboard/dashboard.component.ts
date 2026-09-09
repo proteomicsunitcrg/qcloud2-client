@@ -4,7 +4,8 @@ import { SystemService } from '../../../../services/system.service';
 import { FileService } from '../../../../services/file.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FileIntranetService } from '../../../../services/file-intranet.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { WebsocketService } from '../../../../services/websocket.service';
 import { Router } from '@angular/router';
 import { File } from '../../../../models/file';
@@ -44,7 +45,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private sampleCompositionService: SampleCompositionService, private sampleTypeService: SampleTypeService
   ) { }
 
+  // Explicit id: ngx-pagination's PaginationService is a global singleton
+  // keyed by id (defaulting all instances to the same shared entry) - since
+  // this tab and pipeline-status now stay mounted together (CSS-toggled
+  // tabs, not *ngIf), their two paginators would otherwise clobber each
+  // other's state.
   config = {
+    id: 'filesPagination',
     itemsPerPage: 10,
     currentPage: 1,
     totalItems: 0
@@ -64,6 +71,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   dashboardSubscription: Subscription;
 
+  private filenameChanges = new Subject<string>();
+  private filenameChangesSubscription: Subscription;
+
   peptideSummaries: Summary[] = [];
 
   peptideColumns: string[] = [];
@@ -75,6 +85,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getSampleTypes();
     this.getPage();
     this.subscribeToDashboardIntranet();
+    this.subscribeToFilenameChanges();
+  }
+
+  // Live-filters as the user types, once there's enough of a filename to
+  // narrow results meaningfully (3+ chars) - clearing the field back to
+  // empty also re-triggers, to show everything again.
+  private subscribeToFilenameChanges(): void {
+    this.filenameChangesSubscription = this.filenameChanges.pipe(debounceTime(300)).subscribe(value => {
+      if (value.length >= 3 || value.length === 0) {
+        this.config.currentPage = 1;
+        this.getPage();
+      }
+    });
+  }
+
+  public onFilenameChange(value: string): void {
+    this.filenameChanges.next(value);
   }
 
   private getSampleTypes(): void {
@@ -90,6 +117,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dashboardSubscription.unsubscribe();
+    this.filenameChangesSubscription.unsubscribe();
   }
 
   public getPage(): void {

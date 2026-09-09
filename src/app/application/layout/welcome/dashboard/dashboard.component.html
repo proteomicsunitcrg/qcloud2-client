@@ -1,6 +1,6 @@
 <div class="row">
   <div class="input-field col s2">
-    <input id="filename" type="text" [(ngModel)]="filename">
+    <input id="filename" type="text" [(ngModel)]="filename" (ngModelChange)="onFilenameChange($event)">
     <label for="filename">Filename</label>
   </div>
   <div class="input-field col s2">
@@ -81,7 +81,7 @@
   </tbody>
 </table>
 </div>
-<pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+<pagination-controls id="filesPagination" style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
 

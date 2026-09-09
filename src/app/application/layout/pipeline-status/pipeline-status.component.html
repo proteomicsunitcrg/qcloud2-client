@@ -101,7 +101,7 @@
   </tbody>
 </table>
 </div>
-<pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
+<pagination-controls id="pipelineStatusPagination" style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <!-- Own identifier, distinct from dashboard.component's "dataModal" - both
      components live in the DOM at once (Materialize tabs only toggle CSS

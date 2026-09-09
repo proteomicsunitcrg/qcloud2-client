@@ -45,7 +45,13 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
     private sampleCompositionService: SampleCompositionService, private sampleTypeService: SampleTypeService
   ) { }
 
+  // Explicit id: ngx-pagination's PaginationService is a global singleton
+  // keyed by id (defaulting all instances to the same shared entry) - since
+  // this tab and the Files dashboard now stay mounted together (CSS-toggled
+  // tabs, not *ngIf), their two paginators would otherwise clobber each
+  // other's state.
   config = {
+    id: 'pipelineStatusPagination',
     itemsPerPage: 10,
     currentPage: 1,
     totalItems: 0
