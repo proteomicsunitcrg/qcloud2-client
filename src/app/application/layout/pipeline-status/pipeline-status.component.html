@@ -103,7 +103,11 @@
 </div>
 <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
-<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
+<!-- Own identifier, distinct from dashboard.component's "dataModal" - both
+     components live in the DOM at once (Materialize tabs only toggle CSS
+     visibility, not *ngIf), so a shared identifier makes NgxSmartModalService
+     confuse the two and pop up the wrong one. -->
+<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass'">
 
   <h5 class="results-section-title">Peptide level metrics</h5>
   <table class="striped results-table" *ngIf="peptideSummaries.length > 0">
@@ -159,7 +163,6 @@
       <div class="error-modal-fact"><span>Sample</span><span>{{selectedErrorFile.sample}}</span></div>
       <div class="error-modal-fact"><span>QC code</span><span>{{selectedErrorFile.qcCode}}</span></div>
       <div class="error-modal-fact"><span>Acquisition date</span><span>{{selectedErrorFile.acquisitionDate}}</span></div>
-      <div class="error-modal-fact"><span>Database</span><span>{{selectedErrorFile.databaseName}}</span></div>
       <div class="error-modal-fact"><span>Size</span><span>{{selectedErrorFile.sizeMb}} MB</span></div>
     </div>
 

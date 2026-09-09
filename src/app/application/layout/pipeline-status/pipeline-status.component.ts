@@ -283,7 +283,7 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
         this.peptideSummaries = res.filter(summary => this.isPeptideSummary(summary));
         this.globalSummaries = res.filter(summary => !this.isPeptideSummary(summary));
         this.peptideColumns = this.computeSummaryColumns(this.peptideSummaries);
-        this.ngxSmartModalService.getModal('dataModal').open()
+        this.ngxSmartModalService.getModal('pipelineDataModal').open()
       },
       err => {
         console.error(err);

@@ -18,7 +18,7 @@
     <label>Sample type</label>
   </div>
   <div class="col s1" style="margin-top: 20px;">
-    <button class="btn" (click)="getPage()">Find</button>
+    <button class="btn dashboard-btn dashboard-btn-find" (click)="getPage()">Find</button>
   </div>
 </div>
 <!-- <div class="row">
@@ -26,7 +26,8 @@
     <button class="btn" (click)="cleanFilters()">Clean filters</button>
   </div>
 </div> -->
-<table>
+<div class="dashboard-table-card">
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>
@@ -68,17 +69,18 @@
       </td>
       <td>
         <!-- <button class="btn" (click)="[viewData(file.checksum),ngxSmartModalService.getModal('dataModal').open()]">View</button> -->
-        <button class="btn" (click)="goToPlot(file)">Plot</button>
+        <button class="btn dashboard-btn" (click)="goToPlot(file)">Plot</button>
       </td>
       <td>
-        <button class="btn" (click)="goToResults(file)">Results</button>
+        <button class="btn dashboard-btn" (click)="goToResults(file)">Results</button>
       </td>
       <td>
-        <button class="btn" (click)="downloadData(file)">Download</button>
+        <button class="btn dashboard-btn" (click)="downloadData(file)">Download</button>
       </td>
     </tr>
   </tbody>
 </table>
+</div>
 <pagination-controls style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
