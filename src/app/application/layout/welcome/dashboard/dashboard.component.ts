@@ -40,6 +40,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     'FWHM (sec)': 'sec',
   };
 
+  // Display-only override: the backend's real param name ("Retention time",
+  // matched against by isPeptideSummary/getDataFromParam/mountPeptideCSV
+  // above) must stay unchanged, but the column header shown to users should
+  // read "Retention time drift" to avoid implying an absolute retention time.
+  private static readonly DISPLAY_NAMES: { [paramName: string]: string } = {
+    'Retention time': 'Retention time drift',
+  };
+
   constructor(private fileService: FileService, private systemService: SystemService, public ngxSmartModalService: NgxSmartModalService,
     private fileIntranetService: FileIntranetService, private webSocketService: WebsocketService, private routerService: Router, private contextSourceService: ContextSourceService,
     private sampleCompositionService: SampleCompositionService, private sampleTypeService: SampleTypeService
@@ -241,7 +249,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public formatColumnHeader(paramName: string): string {
     const unit = DashboardComponent.PARAM_UNITS[paramName];
-    return unit ? `${paramName} (${unit})` : paramName;
+    const displayName = DashboardComponent.DISPLAY_NAMES[paramName] || paramName;
+    return unit ? `${displayName} (${unit})` : displayName;
   }
 
   // Instrument-level metrics have a single value each - shown as "label: value" instead
