@@ -103,14 +103,17 @@
 }
 
 /* Results modal - same rounded/header/no-legacy-X language as the error
-   modal below, narrower than the 2000px global default (.modalClass). */
+   modal below, wider and capped in height instead of the 2000px-wide,
+   grow-forever default (.modalClass). */
 ::ng-deep .nsm-dialog.results-modal {
-  max-width: 640px !important;
+  max-width: 900px !important;
   width: 90vw !important;
 }
 
 ::ng-deep .nsm-dialog.results-modal .nsm-content {
   border-radius: 12px !important;
+  max-height: 75vh !important;
+  overflow-y: auto !important;
 }
 
 .results-modal-header {
