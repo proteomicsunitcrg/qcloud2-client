@@ -107,7 +107,12 @@
      components live in the DOM at once (Materialize tabs only toggle CSS
      visibility, not *ngIf), so a shared identifier makes NgxSmartModalService
      confuse the two and pop up the wrong one. -->
-<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass'">
+<ngx-smart-modal #myModal identifier="pipelineDataModal" class="modalClass" [customClass]="'modalClass results-modal'">
+
+  <div class="results-modal-header">
+    <mat-icon class="results-modal-icon">assessment</mat-icon>
+    <h5 class="results-modal-title">Results</h5>
+  </div>
 
   <h5 class="results-section-title">Peptide level metrics</h5>
   <table class="striped results-table" *ngIf="peptideSummaries.length > 0">

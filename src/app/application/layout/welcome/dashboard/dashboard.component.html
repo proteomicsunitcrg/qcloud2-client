@@ -83,7 +83,12 @@
 </div>
 <pagination-controls id="filesPagination" style="text-align: center;" (pageChange)="pageChanged($event)"></pagination-controls>
 
-<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass'">
+<ngx-smart-modal #myModal identifier="dataModal" class="modalClass" [customClass]="'modalClass results-modal'">
+
+  <div class="results-modal-header">
+    <mat-icon class="results-modal-icon">assessment</mat-icon>
+    <h5 class="results-modal-title">Results</h5>
+  </div>
 
   <h5 class="results-section-title">Peptide level metrics</h5>
   <table class="striped results-table" *ngIf="peptideSummaries.length > 0">

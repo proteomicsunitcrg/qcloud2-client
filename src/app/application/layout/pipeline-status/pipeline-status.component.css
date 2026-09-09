@@ -99,6 +99,29 @@
   background-color: #e0f2f1;
 }
 
+/* Results modal - same rounded/header language as the error modal below. */
+::ng-deep .nsm-dialog.results-modal .nsm-content {
+  border-radius: 12px !important;
+}
+
+.results-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.results-modal-icon {
+  color: #3f9e78;
+}
+
+.results-modal-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #333;
+}
+
 /* Error modal - compact, rounded, no legacy X (see errorModalClass) */
 ::ng-deep .nsm-dialog.error-modal {
   max-width: 420px !important;

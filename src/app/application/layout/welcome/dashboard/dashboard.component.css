@@ -26,6 +26,29 @@
   background-color: #e0f2f1;
 }
 
+/* Results modal - same rounded/header language as pipeline-status's error modal. */
+::ng-deep .nsm-dialog.results-modal .nsm-content {
+  border-radius: 12px !important;
+}
+
+.results-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.results-modal-icon {
+  color: #3f9e78;
+}
+
+.results-modal-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #333;
+}
+
 /* Dashboard table - modern card look, matches pipeline-status.component.css */
 .dashboard-table-card {
   border-radius: 12px;
