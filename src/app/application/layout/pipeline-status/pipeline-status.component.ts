@@ -98,7 +98,7 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
   }
 
   public getPage(): void {
-    this.fileService.getPipelineFileDashboard(this.config.currentPage - 1, this.config.itemsPerPage, this.filename).subscribe(
+    this.fileService.getPipelineFileDashboard(this.config.currentPage - 1, this.config.itemsPerPage, this.filename, this.labsystem).subscribe(
       res => {
         this.collection.data = res.content;
         this.collection.count = res.totalElements;

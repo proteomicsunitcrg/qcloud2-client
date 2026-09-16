@@ -60,10 +60,10 @@ export class FileService {
   // pipeline_file tracks EVERY file the pipeline has seen (received/processing/
   // processed/error), unlike /api/file/dashboard above which only ever shows
   // fully successful runs.
-  public getPipelineFileDashboard(page: number, numberOfElements: number, filename: string): Observable<{ content: PipelineFile[], totalElements: number }> {
+  public getPipelineFileDashboard(page: number, numberOfElements: number, filename: string, labSystemApiKey: string = ''): Observable<{ content: PipelineFile[], totalElements: number }> {
     let params = new HttpParams();
     params = params.set('page', page.toString()).set('size', numberOfElements.toString());
-    params = params.set('filename', filename);
+    params = params.set('filename', filename).set('labSystemApiKey', labSystemApiKey);
     return this.httpClient.get<{ content: PipelineFile[], totalElements: number }>(`${this.apiPrefix}api/pipelineFile/dashboard`, { params });
   }
 
