@@ -4,6 +4,7 @@ import { MessageService } from '../../../services/message.service';
 import { Message } from '../../../models/message';
 import { WebsocketService } from '../../../services/websocket.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 declare var M: any;
 @Component({
@@ -13,7 +14,13 @@ declare var M: any;
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer, private msgService: MessageService, private webSocketService: WebsocketService) { }
+  constructor(public sanitizer: DomSanitizer, private msgService: MessageService, private webSocketService: WebsocketService,
+    private route: ActivatedRoute) { }
+
+  // Set from the ?labSystemApiKey query param when arriving via the
+  // instrument view's pipeline-error banner - passed down to
+  // app-pipeline-status to preset its filter.
+  presetLabSystemApiKey: string = null;
   imgUrl = 'assets/images/thumbnails/thumb';
   videoLinks = [
     {
@@ -38,7 +45,11 @@ export class WelcomeComponent implements OnInit {
     this.retrieveMsg();
     this.subscribeToWebSocketMessage();
     const elem = document.getElementById('dashboard-tabs');
-    M.Tabs.init(elem);
+    const tabs = M.Tabs.init(elem);
+    this.presetLabSystemApiKey = this.route.snapshot.queryParamMap.get('labSystemApiKey');
+    if (this.presetLabSystemApiKey) {
+      tabs.select('dashboard-pipeline-status');
+    }
   }
 
   private subscribeToWebSocketMessage(): void {

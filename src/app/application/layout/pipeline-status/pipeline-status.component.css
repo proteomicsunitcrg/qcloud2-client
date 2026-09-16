@@ -12,9 +12,14 @@
 }
 
 /* Status/refresh icons - shape communicates the state, color is reserved
-   for the traffic light only. */
+   for the traffic light only, except ERROR which gets a pastel red so it
+   actually stands out in the list instead of blending in as grey. */
 .status-icon {
   color: rgba(0, 0, 0, 0.6);
+}
+
+.status-icon-error {
+  color: #e57373;
 }
 
 .refresh-icon {

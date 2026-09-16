@@ -20,6 +20,19 @@
       </ul>
     </div>
   </div>
+  <div class="row" *ngIf="hasPipelineError">
+    <div class="col s12 m12 l12 xl12">
+      <div class="pipeline-error-banner">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3.5 L21.5 20 H2.5 Z" stroke="#c8860d" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
+          <line x1="12" y1="9.5" x2="12" y2="14.5" stroke="#c8860d" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="12" cy="17.3" r="1" fill="#c8860d"/>
+        </svg>
+        <span class="msg"><strong>A file failed processing</strong> &mdash; view in Pipeline Status</span>
+        <a class="action" [routerLink]="['/application']" [queryParams]="{labSystemApiKey: system.apiKey}">View details &rarr;</a>
+      </div>
+    </div>
+  </div>
   <div id="tab{{view.id}}" class="col s12 m12 l12 xl12" *ngFor="let view of views">
     <div *ngIf="viewLoaded[view.id] | async">
       <!-- <app-file-information [sampleTypeCategory]="view.sampleTypeCategory"></app-file-information> -->

@@ -14,6 +14,7 @@ import { MessageService } from '../../../services/message.service';
 import { ToastrService } from 'ngx-toastr';
 import { TOASTSETTING, NOTI_MSG, NOTI_TITLE } from '../../../shared/ToastConfig';
 import { DataService } from '../../../services/data.service';
+import { FileService } from '../../../services/file.service';
 
 declare var M: any;
 
@@ -30,7 +31,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private messageService: MessageService,
     private toastr: ToastrService,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private fileService: FileService) {
 
   }
 
@@ -55,6 +57,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   selectedDataSourceForDisplay$: Subscription;
 
   labSystemStatusFromUrl: LabSystemStatus = null;
+
+  hasPipelineError = false;
 
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();
@@ -91,6 +95,10 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
           .subscribe(
             (res) => {
               this.system = res;
+              this.fileService.hasPipelineError(res.apiKey).subscribe(
+                (hasError) => { this.hasPipelineError = hasError; },
+                (err) => console.error(err)
+              );
               res.dataSources.forEach(
                 (ds) => {
                   if (ds.cv.category.mainDataSource === true) {

@@ -57,7 +57,7 @@
   <tbody>
     <tr *ngFor="let file of collection.data | paginate: config">
       <td>
-        <mat-icon class="status-icon" [title]="file.status"
+        <mat-icon class="status-icon" [class.status-icon-error]="file.status === 'ERROR'" [title]="file.status"
           (click)="file.status === 'ERROR' ? goToErrorDetails(file) : null"
           [style.cursor]="file.status === 'ERROR' ? 'pointer' : 'default'">{{statusIcon(file)}}</mat-icon>
       </td>

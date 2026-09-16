@@ -71,4 +71,8 @@ export class FileService {
     return this.httpClient.get<PipelineFile>(`${this.apiPrefix}api/pipelineFile/checksum/${checksum}`);
   }
 
+  public hasPipelineError(labSystemApiKey: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.apiPrefix}api/pipelineFile/hasError/${labSystemApiKey}`);
+  }
+
 }

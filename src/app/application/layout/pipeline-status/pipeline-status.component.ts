@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { System } from '../../../models/system';
 import { SystemService } from '../../../services/system.service';
 import { FileService } from '../../../services/file.service';
@@ -42,6 +42,11 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
   labsystem = '';
   sampleType = '';
 
+  // Set from a query param when the user arrives here via the instrument
+  // view's pipeline-error banner (deep link), so this tab opens already
+  // filtered to that lab system instead of showing everything.
+  @Input() presetLabSystemApiKey: string = null;
+
   collection = { count: 0, data: [] };
 
   labSystems: System[] = [];
@@ -58,6 +63,7 @@ export class PipelineStatusComponent implements OnInit, OnDestroy {
   private filenameChangesSubscription: Subscription;
 
   ngOnInit() {
+    this.labsystem = this.presetLabSystemApiKey || '';
     this.getNodeLs();
     this.getSampleTypes();
     this.getPage();

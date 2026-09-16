@@ -18,3 +18,32 @@
 .tabs .indicator {
   background-color: blue !important;
 }
+
+.pipeline-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fdf1de;
+  color: #7a4a06;
+  padding: 11px 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-top: 1px solid #f3ddb0;
+  border-bottom: 1px solid #f3ddb0;
+  margin-bottom: 16px;
+}
+.pipeline-error-banner svg {
+  flex: 0 0 auto;
+}
+.pipeline-error-banner .msg {
+  flex: 1 1 auto;
+}
+.pipeline-error-banner .action {
+  font-weight: 600;
+  color: #7a4a06;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.pipeline-error-banner .action:hover {
+  color: #5c3800;
+}
