@@ -174,11 +174,11 @@ export class MessageComponent implements OnInit {
           this.toastr.success('Message deleted', 'Success', TOASTSETTING);
           this.subscribeToMessage();
         } else {
-          this.toastr.success('Error deleting the message', 'Error', TOASTSETTING);
+          this.toastr.error('Error deleting the message', 'Error', TOASTSETTING);
         }
       },
       err => {
-        this.toastr.success('Error deleting the message', 'Error', TOASTSETTING);
+        this.toastr.error('Error deleting the message', 'Error', TOASTSETTING);
       }
     );
   }

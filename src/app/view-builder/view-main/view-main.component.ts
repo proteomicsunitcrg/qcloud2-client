@@ -169,7 +169,7 @@ export class ViewMainComponent implements OnInit {
     this.viewService.addLayoutToDefaultView(this.viewDisplay)
       .subscribe(
         (display) => {
-          this.toastr.error('Default view saved', 'Success', TOASTSETTING);
+          this.toastr.success('Default view saved', 'Success', TOASTSETTING);
           // this.navigateBack('Chart saved!');
         },
         (error) => {

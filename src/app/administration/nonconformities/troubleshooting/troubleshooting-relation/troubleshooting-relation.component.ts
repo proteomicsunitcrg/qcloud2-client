@@ -73,7 +73,7 @@ export class TroubleshootingRelationComponent implements OnInit {
         this.loadChilds(this.trouble.apiKey);
       },
       err => {
-        this.toast.success(err.message, 'Error', TOASTSETTINGLONG);
+        this.toast.error(err.message, 'Error', TOASTSETTINGLONG);
         console.error(err);
       }
     );

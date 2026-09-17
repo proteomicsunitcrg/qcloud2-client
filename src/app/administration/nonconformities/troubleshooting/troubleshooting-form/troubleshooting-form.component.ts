@@ -34,7 +34,7 @@ export class TroubleshootingFormComponent implements OnInit {
         this.toast.success('Chart saved', null, TOASTSETTING);
       },
       err => {
-        this.toast.success('ERROR', err.message, TOASTSETTINGLONG);
+        this.toast.error('ERROR', err.message, TOASTSETTINGLONG);
         console.error(err);
       }
     );
