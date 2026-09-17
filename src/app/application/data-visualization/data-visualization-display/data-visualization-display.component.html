@@ -1,3 +1,16 @@
+<div class="row" *ngIf="hasImportantMessage">
+  <div class="col s12 m12 l12 xl12">
+    <div class="news-banner">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9.2" stroke="#1a5276" stroke-width="1.6" fill="none"/>
+        <line x1="12" y1="10.5" x2="12" y2="16.5" stroke="#1a5276" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="12" cy="7.3" r="1" fill="#1a5276"/>
+      </svg>
+      <span class="msg"><strong>We've posted a new announcement</strong> &mdash; take a look on the homepage</span>
+      <a class="action" [routerLink]="['/application']">View details &rarr;</a>
+    </div>
+  </div>
+</div>
 <ng-container *ngIf="type==='instrument' then instrument else user"></ng-container>
 <ng-template #instrument>
   <div class="row">

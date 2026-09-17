@@ -47,3 +47,32 @@
 .pipeline-error-banner .action:hover {
   color: #5c3800;
 }
+
+.news-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #e8f2fb;
+  color: #1a5276;
+  padding: 11px 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-top: 1px solid #bcd9ee;
+  border-bottom: 1px solid #bcd9ee;
+  margin-bottom: 16px;
+}
+.news-banner svg {
+  flex: 0 0 auto;
+}
+.news-banner .msg {
+  flex: 1 1 auto;
+}
+.news-banner .action {
+  font-weight: 600;
+  color: #1a5276;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.news-banner .action:hover {
+  color: #123a5c;
+}

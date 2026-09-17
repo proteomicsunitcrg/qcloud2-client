@@ -11,8 +11,6 @@ import { delay } from 'q';
 import { Subscription } from 'rxjs';
 import { LabSystemStatus } from '../../../models/labsystemstatus';
 import { MessageService } from '../../../services/message.service';
-import { ToastrService } from 'ngx-toastr';
-import { TOASTSETTING, NOTI_MSG, NOTI_TITLE } from '../../../shared/ToastConfig';
 import { DataService } from '../../../services/data.service';
 import { FileService } from '../../../services/file.service';
 
@@ -30,7 +28,6 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private systemService: SystemService,
     private messageService: MessageService,
-    private toastr: ToastrService,
     private dataService: DataService,
     private fileService: FileService) {
 
@@ -59,6 +56,8 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   labSystemStatusFromUrl: LabSystemStatus = null;
 
   hasPipelineError = false;
+
+  hasImportantMessage = false;
 
   ngOnInit() {
     this.subscribeToDataSourceForDisplay();
@@ -189,9 +188,7 @@ export class DataVisualizationDisplayComponent implements OnInit, OnDestroy {
   private checkNotification() {
     this.messageService.showNotification().subscribe(
       res => {
-        if (res) {
-          this.toastr.info(NOTI_MSG, NOTI_TITLE, TOASTSETTING);
-        }
+        this.hasImportantMessage = res;
       },
       err => console.error(err)
     );
