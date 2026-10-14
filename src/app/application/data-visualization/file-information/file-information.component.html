@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col s12 m12 l12 xl12">
-    <ul class="collapsible" [id]="collapsibleId">
+    <ul class="collapsible" #ticCollapsible>
       <li>
         <div class="collapsible-header">
           <i class="material-icons">timeline</i>Total Ion Current view</div>
@@ -21,7 +21,7 @@
             </div>
             <ng-container *ngIf="!loading && !error">
               <div class="col s12 m12 l12 xl12">
-                <div id="ticplot" class="tic-chart"></div>
+                <div #ticplot class="tic-chart"></div>
               </div>
               <div class="col s12 m12 l12 xl12 right-align">
                 <button class="btn-flat" (click)="downloadCsv()">Download full resolution (CSV)</button>

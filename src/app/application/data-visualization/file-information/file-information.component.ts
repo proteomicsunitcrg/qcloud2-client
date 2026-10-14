@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { SampleTypeCategory } from '../../../models/sampleTypeCategory';
 import { ActivatedRoute } from '@angular/router';
 import { SampleType } from '../../../models/sampleType';
@@ -22,8 +22,13 @@ declare var M: any;
  * The curve of the selected file is fetched by checksum (plot click or the
  * last file of the tab's default sample type) and plotted with decimation,
  * so the page is never loaded with the (up to 100k+) series points upfront.
+ *
+ * Both the collapsible and the plot div are referenced via @ViewChild
+ * (NOT element ids): one panel instance is rendered per tab and all loaded
+ * tabs coexist in the DOM, so any id-based lookup (document.getElementById,
+ * Plotly by id) would hit the first tab's element instead of this one.
  */
-export class FileInformationComponent implements OnInit, OnDestroy {
+export class FileInformationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private sampleTypeService: SampleTypeService,
@@ -32,17 +37,12 @@ export class FileInformationComponent implements OnInit, OnDestroy {
 
   @Input() sampleTypeCategory: SampleTypeCategory;
 
-  /**
-   * Tab id, used to build a unique collapsible element id (one panel is
-   * rendered per tab, all tabs coexist in the DOM).
-   */
-  @Input() viewId: number = 0;
+  @ViewChild('ticCollapsible', { static: false }) private ticCollapsibleRef: ElementRef;
+  @ViewChild('ticplot', { static: false }) private ticPlotRef: ElementRef;
 
   private sampleType: SampleType;
 
   file: File;
-
-  collapsibleId = 'tic-collapsible-' + this.viewId;
 
   /**
    * Local open state. Deliberately NOT routed through
@@ -72,14 +72,18 @@ export class FileInformationComponent implements OnInit, OnDestroy {
         }
       });
     this.subscribeToPlotFile();
+  }
+
+  ngAfterViewInit() {
+    // M.Collapsible must be initialized here (not in ngOnInit): the
+    // template's own view - and any property binding on it - only exists
+    // once the view has been rendered.
     this.enableCollapsible();
   }
 
   private enableCollapsible(): void {
-    // The collapsible element only exists once the tab content is rendered;
-    // the parent guards rendering with viewLoaded, so the element is here.
-    const elem = document.getElementById(this.collapsibleId);
-    if (elem === null) {
+    const elem = this.ticCollapsibleRef ? this.ticCollapsibleRef.nativeElement : null;
+    if (elem === null || elem === undefined) {
       return;
     }
     this.collapsible = M.Collapsible.init(elem, {
@@ -254,7 +258,7 @@ export class FileInformationComponent implements OnInit, OnDestroy {
       margin: { l: 70, r: 20, t: 40, b: 45 },
       hovermode: 'x unified'
     };
-    Plotly.react('ticplot', [trace], layout);
+    Plotly.react(this.ticPlotRef.nativeElement, [trace], layout);
   }
 
   /**
@@ -281,7 +285,9 @@ export class FileInformationComponent implements OnInit, OnDestroy {
   }
 
   private cleanupPlot(): void {
-    Plotly.purge('ticplot');
+    if (this.ticPlotRef && this.ticPlotRef.nativeElement) {
+      Plotly.purge(this.ticPlotRef.nativeElement);
+    }
     this.series = null;
   }
 
