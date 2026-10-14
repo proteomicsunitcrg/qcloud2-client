@@ -7,15 +7,21 @@ import { FileService } from '../../../services/file.service';
 import { PlotService } from '../../../services/plot.service';
 import { Subscription } from 'rxjs';
 import { File } from '../../../models/file';
-
+import * as Plotly from 'plotly.js/dist/plotly';
+import * as pako from 'pako';
+declare var M: any;
 @Component({
   selector: 'app-file-information',
   templateUrl: './file-information.component.html',
   styleUrls: ['./file-information.component.css']
 })
 /**
- * This class will display the TIC a file. When it load it will
- * get the last file and then it will listen to the plot clicks
+ * Displays per-file information. Currently: the "Total Ion Current view" -
+ * a lazy collapsible (same pattern as the isotopologue "Single file view")
+ * that only fetches and renders the full TIC curve when the user opens it.
+ * The curve of the selected file is fetched by checksum (plot click or the
+ * last file of the tab's default sample type) and plotted with decimation,
+ * so the page is never loaded with the (up to 100k+) series points upfront.
  */
 export class FileInformationComponent implements OnInit, OnDestroy {
 
@@ -26,26 +32,66 @@ export class FileInformationComponent implements OnInit, OnDestroy {
 
   @Input() sampleTypeCategory: SampleTypeCategory;
 
+  /**
+   * Tab id, used to build a unique collapsible element id (one panel is
+   * rendered per tab, all tabs coexist in the DOM).
+   */
+  @Input() viewId: number = 0;
+
   private sampleType: SampleType;
 
   file: File;
 
+  collapsibleId = 'tic-collapsible-' + this.viewId;
+
+  /**
+   * Local open state. Deliberately NOT routed through
+   * plotService.collapsibleOpened$ - that signal belongs to the isotopologue
+   * panel and sharing it would open/close both panels together.
+   */
+  isCollapsibleOpen = false;
+
+  loading = false;
+
+  /** null | 'nofile' | 'notfound' | 'decode' | 'http' */
+  error: string = null;
+
+  private series: number[][] = null;
+
+  fileChecksum$: Subscription;
+
   plotFilename$: Subscription;
 
+  collapsible: any;
 
   ngOnInit() {
-    // Subscribe to route and get the last file information
     this.route.params.subscribe(
       (params) => {
         if (params.type === 'instrument') {
-          /**
-           * if we have a sampleTypeCategory get the last file
-           * because the default views have a default sample type per category.
-           */
           this.loadLastFile(params.apiKey);
         }
       });
     this.subscribeToPlotFile();
+    this.enableCollapsible();
+  }
+
+  private enableCollapsible(): void {
+    // The collapsible element only exists once the tab content is rendered;
+    // the parent guards rendering with viewLoaded, so the element is here.
+    const elem = document.getElementById(this.collapsibleId);
+    if (elem === null) {
+      return;
+    }
+    this.collapsible = M.Collapsible.init(elem, {
+      onOpenEnd: () => {
+        this.isCollapsibleOpen = true;
+        this.loadTic();
+      },
+      onCloseEnd: () => {
+        this.isCollapsibleOpen = false;
+        this.cleanupPlot();
+      }
+    });
   }
 
   private subscribeToPlotFile(): void {
@@ -56,12 +102,23 @@ export class FileInformationComponent implements OnInit, OnDestroy {
             .subscribe(
               (file) => {
                 this.file = file;
+                if (this.isCollapsibleOpen) {
+                  this.loadTic();
+                }
               }
             );
         }
       );
+    this.fileChecksum$ = this.plotService.fileChecksum$
+      .subscribe(
+        (checksum) => {
+          this.file = new File(null, null, null, null, null, checksum, null);
+          if (this.isCollapsibleOpen) {
+            this.loadTic();
+          }
+        }
+      );
   }
-
 
   private loadLastFile(apikey: string): void {
     this.sampleTypeService.getDefaultSampleTypeBySampleTypeCategory(this.sampleTypeCategory)
@@ -70,19 +127,170 @@ export class FileInformationComponent implements OnInit, OnDestroy {
           this.sampleType = sampleType;
         }, err => console.log(err),
         () => {
-          // load the last file. At this time we have the sample type and the instrument api key
           this.fileService.getLastFileBySampleTypeAndLabSystem(this.sampleType, apikey)
             .subscribe(
               (file) => {
                 this.file = file;
-              }
+                if (this.isCollapsibleOpen) {
+                  this.loadTic();
+                }
+              }, err => console.log(err)
             );
         }
       );
   }
 
+  private loadTic(): void {
+    this.cleanupPlot();
+    this.loading = false;
+    if (this.file === null || this.file === undefined || !this.file.checksum) {
+      this.error = 'nofile';
+      return;
+    }
+    this.loading = true;
+    this.error = null;
+    const checksum = this.file.checksum;
+    this.fileService.getTicByChecksum(checksum)
+      .subscribe(
+        (raw: string) => {
+          if (this.file === null || this.file.checksum !== checksum) {
+            return; // a newer file was selected meanwhile
+          }
+          try {
+            this.series = this.decodeTic(raw);
+          } catch (e) {
+            this.series = null;
+            this.loading = false;
+            this.error = 'decode';
+            return;
+          }
+          this.loading = false;
+          // Wait for the *ngIf to render the plot div before Plotly.react
+          setTimeout(() => {
+            if (this.series !== null) {
+              this.renderPlot();
+            }
+          }, 0);
+        },
+        (err) => {
+          this.series = null;
+          this.loading = false;
+          this.error = (err && err.status === 404) ? 'notfound' : 'http';
+        }
+      );
+  }
+
+  /**
+   * Decodes the stored blob: "gz1:" + base64(gzip(JSON [[rt_ms, msLevel, tic], ...]))
+   */
+  private decodeTic(raw: string): number[][] {
+    if (typeof raw !== 'string' || raw.indexOf('gz1:') !== 0) {
+      throw new Error('unexpected TIC format');
+    }
+    const bin = atob(raw.substring(4));
+    const u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+      u8[i] = bin.charCodeAt(i);
+    }
+    const json = pako.ungzip(u8, { to: 'string' });
+    const pts = JSON.parse(json);
+    if (!Array.isArray(pts)) {
+      throw new Error('unexpected TIC payload');
+    }
+    return pts;
+  }
+
+  /**
+   * Min/max per pixel-bucket decimation: keeps the visible peaks (what
+   * matters for a TIC eyeball check) while capping the plotted point count.
+   */
+  private decimateForDisplay(pts: number[][], target: number): number[][] {
+    if (pts.length <= target) {
+      return pts;
+    }
+    const out: number[][] = [];
+    const bucket = pts.length / target;
+    for (let i = 0; i < target; i++) {
+      const start = Math.floor(i * bucket);
+      const end = Math.min(pts.length, Math.floor((i + 1) * bucket));
+      if (start >= end) {
+        continue;
+      }
+      let min = pts[start];
+      let max = pts[start];
+      for (let j = start + 1; j < end; j++) {
+        if (pts[j][2] < min[2]) {
+          min = pts[j];
+        }
+        if (pts[j][2] > max[2]) {
+          max = pts[j];
+        }
+      }
+      out.push(min, max);
+    }
+    return out;
+  }
+
+  private renderPlot(): void {
+    const pts = this.decimateForDisplay(this.series, 4000);
+    const x: number[] = [];
+    const y: number[] = [];
+    for (const p of pts) {
+      x.push(p[0] / 1000); // rt ms -> s
+      y.push(p[2]);
+    }
+    const trace = {
+      x: x,
+      y: y,
+      type: 'scatter',
+      mode: 'lines',
+      line: { width: 1 },
+      name: 'TIC'
+    };
+    const layout = {
+      title: { text: 'Total Ion Current - ' + (this.file.filename || this.file.checksum) },
+      xaxis: { title: { text: 'Retention time (s)' } },
+      yaxis: { type: 'log', title: { text: 'Total ion current' } },
+      margin: { l: 70, r: 20, t: 40, b: 45 },
+      hovermode: 'x unified'
+    };
+    Plotly.react('ticplot', [trace], layout);
+  }
+
+  /**
+   * Full-resolution download: the complete (undecimated) series, re-encoded
+   * client-side to CSV. No extra request - the data is already in memory.
+   */
+  downloadCsv(): void {
+    if (this.series === null) {
+      return;
+    }
+    let csv = 'rt_ms,ms_level,tic\n';
+    for (const p of this.series) {
+      csv += p[0] + ',' + p[1] + ',' + p[2] + '\n';
+    }
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (this.file.filename || 'tic') + '_TIC.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  private cleanupPlot(): void {
+    Plotly.purge('ticplot');
+    this.series = null;
+  }
+
   ngOnDestroy() {
     this.plotFilename$.unsubscribe();
+    if (this.fileChecksum$) {
+      this.fileChecksum$.unsubscribe();
+    }
+    this.cleanupPlot();
   }
 
 }

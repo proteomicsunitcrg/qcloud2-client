@@ -57,6 +57,12 @@ export class FileService {
     return this.httpClient.get<Summary[]>(`${this.fileUrl}/summary/${checksum}`);
   }
 
+  // Full TIC series of a file, stored by the pipeline as one blob row in the
+  // tic table: "gz1:" + base64(gzip(JSON [[rt_ms, msLevel, tic], ...]))
+  public getTicByChecksum(checksum: string): Observable<string> {
+    return this.httpClient.get<string>(`${this.fileUrl}/tic/${checksum}`);
+  }
+
   // pipeline_file tracks EVERY file the pipeline has seen (received/processing/
   // processed/error), unlike /api/file/dashboard above which only ever shows
   // fully successful runs.

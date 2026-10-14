@@ -1,6 +1,35 @@
 <div class="row">
-  <div class="col s12 m12 l12 xl12 z-depth-3">
-    <p>The file information will be here</p>
-    <p *ngIf="file">{{file.checksum}}</p>
+  <div class="col s12 m12 l12 xl12">
+    <ul class="collapsible" [id]="collapsibleId">
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">timeline</i>Total Ion Current view</div>
+        <div class="collapsible-body">
+          <div class="row" *ngIf="isCollapsibleOpen">
+            <div class="col s12 m12 l12 xl12 tic-state" *ngIf="loading">Loading TIC&hellip;</div>
+            <div class="col s12 m12 l12 xl12 tic-state" *ngIf="error === 'nofile'">
+              No file selected yet - click a point on any chart first.
+            </div>
+            <div class="col s12 m12 l12 xl12 tic-state" *ngIf="error === 'notfound'">
+              No TIC recorded for this file (files processed before the TIC feature, or extraction failed).
+            </div>
+            <div class="col s12 m12 l12 xl12 tic-state" *ngIf="error === 'decode'">
+              The stored TIC for this file could not be decoded - contact the proteomics team.
+            </div>
+            <div class="col s12 m12 l12 xl12 tic-state" *ngIf="error === 'http'">
+              The TIC for this file could not be loaded - try again later.
+            </div>
+            <ng-container *ngIf="!loading && !error">
+              <div class="col s12 m12 l12 xl12">
+                <div id="ticplot" class="tic-chart"></div>
+              </div>
+              <div class="col s12 m12 l12 xl12 right-align">
+                <button class="btn-flat" (click)="downloadCsv()">Download full resolution (CSV)</button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
