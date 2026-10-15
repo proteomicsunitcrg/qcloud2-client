@@ -58,8 +58,6 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
 
   private series: number[][] = null;
 
-  fileChecksum$: Subscription;
-
   plotFilename$: Subscription;
 
   collapsible: any;
@@ -99,39 +97,14 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private subscribeToPlotFile(): void {
+    // A plot click resolves the FULL file by name (checksum included), so the
+    // panel always knows the file name for titles and the checksum for the
+    // TIC fetch. The shared fileChecksum$ signal is left to the other panels
+    // (isotopologue/annotations).
     this.plotFilename$ = this.plotService.filenameFromPlot$
       .subscribe(
         (filename) => {
           this.fileService.getFileByFilename(filename)
-            .subscribe(
-              (file) => {
-                this.file = file;
-                if (this.isCollapsibleOpen) {
-                  this.loadTic();
-                }
-              }
-            );
-        }
-      );
-    this.fileChecksum$ = this.plotService.fileChecksum$
-      .subscribe(
-        (checksum) => {
-          this.file = new File(null, null, null, null, null, checksum, null);
-          if (this.isCollapsibleOpen) {
-            this.loadTic();
-          }
-        }
-      );
-  }
-
-  private loadLastFile(apikey: string): void {
-    this.sampleTypeService.getDefaultSampleTypeBySampleTypeCategory(this.sampleTypeCategory)
-      .subscribe(
-        (sampleType) => {
-          this.sampleType = sampleType;
-        }, err => console.log(err),
-        () => {
-          this.fileService.getLastFileBySampleTypeAndLabSystem(this.sampleType, apikey)
             .subscribe(
               (file) => {
                 this.file = file;
@@ -144,11 +117,54 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
       );
   }
 
+  /** True while the tab's last file (the default selection) is resolving. */
+  private lastFileLoading = false;
+
+  private loadLastFile(apikey: string): void {
+    this.lastFileLoading = true;
+    this.sampleTypeService.getDefaultSampleTypeBySampleTypeCategory(this.sampleTypeCategory)
+      .subscribe(
+        (sampleType) => {
+          this.sampleType = sampleType;
+        }, err => {
+          console.log(err);
+          this.lastFileLoading = false;
+          if (this.isCollapsibleOpen) {
+            this.loadTic();
+          }
+        },
+        () => {
+          this.fileService.getLastFileBySampleTypeAndLabSystem(this.sampleType, apikey)
+            .subscribe(
+              (file) => {
+                this.file = file;
+                this.lastFileLoading = false;
+                if (this.isCollapsibleOpen) {
+                  this.loadTic();
+                }
+              }, err => {
+                console.log(err);
+                this.lastFileLoading = false;
+                if (this.isCollapsibleOpen) {
+                  this.loadTic();
+                }
+              }
+            );
+        }
+      );
+  }
+
   private loadTic(): void {
     this.cleanupPlot();
     this.loading = false;
     if (this.file === null || this.file === undefined || !this.file.checksum) {
-      this.error = 'nofile';
+      // Default selection (the tab's last file) may still be resolving.
+      if (this.lastFileLoading) {
+        this.error = null;
+        this.loading = true;
+      } else {
+        this.error = 'nofile';
+      }
       return;
     }
     this.loading = true;
@@ -177,6 +193,12 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
           }, 0);
         },
         (err) => {
+          console.error('[TIC] ERR', {
+            status: err && err.status,
+            url: err && err.url,
+            name: err && err.name,
+            error: err && err.error
+          });
           this.series = null;
           this.loading = false;
           this.error = (err && err.status === 404) ? 'notfound' : 'http';
@@ -237,11 +259,17 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
 
   private renderPlot(): void {
     const pts = this.decimateForDisplay(this.series, 4000);
+    let maxTic = 0;
+    for (const p of pts) {
+      if (p[2] > maxTic) {
+        maxTic = p[2];
+      }
+    }
     const x: number[] = [];
     const y: number[] = [];
     for (const p of pts) {
-      x.push(p[0] / 1000); // rt ms -> s
-      y.push(p[2]);
+      x.push(p[0] / 60000); // rt ms -> min
+      y.push(maxTic > 0 ? p[2] / maxTic * 100 : 0); // relative abundance, base peak = 100
     }
     const trace = {
       x: x,
@@ -253,35 +281,12 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
     };
     const layout = {
       title: { text: 'Total Ion Current - ' + (this.file.filename || this.file.checksum) },
-      xaxis: { title: { text: 'Retention time (s)' } },
-      yaxis: { type: 'log', title: { text: 'Total ion current' } },
+      xaxis: { title: { text: 'Time (min)' } },
+      yaxis: { type: 'linear', range: [0, 100], title: { text: 'Relative abundance' } },
       margin: { l: 70, r: 20, t: 40, b: 45 },
       hovermode: 'x unified'
     };
     Plotly.react(this.ticPlotRef.nativeElement, [trace], layout);
-  }
-
-  /**
-   * Full-resolution download: the complete (undecimated) series, re-encoded
-   * client-side to CSV. No extra request - the data is already in memory.
-   */
-  downloadCsv(): void {
-    if (this.series === null) {
-      return;
-    }
-    let csv = 'rt_ms,ms_level,tic\n';
-    for (const p of this.series) {
-      csv += p[0] + ',' + p[1] + ',' + p[2] + '\n';
-    }
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = (this.file.filename || 'tic') + '_TIC.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
   }
 
   private cleanupPlot(): void {
@@ -293,9 +298,6 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
 
   ngOnDestroy() {
     this.plotFilename$.unsubscribe();
-    if (this.fileChecksum$) {
-      this.fileChecksum$.unsubscribe();
-    }
     this.cleanupPlot();
   }
 
