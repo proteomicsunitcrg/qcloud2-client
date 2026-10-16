@@ -101,12 +101,21 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
     // the panel knows the file name for the title. (The /api/file/name/
     // endpoint only returns the checksum back, which made the title show the
     // checksum instead of the file name.)
+    //
+    // fileChecksum$ is a page-wide broadcast: every tab's panel instance
+    // receives every plot click. Accept it only when the clicked file belongs
+    // to THIS panel's sample type category - otherwise a click on another tab
+    // would steal the file and render the plot while this tab is hidden
+    // (zero-width container, plot squashed to the right).
     this.plotFile$ = this.plotService.fileChecksum$
       .subscribe(
         (checksum) => {
           this.fileService.getFileByChecksum(checksum)
             .subscribe(
               (file) => {
+                if (!this.clickBelongsToThisTab(file)) {
+                  return;
+                }
                 this.file = file;
                 if (this.isCollapsibleOpen) {
                   this.loadTic();
@@ -115,6 +124,18 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
             );
         }
       );
+  }
+
+  private clickBelongsToThisTab(file: File): boolean {
+    const st = file && file.sampleType;
+    const types = this.sampleTypeCategory && this.sampleTypeCategory.sampleTypes;
+    if (!st || !types || types.length === 0) {
+      return true; // no category info on either side: keep previous behavior
+    }
+    return types.some(
+      (t) => t.id === st.id
+        || t.qualityControlControlledVocabulary === st.qualityControlControlledVocabulary
+    );
   }
 
   /** True while the tab's last file (the default selection) is resolving. */
