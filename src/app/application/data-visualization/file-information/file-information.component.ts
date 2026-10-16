@@ -58,7 +58,7 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
 
   private series: number[][] = null;
 
-  plotFilename$: Subscription;
+  plotFile$: Subscription;
 
   collapsible: any;
 
@@ -97,14 +97,14 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private subscribeToPlotFile(): void {
-    // A plot click resolves the FULL file by name (checksum included), so the
-    // panel always knows the file name for titles and the checksum for the
-    // TIC fetch. The shared fileChecksum$ signal is left to the other panels
-    // (isotopologue/annotations).
-    this.plotFilename$ = this.plotService.filenameFromPlot$
+    // A plot click carries the file checksum; resolve it to the FULL file so
+    // the panel knows the file name for the title. (The /api/file/name/
+    // endpoint only returns the checksum back, which made the title show the
+    // checksum instead of the file name.)
+    this.plotFile$ = this.plotService.fileChecksum$
       .subscribe(
-        (filename) => {
-          this.fileService.getFileByFilename(filename)
+        (checksum) => {
+          this.fileService.getFileByChecksum(checksum)
             .subscribe(
               (file) => {
                 this.file = file;
@@ -297,7 +297,7 @@ export class FileInformationComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy() {
-    this.plotFilename$.unsubscribe();
+    this.plotFile$.unsubscribe();
     this.cleanupPlot();
   }
 
